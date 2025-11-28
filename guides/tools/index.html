@@ -1,0 +1,4557 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.holodeck.ai/guides/tools/">
+      
+      
+        <link rel="prev" href="../llm-providers/">
+      
+      
+        <link rel="next" href="../vector-stores/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Tools - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tools-reference-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tools
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-tool-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Tool Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Tool Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vectorstore-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vectorstore Tools ✅
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vectorstore Tools ✅">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-vector-database-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Vector Database Providers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported Vector Database Providers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Configuration Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector Field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunk-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunk Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunk-overlap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunk Overlap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#record-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#record-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record Prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta Prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-format-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Format Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Tools ✅
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCP Tools ✅">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#args" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Args
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transport
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Env File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-mcp-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample MCP Servers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sample MCP Servers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filesystem-stdio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filesystem (stdio)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQLite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brave-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brave Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puppeteer-browser-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Puppeteer (Browser Automation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-nodejs-servers-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Node.js Servers (node)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-mcp-servers-uvx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python MCP Servers (uvx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python MCP Servers (uvx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-short-term-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory (Short-Term Storage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-mcp-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker MCP Servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variable-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variable Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Tools 🚧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Function Tools 🚧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-function-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Function Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Tools 🚧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompt Tools 🚧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template-or-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template or File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Override
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knowledge-base-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge Base Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Query
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-operations-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Operations (MCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-integration-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Integration (MCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text Transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vectorstore-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vectorstore Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vectorstore-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vectorstore Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ConfigLoader
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-tool-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Tool Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Tool Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vectorstore-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vectorstore Tools ✅
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vectorstore Tools ✅">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-vector-database-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Vector Database Providers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported Vector Database Providers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Configuration Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector Field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunk-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunk Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunk-overlap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunk Overlap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#record-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#record-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record Prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta Prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-format-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Format Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Tools ✅
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCP Tools ✅">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#args" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Args
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transport
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Env File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-mcp-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample MCP Servers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sample MCP Servers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filesystem-stdio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filesystem (stdio)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQLite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brave-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brave Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puppeteer-browser-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Puppeteer (Browser Automation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-nodejs-servers-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Node.js Servers (node)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-mcp-servers-uvx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python MCP Servers (uvx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python MCP Servers (uvx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-short-term-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory (Short-Term Storage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-mcp-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker MCP Servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variable-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variable Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Tools 🚧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Function Tools 🚧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-function-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Function Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Tools 🚧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompt Tools 🚧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-fields_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template-or-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template or File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-fields_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Override
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knowledge-base-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge Base Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Query
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-operations-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Operations (MCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-integration-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Integration (MCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text Transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vectorstore-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vectorstore Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-tool-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Tool Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vectorstore-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vectorstore Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tools-reference-guide">Tools Reference Guide<a class="headerlink" href="#tools-reference-guide" title="Permanent link">&para;</a></h1>
+<p>This guide explains HoloDeck's four tool types that extend agent capabilities.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Tools are agent capabilities defined in <code>agent.yaml</code>. HoloDeck supports four tool types:</p>
+<table>
+<thead>
+<tr>
+<th>Tool Type</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vectorstore Tools</strong></td>
+<td>Semantic search over data</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td><strong>MCP Tools</strong></td>
+<td>Model Context Protocol servers</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td><strong>Function Tools</strong></td>
+<td>Custom Python functions</td>
+<td>🚧 Planned</td>
+</tr>
+<tr>
+<td><strong>Prompt Tools</strong></td>
+<td>LLM-powered semantic functions</td>
+<td>🚧 Planned</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: <strong>Vectorstore Tools</strong> and <strong>MCP Tools</strong> are fully implemented. Function and Prompt tools are defined in the configuration schema but not yet functional.</p>
+</blockquote>
+<h2 id="common-tool-fields">Common Tool Fields<a class="headerlink" href="#common-tool-fields" title="Permanent link">&para;</a></h2>
+<p>All tools share these fields:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-id</span><span class="w"> </span><span class="c1"># Required: Tool identifier (unique)</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">What it does</span><span class="w"> </span><span class="c1"># Required: Human-readable description</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore|function|mcp|prompt</span><span class="w"> </span><span class="c1"># Required: Tool type</span>
+</code></pre></div>
+<h3 id="name">Name<a class="headerlink" href="#name" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Type</strong>: String</li>
+<li><strong>Format</strong>: 1-100 characters, alphanumeric + underscores</li>
+<li><strong>Uniqueness</strong>: Must be unique within agent</li>
+<li><strong>Purpose</strong>: Used to reference tool in test cases, execution logs</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search_kb</span>
+</code></pre></div>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Type</strong>: String</li>
+<li><strong>Max Length</strong>: 500 characters</li>
+<li><strong>Purpose</strong>: Helps agent understand when to use this tool</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Search company knowledge base for answers</span>
+</code></pre></div>
+<h3 id="type">Type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Type</strong>: String (Enum)</li>
+<li><strong>Options</strong>: <code>vectorstore</code>, <code>function</code>, <code>mcp</code>, <code>prompt</code></li>
+<li><strong>Purpose</strong>: Determines which additional fields are required</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+</code></pre></div>
+<hr />
+<h2 id="vectorstore-tools">Vectorstore Tools ✅<a class="headerlink" href="#vectorstore-tools" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Status</strong>: Fully implemented</p>
+</blockquote>
+<p>Semantic search over unstructured or structured data.</p>
+<h3 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Searching documents, knowledge bases, FAQs</li>
+<li>Semantic similarity matching</li>
+<li>Context retrieval for RAG (Retrieval-Augmented Generation)</li>
+</ul>
+<h3 id="basic-example">Basic Example<a class="headerlink" href="#basic-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Search knowledge base for answers</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+</code></pre></div>
+<h3 id="supported-vector-database-providers">Supported Vector Database Providers<a class="headerlink" href="#supported-vector-database-providers" title="Permanent link">&para;</a></h3>
+<p>HoloDeck supports multiple vector database backends through Semantic Kernel's VectorStoreCollection abstractions. You can switch providers via configuration without changing your agent code.</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Description</th>
+<th>Connection</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>redis-hashset</code></td>
+<td>Redis with Hashset storage</td>
+<td><code>redis://localhost:6379</code></td>
+<td><code>redis[hiredis]</code></td>
+</tr>
+<tr>
+<td><code>redis-json</code></td>
+<td>Redis with JSON storage</td>
+<td><code>redis://localhost:6379</code></td>
+<td><code>redis[hiredis]</code></td>
+</tr>
+<tr>
+<td><code>postgres</code></td>
+<td>PostgreSQL with pgvector extension</td>
+<td><code>postgresql://user:pass@host/db</code></td>
+<td><code>psycopg[binary,pool]</code></td>
+</tr>
+<tr>
+<td><code>azure-ai-search</code></td>
+<td>Azure AI Search (Cognitive Search)</td>
+<td><code>https://search-service.search.windows.net</code></td>
+<td><code>azure-search-documents</code></td>
+</tr>
+<tr>
+<td><code>qdrant</code></td>
+<td>Qdrant vector database</td>
+<td><code>http://localhost:6333</code></td>
+<td><code>qdrant-client</code></td>
+</tr>
+<tr>
+<td><code>weaviate</code></td>
+<td>Weaviate vector database</td>
+<td><code>http://localhost:8080</code></td>
+<td><code>weaviate-client</code></td>
+</tr>
+<tr>
+<td><code>chromadb</code></td>
+<td>ChromaDB (local or server)</td>
+<td>Local path or host URL</td>
+<td><code>chromadb</code></td>
+</tr>
+<tr>
+<td><code>faiss</code></td>
+<td>FAISS (in-memory or file-based)</td>
+<td>Local file path</td>
+<td><code>faiss-cpu</code></td>
+</tr>
+<tr>
+<td><code>azure-cosmos-mongo</code></td>
+<td>Azure Cosmos DB (MongoDB API)</td>
+<td>MongoDB connection string</td>
+<td><code>pymongo</code></td>
+</tr>
+<tr>
+<td><code>azure-cosmos-nosql</code></td>
+<td>Azure Cosmos DB (NoSQL API)</td>
+<td>Cosmos DB connection string</td>
+<td><code>azure-cosmos</code></td>
+</tr>
+<tr>
+<td><code>sql-server</code></td>
+<td>SQL Server with vector support</td>
+<td>SQL Server connection string</td>
+<td><code>pyodbc</code></td>
+</tr>
+<tr>
+<td><code>pinecone</code></td>
+<td>Pinecone serverless vector database</td>
+<td>API key + index name</td>
+<td><code>pinecone-client</code></td>
+</tr>
+<tr>
+<td><code>in-memory</code></td>
+<td>Simple in-memory storage</td>
+<td>None required</td>
+<td>Built-in</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Tip</strong>: Use <code>in-memory</code> for development and testing. Switch to a persistent provider like <code>redis-hashset</code>, <code>postgres</code>, or <code>qdrant</code> for production.</p>
+</blockquote>
+<h4 id="database-configuration-examples">Database Configuration Examples<a class="headerlink" href="#database-configuration-examples" title="Permanent link">&para;</a></h4>
+<p><strong>Redis (recommended for development)</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-hashset</span>
+<span class="w">    </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis://localhost:6379</span>
+</code></pre></div>
+<p><strong>PostgreSQL with pgvector</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql://user:password@localhost:5432/mydb</span>
+</code></pre></div>
+<p><strong>Azure AI Search</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure-ai-search</span>
+<span class="w">    </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_SEARCH_ENDPOINT}</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_SEARCH_API_KEY}</span>
+</code></pre></div>
+<p><strong>Qdrant</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:6333</span>
+<span class="w">    </span><span class="c1"># api_key: optional-api-key</span>
+</code></pre></div>
+<p><strong>In-Memory (development only)</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">in-memory</span>
+</code></pre></div>
+<p><strong>Reference to Global Config</strong></p>
+<p>You can also reference a named vectorstore from your global <code>config.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In agent.yaml</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-redis-store</span><span class="w"> </span><span class="c1"># Reference to config.yaml vectorstores section</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># In config.yaml</span>
+<span class="nt">vectorstores</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">my-redis-store</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-hashset</span>
+<span class="w">    </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${REDIS_URL}</span>
+</code></pre></div>
+<h3 id="required-fields">Required Fields<a class="headerlink" href="#required-fields" title="Permanent link">&para;</a></h3>
+<h4 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String (path)</li>
+<li><strong>Purpose</strong>: Data file or directory to index</li>
+<li><strong>Formats Supported</strong>:</li>
+<li>Single files: <code>.txt</code>, <code>.md</code>, <code>.pdf</code>, <code>.json</code>, <code>.csv</code></li>
+<li>Directories: Recursively indexes supported formats</li>
+<li>Remote URLs: File auto-cached locally</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
+<span class="c1"># OR</span>
+<span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs.json</span>
+<span class="c1"># OR</span>
+<span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://example.com/data.pdf</span>
+</code></pre></div>
+<h3 id="optional-fields">Optional Fields<a class="headerlink" href="#optional-fields" title="Permanent link">&para;</a></h3>
+<h4 id="embedding-model">Embedding Model<a class="headerlink" href="#embedding-model" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String</li>
+<li><strong>Purpose</strong>: Which embedding model to use</li>
+<li><strong>Default</strong>: Provider-specific default</li>
+<li><strong>Examples</strong>: <code>text-embedding-3-small</code>, <code>text-embedding-ada-002</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">embedding_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text-embedding-3-small</span>
+</code></pre></div>
+<h4 id="vector-field">Vector Field<a class="headerlink" href="#vector-field" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String or List of strings</li>
+<li><strong>Purpose</strong>: Which field(s) to vectorize (for JSON/CSV)</li>
+<li><strong>Default</strong>: Auto-detect text fields</li>
+<li><strong>Note</strong>: XOR with <code>vector_fields</code> (use one or the other)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">vector_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content</span>
+<span class="c1"># OR</span>
+<span class="nt">vector_field</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">title</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">description</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h4 id="meta-fields">Meta Fields<a class="headerlink" href="#meta-fields" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: List of strings</li>
+<li><strong>Purpose</strong>: Metadata fields to include in results</li>
+<li><strong>Default</strong>: All fields included</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">meta_fields</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">title</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">source</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">date</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h4 id="chunk-size">Chunk Size<a class="headerlink" href="#chunk-size" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Integer</li>
+<li><strong>Purpose</strong>: Characters per chunk for text splitting</li>
+<li><strong>Default</strong>: 512</li>
+<li><strong>Constraint</strong>: Must be &gt; 0</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">chunk_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+</code></pre></div>
+<h4 id="chunk-overlap">Chunk Overlap<a class="headerlink" href="#chunk-overlap" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Integer</li>
+<li><strong>Purpose</strong>: Characters to overlap between chunks</li>
+<li><strong>Default</strong>: 0</li>
+<li><strong>Constraint</strong>: Must be &gt;= 0</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">chunk_overlap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</code></pre></div>
+<h4 id="record-path">Record Path<a class="headerlink" href="#record-path" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String</li>
+<li><strong>Purpose</strong>: Path to array in nested JSON (dot notation)</li>
+<li><strong>Example</strong>: For <code>{data: {items: [{...}]}}</code>, use <code>data.items</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">record_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data.records</span>
+</code></pre></div>
+<h4 id="record-prefix">Record Prefix<a class="headerlink" href="#record-prefix" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String</li>
+<li><strong>Purpose</strong>: Prefix added to record fields</li>
+<li><strong>Default</strong>: None</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">record_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">record_</span>
+</code></pre></div>
+<h4 id="meta-prefix">Meta Prefix<a class="headerlink" href="#meta-prefix" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String</li>
+<li><strong>Purpose</strong>: Prefix added to metadata fields</li>
+<li><strong>Default</strong>: None</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">meta_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meta_</span>
+</code></pre></div>
+<h3 id="complete-example">Complete Example<a class="headerlink" href="#complete-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-docs</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Search technical documentation</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs/</span>
+<span class="w">  </span><span class="nt">embedding_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text-embedding-3-small</span>
+<span class="w">  </span><span class="nt">vector_field</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">title</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">content</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">meta_fields</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">source</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">date</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">url</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">chunk_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">  </span><span class="nt">chunk_overlap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+</code></pre></div>
+<h3 id="data-format-examples">Data Format Examples<a class="headerlink" href="#data-format-examples" title="Permanent link">&para;</a></h3>
+<p><strong>Text Files</strong> (<code>.txt</code>, <code>.md</code>)</p>
+<div class="highlight"><pre><span></span><code># Document Title
+
+This is the document content that will be
+vectorized for semantic search.
+</code></pre></div>
+<p><strong>JSON</strong> (Array of objects)</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Getting Started&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;How to get started with the platform...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docs/intro.md&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p><strong>JSON</strong> (Nested structure)</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;records&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Article 1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Use <code>record_path: data.records</code> to access records.</p>
+<p><strong>CSV</strong></p>
+<div class="highlight"><pre><span></span><code>title,content,source
+&quot;Getting Started&quot;,&quot;How to get started...&quot;,&quot;docs/intro&quot;
+&quot;API Reference&quot;,&quot;API documentation...&quot;,&quot;docs/api&quot;
+</code></pre></div>
+<hr />
+<h2 id="mcp-tools">MCP Tools ✅<a class="headerlink" href="#mcp-tools" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Status</strong>: Fully implemented (stdio transport)</p>
+</blockquote>
+<p>Model Context Protocol (MCP) server integrations enable agents to interact with external systems through a standardized protocol. HoloDeck uses Semantic Kernel's MCP plugins for seamless integration.</p>
+<blockquote>
+<p><strong>Finding MCP Servers</strong>: Browse the official MCP server registry at <a href="https://github.com/modelcontextprotocol/servers">github.com/modelcontextprotocol/servers</a> for a curated list of available servers including filesystem, GitHub, Slack, Google Drive, PostgreSQL, and many more community-contributed integrations.</p>
+</blockquote>
+<h3 id="when-to-use_1">When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>File system operations (read, write, list files)</li>
+<li>GitHub/GitLab operations (issues, PRs, code)</li>
+<li>Database access (SQLite, PostgreSQL)</li>
+<li>Web browsing and search</li>
+<li>Any standardized MCP server</li>
+</ul>
+<h3 id="basic-example_1">Basic Example<a class="headerlink" href="#basic-example_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read and write files in the workspace</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="complete-example_1">Complete Example<a class="headerlink" href="#complete-example_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># MCP filesystem tool for reading/writing files</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read and write files in the workspace data directory</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;./sample/data&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">allowed_directories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./sample/data&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">request_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+</code></pre></div>
+<h3 id="required-fields_1">Required Fields<a class="headerlink" href="#required-fields_1" title="Permanent link">&para;</a></h3>
+<h4 id="command">Command<a class="headerlink" href="#command" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String (enum: <code>npx</code>, <code>node</code>, <code>uvx</code>, <code>docker</code>)</li>
+<li><strong>Purpose</strong>: How to launch the MCP server</li>
+<li><strong>Required</strong>: Yes (for stdio transport)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span><span class="w">     </span><span class="c1"># For npm packages (auto-installs if needed)</span>
+<span class="c1"># OR</span>
+<span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node</span><span class="w">    </span><span class="c1"># For local .js files or installed packages</span>
+<span class="c1"># OR</span>
+<span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uvx</span><span class="w">     </span><span class="c1"># For Python packages via uv</span>
+<span class="c1"># OR</span>
+<span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker</span><span class="w">  </span><span class="c1"># For containerized servers</span>
+</code></pre></div>
+<p><strong>When to use each:</strong></p>
+<ul>
+<li><code>npx</code> - Run npm packages directly (e.g., <code>@modelcontextprotocol/server-filesystem</code>)</li>
+<li><code>node</code> - Run local JavaScript files (e.g., <code>./tools/my-server.js</code>)</li>
+<li><code>uvx</code> - Run Python packages via uv (e.g., <code>mcp-server-fetch</code>)</li>
+<li><code>docker</code> - Run containerized MCP servers</li>
+</ul>
+<h4 id="args">Args<a class="headerlink" href="#args" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: List of strings</li>
+<li><strong>Purpose</strong>: Command-line arguments for the server</li>
+<li><strong>Note</strong>: Often includes the server package name and configuration</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="optional-fields_1">Optional Fields<a class="headerlink" href="#optional-fields_1" title="Permanent link">&para;</a></h3>
+<h4 id="transport">Transport<a class="headerlink" href="#transport" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String (enum: <code>stdio</code>, <code>sse</code>, <code>websocket</code>, <code>http</code>)</li>
+<li><strong>Default</strong>: <code>stdio</code></li>
+<li><strong>Purpose</strong>: Communication protocol with the server</li>
+<li><strong>Note</strong>: Currently only <code>stdio</code> is implemented</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">transport</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stdio</span><span class="w"> </span><span class="c1"># Default, works with most servers</span>
+</code></pre></div>
+<h4 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Object (free-form)</li>
+<li><strong>Purpose</strong>: Server-specific configuration passed via MCP_CONFIG env var</li>
+<li><strong>Validation</strong>: Server validates at runtime</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">allowed_directories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;/tmp&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">max_file_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1048576</span>
+</code></pre></div>
+<h4 id="env">Env<a class="headerlink" href="#env" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Object (string key-value pairs)</li>
+<li><strong>Purpose</strong>: Environment variables for the server process</li>
+<li><strong>Supports</strong>: Variable substitution with <code>${VAR_NAME}</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${GITHUB_TOKEN}&quot;</span>
+<span class="w">  </span><span class="nt">API_KEY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;static-value&quot;</span>
+</code></pre></div>
+<h4 id="env-file">Env File<a class="headerlink" href="#env-file" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String (path)</li>
+<li><strong>Purpose</strong>: Load environment variables from a file</li>
+<li><strong>Format</strong>: Standard <code>.env</code> file format</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">env_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.mcp</span>
+</code></pre></div>
+<h4 id="request-timeout">Request Timeout<a class="headerlink" href="#request-timeout" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Integer (seconds)</li>
+<li><strong>Default</strong>: 30</li>
+<li><strong>Purpose</strong>: Timeout for individual MCP requests</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">request_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+</code></pre></div>
+<h4 id="encoding">Encoding<a class="headerlink" href="#encoding" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String</li>
+<li><strong>Default</strong>: <code>utf-8</code></li>
+<li><strong>Purpose</strong>: Character encoding for stdio communication</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">utf-8</span>
+</code></pre></div>
+<h3 id="sample-mcp-servers">Sample MCP Servers<a class="headerlink" href="#sample-mcp-servers" title="Permanent link">&para;</a></h3>
+<h4 id="filesystem-stdio">Filesystem (stdio)<a class="headerlink" href="#filesystem-stdio" title="Permanent link">&para;</a></h4>
+<p>Read, write, and manage files:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File system operations</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">allowed_directories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p><strong>Tools provided</strong>: <code>read_file</code>, <code>write_file</code>, <code>list_directory</code>, <code>create_directory</code>, <code>move_file</code>, <code>search_files</code>, <code>get_file_info</code></p>
+<h4 id="github">GitHub<a class="headerlink" href="#github" title="Permanent link">&para;</a></h4>
+<p>Interact with GitHub repositories:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GitHub repository operations</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-github&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">GITHUB_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${GITHUB_TOKEN}&quot;</span>
+</code></pre></div>
+<p><strong>Tools provided</strong>: <code>search_repositories</code>, <code>create_issue</code>, <code>list_issues</code>, <code>get_file_contents</code>, <code>create_pull_request</code>, <code>fork_repository</code></p>
+<h4 id="sqlite">SQLite<a class="headerlink" href="#sqlite" title="Permanent link">&para;</a></h4>
+<p>Query SQLite databases:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sqlite</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SQLite database queries</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">[</span>
+<span class="w">      </span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">      </span><span class="s">&quot;@modelcontextprotocol/server-sqlite&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">      </span><span class="s">&quot;--db-path&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">      </span><span class="s">&quot;./data/database.db&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">    </span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p><strong>Tools provided</strong>: <code>read_query</code>, <code>write_query</code>, <code>create_table</code>, <code>list_tables</code>, <code>describe_table</code></p>
+<h4 id="brave-search">Brave Search<a class="headerlink" href="#brave-search" title="Permanent link">&para;</a></h4>
+<p>Web search capabilities:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">brave-search</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Web search via Brave</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-brave-search&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">BRAVE_API_KEY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${BRAVE_API_KEY}&quot;</span>
+</code></pre></div>
+<p><strong>Tools provided</strong>: <code>brave_web_search</code>, <code>brave_local_search</code></p>
+<h4 id="puppeteer-browser-automation">Puppeteer (Browser Automation)<a class="headerlink" href="#puppeteer-browser-automation" title="Permanent link">&para;</a></h4>
+<p>Browser automation and web scraping:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">puppeteer</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Browser automation</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-puppeteer&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p><strong>Tools provided</strong>: <code>puppeteer_navigate</code>, <code>puppeteer_screenshot</code>, <code>puppeteer_click</code>, <code>puppeteer_fill</code>, <code>puppeteer_evaluate</code></p>
+<h3 id="local-nodejs-servers-node">Local Node.js Servers (node)<a class="headerlink" href="#local-nodejs-servers-node" title="Permanent link">&para;</a></h3>
+<p>For local JavaScript MCP server files, use <code>node</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-custom-server</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Custom local MCP server</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./tools/my-mcp-server.js&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--config&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;./config.json&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: Use <code>node</code> for local <code>.js</code> files. Use <code>npx</code> for npm packages.</p>
+</blockquote>
+<h3 id="python-mcp-servers-uvx">Python MCP Servers (uvx)<a class="headerlink" href="#python-mcp-servers-uvx" title="Permanent link">&para;</a></h3>
+<p>For Python-based MCP servers, use <code>uvx</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp-server-fetch</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fetch web content</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uvx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;mcp-server-fetch&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h4 id="memory-short-term-storage">Memory (Short-Term Storage)<a class="headerlink" href="#memory-short-term-storage" title="Permanent link">&para;</a></h4>
+<p>Scratchpad for agent short-term memory storage:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">memory</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Scratchpad for short term memory storage</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uvx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;basic-memory&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mcp&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">request_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+</code></pre></div>
+<p><strong>Tools provided</strong>: <code>write_note</code>, <code>read_note</code>, <code>search_notes</code>, <code>delete_note</code></p>
+<blockquote>
+<p><strong>Use case</strong>: Enable agents to persist information across conversation turns, store intermediate results, or maintain context during multi-step tasks, and especially between chat sessions.</p>
+</blockquote>
+<h3 id="docker-mcp-servers">Docker MCP Servers<a class="headerlink" href="#docker-mcp-servers" title="Permanent link">&para;</a></h3>
+<p>For containerized servers:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom-server</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Custom containerized server</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;run&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-i&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--rm&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;my-mcp-server:latest&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="environment-variable-patterns">Environment Variable Patterns<a class="headerlink" href="#environment-variable-patterns" title="Permanent link">&para;</a></h3>
+<p><strong>Static values:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">API_KEY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sk-1234567890&quot;</span>
+</code></pre></div>
+<p><strong>Environment substitution:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${GITHUB_TOKEN}&quot;</span><span class="w"> </span><span class="c1"># From process environment</span>
+</code></pre></div>
+<p><strong>From env file:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">env_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.mcp</span>
+<span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">OVERRIDE_VAR</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;override-value&quot;</span><span class="w"> </span><span class="c1"># Overrides env_file</span>
+</code></pre></div>
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Server unavailable</strong>: Error during agent startup</li>
+<li><strong>Connection timeout</strong>: Configurable via <code>request_timeout</code></li>
+<li><strong>Invalid config</strong>: Error during agent startup (validation)</li>
+<li><strong>Runtime errors</strong>: Logged and returned as tool error responses</li>
+</ul>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<p>MCP tools require the appropriate runtime to be installed on your machine based on the <code>command</code> you use:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Required Software</th>
+<th>Installation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>npx</code></td>
+<td>Node.js + npm</td>
+<td><a href="https://nodejs.org/">nodejs.org</a> or <code>brew install node</code></td>
+</tr>
+<tr>
+<td><code>node</code></td>
+<td>Node.js</td>
+<td><a href="https://nodejs.org/">nodejs.org</a> or <code>brew install node</code></td>
+</tr>
+<tr>
+<td><code>uvx</code></td>
+<td>uv (Python)</td>
+<td><code>curl -LsSf https://astral.sh/uv/install.sh \| sh</code> or <code>brew install uv</code></td>
+</tr>
+<tr>
+<td><code>docker</code></td>
+<td>Docker</td>
+<td><a href="https://docker.com/">docker.com</a> or <code>brew install --cask docker</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verify installation:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For npm-based MCP servers</span>
+node<span class="w"> </span>--version<span class="w">    </span><span class="c1"># Should show v18+ recommended</span>
+npx<span class="w"> </span>--version
+
+<span class="c1"># For Python-based MCP servers</span>
+uv<span class="w"> </span>--version
+uvx<span class="w"> </span>--version
+
+<span class="c1"># For containerized servers</span>
+docker<span class="w"> </span>--version
+</code></pre></div>
+<blockquote>
+<p><strong>Tip</strong>: Most MCP servers use <code>npx</code> with npm packages. Ensure Node.js 18+ is installed for best compatibility.</p>
+</blockquote>
+<h3 id="lifecycle-management">Lifecycle Management<a class="headerlink" href="#lifecycle-management" title="Permanent link">&para;</a></h3>
+<p>MCP plugins are automatically managed:</p>
+<ol>
+<li><strong>Startup</strong>: Plugin initialized and connected when agent starts</li>
+<li><strong>Execution</strong>: Tools discovered and registered on the kernel</li>
+<li><strong>Shutdown</strong>: Plugin properly closed when session ends</li>
+</ol>
+<blockquote>
+<p><strong>Important</strong>: Always terminate chat sessions properly (<code>exit</code> or <code>quit</code>) to ensure MCP servers are cleanly shut down.</p>
+</blockquote>
+<hr />
+<h2 id="function-tools">Function Tools 🚧<a class="headerlink" href="#function-tools" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Status</strong>: Planned - Configuration schema defined, execution not yet implemented</p>
+</blockquote>
+<p>Execute custom Python functions.</p>
+<h3 id="when-to-use_2">When to Use<a class="headerlink" href="#when-to-use_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Custom business logic</li>
+<li>Database queries</li>
+<li>System operations</li>
+<li>Complex calculations</li>
+</ul>
+<h3 id="basic-example_2">Basic Example<a class="headerlink" href="#basic-example_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get-user</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Look up user information</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/users.py</span>
+<span class="w">  </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get_user</span>
+</code></pre></div>
+<h3 id="required-fields_2">Required Fields<a class="headerlink" href="#required-fields_2" title="Permanent link">&para;</a></h3>
+<h4 id="file">File<a class="headerlink" href="#file" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String (path)</li>
+<li><strong>Purpose</strong>: Python file containing the function</li>
+<li><strong>Path</strong>: Relative to <code>agent.yaml</code> directory</li>
+<li><strong>Format</strong>: Standard Python module</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/users.py</span>
+</code></pre></div>
+<h4 id="function">Function<a class="headerlink" href="#function" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: String</li>
+<li><strong>Purpose</strong>: Function name to call</li>
+<li><strong>Format</strong>: Valid Python identifier</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get_user</span>
+</code></pre></div>
+<h3 id="optional-fields_2">Optional Fields<a class="headerlink" href="#optional-fields_2" title="Permanent link">&para;</a></h3>
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Object mapping parameter names to schemas</li>
+<li><strong>Purpose</strong>: Define function parameters the agent can pass</li>
+<li><strong>Default</strong>: No parameters (function takes no args)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">user_id</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User identifier</span>
+<span class="w">  </span><span class="nt">include_details</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include detailed information</span>
+</code></pre></div>
+<p>Parameter schema fields:</p>
+<ul>
+<li><code>type</code>: <code>string</code>, <code>integer</code>, <code>float</code>, <code>boolean</code>, <code>array</code>, <code>object</code></li>
+<li><code>description</code>: What the parameter is for</li>
+<li><code>enum</code>: Optional list of allowed values</li>
+<li><code>default</code>: Optional default value</li>
+</ul>
+<h3 id="complete-example_2">Complete Example<a class="headerlink" href="#complete-example_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">create-ticket</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create a support ticket</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/support.py</span>
+<span class="w">  </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">create_ticket</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ticket title (required)</span>
+<span class="w">    </span><span class="nt">priority</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ticket priority</span>
+<span class="w">      </span><span class="nt">enum</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">low</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">medium</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">high</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detailed description</span>
+</code></pre></div>
+<h3 id="python-function-format">Python Function Format<a class="headerlink" href="#python-function-format" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># tools/support.py</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_ticket</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">priority</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a support ticket.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        title: Ticket title</span>
+<span class="sd">        priority: low|medium|high</span>
+<span class="sd">        description: Detailed description</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Created ticket data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;TICKET-123&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;open&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="p">:</span> <span class="n">priority</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div>
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Keep functions focused on single tasks</li>
+<li>Use clear parameter names</li>
+<li>Add type hints and docstrings</li>
+<li>Handle errors gracefully (return error messages)</li>
+<li>Return JSON-serializable data</li>
+<li>Avoid long-running operations (prefer async tools in future versions)</li>
+</ul>
+<hr />
+<h2 id="prompt-tools">Prompt Tools 🚧<a class="headerlink" href="#prompt-tools" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Status</strong>: Planned - Configuration schema defined, execution not yet implemented</p>
+</blockquote>
+<p>LLM-powered semantic functions with template substitution.</p>
+<h3 id="when-to-use_3">When to Use<a class="headerlink" href="#when-to-use_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Text generation with templates</li>
+<li>Specialized prompts for specific tasks</li>
+<li>Reusable prompt chains</li>
+<li>A/B testing different prompts</li>
+</ul>
+<h3 id="basic-example_3">Basic Example<a class="headerlink" href="#basic-example_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summarize</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Summarize text into key points</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompt</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Summarize</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">3</span><span class="nv"> </span><span class="s">bullet</span><span class="nv"> </span><span class="s">points:</span><span class="nv"> </span><span class="s">{{text}}&quot;</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Text to summarize</span>
+</code></pre></div>
+<h3 id="required-fields_3">Required Fields<a class="headerlink" href="#required-fields_3" title="Permanent link">&para;</a></h3>
+<h4 id="template-or-file">Template or File<a class="headerlink" href="#template-or-file" title="Permanent link">&para;</a></h4>
+<p>Either <code>template</code> (inline) or <code>file</code> (external), not both:</p>
+<p><strong>Inline Template</strong></p>
+<ul>
+<li><strong>Type</strong>: String</li>
+<li><strong>Max Length</strong>: 5000 characters</li>
+<li><strong>Syntax</strong>: Mustache-style <code>{{variable}}</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Summarize:</span><span class="nv"> </span><span class="s">{{content}}&quot;</span>
+</code></pre></div>
+<p><strong>Template File</strong></p>
+<ul>
+<li><strong>Type</strong>: String (path)</li>
+<li><strong>Path</strong>: Relative to <code>agent.yaml</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompts/summarize.txt</span>
+</code></pre></div>
+<p>File contents:</p>
+<div class="highlight"><pre><span></span><code>Summarize this text in 3 bullet points:
+
+{{text}}
+
+Focus on key takeaways.
+</code></pre></div>
+<h4 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Object mapping parameter names to schemas</li>
+<li><strong>Purpose</strong>: Template variables the agent can fill</li>
+<li><strong>Required</strong>: Yes (at least one)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Text to process</span>
+</code></pre></div>
+<h3 id="optional-fields_3">Optional Fields<a class="headerlink" href="#optional-fields_3" title="Permanent link">&para;</a></h3>
+<h4 id="model-override">Model Override<a class="headerlink" href="#model-override" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Type</strong>: Model configuration object</li>
+<li><strong>Purpose</strong>: Use different model for this tool</li>
+<li><strong>Default</strong>: Uses agent's model</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span><span class="w"> </span><span class="c1"># Different from agent&#39;s model</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+</code></pre></div>
+<h3 id="complete-example_3">Complete Example<a class="headerlink" href="#complete-example_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-reviewer</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Review code for best practices</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompt</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompts/code_review.txt</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">code</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Code to review</span>
+<span class="w">    </span><span class="nt">language</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Programming language</span>
+<span class="w">      </span><span class="nt">enum</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">python</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">javascript</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">go</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">java</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>Template file (<code>prompts/code_review.txt</code>):</p>
+<div class="highlight"><pre><span></span><code>Review this {{language}} code for best practices.
+
+Code:
+{{code}}
+
+Provide:
+1. Issues found
+2. Suggestions for improvement
+3. Security considerations
+</code></pre></div>
+<h3 id="template-syntax">Template Syntax<a class="headerlink" href="#template-syntax" title="Permanent link">&para;</a></h3>
+<p>Variables use Mustache-style syntax:</p>
+<div class="highlight"><pre><span></span><code>Simple variable: {{name}}
+
+Conditionals (if parameter provided):
+{{#if description}}
+Description: {{description}}
+{{/if}}
+
+Loops (if parameter is array):
+{{#each items}}
+- {{this}}
+{{/each}}
+</code></pre></div>
+<hr />
+<h2 id="tool-comparison">Tool Comparison<a class="headerlink" href="#tool-comparison" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Vectorstore</th>
+<th>MCP</th>
+<th>Function</th>
+<th>Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Status</strong></td>
+<td>✅ Implemented</td>
+<td>✅ Implemented</td>
+<td>🚧 Planned</td>
+<td>🚧 Planned</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Search data</td>
+<td>External integrations</td>
+<td>Custom logic</td>
+<td>Template-based</td>
+</tr>
+<tr>
+<td><strong>Execution</strong></td>
+<td>Vector similarity</td>
+<td>MCP protocol (stdio)</td>
+<td>Python function</td>
+<td>LLM generation</td>
+</tr>
+<tr>
+<td><strong>Setup</strong></td>
+<td>Data files</td>
+<td>Server config + runtime</td>
+<td>Python files</td>
+<td>Template text</td>
+</tr>
+<tr>
+<td><strong>Parameters</strong></td>
+<td>Implicit (search query)</td>
+<td>Server-specific tools</td>
+<td>Defined in code</td>
+<td>Defined in YAML</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Medium (~100ms)</td>
+<td>Medium (~50-500ms)</td>
+<td>Low (&lt;10ms)</td>
+<td>High (LLM call)</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Embedding API</td>
+<td>Server resource</td>
+<td>Internal</td>
+<td>LLM tokens</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="knowledge-base-search">Knowledge Base Search<a class="headerlink" href="#knowledge-base-search" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kb/</span>
+<span class="w">  </span><span class="nt">chunk_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">  </span><span class="nt">embedding_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text-embedding-3-small</span>
+</code></pre></div>
+<h3 id="database-query">Database Query<a class="headerlink" href="#database-query" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">query-db</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/db.py</span>
+<span class="w">  </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">query</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">sql</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div>
+<h3 id="file-operations-mcp">File Operations (MCP)<a class="headerlink" href="#file-operations-mcp" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read and write files</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">allowed_directories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="github-integration-mcp">GitHub Integration (MCP)<a class="headerlink" href="#github-integration-mcp" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GitHub repository operations</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">  </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-github&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">GITHUB_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${GITHUB_TOKEN}&quot;</span>
+</code></pre></div>
+<h3 id="text-transformation">Text Transformation<a class="headerlink" href="#text-transformation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">translate</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompt</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Translate</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">{{language}}:</span><span class="nv"> </span><span class="s">{{text}}&quot;</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">language</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div>
+<hr />
+<h2 id="error-handling_1">Error Handling<a class="headerlink" href="#error-handling_1" title="Permanent link">&para;</a></h2>
+<h3 id="vectorstore-tool-errors">Vectorstore Tool Errors<a class="headerlink" href="#vectorstore-tool-errors" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>No data found</strong>: Returns empty results</li>
+<li><strong>Invalid path</strong>: Error during agent startup (config validation)</li>
+<li><strong>Unsupported format</strong>: Error during agent startup</li>
+</ul>
+<h3 id="function-tool-errors">Function Tool Errors<a class="headerlink" href="#function-tool-errors" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Function not found</strong>: Error during agent startup</li>
+<li><strong>Runtime error</strong>: Caught and returned as error message</li>
+<li><strong>Type mismatch</strong>: Type checking during agent startup</li>
+</ul>
+<h3 id="mcp-tool-errors">MCP Tool Errors<a class="headerlink" href="#mcp-tool-errors" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Server unavailable</strong>: Error during agent startup (fails fast)</li>
+<li><strong>Command not found</strong>: Error if runtime (npx, uvx, docker) not installed</li>
+<li><strong>Connection timeout</strong>: Configurable via <code>request_timeout</code>, returns error</li>
+<li><strong>Invalid config</strong>: Error during agent startup (validation)</li>
+<li><strong>Runtime errors</strong>: Returned as tool error responses to the LLM</li>
+</ul>
+<h3 id="prompt-tool-errors">Prompt Tool Errors<a class="headerlink" href="#prompt-tool-errors" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Invalid template</strong>: Error during agent startup</li>
+<li><strong>LLM failure</strong>: Soft failure (logged, error message returned)</li>
+<li><strong>Template rendering</strong>: Error during execution</li>
+</ul>
+<hr />
+<h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
+<h3 id="vectorstore-tools_1">Vectorstore Tools<a class="headerlink" href="#vectorstore-tools_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use appropriate chunk size (larger = fewer embeddings)</li>
+<li>Enable caching for remote files</li>
+<li>Reduce <code>vector_field</code> count if possible</li>
+<li>Index only necessary fields</li>
+</ul>
+<h3 id="function-tools_1">Function Tools<a class="headerlink" href="#function-tools_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Keep functions fast (&lt;1 second)</li>
+<li>Use connection pooling for databases</li>
+<li>Cache results when possible</li>
+</ul>
+<h3 id="mcp-tools_1">MCP Tools<a class="headerlink" href="#mcp-tools_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use server-side filtering when available</li>
+<li>Limit result sets</li>
+<li>Cache responses locally</li>
+</ul>
+<h3 id="prompt-tools_1">Prompt Tools<a class="headerlink" href="#prompt-tools_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use simpler models for repeated operations</li>
+<li>Batch processing when possible</li>
+<li>Limit template complexity</li>
+</ul>
+<hr />
+<h2 id="best-practices_1">Best Practices<a class="headerlink" href="#best-practices_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Clear Names</strong>: Use descriptive tool names</li>
+<li><strong>Clear Descriptions</strong>: Agent uses description to decide when to call tool</li>
+<li><strong>Parameters</strong>: Define expected parameters clearly</li>
+<li><strong>Error Handling</strong>: Handle errors gracefully</li>
+<li><strong>Performance</strong>: Test with realistic data</li>
+<li><strong>Versioning</strong>: Manage tool file versions in source control</li>
+<li><strong>Testing</strong>: Include test cases that exercise each tool</li>
+</ol>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See <a href="../agent-configuration/">Agent Configuration Guide</a> for tool usage</li>
+<li>See <a href="../file-references/">File References Guide</a> for path resolution</li>
+<li>See <a href="../examples/">Examples</a> for complete tool usage</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/anthropics/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.1.0"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
