@@ -1771,6 +1771,10 @@
 <p>Ensure you've completed the <a href="../installation/">Installation Guide</a>:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai
 holodeck<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Should output: holodeck 0.2.0</span>
+
+<span class="c1"># Optional: Install vector store providers for semantic search</span>
+pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai<span class="o">[</span>vectorstores<span class="o">]</span><span class="w">  </span><span class="c1"># All providers</span>
+<span class="c1"># Or individual: holodeck-ai[postgres], holodeck-ai[qdrant], holodeck-ai[pinecone], holodeck-ai[chromadb]</span>
 </code></pre></div>
 <p>Set up your API credentials (example for Azure OpenAI):</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>

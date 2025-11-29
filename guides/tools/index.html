@@ -3484,81 +3484,33 @@
 <th>Provider</th>
 <th>Description</th>
 <th>Connection</th>
-<th>Dependencies</th>
+<th>Install Command</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>redis-hashset</code></td>
-<td>Redis with Hashset storage</td>
-<td><code>redis://localhost:6379</code></td>
-<td><code>redis[hiredis]</code></td>
-</tr>
-<tr>
-<td><code>redis-json</code></td>
-<td>Redis with JSON storage</td>
-<td><code>redis://localhost:6379</code></td>
-<td><code>redis[hiredis]</code></td>
-</tr>
-<tr>
 <td><code>postgres</code></td>
 <td>PostgreSQL with pgvector extension</td>
 <td><code>postgresql://user:pass@host/db</code></td>
-<td><code>psycopg[binary,pool]</code></td>
-</tr>
-<tr>
-<td><code>azure-ai-search</code></td>
-<td>Azure AI Search (Cognitive Search)</td>
-<td><code>https://search-service.search.windows.net</code></td>
-<td><code>azure-search-documents</code></td>
+<td><code>uv add holodeck-ai[postgres]</code></td>
 </tr>
 <tr>
 <td><code>qdrant</code></td>
 <td>Qdrant vector database</td>
 <td><code>http://localhost:6333</code></td>
-<td><code>qdrant-client</code></td>
-</tr>
-<tr>
-<td><code>weaviate</code></td>
-<td>Weaviate vector database</td>
-<td><code>http://localhost:8080</code></td>
-<td><code>weaviate-client</code></td>
+<td><code>uv add holodeck-ai[qdrant]</code></td>
 </tr>
 <tr>
 <td><code>chromadb</code></td>
 <td>ChromaDB (local or server)</td>
 <td>Local path or host URL</td>
-<td><code>chromadb</code></td>
-</tr>
-<tr>
-<td><code>faiss</code></td>
-<td>FAISS (in-memory or file-based)</td>
-<td>Local file path</td>
-<td><code>faiss-cpu</code></td>
-</tr>
-<tr>
-<td><code>azure-cosmos-mongo</code></td>
-<td>Azure Cosmos DB (MongoDB API)</td>
-<td>MongoDB connection string</td>
-<td><code>pymongo</code></td>
-</tr>
-<tr>
-<td><code>azure-cosmos-nosql</code></td>
-<td>Azure Cosmos DB (NoSQL API)</td>
-<td>Cosmos DB connection string</td>
-<td><code>azure-cosmos</code></td>
-</tr>
-<tr>
-<td><code>sql-server</code></td>
-<td>SQL Server with vector support</td>
-<td>SQL Server connection string</td>
-<td><code>pyodbc</code></td>
+<td><code>uv add holodeck-ai[chromadb]</code></td>
 </tr>
 <tr>
 <td><code>pinecone</code></td>
 <td>Pinecone serverless vector database</td>
 <td>API key + index name</td>
-<td><code>pinecone-client</code></td>
+<td><code>uv add holodeck-ai[pinecone]</code></td>
 </tr>
 <tr>
 <td><code>in-memory</code></td>
@@ -3569,17 +3521,9 @@
 </tbody>
 </table>
 <blockquote>
-<p><strong>Tip</strong>: Use <code>in-memory</code> for development and testing. Switch to a persistent provider like <code>redis-hashset</code>, <code>postgres</code>, or <code>qdrant</code> for production.</p>
+<p><strong>Tip</strong>: Install all vector store providers at once with <code>uv add holodeck-ai[vectorstores]</code>. Use <code>in-memory</code> for development and testing without installing any dependencies. Switch to a persistent provider like <code>postgres</code>, <code>qdrant</code>, or <code>chromadb</code> for production.</p>
 </blockquote>
 <h4 id="database-configuration-examples">Database Configuration Examples<a class="headerlink" href="#database-configuration-examples" title="Permanent link">&para;</a></h4>
-<p><strong>Redis (recommended for development)</strong></p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
-<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
-<span class="w">  </span><span class="nt">database</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-hashset</span>
-<span class="w">    </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis://localhost:6379</span>
-</code></pre></div>
 <p><strong>PostgreSQL with pgvector</strong></p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
@@ -3619,13 +3563,13 @@
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search-kb</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
 <span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_base/</span>
-<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-redis-store</span><span class="w"> </span><span class="c1"># Reference to config.yaml vectorstores section</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-postgres-store</span><span class="w"> </span><span class="c1"># Reference to config.yaml vectorstores section</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># In config.yaml</span>
 <span class="nt">vectorstores</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">my-redis-store</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-hashset</span>
-<span class="w">    </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${REDIS_URL}</span>
+<span class="w">  </span><span class="nt">my-postgres-store</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DATABASE_URL}</span>
 </code></pre></div>
 <h3 id="required-fields">Required Fields<a class="headerlink" href="#required-fields" title="Permanent link">&para;</a></h3>
 <h4 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h4>

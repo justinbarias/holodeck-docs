@@ -436,6 +436,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#install-vector-store-providers-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Vector Store Providers (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2-verify-installation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1486,6 +1497,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#install-vector-store-providers-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Vector Store Providers (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2-verify-installation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1798,7 +1820,21 @@
 <h3 id="1-install-holodeck-cli">1. Install HoloDeck CLI<a class="headerlink" href="#1-install-holodeck-cli" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai
 </code></pre></div>
-<p>This installs the <code>holodeck</code> command-line tool and all required dependencies.</p>
+<p>This installs the <code>holodeck</code> command-line tool and core dependencies.</p>
+<h3 id="install-vector-store-providers-optional">Install Vector Store Providers (Optional)<a class="headerlink" href="#install-vector-store-providers-optional" title="Permanent link">&para;</a></h3>
+<p>If you plan to use semantic search with vector databases, install the providers you need:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Individual providers</span>
+pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai<span class="o">[</span>postgres<span class="o">]</span><span class="w">   </span><span class="c1"># PostgreSQL with pgvector</span>
+pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai<span class="o">[</span>qdrant<span class="o">]</span><span class="w">     </span><span class="c1"># Qdrant</span>
+pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai<span class="o">[</span>pinecone<span class="o">]</span><span class="w">   </span><span class="c1"># Pinecone</span>
+pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai<span class="o">[</span>chromadb<span class="o">]</span><span class="w">   </span><span class="c1"># ChromaDB</span>
+
+<span class="c1"># Or install all vector store providers at once</span>
+pip<span class="w"> </span>install<span class="w"> </span>holodeck-ai<span class="o">[</span>vectorstores<span class="o">]</span>
+</code></pre></div>
+<p>Using <strong>uv</strong> (recommended for faster installs):</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>add<span class="w"> </span>holodeck-ai<span class="o">[</span>vectorstores<span class="o">]</span>
+</code></pre></div>
 <h3 id="2-verify-installation">2. Verify Installation<a class="headerlink" href="#2-verify-installation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>--version
 <span class="c1"># Output: holodeck 0.2.0</span>
