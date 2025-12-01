@@ -878,6 +878,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#pattern-4-cost-effective-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 4: Cost-Effective Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1396,6 +1407,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#pattern-4-cost-effective-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 4: Cost-Effective Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1468,7 +1490,7 @@
 <tr>
 <td><a href="#with-evaluations"><code>with_evaluations.yaml</code></a></td>
 <td>Quality assurance</td>
-<td>AI metrics, NLP metrics, per-metric model override</td>
+<td>DeepEval metrics, NLP metrics, per-metric model override</td>
 </tr>
 <tr>
 <td><a href="#with-global-config"><code>with_global_config.yaml</code></a></td>
@@ -1581,92 +1603,135 @@ holodeck<span class="w"> </span>run<span class="w"> </span>with_tools.yaml
 <h3 id="with_evaluationsyaml"><code>with_evaluations.yaml</code><a class="headerlink" href="#with_evaluationsyaml" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Quality assurance and evaluation framework</p>
 <p><strong>Features</strong>:
-- AI-powered metrics (groundedness, relevance, coherence)
-- NLP metrics (F1 score, ROUGE)
+- <strong>DeepEval GEval metrics</strong>: Custom criteria with chain-of-thought evaluation (recommended)
+- <strong>DeepEval RAG metrics</strong>: Faithfulness, answer relevancy (recommended)
+- <strong>NLP metrics</strong>: F1 score, ROUGE (standard)
+- <strong>Legacy AI metrics</strong>: Deprecated Azure AI metrics (backwards compatibility)
 - Per-metric model overrides
-- Soft failure mode (continue on evaluation errors)
 - Threshold-based pass/fail criteria</p>
 <p><strong>When to use</strong>:
 - Validating agent response quality
-- Ensuring responses are grounded in data
+- Ensuring responses are grounded in data (faithfulness)
 - Measuring accuracy against ground truth
 - Running quality gates in production pipelines</p>
-<p><strong>Metric Types</strong>:</p>
+<p><strong>Metric Types</strong> (in order of recommendation):</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Tier</th>
 <th>Type</th>
-<th>Scale</th>
+<th>Metrics</th>
 <th>Use Case</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>groundedness</code></td>
-<td>AI</td>
-<td>1-5</td>
-<td>Response uses provided context</td>
+<td><strong>1 (Recommended)</strong></td>
+<td>DeepEval GEval</td>
+<td>Custom criteria</td>
+<td>Flexible semantic evaluation with natural language</td>
 </tr>
 <tr>
-<td><code>relevance</code></td>
-<td>AI</td>
-<td>1-5</td>
-<td>Response addresses the query</td>
+<td><strong>1 (Recommended)</strong></td>
+<td>DeepEval RAG</td>
+<td><code>faithfulness</code>, <code>answer_relevancy</code>, <code>contextual_relevancy</code>, <code>contextual_precision</code>, <code>contextual_recall</code></td>
+<td>RAG pipeline evaluation</td>
 </tr>
 <tr>
-<td><code>coherence</code></td>
-<td>AI</td>
-<td>1-5</td>
-<td>Response is logical and clear</td>
-</tr>
-<tr>
-<td><code>f1_score</code></td>
+<td><strong>2 (Standard)</strong></td>
 <td>NLP</td>
-<td>0-100</td>
-<td>Precision/recall vs. ground truth</td>
+<td><code>f1_score</code>, <code>bleu</code>, <code>rouge</code>, <code>meteor</code></td>
+<td>Token-level comparison with ground truth</td>
 </tr>
 <tr>
-<td><code>rouge</code></td>
-<td>NLP</td>
-<td>0-100</td>
-<td>N-gram overlap with reference</td>
-</tr>
-<tr>
-<td><code>bleu</code></td>
-<td>NLP</td>
-<td>0-100</td>
-<td>Bilingual evaluation study</td>
+<td><strong>3 (Deprecated)</strong></td>
+<td>Legacy AI</td>
+<td><code>groundedness</code>, <code>relevance</code>, <code>coherence</code>, <code>safety</code></td>
+<td>Azure AI-based (migrate to DeepEval)</td>
 </tr>
 </tbody>
 </table>
+<p><strong>DeepEval Metrics Example</strong>:
+<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># GEval: Custom criteria</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
+<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">clear</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">well-structured.&quot;</span>
+<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+
+<span class="w">    </span><span class="c1"># RAG: Hallucination detection</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
+<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
+<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+
+<span class="w">    </span><span class="c1"># RAG: Response relevance</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
+<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
+<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+</code></pre></div></p>
 <p><strong>Try it</strong>:
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your-key-here
-<span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>your-key-here
+<div class="highlight"><pre><span></span><code><span class="c1"># For local evaluation (free, no API keys needed)</span>
+<span class="c1"># Make sure Ollama is running with llama3.2:latest</span>
 
 <span class="c1"># Run evaluations</span>
-holodeck<span class="w"> </span>evaluate<span class="w"> </span>with_evaluations.yaml
+holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>with_evaluations.yaml
 
 <span class="c1"># Run with verbose output</span>
-holodeck<span class="w"> </span>evaluate<span class="w"> </span>with_evaluations.yaml<span class="w"> </span>--verbose
+holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>with_evaluations.yaml<span class="w"> </span>--verbose
 </code></pre></div></p>
 <p><strong>Configuration Precedence</strong>:
 <div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">                              </span><span class="c1"># Global model (applies to all metrics)</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
 <span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">groundedness</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quality&quot;</span>
+<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
 <span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w">                          </span><span class="c1"># Per-metric override (highest precedence)</span>
 <span class="w">        </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span><span class="w">             </span><span class="c1"># Different model for this metric only</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span><span class="w">                   </span><span class="c1"># Use powerful model for critical metric</span>
 </code></pre></div></p>
 <p><strong>Key Concepts</strong>:
 - Evaluations run after agent execution completes
 - Each metric can override the evaluation model
-- <code>threshold</code> defines minimum passing score
+- <code>threshold</code> defines minimum passing score (0-1 scale)
 - <code>fail_on_error: false</code> = soft failure (evaluation error doesn't block)
-- <code>fail_on_error: true</code> = hard failure (evaluation error stops test)</p>
+- <code>fail_on_error: true</code> = hard failure (evaluation error stops test)
+- DeepEval metrics support local models via Ollama (free)</p>
+<p><strong>Legacy Metric Migration</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Legacy Metric</th>
+<th>Recommended Replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>groundedness</code></td>
+<td><code>type: rag</code>, <code>metric_type: faithfulness</code></td>
+</tr>
+<tr>
+<td><code>relevance</code></td>
+<td><code>type: rag</code>, <code>metric_type: answer_relevancy</code></td>
+</tr>
+<tr>
+<td><code>coherence</code></td>
+<td><code>type: geval</code> with custom criteria</td>
+</tr>
+<tr>
+<td><code>safety</code></td>
+<td><code>type: geval</code> with custom criteria</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h3 id="with_global_configyaml"><code>with_global_config.yaml</code><a class="headerlink" href="#with_global_configyaml" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Configuration precedence and environment-specific setup</p>
@@ -1776,12 +1841,32 @@ holodeck<span class="w"> </span>run<span class="w"> </span>with_global_config.ya
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vectorstore</span>
 <span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data/kb/</span>
 </code></pre></div>
+<h3 id="pattern-4-cost-effective-evaluation">Pattern 4: Cost-Effective Evaluation<a class="headerlink" href="#pattern-4-cost-effective-evaluation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use local models for development, paid APIs for production</span>
+
+<span class="nt">evaluations</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span><span class="w">           </span><span class="c1"># Free, local (development)</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
+
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quality&quot;</span>
+<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
+<span class="w">      </span><span class="c1"># Uses local model by default</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
+<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span><span class="w">       </span><span class="c1"># Override for critical metric</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+</code></pre></div>
 <hr />
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Start with <code>basic_agent.yaml</code></strong>: Understand structure</li>
 <li><strong>Progress to <code>with_tools.yaml</code></strong>: Add tool integration</li>
-<li><strong>Explore <code>with_evaluations.yaml</code></strong>: Add quality gates</li>
+<li><strong>Explore <code>with_evaluations.yaml</code></strong>: Add quality gates with DeepEval</li>
 <li><strong>Deploy with <code>with_global_config.yaml</code></strong>: Production setup</li>
 </ol>
 <p>For more information:
@@ -1805,10 +1890,17 @@ holodeck<span class="w"> </span>run<span class="w"> </span>with_global_config.ya
 - Check for typos in variable names</p>
 <p><strong>Q: Evaluations run but show errors</strong>
 - If <code>fail_on_error: false</code>, errors are logged but don't block
-- Check model API keys are set
+- Check model API keys are set (or use Ollama for local evaluation)
 - Verify ground_truth and test input are clear and specific</p>
+<p><strong>Q: DeepEval metrics not working</strong>
+- Ensure Ollama is running if using local models
+- Check that required parameters are available (e.g., retrieval_context for faithfulness)
+- Try with a simpler model first to debug</p>
+<p><strong>Q: Legacy metrics deprecated warning</strong>
+- Migrate to DeepEval equivalents (see migration table above)
+- Legacy metrics still work but will be removed in future versions</p>
 <hr />
-<p><strong>Created</strong>: 2025-10-19 | <strong>Version</strong>: 0.1.0</p>
+<p><strong>Created</strong>: 2025-10-19 | <strong>Updated</strong>: 2025-11-30 | <strong>Version</strong>: 0.2.0</p>
 
 
 
