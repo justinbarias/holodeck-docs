@@ -1728,16 +1728,31 @@
 <hr />
 <h2 id="quick-start-with-cli">Quick Start with CLI<a class="headerlink" href="#quick-start-with-cli" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-initialize-a-new-agent-project">Step 1: Initialize a New Agent Project<a class="headerlink" href="#step-1-initialize-a-new-agent-project" title="Permanent link">&para;</a></h3>
-<p>Use the <code>holodeck init</code> command to create a new project with templates:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a basic conversational agent</span>
-holodeck<span class="w"> </span>init<span class="w"> </span>my-chatbot
+<p>Use the <code>holodeck init</code> command to create a new project with an interactive wizard:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start the interactive wizard</span>
+holodeck<span class="w"> </span>init
+</code></pre></div>
+<p>The wizard guides you through configuration:</p>
+<div class="highlight"><pre><span></span><code>? Enter agent name: my-chatbot
+? Select LLM provider: Ollama (Local, gpt-oss:20b)
+? Select vector store: ChromaDB (Local, http://localhost:8000)
+? Select evaluation metrics: rag-faithfulness, rag-answer_relevancy
+? Select MCP servers: Brave Search, Memory, Sequential Thinking
+</code></pre></div>
+<p>You can also pre-fill options and skip prompts:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pre-select template</span>
+holodeck<span class="w"> </span>init<span class="w"> </span>--template<span class="w"> </span>research
 
-<span class="c1"># Or choose a different template</span>
-holodeck<span class="w"> </span>init<span class="w"> </span>research-agent<span class="w"> </span>--template<span class="w"> </span>research
-holodeck<span class="w"> </span>init<span class="w"> </span>support-bot<span class="w"> </span>--template<span class="w"> </span>customer-support
+<span class="c1"># Pre-select LLM provider</span>
+holodeck<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-agent<span class="w"> </span>--llm<span class="w"> </span>openai
 
-<span class="c1"># With metadata</span>
-holodeck<span class="w"> </span>init<span class="w"> </span>my-agent<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;My AI agent&quot;</span><span class="w"> </span>--author<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
+<span class="c1"># Non-interactive mode (uses defaults or specified flags)</span>
+holodeck<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-agent<span class="w"> </span>--non-interactive
+
+<span class="c1"># Full customization without prompts</span>
+holodeck<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-agent<span class="w"> </span>--llm<span class="w"> </span>anthropic<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vectorstore<span class="w"> </span>chromadb<span class="w"> </span>--evals<span class="w"> </span>rag-faithfulness,rag-answer_relevancy<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mcp<span class="w"> </span>brave-search,memory<span class="w"> </span>--non-interactive
 </code></pre></div>
 <p>This creates a complete project structure:</p>
 <div class="highlight"><pre><span></span><code>my-chatbot/
@@ -1863,8 +1878,11 @@ holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml
 <div class="highlight"><pre><span></span><code><span class="c1"># Show all available commands</span>
 holodeck<span class="w"> </span>--help
 
-<span class="c1"># Create new project from template</span>
-holodeck<span class="w"> </span>init<span class="w"> </span>my-project
+<span class="c1"># Create new project with interactive wizard</span>
+holodeck<span class="w"> </span>init
+
+<span class="c1"># Create new project (non-interactive)</span>
+holodeck<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-project<span class="w"> </span>--non-interactive
 
 <span class="c1"># Test your agent and run evaluations</span>
 holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>my-project/agent.yaml
