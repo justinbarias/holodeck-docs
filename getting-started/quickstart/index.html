@@ -866,6 +866,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/vector-stores/" class="md-nav__link">
         
   
@@ -1901,7 +1929,26 @@ holodeck<span class="w"> </span>chat<span class="w"> </span>my-project/agent.yam
 
 <span class="c1"># Deploy as API</span>
 holodeck<span class="w"> </span>deploy<span class="w"> </span>my-project/agent.yaml<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+
+<span class="c1"># --- MCP Server Management ---</span>
+
+<span class="c1"># Search for MCP servers in the registry</span>
+holodeck<span class="w"> </span>mcp<span class="w"> </span>search<span class="w"> </span>filesystem
+
+<span class="c1"># List installed MCP servers</span>
+holodeck<span class="w"> </span>mcp<span class="w"> </span>list
+holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span>--all<span class="w">  </span><span class="c1"># Show both agent and global servers</span>
+
+<span class="c1"># Add an MCP server to your agent</span>
+holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-filesystem
+
+<span class="c1"># Add an MCP server globally (available to all agents)</span>
+holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-memory<span class="w"> </span>-g
+
+<span class="c1"># Remove an MCP server</span>
+holodeck<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> </span>filesystem
 </code></pre></div>
+<p>For detailed MCP CLI usage, see the <a href="../../guides/mcp-cli/">MCP CLI Guide</a>.</p>
 <h2 id="tips-tricks">Tips &amp; Tricks<a class="headerlink" href="#tips-tricks" title="Permanent link">&para;</a></h2>
 <h3 id="interactive-chat-features">Interactive Chat Features<a class="headerlink" href="#interactive-chat-features" title="Permanent link">&para;</a></h3>
 <p>The <code>holodeck chat</code> command provides real-time feedback during conversation:</p>

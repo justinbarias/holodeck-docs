@@ -534,6 +534,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/vector-stores/" class="md-nav__link">
         
   
@@ -2082,7 +2110,12 @@ Full customization without prompts:
 <span class="normal">386</span>
 <span class="normal">387</span>
 <span class="normal">388</span>
-<span class="normal">389</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;init&quot;</span><span class="p">)</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;init&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--name&quot;</span><span class="p">,</span>
     <span class="s2">&quot;project_name&quot;</span><span class="p">,</span>
@@ -2263,6 +2296,7 @@ Full customization without prompts:
 
             <span class="n">wizard_result</span> <span class="o">=</span> <span class="n">WizardResult</span><span class="p">(</span>
                 <span class="n">agent_name</span><span class="o">=</span><span class="n">project_name</span><span class="p">,</span>
+                <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
                 <span class="n">llm_provider</span><span class="o">=</span><span class="n">selected_llm</span><span class="p">,</span>
                 <span class="n">provider_config</span><span class="o">=</span><span class="n">provider_config</span><span class="p">,</span>
                 <span class="n">vector_store</span><span class="o">=</span><span class="n">vectorstore</span> <span class="ow">or</span> <span class="s2">&quot;chromadb&quot;</span><span class="p">,</span>
@@ -2271,13 +2305,16 @@ Full customization without prompts:
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Interactive mode: run wizard</span>
+            <span class="c1"># Skip template prompt if --template was provided (not default)</span>
             <span class="n">wizard_result</span> <span class="o">=</span> <span class="n">run_wizard</span><span class="p">(</span>
                 <span class="n">skip_agent_name</span><span class="o">=</span><span class="n">project_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">skip_template</span><span class="o">=</span><span class="n">template</span> <span class="o">!=</span> <span class="s2">&quot;conversational&quot;</span><span class="p">,</span>
                 <span class="n">skip_llm</span><span class="o">=</span><span class="n">llm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">skip_vectorstore</span><span class="o">=</span><span class="n">vectorstore</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">skip_evals</span><span class="o">=</span><span class="n">evals_arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">skip_mcp</span><span class="o">=</span><span class="n">mcp_arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">agent_name_default</span><span class="o">=</span><span class="n">project_name</span><span class="p">,</span>
+                <span class="n">template_default</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
                 <span class="n">llm_default</span><span class="o">=</span><span class="n">llm</span> <span class="ow">or</span> <span class="s2">&quot;ollama&quot;</span><span class="p">,</span>
                 <span class="n">vectorstore_default</span><span class="o">=</span><span class="n">vectorstore</span> <span class="ow">or</span> <span class="s2">&quot;chromadb&quot;</span><span class="p">,</span>
                 <span class="n">evals_defaults</span><span class="o">=</span><span class="n">evals_list</span> <span class="k">if</span> <span class="n">evals_list</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
@@ -2304,7 +2341,7 @@ Full customization without prompts:
         <span class="c1"># Create project initialization input</span>
         <span class="n">init_input</span> <span class="o">=</span> <span class="n">ProjectInitInput</span><span class="p">(</span>
             <span class="n">project_name</span><span class="o">=</span><span class="n">final_project_name</span><span class="p">,</span>
-            <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+            <span class="n">template</span><span class="o">=</span><span class="n">wizard_result</span><span class="o">.</span><span class="n">template</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
             <span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span>
             <span class="n">output_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">output_dir</span><span class="p">),</span>
@@ -2333,6 +2370,7 @@ Full customization without prompts:
             <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">()</span>
             <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Configuration:&quot;</span><span class="p">)</span>
             <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Agent Name: </span><span class="si">{</span><span class="n">wizard_result</span><span class="o">.</span><span class="n">agent_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Template: </span><span class="si">{</span><span class="n">wizard_result</span><span class="o">.</span><span class="n">template</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  LLM Provider: </span><span class="si">{</span><span class="n">wizard_result</span><span class="o">.</span><span class="n">llm_provider</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Vector Store: </span><span class="si">{</span><span class="n">wizard_result</span><span class="o">.</span><span class="n">vector_store</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Evals: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wizard_result</span><span class="o">.</span><span class="n">evals</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2919,11 +2957,11 @@ pass/fail status with evaluation metric scores.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/cli/utils/project_init.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
-<span class="normal">129</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
-<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">132</span>
+<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the ProjectInitializer.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">template_renderer</span> <span class="o">=</span> <span class="n">TemplateRenderer</span><span class="p">()</span>
     <span class="c1"># Get available templates from discovery function</span>
@@ -3040,8 +3078,7 @@ successfully, or no files are created and the directory is cleaned up.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/utils/project_init.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">247</span>
-<span class="normal">248</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
 <span class="normal">249</span>
 <span class="normal">250</span>
 <span class="normal">251</span>
@@ -3214,7 +3251,8 @@ successfully, or no files are created and the directory is cleaned up.</p>
 <span class="normal">418</span>
 <span class="normal">419</span>
 <span class="normal">420</span>
-<span class="normal">421</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="n">ProjectInitInput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProjectInitResult</span><span class="p">:</span>
+<span class="normal">421</span>
+<span class="normal">422</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="n">ProjectInitInput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProjectInitResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize a new agent project.</span>
 
 <span class="sd">    Creates a new project directory with all required files and templates.</span>
@@ -3500,8 +3538,7 @@ it against the TemplateManifest schema.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/utils/project_init.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
-<span class="normal">202</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
 <span class="normal">205</span>
@@ -3544,7 +3581,8 @@ it against the TemplateManifest schema.</p>
 <span class="normal">242</span>
 <span class="normal">243</span>
 <span class="normal">244</span>
-<span class="normal">245</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TemplateManifest</span><span class="p">:</span>
+<span class="normal">245</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TemplateManifest</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load and validate a template manifest.</span>
 
 <span class="sd">    Loads the manifest.yaml file from a template directory and validates</span>
@@ -3671,8 +3709,7 @@ it against the TemplateManifest schema.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/utils/project_init.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">134</span>
-<span class="normal">135</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">135</span>
 <span class="normal">136</span>
 <span class="normal">137</span>
 <span class="normal">138</span>
@@ -3736,7 +3773,8 @@ it against the TemplateManifest schema.</p>
 <span class="normal">196</span>
 <span class="normal">197</span>
 <span class="normal">198</span>
-<span class="normal">199</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="n">ProjectInitInput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">199</span>
+<span class="normal">200</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="n">ProjectInitInput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate user inputs for project initialization.</span>
 
 <span class="sd">    Checks:</span>

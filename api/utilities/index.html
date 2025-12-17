@@ -534,6 +534,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/vector-stores/" class="md-nav__link">
         
   
@@ -1007,6 +1035,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#holodeck.lib.template_engine.TemplateRenderer.get_available_templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_available_templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#holodeck.lib.template_engine.TemplateRenderer.list_available_templates" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1270,6 +1309,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#holodeck.lib.template_engine.TemplateRenderer.get_available_templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_available_templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#holodeck.lib.template_engine.TemplateRenderer.list_available_templates" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1466,6 +1516,124 @@
 <div class="doc doc-object doc-function">
 
 
+<h3 id="holodeck.lib.template_engine.TemplateRenderer.get_available_templates" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_available_templates</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a href="#holodeck.lib.template_engine.TemplateRenderer.get_available_templates" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get available templates with metadata.</p>
+<p>Discovers templates from the templates/ directory and extracts
+metadata (name, display_name, description) from their manifest.yaml files.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="list">list</span>[<span title="dict">dict</span>[<span title="str">str</span>, <span title="str">str</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of dicts with 'value', 'display_name', 'description' keys.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="list">list</span>[<span title="dict">dict</span>[<span title="str">str</span>, <span title="str">str</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Returns empty list if templates directory doesn't exist.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/holodeck/lib/template_engine.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_available_templates</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get available templates with metadata.</span>
+
+<span class="sd">    Discovers templates from the templates/ directory and extracts</span>
+<span class="sd">    metadata (name, display_name, description) from their manifest.yaml files.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of dicts with &#39;value&#39;, &#39;display_name&#39;, &#39;description&#39; keys.</span>
+<span class="sd">        Returns empty list if templates directory doesn&#39;t exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">templates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">template_dir</span> <span class="ow">in</span> <span class="n">TemplateRenderer</span><span class="o">.</span><span class="n">_discover_template_dirs</span><span class="p">():</span>
+        <span class="n">manifest_path</span> <span class="o">=</span> <span class="n">template_dir</span> <span class="o">/</span> <span class="s2">&quot;manifest.yaml&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">manifest_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">template_dir</span><span class="o">.</span><span class="n">name</span><span class="p">)),</span>
+                    <span class="s2">&quot;display_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span>
+                        <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;display_name&quot;</span><span class="p">,</span> <span class="n">template_dir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">templates</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h3 id="holodeck.lib.template_engine.TemplateRenderer.list_available_templates" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">list_available_templates</span><span class="p">()</span></code>
 
@@ -1517,31 +1685,17 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/template_engine.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">list_available_templates</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;List all available built-in templates.</span>
 
@@ -1551,21 +1705,7 @@
 <span class="sd">        List of template names (e.g., [&#39;conversational&#39;, &#39;research&#39;,</span>
 <span class="sd">        &#39;customer-support&#39;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">templates_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;templates&quot;</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">templates_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="k">return</span> <span class="p">[]</span>
-
-    <span class="c1"># List all directories that have a manifest.yaml (valid templates)</span>
-    <span class="n">templates</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">template_dir</span> <span class="ow">in</span> <span class="n">templates_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">template_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">template_dir</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">):</span>
-            <span class="c1"># Check if it has manifest.yaml</span>
-            <span class="n">manifest</span> <span class="o">=</span> <span class="n">template_dir</span> <span class="o">/</span> <span class="s2">&quot;manifest.yaml&quot;</span>
-            <span class="k">if</span> <span class="n">manifest</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-                <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template_dir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">templates</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">TemplateRenderer</span><span class="o">.</span><span class="n">_discover_template_dirs</span><span class="p">()]</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
