@@ -2692,7 +2692,7 @@ pass/fail status with evaluation metric scores.</p>
 <span class="normal">286</span>
 <span class="normal">287</span>
 <span class="normal">288</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;agent_config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;agent_config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;agent.yaml&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--output&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
@@ -4089,6 +4089,11 @@ Users can catch this to handle any CLI error generically.</p>
 </code></pre></div>
 <p>After installation, use from terminal:</p>
 <div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>init<span class="w"> </span>--template<span class="w"> </span>conversational<span class="w"> </span>--name<span class="w"> </span>my-agent
+
+<span class="c1"># Run tests (defaults to agent.yaml in current directory)</span>
+holodeck<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Or specify explicit path</span>
 holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml
 </code></pre></div>
 <h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>

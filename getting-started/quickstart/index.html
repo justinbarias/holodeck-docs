@@ -1805,18 +1805,18 @@ holodeck<span class="w"> </span>init<span class="w"> </span>--name<span class="w
 <h3 id="step-3-run-your-agent">Step 3: Run Your Agent<a class="headerlink" href="#step-3-run-your-agent" title="Permanent link">&para;</a></h3>
 <h4 id="interactive-chat">Interactive Chat<a class="headerlink" href="#interactive-chat" title="Permanent link">&para;</a></h4>
 <p>Start an interactive chat session with your agent:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Basic chat (from parent directory)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># From the project directory (uses agent.yaml by default)</span>
+<span class="nb">cd</span><span class="w"> </span>my-chatbot
+holodeck<span class="w"> </span>chat
+
+<span class="c1"># Or specify an explicit path</span>
 holodeck<span class="w"> </span>chat<span class="w"> </span>my-chatbot/agent.yaml
 
-<span class="c1"># Or cd into the project directory first</span>
-<span class="nb">cd</span><span class="w"> </span>my-chatbot
-holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml
-
 <span class="c1"># Verbose mode with detailed status panel</span>
-holodeck<span class="w"> </span>chat<span class="w"> </span>my-chatbot/agent.yaml<span class="w"> </span>--verbose
+holodeck<span class="w"> </span>chat<span class="w"> </span>--verbose
 
 <span class="c1"># Quiet mode (no logging, but spinner still shows)</span>
-holodeck<span class="w"> </span>chat<span class="w"> </span>my-chatbot/agent.yaml<span class="w"> </span>--quiet
+holodeck<span class="w"> </span>chat<span class="w"> </span>--quiet
 </code></pre></div>
 <p><strong>Chat Features:</strong></p>
 <ul>
@@ -1839,7 +1839,11 @@ holodeck<span class="w"> </span>chat<span class="w"> </span>my-chatbot/agent.yam
 Agent: Your response here
 </code></pre></div>
 <h4 id="run-tests">Run Tests<a class="headerlink" href="#run-tests" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run all tests (from parent directory)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># From the project directory (uses agent.yaml by default)</span>
+<span class="nb">cd</span><span class="w"> </span>my-chatbot
+holodeck<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Or specify an explicit path</span>
 holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>my-chatbot/agent.yaml
 
 <span class="c1"># Deploy locally</span>
@@ -1896,11 +1900,11 @@ holodeck<span class="w"> </span>deploy<span class="w"> </span>my-chatbot/agent.y
 <span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
 </code></pre></div>
 <h3 id="step-3-test-your-agent">Step 3: Test Your Agent<a class="headerlink" href="#step-3-test-your-agent" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run agent tests</span>
-holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml
+<div class="highlight"><pre><span></span><code><span class="c1"># Run agent tests (uses agent.yaml by default)</span>
+holodeck<span class="w"> </span><span class="nb">test</span>
 
-<span class="c1"># Chat interactively</span>
-holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml
+<span class="c1"># Chat interactively (uses agent.yaml by default)</span>
+holodeck<span class="w"> </span>chat
 </code></pre></div>
 <h2 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Show all available commands</span>
@@ -1912,20 +1916,27 @@ holodeck<span class="w"> </span>init
 <span class="c1"># Create new project (non-interactive)</span>
 holodeck<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-project<span class="w"> </span>--non-interactive
 
-<span class="c1"># Test your agent and run evaluations</span>
+<span class="c1"># Test your agent (uses agent.yaml by default)</span>
+<span class="nb">cd</span><span class="w"> </span>my-project
+holodeck<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Or test with explicit path</span>
 holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>my-project/agent.yaml
 
-<span class="c1"># Interactive chat with your agent</span>
+<span class="c1"># Interactive chat (uses agent.yaml by default)</span>
+holodeck<span class="w"> </span>chat
+
+<span class="c1"># Or chat with explicit path</span>
 holodeck<span class="w"> </span>chat<span class="w"> </span>my-project/agent.yaml
 
 <span class="c1"># Chat with verbose output (detailed status panel)</span>
-holodeck<span class="w"> </span>chat<span class="w"> </span>my-project/agent.yaml<span class="w"> </span>--verbose
+holodeck<span class="w"> </span>chat<span class="w"> </span>--verbose
 
 <span class="c1"># Chat with quiet mode (no logging, spinner only)</span>
-holodeck<span class="w"> </span>chat<span class="w"> </span>my-project/agent.yaml<span class="w"> </span>--quiet
+holodeck<span class="w"> </span>chat<span class="w"> </span>--quiet
 
 <span class="c1"># Chat with custom max messages limit</span>
-holodeck<span class="w"> </span>chat<span class="w"> </span>my-project/agent.yaml<span class="w"> </span>--max-messages<span class="w"> </span><span class="m">100</span>
+holodeck<span class="w"> </span>chat<span class="w"> </span>--max-messages<span class="w"> </span><span class="m">100</span>
 
 <span class="c1"># Deploy as API</span>
 holodeck<span class="w"> </span>deploy<span class="w"> </span>my-project/agent.yaml<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
@@ -1953,13 +1964,14 @@ holodeck<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"
 <h3 id="interactive-chat-features">Interactive Chat Features<a class="headerlink" href="#interactive-chat-features" title="Permanent link">&para;</a></h3>
 <p>The <code>holodeck chat</code> command provides real-time feedback during conversation:</p>
 <p><strong>Default Mode (Recommended for Most Users)</strong></p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml
+<div class="highlight"><pre><span></span><code><span class="c1"># Uses agent.yaml in current directory</span>
+holodeck<span class="w"> </span>chat
 </code></pre></div>
 <p>Shows inline status after each response:</p>
 <div class="highlight"><pre><span></span><code>Agent: Your response here [3/50 | 1.2s]
 </code></pre></div>
 <p><strong>Verbose Mode (For Detailed Monitoring)</strong></p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml<span class="w"> </span>--verbose
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>--verbose
 </code></pre></div>
 <p>Displays a rich status panel with token breakdown:</p>
 <div class="highlight"><pre><span></span><code>╭─── Chat Status ─────────────────────────╮
@@ -1972,7 +1984,7 @@ holodeck<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"
 ╰─────────────────────────────────────────╯
 </code></pre></div>
 <p><strong>Quiet Mode (For Clean Output)</strong></p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml<span class="w"> </span>--quiet
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>--quiet
 </code></pre></div>
 <p>Shows only responses and spinner during execution, no status display.</p>
 <p><strong>Monitor Token Usage</strong>
@@ -1993,14 +2005,17 @@ All chat modes track cumulative token usage across the conversation. This helps 
 <span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span><span class="w"> </span><span class="c1"># From environment</span>
 </code></pre></div>
 <h3 id="test-locally-before-deploying">Test Locally Before Deploying<a class="headerlink" href="#test-locally-before-deploying" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run tests first</span>
-holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>my-project/agent.yaml
+<div class="highlight"><pre><span></span><code><span class="c1"># Navigate to project directory</span>
+<span class="nb">cd</span><span class="w"> </span>my-project
+
+<span class="c1"># Run tests first (uses agent.yaml by default)</span>
+holodeck<span class="w"> </span><span class="nb">test</span>
 
 <span class="c1"># Then try interactive chat</span>
-holodeck<span class="w"> </span>chat<span class="w"> </span>my-project/agent.yaml
+holodeck<span class="w"> </span>chat
 
 <span class="c1"># Finally deploy if tests pass</span>
-holodeck<span class="w"> </span>deploy<span class="w"> </span>my-project/agent.yaml<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+holodeck<span class="w"> </span>deploy<span class="w"> </span>agent.yaml<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
 </code></pre></div>
 <h3 id="organize-multiple-agents">Organize Multiple Agents<a class="headerlink" href="#organize-multiple-agents" title="Permanent link">&para;</a></h3>
 <p>If you have multiple agents, create separate directories:</p>
@@ -2013,7 +2028,12 @@ holodeck<span class="w"> </span>deploy<span class="w"> </span>my-project/agent.y
 └── .env                 # Shared credentials
 </code></pre></div>
 <p>Test each agent:</p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent1/agent.yaml
+<div class="highlight"><pre><span></span><code><span class="c1"># Test from each agent directory</span>
+<span class="nb">cd</span><span class="w"> </span>agent1<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>holodeck<span class="w"> </span><span class="nb">test</span>
+<span class="nb">cd</span><span class="w"> </span>../agent2<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>holodeck<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Or specify paths explicitly</span>
+holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent1/agent.yaml
 holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent2/agent.yaml
 </code></pre></div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
