@@ -1233,6 +1233,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2275,52 +2331,52 @@
 </code></pre></div>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <h4 id="example-1-provider-override">Example 1: Provider Override<a class="headerlink" href="#example-1-provider-override" title="Permanent link">&para;</a></h4>
-<p>Global config:
+<p>Global config:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
 <span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div></p>
-<p>Agent config:
+</code></pre></div>
+<p>Agent config:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span><span class="w">       </span><span class="c1"># Overrides global default</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">   </span><span class="c1"># Overrides global default</span>
-</code></pre></div></p>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span><span class="w"> </span><span class="c1"># Overrides global default</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"> </span><span class="c1"># Overrides global default</span>
+</code></pre></div>
 <p>Result: Agent uses <code>gpt-4o</code> at temperature <code>0.5</code> (agent config wins)</p>
 <h4 id="example-2-environment-variable">Example 2: Environment Variable<a class="headerlink" href="#example-2-environment-variable" title="Permanent link">&para;</a></h4>
-<p>Global config:
+<p>Global config:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-</code></pre></div></p>
-<p>Agent config:
+</code></pre></div>
+<p>Agent config:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-</code></pre></div></p>
-<p>Environment:
+</code></pre></div>
+<p>Environment:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
-</code></pre></div></p>
+</code></pre></div>
 <p>Result: Uses environment variable for API key</p>
 <h4 id="example-3-full-precedence-chain">Example 3: Full Precedence Chain<a class="headerlink" href="#example-3-full-precedence-chain" title="Permanent link">&para;</a></h4>
-<p>Global config:
+<p>Global config:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">default_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
 
 <span class="nt">deployment</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">default_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
-</code></pre></div></p>
-<p>Agent config:
+</code></pre></div>
+<p>Agent config:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
 <span class="w">  </span><span class="c1"># No explicit temperature</span>
 
 <span class="nt">deployment</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span><span class="w">  </span><span class="c1"># Overrides global</span>
-</code></pre></div></p>
-<p>Environment:
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span><span class="w"> </span><span class="c1"># Overrides global</span>
+</code></pre></div>
+<p>Environment:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">TEMPERATURE</span><span class="o">=</span><span class="m">0</span>.5
-</code></pre></div></p>
+</code></pre></div>
 <p>Result: Model uses <code>gpt-4o-mini</code>, port is <code>8080</code>, temperature is <code>0.5</code></p>
 <h2 id="inheritance-rules">Inheritance Rules<a class="headerlink" href="#inheritance-rules" title="Permanent link">&para;</a></h2>
 <p>Not all agent settings are inherited from global config. Here's what you can and cannot configure globally:</p>
@@ -2356,32 +2412,32 @@
 <span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
 <span class="w">  </span><span class="c1"># Inherits temperature: 0.7 from global, can override</span>
 
-<span class="nt">response_format</span><span class="p">:</span><span class="w">  </span><span class="c1"># Cannot be inherited, must define here</span>
+<span class="nt">response_format</span><span class="p">:</span><span class="w"> </span><span class="c1"># Cannot be inherited, must define here</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">answer</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 
-<span class="nt">instructions</span><span class="p">:</span><span class="w">  </span><span class="c1"># Must be defined here</span>
+<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="c1"># Must be defined here</span>
 <span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant&quot;</span>
 </code></pre></div>
 <h2 id="providers-section">Providers Section<a class="headerlink" href="#providers-section" title="Permanent link">&para;</a></h2>
 <p>Defines LLM provider configurations with credentials and defaults.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">azure_openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span><span class="w">              </span><span class="c1"># Required: provider type</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span><span class="w">                        </span><span class="c1"># Required: model name</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span><span class="w">                    </span><span class="c1"># Optional: temperature (0.0-2.0)</span>
-<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2048</span><span class="w">                    </span><span class="c1"># Optional: max tokens</span>
-<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span><span class="w">  </span><span class="c1"># Required: Azure endpoint</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span><span class="w">    </span><span class="c1"># Required: API key</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span><span class="w"> </span><span class="c1"># Required: provider type</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span><span class="w"> </span><span class="c1"># Required: model name</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span><span class="w"> </span><span class="c1"># Optional: temperature (0.0-2.0)</span>
+<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2048</span><span class="w"> </span><span class="c1"># Optional: max tokens</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span><span class="w"> </span><span class="c1"># Required: Azure endpoint</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span><span class="w"> </span><span class="c1"># Required: API key</span>
 
 <span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
 <span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
 <span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-<span class="w">    </span><span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org</span><span class="w">                </span><span class="c1"># Optional</span>
+<span class="w">    </span><span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org</span><span class="w"> </span><span class="c1"># Optional</span>
 
 <span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
@@ -2406,13 +2462,13 @@
 <h2 id="execution-section">Execution Section<a class="headerlink" href="#execution-section" title="Permanent link">&para;</a></h2>
 <p>Configures execution settings for agent test runs and file processing.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">execution</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w">            </span><span class="c1"># Timeout for file processing (seconds)</span>
-<span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w">             </span><span class="c1"># Timeout for LLM API calls (seconds)</span>
-<span class="w">  </span><span class="nt">download_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w">        </span><span class="c1"># Timeout for downloading files (seconds)</span>
-<span class="w">  </span><span class="nt">cache_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">         </span><span class="c1"># Enable caching of file downloads</span>
-<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.holodeck_cache</span><span class="w">  </span><span class="c1"># Directory for cache storage</span>
-<span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">              </span><span class="c1"># Enable verbose logging</span>
-<span class="w">  </span><span class="nt">quiet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                </span><span class="c1"># Enable quiet mode</span>
+<span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w"> </span><span class="c1"># Timeout for file processing (seconds)</span>
+<span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w"> </span><span class="c1"># Timeout for LLM API calls (seconds)</span>
+<span class="w">  </span><span class="nt">download_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w"> </span><span class="c1"># Timeout for downloading files (seconds)</span>
+<span class="w">  </span><span class="nt">cache_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># Enable caching of file downloads</span>
+<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.holodeck_cache</span><span class="w"> </span><span class="c1"># Directory for cache storage</span>
+<span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Enable verbose logging</span>
+<span class="w">  </span><span class="nt">quiet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Enable quiet mode</span>
 </code></pre></div>
 <h3 id="execution-fields">Execution Fields<a class="headerlink" href="#execution-fields" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2428,8 +2484,8 @@
 <p>Replace sensitive values with environment variables using <code>${VAR_NAME}</code> syntax:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span><span class="w">      </span><span class="c1"># Reads from environment</span>
-<span class="w">    </span><span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org</span><span class="w">             </span><span class="c1"># Literal value</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span><span class="w"> </span><span class="c1"># Reads from environment</span>
+<span class="w">    </span><span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org</span><span class="w"> </span><span class="c1"># Literal value</span>
 </code></pre></div>
 <h3 id="setting-environment-variables">Setting Environment Variables<a class="headerlink" href="#setting-environment-variables" title="Permanent link">&para;</a></h3>
 <p><strong>On Linux/macOS</strong>:</p>
@@ -2505,7 +2561,7 @@ ANTHROPIC_API_KEY=sk-ant-...
 <h2 id="usage-patterns">Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-secure-api-keys">Pattern 1: Secure API Keys<a class="headerlink" href="#pattern-1-secure-api-keys" title="Permanent link">&para;</a></h3>
 <p>Keep secrets in global config with environment variable substitution:</p>
-<p>Global config (project root):
+<p>Global config (project root):</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
 <span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">azure_openai</span><span class="p">:</span>
@@ -2513,20 +2569,20 @@ ANTHROPIC_API_KEY=sk-ant-...
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
 <span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span>
 <span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span>
-</code></pre></div></p>
-<p>Agent config:
+</code></pre></div>
+<p>Agent config:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
 <span class="nt">model</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
 <span class="w">  </span><span class="c1"># Credentials come from global config</span>
-</code></pre></div></p>
-<p>Environment:
+</code></pre></div>
+<p>Environment:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span><span class="s2">&quot;https://...&quot;</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
-</code></pre></div></p>
+</code></pre></div>
 <h3 id="pattern-2-execution-defaults">Pattern 2: Execution Defaults<a class="headerlink" href="#pattern-2-execution-defaults" title="Permanent link">&para;</a></h3>
 <p>Set timeouts and caching for all agents:</p>
-<p>Global config:
+<p>Global config:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
 <span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">azure_openai</span><span class="p">:</span>
@@ -2539,11 +2595,11 @@ ANTHROPIC_API_KEY=sk-ant-...
 <span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
 <span class="w">  </span><span class="nt">cache_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-</code></pre></div></p>
+</code></pre></div>
 <p>All agents inherit these execution settings automatically.</p>
 <h3 id="pattern-3-multiple-providers">Pattern 3: Multiple Providers<a class="headerlink" href="#pattern-3-multiple-providers" title="Permanent link">&para;</a></h3>
 <p>Configure multiple providers for different use cases:</p>
-<p>Global config:
+<p>Global config:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
 <span class="nt">providers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">azure_openai</span><span class="p">:</span>
@@ -2559,25 +2615,25 @@ ANTHROPIC_API_KEY=sk-ant-...
 
 <span class="nt">execution</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
-</code></pre></div></p>
-<p>Agent config (use either provider):
+</code></pre></div>
+<p>Agent config (use either provider):</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
 <span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span><span class="w">  </span><span class="c1"># or openai</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span><span class="w"> </span><span class="c1"># or openai</span>
 <span class="w">  </span><span class="c1"># Model name and settings come from global config</span>
-</code></pre></div></p>
+</code></pre></div>
 <h2 id="creating-configuration">Creating Configuration<a class="headerlink" href="#creating-configuration" title="Permanent link">&para;</a></h2>
 <p>You can create configuration files using the <code>holodeck config init</code> command or manually.</p>
 <h3 id="using-the-cli-recommended">Using the CLI (Recommended)<a class="headerlink" href="#using-the-cli-recommended" title="Permanent link">&para;</a></h3>
 <p>The CLI provides a convenient way to initialize configuration files with default settings.</p>
-<p><strong>Initialize Global Configuration:</strong>
+<p><strong>Initialize Global Configuration:</strong></p>
 <div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>config<span class="w"> </span>init<span class="w"> </span>-g
 <span class="c1"># Creates ~/.holodeck/config.yaml</span>
-</code></pre></div></p>
-<p><strong>Initialize Project Configuration:</strong>
+</code></pre></div>
+<p><strong>Initialize Project Configuration:</strong></p>
 <div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>config<span class="w"> </span>init<span class="w"> </span>-p
 <span class="c1"># Creates config.yaml in the current directory</span>
-</code></pre></div></p>
+</code></pre></div>
 <h3 id="manual-creation">Manual Creation<a class="headerlink" href="#manual-creation" title="Permanent link">&para;</a></h3>
 <p>Global config can be created at two locations with different precedence:</p>
 <ol>
@@ -2719,7 +2775,6 @@ holodeck<span class="w"> </span><span class="nb">test</span>
 <ul>
 <li>See <a href="../agent-configuration/">Agent Configuration Guide</a> for agent-specific settings</li>
 <li>See <a href="../file-references/">File References Guide</a> for path resolution</li>
-<li>See <a href="../guides/environment-variables.md">Environment Variables Documentation</a> (future)</li>
 </ul>
 
 
@@ -2805,7 +2860,7 @@ holodeck<span class="w"> </span><span class="nb">test</span>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.1.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>

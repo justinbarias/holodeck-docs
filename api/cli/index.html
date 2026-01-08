@@ -667,6 +667,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1684,28 +1740,30 @@ and configuration management. This section documents the programmatic CLI API.</
   <summary>Commands</summary>
   <p>init   Initialize a new agent project
 test   Run agent test cases
-chat   Interactive chat session with an agent</p>
+chat   Interactive chat session with an agent
+serve  Start an HTTP server exposing an agent</p>
 </details>        <p>Initialize and manage AI agent projects with YAML configuration.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">version_option</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">__version__</span><span class="p">,</span> <span class="n">prog_name</span><span class="o">=</span><span class="s2">&quot;holodeck&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1715,6 +1773,7 @@ chat   Interactive chat session with an agent</p>
 <span class="sd">        init   Initialize a new agent project</span>
 <span class="sd">        test   Run agent test cases</span>
 <span class="sd">        chat   Interactive chat session with an agent</span>
+<span class="sd">        serve  Start an HTTP server exposing an agent</span>
 
 <span class="sd">    Initialize and manage AI agent projects with YAML configuration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1734,7 +1793,7 @@ chat   Interactive chat session with an agent</p>
 
 
 <h2 id="holodeck.cli.commands.init.init" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">init</span><span class="p">(</span><span class="n">project_name</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">author</span><span class="p">,</span> <span class="n">force</span><span class="p">,</span> <span class="n">llm</span><span class="p">,</span> <span class="n">vectorstore</span><span class="p">,</span> <span class="n">evals_arg</span><span class="p">,</span> <span class="n">mcp_arg</span><span class="p">,</span> <span class="n">non_interactive</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">init</span><span class="p">(</span><span class="n">project_name</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">author</span><span class="p">,</span> <span class="n">force</span><span class="p">,</span> <span class="n">llm</span><span class="p">,</span> <span class="n">vectorstore</span><span class="p">,</span> <span class="n">evals_arg</span><span class="p">,</span> <span class="n">mcp_arg</span><span class="p">,</span> <span class="n">non_interactive</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="p">)</span></code>
 
 <a href="#holodeck.cli.commands.init.init" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1793,10 +1852,7 @@ Full customization without prompts:
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/init.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 75</span>
 <span class="normal"> 76</span>
 <span class="normal"> 77</span>
 <span class="normal"> 78</span>
@@ -2115,7 +2171,31 @@ Full customization without prompts:
 <span class="normal">391</span>
 <span class="normal">392</span>
 <span class="normal">393</span>
-<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;init&quot;</span><span class="p">)</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;init&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--name&quot;</span><span class="p">,</span>
     <span class="s2">&quot;project_name&quot;</span><span class="p">,</span>
@@ -2173,6 +2253,18 @@ Full customization without prompts:
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Skip all interactive prompts (use defaults or flag values)&quot;</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Enable verbose debug logging&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-q&quot;</span><span class="p">,</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Suppress INFO logging output&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span>
     <span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -2184,6 +2276,8 @@ Full customization without prompts:
     <span class="n">evals_arg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mcp_arg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">non_interactive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize a new HoloDeck agent project.</span>
 
@@ -2241,6 +2335,13 @@ Full customization without prompts:
 
 <span class="sd">    For more information, see: https://useholodeck.ai/docs/getting-started</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize logging</span>
+    <span class="n">setup_logging</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Init command invoked: project_name=</span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s2">, template=</span><span class="si">{</span><span class="n">template</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;non_interactive=</span><span class="si">{</span><span class="n">non_interactive</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Get current working directory as output directory</span>
         <span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
@@ -2465,14 +2566,7 @@ pass/fail status with evaluation metric scores.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/test.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
-<span class="normal"> 69</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
 <span class="normal"> 70</span>
 <span class="normal"> 71</span>
 <span class="normal"> 72</span>
@@ -2691,7 +2785,42 @@ pass/fail status with evaluation metric scores.</p>
 <span class="normal">285</span>
 <span class="normal">286</span>
 <span class="normal">287</span>
-<span class="normal">288</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;agent_config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;agent.yaml&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--output&quot;</span><span class="p">,</span>
@@ -2745,16 +2874,9 @@ pass/fail status with evaluation metric scores.</p>
 
 <span class="sd">    AGENT_CONFIG is the path to the agent.yaml configuration file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Reconfigure logging based on CLI flags</span>
-    <span class="c1"># If verbose is enabled, it overrides quiet mode</span>
+    <span class="c1"># Initialize observability context (will be set if observability enabled)</span>
+    <span class="n">obs_context</span><span class="p">:</span> <span class="n">ObservabilityContext</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">effective_quiet</span> <span class="o">=</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">verbose</span>
-    <span class="n">setup_logging</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">effective_quiet</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Test command invoked: config=</span><span class="si">{</span><span class="n">agent_config</span><span class="si">}</span><span class="s2">, &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;verbose=</span><span class="si">{</span><span class="n">verbose</span><span class="si">}</span><span class="s2">, quiet=</span><span class="si">{</span><span class="n">quiet</span><span class="si">}</span><span class="s2">, timeout=</span><span class="si">{</span><span class="n">timeout</span><span class="si">}</span><span class="s2">, &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;force_ingest=</span><span class="si">{</span><span class="n">force_ingest</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="p">)</span>
 
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
@@ -2772,14 +2894,31 @@ pass/fail status with evaluation metric scores.</p>
                 <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="c1"># Load agent config to get test count for progress indicator</span>
+        <span class="c1"># Load agent config FIRST to check observability setting</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.config.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">agent_base_dir</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.config.defaults</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_EXECUTION_CONFIG</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.config.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigLoader</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading agent configuration from </span><span class="si">{</span><span class="n">agent_config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">loader</span> <span class="o">=</span> <span class="n">ConfigLoader</span><span class="p">()</span>
         <span class="n">agent</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load_agent_yaml</span><span class="p">(</span><span class="n">agent_config</span><span class="p">)</span>
+
+        <span class="c1"># Determine logging strategy: OTel replaces setup_logging when enabled</span>
+        <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">observability</span> <span class="ow">and</span> <span class="n">agent</span><span class="o">.</span><span class="n">observability</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="c1"># OTel handles all logging - skip setup_logging</span>
+            <span class="c1"># Console exporter not enabled by default (only serve enables it)</span>
+            <span class="n">obs_context</span> <span class="o">=</span> <span class="n">initialize_observability</span><span class="p">(</span>
+                <span class="n">agent</span><span class="o">.</span><span class="n">observability</span><span class="p">,</span> <span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Traditional logging</span>
+            <span class="n">setup_logging</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">effective_quiet</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Test command invoked: config=</span><span class="si">{</span><span class="n">agent_config</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;verbose=</span><span class="si">{</span><span class="n">verbose</span><span class="si">}</span><span class="s2">, quiet=</span><span class="si">{</span><span class="n">quiet</span><span class="si">}</span><span class="s2">, timeout=</span><span class="si">{</span><span class="n">timeout</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;force_ingest=</span><span class="si">{</span><span class="n">force_ingest</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading agent configuration from </span><span class="si">{</span><span class="n">agent_config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent configuration loaded successfully: </span><span class="si">{</span><span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Set the base directory context for resolving relative paths in tools</span>
@@ -2863,13 +3002,27 @@ pass/fail status with evaluation metric scores.</p>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">():</span>
             <span class="n">spinner_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
+        <span class="c1"># Determine if observability is enabled for span creation</span>
+        <span class="n">observability_enabled</span> <span class="o">=</span> <span class="n">obs_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
         <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run_tests_with_cleanup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TestReport</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;Execute tests and ensure proper cleanup of MCP plugins.&quot;&quot;&quot;</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">return</span> <span class="k">await</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute_tests</span><span class="p">()</span>
-            <span class="k">finally</span><span class="p">:</span>
-                <span class="k">await</span> <span class="n">executor</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+            <span class="c1"># Create parent span for test command if observability is enabled</span>
+            <span class="k">if</span> <span class="n">observability_enabled</span><span class="p">:</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.observability</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tracer</span>
 
+                <span class="n">tracer</span> <span class="o">=</span> <span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+                <span class="n">span_context</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;holodeck.cli.test&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">span_context</span> <span class="o">=</span> <span class="n">nullcontext</span><span class="p">()</span>
+
+            <span class="k">with</span> <span class="n">span_context</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="k">await</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute_tests</span><span class="p">()</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="n">executor</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+        <span class="c1"># Run tests</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">report</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_tests_with_cleanup</span><span class="p">())</span>
         <span class="k">finally</span><span class="p">:</span>
@@ -2918,6 +3071,10 @@ pass/fail status with evaluation metric scores.</p>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># Shutdown observability if it was initialized</span>
+        <span class="k">if</span> <span class="n">obs_context</span><span class="p">:</span>
+            <span class="n">shutdown_observability</span><span class="p">(</span><span class="n">obs_context</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4186,7 +4343,7 @@ holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </s
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.1.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>

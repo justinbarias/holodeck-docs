@@ -789,6 +789,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1343,6 +1399,8 @@
 <li><strong>Flexible Tool Integration</strong>: Vector stores, custom functions, MCP servers, and AI-powered tools</li>
 <li><strong>Built-in Testing &amp; Evaluation</strong>: Run evaluations with multiple metrics, customize models per metric</li>
 <li><strong>Multimodal Test Support</strong>: Images, PDFs, Word docs, Excel sheets, and mixed media in test cases</li>
+<li><strong>Agent Server</strong>: Deploy agents as REST APIs or AG-UI endpoints for integration with web apps</li>
+<li><strong>OpenTelemetry Observability</strong>: Built-in tracing, metrics, and logs with OTLP export</li>
 </ul>
 <h2 id="get-started">Get Started<a class="headerlink" href="#get-started" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>holodeck-ai@latest<span class="w"> </span>--prerelease<span class="w"> </span>allow<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.10
@@ -1354,23 +1412,25 @@
 <li><strong><a href="guides/tools/">Tools Guide</a></strong> - All tool types explained with examples</li>
 <li><strong><a href="guides/evaluations/">Evaluations</a></strong> - Testing and evaluation framework</li>
 <li><strong><a href="guides/global-config/">Global Configuration</a></strong> - System-wide settings and precedence rules</li>
+<li><strong><a href="guides/serve/">Agent Server</a></strong> - Deploy agents as REST and AG-UI endpoints</li>
+<li><strong><a href="guides/observability/">Observability</a></strong> - OpenTelemetry integration and tracing</li>
 <li><strong><a href="api/models/">API Reference</a></strong> - Python API documentation</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>Browse <strong><a href="examples/">complete examples</a></strong> including basic agents, tool integrations, evaluations, and configuration patterns.</p>
 <h2 id="project-status">Project Status<a class="headerlink" href="#project-status" title="Permanent link">&para;</a></h2>
-<p><strong>Version</strong>: 0.2.0 (Development)</p>
+<p><strong>Version</strong>: 0.3.0</p>
 <ul>
 <li>Core configuration schema (Pydantic models)</li>
 <li>YAML parsing and validation</li>
 <li>Environment variable support</li>
-<li>CLI interface (holodeck command with init, test, chat, deploy)</li>
+<li>CLI interface (holodeck command with init, test, chat, serve)</li>
 <li>Agent execution engine (LLM provider integration, tool execution, memory)</li>
 <li>Interactive chat with spinner, token tracking, and adaptive status display</li>
 <li>Evaluation framework (AI-powered and NLP metrics with threshold validation)</li>
-<li>Deployment tools (planned for v0.3)</li>
-<li>Multi-agent orchestration (planned for v0.3)</li>
-<li>OpenTelemetry instrumentation (planned for v0.3)</li>
+<li>Agent Local Server with REST API and AG-UI endpoints</li>
+<li>OpenTelemetry instrumentation with OTLP export</li>
+<li>Multi-agent orchestration (planned for v0.4)</li>
 </ul>
 <h2 id="community-support">Community &amp; Support<a class="headerlink" href="#community-support" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1464,7 +1524,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.1.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
     
     
       <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
