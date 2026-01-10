@@ -3921,7 +3921,7 @@ including per-metric LLM model overrides.</p>
 
 
 <h2 id="holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">DeepEvalBaseEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">DeepEvalBaseEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observability_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -4088,6 +4088,23 @@ result = await evaluator.evaluate(
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>observability_config</code>
+            </td>
+            <td>
+                  <code><span title="holodeck.models.observability.TracingConfig">TracingConfig</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tracing configuration for span instrumentation.
+                 If None, no spans are created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -4100,38 +4117,43 @@ result = await evaluator.evaluate(
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/evaluators/deepeval/base.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">model_config</span><span class="p">:</span> <span class="n">DeepEvalModelConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="n">retry_config</span><span class="p">:</span> <span class="n">RetryConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observability_config</span><span class="p">:</span> <span class="n">TracingConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize DeepEval base evaluator.</span>
 
@@ -4141,11 +4163,14 @@ result = await evaluator.evaluate(
 <span class="sd">        threshold: Score threshold for pass/fail (0.0-1.0, default: 0.5)</span>
 <span class="sd">        timeout: Evaluation timeout in seconds (default: 60.0)</span>
 <span class="sd">        retry_config: Retry configuration for transient failures</span>
+<span class="sd">        observability_config: Tracing configuration for span instrumentation.</span>
+<span class="sd">                             If None, no spans are created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="n">retry_config</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_model_config</span> <span class="o">=</span> <span class="n">model_config</span> <span class="ow">or</span> <span class="n">DeepEvalModelConfig</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_config</span><span class="o">.</span><span class="n">to_deepeval_model</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_threshold</span> <span class="o">=</span> <span class="n">threshold</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_observability_config</span> <span class="o">=</span> <span class="n">observability_config</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;DeepEval evaluator initialized: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, &quot;</span>
@@ -4940,14 +4965,14 @@ the configured provider.</p>
 
 
 <h2 id="holodeck.lib.evaluators.deepeval.GEvalEvaluator" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">GEvalEvaluator</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">evaluation_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">strict_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">GEvalEvaluator</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">evaluation_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">strict_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observability_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.evaluators.deepeval.GEvalEvaluator" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents first">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None, observability_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
 
 
 
@@ -5205,6 +5230,23 @@ auto-generates steps from the criteria.</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>observability_config</code>
+            </td>
+            <td>
+                  <code><span title="holodeck.models.observability.TracingConfig">TracingConfig</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tracing configuration for span instrumentation.
+                 If None, no spans are created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -5240,14 +5282,7 @@ auto-generates steps from the criteria.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/evaluators/deepeval/geval.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
-<span class="normal"> 69</span>
-<span class="normal"> 70</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 70</span>
 <span class="normal"> 71</span>
 <span class="normal"> 72</span>
 <span class="normal"> 73</span>
@@ -5302,7 +5337,18 @@ auto-generates steps from the criteria.</p>
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
-<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">criteria</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -5313,6 +5359,7 @@ auto-generates steps from the criteria.</p>
     <span class="n">strict_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="n">retry_config</span><span class="p">:</span> <span class="n">RetryConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observability_config</span><span class="p">:</span> <span class="n">TracingConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize G-Eval evaluator.</span>
 
@@ -5330,6 +5377,8 @@ auto-generates steps from the criteria.</p>
 <span class="sd">        strict_mode: If True, scores are binary (1.0 or 0.0). Default: False.</span>
 <span class="sd">        timeout: Evaluation timeout in seconds. Default: 60.0.</span>
 <span class="sd">        retry_config: Retry configuration for transient failures.</span>
+<span class="sd">        observability_config: Tracing configuration for span instrumentation.</span>
+<span class="sd">                             If None, no spans are created.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If invalid evaluation_params are provided.</span>
@@ -5357,6 +5406,7 @@ auto-generates steps from the criteria.</p>
         <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="n">retry_config</span><span class="o">=</span><span class="n">retry_config</span><span class="p">,</span>
+        <span class="n">observability_config</span><span class="o">=</span><span class="n">observability_config</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
@@ -5704,14 +5754,14 @@ print(result["score"])
 
 
 <h2 id="holodeck.lib.evaluators.deepeval.FaithfulnessEvaluator" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">FaithfulnessEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">FaithfulnessEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observability_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.evaluators.deepeval.FaithfulnessEvaluator" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents first">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None, observability_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
 
 
 
@@ -5864,6 +5914,23 @@ print(result["score"])  # Low score (hallucination detected)</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>observability_config</code>
+            </td>
+            <td>
+                  <code><span title="holodeck.models.observability.TracingConfig">TracingConfig</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tracing configuration for span instrumentation.
+                 If None, no spans are created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -5876,12 +5943,7 @@ print(result["score"])  # Low score (hallucination detected)</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/evaluators/deepeval/faithfulness.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
@@ -5907,13 +5969,23 @@ print(result["score"])  # Low score (hallucination detected)</p>
 <span class="normal">81</span>
 <span class="normal">82</span>
 <span class="normal">83</span>
-<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">model_config</span><span class="p">:</span> <span class="n">DeepEvalModelConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="n">include_reason</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="n">retry_config</span><span class="p">:</span> <span class="n">RetryConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observability_config</span><span class="p">:</span> <span class="n">TracingConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Faithfulness evaluator.</span>
 
@@ -5923,6 +5995,8 @@ print(result["score"])  # Low score (hallucination detected)</p>
 <span class="sd">        include_reason: Whether to include reasoning in results. Default: True.</span>
 <span class="sd">        timeout: Evaluation timeout in seconds. Default: 60.0.</span>
 <span class="sd">        retry_config: Retry configuration for transient failures.</span>
+<span class="sd">        observability_config: Tracing configuration for span instrumentation.</span>
+<span class="sd">                             If None, no spans are created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_include_reason</span> <span class="o">=</span> <span class="n">include_reason</span>
 
@@ -5931,6 +6005,7 @@ print(result["score"])  # Low score (hallucination detected)</p>
         <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="n">retry_config</span><span class="o">=</span><span class="n">retry_config</span><span class="p">,</span>
+        <span class="n">observability_config</span><span class="o">=</span><span class="n">observability_config</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
@@ -6276,14 +6351,14 @@ print(result["score"])
 
 
 <h2 id="holodeck.lib.evaluators.deepeval.AnswerRelevancyEvaluator" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">AnswerRelevancyEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">strict_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">AnswerRelevancyEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">strict_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observability_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.evaluators.deepeval.AnswerRelevancyEvaluator" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents first">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None, observability_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
 
 
 
@@ -6459,6 +6534,23 @@ print(result["score"])  # High score if relevant</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>observability_config</code>
+            </td>
+            <td>
+                  <code><span title="holodeck.models.observability.TracingConfig">TracingConfig</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tracing configuration for span instrumentation.
+                 If None, no spans are created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -6471,12 +6563,7 @@ print(result["score"])  # High score if relevant</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/evaluators/deepeval/answer_relevancy.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
@@ -6506,7 +6593,16 @@ print(result["score"])  # High score if relevant</p>
 <span class="normal">81</span>
 <span class="normal">82</span>
 <span class="normal">83</span>
-<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">model_config</span><span class="p">:</span> <span class="n">DeepEvalModelConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
@@ -6514,6 +6610,7 @@ print(result["score"])  # High score if relevant</p>
     <span class="n">strict_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="n">retry_config</span><span class="p">:</span> <span class="n">RetryConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observability_config</span><span class="p">:</span> <span class="n">TracingConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Answer Relevancy evaluator.</span>
 
@@ -6524,6 +6621,8 @@ print(result["score"])  # High score if relevant</p>
 <span class="sd">        strict_mode: Binary scoring mode (1.0 or 0.0 only). Default: False.</span>
 <span class="sd">        timeout: Evaluation timeout in seconds. Default: 60.0.</span>
 <span class="sd">        retry_config: Retry configuration for transient failures.</span>
+<span class="sd">        observability_config: Tracing configuration for span instrumentation.</span>
+<span class="sd">                             If None, no spans are created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_include_reason</span> <span class="o">=</span> <span class="n">include_reason</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_strict_mode</span> <span class="o">=</span> <span class="n">strict_mode</span>
@@ -6533,6 +6632,7 @@ print(result["score"])  # High score if relevant</p>
         <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="n">retry_config</span><span class="o">=</span><span class="n">retry_config</span><span class="p">,</span>
+        <span class="n">observability_config</span><span class="o">=</span><span class="n">observability_config</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
@@ -6879,14 +6979,14 @@ print(result["score"])
 
 
 <h2 id="holodeck.lib.evaluators.deepeval.ContextualRelevancyEvaluator" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">ContextualRelevancyEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">ContextualRelevancyEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observability_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.evaluators.deepeval.ContextualRelevancyEvaluator" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents first">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None, observability_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
 
 
 
@@ -7041,6 +7141,23 @@ print(result["score"])  # 0.5 (1 of 2 chunks relevant)</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>observability_config</code>
+            </td>
+            <td>
+                  <code><span title="holodeck.models.observability.TracingConfig">TracingConfig</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tracing configuration for span instrumentation.
+                 If None, no spans are created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -7053,12 +7170,7 @@ print(result["score"])  # 0.5 (1 of 2 chunks relevant)</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/evaluators/deepeval/contextual_relevancy.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
 <span class="normal">63</span>
@@ -7084,13 +7196,23 @@ print(result["score"])  # 0.5 (1 of 2 chunks relevant)</p>
 <span class="normal">83</span>
 <span class="normal">84</span>
 <span class="normal">85</span>
-<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">model_config</span><span class="p">:</span> <span class="n">DeepEvalModelConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="n">include_reason</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="n">retry_config</span><span class="p">:</span> <span class="n">RetryConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observability_config</span><span class="p">:</span> <span class="n">TracingConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Contextual Relevancy evaluator.</span>
 
@@ -7100,6 +7222,8 @@ print(result["score"])  # 0.5 (1 of 2 chunks relevant)</p>
 <span class="sd">        include_reason: Whether to include reasoning in results. Default: True.</span>
 <span class="sd">        timeout: Evaluation timeout in seconds. Default: 60.0.</span>
 <span class="sd">        retry_config: Retry configuration for transient failures.</span>
+<span class="sd">        observability_config: Tracing configuration for span instrumentation.</span>
+<span class="sd">                             If None, no spans are created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_include_reason</span> <span class="o">=</span> <span class="n">include_reason</span>
 
@@ -7108,6 +7232,7 @@ print(result["score"])  # 0.5 (1 of 2 chunks relevant)</p>
         <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="n">retry_config</span><span class="o">=</span><span class="n">retry_config</span><span class="p">,</span>
+        <span class="n">observability_config</span><span class="o">=</span><span class="n">observability_config</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
@@ -7453,14 +7578,14 @@ print(result["score"])
 
 
 <h2 id="holodeck.lib.evaluators.deepeval.ContextualPrecisionEvaluator" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">ContextualPrecisionEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">ContextualPrecisionEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observability_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.evaluators.deepeval.ContextualPrecisionEvaluator" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents first">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None, observability_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
 
 
 
@@ -7617,6 +7742,23 @@ print(result["score"])  # Lower due to poor ranking</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>observability_config</code>
+            </td>
+            <td>
+                  <code><span title="holodeck.models.observability.TracingConfig">TracingConfig</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tracing configuration for span instrumentation.
+                 If None, no spans are created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -7629,44 +7771,49 @@ print(result["score"])  # Lower due to poor ranking</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/evaluators/deepeval/contextual_precision.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">model_config</span><span class="p">:</span> <span class="n">DeepEvalModelConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="n">include_reason</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="n">retry_config</span><span class="p">:</span> <span class="n">RetryConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observability_config</span><span class="p">:</span> <span class="n">TracingConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Contextual Precision evaluator.</span>
 
@@ -7676,6 +7823,8 @@ print(result["score"])  # Lower due to poor ranking</p>
 <span class="sd">        include_reason: Whether to include reasoning in results. Default: True.</span>
 <span class="sd">        timeout: Evaluation timeout in seconds. Default: 60.0.</span>
 <span class="sd">        retry_config: Retry configuration for transient failures.</span>
+<span class="sd">        observability_config: Tracing configuration for span instrumentation.</span>
+<span class="sd">                             If None, no spans are created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_include_reason</span> <span class="o">=</span> <span class="n">include_reason</span>
 
@@ -7684,6 +7833,7 @@ print(result["score"])  # Lower due to poor ranking</p>
         <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="n">retry_config</span><span class="o">=</span><span class="n">retry_config</span><span class="p">,</span>
+        <span class="n">observability_config</span><span class="o">=</span><span class="n">observability_config</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
@@ -8029,14 +8179,14 @@ print(result["score"])
 
 
 <h2 id="holodeck.lib.evaluators.deepeval.ContextualRecallEvaluator" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">ContextualRecallEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">ContextualRecallEvaluator</span><span class="p">(</span><span class="n">model_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">include_reason</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">retry_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">observability_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.evaluators.deepeval.ContextualRecallEvaluator" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents first">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="DeepEvalBaseEvaluator(model_config=None, threshold=0.5, timeout=60.0, retry_config=None, observability_config=None) (holodeck.lib.evaluators.deepeval.base.DeepEvalBaseEvaluator)" href="#holodeck.lib.evaluators.deepeval.DeepEvalBaseEvaluator">DeepEvalBaseEvaluator</a></code></p>
 
 
 
@@ -8191,6 +8341,23 @@ print(result["score"])  # ~0.67 (missing Feature C)</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>observability_config</code>
+            </td>
+            <td>
+                  <code><span title="holodeck.models.observability.TracingConfig">TracingConfig</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tracing configuration for span instrumentation.
+                 If None, no spans are created.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -8203,12 +8370,7 @@ print(result["score"])  # ~0.67 (missing Feature C)</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/evaluators/deepeval/contextual_recall.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
@@ -8234,13 +8396,23 @@ print(result["score"])  # ~0.67 (missing Feature C)</p>
 <span class="normal">87</span>
 <span class="normal">88</span>
 <span class="normal">89</span>
-<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span>
+<span class="normal">98</span>
+<span class="normal">99</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">model_config</span><span class="p">:</span> <span class="n">DeepEvalModelConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="n">include_reason</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">60.0</span><span class="p">,</span>
     <span class="n">retry_config</span><span class="p">:</span> <span class="n">RetryConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observability_config</span><span class="p">:</span> <span class="n">TracingConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Contextual Recall evaluator.</span>
 
@@ -8250,6 +8422,8 @@ print(result["score"])  # ~0.67 (missing Feature C)</p>
 <span class="sd">        include_reason: Whether to include reasoning in results. Default: True.</span>
 <span class="sd">        timeout: Evaluation timeout in seconds. Default: 60.0.</span>
 <span class="sd">        retry_config: Retry configuration for transient failures.</span>
+<span class="sd">        observability_config: Tracing configuration for span instrumentation.</span>
+<span class="sd">                             If None, no spans are created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_include_reason</span> <span class="o">=</span> <span class="n">include_reason</span>
 
@@ -8258,6 +8432,7 @@ print(result["score"])  # ~0.67 (missing Feature C)</p>
         <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="n">retry_config</span><span class="o">=</span><span class="n">retry_config</span><span class="p">,</span>
+        <span class="n">observability_config</span><span class="o">=</span><span class="n">observability_config</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>

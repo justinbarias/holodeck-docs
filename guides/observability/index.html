@@ -942,6 +942,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluation-tracing-deepeval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Tracing (DeepEval)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Tracing (DeepEval)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#captured-span-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Captured Span Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-attributes-when-capture_evaluation_content-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content Attributes (when capture_evaluation_content enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exporters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1998,6 +2037,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluation-tracing-deepeval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Tracing (DeepEval)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Tracing (DeepEval)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#captured-span-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Captured Span Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-attributes-when-capture_evaluation_content-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content Attributes (when capture_evaluation_content enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exporters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2637,6 +2715,99 @@ holodeck<span class="w"> </span>serve<span class="w"> </span>agent.yaml
 <li><code>gen_ai.content.prompt</code> - Full prompt text</li>
 <li><code>gen_ai.content.completion</code> - Full completion text</li>
 </ul>
+<hr />
+<h2 id="evaluation-tracing-deepeval">Evaluation Tracing (DeepEval)<a class="headerlink" href="#evaluation-tracing-deepeval" title="Permanent link">&para;</a></h2>
+<p>HoloDeck creates OpenTelemetry spans for DeepEval metric evaluations during test runs. Enable <code>capture_evaluation_content</code> to capture evaluation inputs/outputs:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">observability</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">traces</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">capture_evaluation_content</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># Capture inputs, outputs, reasoning</span>
+</code></pre></div>
+<h3 id="captured-span-attributes">Captured Span Attributes<a class="headerlink" href="#captured-span-attributes" title="Permanent link">&para;</a></h3>
+<p>Every DeepEval evaluation creates a span named <code>holodeck.evaluation.{metric_name}</code> with these attributes:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>evaluation.metric.name</code></td>
+<td>Metric identifier</td>
+<td><code>geval</code>, <code>faithfulness</code></td>
+</tr>
+<tr>
+<td><code>evaluation.threshold</code></td>
+<td>Pass/fail threshold</td>
+<td><code>0.7</code></td>
+</tr>
+<tr>
+<td><code>evaluation.model.provider</code></td>
+<td>Evaluation LLM provider</td>
+<td><code>openai</code>, <code>ollama</code></td>
+</tr>
+<tr>
+<td><code>evaluation.model.name</code></td>
+<td>Evaluation model name</td>
+<td><code>gpt-4o</code>, <code>llama3.2</code></td>
+</tr>
+<tr>
+<td><code>evaluation.score</code></td>
+<td>Evaluation score (0.0-1.0)</td>
+<td><code>0.85</code></td>
+</tr>
+<tr>
+<td><code>evaluation.passed</code></td>
+<td>Whether score met threshold</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>evaluation.duration_ms</code></td>
+<td>Evaluation duration</td>
+<td><code>1523</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="content-attributes-when-capture_evaluation_content-enabled">Content Attributes (when capture_evaluation_content enabled)<a class="headerlink" href="#content-attributes-when-capture_evaluation_content-enabled" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Max Length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>evaluation.input</code></td>
+<td>User query being evaluated</td>
+<td>1000 chars</td>
+</tr>
+<tr>
+<td><code>evaluation.actual_output</code></td>
+<td>Agent response being evaluated</td>
+<td>1000 chars</td>
+</tr>
+<tr>
+<td><code>evaluation.expected_output</code></td>
+<td>Ground truth (if provided)</td>
+<td>1000 chars</td>
+</tr>
+<tr>
+<td><code>evaluation.retrieval_context</code></td>
+<td>RAG context chunks (JSON)</td>
+<td>2000 chars</td>
+</tr>
+<tr>
+<td><code>evaluation.reasoning</code></td>
+<td>LLM-generated evaluation reasoning</td>
+<td>2000 chars</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="exporters">Exporters<a class="headerlink" href="#exporters" title="Permanent link">&para;</a></h2>
 <h3 id="console-exporter-default">Console Exporter (Default)<a class="headerlink" href="#console-exporter-default" title="Permanent link">&para;</a></h3>
