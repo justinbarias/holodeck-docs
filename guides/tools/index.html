@@ -579,6 +579,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tool-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Filtering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tool Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-knobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Knobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensible-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensible Defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threshold-tuning-by-search-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threshold Tuning by Search Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-tool-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2346,6 +2407,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tool-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Filtering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tool Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-knobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Knobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensible-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensible Defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threshold-tuning-by-search-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threshold Tuning by Search Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-tool-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3506,6 +3628,109 @@
 </table>
 <blockquote>
 <p><strong>Note</strong>: <strong>Vectorstore Tools</strong> and <strong>MCP Tools</strong> are fully implemented. Function and Prompt tools are defined in the configuration schema but not yet functional.</p>
+</blockquote>
+<h2 id="tool-filtering">Tool Filtering<a class="headerlink" href="#tool-filtering" title="Permanent link">&para;</a></h2>
+<p>Tool filtering automatically reduces tool context per request by selecting only the most relevant tools. It builds an in-memory index of tool metadata and uses Semantic Kernel's <code>FunctionChoiceBehavior</code> to include a filtered set of tools for each query.</p>
+<h3 id="agent-configuration">Agent Configuration<a class="headerlink" href="#agent-configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">support-agent</span>
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
+<span class="nt">instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">instructions/system.md</span>
+
+<span class="nt">tool_filtering</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">similarity_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">  </span><span class="nt">always_include_top_n_used</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">search_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">semantic</span>
+
+
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read and write files</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
+<span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;./data&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="configuration-knobs">Configuration Knobs<a class="headerlink" href="#configuration-knobs" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>top_k</code>: Max tools per request (includes always-included tools)</li>
+<li><code>similarity_threshold</code>: Filter out tools scoring below this value</li>
+<li><code>always_include</code>: Tool names always available (full name or function name suffix)</li>
+<li><code>always_include_top_n_used</code>: Keep most-used tools in context (usage-aware)</li>
+<li><code>search_method</code>: <code>semantic</code>, <code>bm25</code>, or <code>hybrid</code></li>
+</ul>
+<h3 id="sensible-defaults">Sensible Defaults<a class="headerlink" href="#sensible-defaults" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>top_k</code></td>
+<td>5</td>
+<td>Enough tools for most tasks without token bloat</td>
+</tr>
+<tr>
+<td><code>similarity_threshold</code></td>
+<td>0.3</td>
+<td>Include tools at least 30% as relevant as top result</td>
+</tr>
+<tr>
+<td><code>always_include</code></td>
+<td><code>[]</code></td>
+<td>Agent-specific—add your critical tools here</td>
+</tr>
+<tr>
+<td><code>always_include_top_n_used</code></td>
+<td>3</td>
+<td>Keep frequently used tools in context</td>
+</tr>
+<tr>
+<td><code>search_method</code></td>
+<td><code>semantic</code></td>
+<td>Best semantic match for short prompts</td>
+</tr>
+</tbody>
+</table>
+<h3 id="threshold-tuning-by-search-method">Threshold Tuning by Search Method<a class="headerlink" href="#threshold-tuning-by-search-method" title="Permanent link">&para;</a></h3>
+<p>All search methods return normalized scores in the 0-1 range, so <code>similarity_threshold</code> is consistent across methods.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Good Match Range</th>
+<th>Recommended Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>semantic</code></td>
+<td>0.4 - 0.6</td>
+<td>0.3 - 0.4</td>
+</tr>
+<tr>
+<td><code>bm25</code> (normalized)</td>
+<td>0.8 - 1.0</td>
+<td>0.5 - 0.6</td>
+</tr>
+<tr>
+<td><code>hybrid</code> (normalized)</td>
+<td>0.8 - 1.0</td>
+<td>0.5 - 0.6</td>
+</tr>
+</tbody>
+</table>
+<p>A threshold of 0.3 means "include tools scoring at least 30% of what the top result scores."</p>
+<blockquote>
+<p><strong>Tip</strong>: <code>always_include_top_n_used</code> tracks usage across requests, so early or accidental tool calls can bias results. Set it to 0 during development if you want to avoid usage bias.</p>
 </blockquote>
 <h2 id="common-tool-fields">Common Tool Fields<a class="headerlink" href="#common-tool-fields" title="Permanent link">&para;</a></h2>
 <p>All tools share these fields:</p>
