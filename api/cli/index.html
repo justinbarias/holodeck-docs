@@ -702,6 +702,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/observability/" class="md-nav__link">
         
   
@@ -1738,10 +1766,11 @@ and configuration management. This section documents the programmatic CLI API.</
 
 <details class="commands" open>
   <summary>Commands</summary>
-  <p>init   Initialize a new agent project
-test   Run agent test cases
-chat   Interactive chat session with an agent
-serve  Start an HTTP server exposing an agent</p>
+  <p>init    Initialize a new agent project
+test    Run agent test cases
+chat    Interactive chat session with an agent
+serve   Start an HTTP server exposing an agent
+deploy  Build and deploy agent containers</p>
 </details>        <p>Initialize and manage AI agent projects with YAML configuration.</p>
 
 
@@ -1763,17 +1792,19 @@ serve  Start an HTTP server exposing an agent</p>
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
-<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">74</span>
+<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">version_option</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">__version__</span><span class="p">,</span> <span class="n">prog_name</span><span class="o">=</span><span class="s2">&quot;holodeck&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;HoloDeck - Experimentation platform for AI agents.</span>
 
 <span class="sd">    Commands:</span>
-<span class="sd">        init   Initialize a new agent project</span>
-<span class="sd">        test   Run agent test cases</span>
-<span class="sd">        chat   Interactive chat session with an agent</span>
-<span class="sd">        serve  Start an HTTP server exposing an agent</span>
+<span class="sd">        init    Initialize a new agent project</span>
+<span class="sd">        test    Run agent test cases</span>
+<span class="sd">        chat    Interactive chat session with an agent</span>
+<span class="sd">        serve   Start an HTTP server exposing an agent</span>
+<span class="sd">        deploy  Build and deploy agent containers</span>
 
 <span class="sd">    Initialize and manage AI agent projects with YAML configuration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
