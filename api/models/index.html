@@ -5925,6 +5925,17 @@ expected tool usage, multimodal file inputs, and RAG context.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
+            <td><code><span title="holodeck.models.config.DeploymentConfig.health_check_path">health_check_path</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>HTTP path for health checks (e.g., /health, /healthz)</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
             <td><code><span title="holodeck.models.config.DeploymentConfig.environment">environment</span></code></td>
             <td>
                   <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="str">str</span>]</code>
@@ -5932,6 +5943,17 @@ expected tool usage, multimodal file inputs, and RAG context.</p>
             <td>
               <div class="doc-md-description">
                 <p>Environment variables for the container</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="holodeck.models.config.DeploymentConfig.platform">platform</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Target platform for container image (e.g., linux/amd64, linux/arm64)</p>
               </div>
             </td>
           </tr>
