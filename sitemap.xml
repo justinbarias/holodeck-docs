@@ -2,94 +2,94 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.useholodeck.ai/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/CHANGELOG/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/contributing/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/api/cli/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/api/config-loader/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/api/evaluators/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/api/models/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/api/test-runner/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/api/utilities/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/examples/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/getting-started/installation/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/getting-started/quickstart/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/agent-configuration/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/deployment/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/evaluations/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/file-references/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/global-config/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/llm-providers/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/mcp-cli/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/observability/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/serve/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/tools/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
     <url>
          <loc>https://docs.useholodeck.ai/guides/vector-stores/</loc>
-         <lastmod>2026-01-28</lastmod>
+         <lastmod>2026-02-08</lastmod>
     </url>
 </urlset>
