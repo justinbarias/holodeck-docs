@@ -1851,7 +1851,11 @@
 <ul>
 <li><strong>Python 3.10+</strong> (check with <code>python --version</code>)</li>
 <li><strong>uv</strong> - The fast Python package installer</li>
+<li><strong>Node.js 18+</strong> (required for Claude Agent SDK backend) — check with <code>node --version</code></li>
 </ul>
+<blockquote>
+<p><strong>Note</strong>: Node.js is only required if you plan to use <code>provider: anthropic</code>. Other providers (OpenAI, Azure, Ollama) do not require it.</p>
+</blockquote>
 <h3 id="installing-uv">Installing uv<a class="headerlink" href="#installing-uv" title="Permanent link">&para;</a></h3>
 <p>If you don't have uv installed:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># macOS/Linux</span>
@@ -1926,8 +1930,11 @@ ollama<span class="w"> </span>pull<span class="w"> </span>phi3
 <span class="nb">export</span><span class="w"> </span><span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span><span class="s2">&quot;https://your-resource.openai.azure.com/&quot;</span>
 
-<span class="c1"># Anthropic</span>
+<span class="c1"># Anthropic (API Key)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
+
+<span class="c1"># Anthropic (OAuth Token — recommended for Claude Code users)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;your-oauth-token&quot;</span>
 </code></pre></div>
 <h4 id="env-file"><code>.env</code> File<a class="headerlink" href="#env-file" title="Permanent link">&para;</a></h4>
 <p>Create a <code>.env</code> file in your project directory:</p>
@@ -1954,7 +1961,12 @@ ollama<span class="w"> </span>pull<span class="w"> </span>phi3
 <span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://your-resource.openai.azure.com/
 </code></pre></div>
 <h3 id="anthropic">Anthropic<a class="headerlink" href="#anthropic" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
+<p>Claude models via the native Claude Agent SDK backend. Requires Node.js 18+.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Option 1: API Key</span>
+<span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
+
+<span class="c1"># Option 2: OAuth Token (recommended for Claude Code users)</span>
+<span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="o">=</span>your-oauth-token
 </code></pre></div>
 <h2 id="upgrading-holodeck">Upgrading HoloDeck<a class="headerlink" href="#upgrading-holodeck" title="Permanent link">&para;</a></h2>
 <p>To upgrade to the latest version:</p>

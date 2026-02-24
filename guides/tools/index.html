@@ -4430,9 +4430,9 @@
 
 
 <h1 id="tools-reference-guide">Tools Reference Guide<a class="headerlink" href="#tools-reference-guide" title="Permanent link">&para;</a></h1>
-<p>This guide explains HoloDeck's five tool types that extend agent capabilities.</p>
+<p>This guide explains HoloDeck's six tool types that extend agent capabilities.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Tools are agent capabilities defined in <code>agent.yaml</code>. HoloDeck supports five tool types:</p>
+<p>Tools are agent capabilities defined in <code>agent.yaml</code>. HoloDeck supports six tool types:</p>
 <table>
 <thead>
 <tr>
@@ -4615,6 +4615,12 @@
 <blockquote>
 <p><strong>Status</strong>: Fully implemented</p>
 </blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Anthropic Users: Embedding Provider Required</p>
+<p>Anthropic does not provide embedding models. When using <code>model.provider: anthropic</code>
+with vectorstore tools, you <strong>must</strong> define <code>embedding_provider</code> at the agent level.
+See <a href="../agent-configuration/#embedding-provider">Embedding Provider</a>.</p>
+</div>
 <p>Semantic search over unstructured or structured data.</p>
 <h3 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
 <ul>
@@ -4745,10 +4751,24 @@
 <li><strong>Type</strong>: String</li>
 <li><strong>Purpose</strong>: Which embedding model to use</li>
 <li><strong>Default</strong>: Provider-specific default</li>
-<li><strong>Examples</strong>: <code>text-embedding-3-small</code>, <code>text-embedding-ada-002</code></li>
+<li><strong>Examples</strong>: <code>text-embedding-3-small</code>, <code>text-embedding-ada-002</code>, <code>nomic-embed-text:latest</code></li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">embedding_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text-embedding-3-small</span>
 </code></pre></div>
+<blockquote>
+<p><strong>Embedding provider behaviour by backend:</strong></p>
+<ul>
+<li><strong>Semantic Kernel backend</strong> (OpenAI, Azure OpenAI, Ollama): Uses the agent's own model provider for embeddings. The <code>embedding_model</code> field on the tool selects which embedding model to use from that provider.</li>
+<li><strong>Claude Agent SDK backend</strong> (Anthropic): Anthropic does not offer embedding models. The agent-level <code>embedding_provider</code> is used instead, and the tool's <code>embedding_model</code> field selects the model within that provider.</li>
+</ul>
+</blockquote>
+<div class="admonition danger">
+<p class="admonition-title">Mismatched embedding models across tools</p>
+<p>If your agent defines both <strong>vectorstore</strong> and <strong>hierarchical_document</strong> tools with
+<strong>different</strong> <code>embedding_model</code> values, HoloDeck will raise a validation error at
+startup. All embedding-based tools in an agent must use the same embedding model
+because they share a single embedding provider instance.</p>
+</div>
 <h4 id="vector-field">Vector Field<a class="headerlink" href="#vector-field" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Type</strong>: String or List of strings</li>
@@ -4861,6 +4881,12 @@ vectorized for semantic search.
 <blockquote>
 <p><strong>Status</strong>: Fully implemented</p>
 </blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Anthropic Users: Embedding Provider Required</p>
+<p>Anthropic does not provide embedding models. When using <code>model.provider: anthropic</code>
+with hierarchical document tools, you <strong>must</strong> define <code>embedding_provider</code> at the agent level.
+See <a href="../agent-configuration/#embedding-provider">Embedding Provider</a>.</p>
+</div>
 <p>Structure-aware hybrid document search combining semantic, keyword, and exact match modalities with contextual embeddings for superior retrieval quality.</p>
 <h3 id="when-to-use_1">When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
 <ul>
@@ -5115,6 +5141,13 @@ vectorized for semantic search.
 </tbody>
 </table>
 <p>Contextual embeddings prepend an LLM-generated summary to each chunk before embedding, yielding ~49% better retrieval accuracy (per Anthropic research). Uses Claude Haiku by default.</p>
+<blockquote>
+<p><strong>Embedding provider behaviour by backend:</strong></p>
+<ul>
+<li><strong>Semantic Kernel backend</strong> (OpenAI, Azure OpenAI, Ollama): Uses the agent's own model provider for embeddings. The tool's <code>embedding_model</code> field (if set) selects the model within that provider.</li>
+<li><strong>Claude Agent SDK backend</strong> (Anthropic): Anthropic does not offer embedding models. The agent-level <code>embedding_provider</code> is used instead for all embedding generation.</li>
+</ul>
+</blockquote>
 <div class="highlight"><pre><span></span><code><span class="nt">contextual_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">context_max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
 <span class="nt">context_concurrency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>

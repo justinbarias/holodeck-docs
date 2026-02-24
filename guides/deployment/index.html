@@ -2262,6 +2262,10 @@
 <li><strong>DIY Manual</strong> - Build and deploy using the HoloDeck base image directly</li>
 </ul>
 <p>Both approaches create OCI-compliant container images that run your agent as an HTTP server.</p>
+<div class="admonition warning">
+<p class="admonition-title">Claude Agent SDK Not Yet Supported</p>
+<p>Container deployment currently supports <strong>Semantic Kernel backends only</strong> (OpenAI, Azure OpenAI, Ollama). Agents configured with <code>provider: anthropic</code> cannot be deployed as containers yet because <code>holodeck serve</code> — which the container entrypoint relies on — does not yet support the Claude Agent SDK backend. Claude agent deployment is planned for a future release.</p>
+</div>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Build a container image from your agent configuration</span>
 holodeck<span class="w"> </span>deploy<span class="w"> </span>build<span class="w"> </span>agent.yaml

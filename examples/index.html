@@ -940,6 +940,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#claude_agentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        claude_agent.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1469,6 +1480,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#claude_agentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        claude_agent.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1608,6 +1630,11 @@
 <td><a href="#with-global-config"><code>with_global_config.yaml</code></a></td>
 <td>Multi-environment setups</td>
 <td>Config precedence, env var substitution, inheritance</td>
+</tr>
+<tr>
+<td><a href="#claude-agent"><code>claude_agent.yaml</code></a></td>
+<td>Claude-native agents</td>
+<td>OAuth auth, embedding_provider, Claude SDK settings, extended thinking</td>
 </tr>
 </tbody>
 </table>
@@ -1913,6 +1940,47 @@ holodeck<span class="w"> </span>run<span class="w"> </span>with_global_config.ya
 <span class="c1"># Same agent.yaml works in all environments</span>
 holodeck<span class="w"> </span>run<span class="w"> </span>with_global_config.yaml
 </code></pre></div></p>
+<hr />
+<h3 id="claude_agentyaml"><code>claude_agent.yaml</code><a class="headerlink" href="#claude_agentyaml" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Claude-native agent with SDK-specific settings</p>
+<p><strong>Features</strong>:
+- <strong>OAuth token authentication</strong>: Uses <code>CLAUDE_CODE_OAUTH_TOKEN</code> via <code>auth_provider: oauth_token</code>
+- <strong>Embedding provider</strong>: Required for vectorstore tools with Anthropic (uses Ollama)
+- <strong>Claude SDK config</strong>: Extended thinking, web search, permission mode
+- <strong>Vectorstore tool</strong>: Semantic search over research data
+- <strong>Evaluations</strong>: G-Eval and RAG faithfulness metrics</p>
+<p><strong>When to use</strong>:
+- Building agents with Anthropic Claude models
+- Needing extended thinking for complex reasoning tasks
+- Using web search as a built-in capability
+- Leveraging native Claude Agent SDK features (subagents, bash, file system)</p>
+<p><strong>Prerequisites</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Node.js 18+ (required for Claude Agent SDK subprocess)</span>
+node<span class="w"> </span>--version
+
+<span class="c1"># Ollama running with embedding model (for vectorstore tools)</span>
+ollama<span class="w"> </span>pull<span class="w"> </span>nomic-embed-text:latest
+ollama<span class="w"> </span>serve
+
+<span class="c1"># Set OAuth token</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="o">=</span>your-oauth-token
+</code></pre></div></p>
+<p><strong>Try it</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Create sample data directory</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>./data/research/
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;RAG combines retrieval and generation for grounded answers.&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>./data/research/rag_basics.txt
+
+<span class="c1"># Run the agent</span>
+holodeck<span class="w"> </span>chat<span class="w"> </span>claude_agent.yaml
+
+<span class="c1"># Run tests</span>
+holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>claude_agent.yaml
+</code></pre></div></p>
+<p><strong>Key Concepts</strong>:
+- <code>auth_provider</code> — Selects authentication method for Anthropic (<code>api_key</code>, <code>oauth_token</code>, <code>bedrock</code>, <code>vertex</code>, <code>foundry</code>)
+- <code>embedding_provider</code> — Required because Anthropic does not provide embedding models; must use a separate provider (Ollama, OpenAI) for vectorstore/hierarchical_document tools
+- <code>claude</code> section — SDK-specific settings: <code>permission_mode</code>, <code>max_turns</code>, <code>extended_thinking</code>, <code>web_search</code>, <code>bash</code>, <code>file_system</code>, <code>subagents</code>, <code>allowed_tools</code>
+- All Claude capabilities default to disabled (least-privilege)</p>
 <hr />
 <h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-development-vs-production">Pattern 1: Development vs. Production<a class="headerlink" href="#pattern-1-development-vs-production" title="Permanent link">&para;</a></h3>

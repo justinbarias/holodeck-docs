@@ -2398,6 +2398,10 @@
 <li><strong>REST API Protocol</strong> - Traditional REST endpoints with JSON/SSE responses</li>
 </ul>
 <p>Both protocols support streaming responses, session management, multimodal file uploads, and health checks.</p>
+<div class="admonition warning">
+<p class="admonition-title">Claude Agent SDK Not Yet Supported</p>
+<p><code>holodeck serve</code> currently supports <strong>Semantic Kernel backends only</strong> (OpenAI, Azure OpenAI, Ollama). Agents configured with <code>provider: anthropic</code> cannot be served via this command yet. Claude Agent SDK server support is planned for a future release.</p>
+</div>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Start server with AG-UI protocol (default)</span>
 holodeck<span class="w"> </span>serve<span class="w"> </span>agent.yaml
@@ -2519,8 +2523,10 @@ holodeck<span class="w"> </span>serve<span class="w"> </span>agent.yaml<span cla
              ▼
 ┌─────────────────────────┐
 │  Agent Execution        │
-│  (Semantic Kernel)      │
+│  (SK backend only*)     │
 └─────────────────────────┘
+
+*Claude Agent SDK backend support for serve is planned for a future release.
 </code></pre></div>
 <h3 id="threadsession-mapping">Thread/Session Mapping<a class="headerlink" href="#threadsession-mapping" title="Permanent link">&para;</a></h3>
 <p>AG-UI <code>thread_id</code> maps directly to HoloDeck <code>session_id</code> for conversation continuity.</p>
