@@ -13940,19 +13940,7 @@ to provider defaults when no explicit value is configured.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/tool_initializer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
@@ -13993,7 +13981,19 @@ to provider defaults when no explicit value is configured.</p>
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">resolve_embedding_model</span><span class="p">(</span><span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">resolve_embedding_model</span><span class="p">(</span><span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolve embedding model name from agent config.</span>
 
 <span class="sd">    Checks vectorstore and hierarchical-doc tool configs for explicit</span>
@@ -14148,19 +14148,7 @@ For OpenAI/Azure/Ollama: uses <code>agent.model</code> config directly.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/tool_initializer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
@@ -14208,7 +14196,19 @@ For OpenAI/Azure/Ollama: uses <code>agent.model</code> config directly.</p>
 <span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span>
-<span class="normal">145</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_embedding_service</span><span class="p">(</span><span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_embedding_service</span><span class="p">(</span><span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an SK TextEmbedding service from agent config.</span>
 
 <span class="sd">    For Anthropic provider: uses ``agent.embedding_provider`` config.</span>
@@ -14456,19 +14456,7 @@ When provided, takes highest priority for contextual embeddings.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/tool_initializer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span>
 <span class="normal">163</span>
@@ -14545,7 +14533,19 @@ When provided, takes highest priority for contextual embeddings.</p>
 <span class="normal">234</span>
 <span class="normal">235</span>
 <span class="normal">236</span>
-<span class="normal">237</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize_tools</span><span class="p">(</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize_tools</span><span class="p">(</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">force_ingest</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">execution_config</span><span class="p">:</span> <span class="n">ExecutionConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -14834,48 +14834,7 @@ When provided, takes highest priority for contextual embeddings.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/tool_initializer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">527</span>
-<span class="normal">528</span>
-<span class="normal">529</span>
-<span class="normal">530</span>
-<span class="normal">531</span>
-<span class="normal">532</span>
-<span class="normal">533</span>
-<span class="normal">534</span>
-<span class="normal">535</span>
-<span class="normal">536</span>
-<span class="normal">537</span>
-<span class="normal">538</span>
-<span class="normal">539</span>
-<span class="normal">540</span>
-<span class="normal">541</span>
-<span class="normal">542</span>
-<span class="normal">543</span>
-<span class="normal">544</span>
-<span class="normal">545</span>
-<span class="normal">546</span>
-<span class="normal">547</span>
-<span class="normal">548</span>
-<span class="normal">549</span>
-<span class="normal">550</span>
-<span class="normal">551</span>
-<span class="normal">552</span>
-<span class="normal">553</span>
-<span class="normal">554</span>
-<span class="normal">555</span>
-<span class="normal">556</span>
-<span class="normal">557</span>
-<span class="normal">558</span>
-<span class="normal">559</span>
-<span class="normal">560</span>
-<span class="normal">561</span>
-<span class="normal">562</span>
-<span class="normal">563</span>
-<span class="normal">564</span>
-<span class="normal">565</span>
-<span class="normal">566</span>
-<span class="normal">567</span>
-<span class="normal">568</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">568</span>
 <span class="normal">569</span>
 <span class="normal">570</span>
 <span class="normal">571</span>
@@ -14894,7 +14853,77 @@ When provided, takes highest priority for contextual embeddings.</p>
 <span class="normal">584</span>
 <span class="normal">585</span>
 <span class="normal">586</span>
-<span class="normal">587</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize_hierarchical_doc_tools</span><span class="p">(</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span>
+<span class="normal">601</span>
+<span class="normal">602</span>
+<span class="normal">603</span>
+<span class="normal">604</span>
+<span class="normal">605</span>
+<span class="normal">606</span>
+<span class="normal">607</span>
+<span class="normal">608</span>
+<span class="normal">609</span>
+<span class="normal">610</span>
+<span class="normal">611</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span>
+<span class="normal">616</span>
+<span class="normal">617</span>
+<span class="normal">618</span>
+<span class="normal">619</span>
+<span class="normal">620</span>
+<span class="normal">621</span>
+<span class="normal">622</span>
+<span class="normal">623</span>
+<span class="normal">624</span>
+<span class="normal">625</span>
+<span class="normal">626</span>
+<span class="normal">627</span>
+<span class="normal">628</span>
+<span class="normal">629</span>
+<span class="normal">630</span>
+<span class="normal">631</span>
+<span class="normal">632</span>
+<span class="normal">633</span>
+<span class="normal">634</span>
+<span class="normal">635</span>
+<span class="normal">636</span>
+<span class="normal">637</span>
+<span class="normal">638</span>
+<span class="normal">639</span>
+<span class="normal">640</span>
+<span class="normal">641</span>
+<span class="normal">642</span>
+<span class="normal">643</span>
+<span class="normal">644</span>
+<span class="normal">645</span>
+<span class="normal">646</span>
+<span class="normal">647</span>
+<span class="normal">648</span>
+<span class="normal">649</span>
+<span class="normal">650</span>
+<span class="normal">651</span>
+<span class="normal">652</span>
+<span class="normal">653</span>
+<span class="normal">654</span>
+<span class="normal">655</span>
+<span class="normal">656</span>
+<span class="normal">657</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize_hierarchical_doc_tools</span><span class="p">(</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">embedding_service</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="n">chat_service</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
@@ -14924,35 +14953,64 @@ When provided, takes highest priority for contextual embeddings.</p>
     <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.tools.hierarchical_document_tool</span><span class="w"> </span><span class="kn">import</span> <span class="n">HierarchicalDocumentTool</span>
 
     <span class="n">instances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">cleanup_stack</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">for</span> <span class="n">tool_config</span> <span class="ow">in</span> <span class="n">agent</span><span class="o">.</span><span class="n">tools</span> <span class="ow">or</span> <span class="p">[]:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool_config</span><span class="p">,</span> <span class="n">HierarchicalDocumentToolConfig</span><span class="p">):</span>
-            <span class="k">continue</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">tool_config</span> <span class="ow">in</span> <span class="n">agent</span><span class="o">.</span><span class="n">tools</span> <span class="ow">or</span> <span class="p">[]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool_config</span><span class="p">,</span> <span class="n">HierarchicalDocumentToolConfig</span><span class="p">):</span>
+                <span class="k">continue</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">tool</span> <span class="o">=</span> <span class="n">HierarchicalDocumentTool</span><span class="p">(</span><span class="n">tool_config</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="n">base_dir</span><span class="p">)</span>
-            <span class="n">tool</span><span class="o">.</span><span class="n">set_embedding_service</span><span class="p">(</span><span class="n">embedding_service</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Resolve remote source if needed</span>
+                <span class="n">effective_config</span> <span class="o">=</span> <span class="n">tool_config</span>
+                <span class="n">is_remote</span> <span class="o">=</span> <span class="n">_is_remote_source</span><span class="p">(</span><span class="n">tool_config</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+                <span class="n">resolved_local_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">is_remote</span><span class="p">:</span>
+                    <span class="n">resolved</span> <span class="o">=</span> <span class="k">await</span> <span class="n">SourceResolver</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
+                        <span class="n">tool_config</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">base_dir</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">resolved</span><span class="o">.</span><span class="n">temp_dir</span><span class="p">:</span>
+                        <span class="n">cleanup_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">temp_dir</span><span class="p">)</span>
+                    <span class="n">resolved_local_path</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">local_path</span>
+                    <span class="n">effective_config</span> <span class="o">=</span> <span class="n">tool_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+                        <span class="n">update</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">resolved_local_path</span><span class="p">)}</span>
+                    <span class="p">)</span>
 
-            <span class="c1"># Resolve context generator via 5-tier priority chain</span>
-            <span class="n">resolved_generator</span> <span class="o">=</span> <span class="n">_resolve_context_generator</span><span class="p">(</span>
-                <span class="n">agent</span><span class="o">=</span><span class="n">agent</span><span class="p">,</span>
-                <span class="n">tool_config</span><span class="o">=</span><span class="n">tool_config</span><span class="p">,</span>
-                <span class="n">context_generator</span><span class="o">=</span><span class="n">context_generator</span><span class="p">,</span>
-                <span class="n">chat_service</span><span class="o">=</span><span class="n">chat_service</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="n">resolved_generator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">tool</span><span class="o">.</span><span class="n">set_context_generator</span><span class="p">(</span><span class="n">resolved_generator</span><span class="p">)</span>
+                <span class="n">tool</span> <span class="o">=</span> <span class="n">HierarchicalDocumentTool</span><span class="p">(</span><span class="n">effective_config</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="n">base_dir</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">is_remote</span> <span class="ow">and</span> <span class="n">resolved_local_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">tool</span><span class="o">.</span><span class="n">set_source_context</span><span class="p">(</span>
+                        <span class="n">source_root</span><span class="o">=</span><span class="n">resolved_local_path</span><span class="p">,</span>
+                        <span class="n">is_remote</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="n">tool</span><span class="o">.</span><span class="n">set_embedding_service</span><span class="p">(</span><span class="n">embedding_service</span><span class="p">)</span>
 
-            <span class="k">await</span> <span class="n">tool</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span>
-                <span class="n">force_ingest</span><span class="o">=</span><span class="n">force_ingest</span><span class="p">,</span> <span class="n">provider_type</span><span class="o">=</span><span class="n">provider_type</span>
-            <span class="p">)</span>
-            <span class="n">instances</span><span class="p">[</span><span class="n">tool_config</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initialized hierarchical document tool: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">tool_config</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ToolInitializerError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Failed to initialize hierarchical document tool &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">tool_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+                <span class="c1"># Resolve context generator via 5-tier priority chain</span>
+                <span class="n">resolved_generator</span> <span class="o">=</span> <span class="n">_resolve_context_generator</span><span class="p">(</span>
+                    <span class="n">agent</span><span class="o">=</span><span class="n">agent</span><span class="p">,</span>
+                    <span class="n">tool_config</span><span class="o">=</span><span class="n">tool_config</span><span class="p">,</span>
+                    <span class="n">context_generator</span><span class="o">=</span><span class="n">context_generator</span><span class="p">,</span>
+                    <span class="n">chat_service</span><span class="o">=</span><span class="n">chat_service</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">resolved_generator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">tool</span><span class="o">.</span><span class="n">set_context_generator</span><span class="p">(</span><span class="n">resolved_generator</span><span class="p">)</span>
+
+                <span class="k">await</span> <span class="n">tool</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span>
+                    <span class="n">force_ingest</span><span class="o">=</span><span class="n">force_ingest</span><span class="p">,</span> <span class="n">provider_type</span><span class="o">=</span><span class="n">provider_type</span>
+                <span class="p">)</span>
+                <span class="n">instances</span><span class="p">[</span><span class="n">tool_config</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Initialized hierarchical document tool: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">tool_config</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ToolInitializerError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to initialize hierarchical document tool &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">tool_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">temp_dir</span> <span class="ow">in</span> <span class="n">cleanup_stack</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">SourceResolver</span><span class="o">.</span><span class="n">cleanup</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span>
+        <span class="k">raise</span>
 
     <span class="k">return</span> <span class="n">instances</span>
 </code></pre></div></td></tr></table></div>
@@ -16047,7 +16105,8 @@ Each collection can have its own DocumentRecord type.</p>
 <span class="normal">501</span>
 <span class="normal">502</span>
 <span class="normal">503</span>
-<span class="normal">504</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_document_record_class</span><span class="p">(</span><span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1536</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="normal">504</span>
+<span class="normal">505</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_document_record_class</span><span class="p">(</span><span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1536</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a DocumentRecord class with specified embedding dimensions.</span>
 
 <span class="sd">    This factory creates a new DocumentRecord dataclass with custom dimensions.</span>
@@ -16111,6 +16170,7 @@ Each collection can have its own DocumentRecord type.</p>
         <span class="n">mtime</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
         <span class="n">file_type</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">file_size_bytes</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">content_hash</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">DynamicDocumentRecord</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -16284,8 +16344,7 @@ record = RecordClass(
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/vector_store.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">507</span>
-<span class="normal">508</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">508</span>
 <span class="normal">509</span>
 <span class="normal">510</span>
 <span class="normal">511</span>
@@ -16426,7 +16485,8 @@ record = RecordClass(
 <span class="normal">646</span>
 <span class="normal">647</span>
 <span class="normal">648</span>
-<span class="normal">649</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_structured_record_class</span><span class="p">(</span>
+<span class="normal">649</span>
+<span class="normal">650</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_structured_record_class</span><span class="p">(</span>
     <span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1536</span><span class="p">,</span>
     <span class="n">metadata_field_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;structured_records&quot;</span><span class="p">,</span>
@@ -16715,8 +16775,7 @@ record = RecordClass(
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/vector_store.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">656</span>
-<span class="normal">657</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">657</span>
 <span class="normal">658</span>
 <span class="normal">659</span>
 <span class="normal">660</span>
@@ -16825,7 +16884,9 @@ record = RecordClass(
 <span class="normal">763</span>
 <span class="normal">764</span>
 <span class="normal">765</span>
-<span class="normal">766</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_hierarchical_document_record_class</span><span class="p">(</span>
+<span class="normal">766</span>
+<span class="normal">767</span>
+<span class="normal">768</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_hierarchical_document_record_class</span><span class="p">(</span>
     <span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1536</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a HierarchicalDocumentRecord class with specified embedding dimensions.</span>
@@ -16934,6 +16995,7 @@ record = RecordClass(
             <span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">is_indexed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">subsection_ids</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;[]&quot;</span><span class="p">)</span>
+        <span class="n">content_hash</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">DynamicHierarchicalDocumentRecord</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -17047,9 +17109,7 @@ when optional dependencies are not installed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/vector_store.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">827</span>
-<span class="normal">828</span>
-<span class="normal">829</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">829</span>
 <span class="normal">830</span>
 <span class="normal">831</span>
 <span class="normal">832</span>
@@ -17125,7 +17185,9 @@ when optional dependencies are not installed.</p>
 <span class="normal">902</span>
 <span class="normal">903</span>
 <span class="normal">904</span>
-<span class="normal">905</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_collection_class</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="normal">905</span>
+<span class="normal">906</span>
+<span class="normal">907</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_collection_class</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Lazily import and return the collection class for a provider.</span>
 
 <span class="sd">    This function imports connector classes on-demand to avoid import errors</span>
@@ -17433,9 +17495,7 @@ provided, an ephemeral in-memory client is created.
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/vector_store.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 908</span>
-<span class="normal"> 909</span>
-<span class="normal"> 910</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 910</span>
 <span class="normal"> 911</span>
 <span class="normal"> 912</span>
 <span class="normal"> 913</span>
@@ -17686,7 +17746,9 @@ provided, an ephemeral in-memory client is created.
 <span class="normal">1158</span>
 <span class="normal">1159</span>
 <span class="normal">1160</span>
-<span class="normal">1161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_collection_factory</span><span class="p">(</span>
+<span class="normal">1161</span>
+<span class="normal">1162</span>
+<span class="normal">1163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_collection_factory</span><span class="p">(</span>
     <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1536</span><span class="p">,</span>
     <span class="n">record_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
