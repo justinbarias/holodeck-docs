@@ -2936,7 +2936,7 @@ to avoid ImportError when docker is not installed.</p>
 
 
 <h3 id="holodeck.deploy.generate_dockerfile" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">generate_dockerfile</span><span class="p">(</span><span class="n">agent_name</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">base_image</span><span class="o">=</span><span class="s1">&#39;ghcr.io/justinbarias/holodeck-base:latest&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">,</span> <span class="n">source_url</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">instruction_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_directories</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">needs_nodejs</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">generate_dockerfile</span><span class="p">(</span><span class="n">agent_name</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">base_image</span><span class="o">=</span><span class="s1">&#39;ghcr.io/justinbarias/holodeck-base:latest&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">,</span> <span class="n">source_url</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">instruction_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_directories</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">needs_nodejs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extras</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.deploy.generate_dockerfile" class="headerlink" title="Permanent link">&para;</a></h3>
 
@@ -3117,6 +3117,22 @@ to avoid ImportError when docker is not installed.</p>
                   <code>False</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>extras</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>holodeck-ai extras to install (e.g., ["chromadb"])</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -3165,13 +3181,7 @@ print(dockerfile[:50])</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/deploy/dockerfile.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
 <span class="normal"> 93</span>
 <span class="normal"> 94</span>
 <span class="normal"> 95</span>
@@ -3223,7 +3233,16 @@ print(dockerfile[:50])</p>
 <span class="normal">141</span>
 <span class="normal">142</span>
 <span class="normal">143</span>
-<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_dockerfile</span><span class="p">(</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_dockerfile</span><span class="p">(</span>
     <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">protocol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -3235,6 +3254,7 @@ print(dockerfile[:50])</p>
     <span class="n">data_directories</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">environment</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">needs_nodejs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">extras</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a Dockerfile for a HoloDeck agent.</span>
 
@@ -3249,6 +3269,7 @@ print(dockerfile[:50])</p>
 <span class="sd">        data_directories: List of data directories to copy</span>
 <span class="sd">        environment: Environment variables to set</span>
 <span class="sd">        needs_nodejs: Whether to install Node.js (required for Claude Agent SDK)</span>
+<span class="sd">        extras: holodeck-ai extras to install (e.g., [&quot;chromadb&quot;])</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Generated Dockerfile content as a string</span>
@@ -3281,6 +3302,7 @@ print(dockerfile[:50])</p>
         <span class="n">data_directories</span><span class="o">=</span><span class="n">data_directories</span> <span class="ow">or</span> <span class="p">[],</span>
         <span class="n">environment</span><span class="o">=</span><span class="n">environment</span> <span class="ow">or</span> <span class="p">{},</span>
         <span class="n">needs_nodejs</span><span class="o">=</span><span class="n">needs_nodejs</span><span class="p">,</span>
+        <span class="n">extras</span><span class="o">=</span><span class="n">extras</span> <span class="ow">or</span> <span class="p">[],</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3744,7 +3766,7 @@ variables, instruction files, and optional Node.js installation for Claude agent
 
 
 <h2 id="holodeck.deploy.dockerfile.generate_dockerfile" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">generate_dockerfile</span><span class="p">(</span><span class="n">agent_name</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">base_image</span><span class="o">=</span><span class="s1">&#39;ghcr.io/justinbarias/holodeck-base:latest&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">,</span> <span class="n">source_url</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">instruction_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_directories</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">needs_nodejs</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">generate_dockerfile</span><span class="p">(</span><span class="n">agent_name</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">base_image</span><span class="o">=</span><span class="s1">&#39;ghcr.io/justinbarias/holodeck-base:latest&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">,</span> <span class="n">source_url</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">instruction_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_directories</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">needs_nodejs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extras</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.deploy.dockerfile.generate_dockerfile" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -3925,6 +3947,22 @@ variables, instruction files, and optional Node.js installation for Claude agent
                   <code>False</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>extras</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>holodeck-ai extras to install (e.g., ["chromadb"])</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -3973,13 +4011,7 @@ print(dockerfile[:50])</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/deploy/dockerfile.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
 <span class="normal"> 93</span>
 <span class="normal"> 94</span>
 <span class="normal"> 95</span>
@@ -4031,7 +4063,16 @@ print(dockerfile[:50])</p>
 <span class="normal">141</span>
 <span class="normal">142</span>
 <span class="normal">143</span>
-<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_dockerfile</span><span class="p">(</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_dockerfile</span><span class="p">(</span>
     <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">protocol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -4043,6 +4084,7 @@ print(dockerfile[:50])</p>
     <span class="n">data_directories</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">environment</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">needs_nodejs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">extras</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a Dockerfile for a HoloDeck agent.</span>
 
@@ -4057,6 +4099,7 @@ print(dockerfile[:50])</p>
 <span class="sd">        data_directories: List of data directories to copy</span>
 <span class="sd">        environment: Environment variables to set</span>
 <span class="sd">        needs_nodejs: Whether to install Node.js (required for Claude Agent SDK)</span>
+<span class="sd">        extras: holodeck-ai extras to install (e.g., [&quot;chromadb&quot;])</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Generated Dockerfile content as a string</span>
@@ -4089,6 +4132,7 @@ print(dockerfile[:50])</p>
         <span class="n">data_directories</span><span class="o">=</span><span class="n">data_directories</span> <span class="ow">or</span> <span class="p">[],</span>
         <span class="n">environment</span><span class="o">=</span><span class="n">environment</span> <span class="ow">or</span> <span class="p">{},</span>
         <span class="n">needs_nodejs</span><span class="o">=</span><span class="n">needs_nodejs</span><span class="p">,</span>
+        <span class="n">extras</span><span class="o">=</span><span class="n">extras</span> <span class="ow">or</span> <span class="p">[],</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>

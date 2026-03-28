@@ -8207,7 +8207,23 @@ with appropriate logging, user feedback, and exit codes.</p>
 <span class="normal">588</span>
 <span class="normal">589</span>
 <span class="normal">590</span>
-<span class="normal">591</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_generate_dockerfile_content</span><span class="p">(</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span>
+<span class="normal">601</span>
+<span class="normal">602</span>
+<span class="normal">603</span>
+<span class="normal">604</span>
+<span class="normal">605</span>
+<span class="normal">606</span>
+<span class="normal">607</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_generate_dockerfile_content</span><span class="p">(</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">deployment_config</span><span class="p">:</span> <span class="n">DeploymentConfig</span><span class="p">,</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -8223,7 +8239,7 @@ with appropriate logging, user feedback, and exit codes.</p>
 <span class="sd">        Generated Dockerfile content</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.deploy.dockerfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_dockerfile</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.models.tool</span><span class="w"> </span><span class="kn">import</span> <span class="n">VectorstoreTool</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.models.tool</span><span class="w"> </span><span class="kn">import</span> <span class="n">HierarchicalDocumentToolConfig</span><span class="p">,</span> <span class="n">VectorstoreTool</span>
 
     <span class="c1"># Collect instruction files</span>
     <span class="n">instruction_files</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -8255,6 +8271,21 @@ with appropriate logging, user feedback, and exit codes.</p>
 
     <span class="n">needs_nodejs</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">provider</span> <span class="o">==</span> <span class="n">ProviderEnum</span><span class="o">.</span><span class="n">ANTHROPIC</span>
 
+    <span class="c1"># Detect required extras from agent config</span>
+    <span class="n">extras</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">agent</span><span class="o">.</span><span class="n">tools</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">VectorstoreTool</span> <span class="o">|</span> <span class="n">HierarchicalDocumentToolConfig</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tool</span><span class="o">.</span><span class="n">database</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tool</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="s2">&quot;provider&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;chromadb&quot;</span><span class="p">:</span>
+                <span class="n">extras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;chromadb&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">tool</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tool</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;az://&quot;</span><span class="p">):</span>
+                    <span class="n">extras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;azure-blob&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">tool</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;s3://&quot;</span><span class="p">):</span>
+                    <span class="n">extras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;s3&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">needs_nodejs</span><span class="p">:</span>
+        <span class="n">extras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;claude-otel&quot;</span><span class="p">)</span>
+    <span class="n">extras</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">extras</span><span class="p">))</span>
+
     <span class="k">return</span> <span class="n">generate_dockerfile</span><span class="p">(</span>
         <span class="n">agent_name</span><span class="o">=</span><span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
         <span class="n">port</span><span class="o">=</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
@@ -8264,6 +8295,7 @@ with appropriate logging, user feedback, and exit codes.</p>
         <span class="n">data_directories</span><span class="o">=</span><span class="n">data_directories</span> <span class="k">if</span> <span class="n">data_directories</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">environment</span><span class="o">=</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">environment</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">needs_nodejs</span><span class="o">=</span><span class="n">needs_nodejs</span><span class="p">,</span>
+        <span class="n">extras</span><span class="o">=</span><span class="n">extras</span> <span class="k">if</span> <span class="n">extras</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -8389,23 +8421,7 @@ with appropriate logging, user feedback, and exit codes.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/deploy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">594</span>
-<span class="normal">595</span>
-<span class="normal">596</span>
-<span class="normal">597</span>
-<span class="normal">598</span>
-<span class="normal">599</span>
-<span class="normal">600</span>
-<span class="normal">601</span>
-<span class="normal">602</span>
-<span class="normal">603</span>
-<span class="normal">604</span>
-<span class="normal">605</span>
-<span class="normal">606</span>
-<span class="normal">607</span>
-<span class="normal">608</span>
-<span class="normal">609</span>
-<span class="normal">610</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">610</span>
 <span class="normal">611</span>
 <span class="normal">612</span>
 <span class="normal">613</span>
@@ -8454,7 +8470,23 @@ with appropriate logging, user feedback, and exit codes.</p>
 <span class="normal">656</span>
 <span class="normal">657</span>
 <span class="normal">658</span>
-<span class="normal">659</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_prepare_build_context</span><span class="p">(</span>
+<span class="normal">659</span>
+<span class="normal">660</span>
+<span class="normal">661</span>
+<span class="normal">662</span>
+<span class="normal">663</span>
+<span class="normal">664</span>
+<span class="normal">665</span>
+<span class="normal">666</span>
+<span class="normal">667</span>
+<span class="normal">668</span>
+<span class="normal">669</span>
+<span class="normal">670</span>
+<span class="normal">671</span>
+<span class="normal">672</span>
+<span class="normal">673</span>
+<span class="normal">674</span>
+<span class="normal">675</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_prepare_build_context</span><span class="p">(</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">deployment_config</span><span class="p">:</span> <span class="n">DeploymentConfig</span><span class="p">,</span>
     <span class="n">agent_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -8593,29 +8625,29 @@ with appropriate logging, user feedback, and exit codes.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/deploy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">662</span>
-<span class="normal">663</span>
-<span class="normal">664</span>
-<span class="normal">665</span>
-<span class="normal">666</span>
-<span class="normal">667</span>
-<span class="normal">668</span>
-<span class="normal">669</span>
-<span class="normal">670</span>
-<span class="normal">671</span>
-<span class="normal">672</span>
-<span class="normal">673</span>
-<span class="normal">674</span>
-<span class="normal">675</span>
-<span class="normal">676</span>
-<span class="normal">677</span>
-<span class="normal">678</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">678</span>
 <span class="normal">679</span>
 <span class="normal">680</span>
 <span class="normal">681</span>
 <span class="normal">682</span>
 <span class="normal">683</span>
-<span class="normal">684</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_display_build_success</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">BuildResult</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">684</span>
+<span class="normal">685</span>
+<span class="normal">686</span>
+<span class="normal">687</span>
+<span class="normal">688</span>
+<span class="normal">689</span>
+<span class="normal">690</span>
+<span class="normal">691</span>
+<span class="normal">692</span>
+<span class="normal">693</span>
+<span class="normal">694</span>
+<span class="normal">695</span>
+<span class="normal">696</span>
+<span class="normal">697</span>
+<span class="normal">698</span>
+<span class="normal">699</span>
+<span class="normal">700</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_display_build_success</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">BuildResult</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Display build success message.</span>
 
 <span class="sd">    Args:</span>
@@ -8658,21 +8690,21 @@ with appropriate logging, user feedback, and exit codes.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/deploy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">687</span>
-<span class="normal">688</span>
-<span class="normal">689</span>
-<span class="normal">690</span>
-<span class="normal">691</span>
-<span class="normal">692</span>
-<span class="normal">693</span>
-<span class="normal">694</span>
-<span class="normal">695</span>
-<span class="normal">696</span>
-<span class="normal">697</span>
-<span class="normal">698</span>
-<span class="normal">699</span>
-<span class="normal">700</span>
-<span class="normal">701</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_load_agent_and_deployment</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">703</span>
+<span class="normal">704</span>
+<span class="normal">705</span>
+<span class="normal">706</span>
+<span class="normal">707</span>
+<span class="normal">708</span>
+<span class="normal">709</span>
+<span class="normal">710</span>
+<span class="normal">711</span>
+<span class="normal">712</span>
+<span class="normal">713</span>
+<span class="normal">714</span>
+<span class="normal">715</span>
+<span class="normal">716</span>
+<span class="normal">717</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_load_agent_and_deployment</span><span class="p">(</span>
     <span class="n">agent_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Agent</span><span class="p">,</span> <span class="n">DeploymentConfig</span><span class="p">,</span> <span class="n">Path</span><span class="p">]:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.config.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigLoader</span>
@@ -8707,16 +8739,16 @@ with appropriate logging, user feedback, and exit codes.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/deploy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">704</span>
-<span class="normal">705</span>
-<span class="normal">706</span>
-<span class="normal">707</span>
-<span class="normal">708</span>
-<span class="normal">709</span>
-<span class="normal">710</span>
-<span class="normal">711</span>
-<span class="normal">712</span>
-<span class="normal">713</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_ensure_azure_provider</span><span class="p">(</span><span class="n">deployment_config</span><span class="p">:</span> <span class="n">DeploymentConfig</span><span class="p">,</span> <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">720</span>
+<span class="normal">721</span>
+<span class="normal">722</span>
+<span class="normal">723</span>
+<span class="normal">724</span>
+<span class="normal">725</span>
+<span class="normal">726</span>
+<span class="normal">727</span>
+<span class="normal">728</span>
+<span class="normal">729</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_ensure_azure_provider</span><span class="p">(</span><span class="n">deployment_config</span><span class="p">:</span> <span class="n">DeploymentConfig</span><span class="p">,</span> <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">provider</span> <span class="o">=</span> <span class="n">deployment_config</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">provider</span>
     <span class="k">if</span> <span class="n">provider</span> <span class="o">!=</span> <span class="n">CloudProvider</span><span class="o">.</span><span class="n">AZURE</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">DeploymentError</span><span class="p">(</span>
@@ -8746,17 +8778,17 @@ with appropriate logging, user feedback, and exit codes.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/deploy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">716</span>
-<span class="normal">717</span>
-<span class="normal">718</span>
-<span class="normal">719</span>
-<span class="normal">720</span>
-<span class="normal">721</span>
-<span class="normal">722</span>
-<span class="normal">723</span>
-<span class="normal">724</span>
-<span class="normal">725</span>
-<span class="normal">726</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_resolve_image_uri</span><span class="p">(</span><span class="n">deployment_config</span><span class="p">:</span> <span class="n">DeploymentConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">732</span>
+<span class="normal">733</span>
+<span class="normal">734</span>
+<span class="normal">735</span>
+<span class="normal">736</span>
+<span class="normal">737</span>
+<span class="normal">738</span>
+<span class="normal">739</span>
+<span class="normal">740</span>
+<span class="normal">741</span>
+<span class="normal">742</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_resolve_image_uri</span><span class="p">(</span><span class="n">deployment_config</span><span class="p">:</span> <span class="n">DeploymentConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.deploy.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_tag</span>
 
     <span class="n">tag</span> <span class="o">=</span> <span class="n">generate_tag</span><span class="p">(</span>
