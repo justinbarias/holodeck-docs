@@ -799,6 +799,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#prompt-versioning-yaml-frontmatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Versioning (YAML Frontmatter)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1372,6 +1383,34 @@
     
   
     Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
   
 
     
@@ -2512,6 +2551,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#prompt-versioning-yaml-frontmatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Versioning (YAML Frontmatter)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3351,6 +3401,62 @@ Guidelines:
 <li><strong>Exactly one required</strong>: Either <code>inline</code> OR <code>file</code>, not both</li>
 <li><strong>Max length</strong> (inline): 5000 characters</li>
 <li><strong>File path</strong>: Relative to <code>agent.yaml</code> directory (see File References guide)</li>
+</ul>
+<h3 id="prompt-versioning-yaml-frontmatter">Prompt Versioning (YAML Frontmatter)<a class="headerlink" href="#prompt-versioning-yaml-frontmatter" title="Permanent link">&para;</a></h3>
+<p>When you use <code>instructions.file</code>, HoloDeck also parses optional YAML frontmatter at the top of the file to version and label the prompt. The frontmatter block is stripped before the body reaches the LLM — your prompt text is unchanged.</p>
+<div class="highlight"><pre><span></span><code>---
+version: v1.2.0
+author: your-name
+description: Short note describing what this prompt version does.
+tags:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>rag
+<span class="gu">  - customer-support</span>
+<span class="gu">---</span>
+
+<span class="gh"># System Prompt</span>
+
+You are a customer support specialist.
+...
+</code></pre></div>
+<p><strong>Recognised keys</strong> (all optional):</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>version</code></td>
+<td>string</td>
+<td>Your manual version identifier. If omitted, HoloDeck derives <code>auto-&lt;sha256[:8]&gt;</code> from the prompt body so every run still has a stable id.</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>string</td>
+<td>Free-form — who owns this version of the prompt.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string</td>
+<td>One-liner shown in the dashboard.</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>list of strings</td>
+<td>Free-form tags surfaced as filter chips in the dashboard.</td>
+</tr>
+</tbody>
+</table>
+<p>Any other keys are preserved under <code>extra</code> on the persisted run record — unknown keys don't error, they just don't populate the typed fields.</p>
+<p><strong>How it's used:</strong></p>
+<ul>
+<li>Every <code>holodeck test</code> run records the resolved <code>PromptVersion</code> on the eval-run JSON, including <code>body_hash</code> (full SHA-256 of the frontmatter-stripped body) for exact reproducibility.</li>
+<li>The <a href="../dashboard/">dashboard</a> groups runs by <code>version</code>, draws vertical markers on the pass-rate chart whenever <code>version</code> changes between consecutive runs, and surfaces <code>tags</code> as filter chips.</li>
+<li>Malformed YAML frontmatter fails the test run with a clear <code>ConfigError</code> — you cannot silently ship an unparseable prompt header.</li>
+<li>Inline instructions (<code>instructions.inline</code>) skip frontmatter entirely and always resolve to <code>version: auto-&lt;sha256[:8]&gt;</code> with <code>source: inline</code>.</li>
 </ul>
 <h2 id="response-format">Response Format<a class="headerlink" href="#response-format" title="Permanent link">&para;</a></h2>
 <p>Defines the expected structure of the agent's responses (agent-level only).</p>

@@ -618,6 +618,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/global-config/" class="md-nav__link">
         
   
@@ -4712,7 +4740,7 @@ Full customization without prompts:
 
 
 <h2 id="holodeck.cli.commands.test.test" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">test</span><span class="p">(</span><span class="n">agent_config</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">force_ingest</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">test</span><span class="p">()</span></code>
 
 <a href="#holodeck.cli.commands.test.test" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -4720,45 +4748,15 @@ Full customization without prompts:
     <div class="doc doc-contents first">
 
         <p>Execute agent test cases with evaluation metrics.</p>
-<p>Runs test cases defined in the agent configuration file and displays
-pass/fail status with evaluation metric scores.</p>
-<p>AGENT_CONFIG is the path to the agent.yaml configuration file.</p>
+<p>Default subcommand is <code>run</code> — so <code>holodeck test agent.yaml</code> stays valid
+shorthand for <code>holodeck test run agent.yaml</code>. Subcommands:</p>
+<p>run    Execute test cases (default).
+  view   Launch the Dash evaluation dashboard.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/test.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span>
@@ -4767,435 +4765,16 @@ pass/fail status with evaluation metric scores.</p>
 <span class="normal">106</span>
 <span class="normal">107</span>
 <span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;agent_config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;agent.yaml&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;--output&quot;</span><span class="p">,</span>
-    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to save test report file (JSON or Markdown)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;--format&quot;</span><span class="p">,</span>
-    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="s2">&quot;markdown&quot;</span><span class="p">]),</span>
-    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Report format (auto-detect from extension if not specified)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Enable verbose output with debug information&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;-q&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Suppress progress output (summary still shown)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;--timeout&quot;</span><span class="p">,</span>
-    <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
-    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;LLM execution timeout in seconds&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;--force-ingest&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Force re-ingestion of all vector store source files&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span>
-    <span class="n">agent_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">output</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">force_ingest</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">_TestGroup</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute agent test cases with evaluation metrics.</span>
 
-<span class="sd">    Runs test cases defined in the agent configuration file and displays</span>
-<span class="sd">    pass/fail status with evaluation metric scores.</span>
+<span class="sd">    Default subcommand is `run` — so `holodeck test agent.yaml` stays valid</span>
+<span class="sd">    shorthand for `holodeck test run agent.yaml`. Subcommands:</span>
 
-<span class="sd">    AGENT_CONFIG is the path to the agent.yaml configuration file.</span>
+<span class="sd">      run    Execute test cases (default).</span>
+<span class="sd">      view   Launch the Dash evaluation dashboard.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Initialize observability context (will be set if observability enabled)</span>
-    <span class="n">obs_context</span><span class="p">:</span> <span class="n">ObservabilityContext</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">effective_quiet</span> <span class="o">=</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">verbose</span>
-
-    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Create execution config from CLI options</span>
-        <span class="n">cli_config</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">verbose</span> <span class="ow">or</span> <span class="n">quiet</span><span class="p">:</span>
-            <span class="n">cli_config</span> <span class="o">=</span> <span class="n">ExecutionConfig</span><span class="p">(</span>
-                <span class="n">llm_timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
-                <span class="n">file_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">download_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">cache_enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">cache_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="p">)</span>
-
-        <span class="c1"># Load agent config and resolve execution config in one call</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.config.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_agent_with_config</span>
-
-        <span class="n">agent</span><span class="p">,</span> <span class="n">resolved_config</span><span class="p">,</span> <span class="n">_loader</span> <span class="o">=</span> <span class="n">load_agent_with_config</span><span class="p">(</span>
-            <span class="n">agent_config</span><span class="p">,</span> <span class="n">cli_config</span><span class="o">=</span><span class="n">cli_config</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Determine logging strategy: OTel replaces setup_logging when enabled</span>
-        <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">observability</span> <span class="ow">and</span> <span class="n">agent</span><span class="o">.</span><span class="n">observability</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-            <span class="c1"># OTel handles all logging - skip setup_logging</span>
-            <span class="c1"># Console exporter not enabled by default (only serve enables it)</span>
-            <span class="n">obs_context</span> <span class="o">=</span> <span class="n">initialize_observability</span><span class="p">(</span>
-                <span class="n">agent</span><span class="o">.</span><span class="n">observability</span><span class="p">,</span> <span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Traditional logging</span>
-            <span class="n">setup_logging</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">effective_quiet</span><span class="p">)</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Test command invoked: config=</span><span class="si">{</span><span class="n">agent_config</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;verbose=</span><span class="si">{</span><span class="n">verbose</span><span class="si">}</span><span class="s2">, quiet=</span><span class="si">{</span><span class="n">quiet</span><span class="si">}</span><span class="s2">, timeout=</span><span class="si">{</span><span class="n">timeout</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;force_ingest=</span><span class="si">{</span><span class="n">force_ingest</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading agent configuration from </span><span class="si">{</span><span class="n">agent_config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent configuration loaded successfully: </span><span class="si">{</span><span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Resolved execution config: verbose=</span><span class="si">{</span><span class="n">resolved_config</span><span class="o">.</span><span class="n">verbose</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;quiet=</span><span class="si">{</span><span class="n">resolved_config</span><span class="o">.</span><span class="n">quiet</span><span class="si">}</span><span class="s2">, llm_timeout=</span><span class="si">{</span><span class="n">resolved_config</span><span class="o">.</span><span class="n">llm_timeout</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Get total test count</span>
-        <span class="n">total_tests</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">test_cases</span><span class="p">)</span> <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">test_cases</span> <span class="k">else</span> <span class="mi">0</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">total_tests</span><span class="si">}</span><span class="s2"> test cases to execute&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Initialize progress indicator</span>
-        <span class="n">progress</span> <span class="o">=</span> <span class="n">ProgressIndicator</span><span class="p">(</span>
-            <span class="n">total_tests</span><span class="o">=</span><span class="n">total_tests</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Initialize spinner thread</span>
-        <span class="n">spinner_thread</span> <span class="o">=</span> <span class="n">SpinnerThread</span><span class="p">(</span><span class="n">progress</span><span class="p">)</span>
-
-        <span class="c1"># Define callbacks</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">on_test_start</span><span class="p">(</span><span class="n">test_case</span><span class="p">:</span> <span class="n">TestCaseModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Start spinner for new test.&quot;&quot;&quot;</span>
-            <span class="n">progress</span><span class="o">.</span><span class="n">start_test</span><span class="p">(</span><span class="n">test_case</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;Test&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">spinner_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">():</span>
-                <span class="c1"># Start thread if not running (it handles its own loop)</span>
-                <span class="c1"># Note: We can&#39;t restart a thread, so we might need a new instance</span>
-                <span class="c1"># or just keep it running and use events.</span>
-                <span class="c1"># Simpler approach: Start it once before execution and use flags.</span>
-                <span class="k">pass</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">progress_callback</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">TestResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Update progress indicator and display progress line.&quot;&quot;&quot;</span>
-            <span class="c1"># Temporarily stop spinner to print result</span>
-            <span class="c1"># In a real implementation with threading, we might need a lock</span>
-            <span class="c1"># But here we just clear the line in the main thread (via update)</span>
-
-            <span class="c1"># Update progress state</span>
-            <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-            <span class="c1"># Get formatted result line</span>
-            <span class="n">progress_line</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">get_progress_line</span><span class="p">()</span>
-
-            <span class="k">if</span> <span class="n">progress_line</span><span class="p">:</span>  <span class="c1"># Only print if not empty (respects quiet mode)</span>
-                <span class="c1"># Clear current line (handled by \r in spinner)</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">progress_line</span><span class="p">)</span>
-
-        <span class="c1"># Initialize executor with pre-loaded configs to avoid duplicate I/O</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initializing test executor&quot;</span><span class="p">)</span>
-        <span class="n">executor</span> <span class="o">=</span> <span class="n">TestExecutor</span><span class="p">(</span>
-            <span class="n">agent_config_path</span><span class="o">=</span><span class="n">agent_config</span><span class="p">,</span>
-            <span class="n">progress_callback</span><span class="o">=</span><span class="n">progress_callback</span><span class="p">,</span>
-            <span class="n">on_test_start</span><span class="o">=</span><span class="n">on_test_start</span><span class="p">,</span>
-            <span class="n">force_ingest</span><span class="o">=</span><span class="n">force_ingest</span><span class="p">,</span>
-            <span class="n">agent_config</span><span class="o">=</span><span class="n">agent</span><span class="p">,</span>
-            <span class="n">resolved_execution_config</span><span class="o">=</span><span class="n">resolved_config</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Run tests asynchronously</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting test execution&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Start spinner thread</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">():</span>
-            <span class="n">spinner_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-        <span class="c1"># Determine if observability is enabled for span creation</span>
-        <span class="n">observability_enabled</span> <span class="o">=</span> <span class="n">obs_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run_tests_with_cleanup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TestReport</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Execute tests and ensure proper cleanup of MCP plugins.&quot;&quot;&quot;</span>
-            <span class="c1"># Create parent span for test command if observability is enabled</span>
-            <span class="k">if</span> <span class="n">observability_enabled</span><span class="p">:</span>
-                <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.observability</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tracer</span>
-
-                <span class="n">tracer</span> <span class="o">=</span> <span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-                <span class="n">span_context</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;holodeck.cli.test&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">span_context</span> <span class="o">=</span> <span class="n">nullcontext</span><span class="p">()</span>
-
-            <span class="k">with</span> <span class="n">span_context</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="k">await</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute_tests</span><span class="p">()</span>
-                <span class="k">finally</span><span class="p">:</span>
-                    <span class="k">await</span> <span class="n">executor</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
-
-        <span class="c1"># Run tests</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">report</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_tests_with_cleanup</span><span class="p">())</span>
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="c1"># Ensure spinner stops</span>
-            <span class="k">if</span> <span class="n">spinner_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
-                <span class="n">spinner_thread</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-                <span class="n">spinner_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-
-        <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Test execution completed in </span><span class="si">{</span><span class="n">elapsed_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s - &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">report</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">passed</span><span class="si">}</span><span class="s2"> passed, </span><span class="si">{</span><span class="n">report</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">failed</span><span class="si">}</span><span class="s2"> failed&quot;</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Display summary (always shown, even in quiet mode)</span>
-        <span class="n">summary_text</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">get_summary</span><span class="p">()</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">summary_text</span><span class="p">)</span>
-
-        <span class="c1"># Save report if output specified</span>
-        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving report to </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2"> (format=</span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-            <span class="n">_save_report</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Report saved successfully to </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Exit with appropriate code</span>
-        <span class="k">if</span> <span class="n">report</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">failed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Exiting with failure status (failed tests)&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Exiting with success status (all tests passed)&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="k">except</span> <span class="n">ConfigError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Configuration error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Configuration Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">ExecutionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Execution error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Execution Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">EvaluationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Evaluation error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Evaluation Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="c1"># Shutdown observability if it was initialized</span>
-        <span class="k">if</span> <span class="n">obs_context</span><span class="p">:</span>
-            <span class="n">shutdown_observability</span><span class="p">(</span><span class="n">obs_context</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -5262,16 +4841,16 @@ pass/fail status with evaluation metric scores.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/cli/commands/test.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="n">ProgressIndicator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="n">ProgressIndicator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize spinner thread.</span>
 
 <span class="sd">    Args:</span>
@@ -5313,17 +4892,17 @@ pass/fail status with evaluation metric scores.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/test.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run spinner animation loop.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
@@ -5356,13 +4935,13 @@ pass/fail status with evaluation metric scores.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/test.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop spinner animation.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">:</span>
@@ -5462,43 +5041,43 @@ pass/fail status with evaluation metric scores.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/test.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
-<span class="normal">328</span>
-<span class="normal">329</span>
-<span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
-<span class="normal">337</span>
-<span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_save_report</span><span class="p">(</span><span class="n">report</span><span class="p">:</span> <span class="n">TestReport</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_save_report</span><span class="p">(</span><span class="n">report</span><span class="p">:</span> <span class="n">TestReport</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Save test report to file in specified format.</span>
 
 <span class="sd">    Args:</span>

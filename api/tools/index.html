@@ -618,6 +618,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/global-config/" class="md-nav__link">
         
   
@@ -3553,7 +3581,9 @@ kwargs
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
-<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_resolve_database_config</span><span class="p">(</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_resolve_database_config</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="p">:</span> <span class="n">DatabaseConfig</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolve database configuration to provider and connection kwargs.</span>
@@ -3592,7 +3622,9 @@ kwargs
         <span class="n">provider</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">provider</span>
         <span class="n">connection_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">database</span><span class="o">.</span><span class="n">connection_string</span><span class="p">:</span>
-            <span class="n">connection_kwargs</span><span class="p">[</span><span class="s2">&quot;connection_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">connection_string</span>
+            <span class="n">connection_kwargs</span><span class="p">[</span><span class="s2">&quot;connection_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">database</span><span class="o">.</span><span class="n">connection_string</span><span class="o">.</span><span class="n">get_secret_value</span><span class="p">()</span>
+            <span class="p">)</span>
         <span class="c1"># Add extra fields from DatabaseConfig (extra=&quot;allow&quot;)</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="s2">&quot;model_extra&quot;</span><span class="p">):</span>
             <span class="n">extra_fields</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">model_extra</span> <span class="ow">or</span> <span class="p">{}</span>
@@ -3766,9 +3798,7 @@ fails (e.g., database unreachable), falls back to in-memory storage.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/tools/base_tool.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">134</span>
 <span class="normal">135</span>
 <span class="normal">136</span>
 <span class="normal">137</span>
@@ -3829,7 +3859,9 @@ fails (e.g., database unreachable), falls back to in-memory storage.</p>
 <span class="normal">192</span>
 <span class="normal">193</span>
 <span class="normal">194</span>
-<span class="normal">195</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_create_collection_with_fallback</span><span class="p">(</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_create_collection_with_fallback</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
