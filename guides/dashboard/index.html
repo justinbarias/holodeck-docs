@@ -1950,6 +1950,7 @@ tags:
 <p><img alt="Explorer view — case detail with conversation thread, tool calls, and config snapshot" src="../../assets/dashboard/explorer.png" /></p>
 <p>The detail panel shows the full thread (user message → tool calls with args/results → agent reply), an expandable agent-config snapshot (captured at run time with secrets stripped), the expected-tools coverage check, and every evaluation metric with its score, threshold, and judge reasoning. Large tool-call results auto-collapse.</p>
 <p>The assistant reply itself adapts to the response shape — Markdown renders cleanly for prose, structured JSON renders as an indented code block.</p>
+<p>Multi-turn test cases render with a turn-count chip (e.g. <code>4 turns · 3/4 passed</code>) in the cases column; the right detail pane's conversation section expands each turn independently so you can inspect every per-turn input, tool invocation, metric, and error in place.</p>
 <h2 id="compare-view">Compare view<a class="headerlink" href="#compare-view" title="Permanent link">&para;</a></h2>
 <p>Queue 2 or 3 runs from the compare tray (click the <strong>+</strong> button on any run row), then open Compare:</p>
 <p><img alt="Compare view — headline stats with deltas, config diff, and per-case matrix" src="../../assets/dashboard/compare.png" /></p>
