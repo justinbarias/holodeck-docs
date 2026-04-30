@@ -506,6 +506,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/semantic-kernel-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Kernel Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/tools/" class="md-nav__link">
         
   
@@ -1332,10 +1388,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#holodeck.models.claude_config.SubagentConfig" class="md-nav__link">
+  <a href="#holodeck.models.claude_config.SubagentSpec" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SubagentConfig
+        SubagentSpec
       
     </span>
   </a>
@@ -5114,10 +5170,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#holodeck.models.claude_config.SubagentConfig" class="md-nav__link">
+  <a href="#holodeck.models.claude_config.SubagentSpec" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SubagentConfig
+        SubagentSpec
       
     </span>
   </a>
@@ -9233,11 +9289,11 @@ All capabilities default to disabled (least-privilege).</p>
 
 
 
-<h2 id="holodeck.models.claude_config.SubagentConfig" class="doc doc-heading">
-            <code>SubagentConfig</code>
+<h2 id="holodeck.models.claude_config.SubagentSpec" class="doc doc-heading">
+            <code>SubagentSpec</code>
 
 
-<a href="#holodeck.models.claude_config.SubagentConfig" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#holodeck.models.claude_config.SubagentSpec" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents first">
@@ -9246,7 +9302,12 @@ All capabilities default to disabled (least-privilege).</p>
 
 
 
-        <p>Parallel sub-agent execution settings.</p>
+        <p>A single subagent definition for multi-agent orchestration.</p>
+<p>Each entry under <code>claude.agents</code> becomes an
+<code>claude_agent_sdk.types.AgentDefinition</code> on
+<code>ClaudeAgentOptions.agents</code>. The SDK uses <code>description</code> for routing.</p>
+<p>US3 validators (prompt/prompt_file mutual exclusion and file resolution)
+are deliberately omitted here — they belong to the US3 task slice.</p>
 
 
 

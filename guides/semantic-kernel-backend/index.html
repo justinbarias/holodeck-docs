@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://docs.useholodeck.ai/guides/mcp-cli/">
+        <link rel="canonical" href="https://docs.useholodeck.ai/guides/semantic-kernel-backend/">
       
       
-        <link rel="prev" href="../tools/">
+        <link rel="prev" href="../claude-backend/">
       
       
-        <link rel="next" href="../vector-stores/">
+        <link rel="next" href="../tools/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>MCP CLI - HoloDeck Documentation</title>
+        <title>Semantic Kernel Backend - HoloDeck Documentation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mcp-cli-guide" class="md-skip">
+        <a href="#semantic-kernel-backend" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MCP CLI
+              Semantic Kernel Backend
             
           </span>
         </div>
@@ -533,10 +533,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Kernel Backend
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -552,6 +579,298 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#provider-openai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider: OpenAI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-azure-openai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider: Azure OpenAI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider: Azure OpenAI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deployment-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment names
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider: Ollama
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider: Ollama">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-ollama-as-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Ollama as a service
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context size
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-behaviour-vs-claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend behaviour vs Claude
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-fields-per-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        model.* fields per provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-specific-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider-specific environment variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations &amp; roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invalid-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invalid API key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-endpoint-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Azure endpoint missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-deployment-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model / deployment not found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ollama-connection-refused" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ollama: connection refused
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ollama-model-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ollama: model not found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-out-of-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature out of range
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -589,37 +908,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MCP CLI
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../mcp-cli/" class="md-nav__link">
         
   
   
@@ -635,292 +927,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Reference
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#holodeck-mcp-search" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        holodeck mcp search
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#holodeck-mcp-add" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        holodeck mcp add
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#holodeck-mcp-list" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        holodeck mcp list
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#holodeck-mcp-remove" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        holodeck mcp remove
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-locations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Locations
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Locations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#agent-configuration-agentyaml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Agent Configuration (agent.yaml)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#global-configuration-holodeckconfigyaml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Global Configuration (~/.holodeck/config.yaml)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#precedence-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Precedence Rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-workflows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Workflows
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Workflows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#discovering-and-adding-a-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Discovering and Adding a Server
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setting-up-global-defaults" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setting Up Global Defaults
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#viewing-combined-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Viewing Combined Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#registry-connection-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Registry Connection Error
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#server-not-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Server Not Found
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#server-already-configured" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Server Already Configured
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transport-not-supported" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Transport Not Supported
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#no-agent-configuration-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No Agent Configuration Found
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1850,10 +1856,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Quick start
       
     </span>
   </a>
@@ -1861,33 +1867,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
+  <a href="#advanced-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Reference
+        Advanced configuration
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Commands">
+    <nav class="md-nav" aria-label="Advanced configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#holodeck-mcp-search" class="md-nav__link">
+  <a href="#provider-openai" class="md-nav__link">
     <span class="md-ellipsis">
       
-        holodeck mcp search
+        Provider: OpenAI
       
     </span>
   </a>
@@ -1895,10 +1890,50 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#holodeck-mcp-add" class="md-nav__link">
+  <a href="#provider-azure-openai" class="md-nav__link">
     <span class="md-ellipsis">
       
-        holodeck mcp add
+        Provider: Azure OpenAI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider: Azure OpenAI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deployment-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment names
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider: Ollama
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider: Ollama">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-ollama-as-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Ollama as a service
       
     </span>
   </a>
@@ -1906,21 +1941,26 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#holodeck-mcp-list" class="md-nav__link">
+  <a href="#context-size" class="md-nav__link">
     <span class="md-ellipsis">
       
-        holodeck mcp list
+        Context size
       
     </span>
   </a>
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
           <li class="md-nav__item">
-  <a href="#holodeck-mcp-remove" class="md-nav__link">
+  <a href="#backend-behaviour-vs-claude" class="md-nav__link">
     <span class="md-ellipsis">
       
-        holodeck mcp remove
+        Backend behaviour vs Claude
       
     </span>
   </a>
@@ -1933,22 +1973,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-locations" class="md-nav__link">
+  <a href="#configuration-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Locations
+        Configuration reference
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuration Locations">
+    <nav class="md-nav" aria-label="Configuration reference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#agent-configuration-agentyaml" class="md-nav__link">
+  <a href="#model-fields-per-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Agent Configuration (agent.yaml)
+        model.* fields per provider
       
     </span>
   </a>
@@ -1956,21 +1996,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#global-configuration-holodeckconfigyaml" class="md-nav__link">
+  <a href="#provider-specific-environment-variables" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Global Configuration (~/.holodeck/config.yaml)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#precedence-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Precedence Rules
+        Provider-specific environment variables
       
     </span>
   </a>
@@ -1983,52 +2012,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-workflows" class="md-nav__link">
+  <a href="#limitations-roadmap" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Common Workflows
+        Limitations &amp; roadmap
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Common Workflows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#discovering-and-adding-a-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Discovering and Adding a Server
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setting-up-global-defaults" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setting Up Global Defaults
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#viewing-combined-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Viewing Combined Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2045,10 +2035,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#registry-connection-error" class="md-nav__link">
+  <a href="#invalid-api-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Registry Connection Error
+        Invalid API key
       
     </span>
   </a>
@@ -2056,10 +2046,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#server-not-found" class="md-nav__link">
+  <a href="#azure-endpoint-missing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Server Not Found
+        Azure endpoint missing
       
     </span>
   </a>
@@ -2067,10 +2057,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#server-already-configured" class="md-nav__link">
+  <a href="#model-deployment-not-found" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Server Already Configured
+        Model / deployment not found
       
     </span>
   </a>
@@ -2078,10 +2068,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#transport-not-supported" class="md-nav__link">
+  <a href="#ollama-connection-refused" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Transport Not Supported
+        Ollama: connection refused
       
     </span>
   </a>
@@ -2089,10 +2079,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#no-agent-configuration-found" class="md-nav__link">
+  <a href="#ollama-model-not-found" class="md-nav__link">
     <span class="md-ellipsis">
       
-        No Agent Configuration Found
+        Ollama: model not found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-out-of-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature out of range
       
     </span>
   </a>
@@ -2108,7 +2120,7 @@
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Steps
+        Next steps
       
     </span>
   </a>
@@ -2135,442 +2147,493 @@
   
 
 
-<h1 id="mcp-cli-guide">MCP CLI Guide<a class="headerlink" href="#mcp-cli-guide" title="Permanent link">&para;</a></h1>
-<p>The <code>holodeck mcp</code> command group provides tools to discover, install, and manage MCP (Model Context Protocol) servers for your agents.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>MCP servers extend your agent's capabilities by providing access to external tools and services. The MCP CLI integrates with the <a href="https://registry.modelcontextprotocol.io">official MCP Registry</a> to help you:</p>
-<ul>
-<li><strong>Search</strong> for available MCP servers</li>
-<li><strong>Add</strong> servers to your agent or global configuration</li>
-<li><strong>List</strong> installed servers</li>
-<li><strong>Remove</strong> servers you no longer need</li>
-</ul>
-<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>holodeck mcp search [query]</code></td>
-<td>Search the MCP registry for servers</td>
-</tr>
-<tr>
-<td><code>holodeck mcp add &lt;server&gt;</code></td>
-<td>Add a server to your configuration</td>
-</tr>
-<tr>
-<td><code>holodeck mcp list</code></td>
-<td>List installed MCP servers</td>
-</tr>
-<tr>
-<td><code>holodeck mcp remove &lt;server&gt;</code></td>
-<td>Remove a server from your configuration</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
-<h3 id="holodeck-mcp-search"><code>holodeck mcp search</code><a class="headerlink" href="#holodeck-mcp-search" title="Permanent link">&para;</a></h3>
-<p>Search the official MCP registry for available servers.</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>mcp<span class="w"> </span>search<span class="w"> </span><span class="o">[</span>QUERY<span class="o">]</span><span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
-</code></pre></div>
-<p><strong>Arguments:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>QUERY</code></td>
-<td>No</td>
-<td>Search term to filter servers by name. If omitted, lists all servers.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--limit</code></td>
-<td>25</td>
-<td>Maximum results to return (1-100)</td>
-</tr>
-<tr>
-<td><code>--json</code></td>
-<td>-</td>
-<td>Output results as JSON</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Search for filesystem-related servers</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>search<span class="w"> </span>filesystem
-
-<span class="c1"># List all available servers</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>search
-
-<span class="c1"># Search with more results</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>search<span class="w"> </span>github<span class="w"> </span>--limit<span class="w"> </span><span class="m">50</span>
-
-<span class="c1"># Get JSON output for scripting</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>search<span class="w"> </span>memory<span class="w"> </span>--json
-</code></pre></div>
-<p><strong>Sample Output:</strong></p>
-<div class="highlight"><pre><span></span><code>Found 3 servers matching &#39;filesystem&#39;:
-
-NAME                                              VERSION   DESCRIPTION                           TRANSPORT
-io.github.modelcontextprotocol/server-filesystem  1.0.0     Secure file operations with co...     stdio
-io.github.example/fs-tools                        2.1.0     Advanced filesystem utilities         stdio
-io.github.another/file-manager                    0.5.0     Simple file management                stdio
-
-Use &#39;holodeck mcp add &lt;name&gt;&#39; to install a server.
-</code></pre></div>
-<hr />
-<h3 id="holodeck-mcp-add"><code>holodeck mcp add</code><a class="headerlink" href="#holodeck-mcp-add" title="Permanent link">&para;</a></h3>
-<p>Add an MCP server to your agent or global configuration.</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>&lt;SERVER&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
-</code></pre></div>
-<p><strong>Arguments:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SERVER</code></td>
-<td>Yes</td>
-<td>Server name from MCP registry (e.g., <code>io.github.modelcontextprotocol/server-filesystem</code>)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--agent</code></td>
-<td><code>agent.yaml</code></td>
-<td>Path to agent configuration file</td>
-</tr>
-<tr>
-<td><code>-g, --global</code></td>
-<td>-</td>
-<td>Add to global config (<code>~/.holodeck/config.yaml</code>) instead</td>
-</tr>
-<tr>
-<td><code>--version</code></td>
-<td>latest</td>
-<td>Server version to install</td>
-</tr>
-<tr>
-<td><code>--transport</code></td>
-<td>stdio</td>
-<td>Transport type (stdio, sse, http)</td>
-</tr>
-<tr>
-<td><code>--name</code></td>
-<td>auto</td>
-<td>Custom name for the server</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Add to agent.yaml in current directory</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-filesystem
-
-<span class="c1"># Add to a specific agent file</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-github<span class="w"> </span>--agent<span class="w"> </span>my-agent.yaml
-
-<span class="c1"># Add to global configuration (available to all agents)</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-memory<span class="w"> </span>-g
-
-<span class="c1"># Install a specific version</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.example/server<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>.2.0
-
-<span class="c1"># Use a custom name</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-filesystem<span class="w"> </span>--name<span class="w"> </span>file_tools
-</code></pre></div>
-<p><strong>Sample Output:</strong></p>
-<div class="highlight"><pre><span></span><code>Fetching server &#39;io.github.modelcontextprotocol/server-filesystem&#39; from registry...
-
-Server added successfully to agent.yaml
-
-  Name: filesystem
-  Version: 1.0.0
-  Transport: stdio
-  Command: npx @modelcontextprotocol/server-filesystem
-
-Required environment variables:
-  - FILESYSTEM_ROOT: Root directory for file operations
-
-Configure these in your .env file or shell environment.
-</code></pre></div>
-<p><strong>Environment Variables:</strong></p>
-<p>When a server requires environment variables, they are displayed after installation. Add them to your <code>.env</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># .env</span>
-<span class="nv">FILESYSTEM_ROOT</span><span class="o">=</span>/path/to/allowed/directory
-<span class="nv">GITHUB_TOKEN</span><span class="o">=</span>ghp_xxxxxxxxxxxx
-</code></pre></div>
-<hr />
-<h3 id="holodeck-mcp-list"><code>holodeck mcp list</code><a class="headerlink" href="#holodeck-mcp-list" title="Permanent link">&para;</a></h3>
-<p>List MCP servers installed in your agent or global configuration.</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
-</code></pre></div>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--agent</code></td>
-<td><code>agent.yaml</code></td>
-<td>Path to agent configuration file</td>
-</tr>
-<tr>
-<td><code>-g, --global</code></td>
-<td>-</td>
-<td>Show only global servers</td>
-</tr>
-<tr>
-<td><code>--all</code></td>
-<td>-</td>
-<td>Show both agent and global servers</td>
-</tr>
-<tr>
-<td><code>--json</code></td>
-<td>-</td>
-<td>Output as JSON</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># List servers from agent.yaml</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list
-
-<span class="c1"># List global servers only</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span>-g
-
-<span class="c1"># List all servers from both sources</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span>--all
-
-<span class="c1"># JSON output for scripting</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span>--all<span class="w"> </span>--json
-</code></pre></div>
-<p><strong>Sample Output (default):</strong></p>
-<div class="highlight"><pre><span></span><code>MCP servers in agent.yaml:
-
-NAME        VERSION   TRANSPORT   DESCRIPTION
-filesystem  1.0.0     stdio       Secure file operations
-github      2.0.0     stdio       GitHub integration
-memory      1.0.0     stdio       Persistent memory store
-</code></pre></div>
-<p><strong>Sample Output (--all):</strong></p>
-<div class="highlight"><pre><span></span><code>MCP servers:
-
-NAME        VERSION   TRANSPORT   DESCRIPTION                  SOURCE
-filesystem  1.0.0     stdio       Secure file operations       agent
-github      2.0.0     stdio       GitHub integration           agent
-memory      1.0.0     stdio       Persistent memory store      global
-fetch       1.0.0     stdio       HTTP request capabilities    global
-</code></pre></div>
-<hr />
-<h3 id="holodeck-mcp-remove"><code>holodeck mcp remove</code><a class="headerlink" href="#holodeck-mcp-remove" title="Permanent link">&para;</a></h3>
-<p>Remove an MCP server from your agent or global configuration.</p>
-<p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> </span>&lt;SERVER&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
-</code></pre></div>
-<p><strong>Arguments:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SERVER</code></td>
-<td>Yes</td>
-<td>Name of the server to remove (e.g., <code>filesystem</code>)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--agent</code></td>
-<td><code>agent.yaml</code></td>
-<td>Path to agent configuration file</td>
-</tr>
-<tr>
-<td><code>-g, --global</code></td>
-<td>-</td>
-<td>Remove from global config instead</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Remove from agent.yaml</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> </span>filesystem
-
-<span class="c1"># Remove from a specific agent file</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> </span>github<span class="w"> </span>--agent<span class="w"> </span>my-agent.yaml
-
-<span class="c1"># Remove from global configuration</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> </span>memory<span class="w"> </span>-g
-</code></pre></div>
-<p><strong>Sample Output:</strong></p>
-<div class="highlight"><pre><span></span><code>Server &#39;filesystem&#39; removed from agent.yaml
-</code></pre></div>
-<hr />
-<h2 id="configuration-locations">Configuration Locations<a class="headerlink" href="#configuration-locations" title="Permanent link">&para;</a></h2>
-<p>MCP servers can be installed in two locations:</p>
-<h3 id="agent-configuration-agentyaml">Agent Configuration (<code>agent.yaml</code>)<a class="headerlink" href="#agent-configuration-agentyaml" title="Permanent link">&para;</a></h3>
-<p>Servers added to an agent file appear in the <code>tools</code> section:</p>
+<h1 id="semantic-kernel-backend">Semantic Kernel Backend<a class="headerlink" href="#semantic-kernel-backend" title="Permanent link">&para;</a></h1>
+<p>The Semantic Kernel (SK) backend powers HoloDeck agents that run against OpenAI, Azure OpenAI, or local Ollama models. It is automatically selected for any <code>model.provider</code> other than <code>anthropic</code>.</p>
+<p>This guide is for backend-specific behaviour: per-provider setup, deployment-name mechanics, local-model nuances, and the full configuration reference. For shared concepts like tools, observability, and vector stores, see the dedicated guides for each.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>OpenAI is the most common entry point. Set an API key and point an agent at it:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
 <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-agent</span>
+
 <span class="nt">model</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
 
-<span class="nt">tools</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secure file operations</span>
-<span class="w">    </span><span class="nt">transport</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stdio</span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
-<span class="w">      </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-filesystem&quot;</span>
+<span class="nt">instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
 </code></pre></div>
-<h3 id="global-configuration-holodeckconfigyaml">Global Configuration (<code>~/.holodeck/config.yaml</code>)<a class="headerlink" href="#global-configuration-holodeckconfigyaml" title="Permanent link">&para;</a></h3>
-<p>Servers added globally appear in the <code>mcp_servers</code> section:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># ~/.holodeck/config.yaml</span>
-<span class="nt">mcp_servers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">memory</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcp</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Persistent memory store</span>
-<span class="w">    </span><span class="nt">transport</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stdio</span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx</span>
-<span class="w">      </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-memory&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># .env</span>
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
 </code></pre></div>
-<h3 id="precedence-rules">Precedence Rules<a class="headerlink" href="#precedence-rules" title="Permanent link">&para;</a></h3>
-<p>When an agent runs:</p>
+<p>Verify:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml
+</code></pre></div>
+<p>For Azure OpenAI or Ollama, see the per-provider sections below.</p>
+<h2 id="advanced-configuration">Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">&para;</a></h2>
+<p>The SK backend doesn't expose a separate top-level config block — all backend behaviour is driven by the <code>model</code> settings of the active provider plus the provider's own infrastructure.</p>
+<h3 id="provider-openai">Provider: OpenAI<a class="headerlink" href="#provider-openai" title="Permanent link">&para;</a></h3>
+<p>OpenAI provides GPT-4o, GPT-4o-mini, and other models through their hosted API.</p>
+<p><strong>Prerequisites:</strong></p>
 <ol>
-<li><strong>Agent-level servers</strong> take precedence over global servers</li>
-<li>If the same server exists in both locations, the agent configuration is used</li>
-<li>Global servers provide defaults available to all agents</li>
+<li>Create an account at <a href="https://platform.openai.com">platform.openai.com</a>.</li>
+<li>Generate an API key in the <a href="https://platform.openai.com/api-keys">API Keys section</a>.</li>
+<li>Set up billing.</li>
 </ol>
-<hr />
-<h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
-<h3 id="discovering-and-adding-a-server">Discovering and Adding a Server<a class="headerlink" href="#discovering-and-adding-a-server" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Search for what you need</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>search<span class="w"> </span><span class="s2">&quot;github&quot;</span>
+<p><strong>Configuration:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
+<span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-agent</span>
 
-<span class="c1"># 2. Add the server you want</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-github
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4000</span>
 
-<span class="c1"># 3. Configure required environment variables</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;GITHUB_TOKEN=ghp_xxxx&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
+<span class="nt">instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
+</code></pre></div>
+<p><strong>Environment variables:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
+</code></pre></div>
+<p><strong>Available models:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Description</th>
+<th>Context window</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gpt-4o</code></td>
+<td>Most capable, multimodal</td>
+<td>128K tokens</td>
+</tr>
+<tr>
+<td><code>gpt-4o-mini</code></td>
+<td>Fast and cost-effective</td>
+<td>128K tokens</td>
+</tr>
+<tr>
+<td><code>gpt-4-turbo</code></td>
+<td>Previous-generation flagship</td>
+<td>128K tokens</td>
+</tr>
+<tr>
+<td><code>gpt-3.5-turbo</code></td>
+<td>Fast, lower cost</td>
+<td>16K tokens</td>
+</tr>
+</tbody>
+</table>
+<h3 id="provider-azure-openai">Provider: Azure OpenAI<a class="headerlink" href="#provider-azure-openai" title="Permanent link">&para;</a></h3>
+<p>Azure OpenAI Service provides OpenAI models via Microsoft Azure with enterprise features.</p>
+<p><strong>Prerequisites:</strong></p>
+<ol>
+<li>Azure subscription with Azure OpenAI access.</li>
+<li>Create an Azure OpenAI resource in the <a href="https://portal.azure.com">Azure Portal</a>.</li>
+<li>Deploy a model in Azure OpenAI Studio.</li>
+<li>Note the endpoint URL and API key.</li>
+</ol>
+<p><strong>Configuration:</strong></p>
+<p>Both <code>endpoint</code> and <code>api_key</code> are required:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
+<span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">azure_openai</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-deployment</span><span class="w">    </span><span class="c1"># see &quot;Deployment names&quot; below</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enterprise-agent</span>
 
-<span class="c1"># 4. Verify installation</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list
-</code></pre></div>
-<h3 id="setting-up-global-defaults">Setting Up Global Defaults<a class="headerlink" href="#setting-up-global-defaults" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Add commonly used servers globally</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-memory<span class="w"> </span>-g
-holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-fetch<span class="w"> </span>-g
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-deployment</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://my-resource.openai.azure.com/</span>
 
-<span class="c1"># Verify global installation</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span>-g
+<span class="nt">instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">an</span><span class="nv"> </span><span class="s">enterprise</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
 </code></pre></div>
-<h3 id="viewing-combined-configuration">Viewing Combined Configuration<a class="headerlink" href="#viewing-combined-configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># See all servers available to an agent</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span>--all
-
-<span class="c1"># Check what&#39;s coming from where</span>
-holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> </span>--all<span class="w"> </span>--json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.servers[] | {name, source}&#39;</span>
+<p><strong>Environment variables:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://your-resource-name.openai.azure.com/
+<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>your-api-key-here
 </code></pre></div>
-<hr />
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="registry-connection-error">Registry Connection Error<a class="headerlink" href="#registry-connection-error" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Error: Failed to connect to MCP registry
+<p><strong>Endpoint format:</strong></p>
+<div class="highlight"><pre><span></span><code>https://{resource-name}.openai.azure.com/
 </code></pre></div>
-<p><strong>Cause:</strong> Network connectivity issue or registry unavailable.</p>
-<p><strong>Solution:</strong> Check your internet connection and try again. The CLI uses a 5-second timeout.</p>
-<h3 id="server-not-found">Server Not Found<a class="headerlink" href="#server-not-found" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Error: Server &#39;xyz&#39; not found in registry
-</code></pre></div>
-<p><strong>Cause:</strong> The server name doesn't exist in the registry.</p>
-<p><strong>Solution:</strong> Use <code>holodeck mcp search</code> to find the correct server name. Server names use reverse-DNS format (e.g., <code>io.github.user/server-name</code>).</p>
-<h3 id="server-already-configured">Server Already Configured<a class="headerlink" href="#server-already-configured" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Error: Server &#39;filesystem&#39; is already configured
-</code></pre></div>
-<p><strong>Cause:</strong> The server already exists in the target configuration.</p>
-<p><strong>Solution:</strong> Use <code>holodeck mcp remove</code> first if you want to reconfigure, or check if it's in a different location (agent vs global).</p>
-<h3 id="transport-not-supported">Transport Not Supported<a class="headerlink" href="#transport-not-supported" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Error: Server does not support stdio transport
-</code></pre></div>
-<p><strong>Cause:</strong> The server only supports transports that HoloDeck doesn't currently implement (SSE, HTTP).</p>
-<p><strong>Solution:</strong> Choose a different server that supports stdio transport, or wait for future HoloDeck releases with additional transport support.</p>
-<h3 id="no-agent-configuration-found">No Agent Configuration Found<a class="headerlink" href="#no-agent-configuration-found" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Error: No agent.yaml found in current directory
-</code></pre></div>
-<p><strong>Cause:</strong> Running <code>holodeck mcp add</code> or <code>holodeck mcp list</code> without an agent file.</p>
-<p><strong>Solution:</strong> Either:
-- Navigate to a directory with <code>agent.yaml</code>
-- Use <code>--agent path/to/agent.yaml</code> to specify the file
-- Use <code>-g</code> flag to work with global configuration</p>
-<hr />
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Find your endpoint in: Azure Portal → Your OpenAI Resource → Keys and Endpoint, or Azure OpenAI Studio → Deployments → Your Deployment.</p>
+<h4 id="deployment-names">Deployment names<a class="headerlink" href="#deployment-names" title="Permanent link">&para;</a></h4>
+<div class="admonition warning">
+<p class="admonition-title"><code>name</code> refers to the deployment, not the base model</p>
+<p>In Azure OpenAI, the <code>name</code> field must match your <strong>deployment name</strong>, not the base model. This is different from OpenAI's API.</p>
+</div>
+<p>When you deploy a model in Azure OpenAI Studio, you create a deployment with a custom name:</p>
 <ul>
-<li><a href="../tools/">Tools Guide</a> - Learn about MCP tool configuration in detail</li>
-<li><a href="../global-config/">Global Configuration Guide</a> - Understand global vs agent configuration</li>
-<li><a href="../agent-configuration/">Agent Configuration Guide</a> - Complete agent setup reference</li>
+<li><strong>Base model</strong>: <code>gpt-4o</code>, <code>gpt-4o-mini</code>, etc.</li>
+<li><strong>Deployment name</strong>: your custom identifier (e.g. <code>my-gpt4o</code>, <code>prod-gpt4</code>).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># If your deployment is &quot;my-gpt4o-production&quot; backed by gpt-4o:</span>
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-production</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://my-resource.openai.azure.com/</span>
+</code></pre></div>
+<p>Common mistake:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># WRONG — using the base model name</span>
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span><span class="w">    </span><span class="c1"># only works if the deployment is literally named &quot;gpt-4o&quot;</span>
+
+<span class="c1"># CORRECT — using your deployment name</span>
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-deployment</span>
+</code></pre></div>
+<h3 id="provider-ollama">Provider: Ollama<a class="headerlink" href="#provider-ollama" title="Permanent link">&para;</a></h3>
+<p>Ollama runs open-source LLMs locally — ideal for privacy-sensitive workloads, offline use, and avoiding API costs.</p>
+<p><strong>Prerequisites:</strong></p>
+<ol>
+<li>Install Ollama from <a href="https://ollama.com">ollama.com</a>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># macOS / Linux</span>
+curl<span class="w"> </span>-fsSL<span class="w"> </span>https://ollama.com/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</code></pre></div>
+<ol>
+<li>Pull a model:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.2
+</code></pre></div>
+<ol>
+<li>Verify it's running:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
+<p><strong>Configuration:</strong></p>
+<p>Ollama requires an <code>endpoint</code> pointing to your local server:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
+<span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ollama</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-agent</span>
+
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+
+<span class="nt">instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">local</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
+</code></pre></div>
+<p><strong>Environment variables:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">OLLAMA_ENDPOINT</span><span class="o">=</span>http://localhost:11434
+</code></pre></div>
+<p><strong>Available models</strong> (pull with <code>ollama pull &lt;model&gt;</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Command</th>
+<th>Description</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-OSS (20B)</td>
+<td><code>ollama pull gpt-oss:20b</code></td>
+<td>Recommended completion</td>
+<td>40 GB</td>
+</tr>
+<tr>
+<td>Nomic Embed Text</td>
+<td><code>ollama pull nomic-embed-text:latest</code></td>
+<td>Recommended embeddings</td>
+<td>274 MB</td>
+</tr>
+<tr>
+<td>Llama 3.2</td>
+<td><code>ollama pull llama3.2</code></td>
+<td>Meta's latest, general</td>
+<td>2 GB</td>
+</tr>
+<tr>
+<td>Llama 3.2 (3B)</td>
+<td><code>ollama pull llama3.2:3b</code></td>
+<td>Larger Llama variant</td>
+<td>5 GB</td>
+</tr>
+<tr>
+<td>Mistral</td>
+<td><code>ollama pull mistral</code></td>
+<td>Fast and capable</td>
+<td>4 GB</td>
+</tr>
+<tr>
+<td>CodeLlama</td>
+<td><code>ollama pull codellama</code></td>
+<td>Optimised for code</td>
+<td>4 GB</td>
+</tr>
+<tr>
+<td>Phi-3</td>
+<td><code>ollama pull phi3</code></td>
+<td>Microsoft compact model</td>
+<td>2 GB</td>
+</tr>
+<tr>
+<td>Gemma 2</td>
+<td><code>ollama pull gemma2</code></td>
+<td>Google's open model</td>
+<td>5 GB</td>
+</tr>
+</tbody>
+</table>
+<h4 id="running-ollama-as-a-service">Running Ollama as a service<a class="headerlink" href="#running-ollama-as-a-service" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>serve
+</code></pre></div>
+<p>Or with Docker:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ollama<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">11434</span>:11434<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>ollama-data:/root/.ollama<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ollama/ollama
+</code></pre></div>
+<h4 id="context-size">Context size<a class="headerlink" href="#context-size" title="Permanent link">&para;</a></h4>
+<p>For agent workloads, configure a context size of at least <strong>16k tokens</strong>. Default Ollama context windows can be small enough to clip tool outputs.</p>
+<p>Create a custom model with extended context:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; Modelfile</span>
+<span class="s">FROM gpt-oss:20b</span>
+<span class="s">PARAMETER num_ctx 16384</span>
+<span class="s">EOF</span>
+
+ollama<span class="w"> </span>create<span class="w"> </span>gpt-oss:20b-16k<span class="w"> </span>-f<span class="w"> </span>Modelfile
+</code></pre></div>
+<p>For 32k:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; Modelfile</span>
+<span class="s">FROM gpt-oss:20b</span>
+<span class="s">PARAMETER num_ctx 32768</span>
+<span class="s">EOF</span>
+
+ollama<span class="w"> </span>create<span class="w"> </span>gpt-oss:20b-32k<span class="w"> </span>-f<span class="w"> </span>Modelfile
+</code></pre></div>
+<p>Use it:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-oss:20b-16k</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Memory pressure scales with context</p>
+<p>A 32k context with a 20B-parameter model typically requires 48 GB+ RAM or a GPU with 16 GB+ VRAM.</p>
+</div>
+<h3 id="backend-behaviour-vs-claude">Backend behaviour vs Claude<a class="headerlink" href="#backend-behaviour-vs-claude" title="Permanent link">&para;</a></h3>
+<p>The SK backend is automatically selected when <code>model.provider</code> is anything other than <code>anthropic</code>. There is no top-level <code>claude:</code> block — capabilities like permission modes, extended thinking, web search, and subagents are Claude-only and are documented in the <a href="../claude-backend/">Claude Backend</a> guide.</p>
+<h2 id="configuration-reference">Configuration reference<a class="headerlink" href="#configuration-reference" title="Permanent link">&para;</a></h2>
+<h3 id="model-fields-per-provider"><code>model.*</code> fields per provider<a class="headerlink" href="#model-fields-per-provider" title="Permanent link">&para;</a></h3>
+<p>All providers share these fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>provider</code></td>
+<td>string</td>
+<td>yes</td>
+<td>-</td>
+<td><code>openai</code>, <code>azure_openai</code>, or <code>ollama</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>yes</td>
+<td>-</td>
+<td>Model name (deployment name for Azure)</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td>float</td>
+<td>no</td>
+<td><code>0.3</code></td>
+<td>Randomness, <code>0.0</code>–<code>2.0</code></td>
+</tr>
+<tr>
+<td><code>max_tokens</code></td>
+<td>integer</td>
+<td>no</td>
+<td><code>1000</code></td>
+<td>Maximum response tokens</td>
+</tr>
+<tr>
+<td><code>top_p</code></td>
+<td>float</td>
+<td>no</td>
+<td>-</td>
+<td>Nucleus sampling, <code>0.0</code>–<code>1.0</code></td>
+</tr>
+<tr>
+<td><code>api_key</code></td>
+<td>string</td>
+<td>varies</td>
+<td>-</td>
+<td>API key (required for OpenAI / Azure)</td>
+</tr>
+<tr>
+<td><code>endpoint</code></td>
+<td>string</td>
+<td>varies</td>
+<td>-</td>
+<td>Endpoint URL (required for Azure / Ollama)</td>
+</tr>
+</tbody>
+</table>
+<p>Per-provider requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th><code>api_key</code></th>
+<th><code>endpoint</code></th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openai</code></td>
+<td>required</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>azure_openai</code></td>
+<td>required</td>
+<td>required</td>
+<td><code>name</code> must match the deployment name, not the base model</td>
+</tr>
+<tr>
+<td><code>ollama</code></td>
+<td>-</td>
+<td>required</td>
+<td>Default endpoint <code>http://localhost:11434</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="provider-specific-environment-variables">Provider-specific environment variables<a class="headerlink" href="#provider-specific-environment-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Provider</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OPENAI_API_KEY</code></td>
+<td>OpenAI</td>
+<td>API authentication key</td>
+</tr>
+<tr>
+<td><code>AZURE_OPENAI_ENDPOINT</code></td>
+<td>Azure OpenAI</td>
+<td>Resource endpoint URL</td>
+</tr>
+<tr>
+<td><code>AZURE_OPENAI_API_KEY</code></td>
+<td>Azure OpenAI</td>
+<td>API authentication key</td>
+</tr>
+<tr>
+<td><code>OLLAMA_ENDPOINT</code></td>
+<td>Ollama</td>
+<td>Server endpoint (default <code>http://localhost:11434</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="limitations-roadmap">Limitations &amp; roadmap<a class="headerlink" href="#limitations-roadmap" title="Permanent link">&para;</a></h2>
+<p>The SK backend currently powers <code>holodeck serve</code> and <code>holodeck deploy build</code>; the Claude backend does not yet support those commands.</p>
+<ul>
+<li><a href="../serve/">Agent Server</a>: SK-only.</li>
+<li><a href="../deployment/">Deployment</a>: SK-only (containerisation).</li>
+</ul>
+<p>Both will gain Claude support in a future release.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="invalid-api-key">Invalid API key<a class="headerlink" href="#invalid-api-key" title="Permanent link">&para;</a></h3>
+<p><strong>Error</strong>: <code>AuthenticationError</code> or <code>Invalid API key</code>.</p>
+<ol>
+<li>Verify the key: <code>echo $OPENAI_API_KEY</code> (or the Azure / Ollama equivalent).</li>
+<li>Ensure no extra whitespace.</li>
+<li>Regenerate the API key if needed.</li>
+</ol>
+<h3 id="azure-endpoint-missing">Azure endpoint missing<a class="headerlink" href="#azure-endpoint-missing" title="Permanent link">&para;</a></h3>
+<p><strong>Error</strong>: <code>endpoint is required for azure_openai provider</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-deployment</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://my-resource.openai.azure.com/</span>
+</code></pre></div>
+<h3 id="model-deployment-not-found">Model / deployment not found<a class="headerlink" href="#model-deployment-not-found" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>OpenAI</strong>: check the model identifier (e.g. <code>gpt-4o</code>, not <code>gpt4o</code>).</li>
+<li><strong>Azure</strong>: ensure <code>name</code> matches the deployment name exactly.</li>
+<li><strong>Ollama</strong>: pull first with <code>ollama pull &lt;model&gt;</code>.</li>
+</ul>
+<h3 id="ollama-connection-refused">Ollama: connection refused<a class="headerlink" href="#ollama-connection-refused" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Verify the daemon: <code>ollama list</code>.</li>
+<li>Start the server: <code>ollama serve</code>.</li>
+<li>Confirm the <code>endpoint</code> URL.</li>
+</ol>
+<h3 id="ollama-model-not-found">Ollama: model not found<a class="headerlink" href="#ollama-model-not-found" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.2
+</code></pre></div>
+<h3 id="rate-limits">Rate limits<a class="headerlink" href="#rate-limits" title="Permanent link">&para;</a></h3>
+<p><strong>Error</strong>: <code>Rate limit exceeded</code> (OpenAI / Azure).</p>
+<ol>
+<li>Implement retry with exponential backoff.</li>
+<li>Reduce <code>max_tokens</code>.</li>
+<li>Use a faster / cheaper model.</li>
+<li>Upgrade the API plan.</li>
+</ol>
+<h3 id="temperature-out-of-range">Temperature out of range<a class="headerlink" href="#temperature-out-of-range" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span><span class="w">   </span><span class="c1"># must be 0.0 – 2.0</span>
+</code></pre></div>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../agent-configuration/">Agent Configuration</a> — full agent.yaml structure</li>
+<li><a href="../tools/">Tools</a> — extending agent capabilities</li>
+<li><a href="../observability/">Observability</a> — tracing and metrics</li>
+<li><a href="../vector-stores/">Vector Stores</a> — semantic search configuration</li>
+<li><a href="../serve/">Agent Server</a> and <a href="../deployment/">Deployment</a> — running SK agents as services</li>
 </ul>
 
 

@@ -506,6 +506,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/semantic-kernel-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Kernel Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/tools/" class="md-nav__link">
         
   
@@ -1236,45 +1292,6 @@
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#holodeck.cli.commands.chat.ChatSpinnerThread" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ChatSpinnerThread
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ChatSpinnerThread">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#holodeck.cli.commands.chat.ChatSpinnerThread.run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        run
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#holodeck.cli.commands.chat.ChatSpinnerThread.stop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        stop
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2726,45 +2743,6 @@
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#holodeck.cli.commands.chat.ChatSpinnerThread" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ChatSpinnerThread
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ChatSpinnerThread">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#holodeck.cli.commands.chat.ChatSpinnerThread.run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        run
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#holodeck.cli.commands.chat.ChatSpinnerThread.stop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        stop
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -5155,47 +5133,7 @@ Press Ctrl+C to interrupt.
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/chat.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 68</span>
-<span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
 <span class="normal">111</span>
@@ -5302,7 +5240,47 @@ Press Ctrl+C to interrupt.
 <span class="normal">212</span>
 <span class="normal">213</span>
 <span class="normal">214</span>
-<span class="normal">215</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;agent_config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;agent.yaml&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
@@ -5452,185 +5430,6 @@ Press Ctrl+C to interrupt.
             <span class="n">shutdown_observability</span><span class="p">(</span><span class="n">obs_context</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h2 id="holodeck.cli.commands.chat.ChatSpinnerThread" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">ChatSpinnerThread</span><span class="p">(</span><span class="n">progress</span><span class="p">)</span></code>
-
-<a href="#holodeck.cli.commands.chat.ChatSpinnerThread" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents first">
-            <p class="doc doc-class-bases">
-              Bases: <code><span title="threading.Thread">Thread</span></code></p>
-
-
-
-        <p>Background thread for displaying animated spinner during agent execution.</p>
-
-        <p>Initialize spinner thread.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>progress</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="ChatProgressIndicator(max_messages, quiet, verbose) (holodeck.chat.progress.ChatProgressIndicator)" href="../chat/#holodeck.chat.progress.ChatProgressIndicator">ChatProgressIndicator</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>ChatProgressIndicator instance for spinner animation.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-
-
-
-
-
-
-                  <details class="mkdocstrings-source">
-                    <summary>Source code in <code>src/holodeck/cli/commands/chat.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="n">ChatProgressIndicator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize spinner thread.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        progress: ChatProgressIndicator instance for spinner animation.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">progress</span> <span class="o">=</span> <span class="n">progress</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
-</code></pre></div></td></tr></table></div>
-                  </details>
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="holodeck.cli.commands.chat.ChatSpinnerThread.run" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">run</span><span class="p">()</span></code>
-
-<a href="#holodeck.cli.commands.chat.ChatSpinnerThread.run" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Run spinner animation loop.</p>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>src/holodeck/cli/commands/chat.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run spinner animation loop.&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">get_spinner_line</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\r</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># 10 FPS update rate</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="holodeck.cli.commands.chat.ChatSpinnerThread.stop" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">stop</span><span class="p">()</span></code>
-
-<a href="#holodeck.cli.commands.chat.ChatSpinnerThread.stop" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Stop spinner animation and clear spinner line.</p>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>src/holodeck/cli/commands/chat.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop spinner animation and clear spinner line.&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">:</span>
-        <span class="c1"># Clear spinner line</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-
-
-  </div>
-
     </div>
 
 </div>
@@ -5837,47 +5636,7 @@ Press Ctrl+C to interrupt.
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/cli/commands/chat.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">258</span>
 <span class="normal">259</span>
 <span class="normal">260</span>
 <span class="normal">261</span>
@@ -6011,7 +5770,72 @@ Press Ctrl+C to interrupt.
 <span class="normal">389</span>
 <span class="normal">390</span>
 <span class="normal">391</span>
-<span class="normal">392</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_run_chat_session</span><span class="p">(</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_run_chat_session</span><span class="p">(</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">agent_config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
@@ -6105,31 +5929,55 @@ Press Ctrl+C to interrupt.
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing user message: </span><span class="si">{</span><span class="n">user_input</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
 
-                        <span class="c1"># Show spinner while waiting for first token</span>
-                        <span class="n">spinner</span> <span class="o">=</span> <span class="n">ChatSpinnerThread</span><span class="p">(</span><span class="n">progress</span><span class="p">)</span>
-                        <span class="n">spinner</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                        <span class="c1"># Eager-init so the backend&#39;s tool_event_queue is</span>
+                        <span class="c1"># live before we spawn the drainer (mirrors the</span>
+                        <span class="c1"># AGUI protocol path in holodeck serve).</span>
+                        <span class="n">executor</span> <span class="o">=</span> <span class="n">session_manager</span><span class="o">.</span><span class="n">_executor</span>
+                        <span class="k">if</span> <span class="n">executor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="k">await</span> <span class="n">_ensure_executor_ready</span><span class="p">(</span><span class="n">executor</span><span class="p">)</span>
+                        <span class="n">queue</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">executor</span><span class="o">.</span><span class="n">tool_event_queue</span> <span class="k">if</span> <span class="n">executor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+                        <span class="p">)</span>
+
+                        <span class="n">panel</span> <span class="o">=</span> <span class="n">ToolsPanel</span><span class="p">()</span>
+                        <span class="n">composer</span> <span class="o">=</span> <span class="n">LiveComposer</span><span class="p">()</span>
+                        <span class="n">stop_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+                        <span class="n">drain_task</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="k">if</span> <span class="n">queue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">drain_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span>
+                                <span class="n">_drain_tool_events</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">panel</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">)</span>
+                            <span class="p">)</span>
+
+                        <span class="k">await</span> <span class="n">composer</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+                        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Agent: &quot;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                        <span class="n">paint_task</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span>
+                            <span class="n">_paint_panel_loop</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">composer</span><span class="p">,</span> <span class="n">stop_event</span><span class="p">)</span>
+                        <span class="p">)</span>
 
                         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
                         <span class="n">chunks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-                        <span class="n">first_chunk</span> <span class="o">=</span> <span class="kc">True</span>
-                        <span class="k">async</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">session_manager</span><span class="o">.</span><span class="n">process_message_streaming</span><span class="p">(</span>
-                            <span class="n">user_input</span>
-                        <span class="p">):</span>
-                            <span class="k">if</span> <span class="n">first_chunk</span><span class="p">:</span>
-                                <span class="n">spinner</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-                                <span class="n">spinner</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-                                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Agent: &quot;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                                <span class="n">first_chunk</span> <span class="o">=</span> <span class="kc">False</span>
-                            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-                            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-                            <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-                        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="k">async</span> <span class="k">for</span> <span class="p">(</span>
+                                <span class="n">chunk</span>
+                            <span class="p">)</span> <span class="ow">in</span> <span class="n">session_manager</span><span class="o">.</span><span class="n">process_message_streaming</span><span class="p">(</span><span class="n">user_input</span><span class="p">):</span>
+                                <span class="k">await</span> <span class="n">composer</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                                <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                        <span class="k">finally</span><span class="p">:</span>
+                            <span class="n">stop_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+                            <span class="k">await</span> <span class="n">paint_task</span>
+                            <span class="k">if</span> <span class="n">drain_task</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="k">try</span><span class="p">:</span>
+                                    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">drain_task</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+                                <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                                    <span class="n">drain_task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+                                    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">):</span>
+                                        <span class="k">await</span> <span class="n">drain_task</span>
+                            <span class="k">if</span> <span class="n">queue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="n">_drain_remaining</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">panel</span><span class="p">)</span>
+                            <span class="k">await</span> <span class="n">composer</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
 
-                        <span class="c1"># Stop spinner if no chunks arrived at all</span>
-                        <span class="k">if</span> <span class="n">first_chunk</span><span class="p">:</span>
-                            <span class="n">spinner</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-                            <span class="n">spinner</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-                            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Agent: &quot;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
 
                         <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">()</span>  <span class="c1"># newline after streamed content</span>
 
@@ -6144,6 +5992,7 @@ Press Ctrl+C to interrupt.
 
                         <span class="c1"># Update progress</span>
                         <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+                        <span class="n">progress</span><span class="o">.</span><span class="n">set_active_snapshot</span><span class="p">(</span><span class="n">panel</span><span class="o">.</span><span class="n">snapshot</span><span class="p">())</span>
 
                         <span class="c1"># Display status</span>
                         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>

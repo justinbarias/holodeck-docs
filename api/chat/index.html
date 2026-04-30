@@ -506,6 +506,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/semantic-kernel-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Kernel Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/tools/" class="md-nav__link">
         
   
@@ -1536,6 +1592,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#holodeck.chat.progress.ChatProgressIndicator.set_active_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_active_snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#holodeck.chat.progress.ChatProgressIndicator.update" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2473,6 +2540,17 @@
     <span class="md-ellipsis">
       
         get_status_panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#holodeck.chat.progress.ChatProgressIndicator.set_active_snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_active_snapshot
       
     </span>
   </a>
@@ -4931,7 +5009,10 @@ tokens, session time, response timing, and tool executions.</p>
 <span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
-<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_messages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_messages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize progress indicator.</span>
 
 <span class="sd">    Args:</span>
@@ -4953,6 +5034,9 @@ tokens, session time, response timing, and tool executions.</p>
     <span class="c1"># Tool execution tracking</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">last_tool_executions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ToolExecution</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">total_tool_calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Snapshot of tools observed via the live panel for the verbose</span>
+    <span class="c1"># post-turn summary.  Populated by :meth:`set_active_snapshot`.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_panel_snapshot</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -5070,17 +5154,17 @@ tokens, session time, response timing, and tool executions.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/progress.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_spinner_line</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_spinner_line</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get current spinner animation frame.</span>
 
 <span class="sd">    Returns:</span>
@@ -5137,25 +5221,25 @@ tokens, session time, response timing, and tool executions.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/progress.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_status_inline</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_status_inline</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get minimal inline status for default mode.</span>
 
 <span class="sd">    Format: [messages_current/messages_max | execution_time]</span>
@@ -5219,28 +5303,7 @@ tokens, session time, response timing, and tool executions.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/progress.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">124</span>
 <span class="normal">125</span>
 <span class="normal">126</span>
 <span class="normal">127</span>
@@ -5288,7 +5351,44 @@ tokens, session time, response timing, and tool executions.</p>
 <span class="normal">169</span>
 <span class="normal">170</span>
 <span class="normal">171</span>
-<span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_status_panel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_status_panel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get rich status panel for verbose mode.</span>
 
 <span class="sd">    Returns:</span>
@@ -5340,8 +5440,24 @@ tokens, session time, response timing, and tool executions.</p>
     <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Tool Calls (Total): </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">total_tool_calls</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;│ </span><span class="si">{</span><span class="n">content</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">content_width</span><span class="si">}}</span><span class="s2"> │&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Last tool executions (if any)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_tool_executions</span><span class="p">:</span>
+    <span class="c1"># Last tool executions (if any) — prefer the live-panel snapshot</span>
+    <span class="c1"># when available since streaming responses never populate</span>
+    <span class="c1"># ``last_tool_executions``.</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_snapshot</span><span class="p">:</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;│ </span><span class="si">{</span><span class="s1">&#39;Last Tools Called:&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">content_width</span><span class="si">}}</span><span class="s2"> │&quot;</span><span class="p">)</span>
+        <span class="n">status_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_status_icon</span><span class="p">(</span><span class="n">ToolStatus</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">tool_name</span><span class="p">,</span> <span class="n">is_subagent</span><span class="p">,</span> <span class="n">subagent_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_snapshot</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Task[</span><span class="si">{</span><span class="n">subagent_type</span><span class="si">}</span><span class="s2">]&quot;</span>
+                <span class="k">if</span> <span class="n">is_subagent</span> <span class="ow">and</span> <span class="n">subagent_type</span>
+                <span class="k">else</span> <span class="n">tool_name</span>
+            <span class="p">)</span>
+            <span class="n">max_name_len</span> <span class="o">=</span> <span class="n">content_width</span> <span class="o">-</span> <span class="mi">6</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_name_len</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">[:</span> <span class="n">max_name_len</span> <span class="o">-</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;  └─ </span><span class="si">{</span><span class="n">status_icon</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;│ </span><span class="si">{</span><span class="n">content</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">content_width</span><span class="si">}}</span><span class="s2"> │&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_tool_executions</span><span class="p">:</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;│ </span><span class="si">{</span><span class="s1">&#39;Last Tools Called:&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">content_width</span><span class="si">}}</span><span class="s2"> │&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">tool_exec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_tool_executions</span><span class="p">:</span>
             <span class="c1"># Get status indicator</span>
@@ -5358,6 +5474,97 @@ tokens, session time, response timing, and tool executions.</p>
     <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;╰─────────────────────────────────────────╯&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="holodeck.chat.progress.ChatProgressIndicator.set_active_snapshot" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">set_active_snapshot</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span></code>
+
+<a href="#holodeck.chat.progress.ChatProgressIndicator.set_active_snapshot" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Record the panel's view of tools that ran this turn.</p>
+<p>Streaming responses don't surface <code>tool_executions</code> (they always
+return <code>[]</code>), so the verbose summary panel uses this snapshot
+from :class:<code>holodeck.chat.tools_panel.ToolsPanel</code> instead.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>entries</code>
+            </td>
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Iterable of objects exposing <code>tool_name</code>,
+<code>is_subagent</code>, and <code>subagent_type</code> attributes (i.e. the
+<code>_Active</code> records returned by <code>ToolsPanel.snapshot()</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/holodeck/chat/progress.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_active_snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entries</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Record the panel&#39;s view of tools that ran this turn.</span>
+
+<span class="sd">    Streaming responses don&#39;t surface ``tool_executions`` (they always</span>
+<span class="sd">    return ``[]``), so the verbose summary panel uses this snapshot</span>
+<span class="sd">    from :class:`holodeck.chat.tools_panel.ToolsPanel` instead.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        entries: Iterable of objects exposing ``tool_name``,</span>
+<span class="sd">            ``is_subagent``, and ``subagent_type`` attributes (i.e. the</span>
+<span class="sd">            ``_Active`` records returned by ``ToolsPanel.snapshot()``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_panel_snapshot</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">is_subagent</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">subagent_type</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">entries</span>
+    <span class="p">]</span>
+    <span class="c1"># Count every tool the panel saw towards the cumulative total.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">total_tool_calls</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_panel_snapshot</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -5412,30 +5619,30 @@ and tool_executions.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/progress.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update progress after agent response.</span>
 
 <span class="sd">    Args:</span>
