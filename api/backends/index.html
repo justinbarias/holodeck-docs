@@ -1354,6 +1354,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#holodeck.lib.backends.base.AgentSession.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prepare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#holodeck.lib.backends.base.AgentSession.send" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1726,6 +1737,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#holodeck.lib.backends.sk_backend.SKSession.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prepare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#holodeck.lib.backends.sk_backend.SKSession.send" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1880,6 +1902,17 @@
     <span class="md-ellipsis">
       
         close
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#holodeck.lib.backends.claude_backend.ClaudeSession.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prepare
       
     </span>
   </a>
@@ -2815,6 +2848,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#holodeck.lib.backends.base.AgentSession.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prepare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#holodeck.lib.backends.base.AgentSession.send" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3187,6 +3231,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#holodeck.lib.backends.sk_backend.SKSession.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prepare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#holodeck.lib.backends.sk_backend.SKSession.send" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3341,6 +3396,17 @@
     <span class="md-ellipsis">
       
         close
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#holodeck.lib.backends.claude_backend.ClaudeSession.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prepare
       
     </span>
   </a>
@@ -4243,11 +4309,72 @@ to release any held resources (connections, subprocesses, etc.).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Release session resources (connections, subprocesses, etc.).&quot;&quot;&quot;</span>
     <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="holodeck.lib.backends.base.AgentSession.prepare" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">prepare</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#holodeck.lib.backends.base.AgentSession.prepare" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Connect or otherwise ready the session before the first <code>send</code>.</p>
+<p>Called by callers that need the session's underlying transport
+opened in a specific async task context (e.g.
+<code>_TaskBoundSession</code> requires the SDK's <code>connect()</code> to run in
+the actor task so the anyio task group binds correctly).</p>
+<p>Default behavior is a no-op. Implementations that have lazy
+connect semantics — like <code>ClaudeSession</code> — should override
+this to perform the connect explicitly. Implementations that
+connect at construction time can leave this as a no-op.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Connect or otherwise ready the session before the first ``send``.</span>
+
+<span class="sd">    Called by callers that need the session&#39;s underlying transport</span>
+<span class="sd">    opened in a specific async task context (e.g.</span>
+<span class="sd">    ``_TaskBoundSession`` requires the SDK&#39;s ``connect()`` to run in</span>
+<span class="sd">    the actor task so the anyio task group binds correctly).</span>
+
+<span class="sd">    Default behavior is a no-op. Implementations that have lazy</span>
+<span class="sd">    connect semantics — like ``ClaudeSession`` — should override</span>
+<span class="sd">    this to perform the connect explicitly. Implementations that</span>
+<span class="sd">    connect at construction time can leave this as a no-op.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4332,16 +4459,16 @@ to release any held resources (connections, subprocesses, etc.).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and receive a single-turn result.</span>
 
 <span class="sd">    Args:</span>
@@ -4431,17 +4558,17 @@ to release any held resources (connections, subprocesses, etc.).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and stream the agent response token by token.</span>
 
 <span class="sd">    Args:</span>
@@ -4515,7 +4642,7 @@ and stateful sessions (<code>create_session</code>). Callers must call
 
 
 <h3 id="holodeck.lib.backends.base.AgentBackend.create_session" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">create_session</span><span class="p">()</span></code>
+            <code class="highlight language-python"><span class="n">create_session</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4527,6 +4654,45 @@ and stateful sessions (<code>create_session</code>). Callers must call
     <div class="doc doc-contents ">
 
         <p>Create a new stateful multi-turn session.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>eager_connect</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>When True (default), the backend may open its
+underlying transport before returning. When False, the
+backend must return a session whose transport is opened
+lazily — typically by <code>AgentSession.prepare()</code> invoked
+from a specific async task. Used by callers that need
+connection lifecycle bound to a different task than the
+one calling <code>create_session</code> (e.g.
+<code>_TaskBoundSession</code> actor). Backends without lazy
+connect semantics may accept and ignore this argument.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     <p><span class="doc-section-title">Returns:</span></p>
@@ -4587,18 +4753,40 @@ and stateful sessions (<code>create_session</code>). Callers must call
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentSession</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentSession</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new stateful multi-turn session.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        eager_connect: When True (default), the backend may open its</span>
+<span class="sd">            underlying transport before returning. When False, the</span>
+<span class="sd">            backend must return a session whose transport is opened</span>
+<span class="sd">            lazily — typically by ``AgentSession.prepare()`` invoked</span>
+<span class="sd">            from a specific async task. Used by callers that need</span>
+<span class="sd">            connection lifecycle bound to a different task than the</span>
+<span class="sd">            one calling ``create_session`` (e.g.</span>
+<span class="sd">            ``_TaskBoundSession`` actor). Backends without lazy</span>
+<span class="sd">            connect semantics may accept and ignore this argument.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A fresh AgentSession instance bound to this backend.</span>
@@ -4658,14 +4846,14 @@ missing API key, unavailable subprocess).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare the backend for use.</span>
 
 <span class="sd">    Raises:</span>
@@ -4806,25 +4994,25 @@ missing API key, unavailable subprocess).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span>
 <span class="normal">159</span>
 <span class="normal">160</span>
-<span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">context</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -4869,9 +5057,9 @@ missing API key, unavailable subprocess).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Release all backend resources.&quot;&quot;&quot;</span>
     <span class="o">...</span>
 </code></pre></div></td></tr></table></div>
@@ -5043,23 +5231,23 @@ should satisfy this protocol.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/base.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">contextualize_batch</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">contextualize_batch</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">chunks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DocumentChunk</span><span class="p">],</span>
     <span class="n">document_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -5577,13 +5765,13 @@ used by downstream consumers.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
 <span class="normal">108</span>
-<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent_config</span><span class="p">:</span> <span class="n">Agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent_config</span><span class="p">:</span> <span class="n">Agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the SK backend with agent configuration.</span>
 
 <span class="sd">    Args:</span>
@@ -5610,7 +5798,7 @@ used by downstream consumers.</p>
 
 
 <h3 id="holodeck.lib.backends.sk_backend.SKBackend.create_session" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">create_session</span><span class="p">()</span></code>
+            <code class="highlight language-python"><span class="n">create_session</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -5622,6 +5810,39 @@ used by downstream consumers.</p>
     <div class="doc doc-contents ">
 
         <p>Create a new stateful multi-turn session.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>eager_connect</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Accepted for protocol compatibility with
+backends that have lazy-connect semantics (Claude).
+SK creates its thread run synchronously regardless.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     <p><span class="doc-section-title">Returns:</span></p>
@@ -5649,19 +5870,31 @@ used by downstream consumers.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">144</span>
 <span class="normal">145</span>
 <span class="normal">146</span>
-<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentSession</span><span class="p">:</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentSession</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new stateful multi-turn session.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        eager_connect: Accepted for protocol compatibility with</span>
+<span class="sd">            backends that have lazy-connect semantics (Claude).</span>
+<span class="sd">            SK creates its thread run synchronously regardless.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An SKSession instance bound to a fresh thread run.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">del</span> <span class="n">eager_connect</span>  <span class="c1"># SK has no lazy connect path</span>
     <span class="n">thread_run</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factory</span><span class="o">.</span><span class="n">create_thread_run</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">SKSession</span><span class="p">(</span><span class="n">thread_run</span><span class="o">=</span><span class="n">thread_run</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -5690,9 +5923,9 @@ used by downstream consumers.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare the backend for use by initializing tools.&quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factory</span><span class="o">.</span><span class="n">_ensure_tools_initialized</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -5795,11 +6028,7 @@ used by downstream consumers.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
@@ -5818,7 +6047,11 @@ used by downstream consumers.</p>
 <span class="normal">135</span>
 <span class="normal">136</span>
 <span class="normal">137</span>
-<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">context</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -5868,9 +6101,9 @@ used by downstream consumers.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Release all backend resources.&quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factory</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -5997,11 +6230,42 @@ Semantic Kernel thread run for conversation management.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Release session resources. No-op for SK sessions.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="holodeck.lib.backends.sk_backend.SKSession.prepare" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">prepare</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#holodeck.lib.backends.sk_backend.SKSession.prepare" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>No-op. SK thread runs are connected at construction time.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No-op. SK thread runs are connected at construction time.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -6086,11 +6350,7 @@ Semantic Kernel thread run for conversation management.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
@@ -6103,7 +6363,11 @@ Semantic Kernel thread run for conversation management.</p>
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
-<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and receive a single-turn result.</span>
 
 <span class="sd">    Args:</span>
@@ -6203,11 +6467,7 @@ single chunk. True streaming will be implemented in a future phase.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/sk_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">80</span>
 <span class="normal">81</span>
 <span class="normal">82</span>
 <span class="normal">83</span>
@@ -6216,7 +6476,11 @@ single chunk. True streaming will be implemented in a future phase.</p>
 <span class="normal">86</span>
 <span class="normal">87</span>
 <span class="normal">88</span>
-<span class="normal">89</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and stream the response.</span>
 
 <span class="sd">    Currently delegates to send() and yields the full response as a</span>
@@ -6361,29 +6625,29 @@ Initialization is deferred to <code>initialize()</code> (called lazily on first 
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">788</span>
-<span class="normal">789</span>
-<span class="normal">790</span>
-<span class="normal">791</span>
-<span class="normal">792</span>
-<span class="normal">793</span>
-<span class="normal">794</span>
-<span class="normal">795</span>
-<span class="normal">796</span>
-<span class="normal">797</span>
-<span class="normal">798</span>
-<span class="normal">799</span>
-<span class="normal">800</span>
-<span class="normal">801</span>
-<span class="normal">802</span>
-<span class="normal">803</span>
-<span class="normal">804</span>
-<span class="normal">805</span>
-<span class="normal">806</span>
-<span class="normal">807</span>
-<span class="normal">808</span>
-<span class="normal">809</span>
-<span class="normal">810</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">834</span>
+<span class="normal">835</span>
+<span class="normal">836</span>
+<span class="normal">837</span>
+<span class="normal">838</span>
+<span class="normal">839</span>
+<span class="normal">840</span>
+<span class="normal">841</span>
+<span class="normal">842</span>
+<span class="normal">843</span>
+<span class="normal">844</span>
+<span class="normal">845</span>
+<span class="normal">846</span>
+<span class="normal">847</span>
+<span class="normal">848</span>
+<span class="normal">849</span>
+<span class="normal">850</span>
+<span class="normal">851</span>
+<span class="normal">852</span>
+<span class="normal">853</span>
+<span class="normal">854</span>
+<span class="normal">855</span>
+<span class="normal">856</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">tool_instances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -6426,7 +6690,7 @@ Initialization is deferred to <code>initialize()</code> (called lazily on first 
 
 
 <h3 id="holodeck.lib.backends.claude_backend.ClaudeBackend.create_session" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">create_session</span><span class="p">()</span></code>
+            <code class="highlight language-python"><span class="n">create_session</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -6438,13 +6702,53 @@ Initialization is deferred to <code>initialize()</code> (called lazily on first 
     <div class="doc doc-contents ">
 
         <p>Create a new multi-turn session.</p>
-<p>Automatically initializes if not yet done. Eagerly connects the SDK
-client so the anyio cancel scope is entered on the caller's task.
-Deferring connect() to the first <code>send()</code> would bind the scope to
-whatever task wraps <code>send</code> (e.g., an inner task spawned by
-<code>asyncio.wait_for</code> on Python &lt;3.11) and a later <code>close()</code> on the
-outer task would raise <code>RuntimeError: Attempted to exit cancel scope
-in a different task</code>.</p>
+<p>Automatically initializes if not yet done. By default eagerly
+connects the SDK client so the anyio cancel scope is entered on
+the caller's task — required for non-actor callers because
+deferring <code>connect()</code> to the first <code>send()</code> would bind the
+scope to whatever task wraps <code>send</code> (e.g. an inner task spawned
+by <code>asyncio.wait_for</code> on Python &lt;3.11) and a later <code>close()</code>
+on the outer task would raise <code>RuntimeError: Attempted to exit
+cancel scope in a different task</code>.</p>
+<p>Pass <code>eager_connect=False</code> when the caller will own the
+connect/disconnect lifecycle in a different task (e.g. when
+wrapping the session in <code>_TaskBoundSession</code> — that actor must
+be the task that calls <code>connect()</code> so the SDK's anyio task
+group + <code>_read_messages</code> background reader live as long as
+the actor, not the HTTP request task that created the session).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>eager_connect</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>When True (default), connect the SDK client
+synchronously before returning. When False, return an
+unconnected session; the first <code>send()</code> will connect.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     <p><span class="doc-section-title">Returns:</span></p>
@@ -6462,7 +6766,17 @@ in a different task</code>.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>A new, connected <code>ClaudeSession</code> instance.</p>
+                <p>A new <code>ClaudeSession</code> instance, connected unless</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ClaudeSession(options) (holodeck.lib.backends.claude_backend.ClaudeSession)" href="#holodeck.lib.backends.claude_backend.ClaudeSession">ClaudeSession</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>eager_connect=False</code>.</p>
               </div>
             </td>
           </tr>
@@ -6472,44 +6786,74 @@ in a different task</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1064</span>
-<span class="normal">1065</span>
-<span class="normal">1066</span>
-<span class="normal">1067</span>
-<span class="normal">1068</span>
-<span class="normal">1069</span>
-<span class="normal">1070</span>
-<span class="normal">1071</span>
-<span class="normal">1072</span>
-<span class="normal">1073</span>
-<span class="normal">1074</span>
-<span class="normal">1075</span>
-<span class="normal">1076</span>
-<span class="normal">1077</span>
-<span class="normal">1078</span>
-<span class="normal">1079</span>
-<span class="normal">1080</span>
-<span class="normal">1081</span>
-<span class="normal">1082</span>
-<span class="normal">1083</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClaudeSession</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1110</span>
+<span class="normal">1111</span>
+<span class="normal">1112</span>
+<span class="normal">1113</span>
+<span class="normal">1114</span>
+<span class="normal">1115</span>
+<span class="normal">1116</span>
+<span class="normal">1117</span>
+<span class="normal">1118</span>
+<span class="normal">1119</span>
+<span class="normal">1120</span>
+<span class="normal">1121</span>
+<span class="normal">1122</span>
+<span class="normal">1123</span>
+<span class="normal">1124</span>
+<span class="normal">1125</span>
+<span class="normal">1126</span>
+<span class="normal">1127</span>
+<span class="normal">1128</span>
+<span class="normal">1129</span>
+<span class="normal">1130</span>
+<span class="normal">1131</span>
+<span class="normal">1132</span>
+<span class="normal">1133</span>
+<span class="normal">1134</span>
+<span class="normal">1135</span>
+<span class="normal">1136</span>
+<span class="normal">1137</span>
+<span class="normal">1138</span>
+<span class="normal">1139</span>
+<span class="normal">1140</span>
+<span class="normal">1141</span>
+<span class="normal">1142</span>
+<span class="normal">1143</span>
+<span class="normal">1144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClaudeSession</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new multi-turn session.</span>
 
-<span class="sd">    Automatically initializes if not yet done. Eagerly connects the SDK</span>
-<span class="sd">    client so the anyio cancel scope is entered on the caller&#39;s task.</span>
-<span class="sd">    Deferring connect() to the first ``send()`` would bind the scope to</span>
-<span class="sd">    whatever task wraps ``send`` (e.g., an inner task spawned by</span>
-<span class="sd">    ``asyncio.wait_for`` on Python &lt;3.11) and a later ``close()`` on the</span>
-<span class="sd">    outer task would raise ``RuntimeError: Attempted to exit cancel scope</span>
-<span class="sd">    in a different task``.</span>
+<span class="sd">    Automatically initializes if not yet done. By default eagerly</span>
+<span class="sd">    connects the SDK client so the anyio cancel scope is entered on</span>
+<span class="sd">    the caller&#39;s task — required for non-actor callers because</span>
+<span class="sd">    deferring ``connect()`` to the first ``send()`` would bind the</span>
+<span class="sd">    scope to whatever task wraps ``send`` (e.g. an inner task spawned</span>
+<span class="sd">    by ``asyncio.wait_for`` on Python &lt;3.11) and a later ``close()``</span>
+<span class="sd">    on the outer task would raise ``RuntimeError: Attempted to exit</span>
+<span class="sd">    cancel scope in a different task``.</span>
+
+<span class="sd">    Pass ``eager_connect=False`` when the caller will own the</span>
+<span class="sd">    connect/disconnect lifecycle in a different task (e.g. when</span>
+<span class="sd">    wrapping the session in ``_TaskBoundSession`` — that actor must</span>
+<span class="sd">    be the task that calls ``connect()`` so the SDK&#39;s anyio task</span>
+<span class="sd">    group + ``_read_messages`` background reader live as long as</span>
+<span class="sd">    the actor, not the HTTP request task that created the session).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        eager_connect: When True (default), connect the SDK client</span>
+<span class="sd">            synchronously before returning. When False, return an</span>
+<span class="sd">            unconnected session; the first ``send()`` will connect.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        A new, connected ``ClaudeSession`` instance.</span>
+<span class="sd">        A new ``ClaudeSession`` instance, connected unless</span>
+<span class="sd">        ``eager_connect=False``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_initialized</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">BackendInitError</span><span class="p">(</span><span class="s2">&quot;Backend options not set after initialization&quot;</span><span class="p">)</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
-    <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">eager_connect</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">session</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -6561,53 +6905,7 @@ in a different task</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">817</span>
-<span class="normal">818</span>
-<span class="normal">819</span>
-<span class="normal">820</span>
-<span class="normal">821</span>
-<span class="normal">822</span>
-<span class="normal">823</span>
-<span class="normal">824</span>
-<span class="normal">825</span>
-<span class="normal">826</span>
-<span class="normal">827</span>
-<span class="normal">828</span>
-<span class="normal">829</span>
-<span class="normal">830</span>
-<span class="normal">831</span>
-<span class="normal">832</span>
-<span class="normal">833</span>
-<span class="normal">834</span>
-<span class="normal">835</span>
-<span class="normal">836</span>
-<span class="normal">837</span>
-<span class="normal">838</span>
-<span class="normal">839</span>
-<span class="normal">840</span>
-<span class="normal">841</span>
-<span class="normal">842</span>
-<span class="normal">843</span>
-<span class="normal">844</span>
-<span class="normal">845</span>
-<span class="normal">846</span>
-<span class="normal">847</span>
-<span class="normal">848</span>
-<span class="normal">849</span>
-<span class="normal">850</span>
-<span class="normal">851</span>
-<span class="normal">852</span>
-<span class="normal">853</span>
-<span class="normal">854</span>
-<span class="normal">855</span>
-<span class="normal">856</span>
-<span class="normal">857</span>
-<span class="normal">858</span>
-<span class="normal">859</span>
-<span class="normal">860</span>
-<span class="normal">861</span>
-<span class="normal">862</span>
-<span class="normal">863</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">863</span>
 <span class="normal">864</span>
 <span class="normal">865</span>
 <span class="normal">866</span>
@@ -6643,7 +6941,53 @@ in a different task</code>.</p>
 <span class="normal">896</span>
 <span class="normal">897</span>
 <span class="normal">898</span>
-<span class="normal">899</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">899</span>
+<span class="normal">900</span>
+<span class="normal">901</span>
+<span class="normal">902</span>
+<span class="normal">903</span>
+<span class="normal">904</span>
+<span class="normal">905</span>
+<span class="normal">906</span>
+<span class="normal">907</span>
+<span class="normal">908</span>
+<span class="normal">909</span>
+<span class="normal">910</span>
+<span class="normal">911</span>
+<span class="normal">912</span>
+<span class="normal">913</span>
+<span class="normal">914</span>
+<span class="normal">915</span>
+<span class="normal">916</span>
+<span class="normal">917</span>
+<span class="normal">918</span>
+<span class="normal">919</span>
+<span class="normal">920</span>
+<span class="normal">921</span>
+<span class="normal">922</span>
+<span class="normal">923</span>
+<span class="normal">924</span>
+<span class="normal">925</span>
+<span class="normal">926</span>
+<span class="normal">927</span>
+<span class="normal">928</span>
+<span class="normal">929</span>
+<span class="normal">930</span>
+<span class="normal">931</span>
+<span class="normal">932</span>
+<span class="normal">933</span>
+<span class="normal">934</span>
+<span class="normal">935</span>
+<span class="normal">936</span>
+<span class="normal">937</span>
+<span class="normal">938</span>
+<span class="normal">939</span>
+<span class="normal">940</span>
+<span class="normal">941</span>
+<span class="normal">942</span>
+<span class="normal">943</span>
+<span class="normal">944</span>
+<span class="normal">945</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the backend — validate config, build options.</span>
 
 <span class="sd">    Idempotent: calling multiple times is a no-op after the first.</span>
@@ -6851,50 +7195,50 @@ in a different task</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">901</span>
-<span class="normal">902</span>
-<span class="normal">903</span>
-<span class="normal">904</span>
-<span class="normal">905</span>
-<span class="normal">906</span>
-<span class="normal">907</span>
-<span class="normal">908</span>
-<span class="normal">909</span>
-<span class="normal">910</span>
-<span class="normal">911</span>
-<span class="normal">912</span>
-<span class="normal">913</span>
-<span class="normal">914</span>
-<span class="normal">915</span>
-<span class="normal">916</span>
-<span class="normal">917</span>
-<span class="normal">918</span>
-<span class="normal">919</span>
-<span class="normal">920</span>
-<span class="normal">921</span>
-<span class="normal">922</span>
-<span class="normal">923</span>
-<span class="normal">924</span>
-<span class="normal">925</span>
-<span class="normal">926</span>
-<span class="normal">927</span>
-<span class="normal">928</span>
-<span class="normal">929</span>
-<span class="normal">930</span>
-<span class="normal">931</span>
-<span class="normal">932</span>
-<span class="normal">933</span>
-<span class="normal">934</span>
-<span class="normal">935</span>
-<span class="normal">936</span>
-<span class="normal">937</span>
-<span class="normal">938</span>
-<span class="normal">939</span>
-<span class="normal">940</span>
-<span class="normal">941</span>
-<span class="normal">942</span>
-<span class="normal">943</span>
-<span class="normal">944</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">947</span>
+<span class="normal">948</span>
+<span class="normal">949</span>
+<span class="normal">950</span>
+<span class="normal">951</span>
+<span class="normal">952</span>
+<span class="normal">953</span>
+<span class="normal">954</span>
+<span class="normal">955</span>
+<span class="normal">956</span>
+<span class="normal">957</span>
+<span class="normal">958</span>
+<span class="normal">959</span>
+<span class="normal">960</span>
+<span class="normal">961</span>
+<span class="normal">962</span>
+<span class="normal">963</span>
+<span class="normal">964</span>
+<span class="normal">965</span>
+<span class="normal">966</span>
+<span class="normal">967</span>
+<span class="normal">968</span>
+<span class="normal">969</span>
+<span class="normal">970</span>
+<span class="normal">971</span>
+<span class="normal">972</span>
+<span class="normal">973</span>
+<span class="normal">974</span>
+<span class="normal">975</span>
+<span class="normal">976</span>
+<span class="normal">977</span>
+<span class="normal">978</span>
+<span class="normal">979</span>
+<span class="normal">980</span>
+<span class="normal">981</span>
+<span class="normal">982</span>
+<span class="normal">983</span>
+<span class="normal">984</span>
+<span class="normal">985</span>
+<span class="normal">986</span>
+<span class="normal">987</span>
+<span class="normal">988</span>
+<span class="normal">989</span>
+<span class="normal">990</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Invoke the agent for a single turn.</span>
@@ -6964,27 +7308,27 @@ in a different task</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1180</span>
-<span class="normal">1181</span>
-<span class="normal">1182</span>
-<span class="normal">1183</span>
-<span class="normal">1184</span>
-<span class="normal">1185</span>
-<span class="normal">1186</span>
-<span class="normal">1187</span>
-<span class="normal">1188</span>
-<span class="normal">1189</span>
-<span class="normal">1190</span>
-<span class="normal">1191</span>
-<span class="normal">1192</span>
-<span class="normal">1193</span>
-<span class="normal">1194</span>
-<span class="normal">1195</span>
-<span class="normal">1196</span>
-<span class="normal">1197</span>
-<span class="normal">1198</span>
-<span class="normal">1199</span>
-<span class="normal">1200</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1241</span>
+<span class="normal">1242</span>
+<span class="normal">1243</span>
+<span class="normal">1244</span>
+<span class="normal">1245</span>
+<span class="normal">1246</span>
+<span class="normal">1247</span>
+<span class="normal">1248</span>
+<span class="normal">1249</span>
+<span class="normal">1250</span>
+<span class="normal">1251</span>
+<span class="normal">1252</span>
+<span class="normal">1253</span>
+<span class="normal">1254</span>
+<span class="normal">1255</span>
+<span class="normal">1256</span>
+<span class="normal">1257</span>
+<span class="normal">1258</span>
+<span class="normal">1259</span>
+<span class="normal">1260</span>
+<span class="normal">1261</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset backend state, releasing any built options.&quot;&quot;&quot;</span>
     <span class="c1"># Deactivate GenAI instrumentation</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instrumentor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -7035,11 +7379,18 @@ in a different task</code>.</p>
 
 
         <p>Stateful multi-turn session backed by <code>ClaudeSDKClient</code>.</p>
-<p>Each session maintains a <code>session_id</code> across turns. Multi-turn state is
-opt-in: after the first turn, subsequent turns pass
-<code>continue_conversation=True</code> and <code>resume=session_id</code> to the SDK.</p>
-<p>The <code>_base_options</code> reference is <strong>never mutated</strong>. Turn-specific options
-are created as new <code>ClaudeAgentOptions</code> instances.</p>
+<p>Multi-turn state lives <strong>inside the connected CLI subprocess</strong>, not on
+this object. <code>ClaudeSDKClient</code> in interactive streaming mode keeps a
+single subprocess open for the session's lifetime; each <code>send()</code>
+writes one user message on stdin and reads the response stream off
+stdout. The CLI tracks conversation history internally, so every
+<code>client.query()</code> for that connected lifetime uses
+<code>session_id=_DEFAULT_SESSION_ID</code> (the module-level constant) —
+rotating it to the CLI-assigned id surfaced on <code>ResultMessage</code>
+wedges the CLI on the next turn (the query write succeeds but no
+response messages ever come back).</p>
+<p>The <code>_base_options</code> reference is <strong>never mutated</strong>. Turn-specific
+options are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
         <p>Initialize session with base options.</p>
 
@@ -7083,24 +7434,22 @@ are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">571</span>
-<span class="normal">572</span>
-<span class="normal">573</span>
-<span class="normal">574</span>
-<span class="normal">575</span>
-<span class="normal">576</span>
-<span class="normal">577</span>
-<span class="normal">578</span>
-<span class="normal">579</span>
-<span class="normal">580</span>
-<span class="normal">581</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ClaudeAgentOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">585</span>
+<span class="normal">586</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ClaudeAgentOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize session with base options.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        options: Base options (immutable reference for the session lifetime).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_base_options</span> <span class="o">=</span> <span class="n">options</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">:</span> <span class="n">ClaudeSDKClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">[</span><span class="n">ToolEvent</span><span class="p">]</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
@@ -7162,11 +7511,61 @@ are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">767</span>
-<span class="normal">768</span>
-<span class="normal">769</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">813</span>
+<span class="normal">814</span>
+<span class="normal">815</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Disconnect the SDK client and release resources.&quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">release_transport</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="holodeck.lib.backends.claude_backend.ClaudeSession.prepare" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">prepare</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#holodeck.lib.backends.claude_backend.ClaudeSession.prepare" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Open the SDK transport in the calling task's context.</p>
+<p>Connects the underlying <code>ClaudeSDKClient</code> if not already
+connected. The SDK's anyio task group + <code>_read_messages</code>
+background reader bind to whichever task calls <code>connect()</code>,
+so callers needing a specific task to own that lifecycle should
+call <code>prepare()</code> from that task before the first <code>send</code>.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">626</span>
+<span class="normal">627</span>
+<span class="normal">628</span>
+<span class="normal">629</span>
+<span class="normal">630</span>
+<span class="normal">631</span>
+<span class="normal">632</span>
+<span class="normal">633</span>
+<span class="normal">634</span>
+<span class="normal">635</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Open the SDK transport in the calling task&#39;s context.</span>
+
+<span class="sd">    Connects the underlying ``ClaudeSDKClient`` if not already</span>
+<span class="sd">    connected. The SDK&#39;s anyio task group + ``_read_messages``</span>
+<span class="sd">    background reader bind to whichever task calls ``connect()``,</span>
+<span class="sd">    so callers needing a specific task to own that lifecycle should</span>
+<span class="sd">    call ``prepare()`` from that task before the first ``send``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -7188,40 +7587,55 @@ are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Disconnect the SDK client without losing session state.</p>
-<p>After calling this, the next <code>send()</code> or <code>send_streaming()</code> call
-will create a fresh <code>ClaudeSDKClient</code> and reconnect, resuming the
-conversation via the preserved <code>session_id</code>.</p>
-<p>This is required when the session is used across different async task
-contexts (e.g., HTTP requests in <code>holodeck serve</code>), because the
-SDK's anyio task group is bound to the task that called <code>connect()</code>.</p>
+        <p>Disconnect the underlying <code>ClaudeSDKClient</code> connection.</p>
+<p>After calling this, the next <code>send()</code> / <code>send_streaming()</code> call
+will create and connect a fresh <code>ClaudeSDKClient</code>. Note that the
+new client starts a new CLI subprocess with no awareness of the
+prior conversation — any conversation continuity needs to be
+rebuilt at the application layer (e.g., by replaying history).</p>
+<p>Provided primarily for cross-task migration scenarios (the SDK's
+anyio task group is bound to the task that called <code>connect()</code>)
+and for explicit resource release in tests; it is <strong>not</strong> part of
+the normal per-turn flow in <code>holodeck serve</code> — that path keeps
+one connected client for the session's lifetime via
+<code>_TaskBoundSession</code>.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">752</span>
-<span class="normal">753</span>
-<span class="normal">754</span>
-<span class="normal">755</span>
-<span class="normal">756</span>
-<span class="normal">757</span>
-<span class="normal">758</span>
-<span class="normal">759</span>
-<span class="normal">760</span>
-<span class="normal">761</span>
-<span class="normal">762</span>
-<span class="normal">763</span>
-<span class="normal">764</span>
-<span class="normal">765</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">release_transport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Disconnect the SDK client without losing session state.</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">793</span>
+<span class="normal">794</span>
+<span class="normal">795</span>
+<span class="normal">796</span>
+<span class="normal">797</span>
+<span class="normal">798</span>
+<span class="normal">799</span>
+<span class="normal">800</span>
+<span class="normal">801</span>
+<span class="normal">802</span>
+<span class="normal">803</span>
+<span class="normal">804</span>
+<span class="normal">805</span>
+<span class="normal">806</span>
+<span class="normal">807</span>
+<span class="normal">808</span>
+<span class="normal">809</span>
+<span class="normal">810</span>
+<span class="normal">811</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">release_transport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Disconnect the underlying ``ClaudeSDKClient`` connection.</span>
 
-<span class="sd">    After calling this, the next ``send()`` or ``send_streaming()`` call</span>
-<span class="sd">    will create a fresh ``ClaudeSDKClient`` and reconnect, resuming the</span>
-<span class="sd">    conversation via the preserved ``session_id``.</span>
+<span class="sd">    After calling this, the next ``send()`` / ``send_streaming()`` call</span>
+<span class="sd">    will create and connect a fresh ``ClaudeSDKClient``. Note that the</span>
+<span class="sd">    new client starts a new CLI subprocess with no awareness of the</span>
+<span class="sd">    prior conversation — any conversation continuity needs to be</span>
+<span class="sd">    rebuilt at the application layer (e.g., by replaying history).</span>
 
-<span class="sd">    This is required when the session is used across different async task</span>
-<span class="sd">    contexts (e.g., HTTP requests in ``holodeck serve``), because the</span>
-<span class="sd">    SDK&#39;s anyio task group is bound to the task that called ``connect()``.</span>
+<span class="sd">    Provided primarily for cross-task migration scenarios (the SDK&#39;s</span>
+<span class="sd">    anyio task group is bound to the task that called ``connect()``)</span>
+<span class="sd">    and for explicit resource release in tests; it is **not** part of</span>
+<span class="sd">    the normal per-turn flow in ``holodeck serve`` — that path keeps</span>
+<span class="sd">    one connected client for the session&#39;s lifetime via</span>
+<span class="sd">    ``_TaskBoundSession``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
@@ -7333,21 +7747,7 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">643</span>
-<span class="normal">644</span>
-<span class="normal">645</span>
-<span class="normal">646</span>
-<span class="normal">647</span>
-<span class="normal">648</span>
-<span class="normal">649</span>
-<span class="normal">650</span>
-<span class="normal">651</span>
-<span class="normal">652</span>
-<span class="normal">653</span>
-<span class="normal">654</span>
-<span class="normal">655</span>
-<span class="normal">656</span>
-<span class="normal">657</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">657</span>
 <span class="normal">658</span>
 <span class="normal">659</span>
 <span class="normal">660</span>
@@ -7409,7 +7809,50 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
 <span class="normal">716</span>
 <span class="normal">717</span>
 <span class="normal">718</span>
-<span class="normal">719</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
+<span class="normal">719</span>
+<span class="normal">720</span>
+<span class="normal">721</span>
+<span class="normal">722</span>
+<span class="normal">723</span>
+<span class="normal">724</span>
+<span class="normal">725</span>
+<span class="normal">726</span>
+<span class="normal">727</span>
+<span class="normal">728</span>
+<span class="normal">729</span>
+<span class="normal">730</span>
+<span class="normal">731</span>
+<span class="normal">732</span>
+<span class="normal">733</span>
+<span class="normal">734</span>
+<span class="normal">735</span>
+<span class="normal">736</span>
+<span class="normal">737</span>
+<span class="normal">738</span>
+<span class="normal">739</span>
+<span class="normal">740</span>
+<span class="normal">741</span>
+<span class="normal">742</span>
+<span class="normal">743</span>
+<span class="normal">744</span>
+<span class="normal">745</span>
+<span class="normal">746</span>
+<span class="normal">747</span>
+<span class="normal">748</span>
+<span class="normal">749</span>
+<span class="normal">750</span>
+<span class="normal">751</span>
+<span class="normal">752</span>
+<span class="normal">753</span>
+<span class="normal">754</span>
+<span class="normal">755</span>
+<span class="normal">756</span>
+<span class="normal">757</span>
+<span class="normal">758</span>
+<span class="normal">759</span>
+<span class="normal">760</span>
+<span class="normal">761</span>
+<span class="normal">762</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and collect the full response.</span>
 
 <span class="sd">    Args:</span>
@@ -7421,9 +7864,24 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
 <span class="sd">    Raises:</span>
 <span class="sd">        BackendSessionError: On subprocess or SDK error.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">turn_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: entering, client_cached=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">turn_no</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">client</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
-        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_session_id</span><span class="p">())</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: client ready, calling query&quot;</span><span class="p">,</span>
+            <span class="n">turn_no</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="n">_DEFAULT_SESSION_ID</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: query written, awaiting &quot;</span>
+            <span class="s2">&quot;receive_response&quot;</span><span class="p">,</span>
+            <span class="n">turn_no</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="n">text_parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">tool_calls</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -7432,7 +7890,15 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
         <span class="n">num_turns</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">structured_output</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
 
+        <span class="n">msg_count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">receive_response</span><span class="p">():</span>
+            <span class="n">msg_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: msg #</span><span class="si">%d</span><span class="s2"> type=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">turn_no</span><span class="p">,</span>
+                <span class="n">msg_count</span><span class="p">,</span>
+                <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
             <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span> <span class="o">=</span> <span class="n">_process_message</span><span class="p">(</span>
                 <span class="n">msg</span><span class="p">,</span> <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span>
@@ -7448,9 +7914,15 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
                     <span class="n">total_tokens</span><span class="o">=</span><span class="n">prompt</span> <span class="o">+</span> <span class="n">completion</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="n">num_turns</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">num_turns</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">session_id</span>
                 <span class="n">structured_output</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">structured_output</span>
 
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: receive_response exited, &quot;</span>
+            <span class="s2">&quot;msg_count=</span><span class="si">%d</span><span class="s2">, num_turns=</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">turn_no</span><span class="p">,</span>
+            <span class="n">msg_count</span><span class="p">,</span>
+            <span class="n">num_turns</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># Enrich tool results with names from tool calls so downstream</span>
@@ -7589,36 +8061,34 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">721</span>
-<span class="normal">722</span>
-<span class="normal">723</span>
-<span class="normal">724</span>
-<span class="normal">725</span>
-<span class="normal">726</span>
-<span class="normal">727</span>
-<span class="normal">728</span>
-<span class="normal">729</span>
-<span class="normal">730</span>
-<span class="normal">731</span>
-<span class="normal">732</span>
-<span class="normal">733</span>
-<span class="normal">734</span>
-<span class="normal">735</span>
-<span class="normal">736</span>
-<span class="normal">737</span>
-<span class="normal">738</span>
-<span class="normal">739</span>
-<span class="normal">740</span>
-<span class="normal">741</span>
-<span class="normal">742</span>
-<span class="normal">743</span>
-<span class="normal">744</span>
-<span class="normal">745</span>
-<span class="normal">746</span>
-<span class="normal">747</span>
-<span class="normal">748</span>
-<span class="normal">749</span>
-<span class="normal">750</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">764</span>
+<span class="normal">765</span>
+<span class="normal">766</span>
+<span class="normal">767</span>
+<span class="normal">768</span>
+<span class="normal">769</span>
+<span class="normal">770</span>
+<span class="normal">771</span>
+<span class="normal">772</span>
+<span class="normal">773</span>
+<span class="normal">774</span>
+<span class="normal">775</span>
+<span class="normal">776</span>
+<span class="normal">777</span>
+<span class="normal">778</span>
+<span class="normal">779</span>
+<span class="normal">780</span>
+<span class="normal">781</span>
+<span class="normal">782</span>
+<span class="normal">783</span>
+<span class="normal">784</span>
+<span class="normal">785</span>
+<span class="normal">786</span>
+<span class="normal">787</span>
+<span class="normal">788</span>
+<span class="normal">789</span>
+<span class="normal">790</span>
+<span class="normal">791</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and yield text chunks progressively.</span>
 
 <span class="sd">    Args:</span>
@@ -7632,7 +8102,7 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">client</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
-        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_session_id</span><span class="p">())</span>
+        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="n">_DEFAULT_SESSION_ID</span><span class="p">)</span>
 
         <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">receive_response</span><span class="p">():</span>
             <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
@@ -7641,8 +8111,6 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
                     <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;TextBlock&quot;</span> <span class="ow">and</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
                         <span class="k">yield</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span>
             <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;ResultMessage&quot;</span><span class="p">:</span>
-                <span class="n">rm</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">session_id</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">except</span> <span class="p">(</span><span class="n">ProcessError</span><span class="p">,</span> <span class="n">CLIConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">BackendSessionError</span><span class="p">(</span>
@@ -7845,14 +8313,7 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">257</span>
 <span class="normal">258</span>
 <span class="normal">259</span>
 <span class="normal">260</span>
@@ -7963,7 +8424,14 @@ SDK's anyio task group is bound to the task that called <code>connect()</code>.<
 <span class="normal">365</span>
 <span class="normal">366</span>
 <span class="normal">367</span>
-<span class="normal">368</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_options</span><span class="p">(</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_options</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">tool_server</span><span class="p">:</span> <span class="n">McpSdkServerConfig</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
