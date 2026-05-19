@@ -5458,7 +5458,7 @@ user-visible error.</p>
 
 
 <h3 id="holodeck.lib.backends.selector.BackendSelector.select" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">select</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">tool_instances</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">allow_side_effects</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">select</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">tool_instances</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -5530,22 +5530,6 @@ user-visible error.</p>
             </td>
             <td>
                   <code>&#39;test&#39;</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>allow_side_effects</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Allow bash/file_system.write in test mode.</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
             </td>
           </tr>
       </tbody>
@@ -5639,15 +5623,11 @@ user-visible error.</p>
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">tool_instances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-    <span class="n">allow_side_effects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentBackend</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Select and initialize the appropriate backend for the given agent.</span>
 
@@ -5655,7 +5635,6 @@ user-visible error.</p>
 <span class="sd">        agent: Agent configuration with model provider information.</span>
 <span class="sd">        tool_instances: Initialized tool instances for Claude backend.</span>
 <span class="sd">        mode: Execution mode (``&quot;test&quot;`` or ``&quot;chat&quot;``).</span>
-<span class="sd">        allow_side_effects: Allow bash/file_system.write in test mode.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An initialized AgentBackend instance ready for use.</span>
@@ -5679,7 +5658,6 @@ user-visible error.</p>
             <span class="n">agent</span><span class="o">=</span><span class="n">agent</span><span class="p">,</span>
             <span class="n">tool_instances</span><span class="o">=</span><span class="n">tool_instances</span><span class="p">,</span>
             <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
-            <span class="n">allow_side_effects</span><span class="o">=</span><span class="n">allow_side_effects</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">await</span> <span class="n">claude_backend</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">claude_backend</span>
@@ -6519,7 +6497,7 @@ the top-level <code>query()</code> SDK function; multi-turn chat sessions use
 
 
 <h2 id="holodeck.lib.backends.claude_backend.ClaudeBackend" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">ClaudeBackend</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">tool_instances</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">allow_side_effects</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">ClaudeBackend</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">tool_instances</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.backends.claude_backend.ClaudeBackend" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -6529,9 +6507,10 @@ the top-level <code>query()</code> SDK function; multi-turn chat sessions use
 
 
         <p>Backend implementation for the Claude Agent SDK.</p>
-<p>Implements the <code>AgentBackend</code> protocol. Single-turn invocations use the
-top-level <code>query()</code> function. Multi-turn sessions use <code>ClaudeSession</code>
-wrapping <code>ClaudeSDKClient</code>.</p>
+<p>Implements the <code>AgentBackend</code> protocol. Both single-turn invocations
+and multi-turn sessions are built on the top-level <code>query()</code> function;
+multi-turn state is threaded via <code>resume=&lt;sdk_session_id&gt;</code> inside
+<code>ClaudeSession</code>.</p>
 <p>The constructor stores config only — no I/O, no subprocess spawned.
 Initialization is deferred to <code>initialize()</code> (called lazily on first use).</p>
 
@@ -6597,22 +6576,6 @@ Initialization is deferred to <code>initialize()</code> (called lazily on first 
                   <code>&#39;test&#39;</code>
             </td>
           </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>allow_side_effects</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Allow bash/file_system.write in test mode.</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
-            </td>
-          </tr>
       </tbody>
     </table>
 
@@ -6625,34 +6588,30 @@ Initialization is deferred to <code>initialize()</code> (called lazily on first 
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">834</span>
-<span class="normal">835</span>
-<span class="normal">836</span>
-<span class="normal">837</span>
-<span class="normal">838</span>
-<span class="normal">839</span>
-<span class="normal">840</span>
-<span class="normal">841</span>
-<span class="normal">842</span>
-<span class="normal">843</span>
-<span class="normal">844</span>
-<span class="normal">845</span>
-<span class="normal">846</span>
-<span class="normal">847</span>
-<span class="normal">848</span>
-<span class="normal">849</span>
-<span class="normal">850</span>
-<span class="normal">851</span>
-<span class="normal">852</span>
-<span class="normal">853</span>
-<span class="normal">854</span>
-<span class="normal">855</span>
-<span class="normal">856</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">913</span>
+<span class="normal">914</span>
+<span class="normal">915</span>
+<span class="normal">916</span>
+<span class="normal">917</span>
+<span class="normal">918</span>
+<span class="normal">919</span>
+<span class="normal">920</span>
+<span class="normal">921</span>
+<span class="normal">922</span>
+<span class="normal">923</span>
+<span class="normal">924</span>
+<span class="normal">925</span>
+<span class="normal">926</span>
+<span class="normal">927</span>
+<span class="normal">928</span>
+<span class="normal">929</span>
+<span class="normal">930</span>
+<span class="normal">931</span>
+<span class="normal">932</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">tool_instances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-    <span class="n">allow_side_effects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Store configuration without performing any I/O.</span>
 
@@ -6660,12 +6619,10 @@ Initialization is deferred to <code>initialize()</code> (called lazily on first 
 <span class="sd">        agent: Agent configuration.</span>
 <span class="sd">        tool_instances: Initialized vectorstore/hierarchical-doc tool instances.</span>
 <span class="sd">        mode: Execution mode (``&quot;test&quot;`` or ``&quot;chat&quot;``).</span>
-<span class="sd">        allow_side_effects: Allow bash/file_system.write in test mode.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_agent</span> <span class="o">=</span> <span class="n">agent</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tool_instances</span> <span class="o">=</span> <span class="n">tool_instances</span> <span class="ow">or</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_allow_side_effects</span> <span class="o">=</span> <span class="n">allow_side_effects</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">:</span> <span class="n">ClaudeAgentOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_owned_tools</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Tools created during initialize()</span>
@@ -6702,20 +6659,11 @@ Initialization is deferred to <code>initialize()</code> (called lazily on first 
     <div class="doc doc-contents ">
 
         <p>Create a new multi-turn session.</p>
-<p>Automatically initializes if not yet done. By default eagerly
-connects the SDK client so the anyio cancel scope is entered on
-the caller's task — required for non-actor callers because
-deferring <code>connect()</code> to the first <code>send()</code> would bind the
-scope to whatever task wraps <code>send</code> (e.g. an inner task spawned
-by <code>asyncio.wait_for</code> on Python &lt;3.11) and a later <code>close()</code>
-on the outer task would raise <code>RuntimeError: Attempted to exit
-cancel scope in a different task</code>.</p>
-<p>Pass <code>eager_connect=False</code> when the caller will own the
-connect/disconnect lifecycle in a different task (e.g. when
-wrapping the session in <code>_TaskBoundSession</code> — that actor must
-be the task that calls <code>connect()</code> so the SDK's anyio task
-group + <code>_read_messages</code> background reader live as long as
-the actor, not the HTTP request task that created the session).</p>
+<p>Automatically initializes if not yet done. Under spec 034 P4 the
+session no longer holds a persistent <code>ClaudeSDKClient</code>; each
+turn opens its own subprocess via <code>query(resume=session_id)</code>.
+<code>eager_connect</code> is retained as a no-op for API compatibility —
+<code>ClaudeSession.prepare()</code> is itself a no-op under P4.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -6738,9 +6686,8 @@ the actor, not the HTTP request task that created the session).</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>When True (default), connect the SDK client
-synchronously before returning. When False, return an
-unconnected session; the first <code>send()</code> will connect.</p>
+                <p>Retained for backwards compatibility; has no
+effect under spec 034 P4.</p>
               </div>
             </td>
             <td>
@@ -6766,17 +6713,7 @@ unconnected session; the first <code>send()</code> will connect.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>A new <code>ClaudeSession</code> instance, connected unless</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="ClaudeSession(options) (holodeck.lib.backends.claude_backend.ClaudeSession)" href="#holodeck.lib.backends.claude_backend.ClaudeSession">ClaudeSession</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p><code>eager_connect=False</code>.</p>
+                <p>A new <code>ClaudeSession</code> instance.</p>
               </div>
             </td>
           </tr>
@@ -6786,74 +6723,50 @@ unconnected session; the first <code>send()</code> will connect.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1110</span>
-<span class="normal">1111</span>
-<span class="normal">1112</span>
-<span class="normal">1113</span>
-<span class="normal">1114</span>
-<span class="normal">1115</span>
-<span class="normal">1116</span>
-<span class="normal">1117</span>
-<span class="normal">1118</span>
-<span class="normal">1119</span>
-<span class="normal">1120</span>
-<span class="normal">1121</span>
-<span class="normal">1122</span>
-<span class="normal">1123</span>
-<span class="normal">1124</span>
-<span class="normal">1125</span>
-<span class="normal">1126</span>
-<span class="normal">1127</span>
-<span class="normal">1128</span>
-<span class="normal">1129</span>
-<span class="normal">1130</span>
-<span class="normal">1131</span>
-<span class="normal">1132</span>
-<span class="normal">1133</span>
-<span class="normal">1134</span>
-<span class="normal">1135</span>
-<span class="normal">1136</span>
-<span class="normal">1137</span>
-<span class="normal">1138</span>
-<span class="normal">1139</span>
-<span class="normal">1140</span>
-<span class="normal">1141</span>
-<span class="normal">1142</span>
-<span class="normal">1143</span>
-<span class="normal">1144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClaudeSession</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1183</span>
+<span class="normal">1184</span>
+<span class="normal">1185</span>
+<span class="normal">1186</span>
+<span class="normal">1187</span>
+<span class="normal">1188</span>
+<span class="normal">1189</span>
+<span class="normal">1190</span>
+<span class="normal">1191</span>
+<span class="normal">1192</span>
+<span class="normal">1193</span>
+<span class="normal">1194</span>
+<span class="normal">1195</span>
+<span class="normal">1196</span>
+<span class="normal">1197</span>
+<span class="normal">1198</span>
+<span class="normal">1199</span>
+<span class="normal">1200</span>
+<span class="normal">1201</span>
+<span class="normal">1202</span>
+<span class="normal">1203</span>
+<span class="normal">1204</span>
+<span class="normal">1205</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">eager_connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClaudeSession</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new multi-turn session.</span>
 
-<span class="sd">    Automatically initializes if not yet done. By default eagerly</span>
-<span class="sd">    connects the SDK client so the anyio cancel scope is entered on</span>
-<span class="sd">    the caller&#39;s task — required for non-actor callers because</span>
-<span class="sd">    deferring ``connect()`` to the first ``send()`` would bind the</span>
-<span class="sd">    scope to whatever task wraps ``send`` (e.g. an inner task spawned</span>
-<span class="sd">    by ``asyncio.wait_for`` on Python &lt;3.11) and a later ``close()``</span>
-<span class="sd">    on the outer task would raise ``RuntimeError: Attempted to exit</span>
-<span class="sd">    cancel scope in a different task``.</span>
-
-<span class="sd">    Pass ``eager_connect=False`` when the caller will own the</span>
-<span class="sd">    connect/disconnect lifecycle in a different task (e.g. when</span>
-<span class="sd">    wrapping the session in ``_TaskBoundSession`` — that actor must</span>
-<span class="sd">    be the task that calls ``connect()`` so the SDK&#39;s anyio task</span>
-<span class="sd">    group + ``_read_messages`` background reader live as long as</span>
-<span class="sd">    the actor, not the HTTP request task that created the session).</span>
+<span class="sd">    Automatically initializes if not yet done. Under spec 034 P4 the</span>
+<span class="sd">    session no longer holds a persistent ``ClaudeSDKClient``; each</span>
+<span class="sd">    turn opens its own subprocess via ``query(resume=session_id)``.</span>
+<span class="sd">    ``eager_connect`` is retained as a no-op for API compatibility —</span>
+<span class="sd">    ``ClaudeSession.prepare()`` is itself a no-op under P4.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        eager_connect: When True (default), connect the SDK client</span>
-<span class="sd">            synchronously before returning. When False, return an</span>
-<span class="sd">            unconnected session; the first ``send()`` will connect.</span>
+<span class="sd">        eager_connect: Retained for backwards compatibility; has no</span>
+<span class="sd">            effect under spec 034 P4.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        A new ``ClaudeSession`` instance, connected unless</span>
-<span class="sd">        ``eager_connect=False``.</span>
+<span class="sd">        A new ``ClaudeSession`` instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_initialized</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">BackendInitError</span><span class="p">(</span><span class="s2">&quot;Backend options not set after initialization&quot;</span><span class="p">)</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">eager_connect</span><span class="p">:</span>
-        <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">session</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -6905,89 +6818,88 @@ unconnected session; the first <code>send()</code> will connect.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">863</span>
-<span class="normal">864</span>
-<span class="normal">865</span>
-<span class="normal">866</span>
-<span class="normal">867</span>
-<span class="normal">868</span>
-<span class="normal">869</span>
-<span class="normal">870</span>
-<span class="normal">871</span>
-<span class="normal">872</span>
-<span class="normal">873</span>
-<span class="normal">874</span>
-<span class="normal">875</span>
-<span class="normal">876</span>
-<span class="normal">877</span>
-<span class="normal">878</span>
-<span class="normal">879</span>
-<span class="normal">880</span>
-<span class="normal">881</span>
-<span class="normal">882</span>
-<span class="normal">883</span>
-<span class="normal">884</span>
-<span class="normal">885</span>
-<span class="normal">886</span>
-<span class="normal">887</span>
-<span class="normal">888</span>
-<span class="normal">889</span>
-<span class="normal">890</span>
-<span class="normal">891</span>
-<span class="normal">892</span>
-<span class="normal">893</span>
-<span class="normal">894</span>
-<span class="normal">895</span>
-<span class="normal">896</span>
-<span class="normal">897</span>
-<span class="normal">898</span>
-<span class="normal">899</span>
-<span class="normal">900</span>
-<span class="normal">901</span>
-<span class="normal">902</span>
-<span class="normal">903</span>
-<span class="normal">904</span>
-<span class="normal">905</span>
-<span class="normal">906</span>
-<span class="normal">907</span>
-<span class="normal">908</span>
-<span class="normal">909</span>
-<span class="normal">910</span>
-<span class="normal">911</span>
-<span class="normal">912</span>
-<span class="normal">913</span>
-<span class="normal">914</span>
-<span class="normal">915</span>
-<span class="normal">916</span>
-<span class="normal">917</span>
-<span class="normal">918</span>
-<span class="normal">919</span>
-<span class="normal">920</span>
-<span class="normal">921</span>
-<span class="normal">922</span>
-<span class="normal">923</span>
-<span class="normal">924</span>
-<span class="normal">925</span>
-<span class="normal">926</span>
-<span class="normal">927</span>
-<span class="normal">928</span>
-<span class="normal">929</span>
-<span class="normal">930</span>
-<span class="normal">931</span>
-<span class="normal">932</span>
-<span class="normal">933</span>
-<span class="normal">934</span>
-<span class="normal">935</span>
-<span class="normal">936</span>
-<span class="normal">937</span>
-<span class="normal">938</span>
-<span class="normal">939</span>
-<span class="normal">940</span>
-<span class="normal">941</span>
-<span class="normal">942</span>
-<span class="normal">943</span>
-<span class="normal">944</span>
-<span class="normal">945</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 939</span>
+<span class="normal"> 940</span>
+<span class="normal"> 941</span>
+<span class="normal"> 942</span>
+<span class="normal"> 943</span>
+<span class="normal"> 944</span>
+<span class="normal"> 945</span>
+<span class="normal"> 946</span>
+<span class="normal"> 947</span>
+<span class="normal"> 948</span>
+<span class="normal"> 949</span>
+<span class="normal"> 950</span>
+<span class="normal"> 951</span>
+<span class="normal"> 952</span>
+<span class="normal"> 953</span>
+<span class="normal"> 954</span>
+<span class="normal"> 955</span>
+<span class="normal"> 956</span>
+<span class="normal"> 957</span>
+<span class="normal"> 958</span>
+<span class="normal"> 959</span>
+<span class="normal"> 960</span>
+<span class="normal"> 961</span>
+<span class="normal"> 962</span>
+<span class="normal"> 963</span>
+<span class="normal"> 964</span>
+<span class="normal"> 965</span>
+<span class="normal"> 966</span>
+<span class="normal"> 967</span>
+<span class="normal"> 968</span>
+<span class="normal"> 969</span>
+<span class="normal"> 970</span>
+<span class="normal"> 971</span>
+<span class="normal"> 972</span>
+<span class="normal"> 973</span>
+<span class="normal"> 974</span>
+<span class="normal"> 975</span>
+<span class="normal"> 976</span>
+<span class="normal"> 977</span>
+<span class="normal"> 978</span>
+<span class="normal"> 979</span>
+<span class="normal"> 980</span>
+<span class="normal"> 981</span>
+<span class="normal"> 982</span>
+<span class="normal"> 983</span>
+<span class="normal"> 984</span>
+<span class="normal"> 985</span>
+<span class="normal"> 986</span>
+<span class="normal"> 987</span>
+<span class="normal"> 988</span>
+<span class="normal"> 989</span>
+<span class="normal"> 990</span>
+<span class="normal"> 991</span>
+<span class="normal"> 992</span>
+<span class="normal"> 993</span>
+<span class="normal"> 994</span>
+<span class="normal"> 995</span>
+<span class="normal"> 996</span>
+<span class="normal"> 997</span>
+<span class="normal"> 998</span>
+<span class="normal"> 999</span>
+<span class="normal">1000</span>
+<span class="normal">1001</span>
+<span class="normal">1002</span>
+<span class="normal">1003</span>
+<span class="normal">1004</span>
+<span class="normal">1005</span>
+<span class="normal">1006</span>
+<span class="normal">1007</span>
+<span class="normal">1008</span>
+<span class="normal">1009</span>
+<span class="normal">1010</span>
+<span class="normal">1011</span>
+<span class="normal">1012</span>
+<span class="normal">1013</span>
+<span class="normal">1014</span>
+<span class="normal">1015</span>
+<span class="normal">1016</span>
+<span class="normal">1017</span>
+<span class="normal">1018</span>
+<span class="normal">1019</span>
+<span class="normal">1020</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the backend — validate config, build options.</span>
 
 <span class="sd">    Idempotent: calling multiple times is a no-op after the first.</span>
@@ -7049,7 +6961,6 @@ unconnected session; the first <code>send()</code> will connect.</p>
             <span class="n">auth_env</span><span class="o">=</span><span class="n">auth_env</span><span class="p">,</span>
             <span class="n">otel_env</span><span class="o">=</span><span class="n">otel_env</span><span class="p">,</span>
             <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">,</span>
-            <span class="n">allow_side_effects</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_allow_side_effects</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># 9. Working directory collision check</span>
@@ -7195,50 +7106,50 @@ unconnected session; the first <code>send()</code> will connect.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">947</span>
-<span class="normal">948</span>
-<span class="normal">949</span>
-<span class="normal">950</span>
-<span class="normal">951</span>
-<span class="normal">952</span>
-<span class="normal">953</span>
-<span class="normal">954</span>
-<span class="normal">955</span>
-<span class="normal">956</span>
-<span class="normal">957</span>
-<span class="normal">958</span>
-<span class="normal">959</span>
-<span class="normal">960</span>
-<span class="normal">961</span>
-<span class="normal">962</span>
-<span class="normal">963</span>
-<span class="normal">964</span>
-<span class="normal">965</span>
-<span class="normal">966</span>
-<span class="normal">967</span>
-<span class="normal">968</span>
-<span class="normal">969</span>
-<span class="normal">970</span>
-<span class="normal">971</span>
-<span class="normal">972</span>
-<span class="normal">973</span>
-<span class="normal">974</span>
-<span class="normal">975</span>
-<span class="normal">976</span>
-<span class="normal">977</span>
-<span class="normal">978</span>
-<span class="normal">979</span>
-<span class="normal">980</span>
-<span class="normal">981</span>
-<span class="normal">982</span>
-<span class="normal">983</span>
-<span class="normal">984</span>
-<span class="normal">985</span>
-<span class="normal">986</span>
-<span class="normal">987</span>
-<span class="normal">988</span>
-<span class="normal">989</span>
-<span class="normal">990</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1022</span>
+<span class="normal">1023</span>
+<span class="normal">1024</span>
+<span class="normal">1025</span>
+<span class="normal">1026</span>
+<span class="normal">1027</span>
+<span class="normal">1028</span>
+<span class="normal">1029</span>
+<span class="normal">1030</span>
+<span class="normal">1031</span>
+<span class="normal">1032</span>
+<span class="normal">1033</span>
+<span class="normal">1034</span>
+<span class="normal">1035</span>
+<span class="normal">1036</span>
+<span class="normal">1037</span>
+<span class="normal">1038</span>
+<span class="normal">1039</span>
+<span class="normal">1040</span>
+<span class="normal">1041</span>
+<span class="normal">1042</span>
+<span class="normal">1043</span>
+<span class="normal">1044</span>
+<span class="normal">1045</span>
+<span class="normal">1046</span>
+<span class="normal">1047</span>
+<span class="normal">1048</span>
+<span class="normal">1049</span>
+<span class="normal">1050</span>
+<span class="normal">1051</span>
+<span class="normal">1052</span>
+<span class="normal">1053</span>
+<span class="normal">1054</span>
+<span class="normal">1055</span>
+<span class="normal">1056</span>
+<span class="normal">1057</span>
+<span class="normal">1058</span>
+<span class="normal">1059</span>
+<span class="normal">1060</span>
+<span class="normal">1061</span>
+<span class="normal">1062</span>
+<span class="normal">1063</span>
+<span class="normal">1064</span>
+<span class="normal">1065</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_once</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Invoke the agent for a single turn.</span>
@@ -7308,27 +7219,27 @@ unconnected session; the first <code>send()</code> will connect.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1241</span>
-<span class="normal">1242</span>
-<span class="normal">1243</span>
-<span class="normal">1244</span>
-<span class="normal">1245</span>
-<span class="normal">1246</span>
-<span class="normal">1247</span>
-<span class="normal">1248</span>
-<span class="normal">1249</span>
-<span class="normal">1250</span>
-<span class="normal">1251</span>
-<span class="normal">1252</span>
-<span class="normal">1253</span>
-<span class="normal">1254</span>
-<span class="normal">1255</span>
-<span class="normal">1256</span>
-<span class="normal">1257</span>
-<span class="normal">1258</span>
-<span class="normal">1259</span>
-<span class="normal">1260</span>
-<span class="normal">1261</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1302</span>
+<span class="normal">1303</span>
+<span class="normal">1304</span>
+<span class="normal">1305</span>
+<span class="normal">1306</span>
+<span class="normal">1307</span>
+<span class="normal">1308</span>
+<span class="normal">1309</span>
+<span class="normal">1310</span>
+<span class="normal">1311</span>
+<span class="normal">1312</span>
+<span class="normal">1313</span>
+<span class="normal">1314</span>
+<span class="normal">1315</span>
+<span class="normal">1316</span>
+<span class="normal">1317</span>
+<span class="normal">1318</span>
+<span class="normal">1319</span>
+<span class="normal">1320</span>
+<span class="normal">1321</span>
+<span class="normal">1322</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset backend state, releasing any built options.&quot;&quot;&quot;</span>
     <span class="c1"># Deactivate GenAI instrumentation</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instrumentor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -7378,17 +7289,13 @@ unconnected session; the first <code>send()</code> will connect.</p>
 
 
 
-        <p>Stateful multi-turn session backed by <code>ClaudeSDKClient</code>.</p>
-<p>Multi-turn state lives <strong>inside the connected CLI subprocess</strong>, not on
-this object. <code>ClaudeSDKClient</code> in interactive streaming mode keeps a
-single subprocess open for the session's lifetime; each <code>send()</code>
-writes one user message on stdin and reads the response stream off
-stdout. The CLI tracks conversation history internally, so every
-<code>client.query()</code> for that connected lifetime uses
-<code>session_id=_DEFAULT_SESSION_ID</code> (the module-level constant) —
-rotating it to the CLI-assigned id surfaced on <code>ResultMessage</code>
-wedges the CLI on the next turn (the query write succeeds but no
-response messages ever come back).</p>
+        <p>Stateful multi-turn session backed by <code>query(resume=...)</code> (spec 034 P4).</p>
+<p>Each <code>send()</code> / <code>send_streaming()</code> opens a fresh CLI subprocess via
+the top-level <code>query()</code> function. Turn 1 has no <code>resume</code>; the CLI
+assigns a session id which is captured from <code>ResultMessage</code> and
+stored on <code>_sdk_session_id</code>. Subsequent turns pass that id via
+<code>options.resume</code> so the CLI rehydrates the JSONL transcript at
+<code>~/.claude/projects/&lt;encoded-cwd&gt;/&lt;sdk_session_id&gt;.jsonl</code>.</p>
 <p>The <code>_base_options</code> reference is <strong>never mutated</strong>. Turn-specific
 options are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
@@ -7434,25 +7341,41 @@ options are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span>
-<span class="normal">588</span>
-<span class="normal">589</span>
-<span class="normal">590</span>
-<span class="normal">591</span>
-<span class="normal">592</span>
-<span class="normal">593</span>
-<span class="normal">594</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ClaudeAgentOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">663</span>
+<span class="normal">664</span>
+<span class="normal">665</span>
+<span class="normal">666</span>
+<span class="normal">667</span>
+<span class="normal">668</span>
+<span class="normal">669</span>
+<span class="normal">670</span>
+<span class="normal">671</span>
+<span class="normal">672</span>
+<span class="normal">673</span>
+<span class="normal">674</span>
+<span class="normal">675</span>
+<span class="normal">676</span>
+<span class="normal">677</span>
+<span class="normal">678</span>
+<span class="normal">679</span>
+<span class="normal">680</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ClaudeAgentOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize session with base options.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        options: Base options (immutable reference for the session lifetime).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_base_options</span> <span class="o">=</span> <span class="n">options</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">:</span> <span class="n">ClaudeSDKClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">[</span><span class="n">ToolEvent</span><span class="p">]</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+    <span class="c1"># spec 034 P4 — hybrid-session state.</span>
+    <span class="c1"># CLI-assigned conversation id; captured from ResultMessage on turn 1</span>
+    <span class="c1"># and fed into ``options.resume`` on turn 2+ so each fresh subprocess</span>
+    <span class="c1"># rehydrates the JSONL transcript at</span>
+    <span class="c1"># ``~/.claude/projects/&lt;encoded-cwd&gt;/&lt;sdk_session_id&gt;.jsonl``.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Serialises concurrent send() / send_streaming() on the same session.</span>
+    <span class="c1"># Two concurrent turns with the same resume= would race the transcript.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_send_lock</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Lock</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -7506,16 +7429,53 @@ options are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Disconnect the SDK client and release resources.</p>
+        <p>Delete the on-disk JSONL transcript and clear session state.</p>
+<p>Under spec 034 P4 the session has no persistent subprocess to
+disconnect. Conversation state lives on disk at
+<code>~/.claude/projects/&lt;encoded-cwd&gt;/&lt;sdk_session_id&gt;.jsonl</code>. Closing
+the session permanently discards that transcript so the next
+open of the same threadId starts fresh.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">813</span>
-<span class="normal">814</span>
-<span class="normal">815</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Disconnect the SDK client and release resources.&quot;&quot;&quot;</span>
-    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">release_transport</span><span class="p">()</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">875</span>
+<span class="normal">876</span>
+<span class="normal">877</span>
+<span class="normal">878</span>
+<span class="normal">879</span>
+<span class="normal">880</span>
+<span class="normal">881</span>
+<span class="normal">882</span>
+<span class="normal">883</span>
+<span class="normal">884</span>
+<span class="normal">885</span>
+<span class="normal">886</span>
+<span class="normal">887</span>
+<span class="normal">888</span>
+<span class="normal">889</span>
+<span class="normal">890</span>
+<span class="normal">891</span>
+<span class="normal">892</span>
+<span class="normal">893</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete the on-disk JSONL transcript and clear session state.</span>
+
+<span class="sd">    Under spec 034 P4 the session has no persistent subprocess to</span>
+<span class="sd">    disconnect. Conversation state lives on disk at</span>
+<span class="sd">    ``~/.claude/projects/&lt;encoded-cwd&gt;/&lt;sdk_session_id&gt;.jsonl``. Closing</span>
+<span class="sd">    the session permanently discards that transcript so the next</span>
+<span class="sd">    open of the same threadId starts fresh.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cwd_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_options</span><span class="p">,</span> <span class="s2">&quot;cwd&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_transcript_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd_value</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failed to delete transcript </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -7537,35 +7497,32 @@ options are created as new <code>ClaudeAgentOptions</code> instances.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Open the SDK transport in the calling task's context.</p>
-<p>Connects the underlying <code>ClaudeSDKClient</code> if not already
-connected. The SDK's anyio task group + <code>_read_messages</code>
-background reader bind to whichever task calls <code>connect()</code>,
-so callers needing a specific task to own that lifecycle should
-call <code>prepare()</code> from that task before the first <code>send</code>.</p>
+        <p>No-op under spec 034 P4.</p>
+<p>Retained for backwards compatibility with the chat executor's
+<code>_TaskBoundSession</code>. Under the hybrid-session model the SDK's
+anyio task group is created inside each <code>query()</code> call frame,
+so there is no task-binding to do up front.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">626</span>
-<span class="normal">627</span>
-<span class="normal">628</span>
-<span class="normal">629</span>
-<span class="normal">630</span>
-<span class="normal">631</span>
-<span class="normal">632</span>
-<span class="normal">633</span>
-<span class="normal">634</span>
-<span class="normal">635</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Open the SDK transport in the calling task&#39;s context.</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">712</span>
+<span class="normal">713</span>
+<span class="normal">714</span>
+<span class="normal">715</span>
+<span class="normal">716</span>
+<span class="normal">717</span>
+<span class="normal">718</span>
+<span class="normal">719</span>
+<span class="normal">720</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No-op under spec 034 P4.</span>
 
-<span class="sd">    Connects the underlying ``ClaudeSDKClient`` if not already</span>
-<span class="sd">    connected. The SDK&#39;s anyio task group + ``_read_messages``</span>
-<span class="sd">    background reader bind to whichever task calls ``connect()``,</span>
-<span class="sd">    so callers needing a specific task to own that lifecycle should</span>
-<span class="sd">    call ``prepare()`` from that task before the first ``send``.</span>
+<span class="sd">    Retained for backwards compatibility with the chat executor&#39;s</span>
+<span class="sd">    ``_TaskBoundSession``. Under the hybrid-session model the SDK&#39;s</span>
+<span class="sd">    anyio task group is created inside each ``query()`` call frame,</span>
+<span class="sd">    so there is no task-binding to do up front.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -7587,59 +7544,32 @@ call <code>prepare()</code> from that task before the first <code>send</code>.</
 
     <div class="doc doc-contents ">
 
-        <p>Disconnect the underlying <code>ClaudeSDKClient</code> connection.</p>
-<p>After calling this, the next <code>send()</code> / <code>send_streaming()</code> call
-will create and connect a fresh <code>ClaudeSDKClient</code>. Note that the
-new client starts a new CLI subprocess with no awareness of the
-prior conversation — any conversation continuity needs to be
-rebuilt at the application layer (e.g., by replaying history).</p>
-<p>Provided primarily for cross-task migration scenarios (the SDK's
-anyio task group is bound to the task that called <code>connect()</code>)
-and for explicit resource release in tests; it is <strong>not</strong> part of
-the normal per-turn flow in <code>holodeck serve</code> — that path keeps
-one connected client for the session's lifetime via
-<code>_TaskBoundSession</code>.</p>
+        <p>No-op under spec 034 P4.</p>
+<p>Retained for backwards compatibility with the chat executor's
+<code>_TaskBoundSession</code>. Under the hybrid-session model each turn's
+subprocess is created and torn down inside <code>query()</code>; there is no
+persistent transport to release between turns.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">793</span>
-<span class="normal">794</span>
-<span class="normal">795</span>
-<span class="normal">796</span>
-<span class="normal">797</span>
-<span class="normal">798</span>
-<span class="normal">799</span>
-<span class="normal">800</span>
-<span class="normal">801</span>
-<span class="normal">802</span>
-<span class="normal">803</span>
-<span class="normal">804</span>
-<span class="normal">805</span>
-<span class="normal">806</span>
-<span class="normal">807</span>
-<span class="normal">808</span>
-<span class="normal">809</span>
-<span class="normal">810</span>
-<span class="normal">811</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">release_transport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Disconnect the underlying ``ClaudeSDKClient`` connection.</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">865</span>
+<span class="normal">866</span>
+<span class="normal">867</span>
+<span class="normal">868</span>
+<span class="normal">869</span>
+<span class="normal">870</span>
+<span class="normal">871</span>
+<span class="normal">872</span>
+<span class="normal">873</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">release_transport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No-op under spec 034 P4.</span>
 
-<span class="sd">    After calling this, the next ``send()`` / ``send_streaming()`` call</span>
-<span class="sd">    will create and connect a fresh ``ClaudeSDKClient``. Note that the</span>
-<span class="sd">    new client starts a new CLI subprocess with no awareness of the</span>
-<span class="sd">    prior conversation — any conversation continuity needs to be</span>
-<span class="sd">    rebuilt at the application layer (e.g., by replaying history).</span>
-
-<span class="sd">    Provided primarily for cross-task migration scenarios (the SDK&#39;s</span>
-<span class="sd">    anyio task group is bound to the task that called ``connect()``)</span>
-<span class="sd">    and for explicit resource release in tests; it is **not** part of</span>
-<span class="sd">    the normal per-turn flow in ``holodeck serve`` — that path keeps</span>
-<span class="sd">    one connected client for the session&#39;s lifetime via</span>
-<span class="sd">    ``_TaskBoundSession``.</span>
+<span class="sd">    Retained for backwards compatibility with the chat executor&#39;s</span>
+<span class="sd">    ``_TaskBoundSession``. Under the hybrid-session model each turn&#39;s</span>
+<span class="sd">    subprocess is created and torn down inside ``query()``; there is no</span>
+<span class="sd">    persistent transport to release between turns.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -7747,72 +7677,7 @@ one connected client for the session's lifetime via
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">657</span>
-<span class="normal">658</span>
-<span class="normal">659</span>
-<span class="normal">660</span>
-<span class="normal">661</span>
-<span class="normal">662</span>
-<span class="normal">663</span>
-<span class="normal">664</span>
-<span class="normal">665</span>
-<span class="normal">666</span>
-<span class="normal">667</span>
-<span class="normal">668</span>
-<span class="normal">669</span>
-<span class="normal">670</span>
-<span class="normal">671</span>
-<span class="normal">672</span>
-<span class="normal">673</span>
-<span class="normal">674</span>
-<span class="normal">675</span>
-<span class="normal">676</span>
-<span class="normal">677</span>
-<span class="normal">678</span>
-<span class="normal">679</span>
-<span class="normal">680</span>
-<span class="normal">681</span>
-<span class="normal">682</span>
-<span class="normal">683</span>
-<span class="normal">684</span>
-<span class="normal">685</span>
-<span class="normal">686</span>
-<span class="normal">687</span>
-<span class="normal">688</span>
-<span class="normal">689</span>
-<span class="normal">690</span>
-<span class="normal">691</span>
-<span class="normal">692</span>
-<span class="normal">693</span>
-<span class="normal">694</span>
-<span class="normal">695</span>
-<span class="normal">696</span>
-<span class="normal">697</span>
-<span class="normal">698</span>
-<span class="normal">699</span>
-<span class="normal">700</span>
-<span class="normal">701</span>
-<span class="normal">702</span>
-<span class="normal">703</span>
-<span class="normal">704</span>
-<span class="normal">705</span>
-<span class="normal">706</span>
-<span class="normal">707</span>
-<span class="normal">708</span>
-<span class="normal">709</span>
-<span class="normal">710</span>
-<span class="normal">711</span>
-<span class="normal">712</span>
-<span class="normal">713</span>
-<span class="normal">714</span>
-<span class="normal">715</span>
-<span class="normal">716</span>
-<span class="normal">717</span>
-<span class="normal">718</span>
-<span class="normal">719</span>
-<span class="normal">720</span>
-<span class="normal">721</span>
-<span class="normal">722</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">722</span>
 <span class="normal">723</span>
 <span class="normal">724</span>
 <span class="normal">725</span>
@@ -7852,7 +7717,65 @@ one connected client for the session's lifetime via
 <span class="normal">759</span>
 <span class="normal">760</span>
 <span class="normal">761</span>
-<span class="normal">762</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
+<span class="normal">762</span>
+<span class="normal">763</span>
+<span class="normal">764</span>
+<span class="normal">765</span>
+<span class="normal">766</span>
+<span class="normal">767</span>
+<span class="normal">768</span>
+<span class="normal">769</span>
+<span class="normal">770</span>
+<span class="normal">771</span>
+<span class="normal">772</span>
+<span class="normal">773</span>
+<span class="normal">774</span>
+<span class="normal">775</span>
+<span class="normal">776</span>
+<span class="normal">777</span>
+<span class="normal">778</span>
+<span class="normal">779</span>
+<span class="normal">780</span>
+<span class="normal">781</span>
+<span class="normal">782</span>
+<span class="normal">783</span>
+<span class="normal">784</span>
+<span class="normal">785</span>
+<span class="normal">786</span>
+<span class="normal">787</span>
+<span class="normal">788</span>
+<span class="normal">789</span>
+<span class="normal">790</span>
+<span class="normal">791</span>
+<span class="normal">792</span>
+<span class="normal">793</span>
+<span class="normal">794</span>
+<span class="normal">795</span>
+<span class="normal">796</span>
+<span class="normal">797</span>
+<span class="normal">798</span>
+<span class="normal">799</span>
+<span class="normal">800</span>
+<span class="normal">801</span>
+<span class="normal">802</span>
+<span class="normal">803</span>
+<span class="normal">804</span>
+<span class="normal">805</span>
+<span class="normal">806</span>
+<span class="normal">807</span>
+<span class="normal">808</span>
+<span class="normal">809</span>
+<span class="normal">810</span>
+<span class="normal">811</span>
+<span class="normal">812</span>
+<span class="normal">813</span>
+<span class="normal">814</span>
+<span class="normal">815</span>
+<span class="normal">816</span>
+<span class="normal">817</span>
+<span class="normal">818</span>
+<span class="normal">819</span>
+<span class="normal">820</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and collect the full response.</span>
 
 <span class="sd">    Args:</span>
@@ -7864,100 +7787,93 @@ one connected client for the session's lifetime via
 <span class="sd">    Raises:</span>
 <span class="sd">        BackendSessionError: On subprocess or SDK error.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">turn_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-        <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: entering, client_cached=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="n">turn_no</span><span class="p">,</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">client</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_lock</span><span class="p">:</span>
+        <span class="n">turn_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: client ready, calling query&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: entering, resume=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">turn_no</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="n">_DEFAULT_SESSION_ID</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: query written, awaiting &quot;</span>
-            <span class="s2">&quot;receive_response&quot;</span><span class="p">,</span>
-            <span class="n">turn_no</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_with_hooks</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
 
-        <span class="n">text_parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">tool_calls</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">tool_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">token_usage</span> <span class="o">=</span> <span class="n">TokenUsage</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
-        <span class="n">num_turns</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">structured_output</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">options</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                        <span class="n">options</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                    <span class="c1"># Fallback for non-dataclass options (test mocks).</span>
+                    <span class="n">options</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span>
 
-        <span class="n">msg_count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">receive_response</span><span class="p">():</span>
-            <span class="n">msg_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">text_parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">tool_calls</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">tool_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">token_usage</span> <span class="o">=</span> <span class="n">TokenUsage</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+            <span class="n">num_turns</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">structured_output</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">msg_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span>
+                <span class="n">prompt</span><span class="o">=</span><span class="n">_streaming_user_envelope</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span>
+            <span class="p">):</span>
+                <span class="n">msg_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: msg #</span><span class="si">%d</span><span class="s2"> type=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">turn_no</span><span class="p">,</span>
+                    <span class="n">msg_count</span><span class="p">,</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
+                <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span> <span class="o">=</span> <span class="n">_process_message</span><span class="p">(</span>
+                    <span class="n">msg</span><span class="p">,</span> <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;ResultMessage&quot;</span><span class="p">:</span>
+                    <span class="n">rm</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+                    <span class="n">usage</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">usage</span> <span class="ow">or</span> <span class="p">{}</span>
+                    <span class="n">prompt_tokens</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">completion</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">token_usage</span> <span class="o">=</span> <span class="n">TokenUsage</span><span class="p">(</span>
+                        <span class="n">prompt_tokens</span><span class="o">=</span><span class="n">prompt_tokens</span><span class="p">,</span>
+                        <span class="n">completion_tokens</span><span class="o">=</span><span class="n">completion</span><span class="p">,</span>
+                        <span class="n">total_tokens</span><span class="o">=</span><span class="n">prompt_tokens</span> <span class="o">+</span> <span class="n">completion</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">num_turns</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">num_turns</span>
+                    <span class="n">structured_output</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">structured_output</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">captured</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="s2">&quot;session_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">captured</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">captured</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="n">captured</span>
+
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: msg #</span><span class="si">%d</span><span class="s2"> type=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: exited, &quot;</span>
+                <span class="s2">&quot;msg_count=</span><span class="si">%d</span><span class="s2">, num_turns=</span><span class="si">%d</span><span class="s2">, sdk_session_id=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="n">turn_no</span><span class="p">,</span>
                 <span class="n">msg_count</span><span class="p">,</span>
-                <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="n">num_turns</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
-            <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span> <span class="o">=</span> <span class="n">_process_message</span><span class="p">(</span>
-                <span class="n">msg</span><span class="p">,</span> <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="n">_enrich_tool_results</span><span class="p">(</span><span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span><span class="p">)</span>
+
+            <span class="n">response_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_parts</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">structured_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">response_text</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">structured_output</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">ExecutionResult</span><span class="p">(</span>
+                <span class="n">response</span><span class="o">=</span><span class="n">response_text</span><span class="p">,</span>
+                <span class="n">tool_calls</span><span class="o">=</span><span class="n">tool_calls</span><span class="p">,</span>
+                <span class="n">tool_results</span><span class="o">=</span><span class="n">tool_results</span><span class="p">,</span>
+                <span class="n">token_usage</span><span class="o">=</span><span class="n">token_usage</span><span class="p">,</span>
+                <span class="n">structured_output</span><span class="o">=</span><span class="n">structured_output</span><span class="p">,</span>
+                <span class="n">num_turns</span><span class="o">=</span><span class="n">num_turns</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;ResultMessage&quot;</span><span class="p">:</span>
-                <span class="n">rm</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-                <span class="n">usage</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">usage</span> <span class="ow">or</span> <span class="p">{}</span>
-                <span class="n">prompt</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-                <span class="n">completion</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-                <span class="n">token_usage</span> <span class="o">=</span> <span class="n">TokenUsage</span><span class="p">(</span>
-                    <span class="n">prompt_tokens</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span>
-                    <span class="n">completion_tokens</span><span class="o">=</span><span class="n">completion</span><span class="p">,</span>
-                    <span class="n">total_tokens</span><span class="o">=</span><span class="n">prompt</span> <span class="o">+</span> <span class="n">completion</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="n">num_turns</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">num_turns</span>
-                <span class="n">structured_output</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">structured_output</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: receive_response exited, &quot;</span>
-            <span class="s2">&quot;msg_count=</span><span class="si">%d</span><span class="s2">, num_turns=</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">turn_no</span><span class="p">,</span>
-            <span class="n">msg_count</span><span class="p">,</span>
-            <span class="n">num_turns</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="c1"># Enrich tool results with names from tool calls so downstream</span>
-        <span class="c1"># consumers (eval_kwargs_builder.build_retrieval_context_from_tools)</span>
-        <span class="c1"># can match each result to its source tool. The SDK yields names</span>
-        <span class="c1"># only on ToolUseBlock; results arrive on ToolResultBlock carrying</span>
-        <span class="c1"># just call_id.</span>
-        <span class="n">_enrich_tool_results</span><span class="p">(</span><span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span><span class="p">)</span>
-
-        <span class="n">response_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_parts</span><span class="p">)</span>
-
-        <span class="c1"># When ``response_format`` is set the SDK delivers the validated</span>
-        <span class="c1"># payload on ``ResultMessage.structured_output``; the text</span>
-        <span class="c1"># content blocks carry the model&#39;s prose reasoning, which the</span>
-        <span class="c1"># CLI does NOT constrain to the schema. The structured payload</span>
-        <span class="c1"># is the authoritative answer — prefer it so downstream graders</span>
-        <span class="c1"># (response_path, equality/numeric over JSON envelopes) operate</span>
-        <span class="c1"># on the schema-validated value, not the unconstrained prose.</span>
-        <span class="c1"># Mirrors ``invoke_once`` which routes through</span>
-        <span class="c1"># ``_validate_structured_output``.</span>
-        <span class="k">if</span> <span class="n">structured_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">response_text</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">structured_output</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">ExecutionResult</span><span class="p">(</span>
-            <span class="n">response</span><span class="o">=</span><span class="n">response_text</span><span class="p">,</span>
-            <span class="n">tool_calls</span><span class="o">=</span><span class="n">tool_calls</span><span class="p">,</span>
-            <span class="n">tool_results</span><span class="o">=</span><span class="n">tool_results</span><span class="p">,</span>
-            <span class="n">token_usage</span><span class="o">=</span><span class="n">token_usage</span><span class="p">,</span>
-            <span class="n">structured_output</span><span class="o">=</span><span class="n">structured_output</span><span class="p">,</span>
-            <span class="n">num_turns</span><span class="o">=</span><span class="n">num_turns</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="k">except</span> <span class="p">(</span><span class="n">ProcessError</span><span class="p">,</span> <span class="n">CLIConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">BackendSessionError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;subprocess terminated unexpectedly: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">ProcessError</span><span class="p">,</span> <span class="n">CLIConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BackendSessionError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;subprocess terminated unexpectedly: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -8061,34 +7977,48 @@ one connected client for the session's lifetime via
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">764</span>
-<span class="normal">765</span>
-<span class="normal">766</span>
-<span class="normal">767</span>
-<span class="normal">768</span>
-<span class="normal">769</span>
-<span class="normal">770</span>
-<span class="normal">771</span>
-<span class="normal">772</span>
-<span class="normal">773</span>
-<span class="normal">774</span>
-<span class="normal">775</span>
-<span class="normal">776</span>
-<span class="normal">777</span>
-<span class="normal">778</span>
-<span class="normal">779</span>
-<span class="normal">780</span>
-<span class="normal">781</span>
-<span class="normal">782</span>
-<span class="normal">783</span>
-<span class="normal">784</span>
-<span class="normal">785</span>
-<span class="normal">786</span>
-<span class="normal">787</span>
-<span class="normal">788</span>
-<span class="normal">789</span>
-<span class="normal">790</span>
-<span class="normal">791</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">822</span>
+<span class="normal">823</span>
+<span class="normal">824</span>
+<span class="normal">825</span>
+<span class="normal">826</span>
+<span class="normal">827</span>
+<span class="normal">828</span>
+<span class="normal">829</span>
+<span class="normal">830</span>
+<span class="normal">831</span>
+<span class="normal">832</span>
+<span class="normal">833</span>
+<span class="normal">834</span>
+<span class="normal">835</span>
+<span class="normal">836</span>
+<span class="normal">837</span>
+<span class="normal">838</span>
+<span class="normal">839</span>
+<span class="normal">840</span>
+<span class="normal">841</span>
+<span class="normal">842</span>
+<span class="normal">843</span>
+<span class="normal">844</span>
+<span class="normal">845</span>
+<span class="normal">846</span>
+<span class="normal">847</span>
+<span class="normal">848</span>
+<span class="normal">849</span>
+<span class="normal">850</span>
+<span class="normal">851</span>
+<span class="normal">852</span>
+<span class="normal">853</span>
+<span class="normal">854</span>
+<span class="normal">855</span>
+<span class="normal">856</span>
+<span class="normal">857</span>
+<span class="normal">858</span>
+<span class="normal">859</span>
+<span class="normal">860</span>
+<span class="normal">861</span>
+<span class="normal">862</span>
+<span class="normal">863</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a message and yield text chunks progressively.</span>
 
 <span class="sd">    Args:</span>
@@ -8100,22 +8030,36 @@ one connected client for the session's lifetime via
 <span class="sd">    Raises:</span>
 <span class="sd">        BackendSessionError: On subprocess or SDK error.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">client</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_client</span><span class="p">()</span>
-        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="n">_DEFAULT_SESSION_ID</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_lock</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_with_hooks</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
 
-        <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">receive_response</span><span class="p">():</span>
-            <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;AssistantMessage&quot;</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;TextBlock&quot;</span> <span class="ow">and</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
-                        <span class="k">yield</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span>
-            <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;ResultMessage&quot;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">except</span> <span class="p">(</span><span class="n">ProcessError</span><span class="p">,</span> <span class="n">CLIConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">BackendSessionError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;subprocess terminated unexpectedly: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">options</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="c1"># Fallback for non-dataclass options (test mocks).</span>
+                <span class="n">options</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span>
+                <span class="n">prompt</span><span class="o">=</span><span class="n">_streaming_user_envelope</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span>
+            <span class="p">):</span>
+                <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;AssistantMessage&quot;</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;TextBlock&quot;</span> <span class="ow">and</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                            <span class="k">yield</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span>
+                <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;ResultMessage&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">captured</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="s2">&quot;session_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">captured</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">captured</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="n">captured</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">ProcessError</span><span class="p">,</span> <span class="n">CLIConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BackendSessionError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;subprocess terminated unexpectedly: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -8135,7 +8079,7 @@ one connected client for the session's lifetime via
 
 
 <h2 id="holodeck.lib.backends.claude_backend.build_options" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">build_options</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">tool_server</span><span class="p">,</span> <span class="n">tool_names</span><span class="p">,</span> <span class="n">mcp_configs</span><span class="p">,</span> <span class="n">auth_env</span><span class="p">,</span> <span class="n">otel_env</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">allow_side_effects</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">build_options</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">tool_server</span><span class="p">,</span> <span class="n">tool_names</span><span class="p">,</span> <span class="n">mcp_configs</span><span class="p">,</span> <span class="n">auth_env</span><span class="p">,</span> <span class="n">otel_env</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.backends.claude_backend.build_options" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -8268,22 +8212,6 @@ one connected client for the session's lifetime via
                 <em>required</em>
             </td>
           </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>allow_side_effects</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Whether side effects are allowed in test mode.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
       </tbody>
     </table>
 
@@ -8303,7 +8231,7 @@ one connected client for the session's lifetime via
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Configured <code>ClaudeAgentOptions</code> ready for <code>query()</code> or <code>ClaudeSDKClient</code>.</p>
+                <p>Configured <code>ClaudeAgentOptions</code> ready for <code>query()</code>.</p>
               </div>
             </td>
           </tr>
@@ -8313,104 +8241,7 @@ one connected client for the session's lifetime via
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/backends/claude_backend.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
-<span class="normal">328</span>
-<span class="normal">329</span>
-<span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
-<span class="normal">337</span>
-<span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span>
-<span class="normal">343</span>
-<span class="normal">344</span>
-<span class="normal">345</span>
-<span class="normal">346</span>
-<span class="normal">347</span>
-<span class="normal">348</span>
-<span class="normal">349</span>
-<span class="normal">350</span>
-<span class="normal">351</span>
-<span class="normal">352</span>
-<span class="normal">353</span>
-<span class="normal">354</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">354</span>
 <span class="normal">355</span>
 <span class="normal">356</span>
 <span class="normal">357</span>
@@ -8431,7 +8262,125 @@ one connected client for the session's lifetime via
 <span class="normal">372</span>
 <span class="normal">373</span>
 <span class="normal">374</span>
-<span class="normal">375</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_options</span><span class="p">(</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span>
+<span class="normal">476</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span>
+<span class="normal">480</span>
+<span class="normal">481</span>
+<span class="normal">482</span>
+<span class="normal">483</span>
+<span class="normal">484</span>
+<span class="normal">485</span>
+<span class="normal">486</span>
+<span class="normal">487</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span>
+<span class="normal">493</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_options</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">tool_server</span><span class="p">:</span> <span class="n">McpSdkServerConfig</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
@@ -8440,7 +8389,6 @@ one connected client for the session's lifetime via
     <span class="n">auth_env</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="n">otel_env</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">allow_side_effects</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClaudeAgentOptions</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Assemble ``ClaudeAgentOptions`` from agent config and bridge outputs.</span>
 
@@ -8452,10 +8400,9 @@ one connected client for the session's lifetime via
 <span class="sd">        auth_env: Auth env vars from ``validate_credentials()``.</span>
 <span class="sd">        otel_env: OTel env vars from ``translate_observability()``.</span>
 <span class="sd">        mode: Execution mode (``&quot;test&quot;`` or ``&quot;chat&quot;``).</span>
-<span class="sd">        allow_side_effects: Whether side effects are allowed in test mode.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Configured ``ClaudeAgentOptions`` ready for ``query()`` or ``ClaudeSDKClient``.</span>
+<span class="sd">        Configured ``ClaudeAgentOptions`` ready for ``query()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">claude</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">claude</span>
     <span class="n">system_prompt</span> <span class="o">=</span> <span class="n">resolve_instructions</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">instructions</span><span class="p">)</span>
@@ -8478,12 +8425,8 @@ one connected client for the session's lifetime via
     <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">and</span> <span class="n">agent</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">auth_provider</span> <span class="o">==</span> <span class="n">AuthProvider</span><span class="o">.</span><span class="n">custom</span><span class="p">:</span>
         <span class="n">env</span><span class="p">[</span><span class="s2">&quot;ANTHROPIC_BASE_URL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">endpoint</span>
 
-    <span class="c1"># Permission mode</span>
-    <span class="n">perm_mode</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">claude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">perm_mode</span> <span class="o">=</span> <span class="n">_build_permission_mode</span><span class="p">(</span>
-            <span class="n">claude</span><span class="o">.</span><span class="n">permission_mode</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">allow_side_effects</span>
-        <span class="p">)</span>
+    <span class="c1"># Permission mode (raises ConfigError for acceptAll without unsafe opt-in)</span>
+    <span class="n">perm_mode</span> <span class="o">=</span> <span class="n">_build_permission_mode</span><span class="p">(</span><span class="n">claude</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
 
     <span class="c1"># Extended thinking</span>
     <span class="n">max_thinking_tokens</span> <span class="o">=</span> <span class="kc">None</span>
@@ -8510,8 +8453,35 @@ one connected client for the session's lifetime via
     <span class="k">if</span> <span class="n">cwd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cwd</span> <span class="o">=</span> <span class="n">agent_base_dir</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-    <span class="c1"># Max turns</span>
-    <span class="n">max_turns</span> <span class="o">=</span> <span class="n">claude</span><span class="o">.</span><span class="n">max_turns</span> <span class="k">if</span> <span class="n">claude</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="c1"># Max turns — default to _DEFAULT_MAX_TURNS when unset (spec 034 P1a)</span>
+    <span class="n">max_turns</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">claude</span><span class="o">.</span><span class="n">max_turns</span>
+        <span class="k">if</span> <span class="n">claude</span> <span class="ow">and</span> <span class="n">claude</span><span class="o">.</span><span class="n">max_turns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">_DEFAULT_MAX_TURNS</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Disallowed tools (P1b — spec 034). Auto-disallow risky built-in SDK</span>
+    <span class="c1"># tools (Bash, Write, Edit, WebFetch) that the operator has not declared</span>
+    <span class="c1"># via the dedicated schema fields or claude.allowed_tools. This is the</span>
+    <span class="c1"># real fail-closed lever — permission_mode is only a tiebreaker for tools</span>
+    <span class="c1"># not covered by either list.</span>
+    <span class="n">declared</span> <span class="o">=</span> <span class="n">_declared_builtin_tools</span><span class="p">(</span><span class="n">claude</span><span class="p">)</span>
+    <span class="n">auto_disallow</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_RISKY_BUILTIN_TOOLS</span> <span class="o">-</span> <span class="n">declared</span><span class="p">)</span>
+    <span class="n">explicit_disallow</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">list</span><span class="p">(</span><span class="n">claude</span><span class="o">.</span><span class="n">disallowed_tools</span><span class="p">)</span> <span class="k">if</span> <span class="n">claude</span> <span class="ow">and</span> <span class="n">claude</span><span class="o">.</span><span class="n">disallowed_tools</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="p">)</span>
+    <span class="n">disallowed_tools</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">explicit_disallow</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">auto_disallow</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">explicit_disallow</span> <span class="ow">or</span> <span class="n">auto_disallow</span><span class="p">)</span>
+        <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">auto_disallow</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Auto-disallowed risky built-in SDK tools not declared in agent &quot;</span>
+            <span class="s2">&quot;config: </span><span class="si">%s</span><span class="s2">. Declare them via claude.bash.enabled, &quot;</span>
+            <span class="s2">&quot;claude.file_system.*, or claude.allowed_tools to opt in.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">auto_disallow</span><span class="p">),</span>
+        <span class="p">)</span>
 
     <span class="c1"># Build the options dict</span>
     <span class="n">opts_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
@@ -8525,6 +8495,8 @@ one connected client for the session's lifetime via
         <span class="s2">&quot;cwd&quot;</span><span class="p">:</span> <span class="n">cwd</span><span class="p">,</span>
         <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="n">output_format</span><span class="p">,</span>
     <span class="p">}</span>
+    <span class="k">if</span> <span class="n">disallowed_tools</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">opts_kwargs</span><span class="p">[</span><span class="s2">&quot;disallowed_tools&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disallowed_tools</span>
 
     <span class="k">if</span> <span class="n">max_thinking_tokens</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">opts_kwargs</span><span class="p">[</span><span class="s2">&quot;max_thinking_tokens&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_thinking_tokens</span>
@@ -8536,8 +8508,6 @@ one connected client for the session's lifetime via
             <span class="n">opts_kwargs</span><span class="p">[</span><span class="s2">&quot;max_budget_usd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">claude</span><span class="o">.</span><span class="n">max_budget_usd</span>
         <span class="k">if</span> <span class="n">claude</span><span class="o">.</span><span class="n">fallback_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">opts_kwargs</span><span class="p">[</span><span class="s2">&quot;fallback_model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">claude</span><span class="o">.</span><span class="n">fallback_model</span>
-        <span class="k">if</span> <span class="n">claude</span><span class="o">.</span><span class="n">disallowed_tools</span><span class="p">:</span>
-            <span class="n">opts_kwargs</span><span class="p">[</span><span class="s2">&quot;disallowed_tools&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">claude</span><span class="o">.</span><span class="n">disallowed_tools</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">claude</span><span class="o">.</span><span class="n">agents</span><span class="p">:</span>
             <span class="n">opts_kwargs</span><span class="p">[</span><span class="s2">&quot;agents&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">name</span><span class="p">:</span> <span class="n">AgentDefinition</span><span class="p">(</span>

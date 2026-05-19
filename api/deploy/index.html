@@ -4967,7 +4967,7 @@ print(result.full_name)
             <span class="n">labels</span><span class="o">=</span><span class="n">labels</span> <span class="ow">or</span> <span class="p">{},</span>
             <span class="n">rm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Remove intermediate containers</span>
             <span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
-            <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Always pull base image to get correct platform</span>
+            <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Always pull base image</span>
             <span class="o">**</span><span class="n">build_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -6585,10 +6585,7 @@ computes deterministic config hashes for drift detection.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/deploy/deployers/azure_containerapps.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 42</span>
-<span class="normal"> 43</span>
-<span class="normal"> 44</span>
-<span class="normal"> 45</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 45</span>
 <span class="normal"> 46</span>
 <span class="normal"> 47</span>
 <span class="normal"> 48</span>
@@ -6657,7 +6654,10 @@ computes deterministic config hashes for drift detection.</p>
 <span class="normal">111</span>
 <span class="normal">112</span>
 <span class="normal">113</span>
-<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AzureContainerAppsConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AzureContainerAppsConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Azure Container Apps deployer.</span>
 
 <span class="sd">    Args:</span>
@@ -6750,7 +6750,7 @@ computes deterministic config hashes for drift detection.</p>
 
 
 <h3 id="holodeck.deploy.deployers.azure_containerapps.AzureContainerAppsDeployer.deploy" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">deploy</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">service_name</span><span class="p">,</span> <span class="n">image_uri</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">env_vars</span><span class="p">,</span> <span class="n">health_check_path</span><span class="o">=</span><span class="s1">&#39;/health&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">deploy</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">service_name</span><span class="p">,</span> <span class="n">image_uri</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">env_vars</span><span class="p">,</span> <span class="n">health_check_path</span><span class="o">=</span><span class="s1">&#39;/health&#39;</span><span class="p">,</span> <span class="n">readiness_path</span><span class="o">=</span><span class="s1">&#39;/ready&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 <a href="#holodeck.deploy.deployers.azure_containerapps.AzureContainerAppsDeployer.deploy" class="headerlink" title="Permanent link">&para;</a></h3>
 
@@ -6762,10 +6762,7 @@ computes deterministic config hashes for drift detection.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/deploy/deployers/azure_containerapps.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
@@ -6869,7 +6866,32 @@ computes deterministic config hashes for drift detection.</p>
 <span class="normal">220</span>
 <span class="normal">221</span>
 <span class="normal">222</span>
-<span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">deploy</span><span class="p">(</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">deploy</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">service_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -6877,15 +6899,21 @@ computes deterministic config hashes for drift detection.</p>
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">env_vars</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="n">health_check_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;/health&quot;</span><span class="p">,</span>
+    <span class="n">readiness_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;/ready&quot;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DeployResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Deploy a container to Azure Container Apps.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_echo_resolved_config</span><span class="p">(</span>
+        <span class="n">service_name</span><span class="o">=</span><span class="n">service_name</span><span class="p">,</span> <span class="n">image_uri</span><span class="o">=</span><span class="n">image_uri</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span>
+    <span class="p">)</span>
+
     <span class="n">env_list</span> <span class="o">=</span> <span class="p">[</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_EnvironmentVar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">env_vars</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">]</span>
 
-    <span class="c1"># Configure liveness probe for health monitoring</span>
+    <span class="c1"># Liveness probe — &quot;is this process still alive&quot;. Failure → ACA</span>
+    <span class="c1"># restarts the replica.</span>
     <span class="n">liveness_probe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ContainerAppProbe</span><span class="p">(</span>
         <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Liveness&quot;</span><span class="p">,</span>
         <span class="n">http_get</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ContainerAppProbeHttpGet</span><span class="p">(</span>
@@ -6898,6 +6926,22 @@ computes deterministic config hashes for drift detection.</p>
         <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="p">)</span>
 
+    <span class="c1"># Readiness probe — &quot;is this replica ready to receive traffic&quot;. The</span>
+    <span class="c1"># serve layer&#39;s /ready endpoint reflects server state; ACA holds</span>
+    <span class="c1"># traffic off until this returns 200 so cold replicas don&#39;t race</span>
+    <span class="c1"># their first request against init work (spec 034 P1a).</span>
+    <span class="n">readiness_probe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ContainerAppProbe</span><span class="p">(</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Readiness&quot;</span><span class="p">,</span>
+        <span class="n">http_get</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ContainerAppProbeHttpGet</span><span class="p">(</span>
+            <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">readiness_path</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">initial_delay_seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">period_seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">failure_threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Container</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">service_name</span><span class="p">,</span>
         <span class="n">image</span><span class="o">=</span><span class="n">image_uri</span><span class="p">,</span>
@@ -6906,7 +6950,7 @@ computes deterministic config hashes for drift detection.</p>
             <span class="n">memory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">memory</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">env</span><span class="o">=</span><span class="n">env_list</span> <span class="k">if</span> <span class="n">env_list</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">probes</span><span class="o">=</span><span class="p">[</span><span class="n">liveness_probe</span><span class="p">],</span>
+        <span class="n">probes</span><span class="o">=</span><span class="p">[</span><span class="n">liveness_probe</span><span class="p">,</span> <span class="n">readiness_probe</span><span class="p">],</span>
     <span class="p">)</span>
 
     <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Scale</span><span class="p">(</span>
@@ -6999,32 +7043,7 @@ computes deterministic config hashes for drift detection.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/deploy/deployers/azure_containerapps.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">250</span>
 <span class="normal">251</span>
 <span class="normal">252</span>
 <span class="normal">253</span>
@@ -7042,7 +7061,32 @@ computes deterministic config hashes for drift detection.</p>
 <span class="normal">265</span>
 <span class="normal">266</span>
 <span class="normal">267</span>
-<span class="normal">268</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StatusResult</span><span class="p">:</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StatusResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get status for an Azure Container App.&quot;&quot;&quot;</span>
     <span class="n">container_app_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_container_app_name</span><span class="p">(</span><span class="n">service_id</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -7108,32 +7152,7 @@ computes deterministic config hashes for drift detection.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/deploy/deployers/azure_containerapps.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">295</span>
 <span class="normal">296</span>
 <span class="normal">297</span>
 <span class="normal">298</span>
@@ -7143,7 +7162,32 @@ computes deterministic config hashes for drift detection.</p>
 <span class="normal">302</span>
 <span class="normal">303</span>
 <span class="normal">304</span>
-<span class="normal">305</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Destroy an Azure Container App deployment.&quot;&quot;&quot;</span>
     <span class="n">container_app_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_container_app_name</span><span class="p">(</span><span class="n">service_id</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -7201,11 +7245,11 @@ computes deterministic config hashes for drift detection.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/deploy/deployers/azure_containerapps.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stream_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stream_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Stream logs for Azure Container Apps (not implemented).&quot;&quot;&quot;</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
         <span class="s2">&quot;Log streaming is not implemented for Azure Container Apps.&quot;</span>

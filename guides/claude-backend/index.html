@@ -734,6 +734,100 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#production-considerations-memory-and-concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production considerations: memory and concurrency
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production considerations: memory and concurrency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-model-in-one-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The model in one diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-budget-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory budget defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sizing-your-replica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sizing your replica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuning-session_memory_estimate_mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning session_memory_estimate_mib
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excess-capacity-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Excess-capacity behaviour
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anthropics-own-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anthropic's own guidance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2060,6 +2154,100 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#production-considerations-memory-and-concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production considerations: memory and concurrency
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production considerations: memory and concurrency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-model-in-one-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The model in one diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-budget-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory budget defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sizing-your-replica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sizing your replica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuning-session_memory_estimate_mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning session_memory_estimate_mib
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excess-capacity-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Excess-capacity behaviour
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anthropics-own-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anthropic's own guidance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2554,6 +2742,145 @@
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Search the research knowledge base</span>
 <span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data/research/</span>
 </code></pre></div>
+<h2 id="production-considerations-memory-and-concurrency">Production considerations: memory and concurrency<a class="headerlink" href="#production-considerations-memory-and-concurrency" title="Permanent link">&para;</a></h2>
+<p>The Claude backend runs each turn through a fresh Claude CLI <strong>Node.js subprocess</strong> spawned by <code>claude-agent-sdk</code> (see <a href="https://docs.anthropic.com/en/api/agent-sdk/hosting">Anthropic's hosting guide</a>). This is the dominant memory cost in production and the binding constraint on concurrency. If you're deploying with <code>holodeck serve</code> to a container with a fixed memory limit (Azure Container Apps, Cloud Run, ECS Fargate, Kubernetes), the defaults below have been calibrated against real OOM data — but the right number for <em>your</em> agent depends on the tools it carries.</p>
+<h3 id="the-model-in-one-diagram">The model in one diagram<a class="headerlink" href="#the-model-in-one-diagram" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────┐
+│  Parent Python process (HoloDeck serve)                         │
+│  ┌─────────────────────┐    in-process MCP server               │
+│  │  AG-UI / REST API   │◄──── tool calls (vectorstore,          │
+│  │  + session store    │      hierarchical_document, function)  │
+│  └─────────────────────┘                                         │
+│        │ spawn (per turn)                                        │
+│        ▼                                                          │
+│  ┌─────────────────────┐    ┌─────────────────────┐              │
+│  │ Node CLI subprocess │    │ Node CLI subprocess │  …N turns    │
+│  │   (~300 MiB)        │    │   (~300 MiB)        │              │
+│  └─────────────────────┘    └─────────────────────┘              │
+└──────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<p>Two things to notice:</p>
+<ol>
+<li><strong>Tools run in the parent.</strong> <code>create_sdk_mcp_server</code> hosts HoloDeck tools in the Python process and routes calls back to the subprocess via IPC. A heavy <code>hierarchical_document</code> tool with a qdrant client and a chunked corpus inflates the <em>parent</em> baseline, not the subprocess.</li>
+<li><strong>Subprocesses are per-turn, not per-session.</strong> Spec 034 P4 ("Hybrid Sessions") tears the subprocess down at turn end and persists transcripts as JSONL on disk. Idle sessions cost ~30 MiB each (Python object + JSONL handle); concurrent <strong>active turns</strong> cost the full subprocess.</li>
+</ol>
+<p>This is why the concurrency cap is keyed on active turns, not open sessions.</p>
+<h3 id="memory-budget-defaults">Memory budget defaults<a class="headerlink" href="#memory-budget-defaults" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Default</th>
+<th>Configurable via</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parent baseline (server + tools + OTEL)</td>
+<td>400 MiB</td>
+<td>(library constant)</td>
+</tr>
+<tr>
+<td>Per concurrent active turn</td>
+<td>500 MiB</td>
+<td><code>claude.session_memory_estimate_mib</code></td>
+</tr>
+<tr>
+<td>Open session ceiling (idle slots)</td>
+<td>1000</td>
+<td>(library constant)</td>
+</tr>
+</tbody>
+</table>
+<p>The active-turn cap is derived from the replica's cgroup memory limit:</p>
+<div class="highlight"><pre><span></span><code>max_concurrent_turns = (memory_limit - baseline) / per_turn_estimate
+</code></pre></div>
+<p>The 500 MiB default covers the ~300 MiB Node CLI steady state plus the simultaneous-startup spike (when N turns hit <code>serve</code> at once, V8 initial heap allocation peaks together) plus parent-side transient work during the turn (hybrid search, rerank, context generation). It was calibrated against the spec 034 P4 cloud validation where a 2 GiB Azure Container Apps replica OOM-killed at 4 concurrent turns and ran cleanly at 3 — <code>(2048-400)/500 = 3</code> matches that.</p>
+<h3 id="sizing-your-replica">Sizing your replica<a class="headerlink" href="#sizing-your-replica" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Replica memory</th>
+<th>Derived turn cap</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 GiB</td>
+<td>1</td>
+<td>Bare minimum; one turn at a time</td>
+</tr>
+<tr>
+<td>2 GiB</td>
+<td>3</td>
+<td>Default sample (financial-assistant) target</td>
+</tr>
+<tr>
+<td>4 GiB</td>
+<td>7</td>
+<td>Comfortable production tier</td>
+</tr>
+<tr>
+<td>8 GiB</td>
+<td>15</td>
+<td>High-concurrency tier</td>
+</tr>
+</tbody>
+</table>
+<p>If you need higher concurrency, scale horizontally (more replicas) rather than vertically — the SDK subprocess model means each turn is independent, so adding replicas linearly increases capacity.</p>
+<h3 id="tuning-session_memory_estimate_mib">Tuning <code>session_memory_estimate_mib</code><a class="headerlink" href="#tuning-session_memory_estimate_mib" title="Permanent link">&para;</a></h3>
+<p>The default targets the median tool-heavy agent. Adjust it when:</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Direction</th>
+<th>Suggested override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thin agent — no vectorstore, no hierarchical_document, no MCP</td>
+<td>Lower</td>
+<td><code>300</code> (yields cap=5 on 2 GiB)</td>
+</tr>
+<tr>
+<td>Heavy retrieval — large hybrid index, in-process rerank</td>
+<td>Default</td>
+<td><code>500</code></td>
+</tr>
+<tr>
+<td>Embedded models — local rerank model, ONNX, sentence-transformers</td>
+<td>Higher</td>
+<td><code>700–900</code></td>
+</tr>
+<tr>
+<td>Multiple MCP servers with persistent state</td>
+<td>Higher</td>
+<td><code>600–700</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nt">claude</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">session_memory_estimate_mib</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span><span class="w">   </span><span class="c1"># tune for your agent&#39;s tool footprint</span>
+</code></pre></div>
+<h3 id="excess-capacity-behaviour">Excess-capacity behaviour<a class="headerlink" href="#excess-capacity-behaviour" title="Permanent link">&para;</a></h3>
+<p>When concurrent active turns exceed the cap, the serve layer immediately returns HTTP 429 with a <code>Retry-After</code> body. It does <strong>not</strong> queue requests — Anthropic's hosting guidance recommends shedding load over buffering, because subprocess startup is expensive and a queued request that times out at the upstream is worse than a fast 429 that the client can retry with backoff.</p>
+<h3 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">&para;</a></h3>
+<p>When OpenTelemetry is enabled (<code>observability.enabled: true</code>), the serve layer emits:</p>
+<ul>
+<li><code>holodeck.serve.active_turns</code> (gauge) — current in-flight count</li>
+<li><code>holodeck.serve.turn_rejections_total</code> (counter) — 429s due to the cap</li>
+<li><code>holodeck.serve.session_count</code> (gauge) — open sessions (idle + active)</li>
+</ul>
+<p>Alert on <code>turn_rejections_total</code> rate &gt; 0 sustained for more than a minute — it indicates either undersized replicas or a need to scale horizontally.</p>
+<div class="admonition warning">
+<p class="admonition-title">Azure WorkingSetBytes is 1-minute averaged</p>
+<p>Cloud-provider memory metrics typically report 1-minute averages, which mask the instantaneous peak during simultaneous turn startup. If you're sizing from Azure metrics, expect the real peak to be 1.5–2× the average. The 500 MiB default already accounts for this; if you're tuning from your own observed averages, multiply by ~1.7 before dividing into headroom.</p>
+</div>
+<h3 id="anthropics-own-guidance">Anthropic's own guidance<a class="headerlink" href="#anthropics-own-guidance" title="Permanent link">&para;</a></h3>
+<p>Anthropic's <a href="https://docs.anthropic.com/en/api/agent-sdk/hosting">SDK hosting documentation</a> recommends <strong>1 GiB RAM per agent instance</strong> as a conservative starting point — that includes the parent process. HoloDeck's 400 MiB parent baseline + 500 MiB per turn lands right on that number for cap=1 and scales linearly from there. There is no "shared subprocess pool" pattern documented in the SDK; each turn gets its own subprocess by design.</p>
 <h2 id="configuration-reference">Configuration reference<a class="headerlink" href="#configuration-reference" title="Permanent link">&para;</a></h2>
 <h3 id="model-fields"><code>model.*</code> fields<a class="headerlink" href="#model-fields" title="Permanent link">&para;</a></h3>
 <table>
@@ -2682,6 +3009,18 @@
 <td>list of strings</td>
 <td>all tools</td>
 <td>Explicit tool allowlist</td>
+</tr>
+<tr>
+<td><code>session_memory_estimate_mib</code></td>
+<td>int (50–2000)</td>
+<td><code>500</code></td>
+<td>Per-active-turn memory budget; drives the concurrency cap (see <a href="#production-considerations-memory-and-concurrency">Production considerations</a>)</td>
+</tr>
+<tr>
+<td><code>max_concurrent_sessions</code></td>
+<td>int (1–500)</td>
+<td>derived</td>
+<td>Hard cap on concurrent active turns; auto-derived from cgroup memory when omitted</td>
 </tr>
 </tbody>
 </table>

@@ -2707,7 +2707,7 @@ factory), and report generation.</p>
 
 
 <h2 id="holodeck.lib.test_runner.executor.TestExecutor" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">TestExecutor</span><span class="p">(</span><span class="n">agent_config_path</span><span class="p">,</span> <span class="n">execution_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_processor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">agent_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_test_start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_ingest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">agent_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resolved_execution_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_side_effects</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">TestExecutor</span><span class="p">(</span><span class="n">agent_config_path</span><span class="p">,</span> <span class="n">execution_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file_processor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">agent_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_test_start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_ingest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">agent_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resolved_execution_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#holodeck.lib.test_runner.executor.TestExecutor" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -3029,23 +3029,6 @@ can auto-select a backend via <code>BackendSelector</code> at execution time.</p
                   <code>None</code>
             </td>
           </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>allow_side_effects</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Allow bash/file_system.write in test mode
-                (passed to BackendSelector when auto-selecting).</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
-            </td>
-          </tr>
       </tbody>
     </table>
 
@@ -3143,11 +3126,7 @@ can auto-select a backend via <code>BackendSelector</code> at execution time.</p
 <span class="normal">513</span>
 <span class="normal">514</span>
 <span class="normal">515</span>
-<span class="normal">516</span>
-<span class="normal">517</span>
-<span class="normal">518</span>
-<span class="normal">519</span>
-<span class="normal">520</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">516</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">agent_config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">execution_config</span><span class="p">:</span> <span class="n">ExecutionConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3161,7 +3140,6 @@ can auto-select a backend via <code>BackendSelector</code> at execution time.</p
     <span class="n">agent_config</span><span class="p">:</span> <span class="n">Agent</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">resolved_execution_config</span><span class="p">:</span> <span class="n">ExecutionConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">backend</span><span class="p">:</span> <span class="n">AgentBackend</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">allow_side_effects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize test executor with optional dependency injection.</span>
 
@@ -3189,8 +3167,6 @@ can auto-select a backend via <code>BackendSelector</code> at execution time.</p
 <span class="sd">                                   (auto-resolved if None)</span>
 <span class="sd">        backend: Optional AgentBackend instance. When provided, the executor</span>
 <span class="sd">                 uses invoke_once() instead of AgentFactory.</span>
-<span class="sd">        allow_side_effects: Allow bash/file_system.write in test mode</span>
-<span class="sd">                            (passed to BackendSelector when auto-selecting).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">agent_config_path</span> <span class="o">=</span> <span class="n">agent_config_path</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cli_config</span> <span class="o">=</span> <span class="n">execution_config</span>
@@ -3199,7 +3175,6 @@ can auto-select a backend via <code>BackendSelector</code> at execution time.</p
     <span class="bp">self</span><span class="o">.</span><span class="n">on_test_start</span> <span class="o">=</span> <span class="n">on_test_start</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_force_ingest</span> <span class="o">=</span> <span class="n">force_ingest</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="p">:</span> <span class="n">AgentBackend</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">backend</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_allow_side_effects</span> <span class="o">=</span> <span class="n">allow_side_effects</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initializing TestExecutor for config: </span><span class="si">{</span><span class="n">agent_config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -3278,7 +3253,12 @@ don't interleave mid-record.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/test_runner/executor.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">809</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">804</span>
+<span class="normal">805</span>
+<span class="normal">806</span>
+<span class="normal">807</span>
+<span class="normal">808</span>
+<span class="normal">809</span>
 <span class="normal">810</span>
 <span class="normal">811</span>
 <span class="normal">812</span>
@@ -3324,12 +3304,7 @@ don't interleave mid-record.</p>
 <span class="normal">852</span>
 <span class="normal">853</span>
 <span class="normal">854</span>
-<span class="normal">855</span>
-<span class="normal">856</span>
-<span class="normal">857</span>
-<span class="normal">858</span>
-<span class="normal">859</span>
-<span class="normal">860</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_tests</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestReport</span><span class="p">:</span>
+<span class="normal">855</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_tests</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestReport</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute all test cases and generate report.</span>
 
 <span class="sd">    Per-test-case concurrency is controlled by `parallel_test_cases`</span>
@@ -3409,7 +3384,12 @@ to properly cleanup MCP plugins and other async resources.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/test_runner/executor.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1888</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1883</span>
+<span class="normal">1884</span>
+<span class="normal">1885</span>
+<span class="normal">1886</span>
+<span class="normal">1887</span>
+<span class="normal">1888</span>
 <span class="normal">1889</span>
 <span class="normal">1890</span>
 <span class="normal">1891</span>
@@ -3418,12 +3398,7 @@ to properly cleanup MCP plugins and other async resources.</p>
 <span class="normal">1894</span>
 <span class="normal">1895</span>
 <span class="normal">1896</span>
-<span class="normal">1897</span>
-<span class="normal">1898</span>
-<span class="normal">1899</span>
-<span class="normal">1900</span>
-<span class="normal">1901</span>
-<span class="normal">1902</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">1897</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Shutdown executor and cleanup resources.</span>
 
 <span class="sd">    Must be called from the same task context where the executor was used</span>

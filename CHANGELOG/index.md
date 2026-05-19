@@ -1,0 +1,936 @@
+# Changelog
+
+All notable changes to HoloDeck will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased](https://github.com/justinbarias/holodeck/compare/v0.6.2...HEAD)
+
+### Planned Features
+
+- **Deployment Engine**: Registry push (`holodeck deploy push`) and cloud deployment (`holodeck deploy run`)
+- **Plugin System**: Pre-built plugin packages for common integrations
+
+______________________________________________________________________
+
+## [0.6.2](https://github.com/justinbarias/holodeck/compare/v0.6.1...v0.6.2) - 2026-04-19
+
+### Added
+
+- **Evaluation-Runs Dashboard** (Feature #031) --Interactive Dash UI for `holodeck test` run history
+- `holodeck test view` CLI launches the Dash dashboard as a subprocess with SIGINT forwarding; `--seed` renders the built-in golden fixture (24 runs, 6 prompt versions) for demos
+- **Summary view**: pass-rate time series, metric breakdown, sortable/filterable run table, CSV export, prompt-version boundary markers
+- **Explorer view**: three-column drilldown (runs -> cases -> detail) with full conversation thread, tool-call panels, expected-tools coverage, agent-config snapshot, and metric rows
+- **Compare view**: side-by-side diff for up to three runs with a persistent floating compare tray (quick-add buttons for 2 or 3 most-recent runs)
+- **Dynamic reload**: mtime-aware run memo + `dcc.Interval` polls the results directory every 5 s so new `holodeck test` output appears without restarting the dashboard
+- **Conversation rendering**: assistant bubble renders Markdown for prose replies and prettified JSON for structured-output replies (strict `{`/`[` prefix + successful `json.loads` detection)
+- Optional `[dashboard]` extra bundling Dash >=3.0, Plotly >=5.20, pandas >=2.0; `holodeck test view` prints an install hint and exits 2 if the extra is missing
+- **Prompt Version Frontmatter** (Feature #031 US2) --Optional YAML frontmatter on `instructions.file` to version and label system prompts
+- Recognised keys: `version`, `author`, `description`, `tags`; any other keys are preserved under `extra` on the persisted run record
+- Auto-derives `version: auto-<sha256[:8]>` from the body hash when no manual `version:` is supplied, so every run still has a stable identifier
+- Inline instructions (`instructions.inline`) resolve to `source: inline` and skip frontmatter parsing entirely
+- Prompt body reaching the LLM is byte-equivalent (frontmatter is stripped); malformed frontmatter fails with a clear `ConfigError` instead of silently shipping a broken header
+- **EvalRun Persistence** (Feature #031 US1, US3) --Every `holodeck test` invocation writes `results/<slugify(agent.name)>/<ISO-timestamp>.json`
+- `EvalRunMetadata` snapshot captures prompt version, agent config (redacted via deep-copy), git commit, HoloDeck version, environment, and timing
+- Secrets-bearing fields on the snapshotted `Agent` are automatically redacted
+
+### Changed
+
+- **Retrieval Tool Classification** --`_get_retrieval_tool_names` in the test runner now recognises `HierarchicalDocumentToolConfig` as a retrieval source (alongside `VectorstoreTool` and `is_retrieval=True` MCP tools), so RAG metrics receive `retrieval_context` from hierarchical-document search hits
+- **Executor Pass-Rate Unit** --Aligned `ExecutionResult.pass_rate` with the canonical 0..100 scale used by `ReportSummary`; the dashboard still computes the fraction from `passed / total_tests` for producer-robustness
+
+### Fixed
+
+- **Dashboard Filter Chip Bubbling** --Filter chips, the runs-search input, and row-click handlers no longer collide with the compare-queue add button (#T442)
+- **KPI Unit Rendering** --Collapsed the pass-rate `%` and duration `ms` suffixes into a single span so the KPI tiles no longer wrap mid-number
+
+### Security
+
+- **pip-audit**: 20 CVEs resolved in direct + transitive dependencies
+- `aiohttp` >=3.13.3 -> >=3.13.4 (10 CVEs: CVE-2026-34513 through CVE-2026-34520, CVE-2026-34525, CVE-2026-22815)
+- `authlib` >=1.6.9 -> >=1.6.11 (GHSA-jj8c-mmj3-mmgv)
+- `cryptography` >=46.0.6 -> >=46.0.7 (CVE-2026-39892)
+- `pypdf` >=6.9.1 -> >=6.10.2 (CVE-2026-40260, GHSA-jj6c-8h6c-hppx, GHSA-4pxv-j86v-mhcw, GHSA-7gw9-cf7v-778f, GHSA-x284-j5p8-9c5p)
+- `pytest` >=7.4.0 -> >=9.0.3 (CVE-2025-71176; exclude 9.0.1, 9.0.2)
+- `pillow` constraint >=12.1.1 -> >=12.2.0 (CVE-2026-40192)
+- `python-multipart` constraint >=0.0.22 -> >=0.0.26 (CVE-2026-40347)
+- `pygments` CVE-2026-4539 (ReDoS in AdlLexer) continues to be ignored via `--ignore-vuln` --no upstream fix yet; HoloDeck never invokes the ADL lexer
+
+### Dependencies
+
+- `python-frontmatter` >=1.1,\<2.0 (new core dep for prompt-version YAML parsing)
+- `dash` >=3.0,\<4.0 (new optional `[dashboard]` extra)
+- `plotly` >=5.20,\<7.0 (new optional `[dashboard]` extra)
+- `pandas` >=2.0 (new optional `[dashboard]` extra)
+
+### Documentation
+
+- New [Dashboard Guide](https://docs.useholodeck.ai/guides/dashboard/index.md) covering `holodeck test view`, run-history discovery, prompt versioning, conversation rendering, filters, and security notes
+- Agent Configuration guide: Prompt Versioning section documenting supported frontmatter keys and auto-derived version behaviour
+- README: Evaluation Dashboard and prompt-versioning sections in the Quick Start
+
+### Testing
+
+- 14 new dashboard unit tests (`_render_assistant_body` across prose/JSON/mixed inputs; `_results_dir_fingerprint` + `get_runs` memo invalidation)
+- Full dashboard suite: 37 tests passing
+
+______________________________________________________________________
+
+## [0.6.1](https://github.com/justinbarias/holodeck/compare/v0.6.0...v0.6.1) - 2026-04-12
+
+### Added
+
+- **Auto-Detect Pip Extras for Deploy Build** (#298) --`holodeck deploy build` now inspects the agent config and installs the matching optional extras (`chromadb`, `azure-blob`, `s3`, `claude-otel`) in the generated Dockerfile, eliminating the need to modify the base image or apply runtime workarounds
+- **Explicit Azure OpenAI `api_version` Field** --New `api_version` field on `LLMProvider` for per-agent control of the Azure OpenAI API version
+
+### Changed
+
+- **Azure OpenAI Default API Version** --Pinned to `2024-10-21` (latest GA) to prevent Semantic Kernel from defaulting to unsupported preview versions (e.g., `2025-08-28` in SK 1.41.1)
+
+### Fixed
+
+- **`.gitignore`** --Added `.env.*` patterns so Docker env files with secrets are not accidentally committed
+
+______________________________________________________________________
+
+## [0.6.0](https://github.com/justinbarias/holodeck/compare/v0.5.2...v0.6.0) - 2026-03-28
+
+### Added
+
+- **Custom Anthropic Endpoint Support** --Route the Claude Agent SDK to third-party Anthropic-compatible endpoints (Ollama, LiteLLM, etc.)
+- New `AuthProvider.custom` validates `ANTHROPIC_AUTH_TOKEN` environment variable
+- `model.endpoint` is forwarded as `ANTHROPIC_BASE_URL` to the SDK subprocess when set for Anthropic providers
+- Warning validator in `LLMProvider` when `auth_provider: custom` is used without an endpoint
+- Ollama legal-assistant sample under `sample/legal-assistant/ollama/`
+- **Async Tool Initialization Endpoints** (Feature #025) --Background tool data ingestion via REST API
+- `POST /tools/{tool_name}/init` --Trigger background vectorstore/hierarchical_document ingestion (201 Created with Location header)
+- `GET /tools/{tool_name}/init` --Poll initialization status with progress tracking (documents_processed/total_documents)
+- `GET /tools` --List all agent tools with initialization state (pending/in_progress/completed/failed/not_started)
+- RFC 7807 `ProblemDetail` error responses (400/404/409/429/503)
+- `ToolInitManager` orchestrator with configurable concurrency limiting (default 3), conflict detection, and graceful shutdown
+- `SourceResolver` for unified local/S3/Azure Blob/HTTP source resolution with temp directory cleanup
+- `initialize_single_tool()` async function with source override and progress callback support
+- OTel spans for full init job lifecycle (start, progress, complete, failed)
+- OpenAPI 3.1 contract specification (`specs/025-tool-init-endpoints/contracts/openapi.yaml`)
+
+### Changed
+
+- GitHub Actions Claude Code review workflow: added concurrency control, `pull-requests: write` permission, file-based body submission
+
+### Fixed
+
+- CI/CD: Claude code review posting now works correctly (#291)
+
+### Dependencies
+
+- `httpx` >=0.27 (new core dependency --async HTTP for remote source downloads)
+- `boto3` >=1.42.0 (new optional extra `[s3]`)
+- `azure-storage-blob` >=12.19 (new optional extra `[azure-blob]`)
+- `cryptography`: 46.0.5 -> 46.0.6
+- `nltk`: 3.9.3 -> 3.9.4
+- `pypdf`: 6.9.1 -> 6.9.2
+- `requests`: 2.32.5 -> 2.33.0
+
+### Documentation
+
+- Complete spec-kit artifacts for Feature #025 (spec, plan, data-model, research, quickstart, OpenAPI contract, task breakdowns)
+
+### Testing
+
+- 71 new tool init tests (routes, manager, OTel, integration, re-initialization)
+- Full suite: 4,321 passed, 47 skipped, 0 failed
+
+______________________________________________________________________
+
+## [0.5.2](https://github.com/justinbarias/holodeck/compare/v0.5.1...v0.5.2) - 2026-03-23
+
+### Documentation
+
+- **API Reference Rewrite** --Rewrote all 6 existing `docs/api/*.md` files to fix broken mkdocstrings references (#286)
+- Removed nonexistent symbols (`config.merge.ConfigMerger`, `validator.normalize_errors`, `compute_f1_score`, etc.)
+- Corrected module paths across all reference pages
+- Added 9 new API reference pages for previously undocumented subsystems:
+- `backends`, `chat`, `deploy`, `serve`, `services`, `observability`, `pdf-processor`, `tool-filter`, `tools`
+- Updated `mkdocs.yml` navigation to include all 15 API reference pages
+- Build validation: `mkdocs build --strict` passes with 0 warnings/errors
+
+______________________________________________________________________
+
+## [0.5.1](https://github.com/justinbarias/holodeck/compare/v0.5.0...v0.5.1) - 2026-03-23
+
+### Added
+
+- **Claude Backend Support for `holodeck serve`** (Feature #024 US1) --Full Claude Agent SDK integration with the server command (#282)
+- Task-bound session actor wrapping Claude SDK sessions for anyio task-group binding
+- `BackendSessionError` exception for propagating backend failures to protocols
+- `max_concurrent_sessions` config field (1-100, default 10) for capacity management
+- `backend_ready` and `backend_diagnostics` health check fields in server models
+- Pre-flight validation (Node.js >=18, API credentials) during server startup
+- Graceful lifecycle with 5s shutdown timeouts and parallel session teardown
+- **Real-Time Tool Streaming via Claude Agent SDK Hooks** (#283)
+- `PreToolUse`, `PostToolUse`, `PostToolUseFailure` hook integration
+- `ToolEvent` dataclass for provider-agnostic tool event abstraction
+- Queue-based event passthrough: `ClaudeSession` -> `_TaskBoundSession` -> `AgentExecutor` -> AG-UI protocol
+- Concurrent tool event queue draining with fallback to post-hoc emission for non-hook backends
+- **Node.js Conditional Installation for Claude Agent Containers** (Feature #024 US2) (#284)
+- Auto-detection of Anthropic provider in Dockerfile generation
+- `needs_nodejs` Jinja2 conditional for Node.js 22.x via nodesource
+- **OpenTelemetry GenAI Semantic Convention Instrumentation** (#271)
+- `otel-instrumentation-claude-agent-sdk` activation for `invoke_agent` and `execute_tool` spans
+- `get_observability_context()` accessor function
+- Configurable `schedule_delay_millis` in `TracingConfig` (default 2000ms)
+- New `claude-otel` optional dependency group
+- **Specification Artifacts**
+- Feature #024 (Claude Serve/Deploy Parity): full spec, plan, data-model, quickstart, 139 tasks across 5 user stories
+- Feature #023 (Choose Your Backend): full spec, plan, data-model, quickstart, research, per-story task files
+
+### Changed
+
+- **Configuration System Overhaul** (#272)
+- Fixed provider resolution to match by dict key with `.provider` field fallback
+- Enabled multiple providers of the same type (e.g., `openai_prod` vs `openai_dev`)
+- Fixed config merging: deep-merge project + user configs instead of replacement
+- Fixed lossy YAML roundtrip: substitute env vars before first parse
+- Added `load_agent_with_config()` helper eliminating 15-line boilerplate in 3 CLI commands
+- Added `ConfigLoader` caching to eliminate double file I/O
+- Consolidated 3 deep-merge implementations into single `_deep_merge` utility
+- Deleted ~1,500 lines of dead code: `merge.py`, `ConfigValidator`, unused functions
+- Fixed TOCTOU vulnerability in `parse_yaml`; narrowed exception catching
+- **Anthropic Cloud Auth Hardening** (#269) --Stricter validation for Bedrock, Vertex, and Foundry credential flows
+
+### Refactored
+
+- **Test Suite Simplification** (#275) --2,120 fewer lines (-3.1%) with zero coverage loss
+- Consolidated 4 identical DeepEval RAG evaluator test files into single `test_rag_evaluators.py` with `@pytest.mark.parametrize`
+- Extracted shared fixture factories into `conftest.py` files
+- Parameterized repetitive test patterns across 30 files (option parsing, exit codes, TTY/non-TTY pairs)
+- Removed trivial framework-behavior tests (Pydantic field presence, object identity, enum existence)
+
+### Fixed
+
+- **Docker SDK ImportError** (#285) --Lazy-import docker SDK in `deploy/builder.py` and `deploy/__init__.py` to prevent `ModuleNotFoundError` when `[deploy]` extra is not installed
+- **Missing `execute_tool` OTel spans** --Fixed ContextVar timing mismatch in `holodeck chat`; workaround re-injects ContextVar from instance attribute in hooks
+- **Claude subprocess OTel conflict** --Set `OTEL_TRACES_EXPORTER=none` for Claude subprocess when Python-side GenAI instrumentation is active
+- **Web search propagation** --`web_search` flag from `ClaudeConfig` now correctly wired to `allowed_tools` in `build_options`
+
+### Security
+
+- Replaced deprecated `safety check` (mandatory auth) with `pip-audit` (free, OSV-based) (#270)
+- **6 CVEs resolved in direct dependencies:**
+- CVE-2026-27962, CVE-2026-28490: authlib >=1.6.9
+- CVE-2026-30922: pyasn1 >=0.6.3
+- CVE-2026-27448, CVE-2026-27459: pyopenssl >=26.0.0
+- CVE-2026-33123: pypdf >=6.9.1
+- 3 additional transitive CVEs patched via constraint dependencies
+
+### Dependencies
+
+- `claude-agent-sdk`: 0.1.37 -> 0.1.44
+- `cryptography`: >=46.0.2 -> >=46.0.5
+- `semantic-kernel`: >=1.37.1 -> >=1.39.4
+- `pypdf`: >=6.6.0 -> >=6.9.1
+- `werkzeug`: >=3.1.5 -> >=3.1.6
+- `authlib`: >=1.6.6 -> >=1.6.9
+- `pyasn1`: >=0.6.2 -> >=0.6.3 (dev)
+- New constraint dependencies: `jaraco-context >=6.1.0`, `nltk >=3.9.3`, `pyopenssl >=26.0.0`, `pillow >=12.1.1`, `protobuf >=5.29.6`, `python-multipart >=0.0.22`
+- New optional group: `claude-otel` (OpenTelemetry instrumentation for Claude Agent SDK)
+- Replaced `safety` with `pip-audit >=2.7.0`
+
+### Documentation
+
+- CLAUDE.md: added LSP vs Grep guidance, Python 3.10+ note
+- Hardened Anthropic cloud auth documentation (#269)
+
+### Testing
+
+- 44 new Claude backend instrumentation tests
+- 259 serve module tests (Claude backend support)
+- 203 backend/validator/config tests
+- 20 Node.js conditional Dockerfile tests
+- Integration tests with OTLP exporter for Aspire dashboard
+- All 3,813 unit tests passing; full regression: 4,124 passed
+
+______________________________________________________________________
+
+## [0.5.0](https://github.com/justinbarias/holodeck/compare/v0.4.0...v0.5.0) - 2026-02-24
+
+### Added
+
+- **Claude Agent SDK Backend** --Native Anthropic provider support as a first-class backend (#021)
+- `ClaudeBackend` and `ClaudeSession` implementing provider-agnostic `AgentBackend`/`AgentSession` protocols
+- `BackendSelector` auto-routes agents by `model.provider` (anthropic -> Claude SDK, openai/azure/ollama -> Semantic Kernel)
+- `ClaudeConfig` Pydantic model with extended thinking, web search, bash, file system, subagents, and permission mode settings
+- `AuthProvider` enum supporting `api_key`, `oauth_token`, `bedrock`, `vertex`, `foundry` credential flows
+- Subprocess retry with exponential backoff (3 attempts) and `max_turns` exceeded detection
+- Structured output validation via JSON schema (file or inline)
+- **Multi-Backend Abstraction Layer** --Protocol-driven architecture decoupling all consumers from provider-specific types
+- `AgentBackend`, `AgentSession`, `ContextGenerator` protocols in `lib/backends/base.py`
+- `ExecutionResult` dataclass with response, tool calls/results, token usage, structured output, and error tracking
+- `SKBackend`/`SKSession` wrapping existing Semantic Kernel infrastructure behind the same protocols
+- **Claude Tool Adapters** --Bridge HoloDeck tools to Claude Agent SDK via in-process MCP server
+- `VectorStoreToolAdapter` and `HierarchicalDocToolAdapter` wrapping initialized tool instances as `@tool`-decorated handlers
+- `build_holodeck_sdk_server()` factory bundling adapters into `McpSdkServerConfig`
+- **MCP Bridge** (`mcp_bridge.py`) --Translates HoloDeck `MCPTool` configs to Claude SDK `McpStdioServerConfig` with env var resolution
+- **OTel Bridge** (`otel_bridge.py`) --Maps `ObservabilityConfig` to Claude subprocess environment variables (OTLP exporter, protocol, privacy controls)
+- **Startup Validators** --6 pre-flight checks called during `ClaudeBackend.initialize()`: Node.js presence, credential validation, embedding provider validation, tool filtering warnings, working directory collision detection, response format schema validation
+- **ClaudeSDKContextGenerator** --`ContextGenerator` protocol implementation using Claude Agent SDK `query()` for contextual embeddings with batch prompts, JSON parsing, single-chunk fallback, retry logic, and concurrency control
+- **Shared Tool Initializer** (`tool_initializer.py`) --Provider-agnostic tool initialization used by both SK and Claude backends with 5-tier context generator resolution chain
+- **Shared Instruction Resolver** (`instruction_resolver.py`) --Extracted instruction loading (file or inline) from AgentFactory for cross-backend reuse
+- **`embedding_provider` field on Agent model** --Required when using `provider: anthropic` with vectorstore/hierarchical_document tools (Anthropic has no native embedding API)
+- **`context_model` field on HierarchicalDocumentToolConfig** --Dedicated LLM for contextual embedding generation, separate from the main agent model
+- **`embedding_model` field on VectorstoreTool and HierarchicalDocumentToolConfig** --Explicit embedding model override with cross-tool conflict detection
+- **PDF Processor Package** (`lib/pdf_processor/`) --Extracted PDF operations into dedicated package (#265)
+- `heading_extractor.py`: Dual-strategy heading detection --bookmark-based (preferred) with font-size fallback and fuzzy matching
+- `page_extractor.py`: Page-range extraction using pypdf with bounds validation
+- **Multi-Field Keyword Search** --Per-field boosting for keyword-based retrieval (#265)
+- Indexed fields: `content` (1x), `parent_chain` (2x), `section_id` (2x), `defined_term` (3x), `source_file` (1x)
+- Enables structure-aware queries (e.g., "Section 203(a)", "Force Majeure")
+
+### Changed
+
+- **Chat Layer Decoupled from Semantic Kernel** --`AgentExecutor` and `ChatSessionManager` now use `BackendSelector` + `AgentSession` abstractions; zero `AgentFactory`/`ChatHistory` imports remain in the chat layer
+- **Chat Streaming** --New `execute_turn_streaming` async generator and `process_message_streaming` for token-by-token output; CLI REPL shows spinner until first chunk arrives
+- **Test Runner Decoupled** --`TestExecutor` uses `BackendSelector` + `ExecutionResult` instead of direct `AgentFactory`; `allow_side_effects` flag plumbed through to backend selection
+- **AgentFactory Refactored** --Now a backward-compatible facade; HierarchicalDocumentTool initialization delegated to shared `tool_initializer`
+- **Chat History Model** --`ChatSessionManager.history` changed from SK `ChatHistory` to plain `list[dict]` for provider neutrality
+- **ContextGenerator Protocol** --`HierarchicalDocumentTool` accepts any `ContextGenerator` implementation via `set_context_generator()`, decoupled from `LLMContextGenerator` and SK chat service
+
+### Fixed
+
+- **Context Model YAML Overrides** --Fixed silent ignoring of `context_model` YAML overrides in the SK path by unifying initialization through `tool_initializer`
+- **Claude Multi-Turn Sessions** --Use `session_id` parameter (SDK 0.1.37 compat) for proper conversation continuity
+- **MCP Tool Communication** --Wrap prompts as `AsyncIterable` to keep stdin open for bidirectional MCP tool communication (fixes `ProcessTransport` error)
+- **Credential Validation** --`validate_credentials` now returns actual credential values in env dict instead of empty dict
+- **Tool Result Enrichment** --`_enrich_tool_results` correlates tool names from `tool_calls` to `tool_results` via `call_id` for evaluation `retrieval_context`
+
+### Security
+
+- **orjson** 3.11.4 -> 3.11.7 --fixes CVE-2025-67221 (DoS via missing recursion depth limits)
+- **wheel** 0.45.1 -> 0.46.3 --fixes CVE-2026-24049 (path traversal via extracted file permissions)
+
+### Dependencies
+
+- **claude-agent-sdk** 0.1.37 --Native Claude Agent SDK integration (new)
+- **authlib** 1.6.5 -> 1.6.6
+- **pypdf** 6.3.0 -> 6.6.0+ (removed upper bound)
+- **werkzeug** 3.1.4 -> 3.1.5+
+- **azure-core** >=1.38.0 (new)
+- **orjson** 3.11.4 -> 3.11.7
+- **wheel** 0.45.1 -> 0.46.3
+
+### Documentation
+
+- Claude Agent SDK configuration guide (`docs/guides/agent-configuration.md`, `docs/guides/llm-providers.md`)
+- Example Claude agent YAML (`docs/examples/claude_agent.yaml`)
+- Updated API models reference, README, and AGENTS.md for multi-backend architecture
+- Agent JSON schema updated (`schemas/agent.schema.json`)
+
+### Known Limitations
+
+- **`holodeck serve` does not support Claude agents** --The server command (`holodeck serve`) only supports Semantic Kernel backends (OpenAI, Azure OpenAI, Ollama). Agents with `provider: anthropic` work via `holodeck test` and `holodeck chat` but cannot be deployed as HTTP servers yet. Claude agent server/deployment support is planned for a future release.
+
+______________________________________________________________________
+
+## [0.4.0](https://github.com/justinbarias/holodeck/compare/0.3.5...v0.4.0) - 2026-02-07
+
+### Added
+
+- **HierarchicalDocumentTool** --Structure-aware document search with hierarchy preservation (#255)
+- Markdown heading chain tracking (H1-H6 parent chains)
+- Domain-aware subsection recognition (US legislative, AU legislative, academic, technical, legal contracts, financial, medical, patent, general)
+- LLM-based contextual embeddings (Anthropic approach, ~49% improved retrieval accuracy)
+- Incremental ingestion with mtime-based tracking and `--force-ingest` override
+- Hybrid search combining semantic + keyword with configurable weights
+- Full YAML configuration --no code required
+- **Tiered Keyword Search with RRF Fusion** --Automatic strategy selection based on provider capabilities
+- NATIVE_HYBRID for providers with built-in hybrid search (azure-ai-search, weaviate, qdrant, mongodb, azure-cosmos-nosql)
+- FALLBACK_BM25 using rank_bm25 + Reciprocal Rank Fusion (k=60) for other providers (postgres, pinecone, chromadb, faiss, in-memory, sql-server)
+- **KeywordSearchProvider Protocol** --Pluggable keyword search backend interface with two implementations:
+- `InMemoryBM25KeywordProvider` --rank_bm25 in-process for development and local workloads
+- `OpenSearchKeywordProvider` --external OpenSearch cluster for production, with configurable auth (basic/API key), TLS, and timeouts
+- **KeywordIndexConfig Model** --YAML-configurable keyword search backend selection (`in-memory` or `opensearch`) with Pydantic validation
+- **Keyword Search Provider Router** --Automatic backend routing with OpenTelemetry span instrumentation for search observability
+- **Shared Tool Utilities** (#257) --Extracted reusable infrastructure into `lib/tools/`:
+- `common.py`: file discovery, source path resolution, placeholder embedding generation
+- `base_tool.py`: `EmbeddingServiceMixin` and `DatabaseConfigMixin` for tool code reuse
+- **Shared Terminal UI Utilities** (#256) --Consolidated duplicate code into `lib/ui/`:
+- `terminal.py`: TTY detection
+- `spinner.py`: `SpinnerMixin` for progress animation
+- `colors.py`: `ANSIColors` and `colorize()` function
+- Chat history extraction utilities shared between chat and test_runner
+- **HierarchicalDocumentTool Specification** (#242) --Full spec-kit artifacts:
+- spec.md with 8 user stories (P1-P3 priorities)
+- Implementation plan, data model documentation, quickstart guide
+- 110+ implementation tasks organized by priority
+
+### Changed
+
+- **BM25 Score Normalization** --Replaced hardcoded `/10.0` divisor with max-score normalization; the top result always scores 1.0, others are proportional to the maximum
+- **Async OpenSearch I/O** --`HybridSearchExecutor.build_keyword_index()` and `keyword_search()` are now async; OpenSearch calls offloaded via `asyncio.to_thread()`, in-memory BM25 remains direct with zero overhead
+- **KeywordIndexConfig Self-Validation** --OpenSearch field validation (`endpoint`, `index_name`) moved from parent `HierarchicalDocumentToolConfig` into `KeywordIndexConfig` itself via `@model_validator`, enabling validation regardless of construction context
+- **Chunk Ownership Architecture** --`HybridSearchExecutor` now owns chunk data via internal `_chunk_map`, eliminating chunk duplication and improving lookup performance
+- **Search Mode Routing** --Tool supports KEYWORD, SEMANTIC, and HYBRID search modes with graceful degradation to semantic-only on keyword failure
+- **CLI Error Handling** --Extracted error handling into reusable context manager
+
+### Removed
+
+- **ExactMatchIndex** --Removed unused class, `SearchMode.EXACT` enum value, `_exact_search()` method, and exact match routing logic (~485 lines) in favor of unified keyword search
+
+### Fixed
+
+- **Hybrid Weight Validation** --Enforce `semantic_weight + keyword_weight > 0` for hybrid search mode, rejecting invalid weight combinations
+
+### Security
+
+- **aiohttp** 3.13.2 -> 3.13.3 --fixes 8 CVEs:
+- CVE-2025-47364 (CRLF injection in redirects)
+- CVE-2025-49109 (DoS via keepalive infinite loop)
+- CVE-2025-49110 (DoS via `Transfer-Encoding` header)
+- CVE-2025-49111 (DoS via invalid chunk extensions)
+- CVE-2025-49112 (Proxy header injection)
+- CVE-2025-49113 (DoS via `Content-Length`/`Transfer-Encoding` conflict)
+- CVE-2025-69229 (DoS via excessive chunked messages)
+- CVE-2025-69230 (DoS via Cookie header logging)
+- **werkzeug** 3.1.4 -> 3.1.5
+- **python-multipart** 0.0.20 -> 0.0.22
+- **authlib** 1.6.5 -> 1.6.6
+- **pypdf** 6.4.0 -> 6.6.2
+- **protobuf** 5.29.5 -> 5.29.6
+- **semantic-kernel** 1.39.0 -> 1.39.3
+- **wheel** 0.45.1 -> 0.46.2
+
+### Documentation
+
+- Hierarchical Document Tools section in tools reference guide
+- HierarchicalDocumentTool spec, plan, data model, and quickstart artifacts (#242)
+- Standardized parallel test execution (`-n auto`) across CLAUDE.md and AGENTS.md
+
+### Testing
+
+- **HierarchicalDocumentTool** coverage increased from 79% to 97% (26 new test cases)
+- Comprehensive keyword search test suite: KeywordSearchProvider protocol, InMemoryBM25, OpenSearchKeywordProvider, HybridSearchExecutor, provider routing, OTel spans, graceful degradation
+- KeywordIndexConfig and HierarchicalDocumentToolConfig model validation tests
+- Consolidated and removed trivial unit tests for cleaner test suite
+
+______________________________________________________________________
+
+## [0.3.5](https://github.com/justinbarias/holodeck/compare/0.3.4...0.3.5) - 2026-01-28
+
+### Added
+
+- **Azure Container Apps Deployment** (#234)
+- `holodeck deploy run/status/destroy` commands with Azure deployer
+- Typed `BaseDeployer` interface with deployment state tracking via Pydantic models
+- Strongly typed result models and configurable health checks
+- CLI error handling extracted into reusable context manager
+- **Cross-Architecture Container Builds** (#241)
+- Configurable `platform` field on deployment config (default: `linux/amd64`)
+- Support for building containers on ARM machines (e.g., Apple Silicon) targeting amd64 deployment
+- Always-fetch base image variant via `pull=True`
+
+### Fixed
+
+- Dockerfile user permissions for proper file operations in containers
+- Default base image updated to published `ghcr.io/justinbarias/holodeck-base:latest`
+- Removed unused helper functions from deployment module
+
+### Testing
+
+- Deploy build command unit tests
+- Azure deployer behavior and platform configuration validation tests
+
+### Documentation
+
+- Deployment guide updates for Azure Container Apps
+
+______________________________________________________________________
+
+## [0.3.4](https://github.com/justinbarias/holodeck/compare/0.3.3...0.3.4) - 2026-01-24
+
+### Added
+
+- **Deploy Build Command** (`holodeck deploy build`): Build container images from agent configuration
+- Pydantic deployment configuration models with validation
+- Dockerfile generation with Jinja2 templates
+- Container image building via Docker SDK (docker-py)
+- Tag strategies: `git_sha`, `git_tag`, `latest`, `custom`
+- OCI-compliant image labels
+- `--dry-run` mode to preview builds without executing
+- `--no-cache` flag for fresh builds
+- **HoloDeck Base Image**: Pre-built Docker base image for agent containers
+- Multi-architecture support (linux/amd64, linux/arm64)
+- GitHub Actions workflow for automated builds
+- Published to `ghcr.io/justinbarias/holodeck-base:latest`
+- Non-root user for security
+- Health check configuration
+- **OpenCode Speckit Support**: Spec-kit slash commands for OpenCode editor
+- `/speckit.specify`, `/speckit.clarify`, `/speckit.plan`, `/speckit.tasks`
+- `/speckit.analyze`, `/speckit.checklist`, `/speckit.implement`
+- `/speckit.constitution`, `/speckit.taskstoissues`
+
+### Documentation
+
+- Comprehensive deployment guide at `docs/guides/deployment.md`
+- DIY deployment instructions using the base image
+- Cloud provider configuration reference (AWS App Runner, GCP Cloud Run, Azure Container Apps)
+
+______________________________________________________________________
+
+## [0.3.3](https://github.com/justinbarias/holodeck/compare/0.3.2...0.3.3) - 2026-01-17
+
+### Added
+
+- **Holodeck Init - Support for Vector Store Provider choice**: PostgreSQL (pgvector) and Pinecone support
+
+### Changed
+
+- **Tool Filtering**: Anthropic tool search to reduce token usage
+- **Claude Workflow**: use Opus model in Claude workflow
+
+### Documentation
+
+- Tool filtering configuration guide
+
+______________________________________________________________________
+
+## [0.3.2](https://github.com/justinbarias/holodeck/compare/0.3.1...0.3.2) - 2026-01-10
+
+### Added
+
+- **DeepEval Evaluation Tracing**: Observability support for DeepEval metrics
+
+### Fixed
+
+- Security vulnerabilities identified in dependencies
+
+______________________________________________________________________
+
+## [0.3.1](https://github.com/justinbarias/holodeck/compare/0.3.0...0.3.1) - 2026-01-09
+
+### Changed
+
+- **Test Runner Expected Tools**: loosened expected_tools validation to allow substring matching
+
+______________________________________________________________________
+
+## [0.3.0](https://github.com/justinbarias/holodeck/compare/0.1.7...0.3.0) - 2026-01-08
+
+### Added
+
+- **OpenTelemetry Observability**: Full observability instrumentation with GenAI semantic conventions
+- OpenTelemetry configuration models (traces, metrics, logs)
+- OTLP export support for traces and metrics
+- **Agent Local Server (`holodeck serve`)**: REST API server for agents
+- FastAPI-based REST endpoints for agent invocation
+- AG-UI compliant endpoint for agent interaction
+
+______________________________________________________________________
+
+## [0.1.7](https://github.com/justinbarias/holodeck/compare/0.1.6...0.1.7) - 2025-12-27
+
+### Added
+
+- **MCP CLI Commands**: Complete CLI for managing MCP servers
+- `holodeck mcp search`: Search MCP registry for servers
+- `holodeck mcp add`: Add MCP servers to configuration
+- `holodeck mcp list`: List configured servers (agent and global)
+- `holodeck mcp remove`: Remove MCP servers from configuration
+- Global MCP server merge into agent configurations
+- **Structured Data Ingestion**: Loader and vectorstore integration for structured data sources
+- **Vectorstore Reranking**: Reranking support for vectorstore search results
+- **Interactive Config Wizard Enhancements**:
+- Template selection step
+- LLM provider selection step
+- **DeepEval Metrics**: DeepEval integration as alternative/complement to Azure AI Evals
+- **CLI Defaults**: `agent.yaml` as default config for `chat` and `test` commands
+- **New Package Entrypoint**: Added `holodeck-ai` script entrypoint
+
+### Changed
+
+- **Vector Store Providers**: Removed Redis support, added PostgreSQL (pgvector), Pinecone, and Qdrant
+- **Documentation**: Updated for `uv tool install`, Ollama as preferred provider
+- **Test Progress/Reporting**: Improved display and refactored agent_factory
+- **Schema Validation**: Relaxed validation for better flexibility
+
+### Fixed
+
+- Telemetry warning in CLI
+- CNAME configuration bug
+
+______________________________________________________________________
+
+## [0.1.6](https://github.com/justinbarias/holodeck/compare/0.1.5...0.1.6) - 2025-11-28
+
+### Added
+
+- **MCP Tool Integration**: Full Model Context Protocol (MCP) tool support with stdio transport
+- MCP server configuration and connection management
+- Tool discovery and invocation via MCP protocol
+
+### Fixed
+
+- Instruction loading issues in agent configuration
+
+______________________________________________________________________
+
+## [0.1.5](https://github.com/justinbarias/holodeck/compare/0.1.4...0.1.5) - 2025-11-27
+
+### Added
+
+- **Project and User Config Support**: Execution config resolution now supports project-level and user-level configuration files
+
+### Fixed
+
+- ChromaDB connection issues
+
+______________________________________________________________________
+
+## [0.1.4](https://github.com/justinbarias/holodeck/compare/0.1.3...0.1.4) - 2025-11-27
+
+### Fixed
+
+- PyPI release by removing local version identifiers
+
+______________________________________________________________________
+
+## [0.1.3](https://github.com/justinbarias/holodeck/compare/0.1.2...0.1.3) - 2025-11-27
+
+### Added
+
+- **ChromaDB Support**: Explicit ChromaDB vector store integration
+
+### Changed
+
+- **Package Manager**: Switched from Poetry to uv for faster dependency management
+
+### Fixed
+
+- Test logging improvements
+- RedisVL compatibility issues
+- CLI quiet mode behavior
+
+______________________________________________________________________
+
+## [0.1.2](https://github.com/justinbarias/holodeck/compare/0.1.1...0.1.2) - 2025-11-26
+
+### Added
+
+- **Ollama Endpoint Support**: Local LLM execution via Ollama
+- **Vector Stores Setup Guide**: Comprehensive Redis vector store documentation
+- Claude Code integration for development assistance
+
+______________________________________________________________________
+
+## [0.1.1](https://github.com/justinbarias/holodeck/compare/0.1.0...0.1.1) - 2025-11-25
+
+### Added
+
+- **Semantic Kernel Vector Store Abstractions**: Support for all vector store providers (Redis, ChromaDB, etc.)
+- Agent config execution settings applied to Semantic Kernel
+
+______________________________________________________________________
+
+## [0.1.0](https://github.com/justinbarias/holodeck/compare/0.0.14...0.1.0) - 2025-11-23
+
+### Added
+
+- **Chat Models and Validation Pipeline**: Scaffold for interactive chat functionality
+- **Markdown Report Generation**: Comprehensive test result reporting (T123-T127)
+- **Progress Display Enhancements**: Spinner, ANSI colors, elapsed time display
+- **Per-Test Metric Resolution**: EvaluationMetric objects for fine-grained metric configuration (T095-T096)
+- **File Processing Improvements**: Enhanced file input handling
+
+### Changed
+
+- Consolidated and refactored tests to parameterized tests for better maintainability
+- Config init command improvements
+
+______________________________________________________________________
+
+## [0.0.14](https://github.com/justinbarias/holodeck/compare/0.0.7...0.0.14) - 2025-11-15
+
+### Fixed
+
+- Poetry development dependencies
+- MkDocs build step
+- Poetry version configuration
+- Various Poetry configuration issues
+
+______________________________________________________________________
+
+## [0.0.7](https://github.com/justinbarias/holodeck/compare/0.0.6...0.0.7) - 2025-11-08
+
+### Added
+
+- **Agent Execution Implementation**: Core agent execution engine
+- **Evaluators**: User Story 1 evaluator implementation
+- **Response Format Definition**: Phase 4 implementation (T014-T019)
+- **Global Settings Configuration**: Phase 2 & 3 with TDD approach
+
+______________________________________________________________________
+
+## [0.0.6](https://github.com/justinbarias/holodeck/compare/0.0.5...0.0.6) - 2025-10-25
+
+### Added
+
+- **`holodeck init` Command**: Complete project initialization with templates
+- Phase 8: Polish & QA for init command
+- Phase 7: Project metadata specification (US5)
+- Phase 5: Sample files and examples generation (US3)
+- User Story 2: Project template selection (Phase 4)
+- Core init engine implementation
+- Basic agent creation from templates
+- ConfigLoader returns GlobalConfig rather than dict
+
+______________________________________________________________________
+
+## [0.0.5](https://github.com/justinbarias/holodeck/compare/0.0.4...0.0.5) - 2025-10-20
+
+### Fixed
+
+- Version tag configuration
+
+______________________________________________________________________
+
+## [0.0.4](https://github.com/justinbarias/holodeck/compare/0.0.1...0.0.4) - 2025-10-20
+
+### Added
+
+- GitHub release workflow
+- Automated PyPI publishing
+
+______________________________________________________________________
+
+## [0.0.1](https://github.com/justinbarias/holodeck/releases/tag/0.0.1) - 2025-10-19
+
+### Added - User Story 1: Define Agent Configuration
+
+#### Core Features
+
+- **Agent Configuration Schema**: Complete YAML-based agent configuration with Pydantic validation
+- Agent metadata (name, description)
+- LLM provider configuration (OpenAI, Azure OpenAI, Anthropic)
+- Model parameters (temperature, max_tokens)
+- Instructions (inline or file-based)
+- Tools array with type discrimination
+- Test cases with expected behavior validation
+- Evaluation metrics with flexible model configuration
+- **Configuration Loading & Validation** (`ConfigLoader`):
+- Load and parse agent.yaml files
+- Validate against Pydantic schema with user-friendly error messages
+- File path resolution (relative to agent.yaml directory)
+- Environment variable substitution (${VAR_NAME} pattern)
+- Precedence hierarchy: agent.yaml > environment variables > global config
+- **Global Configuration Support**:
+- Load ~/.holodeck/config.yaml for system-wide settings
+- Provider configurations at global level
+- Tool configurations at global level
+- Configuration merging with proper precedence
+
+#### Data Models
+
+- **LLMProvider Model**:
+- Multi-provider support (openai, azure_openai, anthropic)
+- Model selection and parameter configuration
+- Temperature range validation (0-2)
+- Max tokens validation (>0)
+- Azure-specific endpoint configuration
+- **Tool Models** (Discriminated Union):
+- **VectorstoreTool**: Vector search with source, embedding model, chunk size/overlap
+- **FunctionTool**: Python function tools with parameters schema
+- **MCPTool**: Model Context Protocol server integration
+- **PromptTool**: AI-powered semantic functions with template support
+- Tool type validation and discrimination
+- **Evaluation Models**:
+- Metric configuration with name, threshold, enabled flag
+- Per-metric model override for flexible configuration
+- AI-powered and NLP metrics support
+- **TestCase Model**:
+- Test inputs with expected behaviors
+- Ground truth for validation
+- Expected tool usage tracking
+- Evaluation metrics per test
+- **Agent Model**:
+- Complete agent definition
+- All field validations and constraints
+- Tool and evaluation composition
+- **GlobalConfig Model**:
+- Provider registry
+- Vectorstore configurations
+- Deployment settings
+
+#### Error Handling
+
+- **Custom Exception Hierarchy**:
+- `HoloDeckError`: Base exception
+- `ConfigError`: Configuration-specific errors
+- `ValidationError`: Schema validation errors with field details
+- `FileNotFoundError`: File resolution errors with path suggestions
+- **Human-Readable Error Messages**:
+- Field names and types in validation errors
+- Actual vs. expected values
+- File paths with suggestions
+- Nested error flattening for complex schemas
+
+#### Infrastructure & Tooling
+
+- **Development Setup**:
+- Makefile with 30+ development commands
+- Poetry dependency management
+- Pre-commit hooks (black, ruff, mypy, detect-secrets)
+- Python 3.10+ support
+- **Testing**:
+- Unit test suite with 11 test files covering all models
+- Integration test suite for end-to-end workflows
+- 80%+ code coverage requirement
+- Test execution: `make test`, `make test-coverage`, `make test-parallel`
+- **Code Quality**:
+- Black code formatting (88 char line length)
+- Ruff linting (pycodestyle, pyflakes, isort, flake8-bugbear, pyupgrade, pep8-naming, flake8-simplify, bandit)
+- MyPy type checking with strict settings
+- Security scanning (safety, bandit, detect-secrets)
+- Automated pre-commit validation
+- **Documentation**:
+- MkDocs site configuration with Material theme
+- Getting Started guide (installation, quickstart)
+- Configuration guides (agent config, tools, evaluations, global config, file references)
+- Example agent configurations (basic, with tools, with evaluations, with global config)
+- API reference documentation (ConfigLoader, Pydantic models)
+- Architecture documentation (configuration loading flow)
+
+### Features Summary by Component
+
+#### ConfigLoader API
+
+```
+loader = ConfigLoader()
+agent = loader.load_agent_yaml("agent.yaml")  # Returns Agent instance
+```
+
+- Parse YAML to Agent instances
+- Automatic environment variable substitution
+- File reference resolution with validation
+- Configuration precedence handling
+- Comprehensive error reporting
+
+#### Schema Support
+
+- **File References**: Instructions and tool definitions can be loaded from files
+- **Environment Variables**: ${ENV_VAR} patterns supported throughout configs
+- **Type Discrimination**: Tool types automatically validated and parsed
+- **Nested Validation**: Complex nested structures validated properly
+
+#### Testing Coverage
+
+**Unit Tests** (11 files):
+
+- `test_errors.py` - Exception handling and messaging
+- `test_env_loader.py` - Environment variable substitution
+- `test_defaults.py` - Default configuration handling
+- `test_validator.py` - Validation utilities
+- `test_tool_models.py` - Tool type validation and discrimination
+- `test_llm_models.py` - LLM provider configuration
+- `test_evaluation_models.py` - Evaluation metric configuration
+- `test_testcase_models.py` - Test case validation
+- `test_agent_models.py` - Agent schema validation
+- `test_globalconfig_models.py` - Global configuration handling
+- `test_config_loader.py` - ConfigLoader functionality
+
+**Integration Tests** (1 file):
+
+- `test_config_end_to_end.py` - Full workflow testing
+
+### Known Limitations
+
+#### Version 0.0.1 Scope
+
+- **CLI Not Implemented**: No command-line interface (planned for User Story 2)
+- **No Agent Execution**: Agent models are validated but not executed (Phase 2 feature)
+- **No Tool Execution**: Tools are defined but not executed (Phase 2 feature)
+- **No Evaluation Engine**: Metrics are configured but not executed (Phase 2 feature)
+- **No Deployment**: No FastAPI endpoint generation or Docker deployment (Phase 2-3 features)
+- **No Observability**: OpenTelemetry integration planned for Phase 2
+- **No Plugin System**: Plugin packages not yet available (Phase 3 feature)
+
+#### Validation Limitations
+
+- **File Validation**: Only checks file existence, not content validity
+- **LLM Provider APIs**: No actual API testing (would require credentials)
+- **Tool Validation**: Type validation only, no runtime validation
+
+#### Known Issues
+
+None reported in 0.0.1.
+
+______________________________________________________________________
+
+## How to Use This Changelog
+
+- **[Unreleased](https://github.com/justinbarias/holodeck/compare/v0.6.2...HEAD)**: Features coming in future releases
+- **Semantic Versioning**: MAJOR.MINOR.PATCH
+- **MAJOR**: Breaking changes or new architecture
+- **MINOR**: New features and functionality
+- **PATCH**: Bug fixes and improvements
+- **Categories**: Added (new features), Changed (modifications), Fixed (bug fixes), Deprecated (to be removed), Removed (deprecated features deleted), Security (security fixes)
+
+______________________________________________________________________
+
+## Roadmap
+
+- **v0.1** - Core agent engine + CLI
+- **v0.2** - Evaluation framework
+- **v0.3** - API deployment (serve + deploy build)
+- **v0.4** - Hierarchical document search & tiered keyword search
+- **v0.5** - Multi-backend architecture (Claude Agent SDK, OTel, Claude serve support)
+- **v0.6** - Enterprise features (SSO, audit logs, RBAC)
+- **v1.0** - Production-ready release
+
+______________________________________________________________________
+
+## Previous Versions
+
+### Development Versions
+
+- **Pre-0.0.1**: Architecture planning and vision definition
+- Project vision (VISION.md)
+- Architecture documentation
+- Specification and planning
+
+______________________________________________________________________
+
+## Contributing
+
+See [CONTRIBUTING.md](https://docs.useholodeck.ai/contributing/index.md) for guidelines on:
+
+- Development setup
+- Running tests
+- Code style requirements
+- Submitting pull requests
+
+## License
+
+HoloDeck is released under the MIT License. See LICENSE file for details.
+
+______________________________________________________________________
+
+## Changelog Format
+
+We follow [Keep a Changelog](https://keepachangelog.com/) format:
+
+- **Added**: New features
+- **Changed**: Changes to existing functionality
+- **Deprecated**: Features to be removed in future versions
+- **Removed**: Features that have been removed
+- **Fixed**: Bug fixes
+- **Security**: Security-related changes
+
+______________________________________________________________________
+
+## Quick Links
+
+- [Getting Started](https://docs.useholodeck.ai/getting-started/quickstart/index.md)
+- [Configuration Guide](https://docs.useholodeck.ai/guides/agent-configuration/index.md)
+- [API Reference](https://docs.useholodeck.ai/api/models/index.md)
+- [Contributing Guide](https://docs.useholodeck.ai/contributing/index.md)
+
+______________________________________________________________________

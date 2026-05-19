@@ -1,0 +1,56 @@
+# HoloDeck Documentation
+
+> AI Agent Experimentation Platform - Define agents in YAML, no code required
+
+HoloDeck is an open-source, no-code platform for building, testing,
+and deploying AI agents via YAML. This index points LLMs at the
+canonical docs for the CLI, agent schema, backends (Claude / SK),
+tools (vectorstore, MCP, hierarchical_document), evaluations,
+and the agent server.
+
+
+## Getting Started
+
+- [Installation](https://docs.useholodeck.ai/getting-started/installation/index.md)
+- [Quickstart](https://docs.useholodeck.ai/getting-started/quickstart/index.md)
+
+## Guides
+
+- [Agent Configuration](https://docs.useholodeck.ai/guides/agent-configuration/index.md)
+- [LLM Providers](https://docs.useholodeck.ai/guides/llm-providers/index.md)
+- [Claude Backend](https://docs.useholodeck.ai/guides/claude-backend/index.md)
+- [Semantic Kernel Backend](https://docs.useholodeck.ai/guides/semantic-kernel-backend/index.md)
+- [Tools](https://docs.useholodeck.ai/guides/tools/index.md)
+- [MCP CLI](https://docs.useholodeck.ai/guides/mcp-cli/index.md)
+- [Vector Stores](https://docs.useholodeck.ai/guides/vector-stores/index.md)
+- [Evaluations](https://docs.useholodeck.ai/guides/evaluations/index.md)
+- [Dashboard](https://docs.useholodeck.ai/guides/dashboard/index.md)
+- [Global Configuration](https://docs.useholodeck.ai/guides/global-config/index.md)
+- [File References](https://docs.useholodeck.ai/guides/file-references/index.md)
+- [Agent Server](https://docs.useholodeck.ai/guides/serve/index.md)
+- [Deployment](https://docs.useholodeck.ai/guides/deployment/index.md)
+- [Observability](https://docs.useholodeck.ai/guides/observability/index.md)
+
+## API Reference
+
+- [Backends](https://docs.useholodeck.ai/api/backends/index.md)
+- [Chat](https://docs.useholodeck.ai/api/chat/index.md)
+- [CLI](https://docs.useholodeck.ai/api/cli/index.md)
+- [Configuration](https://docs.useholodeck.ai/api/config-loader/index.md)
+- [Deploy](https://docs.useholodeck.ai/api/deploy/index.md)
+- [Evaluators](https://docs.useholodeck.ai/api/evaluators/index.md)
+- [Models](https://docs.useholodeck.ai/api/models/index.md)
+- [Observability](https://docs.useholodeck.ai/api/observability/index.md)
+- [PDF Processor](https://docs.useholodeck.ai/api/pdf-processor/index.md)
+- [Serve](https://docs.useholodeck.ai/api/serve/index.md)
+- [Services](https://docs.useholodeck.ai/api/services/index.md)
+- [Test Runner](https://docs.useholodeck.ai/api/test-runner/index.md)
+- [Tool Filter](https://docs.useholodeck.ai/api/tool-filter/index.md)
+- [Tools](https://docs.useholodeck.ai/api/tools/index.md)
+- [Utilities](https://docs.useholodeck.ai/api/utilities/index.md)
+
+## Developer
+
+- [Contributing](https://docs.useholodeck.ai/contributing/index.md)
+- [Changelog](https://docs.useholodeck.ai/CHANGELOG/index.md)
+
