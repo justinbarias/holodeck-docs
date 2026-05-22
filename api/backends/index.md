@@ -19,22 +19,23 @@ Defines the provider-agnostic contracts that every backend must satisfy and the 
 
 ### ExecutionResult
 
-## `ExecutionResult(response, tool_calls=list(), tool_results=list(), token_usage=TokenUsage.zero(), structured_output=None, num_turns=1, is_error=False, error_reason=None)`
+## `ExecutionResult(response, tool_calls=list(), tool_results=list(), token_usage=TokenUsage.zero(), structured_output=None, num_turns=1, is_error=False, error_reason=None, thinking='')`
 
 Provider-agnostic result of a single agent turn.
 
 Attributes:
 
-| Name                | Type                   | Description                                            |
-| ------------------- | ---------------------- | ------------------------------------------------------ |
-| `response`          | `str`                  | The text response from the agent.                      |
-| `tool_calls`        | `list[dict[str, Any]]` | List of tool call records made during execution.       |
-| `tool_results`      | `list[dict[str, Any]]` | List of tool result records returned during execution. |
-| `token_usage`       | `TokenUsage`           | Token consumption metadata for this turn.              |
-| `structured_output` | \`Any                  | None\`                                                 |
-| `num_turns`         | `int`                  | Number of turns taken to produce this result.          |
-| `is_error`          | `bool`                 | Whether the execution ended in an error state.         |
-| `error_reason`      | \`str                  | None\`                                                 |
+| Name                | Type                   | Description                                                                                                                                         |
+| ------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `response`          | `str`                  | The text response from the agent.                                                                                                                   |
+| `tool_calls`        | `list[dict[str, Any]]` | List of tool call records made during execution.                                                                                                    |
+| `tool_results`      | `list[dict[str, Any]]` | List of tool result records returned during execution.                                                                                              |
+| `token_usage`       | `TokenUsage`           | Token consumption metadata for this turn.                                                                                                           |
+| `structured_output` | \`Any                  | None\`                                                                                                                                              |
+| `num_turns`         | `int`                  | Number of turns taken to produce this result.                                                                                                       |
+| `is_error`          | `bool`                 | Whether the execution ended in an error state.                                                                                                      |
+| `error_reason`      | \`str                  | None\`                                                                                                                                              |
+| `thinking`          | `str`                  | Extended-thinking text emitted by the model, concatenated in arrival order. Empty when extended thinking is disabled or unsupported by the backend. |
 
 ### ToolEvent
 
@@ -46,16 +47,16 @@ Emitted by backends that support hook-based tool observation (e.g. Claude Agent 
 
 Attributes:
 
-| Name                 | Type                                                                  | Description                                                                                                                                                                                                                                                                                   |
-| -------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `kind`               | `Literal['start', 'end', 'error', 'subagent_message', 'parent_link']` | Event type — "start" before execution, "end" after success, "error" after failure, "subagent_message" for an assistant text snapshot streamed by an in-flight subagent (Task tool), "parent_link" to declare that a tool invocation was spawned by a subagent (so the panel can annotate it). |
-| `tool_name`          | `str`                                                                 | Name of the tool being invoked.                                                                                                                                                                                                                                                               |
-| `tool_use_id`        | `str`                                                                 | Unique identifier correlating start/end/error for the same invocation. For "subagent_message" events this is the parent Task's tool_use_id so consumers can attach the snapshot to the corresponding active entry. For "parent_link" this is the child tool's id.                             |
-| `tool_input`         | \`dict[str, Any]                                                      | None\`                                                                                                                                                                                                                                                                                        |
-| `tool_response`      | \`str                                                                 | None\`                                                                                                                                                                                                                                                                                        |
-| `error`              | \`str                                                                 | None\`                                                                                                                                                                                                                                                                                        |
-| `parent_tool_use_id` | \`str                                                                 | None\`                                                                                                                                                                                                                                                                                        |
-| `text`               | \`str                                                                 | None\`                                                                                                                                                                                                                                                                                        |
+| Name                 | Type                                                                              | Description                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `kind`               | `Literal['start', 'end', 'error', 'subagent_message', 'parent_link', 'thinking']` | Event type — "start" before execution, "end" after success, "error" after failure, "subagent_message" for an assistant text snapshot streamed by an in-flight subagent (Task tool), "parent_link" to declare that a tool invocation was spawned by a subagent (so the panel can annotate it), "thinking" for an extended-thinking block streamed mid-turn (one event per ThinkingBlock, ahead of any tool call the block precedes). |
+| `tool_name`          | `str`                                                                             | Name of the tool being invoked. Empty for "thinking" (no tool involved).                                                                                                                                                                                                                                                                                                                                                            |
+| `tool_use_id`        | `str`                                                                             | Unique identifier correlating start/end/error for the same invocation. For "subagent_message" events this is the parent Task's tool_use_id so consumers can attach the snapshot to the corresponding active entry. For "parent_link" this is the child tool's id. For "thinking" this is a per-block id callers can thread through any downstream protocol (e.g. AG-UI REASONING\_\* message_id).                                   |
+| `tool_input`         | \`dict[str, Any]                                                                  | None\`                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `tool_response`      | \`str                                                                             | None\`                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `error`              | \`str                                                                             | None\`                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `parent_tool_use_id` | \`str                                                                             | None\`                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `text`               | \`str                                                                             | None\`                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ### AgentSession
 
@@ -1219,6 +1220,7 @@ async def send(self, message: str) -> ExecutionResult:
             text_parts: list[str] = []
             tool_calls: list[dict[str, Any]] = []
             tool_results: list[dict[str, Any]] = []
+            thinking_parts: list[str] = []
             token_usage = TokenUsage.zero()
             num_turns = 1
             structured_output: Any = None
@@ -1234,9 +1236,16 @@ async def send(self, message: str) -> ExecutionResult:
                     msg_count,
                     msg.__class__.__name__,
                 )
+                _maybe_emit_thinking_blocks(msg, self._tool_event_queue)
                 _maybe_emit_subagent_message(msg, self._tool_event_queue)
-                text_parts, tool_calls, tool_results = _process_message(
-                    msg, text_parts, tool_calls, tool_results
+                text_parts, tool_calls, tool_results, thinking_parts = (
+                    _process_message(
+                        msg,
+                        text_parts,
+                        tool_calls,
+                        tool_results,
+                        thinking_parts,
+                    )
                 )
                 if msg.__class__.__name__ == "ResultMessage":
                     rm = cast(Any, msg)
@@ -1278,6 +1287,7 @@ async def send(self, message: str) -> ExecutionResult:
                 token_usage=token_usage,
                 structured_output=structured_output,
                 num_turns=num_turns,
+                thinking="".join(thinking_parts),
             )
         except (ProcessError, CLIConnectionError) as exc:
             raise BackendSessionError(
@@ -1337,6 +1347,7 @@ async def send_streaming(self, message: str) -> AsyncGenerator[str, None]:
             async for msg in query(
                 prompt=_streaming_user_envelope(message), options=options
             ):
+                _maybe_emit_thinking_blocks(msg, self._tool_event_queue)
                 _maybe_emit_subagent_message(msg, self._tool_event_queue)
                 if msg.__class__.__name__ == "AssistantMessage":
                     for block in cast(Any, msg).content:

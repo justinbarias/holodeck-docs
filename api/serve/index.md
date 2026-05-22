@@ -2724,7 +2724,10 @@ async def handle_request(
                 for evt in create_tool_call_events(tool_exec, message_id):
                     yield encoder.encode(evt)
 
-        # 4. Emit text response as its own assistant message
+        # 4a. Emit text response as its own assistant message.
+        #     (Reasoning was already streamed through the tool_queue as
+        #     ``ToolEvent(kind="thinking")`` events ahead of each tool
+        #     call — see _tool_event_to_agui.)
         yield encoder.encode(create_text_message_start(message_id))
         yield encoder.encode(
             create_text_message_content(message_id, response.content)

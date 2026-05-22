@@ -2611,7 +2611,7 @@ task-bound session wrapping for HTTP server contexts.</p>
 
 
 <h2 id="holodeck.chat.executor.AgentResponse" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">AgentResponse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">tool_executions</span><span class="p">,</span> <span class="n">tokens_used</span><span class="p">,</span> <span class="n">execution_time</span><span class="p">)</span></code>
+              <code class="highlight language-python"><span class="n">AgentResponse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">tool_executions</span><span class="p">,</span> <span class="n">tokens_used</span><span class="p">,</span> <span class="n">execution_time</span><span class="p">,</span> <span class="n">thinking</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
@@ -2745,7 +2745,7 @@ are lazily created on the first <code>execute_turn()</code> call.</p>
                 <code>on_execution_complete</code>
             </td>
             <td>
-                  <code><span title="collections.abc.Callable">Callable</span>[[<a class="autorefs autorefs-internal" title="AgentResponse(content, tool_executions, tokens_used, execution_time)
+                  <code><span title="collections.abc.Callable">Callable</span>[[<a class="autorefs autorefs-internal" title="AgentResponse(content, tool_executions, tokens_used, execution_time, thinking='')
 
   
       dataclass
@@ -2810,8 +2810,7 @@ Mirrors the pattern used by <code>TestExecutor</code>.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>src/holodeck/chat/executor.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">232</span>
-<span class="normal">233</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">233</span>
 <span class="normal">234</span>
 <span class="normal">235</span>
 <span class="normal">236</span>
@@ -2847,7 +2846,8 @@ Mirrors the pattern used by <code>TestExecutor</code>.</p>
 <span class="normal">266</span>
 <span class="normal">267</span>
 <span class="normal">268</span>
-<span class="normal">269</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">269</span>
+<span class="normal">270</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">agent_config</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span>
     <span class="n">backend</span><span class="p">:</span> <span class="n">AgentBackend</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2945,17 +2945,17 @@ The next <code>execute_turn()</code> will create a new session.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/executor.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">460</span>
-<span class="normal">461</span>
-<span class="normal">462</span>
-<span class="normal">463</span>
-<span class="normal">464</span>
-<span class="normal">465</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">465</span>
 <span class="normal">466</span>
 <span class="normal">467</span>
 <span class="normal">468</span>
 <span class="normal">469</span>
-<span class="normal">470</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">clear_history</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">clear_history</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear conversation history and close the current session.</span>
 
 <span class="sd">    Resets the agent&#39;s chat history to start fresh conversation.</span>
@@ -3034,7 +3034,7 @@ extracts tool calls, and tracks token usage.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="AgentResponse(content, tool_executions, tokens_used, execution_time)
+                  <code><a class="autorefs autorefs-internal" title="AgentResponse(content, tool_executions, tokens_used, execution_time, thinking='')
 
   
       dataclass
@@ -3075,8 +3075,7 @@ extracts tool calls, and tracks token usage.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/executor.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">312</span>
-<span class="normal">313</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">313</span>
 <span class="normal">314</span>
 <span class="normal">315</span>
 <span class="normal">316</span>
@@ -3160,7 +3159,9 @@ extracts tool calls, and tracks token usage.</p>
 <span class="normal">394</span>
 <span class="normal">395</span>
 <span class="normal">396</span>
-<span class="normal">397</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_turn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentResponse</span><span class="p">:</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_turn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentResponse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute a single turn of agent conversation.</span>
 
 <span class="sd">    Sends a user message to the agent, captures the response,</span>
@@ -3220,6 +3221,7 @@ extracts tool calls, and tracks token usage.</p>
             <span class="n">tool_executions</span><span class="o">=</span><span class="n">tool_executions</span><span class="p">,</span>
             <span class="n">tokens_used</span><span class="o">=</span><span class="n">tokens_used</span><span class="p">,</span>
             <span class="n">execution_time</span><span class="o">=</span><span class="n">elapsed</span><span class="p">,</span>
+            <span class="n">thinking</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">thinking</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Call post-execution callback</span>
@@ -3349,9 +3351,7 @@ extracts tool calls, and tracks token usage.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/executor.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">399</span>
-<span class="normal">400</span>
-<span class="normal">401</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">401</span>
 <span class="normal">402</span>
 <span class="normal">403</span>
 <span class="normal">404</span>
@@ -3400,7 +3400,12 @@ extracts tool calls, and tracks token usage.</p>
 <span class="normal">447</span>
 <span class="normal">448</span>
 <span class="normal">449</span>
-<span class="normal">450</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_turn_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_turn_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Stream agent response token by token.</span>
 
 <span class="sd">    Args:</span>
@@ -3415,36 +3420,39 @@ extracts tool calls, and tracks token usage.</p>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_backend_and_session</span><span class="p">()</span>
         <span class="n">collected</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">send_streaming</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr]</span>
-        <span class="c1"># Enforce llm_timeout as a deadline across the whole stream —</span>
-        <span class="c1"># each chunk must arrive within the remaining budget; otherwise</span>
-        <span class="c1"># the next __anext__ is cancelled and TimeoutError propagates.</span>
-        <span class="n">deadline</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_llm_timeout</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_llm_timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="k">else</span> <span class="kc">None</span>
-        <span class="p">)</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">deadline</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">remaining</span> <span class="o">=</span> <span class="n">deadline</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">remaining</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;streaming response exceeded llm_timeout=&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_llm_timeout</span><span class="si">}</span><span class="s2">s&quot;</span>
-                    <span class="p">)</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">chunk</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span>
-                        <span class="n">stream</span><span class="o">.</span><span class="fm">__anext__</span><span class="p">(),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">remaining</span>
-                    <span class="p">)</span>
-                <span class="k">except</span> <span class="ne">StopAsyncIteration</span><span class="p">:</span>
-                    <span class="k">break</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">chunk</span> <span class="o">=</span> <span class="k">await</span> <span class="n">stream</span><span class="o">.</span><span class="fm">__anext__</span><span class="p">()</span>
-                <span class="k">except</span> <span class="ne">StopAsyncIteration</span><span class="p">:</span>
-                    <span class="k">break</span>
-            <span class="n">collected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-            <span class="k">yield</span> <span class="n">chunk</span>
+        <span class="c1"># Enforce llm_timeout via a single deadline timer that cancels the</span>
+        <span class="c1"># current task. Per-chunk ``asyncio.wait_for`` would wrap each</span>
+        <span class="c1"># ``__anext__`` in a fresh task and break the SDK&#39;s anyio cancel</span>
+        <span class="c1"># scope ownership (&quot;Attempted to exit cancel scope in a different</span>
+        <span class="c1"># task than it was entered in&quot;). call_later runs on the current</span>
+        <span class="c1"># task, so the SDK&#39;s scope stays bound to a single task.</span>
+        <span class="n">timed_out</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">timer</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimerHandle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_llm_timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">current_task</span><span class="p">()</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">_on_deadline</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">nonlocal</span> <span class="n">timed_out</span>
+                <span class="n">timed_out</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">current</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+            <span class="n">timer</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">call_later</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_llm_timeout</span><span class="p">,</span> <span class="n">_on_deadline</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">send_streaming</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>  <span class="c1"># type: ignore[union-attr]</span>
+                <span class="n">collected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="n">chunk</span>
+        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">timed_out</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;streaming response exceeded llm_timeout=&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_llm_timeout</span><span class="si">}</span><span class="s2">s&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+            <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">timer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">timer</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
         <span class="c1"># Update history after stream completes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">message</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">collected</span><span class="p">)})</span>
@@ -3497,13 +3505,13 @@ extracts tool calls, and tracks token usage.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/executor.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">452</span>
-<span class="normal">453</span>
-<span class="normal">454</span>
-<span class="normal">455</span>
-<span class="normal">456</span>
-<span class="normal">457</span>
-<span class="normal">458</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get current conversation history.</span>
 
 <span class="sd">    Returns:</span>
@@ -3538,12 +3546,7 @@ Closes the session and tears down the backend.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/chat/executor.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">472</span>
-<span class="normal">473</span>
-<span class="normal">474</span>
-<span class="normal">475</span>
-<span class="normal">476</span>
-<span class="normal">477</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">477</span>
 <span class="normal">478</span>
 <span class="normal">479</span>
 <span class="normal">480</span>
@@ -3554,7 +3557,12 @@ Closes the session and tears down the backend.</p>
 <span class="normal">485</span>
 <span class="normal">486</span>
 <span class="normal">487</span>
-<span class="normal">488</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span>
+<span class="normal">493</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cleanup executor resources.</span>
 
 <span class="sd">    Called when ending a chat session to release any held resources.</span>
@@ -4149,7 +4157,7 @@ and session state tracking.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="AgentResponse(content, tool_executions, tokens_used, execution_time)
+                  <code><a class="autorefs autorefs-internal" title="AgentResponse(content, tool_executions, tokens_used, execution_time, thinking='')
 
   
       dataclass
