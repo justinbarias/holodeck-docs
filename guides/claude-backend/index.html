@@ -707,6 +707,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#settings-isolation-plugins-skills-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings isolation (plugins, skills, hooks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#embedding-provider-requirement" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2127,6 +2138,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#settings-isolation-plugins-skills-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings isolation (plugins, skills, hooks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#embedding-provider-requirement" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2670,6 +2692,47 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge-base</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-search</span>
 </code></pre></div>
+<h3 id="settings-isolation-plugins-skills-hooks">Settings isolation (plugins, skills, hooks)<a class="headerlink" href="#settings-isolation-plugins-skills-hooks" title="Permanent link">&para;</a></h3>
+<p>The Claude Agent SDK spawns the <code>claude</code> CLI as a subprocess. By default the CLI loads <strong>everything</strong> it finds under <code>~/.claude/</code>, <code>.claude/</code>, and <code>.claude/settings.local.json</code> — plugins, skills, hooks, MCP servers, etc. That means an agent deployed from your laptop can silently inherit your personal Claude Code config, and the same agent deployed in CI/cloud gets a different setup.</p>
+<p>HoloDeck <strong>defaults to full isolation</strong>: when <code>claude.setting_sources</code> is unset, the backend passes <code>setting_sources=[]</code> to the SDK so the subprocess loads no settings layers. Your agent's behavior is determined solely by its <code>agent.yaml</code>.</p>
+<p>Opt back in only when you need it:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">claude</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">setting_sources</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project</span><span class="w">        </span><span class="c1"># loads .claude/settings.json (and CLAUDE.md)</span>
+</code></pre></div>
+<p>Accepted values:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Loads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user</code></td>
+<td><code>~/.claude/settings.json</code> (global)</td>
+</tr>
+<tr>
+<td><code>project</code></td>
+<td><code>.claude/settings.json</code> and <code>CLAUDE.md</code></td>
+</tr>
+<tr>
+<td><code>local</code></td>
+<td><code>.claude/settings.local.json</code> (gitignored)</td>
+</tr>
+<tr>
+<td><code>all</code></td>
+<td>sugar for <code>[user, project, local]</code> — cannot be combined with other entries</td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ul>
+<li>Include <code>project</code> if your agent depends on <code>CLAUDE.md</code>.</li>
+<li>The default is <code>null</code> → HoloDeck sends <code>[]</code>. Setting an empty list explicitly (<code>setting_sources: []</code>) has the same effect.</li>
+<li><code>all</code> is rejected if mixed with other values; use either <code>[all]</code> or any subset of the three concrete layers.</li>
+</ul>
 <h3 id="embedding-provider-requirement">Embedding provider requirement<a class="headerlink" href="#embedding-provider-requirement" title="Permanent link">&para;</a></h3>
 <p>Anthropic does not provide embedding models. When you combine <code>model.provider: anthropic</code> with <strong>vectorstore</strong> or <strong>hierarchical_document</strong> tools, you <strong>must</strong> define an <code>embedding_provider</code> at the agent level:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">embedding_provider</span><span class="p">:</span>
@@ -3009,6 +3072,12 @@
 <td>list of strings</td>
 <td>all tools</td>
 <td>Explicit tool allowlist</td>
+</tr>
+<tr>
+<td><code>setting_sources</code></td>
+<td>list of <code>user</code>|<code>project</code>|<code>local</code>|<code>all</code></td>
+<td><code>null</code> → <code>[]</code> (isolation)</td>
+<td>Which Claude Code settings layers the spawned SDK subprocess loads. See <a href="#settings-isolation-plugins-skills-hooks">Settings isolation</a> below.</td>
 </tr>
 <tr>
 <td><code>session_memory_estimate_mib</code></td>

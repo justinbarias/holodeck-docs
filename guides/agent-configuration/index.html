@@ -3109,7 +3109,8 @@
 <p><strong>Note</strong>: <code>embedding_provider</code> is ignored when using <code>openai</code>, <code>azure_openai</code>, or <code>ollama</code> as the main provider, since those providers can generate embeddings natively.</p>
 </blockquote>
 <h2 id="claude-agent-sdk-settings">Claude Agent SDK Settings<a class="headerlink" href="#claude-agent-sdk-settings" title="Permanent link">&para;</a></h2>
-<p>When using <code>model.provider: anthropic</code>, the agent.yaml accepts a top-level <code>claude:</code> section for backend-specific capabilities (permission modes, extended thinking, web search, subagents, bash, file_system, working_directory, max_turns, allowed_tools).</p>
+<p>When using <code>model.provider: anthropic</code>, the agent.yaml accepts a top-level <code>claude:</code> section for backend-specific capabilities (permission modes, extended thinking, web search, subagents, bash, file_system, working_directory, max_turns, allowed_tools, setting_sources).</p>
+<p>HoloDeck <strong>defaults to settings isolation</strong>: the spawned SDK subprocess does not inherit plugins, skills, or hooks from <code>~/.claude</code> or <code>.claude/</code>. Opt in per-agent via <code>claude.setting_sources</code> — see <a href="../claude-backend/#settings-isolation-plugins-skills-hooks">Claude Backend: Settings isolation</a>.</p>
 <p>See <a href="../claude-backend/">Claude Backend</a> for the full reference and examples. The <code>claude</code> block is ignored for non-Anthropic providers.</p>
 <h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
 <p>Defines the system prompt that guides agent behavior.</p>

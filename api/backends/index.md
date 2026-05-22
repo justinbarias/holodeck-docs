@@ -1226,7 +1226,7 @@ async def send(self, message: str) -> ExecutionResult:
             structured_output: Any = None
 
             msg_count = 0
-            async for msg in query(
+            async for msg in claude_agent_sdk.query(
                 prompt=_streaming_user_envelope(message), options=options
             ):
                 msg_count += 1
@@ -1344,7 +1344,7 @@ async def send_streaming(self, message: str) -> AsyncGenerator[str, None]:
                 options.resume = self._sdk_session_id
 
         try:
-            async for msg in query(
+            async for msg in claude_agent_sdk.query(
                 prompt=_streaming_user_envelope(message), options=options
             ):
                 _maybe_emit_thinking_blocks(msg, self._tool_event_queue)
@@ -1495,6 +1495,13 @@ def build_options(
             ", ".join(auto_disallow),
         )
 
+    # Default [] → CLI subprocess never inherits ~/.claude plugins/skills/hooks.
+    setting_sources: list[str] = (
+        list(claude.setting_sources)
+        if claude is not None and claude.setting_sources is not None
+        else []
+    )
+
     # Build the options dict
     opts_kwargs: dict[str, Any] = {
         "model": agent.model.name,
@@ -1506,6 +1513,7 @@ def build_options(
         "env": env,
         "cwd": cwd,
         "output_format": output_format,
+        "setting_sources": setting_sources,
     }
     if disallowed_tools is not None:
         opts_kwargs["disallowed_tools"] = disallowed_tools

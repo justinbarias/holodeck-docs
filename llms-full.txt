@@ -909,7 +909,9 @@ embedding_provider:
 
 ## Claude Agent SDK Settings
 
-When using `model.provider: anthropic`, the agent.yaml accepts a top-level `claude:` section for backend-specific capabilities (permission modes, extended thinking, web search, subagents, bash, file_system, working_directory, max_turns, allowed_tools).
+When using `model.provider: anthropic`, the agent.yaml accepts a top-level `claude:` section for backend-specific capabilities (permission modes, extended thinking, web search, subagents, bash, file_system, working_directory, max_turns, allowed_tools, setting_sources).
+
+HoloDeck **defaults to settings isolation**: the spawned SDK subprocess does not inherit plugins, skills, or hooks from `~/.claude` or `.claude/`. Opt in per-agent via `claude.setting_sources` — see [Claude Backend: Settings isolation](https://docs.useholodeck.ai/guides/claude-backend/#settings-isolation-plugins-skills-hooks).
 
 See [Claude Backend](https://docs.useholodeck.ai/guides/claude-backend/index.md) for the full reference and examples. The `claude` block is ignored for non-Anthropic providers.
 
@@ -1937,6 +1939,35 @@ claude:
     - web-search
 ```
 
+### Settings isolation (plugins, skills, hooks)
+
+The Claude Agent SDK spawns the `claude` CLI as a subprocess. By default the CLI loads **everything** it finds under `~/.claude/`, `.claude/`, and `.claude/settings.local.json` — plugins, skills, hooks, MCP servers, etc. That means an agent deployed from your laptop can silently inherit your personal Claude Code config, and the same agent deployed in CI/cloud gets a different setup.
+
+HoloDeck **defaults to full isolation**: when `claude.setting_sources` is unset, the backend passes `setting_sources=[]` to the SDK so the subprocess loads no settings layers. Your agent's behavior is determined solely by its `agent.yaml`.
+
+Opt back in only when you need it:
+
+```
+claude:
+  setting_sources:
+    - project        # loads .claude/settings.json (and CLAUDE.md)
+```
+
+Accepted values:
+
+| Value     | Loads                                                                      |
+| --------- | -------------------------------------------------------------------------- |
+| `user`    | `~/.claude/settings.json` (global)                                         |
+| `project` | `.claude/settings.json` and `CLAUDE.md`                                    |
+| `local`   | `.claude/settings.local.json` (gitignored)                                 |
+| `all`     | sugar for `[user, project, local]` — cannot be combined with other entries |
+
+Notes:
+
+- Include `project` if your agent depends on `CLAUDE.md`.
+- The default is `null` → HoloDeck sends `[]`. Setting an empty list explicitly (`setting_sources: []`) has the same effect.
+- `all` is rejected if mixed with other values; use either `[all]` or any subset of the three concrete layers.
+
 ### Embedding provider requirement
 
 Anthropic does not provide embedding models. When you combine `model.provider: anthropic` with **vectorstore** or **hierarchical_document** tools, you **must** define an `embedding_provider` at the agent level:
@@ -2137,6 +2168,7 @@ Anthropic's [SDK hosting documentation](https://docs.anthropic.com/en/api/agent-
 | `file_system`                 | object          | -           | `{ read: bool, write: bool, edit: bool }`                                                                                                      |
 | `agents`                      | map             | -           | Named subagents (see Subagents above)                                                                                                          |
 | `allowed_tools`               | list of strings | all tools   | Explicit tool allowlist                                                                                                                        |
+| `setting_sources`             | list of `user`  | `project`   | `local`                                                                                                                                        |
 | `session_memory_estimate_mib` | int (50–2000)   | `500`       | Per-active-turn memory budget; drives the concurrency cap (see [Production considerations](#production-considerations-memory-and-concurrency)) |
 | `max_concurrent_sessions`     | int (1–500)     | derived     | Hard cap on concurrent active turns; auto-derived from cgroup memory when omitted                                                              |
 
@@ -10992,7 +11024,7 @@ async def send(self, message: str) -> ExecutionResult:
             structured_output: Any = None
 
             msg_count = 0
-            async for msg in query(
+            async for msg in claude_agent_sdk.query(
                 prompt=_streaming_user_envelope(message), options=options
             ):
                 msg_count += 1
@@ -11110,7 +11142,7 @@ async def send_streaming(self, message: str) -> AsyncGenerator[str, None]:
                 options.resume = self._sdk_session_id
 
         try:
-            async for msg in query(
+            async for msg in claude_agent_sdk.query(
                 prompt=_streaming_user_envelope(message), options=options
             ):
                 _maybe_emit_thinking_blocks(msg, self._tool_event_queue)
@@ -11261,6 +11293,13 @@ def build_options(
             ", ".join(auto_disallow),
         )
 
+    # Default [] → CLI subprocess never inherits ~/.claude plugins/skills/hooks.
+    setting_sources: list[str] = (
+        list(claude.setting_sources)
+        if claude is not None and claude.setting_sources is not None
+        else []
+    )
+
     # Build the options dict
     opts_kwargs: dict[str, Any] = {
         "model": agent.model.name,
@@ -11272,6 +11311,7 @@ def build_options(
         "env": env,
         "cwd": cwd,
         "output_format": output_format,
+        "setting_sources": setting_sources,
     }
     if disallowed_tools is not None:
         opts_kwargs["disallowed_tools"] = disallowed_tools
@@ -47163,6 +47203,11 @@ All notable changes to HoloDeck will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/justinbarias/holodeck/compare/v0.6.2...HEAD)
+
+### Changed
+
+- **Claude backend now defaults to settings isolation.** The spawned `claude` CLI subprocess no longer inherits plugins, skills, or hooks from `~/.claude` or `.claude/`. HoloDeck passes `setting_sources=[]` to the SDK unless the agent's YAML opts in via the new `claude.setting_sources` field. Accepted values: `user`, `project`, `local`, or `all`. **Migration:** if your agents relied on host-machine Claude config (e.g. a project `CLAUDE.md` or a custom skill), add `setting_sources: [project]` (or the layers you need) to the `claude:` block. See [Claude Backend → Settings isolation](https://docs.useholodeck.ai/guides/claude-backend/#settings-isolation-plugins-skills-hooks).
+- **OTel instrumentation bumped to `otel-instrumentation-claude-agent-sdk>=0.0.6`**, which structurally fixes the frozen `from claude_agent_sdk import query` import path so `invoke_agent` / `execute_tool` spans are emitted regardless of how callers reference the SDK's top-level `query()`.
 
 ### Planned Features
 
