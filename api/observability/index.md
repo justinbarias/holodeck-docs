@@ -786,6 +786,8 @@ def set_up_tracing(
     """
     from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
+    from holodeck.lib.backends.otel_redaction import RedactingSpanProcessor
+
     # Check if a real TracerProvider was already set by another library
     existing_provider = trace.get_tracer_provider()
 
@@ -797,6 +799,13 @@ def set_up_tracing(
         # No real provider set yet - create ours with the resource
         tracer_provider = TracerProvider(resource=resource)
         trace.set_tracer_provider(tracer_provider)
+
+    # Register RedactingSpanProcessor first so it runs before any exporter.
+    # Guard against duplicates: if this provider was already configured by a
+    # prior set_up_tracing call, skip adding a second instance.
+    existing_processors = _get_span_processors(tracer_provider)
+    if not any(isinstance(p, RedactingSpanProcessor) for p in existing_processors):
+        tracer_provider.add_span_processor(RedactingSpanProcessor())
 
     # Configure batch processor settings from config
     for exporter in span_exporters:

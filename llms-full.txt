@@ -10671,7 +10671,7 @@ async def initialize(self) -> None:
         claude = agent.claude
 
         # 1. Node.js prerequisite
-        validate_nodejs()
+        validate_nodejs(agent)
 
         # 2. Credentials
         auth_env = validate_credentials(agent.model)
@@ -11337,6 +11337,64 @@ def build_options(
                 for name, spec in claude.agents.items()
             }
 
+    # Spec 034 P2b — merge HoloDeck default hooks (credential-redaction
+    # PostToolUse) ahead of any user-supplied hooks. Opt-out by setting
+    # `claude.disable_default_hooks: true` in agent.yaml. Bash hardening
+    # is handled by SDK permission rules + P1b auto-disallow.
+    from holodeck.lib.backends.claude_hooks import build_default_hooks
+
+    user_hooks: dict[Any, list[Any]] = opts_kwargs.get("hooks") or {}
+    if claude is not None and claude.disable_default_hooks:
+        logger.warning(
+            "HoloDeck default hooks DISABLED for agent '%s' (credential "
+            "redaction PostToolUse hook will NOT run). OTel attribute "
+            "redaction is unaffected. To re-enable, remove "
+            "`claude.disable_default_hooks: true` from agent.yaml.",
+            agent.name,
+        )
+        if user_hooks:
+            opts_kwargs["hooks"] = user_hooks
+    else:
+        default_hooks = build_default_hooks()
+        merged: dict[Any, list[Any]] = {}
+        # Default hooks first so they short-circuit when they deny.
+        for event, matchers in default_hooks.items():
+            merged[event] = list(matchers)
+        for event, matchers in user_hooks.items():
+            if event in merged:
+                merged[event] = merged[event] + list(matchers)
+            else:
+                merged[event] = list(matchers)
+        if merged:
+            opts_kwargs["hooks"] = merged
+
+    # Spec 034 P2b — default-on subprocess env scrubbing. These two flags
+    # tell the Claude CLI to strip Anthropic/cloud creds from tool
+    # subprocesses (Bash, etc.) and to spawn stdio MCP servers with only
+    # their declared env (not the full inherited shell env). They don't
+    # affect the SDK subprocess's own env (which inherits everything from
+    # this serve process — see P3 for the structural fix). Opt out via
+    # `claude.disable_subprocess_env_scrub: true` in agent.yaml.
+    env_overrides = dict(opts_kwargs.get("env") or {})
+    if claude is not None and claude.disable_subprocess_env_scrub:
+        logger.warning(
+            "Subprocess env scrubbing DISABLED for agent '%s' "
+            "(tool subprocesses and stdio MCP servers will inherit the "
+            "full agent container env including credentials). To re-enable, "
+            "remove `claude.disable_subprocess_env_scrub: true` from "
+            "agent.yaml.",
+            agent.name,
+        )
+    else:
+        env_overrides.setdefault("CLAUDE_CODE_SUBPROCESS_ENV_SCRUB", "1")
+        # Note: this scrubs the SDK-spawned subprocess env for stdio MCP servers.
+        # Operators must declare any inherited env vars (HOME, PATH, provider creds)
+        # on the MCP tool's `env` block — see docs/security/prompt-injection-defenses.md
+        # §"Operator footgun".
+        env_overrides.setdefault("CLAUDE_CODE_MCP_ALLOWLIST_ENV", "1")
+    if env_overrides:
+        opts_kwargs["env"] = env_overrides
+
     return ClaudeAgentOptions(**opts_kwargs)
 ```
 
@@ -11770,29 +11828,43 @@ Pre-flight checks called by `ClaudeBackend.initialize()` before spawning the Cla
 
 ### validate_nodejs
 
-## `validate_nodejs()`
+## `validate_nodejs(agent)`
 
-Validate that Node.js is available on PATH.
+Validate that Node.js is available on PATH when the agent needs it.
 
-Claude Agent SDK requires Node.js to spawn its subprocess.
+Node.js is only required when at least one MCP tool spawns a Node interpreter (node, npx, yarn, pnpm). Agents without such tools skip this check entirely.
+
+Parameters:
+
+| Name    | Type    | Description                                              | Default    |
+| ------- | ------- | -------------------------------------------------------- | ---------- |
+| `agent` | `Agent` | Agent configuration to inspect for Node-dependent tools. | *required* |
 
 Raises:
 
-| Type          | Description                   |
-| ------------- | ----------------------------- |
-| `ConfigError` | If node is not found on PATH. |
+| Type          | Description                                          |
+| ------------- | ---------------------------------------------------- |
+| `ConfigError` | If node is not found on PATH and the agent needs it. |
 
 Source code in `src/holodeck/lib/backends/validators.py`
 
 ```
-def validate_nodejs() -> None:
-    """Validate that Node.js is available on PATH.
+def validate_nodejs(agent: Agent) -> None:
+    """Validate that Node.js is available on PATH when the agent needs it.
 
-    Claude Agent SDK requires Node.js to spawn its subprocess.
+    Node.js is only required when at least one MCP tool spawns a Node
+    interpreter (node, npx, yarn, pnpm).  Agents without such tools skip
+    this check entirely.
+
+    Args:
+        agent: Agent configuration to inspect for Node-dependent tools.
 
     Raises:
-        ConfigError: If node is not found on PATH.
+        ConfigError: If node is not found on PATH and the agent needs it.
     """
+    if not agent_needs_nodejs(agent):
+        return  # No Node MCP tools — installation unnecessary.
+
     if shutil.which("node") is None:
         raise ConfigError(
             "nodejs",
@@ -14893,6 +14965,7 @@ def build(
                 deployment_config,
                 image_tag,
                 test_cases_file=_read_raw_test_cases_file(agent_path),
+                base_dir=agent_dir,
             )
             click.echo()
             click.secho("Generated Dockerfile:", bold=True)
@@ -15274,17 +15347,19 @@ def handle_deployment_errors() -> Generator[None, None, None]:
         sys.exit(3)
 ```
 
-## `_generate_dockerfile_content(agent, deployment_config, version, test_cases_file=None)`
+## `_generate_dockerfile_content(agent, deployment_config, version, test_cases_file=None, base_dir=None)`
 
 Generate Dockerfile content for the agent.
 
 Parameters:
 
-| Name                | Type               | Description                      | Default    |
-| ------------------- | ------------------ | -------------------------------- | ---------- |
-| `agent`             | `Agent`            | Loaded Agent configuration model | *required* |
-| `deployment_config` | `DeploymentConfig` | Deployment configuration         | *required* |
-| `version`           | `str`              | Version/tag for OCI labels       | *required* |
+| Name                | Type               | Description                      | Default                                                                                                 |
+| ------------------- | ------------------ | -------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `agent`             | `Agent`            | Loaded Agent configuration model | *required*                                                                                              |
+| `deployment_config` | `DeploymentConfig` | Deployment configuration         | *required*                                                                                              |
+| `version`           | `str`              | Version/tag for OCI labels       | *required*                                                                                              |
+| `test_cases_file`   | \`str              | None\`                           | Optional raw test_cases_file path from agent YAML.                                                      |
+| `base_dir`          | \`Path             | None\`                           | Agent directory; when provided, credential-shaped files in the COPY surface are flagged with a warning. |
 
 Returns:
 
@@ -15300,6 +15375,7 @@ def _generate_dockerfile_content(
     deployment_config: DeploymentConfig,
     version: str,
     test_cases_file: str | None = None,
+    base_dir: Path | None = None,
 ) -> str:
     """Generate Dockerfile content for the agent.
 
@@ -15307,11 +15383,15 @@ def _generate_dockerfile_content(
         agent: Loaded Agent configuration model
         deployment_config: Deployment configuration
         version: Version/tag for OCI labels
+        test_cases_file: Optional raw test_cases_file path from agent YAML.
+        base_dir: Agent directory; when provided, credential-shaped files in
+            the COPY surface are flagged with a warning.
 
     Returns:
         Generated Dockerfile content
     """
     from holodeck.deploy.dockerfile import generate_dockerfile
+    from holodeck.models.llm import ProviderEnum
     from holodeck.models.tool import (
         FunctionTool,
         HierarchicalDocumentToolConfig,
@@ -15357,10 +15437,16 @@ def _generate_dockerfile_content(
     # Remove duplicates
     data_directories = list(set(data_directories))
 
-    # Claude Agent SDK requires Node.js at runtime
-    from holodeck.models.llm import ProviderEnum
+    # Warn if credential-shaped files will be baked into the image.
+    if base_dir is not None:
+        _warn_if_credential_files_in_copy_surface(
+            instruction_files=instruction_files,
+            data_directories=data_directories,
+            base_dir=base_dir,
+        )
 
-    needs_nodejs = agent.model.provider == ProviderEnum.ANTHROPIC
+    # Node.js is only needed if an MCP tool spawns a Node interpreter.
+    needs_nodejs = _agent_needs_nodejs(agent)
 
     # Detect required extras from agent config. Vector-store provider names
     # match the optional-dependency group names in pyproject.toml 1:1.
@@ -15378,7 +15464,7 @@ def _generate_dockerfile_content(
                     extras.append("azure-blob")
                 elif tool.source.startswith("s3://"):
                     extras.append("s3")
-    if needs_nodejs:
+    if agent.model.provider == ProviderEnum.ANTHROPIC:
         extras.append("claude-otel")
     extras = sorted(set(extras))
 
@@ -15446,7 +15532,11 @@ def _prepare_build_context(
     # Generate and write Dockerfile
     test_cases_file = _read_raw_test_cases_file(agent_dir / "agent.yaml")
     dockerfile_content = _generate_dockerfile_content(
-        agent, deployment_config, version, test_cases_file=test_cases_file
+        agent,
+        deployment_config,
+        version,
+        test_cases_file=test_cases_file,
+        base_dir=agent_dir,
     )
     (build_dir / "Dockerfile").write_text(dockerfile_content)
 
@@ -21091,8 +21181,11 @@ def __init__(self, config: AzureContainerAppsConfig) -> None:
             EnvironmentVar,
             Ingress,
             Scale,
+            StorageType,
             Template,
             TrafficWeight,
+            Volume,
+            VolumeMount,
         )
     except ImportError as exc:
         raise CloudSDKNotInstalledError(
@@ -21122,8 +21215,11 @@ def __init__(self, config: AzureContainerAppsConfig) -> None:
     self._EnvironmentVar: type[EnvironmentVar] = EnvironmentVar
     self._Ingress: type[Ingress] = Ingress
     self._Scale: type[Scale] = Scale
+    self._StorageType: type[StorageType] = StorageType
     self._Template: type[Template] = Template
     self._TrafficWeight: type[TrafficWeight] = TrafficWeight
+    self._Volume: type[Volume] = Volume
+    self._VolumeMount: type[VolumeMount] = VolumeMount
     self._environment_id = (
         f"/subscriptions/{config.subscription_id}/resourceGroups/"
         f"{config.resource_group}/providers/Microsoft.App/managedEnvironments/"
@@ -21189,6 +21285,25 @@ def deploy(
         timeout_seconds=5,
     )
 
+    # Spec 034 P2a — ephemeral writable scratch (EmptyDir). ACA does not
+    # expose tmpfs directly, but EmptyDir is per-replica and cleared on
+    # replica restart, which gives the same operational property: tool
+    # outputs and SDK scratch never persist across replicas. See the
+    # research note in spec 034 P2 plan Task 11 for why this is the only
+    # securityContext-adjacent primitive ACA exposes.
+    volumes = [
+        self._Volume(name="tmp", storage_type=self._StorageType.EMPTY_DIR),
+        self._Volume(name="sdk-scratch", storage_type=self._StorageType.EMPTY_DIR),
+    ]
+    volume_mounts = [
+        self._VolumeMount(
+            volume_name="tmp", mount_path="/tmp"  # noqa: S108  # nosec B108
+        ),
+        self._VolumeMount(
+            volume_name="sdk-scratch", mount_path="/var/holodeck/work"
+        ),
+    ]
+
     container = self._Container(
         name=service_name,
         image=image_uri,
@@ -21198,6 +21313,7 @@ def deploy(
         ),
         env=env_list if env_list else None,
         probes=[liveness_probe, readiness_probe],
+        volume_mounts=volume_mounts,
     )
 
     scale = self._Scale(
@@ -21205,7 +21321,7 @@ def deploy(
         max_replicas=self._config.max_replicas,
     )
 
-    template = self._Template(containers=[container], scale=scale)
+    template = self._Template(containers=[container], scale=scale, volumes=volumes)
     ingress = self._Ingress(
         external=self._config.ingress_external,
         target_port=port,
@@ -30570,6 +30686,8 @@ def set_up_tracing(
     """
     from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
+    from holodeck.lib.backends.otel_redaction import RedactingSpanProcessor
+
     # Check if a real TracerProvider was already set by another library
     existing_provider = trace.get_tracer_provider()
 
@@ -30581,6 +30699,13 @@ def set_up_tracing(
         # No real provider set yet - create ours with the resource
         tracer_provider = TracerProvider(resource=resource)
         trace.set_tracer_provider(tracer_provider)
+
+    # Register RedactingSpanProcessor first so it runs before any exporter.
+    # Guard against duplicates: if this provider was already configured by a
+    # prior set_up_tracing call, skip adding a second instance.
+    existing_processors = _get_span_processors(tracer_provider)
+    if not any(isinstance(p, RedactingSpanProcessor) for p in existing_processors):
+        tracer_provider.add_span_processor(RedactingSpanProcessor())
 
     # Configure batch processor settings from config
     for exporter in span_exporters:
@@ -45086,7 +45211,7 @@ def get_collection_factory(
         if provider == "qdrant":
             from qdrant_client import AsyncQdrantClient
 
-            qdrant_client = AsyncQdrantClient(**qdrant_params)
+            qdrant_client = AsyncQdrantClient(**qdrant_params)  # type: ignore[arg-type]
             return collection_class[str, record_class](
                 client=qdrant_client,
                 **base_kwargs,

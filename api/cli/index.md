@@ -1522,6 +1522,7 @@ def build(
                 deployment_config,
                 image_tag,
                 test_cases_file=_read_raw_test_cases_file(agent_path),
+                base_dir=agent_dir,
             )
             click.echo()
             click.secho("Generated Dockerfile:", bold=True)
@@ -1903,17 +1904,19 @@ def handle_deployment_errors() -> Generator[None, None, None]:
         sys.exit(3)
 ```
 
-## `_generate_dockerfile_content(agent, deployment_config, version, test_cases_file=None)`
+## `_generate_dockerfile_content(agent, deployment_config, version, test_cases_file=None, base_dir=None)`
 
 Generate Dockerfile content for the agent.
 
 Parameters:
 
-| Name                | Type               | Description                      | Default    |
-| ------------------- | ------------------ | -------------------------------- | ---------- |
-| `agent`             | `Agent`            | Loaded Agent configuration model | *required* |
-| `deployment_config` | `DeploymentConfig` | Deployment configuration         | *required* |
-| `version`           | `str`              | Version/tag for OCI labels       | *required* |
+| Name                | Type               | Description                      | Default                                                                                                 |
+| ------------------- | ------------------ | -------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `agent`             | `Agent`            | Loaded Agent configuration model | *required*                                                                                              |
+| `deployment_config` | `DeploymentConfig` | Deployment configuration         | *required*                                                                                              |
+| `version`           | `str`              | Version/tag for OCI labels       | *required*                                                                                              |
+| `test_cases_file`   | \`str              | None\`                           | Optional raw test_cases_file path from agent YAML.                                                      |
+| `base_dir`          | \`Path             | None\`                           | Agent directory; when provided, credential-shaped files in the COPY surface are flagged with a warning. |
 
 Returns:
 
@@ -1929,6 +1932,7 @@ def _generate_dockerfile_content(
     deployment_config: DeploymentConfig,
     version: str,
     test_cases_file: str | None = None,
+    base_dir: Path | None = None,
 ) -> str:
     """Generate Dockerfile content for the agent.
 
@@ -1936,11 +1940,15 @@ def _generate_dockerfile_content(
         agent: Loaded Agent configuration model
         deployment_config: Deployment configuration
         version: Version/tag for OCI labels
+        test_cases_file: Optional raw test_cases_file path from agent YAML.
+        base_dir: Agent directory; when provided, credential-shaped files in
+            the COPY surface are flagged with a warning.
 
     Returns:
         Generated Dockerfile content
     """
     from holodeck.deploy.dockerfile import generate_dockerfile
+    from holodeck.models.llm import ProviderEnum
     from holodeck.models.tool import (
         FunctionTool,
         HierarchicalDocumentToolConfig,
@@ -1986,10 +1994,16 @@ def _generate_dockerfile_content(
     # Remove duplicates
     data_directories = list(set(data_directories))
 
-    # Claude Agent SDK requires Node.js at runtime
-    from holodeck.models.llm import ProviderEnum
+    # Warn if credential-shaped files will be baked into the image.
+    if base_dir is not None:
+        _warn_if_credential_files_in_copy_surface(
+            instruction_files=instruction_files,
+            data_directories=data_directories,
+            base_dir=base_dir,
+        )
 
-    needs_nodejs = agent.model.provider == ProviderEnum.ANTHROPIC
+    # Node.js is only needed if an MCP tool spawns a Node interpreter.
+    needs_nodejs = _agent_needs_nodejs(agent)
 
     # Detect required extras from agent config. Vector-store provider names
     # match the optional-dependency group names in pyproject.toml 1:1.
@@ -2007,7 +2021,7 @@ def _generate_dockerfile_content(
                     extras.append("azure-blob")
                 elif tool.source.startswith("s3://"):
                     extras.append("s3")
-    if needs_nodejs:
+    if agent.model.provider == ProviderEnum.ANTHROPIC:
         extras.append("claude-otel")
     extras = sorted(set(extras))
 
@@ -2075,7 +2089,11 @@ def _prepare_build_context(
     # Generate and write Dockerfile
     test_cases_file = _read_raw_test_cases_file(agent_dir / "agent.yaml")
     dockerfile_content = _generate_dockerfile_content(
-        agent, deployment_config, version, test_cases_file=test_cases_file
+        agent,
+        deployment_config,
+        version,
+        test_cases_file=test_cases_file,
+        base_dir=agent_dir,
     )
     (build_dir / "Dockerfile").write_text(dockerfile_content)
 

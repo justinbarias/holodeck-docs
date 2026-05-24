@@ -1206,8 +1206,11 @@ def __init__(self, config: AzureContainerAppsConfig) -> None:
             EnvironmentVar,
             Ingress,
             Scale,
+            StorageType,
             Template,
             TrafficWeight,
+            Volume,
+            VolumeMount,
         )
     except ImportError as exc:
         raise CloudSDKNotInstalledError(
@@ -1237,8 +1240,11 @@ def __init__(self, config: AzureContainerAppsConfig) -> None:
     self._EnvironmentVar: type[EnvironmentVar] = EnvironmentVar
     self._Ingress: type[Ingress] = Ingress
     self._Scale: type[Scale] = Scale
+    self._StorageType: type[StorageType] = StorageType
     self._Template: type[Template] = Template
     self._TrafficWeight: type[TrafficWeight] = TrafficWeight
+    self._Volume: type[Volume] = Volume
+    self._VolumeMount: type[VolumeMount] = VolumeMount
     self._environment_id = (
         f"/subscriptions/{config.subscription_id}/resourceGroups/"
         f"{config.resource_group}/providers/Microsoft.App/managedEnvironments/"
@@ -1304,6 +1310,25 @@ def deploy(
         timeout_seconds=5,
     )
 
+    # Spec 034 P2a — ephemeral writable scratch (EmptyDir). ACA does not
+    # expose tmpfs directly, but EmptyDir is per-replica and cleared on
+    # replica restart, which gives the same operational property: tool
+    # outputs and SDK scratch never persist across replicas. See the
+    # research note in spec 034 P2 plan Task 11 for why this is the only
+    # securityContext-adjacent primitive ACA exposes.
+    volumes = [
+        self._Volume(name="tmp", storage_type=self._StorageType.EMPTY_DIR),
+        self._Volume(name="sdk-scratch", storage_type=self._StorageType.EMPTY_DIR),
+    ]
+    volume_mounts = [
+        self._VolumeMount(
+            volume_name="tmp", mount_path="/tmp"  # noqa: S108  # nosec B108
+        ),
+        self._VolumeMount(
+            volume_name="sdk-scratch", mount_path="/var/holodeck/work"
+        ),
+    ]
+
     container = self._Container(
         name=service_name,
         image=image_uri,
@@ -1313,6 +1338,7 @@ def deploy(
         ),
         env=env_list if env_list else None,
         probes=[liveness_probe, readiness_probe],
+        volume_mounts=volume_mounts,
     )
 
     scale = self._Scale(
@@ -1320,7 +1346,7 @@ def deploy(
         max_replicas=self._config.max_replicas,
     )
 
-    template = self._Template(containers=[container], scale=scale)
+    template = self._Template(containers=[container], scale=scale, volumes=volumes)
     ingress = self._Ingress(
         external=self._config.ingress_external,
         target_port=port,
