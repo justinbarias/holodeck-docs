@@ -4907,6 +4907,8 @@ podman run -d \
 | `ANONYMIZED_TELEMETRY` | Send anonymous usage data   | `TRUE`           |
 
 > **Version Pinning**: For stability, pin to a specific version (e.g., `chromadb/chroma:0.6.3`) instead of `latest` to avoid unexpected changes during upgrades.
+>
+> **Security Advisory**: `chromadb` is currently affected by [CVE-2026-45829 / GHSA-f4j7-r4q5-qw2c](https://github.com/advisories/GHSA-f4j7-r4q5-qw2c), a pre-authentication code injection issue in ChromaDB server versions 1.0.0 and later when the server accepts a malicious model repository with `trust_remote_code=true`. As of this documentation update, upstream has not published a fixed `chromadb` release. Until a fix is available, run ChromaDB only on trusted networks, do not expose it directly to the public internet, and treat model repository inputs as trusted administrative data.
 
 ______________________________________________________________________
 
@@ -6596,6 +6598,12 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
+## Optimizing Agents (`holodeck test optimize`)
+
+Once you have an evaluation suite, `holodeck test optimize` automates the hand-tuning loop — change a knob or instruction, re-run `holodeck test`, eyeball the score, repeat — as a **compounding coordinate-descent optimizer** that advances a best-candidate `agent.yaml` on every accepted improvement.
+
+See the dedicated **[Optimizer guide](https://docs.useholodeck.ai/guides/optimizer/index.md)** for the full reference: the cycle/phase/trial model, axis configuration, CLI flags, outputs, acceptance scoring, and observability.
+
 ## Best Practices
 
 1. **Start with DeepEval**: Use GEval and RAG metrics as primary evaluation
@@ -6615,6 +6623,148 @@ ______________________________________________________________________
 - See [Examples](https://docs.useholodeck.ai/guides/examples/index.md) for complete evaluation configurations
 - See [Global Configuration](https://docs.useholodeck.ai/guides/global-config/index.md) for shared settings
 - See [API Reference](https://docs.useholodeck.ai/api/evaluators/index.md) for evaluator class details
+
+# Optimizing Agents (`holodeck test optimize`)
+
+Once you have an evaluation suite, `holodeck test optimize` automates the hand-tuning loop — change a knob or instruction, re-run `holodeck test`, eyeball the score, repeat — as a **compounding coordinate-descent optimizer**. It alternates a *numeric* phase (Optuna TPE over declared query-time axes) and a *textual* phase (a Critic produces a natural-language "gradient", an Applier rewrites the instructions), advancing a best-candidate baseline on every accepted improvement so wins compound into one improved `agent.yaml`.
+
+The original `agent.yaml` is **never modified**. Every trial is logged, and the best candidate is written to `results/optimizer/<run-id>/best.yaml`.
+
+## How it works
+
+The optimizer nests four concepts. From smallest unit to largest:
+
+| Term         | What it is                                                                                                                                                                                                                             |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Trial**    | The atomic unit. One candidate config is scored = one full eval pass over your test set = one `loss` number. Every row in `trials.jsonl` is a trial.                                                                                   |
+| **Phase**    | A sweep over *one kind of axis*. The **numeric** phase tunes the numeric knobs (e.g. `top_k`, `min_score`) via Optuna; the **textual** phase rewrites instruction text. Each phase runs many trials.                                   |
+| **Cycle**    | One numeric phase **followed by** one textual phase. This is coordinate descent: *freeze the text, tune the numbers; then freeze the numbers, tune the text.* Repeating cycles lets each kind of change compound on the other's gains. |
+| **Baseline** | The unchanged agent, scored once at the very start. The bar every trial must beat (by `min_delta`) to be accepted.                                                                                                                     |
+
+So the loop nests **run → cycles → phases → trials → (one eval pass each)**:
+
+```
+RUN (max_cycles: 2)
+│
+├─ baseline ─────────────────► score once  →  the bar to beat
+│
+├─ CYCLE 1
+│   ├─ NUMERIC PHASE  (max_trials 10, patience 4)
+│   │     trial → score   tweak top_k/min_score/…, keep if it beats best
+│   │     trial → score          ⋮  (stops early after 4 misses in a row)
+│   │     … up to 10
+│   └─ TEXTUAL PHASE  (max_trials 6, patience 3)
+│         trial → score   rewrite instructions, keep if it beats best
+│         trial → score          ⋮  (stops early after 3 misses in a row)
+│         … up to 6
+│
+└─ CYCLE 2          ← starts from cycle 1's best, repeats both phases
+    ├─ NUMERIC PHASE  …
+    └─ TEXTUAL PHASE  …
+
+best.yaml = the single lowest-loss candidate found across every trial
+```
+
+`max_cycles` controls the outer loop; each phase's `max_trials` is a **ceiling**, not a guarantee — `patience` stops a phase early once it stalls (that many consecutive non-improving trials). So the example above runs *up to* `2 × (10 + 6) = 32` trials plus 1 baseline = **33 scoring passes** worst-case, and often far fewer.
+
+> Each trial is a full evaluation run (real LLM + metric work), so trial count is the main driver of wall-time and token cost. Size your budgets accordingly.
+
+## Configuration
+
+Add an `evaluations.optimizer` block declaring the scalarized loss (per-metric weights; loss = `1 − weighted_mean`) and the axes to tune:
+
+```
+evaluations:
+  metrics:
+    - type: standard
+      metric: groundedness
+    - type: geval
+      name: Conciseness
+      criteria: "The response is concise and avoids redundancy."
+  optimizer:
+    loss:                       # metric weights; loss = 1 - weighted_mean
+      groundedness: 2.0
+      Conciseness: 1.0
+    axes:
+      numeric:                  # query-time hyperparameters (Optuna TPE)
+        - path: model.temperature
+          type: float
+          range: [0.0, 1.0]
+        - path: tools[name=knowledge_base].top_k
+          type: int
+          range: [3, 12]
+      textual:                  # instruction text rewritten by Critic/Applier
+        - path: instructions.inline
+          max_chars: 6000
+    max_cycles: 3               # numeric→textual cycles before stopping
+    numeric_phase: { max_trials: 12, patience: 5 }
+    textual_phase: { max_trials: 5, patience: 3 }
+    min_delta: 0.01             # minimum loss reduction required to accept
+    seed: 42
+```
+
+**Axis paths** support dotted attributes (`model.temperature`, `instructions.inline`) and a `tools[name=X].<field>` selector for per-tool fields. Numeric axes accept `float`/`int` (a `[low, high]` range) or `categorical` (a list of choices).
+
+**Phase budgets.** `numeric_phase.{max_trials,patience}` cap the Optuna trials in a numeric phase. For the textual phase the budget drives *iterative refinement*: with a **single** textual axis, `textual_phase.max_trials` is the number of successive Critic→Applier refinement steps taken on that axis (each step builds on the previous attempt and the failing cases it produced), and `patience` stops the phase after that many consecutive non-improving steps. A drifting chain never regresses the result — only an accepted, loss-improving step advances the best agent. With **more than one** textual axis the proposer falls back to a single rewrite per axis (iterative multi-axis ordering is not yet supported).
+
+## Running
+
+```
+holodeck test optimize agent.yaml
+holodeck test optimize agent.yaml --max-cycles 2 --numeric-max-trials 20 --seed 7
+```
+
+CLI flags (`--max-cycles`, `--numeric-max-trials`, `--numeric-patience`, `--textual-max-trials`, `--textual-patience`, `--seed`, `-o/--output-dir`) override the YAML config for a single run. The command streams per-trial losses and prints the baseline → best summary on completion.
+
+## Outputs
+
+`results/optimizer/<run-id>/` contains:
+
+- `best.yaml` — the best candidate agent, ready to copy over your original. Secrets stay templated as `${VAR}` (rebuilt from the unsubstituted source), so the file never leaks resolved credentials.
+- `trials.jsonl` — one record per trial (the full audit trail).
+- `report.md` — baseline vs best, the accepted edits, and a per-phase summary.
+
+## Acceptance and scoring
+
+The optimizer **minimizes a loss** of `1 − weighted_mean`, where the weighted mean is a renormalized weighted average of the per-metric averages using your `loss` weights (so a perfect agent has loss `0.0`). Metric scores must be normalized to `[0, 1]`; an average outside that range aborts the run. Metric runs that **error** are excluded from the mean (not scored as zero); legitimate `0.0` scores are kept. A candidate is accepted only when its loss undercuts the current best by more than `min_delta`.
+
+> **Note (MVP):** acceptance uses the raw loss delta — there is no train/holdout split, repeated trials, or variance-aware bar yet, so a small `min_delta` can chase evaluation noise. Keep `min_delta` above your suite's single-case-flip granularity. Statistical rigor is the planned v1 follow-up.
+
+## Observability
+
+`holodeck test optimize` emits OpenTelemetry traces and metrics on the same terms as `holodeck test`: set an `observability` block on the agent with `enabled: true` and an OTLP exporter, and the optimize run exports to your collector (e.g. Aspire, Grafana). No extra configuration — it reuses the agent's existing `observability` block. When observability is disabled the optimizer behaves exactly as before (no spans, no metrics).
+
+**Span tree.** One root span per run, with each trial's evaluation GenAI spans nesting under its trial span:
+
+```
+holodeck.optimize                 run_id, agent_name, max_cycles, seed, axes counts, loss
+├── holodeck.optimize.baseline    baseline scoring of the original agent
+└── holodeck.optimize.cycle       one coordinate-descent cycle
+    └── holodeck.optimize.phase   numeric | textual (records accepts)
+        ├── holodeck.optimize.propose   textual Critic/Applier calls (GenAI spans nest)
+        └── holodeck.optimize.trial     trial_id, phase, baseline_loss, loss, accepted,
+            └── <eval GenAI spans>        edit_summary, axis, params (JSON), error
+```
+
+Trial spans carry only primitives — numeric params as a single JSON string, the textual axis *name* and a human-readable `edit_summary` — never instruction text or resolved secrets.
+
+**Metrics** (all `holodeck.optimize.*`, attributed by `phase` where meaningful):
+
+| Metric           | Type          | Meaning                                             |
+| ---------------- | ------------- | --------------------------------------------------- |
+| `trials`         | counter       | completed trials (`phase`, `accepted`)              |
+| `trials.skipped` | counter       | trials skipped because a proposer errored (`phase`) |
+| `trial.loss`     | histogram     | candidate loss per trial (`phase`)                  |
+| `trial.duration` | histogram (s) | scorer wall-time per trial (`phase`)                |
+| `best_loss`      | histogram     | best loss after each accepted improvement (`phase`) |
+| `improvement`    | histogram     | `baseline_loss − best_loss` at run end              |
+| `cycles`         | counter       | completed coordinate-descent cycles                 |
+
+## Next Steps
+
+- See [Evaluations](https://docs.useholodeck.ai/guides/evaluations/index.md) for building the metric suite the optimizer scores against.
+- See [Observability](https://docs.useholodeck.ai/guides/observability/index.md) for wiring up an OTLP collector and dashboard.
+- See the [CLI Reference](https://docs.useholodeck.ai/api/cli/#holodeck-test-optimize) for the full flag list.
 
 # Evaluation Dashboard
 
@@ -11093,6 +11243,80 @@ async def send(self, message: str) -> ExecutionResult:
             ) from exc
 ```
 
+### `send_agui(input_data, message_override=None)`
+
+Send an AG-UI request through this Claude session.
+
+Yields AG-UI events translated directly from Claude SDK stream messages.
+
+Source code in `src/holodeck/lib/backends/claude_backend.py`
+
+```
+async def send_agui(
+    self,
+    input_data: RunAgentInput,
+    message_override: str | None = None,
+) -> AsyncGenerator[BaseEvent, None]:
+    """Send an AG-UI request through this Claude session.
+
+    Yields AG-UI events translated directly from Claude SDK stream messages.
+    """
+    async with self._send_lock:
+        thread_id = input_data.thread_id
+        run_id = input_data.run_id
+        options = self._options_for_agui(input_data)
+        prompt = _agui_prompt_from_input(input_data, message_override)
+        frontend_tool_names = set(_agui_tool_names(input_data.tools))
+        current_state = input_data.state
+        result_data: dict[str, Any] | None = None
+
+        yield RunStartedEvent(
+            type=EventType.RUN_STARTED,
+            thread_id=thread_id,
+            run_id=run_id,
+            parent_run_id=input_data.parent_run_id,
+            input=input_data,
+        )
+        if input_data.state is not None:
+            yield StateSnapshotEvent(
+                type=EventType.STATE_SNAPSHOT,
+                snapshot=input_data.state,
+            )
+
+        try:
+            message_stream = claude_agent_sdk.query(
+                prompt=_streaming_user_envelope(prompt),
+                options=options,
+            )
+            async for event in self._stream_agui_messages(
+                message_stream=message_stream,
+                thread_id=thread_id,
+                run_id=run_id,
+                input_data=input_data,
+                frontend_tool_names=frontend_tool_names,
+                current_state=current_state,
+            ):
+                if isinstance(event, _AguiStreamStateUpdate):
+                    current_state = event.state
+                    continue
+                if isinstance(event, _AguiStreamResult):
+                    result_data = event.result
+                    continue
+                yield event
+
+            self._turn_count += 1
+            yield RunFinishedEvent(
+                type=EventType.RUN_FINISHED,
+                thread_id=thread_id,
+                run_id=run_id,
+                result=result_data,
+            )
+        except (ProcessError, CLIConnectionError) as exc:
+            raise BackendSessionError(
+                f"subprocess terminated unexpectedly: {exc}"
+            ) from exc
+```
+
 ### `send_streaming(message)`
 
 Send a message and yield text chunks progressively.
@@ -12465,6 +12689,30 @@ async def execute_turn(self, message: str) -> AgentResponse:
     except Exception as e:
         logger.error(f"Agent execution failed: {e}", exc_info=True)
         raise RuntimeError(f"Agent execution failed: {e}") from e
+```
+
+### `execute_turn_agui(input_data, message_override=None)`
+
+Execute an AG-UI turn through a backend session that supports it.
+
+Source code in `src/holodeck/chat/executor.py`
+
+```
+async def execute_turn_agui(
+    self,
+    input_data: RunAgentInput,
+    message_override: str | None = None,
+) -> AsyncGenerator[BaseEvent, None]:
+    """Execute an AG-UI turn through a backend session that supports it."""
+    try:
+        await self._ensure_backend_and_session()
+        session = _require_agui_session(self._session)
+        async for event in session.send_agui(input_data, message_override):
+            yield event
+    except BackendSessionError:
+        raise
+    except BackendInitError as e:
+        raise RuntimeError(f"Agent AG-UI execution failed: {e}") from e
 ```
 
 ### `execute_turn_streaming(message)`
@@ -14173,6 +14421,216 @@ def _save_report(report: TestReport, output: str, format: str | None) -> None:
     except OSError as e:
         logger.error(f"Failed to write report to {output}: {e}")
         raise
+```
+
+#### `holodeck test optimize`
+
+Compounding coordinate-descent optimizer that tunes an agent's declared numeric/textual axes against its own test suite. See the [Optimizer](https://docs.useholodeck.ai/guides/optimizer/index.md) guide for configuration.
+
+## `optimize(agent_config, max_cycles, numeric_max_trials, numeric_patience, textual_max_trials, textual_patience, seed, output_dir, verbose, quiet)`
+
+Optimize an agent's instructions and hyperparameters against its tests.
+
+AGENT_CONFIG is the path to the agent.yaml configuration file. The original file is never modified; the best candidate is written to `<output-dir>/<run-id>/best.yaml`.
+
+Source code in `src/holodeck/cli/commands/optimize.py`
+
+```
+@click.command("optimize")
+@click.argument("agent_config", type=click.Path(exists=True), default="agent.yaml")
+@click.option(
+    "--max-cycles",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Maximum numeric→textual cycles.",
+)
+@click.option(
+    "--numeric-max-trials",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Hard cap on numeric-phase trials.",
+)
+@click.option(
+    "--numeric-patience",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Numeric-phase consecutive non-accepts before stopping.",
+)
+@click.option(
+    "--textual-max-trials",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Hard cap on textual-phase trials.",
+)
+@click.option(
+    "--textual-patience",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Textual-phase consecutive non-accepts before stopping.",
+)
+@click.option("--seed", type=int, default=None, help="Seed for the numeric study.")
+@click.option(
+    "--output-dir",
+    "-o",
+    type=click.Path(),
+    default="results/optimizer",
+    help="Base directory for optimizer run artifacts.",
+)
+@click.option("--verbose", "-v", is_flag=True, help="Enable verbose debug output.")
+@click.option("--quiet", "-q", is_flag=True, help="Suppress per-trial streaming.")
+def optimize(
+    agent_config: str,
+    max_cycles: int | None,
+    numeric_max_trials: int | None,
+    numeric_patience: int | None,
+    textual_max_trials: int | None,
+    textual_patience: int | None,
+    seed: int | None,
+    output_dir: str,
+    verbose: bool,
+    quiet: bool,
+) -> None:
+    """Optimize an agent's instructions and hyperparameters against its tests.
+
+    AGENT_CONFIG is the path to the agent.yaml configuration file. The original
+    file is never modified; the best candidate is written to
+    ``<output-dir>/<run-id>/best.yaml``.
+    """
+    # Set when observability is enabled; gates the root span + shutdown.
+    obs_context: ObservabilityContext | None = None
+    effective_quiet = quiet and not verbose
+
+    try:
+        from holodeck.config.loader import load_agent_with_config
+
+        agent, _resolved, loader = load_agent_with_config(agent_config)
+
+        # Observability parity with `holodeck test`: when the agent enables
+        # observability, OTel owns logging and each trial's eval emits GenAI
+        # spans/metrics; otherwise fall back to traditional logging. Done after
+        # the load so the branch can read agent.observability.
+        if agent.observability and agent.observability.enabled:
+            obs_context = initialize_observability(
+                agent.observability, agent.name, verbose=verbose, quiet=effective_quiet
+            )
+        else:
+            setup_logging(verbose=verbose, quiet=effective_quiet)
+
+        if agent.evaluations is None or agent.evaluations.optimizer is None:
+            raise OptimizerError(
+                "No optimizer configuration found. Add an "
+                "`evaluations.optimizer` block to the agent.yaml."
+            )
+        if not agent.test_cases:
+            raise OptimizerError(
+                "Optimization requires at least one test case in the agent "
+                "configuration."
+            )
+
+        config = _resolve_config(
+            agent.evaluations.optimizer,
+            max_cycles=max_cycles,
+            numeric_max_trials=numeric_max_trials,
+            numeric_patience=numeric_patience,
+            textual_max_trials=textual_max_trials,
+            textual_patience=textual_patience,
+            seed=seed,
+        )
+
+        numeric, textual = _build_proposers(agent, config)
+        if numeric is None and textual is None:
+            raise OptimizerError(
+                "No numeric or textual axes declared under "
+                "`evaluations.optimizer.axes`."
+            )
+
+        weights = config.loss
+
+        async def scorer(candidate: Agent) -> tuple[float, object]:
+            return await score(candidate, agent_config, weights)
+
+        def on_trial(trial: TrialRecord) -> None:
+            if effective_quiet:
+                return
+            if trial.error:
+                status = f"skipped ({trial.error})"
+            elif trial.accepted:
+                status = "accepted ✓"
+            else:
+                status = "rejected"
+            click.echo(
+                f"  trial {trial.trial_id} [{trial.phase}] "
+                f"loss={trial.loss:.4f} (best {trial.baseline_loss:.4f}) "
+                f"— {status}"
+            )
+
+        run_id = (
+            datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+            + "-"
+            + uuid.uuid4().hex[:6]
+        )
+
+        click.echo(f"Optimizing '{agent.name}' (run {run_id})…")
+        loop = OptimizerLoop(
+            original_agent=agent,
+            scorer=scorer,  # type: ignore[arg-type]
+            config=config,
+            numeric_proposer=numeric,
+            textual_proposer=textual,
+            run_id=run_id,
+            progress_callback=on_trial,
+        )
+
+        async def _run() -> OptimizationResult:
+            # Root span for the whole run; per-trial GenAI spans from each
+            # candidate's eval nest underneath it. No-op when disabled.
+            if obs_context is not None:
+                span_ctx: Any = get_tracer(__name__).start_as_current_span(
+                    "holodeck.optimize",
+                    attributes=_root_span_attributes(agent, config, run_id),
+                )
+            else:
+                span_ctx = nullcontext()
+            with span_ctx:
+                return await loop.run()
+
+        result: OptimizationResult = asyncio.run(_run())
+
+        # Rebuild best.yaml on the unsubstituted source so ${VAR} secret
+        # placeholders survive instead of leaking env-resolved credentials.
+        # Only the tuned axes are carried over from the resolved best agent.
+        try:
+            template = loader.load_agent_yaml(agent_config, substitute_env=False)
+            axis_paths = [a.path for a in config.axes.numeric] + [
+                a.path for a in config.axes.textual
+            ]
+            result.best_agent = overlay_axes(template, result.best_agent, axis_paths)
+        except Exception:  # noqa: BLE001 — never regress; fall back with a warning.
+            logger.warning(
+                "Could not rebuild best.yaml from the unsubstituted config; it may "
+                "contain resolved secrets — review before sharing.",
+                exc_info=True,
+            )
+
+        run_dir = write_outputs(result, Path(output_dir))
+
+        click.echo(
+            f"\nBaseline loss {result.baseline_loss:.4f} → best "
+            f"{result.best_loss:.4f} "
+            f"({result.accepted_count} accepted over {result.cycles_run} cycles)."
+        )
+        click.echo(f"Artifacts written to {run_dir}")
+
+    except OptimizerError as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("Optimization failed")
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    finally:
+        if obs_context is not None:
+            shutdown_observability(obs_context)
 ```
 
 ______________________________________________________________________
@@ -35152,7 +35610,7 @@ Parameters:
 
 | Name      | Type            | Description                        | Default    |
 | --------- | --------------- | ---------------------------------- | ---------- |
-| `request` | `Any`           | RunAgentInput from client.         | *required* |
+| `request` | `RunAgentInput` | RunAgentInput from client.         | *required* |
 | `session` | `ServerSession` | Server session with AgentExecutor. | *required* |
 
 Yields:
@@ -35166,7 +35624,7 @@ Source code in `src/holodeck/serve/protocols/agui.py`
 ```
 async def handle_request(
     self,
-    request: Any,
+    request: RunAgentInput,
     session: ServerSession,
 ) -> AsyncGenerator[bytes, None]:
     """Handle AG-UI request and generate event stream.
@@ -35182,7 +35640,7 @@ async def handle_request(
         Encoded AG-UI events as bytes.
     """
     # Extract components from RunAgentInput
-    input_data: RunAgentInput = request
+    input_data = request
     thread_id = input_data.thread_id
     run_id = input_data.run_id
 
@@ -35249,13 +35707,30 @@ async def handle_request(
         else:
             full_message = text_message
 
+        executor = session.agent_executor
+        provider = executor.agent_config.model.provider
+        if provider in (ProviderEnum.ANTHROPIC, ProviderEnum.ANTHROPIC.value):
+            # Claude AG-UI resumes after frontend tool execution with a
+            # latest ``tool`` message. Do not override that with the prior
+            # user message, or the model can repeatedly call the same
+            # frontend tool.
+            claude_message_override = (
+                full_message if latest_message_role(input_data) == "user" else None
+            )
+            async for agui_evt in executor.execute_turn_agui(
+                input_data,
+                claude_message_override,
+            ):
+                yield encoder.encode(agui_evt)
+            logger.debug("Completed Claude AG-UI request for run %s", run_id)
+            return
+
         # 1. Emit RunStartedEvent
         yield encoder.encode(create_run_started_event(thread_id, run_id))
 
         # 2. Eagerly initialize backend so tool_event_queue is available
         #    before execution starts. Gracefully degrade if the executor
         #    does not expose this method (e.g. in tests with mocks).
-        executor = session.agent_executor
         logger.debug(
             "[trace] agui.handle_request: session=%s, executor_id=%s, "
             "session_attached=%s",

@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://docs.useholodeck.ai/guides/llm-providers/">
+        <link rel="canonical" href="https://docs.useholodeck.ai/ideas/cost-latency-aware-optimization/">
       
       
-        <link rel="prev" href="../agent-configuration/">
-      
-      
-        <link rel="next" href="../claude-backend/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>LLM Providers - HoloDeck Documentation</title>
+        <title>Cost & Latency-Aware Optimization - HoloDeck Documentation</title>
       
     
     
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#llm-providers" class="md-skip">
+        <a href="#cost-latency-aware-optimization" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              LLM Providers
+              Cost &amp; Latency-Aware Optimization
             
           </span>
         </div>
@@ -400,20 +396,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -434,7 +428,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -452,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../agent-configuration/" class="md-nav__link">
+      <a href="../../guides/agent-configuration/" class="md-nav__link">
         
   
   
@@ -477,37 +471,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    LLM Providers
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../guides/llm-providers/" class="md-nav__link">
         
   
   
@@ -523,159 +490,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#supported-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported providers
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#choose-a-backend" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose a backend
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#shared-configuration-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Shared configuration fields
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Shared configuration fields">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temperature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temperature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#max-tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Max tokens
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#top-p-nucleus-sampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Top P (nucleus sampling)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multi-provider-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-provider setup
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#security-best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Security best practices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Security best practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#never-commit-api-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Never commit API keys
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-env-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use .env files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -688,7 +502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../claude-backend/" class="md-nav__link">
+      <a href="../../guides/claude-backend/" class="md-nav__link">
         
   
   
@@ -716,7 +530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+      <a href="../../guides/semantic-kernel-backend/" class="md-nav__link">
         
   
   
@@ -744,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/" class="md-nav__link">
+      <a href="../../guides/tools/" class="md-nav__link">
         
   
   
@@ -772,7 +586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mcp-cli/" class="md-nav__link">
+      <a href="../../guides/mcp-cli/" class="md-nav__link">
         
   
   
@@ -800,7 +614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vector-stores/" class="md-nav__link">
+      <a href="../../guides/vector-stores/" class="md-nav__link">
         
   
   
@@ -828,7 +642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../evaluations/" class="md-nav__link">
+      <a href="../../guides/evaluations/" class="md-nav__link">
         
   
   
@@ -856,7 +670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../optimizer/" class="md-nav__link">
+      <a href="../../guides/optimizer/" class="md-nav__link">
         
   
   
@@ -884,7 +698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dashboard/" class="md-nav__link">
+      <a href="../../guides/dashboard/" class="md-nav__link">
         
   
   
@@ -912,7 +726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../global-config/" class="md-nav__link">
+      <a href="../../guides/global-config/" class="md-nav__link">
         
   
   
@@ -940,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../file-references/" class="md-nav__link">
+      <a href="../../guides/file-references/" class="md-nav__link">
         
   
   
@@ -968,7 +782,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../serve/" class="md-nav__link">
+      <a href="../../guides/serve/" class="md-nav__link">
         
   
   
@@ -996,7 +810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deployment/" class="md-nav__link">
+      <a href="../../guides/deployment/" class="md-nav__link">
         
   
   
@@ -1024,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../observability/" class="md-nav__link">
+      <a href="../../guides/observability/" class="md-nav__link">
         
   
   
@@ -1745,10 +1559,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#supported-providers" class="md-nav__link">
+  <a href="#problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Supported providers
+        Problem Statement
       
     </span>
   </a>
@@ -1756,10 +1570,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#choose-a-backend" class="md-nav__link">
+  <a href="#recommended-direction" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Choose a backend
+        Recommended Direction
       
     </span>
   </a>
@@ -1767,60 +1581,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#shared-configuration-fields" class="md-nav__link">
+  <a href="#key-assumptions-to-validate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Shared configuration fields
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Shared configuration fields">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temperature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temperature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#max-tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Max tokens
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#top-p-nucleus-sampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Top P (nucleus sampling)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multi-provider-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-provider setup
+        Key Assumptions to Validate
       
     </span>
   </a>
@@ -1828,49 +1592,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-best-practices" class="md-nav__link">
+  <a href="#mvp-scope" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Security best practices
+        MVP Scope
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Security best practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#never-commit-api-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Never commit API keys
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-env-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use .env files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#not-doing-and-why" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next steps
+        Not Doing (and Why)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Questions
       
     </span>
   </a>
@@ -1897,224 +1644,78 @@
   
 
 
-<h1 id="llm-providers">LLM Providers<a class="headerlink" href="#llm-providers" title="Permanent link">&para;</a></h1>
-<p>HoloDeck supports multiple LLM providers across two execution backends. Provider configuration can be defined at two levels:</p>
-<ul>
-<li><strong>Global Configuration</strong> (<code>config.yaml</code>): shared settings and credentials.</li>
-<li><strong>Agent Configuration</strong> (<code>agent.yaml</code>): per-agent model selection and overrides.</li>
+<h1 id="cost-latency-aware-optimization">Cost &amp; Latency-Aware Optimization<a class="headerlink" href="#cost-latency-aware-optimization" title="Permanent link">&para;</a></h1>
+<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
+<p>How might we let the optimizer trade agent quality against real cost and latency
+— so "best" means "good enough, cheaply enough" — without breaking the
+<code>loss = 1 − weighted_mean</code> objective (loss ∈ [0,1]) or the compounding
+single-<code>best_loss</code> accept rule that drives the coordinate-descent loop?</p>
+<h2 id="recommended-direction">Recommended Direction<a class="headerlink" href="#recommended-direction" title="Permanent link">&para;</a></h2>
+<p><strong>Treat cost and latency as a hard budget (feasibility gate), not as terms in
+the loss.</strong> Quality remains the sole objective the optimizer <em>minimizes</em>; a
+candidate is accepted only if it (a) beats the current best loss by <code>min_delta</code>
+AND (b) stays within the declared cost and latency ceilings.</p>
+<p>This keeps <code>scalarize</code> and the [0,1] loss invariant completely intact, leaves
+Optuna's <code>direction="minimize"</code> and the compounding loop unchanged, and answers
+the founding concern — runaway model cost — with a ceiling expressed in real
+dollars (which the absolute-price-table + priced-token choices make natural).
+The accept rule gains one conjunct; nothing else in the objective moves.</p>
+<p>Cost basis is <strong>priced tokens</strong>: <code>Σ over test cases (tokens × per-model rate)</code>,
+sourced from a price table in the optimizer config. Local models (Ollama) are
+priced at $0, so for them the cost ceiling is vacuous and the <strong>latency ceiling
+carries the economic signal</strong> — which is exactly the regime worth caring about.</p>
+<h2 id="key-assumptions-to-validate">Key Assumptions to Validate<a class="headerlink" href="#key-assumptions-to-validate" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong><code>token_usage</code> is populated by BOTH backends.</strong> Cost is uncomputable if
+      the SK/Ollama path returns <code>None</code>. → Run one trial each on Claude and an
+      Ollama agent; assert <code>report.results[*].token_usage</code> is non-null. This is
+      the #1 kill risk — if SK doesn't fill it, the cost gate can't fire.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Latency is stable enough to gate on.</strong> Wall-clock on a shared/dev box
+      with cold starts and network jitter is high-variance; a flaky gate would
+      reject good candidates nondeterministically. → Measure run-to-run variance
+      of <code>execution_time_ms</code> for a fixed agent; if noisy, ship latency as
+      <em>recorded-only</em> first and gate on cost alone.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>A maintainable price table is acceptable.</strong> Rates drift. → Ship a small
+      default map for common models + YAML override; unknown model → error (not
+      silent $0).</li>
 </ul>
-<p>This page is an index. For setup, advanced features, and full configuration reference, follow the link to the matching backend.</p>
-<h2 id="supported-providers">Supported providers<a class="headerlink" href="#supported-providers" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Provider</th>
-<th>Backend</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>anthropic</code></td>
-<td>Claude Agent SDK</td>
-<td>Anthropic's Claude family (first-class)</td>
-</tr>
-<tr>
-<td><code>openai</code></td>
-<td>Semantic Kernel</td>
-<td>OpenAI API (GPT-4o, GPT-4o-mini, etc.)</td>
-</tr>
-<tr>
-<td><code>azure_openai</code></td>
-<td>Semantic Kernel</td>
-<td>Azure OpenAI Service (enterprise-deployed models)</td>
-</tr>
-<tr>
-<td><code>ollama</code></td>
-<td>Semantic Kernel</td>
-<td>Local models via Ollama (Llama, Mistral, etc.)</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>Backend auto-selection</strong>: The <code>model.provider</code> field selects the backend automatically. <code>anthropic</code> routes to the Claude Agent SDK backend; everything else routes to the Semantic Kernel backend.</p>
-</blockquote>
-<h2 id="choose-a-backend">Choose a backend<a class="headerlink" href="#choose-a-backend" title="Permanent link">&para;</a></h2>
+<h2 id="mvp-scope">MVP Scope<a class="headerlink" href="#mvp-scope" title="Permanent link">&para;</a></h2>
+<p><strong>In:</strong>
+- <code>optimizer/cost.py</code>: a <code>PriceTable</code> (model_id → $/1M prompt+completion[+cache]
+  rates) and <code>report_cost(report, prices) -&gt; float</code>, <code>report_latency(report) -&gt;
+  float</code> (mean of <code>execution_time_ms</code> across test cases).
+- <code>OptimizerConfig.budget</code>: optional <code>{ cost_max: $, latency_max_ms: ms,
+  prices: {model_id: rates} }</code>. Absent budget ⇒ current behaviour, unchanged.
+- Accept rule in <code>loop.py</code>: <code>feasible = within(cost_max) and within(latency_max)</code>;
+  <code>accepted = feasible and (best_loss − loss &gt; min_delta)</code>.
+- <code>TrialRecord.cost</code> / <code>TrialRecord.latency_ms</code> + columns in <code>report.md</code>.
+- Infeasible-baseline handling: if the original agent already exceeds budget,
+  accept the first <em>feasible</em> candidate regardless of loss, then resume the
+  normal rule (so the run can't dead-end against an unreachable baseline).
+- Tests: cost computation from a known token_usage + price table; gate rejects
+  an over-budget improvement; gate accepts an in-budget improvement; infeasible
+  baseline path.</p>
+<p><strong>Out:</strong> soft penalty / λ weights, Pareto, percentile (p95) latency, automatic
+price fetching.</p>
+<h2 id="not-doing-and-why">Not Doing (and Why)<a class="headerlink" href="#not-doing-and-why" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><a href="../claude-backend/">Claude Backend</a></strong> — <code>provider: anthropic</code>. Quick start, authentication providers (api_key / oauth_token / bedrock / vertex / foundry), and Claude-specific capabilities like permission modes, extended thinking, web search, subagents, bash and file_system scoping.</li>
-<li><strong><a href="../semantic-kernel-backend/">Semantic Kernel Backend</a></strong> — <code>provider: openai</code>, <code>azure_openai</code>, or <code>ollama</code>. Per-provider quick starts, the Azure deployment-name nuance, and Ollama context-size tuning.</li>
+<li><strong>Penalty term in the loss</strong> — forces λ to fuse unit-conversion with
+  preference and breaks the [0,1] invariant. Revisit only if the binary budget
+  proves too coarse (the "won't economize within budget" gap).</li>
+<li><strong>Pareto / multi-objective</strong> — no single <code>best_loss</code>; that's the spine of the
+  compounding accept rule. It's a rewrite, not an extension.</li>
+<li><strong>Latency gating by default if it proves noisy</strong> — fall back to recording it
+  and gating cost only, rather than shipping a flaky gate.</li>
 </ul>
-<h2 id="shared-configuration-fields">Shared configuration fields<a class="headerlink" href="#shared-configuration-fields" title="Permanent link">&para;</a></h2>
-<p>All providers share these common fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Required</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>provider</code></td>
-<td>string</td>
-<td>yes</td>
-<td>-</td>
-<td>Provider identifier</td>
-</tr>
-<tr>
-<td><code>name</code></td>
-<td>string</td>
-<td>yes</td>
-<td>-</td>
-<td>Model name / identifier</td>
-</tr>
-<tr>
-<td><code>temperature</code></td>
-<td>float</td>
-<td>no</td>
-<td><code>0.3</code></td>
-<td>Randomness (<code>0.0</code>–<code>2.0</code>)</td>
-</tr>
-<tr>
-<td><code>max_tokens</code></td>
-<td>integer</td>
-<td>no</td>
-<td><code>1000</code></td>
-<td>Maximum response tokens</td>
-</tr>
-<tr>
-<td><code>top_p</code></td>
-<td>float</td>
-<td>no</td>
-<td>-</td>
-<td>Nucleus sampling</td>
-</tr>
-<tr>
-<td><code>api_key</code></td>
-<td>string</td>
-<td>varies</td>
-<td>-</td>
-<td>API authentication key</td>
-</tr>
-<tr>
-<td><code>endpoint</code></td>
-<td>string</td>
-<td>varies</td>
-<td>-</td>
-<td>API endpoint URL</td>
-</tr>
-</tbody>
-</table>
-<h3 id="temperature">Temperature<a class="headerlink" href="#temperature" title="Permanent link">&para;</a></h3>
-<p>Controls response randomness:</p>
+<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>0.0</code> — deterministic, focused.</li>
-<li><code>0.3</code> — default, balanced.</li>
-<li><code>0.7</code> — more creative.</li>
-<li><code>1.0+</code> — highly creative / random.</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
-</code></pre></div>
-<h3 id="max-tokens">Max tokens<a class="headerlink" href="#max-tokens" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
-</code></pre></div>
-<h3 id="top-p-nucleus-sampling">Top P (nucleus sampling)<a class="headerlink" href="#top-p-nucleus-sampling" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
-</code></pre></div>
-<p>Use either <code>temperature</code> or <code>top_p</code>, not both, for predictable behaviour.</p>
-<h2 id="multi-provider-setup">Multi-provider setup<a class="headerlink" href="#multi-provider-setup" title="Permanent link">&para;</a></h2>
-<p>Configure multiple providers at the global level so different agents (or different evaluation models) can pick from the same set:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
-
-<span class="w">  </span><span class="nt">openai-fast</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-
-<span class="w">  </span><span class="nt">azure</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-deployment</span>
-<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span>
-
-<span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
-
-<span class="w">  </span><span class="nt">ollama</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2</span>
-<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OLLAMA_ENDPOINT}</span>
-</code></pre></div>
-<p>Use them in an agent:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">multi-model-agent</span>
-
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-
-<span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span><span class="w">   </span><span class="c1"># cheaper / faster eval model</span>
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1_score</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-</code></pre></div>
-<h2 id="security-best-practices">Security best practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="never-commit-api-keys">Never commit API keys<a class="headerlink" href="#never-commit-api-keys" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># WRONG</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sk-abc123...</span>
-
-<span class="c1"># CORRECT</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-</code></pre></div>
-<h3 id="use-env-files">Use <code>.env</code> files<a class="headerlink" href="#use-env-files" title="Permanent link">&para;</a></h3>
-<p>Add <code>.env</code> to <code>.gitignore</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># .env — DO NOT COMMIT</span>
-<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
-<span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://...
-<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>...
-<span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
-<span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="o">=</span>...
-<span class="nv">OLLAMA_ENDPOINT</span><span class="o">=</span>http://localhost:11434
-</code></pre></div>
-<p>Commit a template (<code>.env.example</code>) for collaborators:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># .env.example — Safe to commit</span>
-<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your-openai-api-key-here
-<span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://your-resource.openai.azure.com/
-<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>your-azure-api-key-here
-<span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>your-anthropic-api-key-here
-<span class="nv">OLLAMA_ENDPOINT</span><span class="o">=</span>http://localhost:11434
-</code></pre></div>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../claude-backend/">Claude Backend</a> — Claude-specific setup and capabilities.</li>
-<li><a href="../semantic-kernel-backend/">Semantic Kernel Backend</a> — OpenAI / Azure / Ollama setup.</li>
-<li><a href="../agent-configuration/">Agent Configuration</a> — full <code>agent.yaml</code> structure.</li>
-<li><a href="../global-config/">Global Configuration</a> — shared provider settings and credentials.</li>
-<li><a href="../evaluations/">Evaluations</a> — configuring evaluation models.</li>
-<li><a href="../tools/">Tools</a> — extending agent capabilities.</li>
-<li><a href="../vector-stores/">Vector Stores</a> — semantic search configuration.</li>
+<li>Latency aggregate: mean (simple, less noisy to explain) vs p95 (SLA-meaningful
+  but needs more runs)? MVP leans mean.</li>
+<li>Cache-token pricing: fold <code>cache_read</code>/<code>cache_creation</code> at their own rates, or
+  approximate into prompt rate for v1?</li>
+<li>Where does the price table live — inline in <code>agent.yaml</code> under
+  <code>evaluations.optimizer.budget.prices</code>, or a shared <code>~/.holodeck</code> price file
+  referenced by path?</li>
 </ul>
 
 

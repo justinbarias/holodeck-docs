@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://docs.useholodeck.ai/guides/llm-providers/">
+        <link rel="canonical" href="https://docs.useholodeck.ai/ideas/deterministic-spine/">
       
       
-        <link rel="prev" href="../agent-configuration/">
-      
-      
-        <link rel="next" href="../claude-backend/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>LLM Providers - HoloDeck Documentation</title>
+        <title>The Deterministic Spine — Composable Determination Gates for HoloDeck - HoloDeck Documentation</title>
       
     
     
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#llm-providers" class="md-skip">
+        <a href="#the-deterministic-spine-composable-determination-gates-for-holodeck" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              LLM Providers
+              The Deterministic Spine — Composable Determination Gates for HoloDeck
             
           </span>
         </div>
@@ -400,20 +396,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -434,7 +428,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -452,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../agent-configuration/" class="md-nav__link">
+      <a href="../../guides/agent-configuration/" class="md-nav__link">
         
   
   
@@ -477,37 +471,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    LLM Providers
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../guides/llm-providers/" class="md-nav__link">
         
   
   
@@ -523,159 +490,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#supported-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported providers
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#choose-a-backend" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose a backend
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#shared-configuration-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Shared configuration fields
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Shared configuration fields">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temperature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temperature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#max-tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Max tokens
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#top-p-nucleus-sampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Top P (nucleus sampling)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multi-provider-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-provider setup
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#security-best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Security best practices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Security best practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#never-commit-api-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Never commit API keys
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-env-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use .env files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -688,7 +502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../claude-backend/" class="md-nav__link">
+      <a href="../../guides/claude-backend/" class="md-nav__link">
         
   
   
@@ -716,7 +530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+      <a href="../../guides/semantic-kernel-backend/" class="md-nav__link">
         
   
   
@@ -744,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/" class="md-nav__link">
+      <a href="../../guides/tools/" class="md-nav__link">
         
   
   
@@ -772,7 +586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mcp-cli/" class="md-nav__link">
+      <a href="../../guides/mcp-cli/" class="md-nav__link">
         
   
   
@@ -800,7 +614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vector-stores/" class="md-nav__link">
+      <a href="../../guides/vector-stores/" class="md-nav__link">
         
   
   
@@ -828,7 +642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../evaluations/" class="md-nav__link">
+      <a href="../../guides/evaluations/" class="md-nav__link">
         
   
   
@@ -856,7 +670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../optimizer/" class="md-nav__link">
+      <a href="../../guides/optimizer/" class="md-nav__link">
         
   
   
@@ -884,7 +698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dashboard/" class="md-nav__link">
+      <a href="../../guides/dashboard/" class="md-nav__link">
         
   
   
@@ -912,7 +726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../global-config/" class="md-nav__link">
+      <a href="../../guides/global-config/" class="md-nav__link">
         
   
   
@@ -940,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../file-references/" class="md-nav__link">
+      <a href="../../guides/file-references/" class="md-nav__link">
         
   
   
@@ -968,7 +782,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../serve/" class="md-nav__link">
+      <a href="../../guides/serve/" class="md-nav__link">
         
   
   
@@ -996,7 +810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deployment/" class="md-nav__link">
+      <a href="../../guides/deployment/" class="md-nav__link">
         
   
   
@@ -1024,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../observability/" class="md-nav__link">
+      <a href="../../guides/observability/" class="md-nav__link">
         
   
   
@@ -1745,10 +1559,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#supported-providers" class="md-nav__link">
+  <a href="#problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Supported providers
+        Problem Statement
       
     </span>
   </a>
@@ -1756,10 +1570,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#choose-a-backend" class="md-nav__link">
+  <a href="#recommended-direction" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Choose a backend
+        Recommended Direction
       
     </span>
   </a>
@@ -1767,60 +1581,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#shared-configuration-fields" class="md-nav__link">
+  <a href="#anchor-sample-loan-hardship-underwriting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Shared configuration fields
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Shared configuration fields">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temperature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temperature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#max-tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Max tokens
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#top-p-nucleus-sampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Top P (nucleus sampling)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multi-provider-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-provider setup
+        Anchor Sample: Loan Hardship Underwriting
       
     </span>
   </a>
@@ -1828,49 +1592,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-best-practices" class="md-nav__link">
+  <a href="#key-assumptions-to-validate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Security best practices
+        Key Assumptions to Validate
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Security best practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#never-commit-api-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Never commit API keys
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-env-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use .env files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#mvp-scope" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next steps
+        MVP Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-doing-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not Doing (and Why)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#north-star-named-not-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        North Star (named, not built)
       
     </span>
   </a>
@@ -1897,225 +1666,232 @@
   
 
 
-<h1 id="llm-providers">LLM Providers<a class="headerlink" href="#llm-providers" title="Permanent link">&para;</a></h1>
-<p>HoloDeck supports multiple LLM providers across two execution backends. Provider configuration can be defined at two levels:</p>
-<ul>
-<li><strong>Global Configuration</strong> (<code>config.yaml</code>): shared settings and credentials.</li>
-<li><strong>Agent Configuration</strong> (<code>agent.yaml</code>): per-agent model selection and overrides.</li>
-</ul>
-<p>This page is an index. For setup, advanced features, and full configuration reference, follow the link to the matching backend.</p>
-<h2 id="supported-providers">Supported providers<a class="headerlink" href="#supported-providers" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Provider</th>
-<th>Backend</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>anthropic</code></td>
-<td>Claude Agent SDK</td>
-<td>Anthropic's Claude family (first-class)</td>
-</tr>
-<tr>
-<td><code>openai</code></td>
-<td>Semantic Kernel</td>
-<td>OpenAI API (GPT-4o, GPT-4o-mini, etc.)</td>
-</tr>
-<tr>
-<td><code>azure_openai</code></td>
-<td>Semantic Kernel</td>
-<td>Azure OpenAI Service (enterprise-deployed models)</td>
-</tr>
-<tr>
-<td><code>ollama</code></td>
-<td>Semantic Kernel</td>
-<td>Local models via Ollama (Llama, Mistral, etc.)</td>
-</tr>
-</tbody>
-</table>
+<h1 id="the-deterministic-spine-composable-determination-gates-for-holodeck">The Deterministic Spine — Composable Determination Gates for HoloDeck<a class="headerlink" href="#the-deterministic-spine-composable-determination-gates-for-holodeck" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Backend auto-selection</strong>: The <code>model.provider</code> field selects the backend automatically. <code>anthropic</code> routes to the Claude Agent SDK backend; everything else routes to the Semantic Kernel backend.</p>
+<p>Status: idea (pre-spec) · Author: FDE · Date: 2026-05-30
+Companion concept doc: <em>The Deterministic Spine</em> (FDE-01/A)</p>
+<p><strong>Superseded by <code>specs/036-deterministic-spine/spec.md</code> (2026-05-30).</strong> The spec
+updates naming: the artifact is <code>workflow.yaml</code> (not <code>determination.yaml</code>), the
+CLI is <code>holodeck workflow run|replay</code>, and "gate" means the schema boundary on
+an edge node (the DMN nodes are "determination nodes"). This doc is retained as
+the original ideation record; the spec is authoritative.</p>
 </blockquote>
-<h2 id="choose-a-backend">Choose a backend<a class="headerlink" href="#choose-a-backend" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong><a href="../claude-backend/">Claude Backend</a></strong> — <code>provider: anthropic</code>. Quick start, authentication providers (api_key / oauth_token / bedrock / vertex / foundry), and Claude-specific capabilities like permission modes, extended thinking, web search, subagents, bash and file_system scoping.</li>
-<li><strong><a href="../semantic-kernel-backend/">Semantic Kernel Backend</a></strong> — <code>provider: openai</code>, <code>azure_openai</code>, or <code>ollama</code>. Per-provider quick starts, the Azure deployment-name nuance, and Ollama context-size tuning.</li>
-</ul>
-<h2 id="shared-configuration-fields">Shared configuration fields<a class="headerlink" href="#shared-configuration-fields" title="Permanent link">&para;</a></h2>
-<p>All providers share these common fields:</p>
+<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
+<p><strong>How might we let HoloDeck users model a deterministic business process — its
+rules and its decision composition — as the authoritative "spine," and confine
+probabilistic HoloDeck agents to the leaf nodes, so the determination stays
+reproducible, replayable, and auditable while the AI does only the
+judgment-light work?</strong></p>
+<p>Today HoloDeck has no way to put rules in charge. Its multi-agent orchestration
+story (sequential / handoff / group-chat / magentic) is <em>emergent</em> by design —
+the opposite of what a regulated or enterprise decision needs. When an AI step
+sits anywhere on the path to a consequential, contestable decision, the LLM
+becomes the de-facto spine: non-reproducible, unexplainable, and impossible to
+audit. That is precisely the failure mode administrative law forbids (and that
+Robodebt embodied).</p>
+<h2 id="recommended-direction">Recommended Direction<a class="headerlink" href="#recommended-direction" title="Permanent link">&para;</a></h2>
+<p>Ship <strong>"just the gate" as a composable primitive</strong>, not a workflow engine.</p>
+<p>A <em>gate</em> is a single determination node: it takes a typed object, runs it
+through <strong>policy-as-code (a DMN decision table with FEEL expressions)</strong>, and
+emits a typed, audited verdict. The LLM never crosses the gate — at the leaf
+level an agent produces a schema-validated input object; everything above is
+deterministic.</p>
+<p>Gates <strong>compose by feeding their verdict upward as a named input to the gate
+above</strong> — which is exactly DMN's Decision Requirement Diagram (DRD). This is
+what gives us <em>multiple determination levels</em> for free, with no orchestration
+engine:</p>
+<div class="highlight"><pre><span></span><code>                    ┌──────────────────────────────────┐
+  LEVEL 3           │  FINAL DETERMINATION   ◆ gate SHUT │   human-accountable
+  human-accountable │  DMN · PRIORITY hit policy         │   AI drafts reasons only
+                    └──────────────────┬─────────────────┘
+                          ┌────────────┴────────────┐
+  LEVEL 2          ┌──────▼───────┐          ┌───────▼──────┐
+  policy-as-code   │ AFFORDABILITY│          │  RISK TIER   │   no AI reaches in —
+  (pure DMN/FEEL)  │ DMN · UNIQUE │          │ DMN · FIRST  │   composes verdicts below
+                   └───┬──────┬───┘          └──────┬───────┘
+              ┌────────┘      └─────┐               │
+  LEVEL 1     ▼ AI edge        AI edge ▼        AI edge ▼
+  probabilistic  income-extract   residency-verify   doc-fraud-flag
+  (agent → gate) agent→schema     agent→schema       agent→schema
+</code></pre></div>
+<p>Every upward arrow is a typed object crossing a schema gate. Level 1 is the only
+probabilistic part; Levels 2–3 are deterministic and replayable; Level 3 is the
+bright line where a named human decides and the AI may draft reasons only.</p>
+<p><strong>Authoring:</strong> native HoloDeck YAML DSL (no BPMN/DMN XML in the POC). The YAML is
+the canonical spine and is designed so a <code>.dmn</code>/<code>.bpmn</code> importer can transpile
+<em>into</em> it later — but standard XML import is explicitly deferred. This keeps the
+feature true to HoloDeck's no-code, git-diffable, hand-editable ethos.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># determination.yaml — a determination graph of composable gates</span>
+<span class="nt">determinations</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span><span class="w">                      </span><span class="c1"># LEVEL 1 — AI edge</span>
+<span class="w">    </span><span class="nt">edge</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> agent</span><span class="p">:</span><span class="w"> </span><span class="nv">agents/income-extractor/agent.yaml</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">gate</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> schema</span><span class="p">:</span><span class="w"> </span><span class="nv">schemas/income.json</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w">   </span><span class="c1"># only typed objects cross</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">residency</span><span class="w">                   </span><span class="c1"># LEVEL 1 — AI edge</span>
+<span class="w">    </span><span class="nt">edge</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> agent</span><span class="p">:</span><span class="w"> </span><span class="nv">agents/residency-verifier/agent.yaml</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">gate</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> schema</span><span class="p">:</span><span class="w"> </span><span class="nv">schemas/residency.json</span><span class="w"> </span><span class="p p-Indicator">}</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">doc_fraud_flag</span><span class="w">              </span><span class="c1"># LEVEL 1 — AI edge</span>
+<span class="w">    </span><span class="nt">edge</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> agent</span><span class="p">:</span><span class="w"> </span><span class="nv">agents/doc-fraud-detector/agent.yaml</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">gate</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> schema</span><span class="p">:</span><span class="w"> </span><span class="nv">schemas/fraud-flag.json</span><span class="w"> </span><span class="p p-Indicator">}</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">affordability</span><span class="w">               </span><span class="c1"># LEVEL 2 — pure policy</span>
+<span class="w">    </span><span class="nt">decision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tables/affordability.dmn.yaml</span>
+<span class="w">    </span><span class="nt">inputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">income</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">residency</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">hit_policy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UNIQUE</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">risk_tier</span><span class="w">                   </span><span class="c1"># LEVEL 2 — pure policy</span>
+<span class="w">    </span><span class="nt">decision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tables/risk.dmn.yaml</span>
+<span class="w">    </span><span class="nt">inputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">doc_fraud_flag</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">income</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">hit_policy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FIRST</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">final_determination</span><span class="w">         </span><span class="c1"># LEVEL 3 — the shut gate</span>
+<span class="w">    </span><span class="nt">decision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tables/determination.dmn.yaml</span>
+<span class="w">    </span><span class="nt">inputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">affordability</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">risk_tier</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">hit_policy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PRIORITY</span>
+<span class="w">    </span><span class="nt">requires_human</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">            </span><span class="c1"># CLI prompt in the POC; named human decides</span>
+<span class="w">    </span><span class="nt">ai_may_draft</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reasons</span><span class="w">           </span><span class="c1"># AI confined to drafting reasons, nothing more</span>
+</code></pre></div>
+<p>Why this direction wins for <strong>enterprise + regulated/gov FDEs</strong> whose killer
+property is <strong>policy-as-code</strong>: the decision logic lives in versioned, testable,
+publishable DMN tables that the AI literally cannot reach around; the
+composition graph is the audit trail; and each node — <em>including the policy
+tables</em> — is testable with HoloDeck's existing eval framework. It turns
+HoloDeck's evaluator into a policy-testing tool, which none of LangSmith /
+MLflow / PromptFlow offer.</p>
+<h2 id="anchor-sample-loan-hardship-underwriting">Anchor Sample: Loan Hardship Underwriting<a class="headerlink" href="#anchor-sample-loan-hardship-underwriting" title="Permanent link">&para;</a></h2>
+<p>Chosen because it ties to the existing <code>financial-assistant</code> sample and has
+naturally tiered determinations. (Swappable to benefits-eligibility or KYC —
+same YAML shape, different tables.)</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
+<th>Level</th>
+<th>Node</th>
 <th>Type</th>
-<th>Required</th>
-<th>Default</th>
-<th>Description</th>
+<th>Proves</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>provider</code></td>
-<td>string</td>
-<td>yes</td>
-<td>-</td>
-<td>Provider identifier</td>
+<td>1</td>
+<td>Extract income &amp; expenses from payslips/statements</td>
+<td>AI edge → schema gate</td>
+<td>Probabilistic work confined behind a typed gate</td>
 </tr>
 <tr>
-<td><code>name</code></td>
-<td>string</td>
-<td>yes</td>
-<td>-</td>
-<td>Model name / identifier</td>
+<td>1</td>
+<td>Verify residency/identity from documents</td>
+<td>AI edge → schema gate</td>
+<td>A second independent edge feeding upward</td>
 </tr>
 <tr>
-<td><code>temperature</code></td>
-<td>float</td>
-<td>no</td>
-<td><code>0.3</code></td>
-<td>Randomness (<code>0.0</code>–<code>2.0</code>)</td>
+<td>1</td>
+<td>Flag document-fraud signals</td>
+<td>AI edge → schema gate</td>
+<td>A third edge feeding a different branch</td>
 </tr>
 <tr>
-<td><code>max_tokens</code></td>
-<td>integer</td>
-<td>no</td>
-<td><code>1000</code></td>
-<td>Maximum response tokens</td>
+<td>2</td>
+<td><strong>Affordability</strong> decision (DMN <code>UNIQUE</code>, FEEL ranges/date math)</td>
+<td>pure policy</td>
+<td>Policy composing two AI inputs</td>
 </tr>
 <tr>
-<td><code>top_p</code></td>
-<td>float</td>
-<td>no</td>
-<td>-</td>
-<td>Nucleus sampling</td>
+<td>2</td>
+<td><strong>Risk tier</strong> decision (DMN <code>FIRST</code>)</td>
+<td>pure policy</td>
+<td>A parallel sub-determination</td>
 </tr>
 <tr>
-<td><code>api_key</code></td>
-<td>string</td>
-<td>varies</td>
-<td>-</td>
-<td>API authentication key</td>
-</tr>
-<tr>
-<td><code>endpoint</code></td>
-<td>string</td>
-<td>varies</td>
-<td>-</td>
-<td>API endpoint URL</td>
+<td>3</td>
+<td><strong>Final determination</strong>: auto-approve / refer-to-officer / decline (DMN <code>PRIORITY</code> + HITL CLI prompt)</td>
+<td>policy + human</td>
+<td>Composition of two Level-2 verdicts + the shut gate, AI drafts reasons only</td>
 </tr>
 </tbody>
 </table>
-<h3 id="temperature">Temperature<a class="headerlink" href="#temperature" title="Permanent link">&para;</a></h3>
-<p>Controls response randomness:</p>
-<ul>
-<li><code>0.0</code> — deterministic, focused.</li>
-<li><code>0.3</code> — default, balanced.</li>
-<li><code>0.7</code> — more creative.</li>
-<li><code>1.0+</code> — highly creative / random.</li>
+<p>The demo runs one applicant end-to-end, prints the composed determination, and
+<strong>re-runs the recorded inputs to produce a byte-identical trace</strong> — the "prove
+it" moment.</p>
+<h2 id="key-assumptions-to-validate">Key Assumptions to Validate<a class="headerlink" href="#key-assumptions-to-validate" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>FEEL is required and best embedded, not built.</strong> — Validate by spiking a
+      Python FEEL evaluator (SpiffWorkflow's DMN/FEEL, or a standalone FEEL lib)
+      against the three sample tables, including a date-math and a range
+      expression. Building FEEL from scratch is out of POC scope; if no embeddable
+      evaluator covers the needed subset, narrow the FEEL surface and document it.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>The gate is differentiated from "an agent calling a rules function."</strong> —
+      The defensible difference is the <em>reproducible audit record + composition
+      graph + policy-level tests</em>, not the decision itself. Test: the POC must
+      emit a replayable determination record and re-run it identically.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>A thin gate runtime is enough — no orchestration engine needed.</strong> — Test:
+      the determination graph executes purely as a DAG topological evaluation
+      (resolve Level 1 edges → evaluate Level 2 tables → evaluate Level 3),
+      without sequence flows, events, or BPMN gateways.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>HITL as a CLI prompt satisfies the bright-line demo.</strong> — Test: a
+      <code>requires_human</code> node pauses, presents the AI-drafted reasons + composed
+      inputs, records the human's choice into the trace, and refuses to let AI
+      output cross.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Schema gates can reuse <code>ExecutionResult.structured_output</code> + Pydantic.</strong> —
+      Test: bind an agent's structured output to a JSON-Schema gate and reject
+      free text / low-confidence fields at the boundary.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
-</code></pre></div>
-<h3 id="max-tokens">Max tokens<a class="headerlink" href="#max-tokens" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
-</code></pre></div>
-<h3 id="top-p-nucleus-sampling">Top P (nucleus sampling)<a class="headerlink" href="#top-p-nucleus-sampling" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
-</code></pre></div>
-<p>Use either <code>temperature</code> or <code>top_p</code>, not both, for predictable behaviour.</p>
-<h2 id="multi-provider-setup">Multi-provider setup<a class="headerlink" href="#multi-provider-setup" title="Permanent link">&para;</a></h2>
-<p>Configure multiple providers at the global level so different agents (or different evaluation models) can pick from the same set:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
-
-<span class="w">  </span><span class="nt">openai-fast</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-
-<span class="w">  </span><span class="nt">azure</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-deployment</span>
-<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span>
-
-<span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
-
-<span class="w">  </span><span class="nt">ollama</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2</span>
-<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OLLAMA_ENDPOINT}</span>
-</code></pre></div>
-<p>Use them in an agent:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">multi-model-agent</span>
-
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-
-<span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span><span class="w">   </span><span class="c1"># cheaper / faster eval model</span>
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1_score</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-</code></pre></div>
-<h2 id="security-best-practices">Security best practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="never-commit-api-keys">Never commit API keys<a class="headerlink" href="#never-commit-api-keys" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># WRONG</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sk-abc123...</span>
-
-<span class="c1"># CORRECT</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-</code></pre></div>
-<h3 id="use-env-files">Use <code>.env</code> files<a class="headerlink" href="#use-env-files" title="Permanent link">&para;</a></h3>
-<p>Add <code>.env</code> to <code>.gitignore</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># .env — DO NOT COMMIT</span>
-<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
-<span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://...
-<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>...
-<span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
-<span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="o">=</span>...
-<span class="nv">OLLAMA_ENDPOINT</span><span class="o">=</span>http://localhost:11434
-</code></pre></div>
-<p>Commit a template (<code>.env.example</code>) for collaborators:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># .env.example — Safe to commit</span>
-<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your-openai-api-key-here
-<span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://your-resource.openai.azure.com/
-<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>your-azure-api-key-here
-<span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>your-anthropic-api-key-here
-<span class="nv">OLLAMA_ENDPOINT</span><span class="o">=</span>http://localhost:11434
-</code></pre></div>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="mvp-scope">MVP Scope<a class="headerlink" href="#mvp-scope" title="Permanent link">&para;</a></h2>
+<p><strong>In:</strong>
+- Native YAML DSL: <code>determination.yaml</code> (graph) + <code>tables/*.dmn.yaml</code> (decision
+  tables) + <code>schemas/*.json</code> (gates).
+- A gate primitive: schema-validate a typed input → evaluate a DMN table → emit a
+  typed verdict + audit record.
+- DMN evaluation with <strong>FEEL expressions</strong> (embedded evaluator) and the four hit
+  policies used by the sample: <code>UNIQUE</code>, <code>FIRST</code>, <code>PRIORITY</code>, <code>COLLECT</code>.
+- DAG composition: a node's verdict is a named input to nodes above it.
+- <code>requires_human</code> nodes via CLI prompt; <code>ai_may_draft: reasons</code> confines AI to
+  drafting.
+- A reproducible determination record + a <code>--replay</code> that re-runs recorded inputs
+  identically.
+- The loan-hardship sample with three Level-1 agents, two Level-2 tables, one
+  Level-3 determination.
+- Policy-level tests: HoloDeck test cases asserting against decision-table outputs.</p>
+<p><strong>Out (POC):</strong>
+- BPMN/DMN XML import, visual modeling, sequence flows, events, BPMN gateways.
+- A task-inbox UI / web HITL (CLI only).
+- Deploy-as-API for determination graphs (<code>holodeck serve</code>/<code>deploy</code> integration).
+- Versioned policy registry, compliance export, replay UI.</p>
+<h2 id="not-doing-and-why">Not Doing (and Why)<a class="headerlink" href="#not-doing-and-why" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../claude-backend/">Claude Backend</a> — Claude-specific setup and capabilities.</li>
-<li><a href="../semantic-kernel-backend/">Semantic Kernel Backend</a> — OpenAI / Azure / Ollama setup.</li>
-<li><a href="../agent-configuration/">Agent Configuration</a> — full <code>agent.yaml</code> structure.</li>
-<li><a href="../global-config/">Global Configuration</a> — shared provider settings and credentials.</li>
-<li><a href="../evaluations/">Evaluations</a> — configuring evaluation models.</li>
-<li><a href="../tools/">Tools</a> — extending agent capabilities.</li>
-<li><a href="../vector-stores/">Vector Stores</a> — semantic search configuration.</li>
+<li><strong>No BPMN 2.0 XML in v1</strong> — verbose, tool-generated, breaks the no-code/YAML
+  ethos, and is a large spec surface we don't control. The YAML is designed so an
+  importer can transpile into it later.</li>
+<li><strong>No general workflow/orchestration engine</strong> — determination is a DAG of gates,
+  not a process with events, timers, and message flows. Coupling to HoloDeck's
+  still-aspirational <code>experiment.yaml</code> orchestration would inherit vapor.</li>
+<li><strong>No FEEL built from scratch</strong> — embed an existing evaluator; FEEL is a full
+  expression language and re-implementing it would consume the whole POC.</li>
+<li><strong>No human-task UI</strong> — a CLI prompt proves the bright line; the inbox is a
+  flagship-tier concern, not a POC concern.</li>
+<li><strong>No emergent/agentic determination</strong> — by definition the AI is never the
+  spine. Anything that lets the model decide is off-pattern.</li>
 </ul>
+<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Which Python FEEL evaluator do we embed, and what FEEL subset do the real
+  tables actually need (ranges, dates, <code>contains</code>, list functions)?</li>
+<li>How is the audit/determination record represented — extend OpenTelemetry GenAI
+  spans, or a separate signed determination-record artifact (closer to the
+  regulated "prove it" requirement)?</li>
+<li>Where does the schema gate live relative to <code>ExecutionResult.structured_output</code>
+  — is it a new <code>gate</code> config on a node, or a reusable wrapper any agent can
+  declare?</li>
+<li>Do Level-2 pure-policy nodes ever need to <em>call back</em> for more AI input
+  (re-extraction on low confidence), or is the DAG strictly one-directional in v1?
+  (Recommend strictly one-directional for the POC.)</li>
+</ul>
+<h2 id="north-star-named-not-built">North Star (named, not built)<a class="headerlink" href="#north-star-named-not-built" title="Permanent link">&para;</a></h2>
+<p>"<strong>Governable Agents</strong>" — visual modeler, versioned policy registry, replay UI,
+compliance export, and a real HITL task inbox. This is HoloDeck's governance
+positioning against competitors that explicitly lack it. The POC is the first
+vertebra of that spine.</p>
 
 
 

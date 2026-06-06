@@ -24,6 +24,7 @@ and the agent server.
 - [MCP CLI](https://docs.useholodeck.ai/guides/mcp-cli/index.md)
 - [Vector Stores](https://docs.useholodeck.ai/guides/vector-stores/index.md)
 - [Evaluations](https://docs.useholodeck.ai/guides/evaluations/index.md)
+- [Optimizer](https://docs.useholodeck.ai/guides/optimizer/index.md)
 - [Dashboard](https://docs.useholodeck.ai/guides/dashboard/index.md)
 - [Global Configuration](https://docs.useholodeck.ai/guides/global-config/index.md)
 - [File References](https://docs.useholodeck.ai/guides/file-references/index.md)

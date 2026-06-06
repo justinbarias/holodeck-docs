@@ -222,6 +222,30 @@ async def execute_turn(self, message: str) -> AgentResponse:
         raise RuntimeError(f"Agent execution failed: {e}") from e
 ```
 
+### `execute_turn_agui(input_data, message_override=None)`
+
+Execute an AG-UI turn through a backend session that supports it.
+
+Source code in `src/holodeck/chat/executor.py`
+
+```
+async def execute_turn_agui(
+    self,
+    input_data: RunAgentInput,
+    message_override: str | None = None,
+) -> AsyncGenerator[BaseEvent, None]:
+    """Execute an AG-UI turn through a backend session that supports it."""
+    try:
+        await self._ensure_backend_and_session()
+        session = _require_agui_session(self._session)
+        async for event in session.send_agui(input_data, message_override):
+            yield event
+    except BackendSessionError:
+        raise
+    except BackendInitError as e:
+        raise RuntimeError(f"Agent AG-UI execution failed: {e}") from e
+```
+
 ### `execute_turn_streaming(message)`
 
 Stream agent response token by token.

@@ -1295,6 +1295,80 @@ async def send(self, message: str) -> ExecutionResult:
             ) from exc
 ```
 
+### `send_agui(input_data, message_override=None)`
+
+Send an AG-UI request through this Claude session.
+
+Yields AG-UI events translated directly from Claude SDK stream messages.
+
+Source code in `src/holodeck/lib/backends/claude_backend.py`
+
+```
+async def send_agui(
+    self,
+    input_data: RunAgentInput,
+    message_override: str | None = None,
+) -> AsyncGenerator[BaseEvent, None]:
+    """Send an AG-UI request through this Claude session.
+
+    Yields AG-UI events translated directly from Claude SDK stream messages.
+    """
+    async with self._send_lock:
+        thread_id = input_data.thread_id
+        run_id = input_data.run_id
+        options = self._options_for_agui(input_data)
+        prompt = _agui_prompt_from_input(input_data, message_override)
+        frontend_tool_names = set(_agui_tool_names(input_data.tools))
+        current_state = input_data.state
+        result_data: dict[str, Any] | None = None
+
+        yield RunStartedEvent(
+            type=EventType.RUN_STARTED,
+            thread_id=thread_id,
+            run_id=run_id,
+            parent_run_id=input_data.parent_run_id,
+            input=input_data,
+        )
+        if input_data.state is not None:
+            yield StateSnapshotEvent(
+                type=EventType.STATE_SNAPSHOT,
+                snapshot=input_data.state,
+            )
+
+        try:
+            message_stream = claude_agent_sdk.query(
+                prompt=_streaming_user_envelope(prompt),
+                options=options,
+            )
+            async for event in self._stream_agui_messages(
+                message_stream=message_stream,
+                thread_id=thread_id,
+                run_id=run_id,
+                input_data=input_data,
+                frontend_tool_names=frontend_tool_names,
+                current_state=current_state,
+            ):
+                if isinstance(event, _AguiStreamStateUpdate):
+                    current_state = event.state
+                    continue
+                if isinstance(event, _AguiStreamResult):
+                    result_data = event.result
+                    continue
+                yield event
+
+            self._turn_count += 1
+            yield RunFinishedEvent(
+                type=EventType.RUN_FINISHED,
+                thread_id=thread_id,
+                run_id=run_id,
+                result=result_data,
+            )
+        except (ProcessError, CLIConnectionError) as exc:
+            raise BackendSessionError(
+                f"subprocess terminated unexpectedly: {exc}"
+            ) from exc
+```
+
 ### `send_streaming(message)`
 
 Send a message and yield text chunks progressively.

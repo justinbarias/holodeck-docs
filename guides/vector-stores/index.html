@@ -1339,6 +1339,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dashboard/" class="md-nav__link">
         
   
@@ -2989,6 +3017,14 @@ podman<span class="w"> </span>machine<span class="w"> </span>start
 </table>
 <blockquote>
 <p><strong>Version Pinning</strong>: For stability, pin to a specific version (e.g., <code>chromadb/chroma:0.6.3</code>) instead of <code>latest</code> to avoid unexpected changes during upgrades.</p>
+<p><strong>Security Advisory</strong>: <code>chromadb</code> is currently affected by
+<a href="https://github.com/advisories/GHSA-f4j7-r4q5-qw2c">CVE-2026-45829 / GHSA-f4j7-r4q5-qw2c</a>,
+a pre-authentication code injection issue in ChromaDB server versions 1.0.0
+and later when the server accepts a malicious model repository with
+<code>trust_remote_code=true</code>. As of this documentation update, upstream has not
+published a fixed <code>chromadb</code> release. Until a fix is available, run ChromaDB
+only on trusted networks, do not expose it directly to the public internet,
+and treat model repository inputs as trusted administrative data.</p>
 </blockquote>
 <hr />
 <h2 id="setting-up-postgresql-with-pgvector">Setting Up PostgreSQL with pgvector<a class="headerlink" href="#setting-up-postgresql-with-pgvector" title="Permanent link">&para;</a></h2>

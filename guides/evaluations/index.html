@@ -16,7 +16,7 @@
         <link rel="prev" href="../vector-stores/">
       
       
-        <link rel="next" href="../dashboard/">
+        <link rel="next" href="../optimizer/">
       
       
         
@@ -1490,6 +1490,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optimizing-agents-holodeck-test-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing Agents (holodeck test optimize)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1515,6 +1526,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3170,6 +3209,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optimizing-agents-holodeck-test-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing Agents (holodeck test optimize)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4400,6 +4450,14 @@ Result: PASS
 <li>Or provide manual retrieval_context in test case</li>
 </ul>
 <hr />
+<h2 id="optimizing-agents-holodeck-test-optimize">Optimizing Agents (<code>holodeck test optimize</code>)<a class="headerlink" href="#optimizing-agents-holodeck-test-optimize" title="Permanent link">&para;</a></h2>
+<p>Once you have an evaluation suite, <code>holodeck test optimize</code> automates the
+hand-tuning loop — change a knob or instruction, re-run <code>holodeck test</code>, eyeball
+the score, repeat — as a <strong>compounding coordinate-descent optimizer</strong> that
+advances a best-candidate <code>agent.yaml</code> on every accepted improvement.</p>
+<p>See the dedicated <strong><a href="../optimizer/">Optimizer guide</a></strong> for the full reference:
+the cycle/phase/trial model, axis configuration, CLI flags, outputs, acceptance
+scoring, and observability.</p>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Start with DeepEval</strong>: Use GEval and RAG metrics as primary evaluation</li>

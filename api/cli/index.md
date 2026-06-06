@@ -732,6 +732,216 @@ def _save_report(report: TestReport, output: str, format: str | None) -> None:
         raise
 ```
 
+#### `holodeck test optimize`
+
+Compounding coordinate-descent optimizer that tunes an agent's declared numeric/textual axes against its own test suite. See the [Optimizer](https://docs.useholodeck.ai/guides/optimizer/index.md) guide for configuration.
+
+## `optimize(agent_config, max_cycles, numeric_max_trials, numeric_patience, textual_max_trials, textual_patience, seed, output_dir, verbose, quiet)`
+
+Optimize an agent's instructions and hyperparameters against its tests.
+
+AGENT_CONFIG is the path to the agent.yaml configuration file. The original file is never modified; the best candidate is written to `<output-dir>/<run-id>/best.yaml`.
+
+Source code in `src/holodeck/cli/commands/optimize.py`
+
+```
+@click.command("optimize")
+@click.argument("agent_config", type=click.Path(exists=True), default="agent.yaml")
+@click.option(
+    "--max-cycles",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Maximum numeric→textual cycles.",
+)
+@click.option(
+    "--numeric-max-trials",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Hard cap on numeric-phase trials.",
+)
+@click.option(
+    "--numeric-patience",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Numeric-phase consecutive non-accepts before stopping.",
+)
+@click.option(
+    "--textual-max-trials",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Hard cap on textual-phase trials.",
+)
+@click.option(
+    "--textual-patience",
+    type=click.IntRange(min=1),
+    default=None,
+    help="Textual-phase consecutive non-accepts before stopping.",
+)
+@click.option("--seed", type=int, default=None, help="Seed for the numeric study.")
+@click.option(
+    "--output-dir",
+    "-o",
+    type=click.Path(),
+    default="results/optimizer",
+    help="Base directory for optimizer run artifacts.",
+)
+@click.option("--verbose", "-v", is_flag=True, help="Enable verbose debug output.")
+@click.option("--quiet", "-q", is_flag=True, help="Suppress per-trial streaming.")
+def optimize(
+    agent_config: str,
+    max_cycles: int | None,
+    numeric_max_trials: int | None,
+    numeric_patience: int | None,
+    textual_max_trials: int | None,
+    textual_patience: int | None,
+    seed: int | None,
+    output_dir: str,
+    verbose: bool,
+    quiet: bool,
+) -> None:
+    """Optimize an agent's instructions and hyperparameters against its tests.
+
+    AGENT_CONFIG is the path to the agent.yaml configuration file. The original
+    file is never modified; the best candidate is written to
+    ``<output-dir>/<run-id>/best.yaml``.
+    """
+    # Set when observability is enabled; gates the root span + shutdown.
+    obs_context: ObservabilityContext | None = None
+    effective_quiet = quiet and not verbose
+
+    try:
+        from holodeck.config.loader import load_agent_with_config
+
+        agent, _resolved, loader = load_agent_with_config(agent_config)
+
+        # Observability parity with `holodeck test`: when the agent enables
+        # observability, OTel owns logging and each trial's eval emits GenAI
+        # spans/metrics; otherwise fall back to traditional logging. Done after
+        # the load so the branch can read agent.observability.
+        if agent.observability and agent.observability.enabled:
+            obs_context = initialize_observability(
+                agent.observability, agent.name, verbose=verbose, quiet=effective_quiet
+            )
+        else:
+            setup_logging(verbose=verbose, quiet=effective_quiet)
+
+        if agent.evaluations is None or agent.evaluations.optimizer is None:
+            raise OptimizerError(
+                "No optimizer configuration found. Add an "
+                "`evaluations.optimizer` block to the agent.yaml."
+            )
+        if not agent.test_cases:
+            raise OptimizerError(
+                "Optimization requires at least one test case in the agent "
+                "configuration."
+            )
+
+        config = _resolve_config(
+            agent.evaluations.optimizer,
+            max_cycles=max_cycles,
+            numeric_max_trials=numeric_max_trials,
+            numeric_patience=numeric_patience,
+            textual_max_trials=textual_max_trials,
+            textual_patience=textual_patience,
+            seed=seed,
+        )
+
+        numeric, textual = _build_proposers(agent, config)
+        if numeric is None and textual is None:
+            raise OptimizerError(
+                "No numeric or textual axes declared under "
+                "`evaluations.optimizer.axes`."
+            )
+
+        weights = config.loss
+
+        async def scorer(candidate: Agent) -> tuple[float, object]:
+            return await score(candidate, agent_config, weights)
+
+        def on_trial(trial: TrialRecord) -> None:
+            if effective_quiet:
+                return
+            if trial.error:
+                status = f"skipped ({trial.error})"
+            elif trial.accepted:
+                status = "accepted ✓"
+            else:
+                status = "rejected"
+            click.echo(
+                f"  trial {trial.trial_id} [{trial.phase}] "
+                f"loss={trial.loss:.4f} (best {trial.baseline_loss:.4f}) "
+                f"— {status}"
+            )
+
+        run_id = (
+            datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+            + "-"
+            + uuid.uuid4().hex[:6]
+        )
+
+        click.echo(f"Optimizing '{agent.name}' (run {run_id})…")
+        loop = OptimizerLoop(
+            original_agent=agent,
+            scorer=scorer,  # type: ignore[arg-type]
+            config=config,
+            numeric_proposer=numeric,
+            textual_proposer=textual,
+            run_id=run_id,
+            progress_callback=on_trial,
+        )
+
+        async def _run() -> OptimizationResult:
+            # Root span for the whole run; per-trial GenAI spans from each
+            # candidate's eval nest underneath it. No-op when disabled.
+            if obs_context is not None:
+                span_ctx: Any = get_tracer(__name__).start_as_current_span(
+                    "holodeck.optimize",
+                    attributes=_root_span_attributes(agent, config, run_id),
+                )
+            else:
+                span_ctx = nullcontext()
+            with span_ctx:
+                return await loop.run()
+
+        result: OptimizationResult = asyncio.run(_run())
+
+        # Rebuild best.yaml on the unsubstituted source so ${VAR} secret
+        # placeholders survive instead of leaking env-resolved credentials.
+        # Only the tuned axes are carried over from the resolved best agent.
+        try:
+            template = loader.load_agent_yaml(agent_config, substitute_env=False)
+            axis_paths = [a.path for a in config.axes.numeric] + [
+                a.path for a in config.axes.textual
+            ]
+            result.best_agent = overlay_axes(template, result.best_agent, axis_paths)
+        except Exception:  # noqa: BLE001 — never regress; fall back with a warning.
+            logger.warning(
+                "Could not rebuild best.yaml from the unsubstituted config; it may "
+                "contain resolved secrets — review before sharing.",
+                exc_info=True,
+            )
+
+        run_dir = write_outputs(result, Path(output_dir))
+
+        click.echo(
+            f"\nBaseline loss {result.baseline_loss:.4f} → best "
+            f"{result.best_loss:.4f} "
+            f"({result.accepted_count} accepted over {result.cycles_run} cycles)."
+        )
+        click.echo(f"Artifacts written to {run_dir}")
+
+    except OptimizerError as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("Optimization failed")
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    finally:
+        if obs_context is not None:
+            shutdown_observability(obs_context)
+```
+
 ______________________________________________________________________
 
 ### Chat Command

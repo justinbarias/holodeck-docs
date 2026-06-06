@@ -2547,7 +2547,7 @@ Parameters:
 
 | Name      | Type            | Description                        | Default    |
 | --------- | --------------- | ---------------------------------- | ---------- |
-| `request` | `Any`           | RunAgentInput from client.         | *required* |
+| `request` | `RunAgentInput` | RunAgentInput from client.         | *required* |
 | `session` | `ServerSession` | Server session with AgentExecutor. | *required* |
 
 Yields:
@@ -2561,7 +2561,7 @@ Source code in `src/holodeck/serve/protocols/agui.py`
 ```
 async def handle_request(
     self,
-    request: Any,
+    request: RunAgentInput,
     session: ServerSession,
 ) -> AsyncGenerator[bytes, None]:
     """Handle AG-UI request and generate event stream.
@@ -2577,7 +2577,7 @@ async def handle_request(
         Encoded AG-UI events as bytes.
     """
     # Extract components from RunAgentInput
-    input_data: RunAgentInput = request
+    input_data = request
     thread_id = input_data.thread_id
     run_id = input_data.run_id
 
@@ -2644,13 +2644,30 @@ async def handle_request(
         else:
             full_message = text_message
 
+        executor = session.agent_executor
+        provider = executor.agent_config.model.provider
+        if provider in (ProviderEnum.ANTHROPIC, ProviderEnum.ANTHROPIC.value):
+            # Claude AG-UI resumes after frontend tool execution with a
+            # latest ``tool`` message. Do not override that with the prior
+            # user message, or the model can repeatedly call the same
+            # frontend tool.
+            claude_message_override = (
+                full_message if latest_message_role(input_data) == "user" else None
+            )
+            async for agui_evt in executor.execute_turn_agui(
+                input_data,
+                claude_message_override,
+            ):
+                yield encoder.encode(agui_evt)
+            logger.debug("Completed Claude AG-UI request for run %s", run_id)
+            return
+
         # 1. Emit RunStartedEvent
         yield encoder.encode(create_run_started_event(thread_id, run_id))
 
         # 2. Eagerly initialize backend so tool_event_queue is available
         #    before execution starts. Gracefully degrade if the executor
         #    does not expose this method (e.g. in tests with mocks).
-        executor = session.agent_executor
         logger.debug(
             "[trace] agui.handle_request: session=%s, executor_id=%s, "
             "session_attached=%s",

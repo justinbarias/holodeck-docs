@@ -674,6 +674,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/dashboard/" class="md-nav__link">
         
   
@@ -1266,6 +1294,34 @@
   </a>
   
     <nav class="md-nav" aria-label="_save_report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#holodeck-test-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        holodeck test optimize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#holodeck.cli.commands.optimize.optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        optimize
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="optimize">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2717,6 +2773,34 @@
   </a>
   
     <nav class="md-nav" aria-label="_save_report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#holodeck-test-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        holodeck test optimize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#holodeck.cli.commands.optimize.optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        optimize
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="optimize">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5092,6 +5176,424 @@ shorthand for <code>holodeck test run agent.yaml</code>. Subcommands:</p>
     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to write report to </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">raise</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div><h4 id="holodeck-test-optimize"><code>holodeck test optimize</code><a class="headerlink" href="#holodeck-test-optimize" title="Permanent link">&para;</a></h4>
+<p>Compounding coordinate-descent optimizer that tunes an agent's declared
+numeric/textual axes against its own test suite. See the
+<a href="../../guides/optimizer/">Optimizer</a> guide for configuration.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="holodeck.cli.commands.optimize.optimize" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">optimize</span><span class="p">(</span><span class="n">agent_config</span><span class="p">,</span> <span class="n">max_cycles</span><span class="p">,</span> <span class="n">numeric_max_trials</span><span class="p">,</span> <span class="n">numeric_patience</span><span class="p">,</span> <span class="n">textual_max_trials</span><span class="p">,</span> <span class="n">textual_patience</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="p">)</span></code>
+
+<a href="#holodeck.cli.commands.optimize.optimize" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Optimize an agent's instructions and hyperparameters against its tests.</p>
+<p>AGENT_CONFIG is the path to the agent.yaml configuration file. The original
+file is never modified; the best candidate is written to
+<code>&lt;output-dir&gt;/&lt;run-id&gt;/best.yaml</code>.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/holodeck/cli/commands/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;optimize&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;agent_config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;agent.yaml&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--max-cycles&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Maximum numeric→textual cycles.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--numeric-max-trials&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Hard cap on numeric-phase trials.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--numeric-patience&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Numeric-phase consecutive non-accepts before stopping.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--textual-max-trials&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Hard cap on textual-phase trials.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--textual-patience&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Textual-phase consecutive non-accepts before stopping.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--seed&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Seed for the numeric study.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-o&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
+    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;results/optimizer&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Base directory for optimizer run artifacts.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Enable verbose debug output.&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Suppress per-trial streaming.&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">optimize</span><span class="p">(</span>
+    <span class="n">agent_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">max_cycles</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">numeric_max_trials</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">numeric_patience</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">textual_max_trials</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">textual_patience</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize an agent&#39;s instructions and hyperparameters against its tests.</span>
+
+<span class="sd">    AGENT_CONFIG is the path to the agent.yaml configuration file. The original</span>
+<span class="sd">    file is never modified; the best candidate is written to</span>
+<span class="sd">    ``&lt;output-dir&gt;/&lt;run-id&gt;/best.yaml``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Set when observability is enabled; gates the root span + shutdown.</span>
+    <span class="n">obs_context</span><span class="p">:</span> <span class="n">ObservabilityContext</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">effective_quiet</span> <span class="o">=</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">verbose</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.config.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_agent_with_config</span>
+
+        <span class="n">agent</span><span class="p">,</span> <span class="n">_resolved</span><span class="p">,</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">load_agent_with_config</span><span class="p">(</span><span class="n">agent_config</span><span class="p">)</span>
+
+        <span class="c1"># Observability parity with `holodeck test`: when the agent enables</span>
+        <span class="c1"># observability, OTel owns logging and each trial&#39;s eval emits GenAI</span>
+        <span class="c1"># spans/metrics; otherwise fall back to traditional logging. Done after</span>
+        <span class="c1"># the load so the branch can read agent.observability.</span>
+        <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">observability</span> <span class="ow">and</span> <span class="n">agent</span><span class="o">.</span><span class="n">observability</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="n">obs_context</span> <span class="o">=</span> <span class="n">initialize_observability</span><span class="p">(</span>
+                <span class="n">agent</span><span class="o">.</span><span class="n">observability</span><span class="p">,</span> <span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">effective_quiet</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">setup_logging</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">effective_quiet</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">evaluations</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">agent</span><span class="o">.</span><span class="n">evaluations</span><span class="o">.</span><span class="n">optimizer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OptimizerError</span><span class="p">(</span>
+                <span class="s2">&quot;No optimizer configuration found. Add an &quot;</span>
+                <span class="s2">&quot;`evaluations.optimizer` block to the agent.yaml.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">agent</span><span class="o">.</span><span class="n">test_cases</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OptimizerError</span><span class="p">(</span>
+                <span class="s2">&quot;Optimization requires at least one test case in the agent &quot;</span>
+                <span class="s2">&quot;configuration.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_resolve_config</span><span class="p">(</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">evaluations</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span>
+            <span class="n">max_cycles</span><span class="o">=</span><span class="n">max_cycles</span><span class="p">,</span>
+            <span class="n">numeric_max_trials</span><span class="o">=</span><span class="n">numeric_max_trials</span><span class="p">,</span>
+            <span class="n">numeric_patience</span><span class="o">=</span><span class="n">numeric_patience</span><span class="p">,</span>
+            <span class="n">textual_max_trials</span><span class="o">=</span><span class="n">textual_max_trials</span><span class="p">,</span>
+            <span class="n">textual_patience</span><span class="o">=</span><span class="n">textual_patience</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">numeric</span><span class="p">,</span> <span class="n">textual</span> <span class="o">=</span> <span class="n">_build_proposers</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">numeric</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">textual</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OptimizerError</span><span class="p">(</span>
+                <span class="s2">&quot;No numeric or textual axes declared under &quot;</span>
+                <span class="s2">&quot;`evaluations.optimizer.axes`.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">loss</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">scorer</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="n">Agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">object</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="n">score</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">agent_config</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">on_trial</span><span class="p">(</span><span class="n">trial</span><span class="p">:</span> <span class="n">TrialRecord</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">effective_quiet</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">trial</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;skipped (</span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="k">elif</span> <span class="n">trial</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;accepted ✓&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;rejected&quot;</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  trial </span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">trial_id</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">phase</span><span class="si">}</span><span class="s2">] &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;loss=</span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (best </span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">baseline_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">) &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;— </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">run_id</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot;-&quot;</span>
+            <span class="o">+</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimizing &#39;</span><span class="si">{</span><span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (run </span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">)…&quot;</span><span class="p">)</span>
+        <span class="n">loop</span> <span class="o">=</span> <span class="n">OptimizerLoop</span><span class="p">(</span>
+            <span class="n">original_agent</span><span class="o">=</span><span class="n">agent</span><span class="p">,</span>
+            <span class="n">scorer</span><span class="o">=</span><span class="n">scorer</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+            <span class="n">numeric_proposer</span><span class="o">=</span><span class="n">numeric</span><span class="p">,</span>
+            <span class="n">textual_proposer</span><span class="o">=</span><span class="n">textual</span><span class="p">,</span>
+            <span class="n">run_id</span><span class="o">=</span><span class="n">run_id</span><span class="p">,</span>
+            <span class="n">progress_callback</span><span class="o">=</span><span class="n">on_trial</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_run</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">OptimizationResult</span><span class="p">:</span>
+            <span class="c1"># Root span for the whole run; per-trial GenAI spans from each</span>
+            <span class="c1"># candidate&#39;s eval nest underneath it. No-op when disabled.</span>
+            <span class="k">if</span> <span class="n">obs_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">span_ctx</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span>
+                    <span class="s2">&quot;holodeck.optimize&quot;</span><span class="p">,</span>
+                    <span class="n">attributes</span><span class="o">=</span><span class="n">_root_span_attributes</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">run_id</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">span_ctx</span> <span class="o">=</span> <span class="n">nullcontext</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">span_ctx</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="n">result</span><span class="p">:</span> <span class="n">OptimizationResult</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">_run</span><span class="p">())</span>
+
+        <span class="c1"># Rebuild best.yaml on the unsubstituted source so ${VAR} secret</span>
+        <span class="c1"># placeholders survive instead of leaking env-resolved credentials.</span>
+        <span class="c1"># Only the tuned axes are carried over from the resolved best agent.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load_agent_yaml</span><span class="p">(</span><span class="n">agent_config</span><span class="p">,</span> <span class="n">substitute_env</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">axis_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">path</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">numeric</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+                <span class="n">a</span><span class="o">.</span><span class="n">path</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">textual</span>
+            <span class="p">]</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">best_agent</span> <span class="o">=</span> <span class="n">overlay_axes</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">best_agent</span><span class="p">,</span> <span class="n">axis_paths</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># noqa: BLE001 — never regress; fall back with a warning.</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Could not rebuild best.yaml from the unsubstituted config; it may &quot;</span>
+                <span class="s2">&quot;contain resolved secrets — review before sharing.&quot;</span><span class="p">,</span>
+                <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">run_dir</span> <span class="o">=</span> <span class="n">write_outputs</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">))</span>
+
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Baseline loss </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">baseline_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> → best &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">best_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">accepted_count</span><span class="si">}</span><span class="s2"> accepted over </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">cycles_run</span><span class="si">}</span><span class="s2"> cycles).&quot;</span>
+        <span class="p">)</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Artifacts written to </span><span class="si">{</span><span class="n">run_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="n">OptimizerError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># noqa: BLE001</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Optimization failed&quot;</span><span class="p">)</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">obs_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">shutdown_observability</span><span class="p">(</span><span class="n">obs_context</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
