@@ -536,14 +536,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+      <a href="../openai-backend/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -734,6 +734,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#how-it-works" class="md-nav__link">
@@ -1057,7 +1068,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -1496,34 +1507,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/utilities/" class="md-nav__link">
         
   
@@ -1689,6 +1672,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1795,6 +1789,12 @@ rewrites the instructions), advancing a best-candidate baseline on every
 accepted improvement so wins compound into one improved <code>agent.yaml</code>.</p>
 <p>The original <code>agent.yaml</code> is <strong>never modified</strong>. Every trial is logged, and the
 best candidate is written to <code>results/optimizer/&lt;run-id&gt;/best.yaml</code>.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Add an <code>evaluations.optimizer</code> block to an agent that already has metrics (see <a href="#configuration">Configuration</a> below), then run:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>optimize<span class="w"> </span>agent.yaml
+<span class="c1"># → streams per-trial losses, then prints a baseline → best summary;</span>
+<span class="c1">#   writes results/optimizer/&lt;run-id&gt;/best.yaml</span>
+</code></pre></div>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>The optimizer nests four concepts. From smallest unit to largest:</p>
 <table>

@@ -536,14 +536,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+      <a href="../openai-backend/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -762,6 +762,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
@@ -1129,7 +1140,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -1568,34 +1579,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/utilities/" class="md-nav__link">
         
   
@@ -1759,6 +1742,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
@@ -1938,6 +1932,12 @@
 </ul>
 <p>The dashboard complements <code>holodeck test</code>: CI gets hard pass/fail, humans get a UI for spotting regressions and prompt-version drift.</p>
 <p><img alt="Summary view — KPI tiles, pass-rate trend, metric breakdowns, runs table" src="../../assets/dashboard/summary.png" /></p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;holodeck-ai[dashboard]&quot;</span><span class="w">   </span><span class="c1"># one-time: install the optional extra</span>
+holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>view<span class="w">                </span><span class="c1"># from any directory with an agent.yaml</span>
+<span class="c1"># → serves the dashboard at http://127.0.0.1:8501/ (Ctrl+C to stop)</span>
+</code></pre></div>
+<p>No real runs yet? <code>holodeck test view --seed</code> renders a built-in golden fixture.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>The dashboard is an optional extra — install it with:</p>
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;holodeck-ai[dashboard]&quot;</span>

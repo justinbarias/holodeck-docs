@@ -536,14 +536,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+      <a href="../openai-backend/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -652,10 +652,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
       
     </span>
   </a>
@@ -666,7 +677,7 @@
   <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Reference
+        Quick reference
       
     </span>
   </a>
@@ -1246,7 +1257,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -1685,34 +1696,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/utilities/" class="md-nav__link">
         
   
@@ -1878,10 +1861,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
       
     </span>
   </a>
@@ -1892,7 +1886,7 @@
   <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Reference
+        Quick reference
       
     </span>
   </a>
@@ -2164,16 +2158,25 @@
 
 
 <h1 id="mcp-cli-guide">MCP CLI Guide<a class="headerlink" href="#mcp-cli-guide" title="Permanent link">&para;</a></h1>
-<p>The <code>holodeck mcp</code> command group provides tools to discover, install, and manage MCP (Model Context Protocol) servers for your agents.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>MCP servers extend your agent's capabilities by providing access to external tools and services. The MCP CLI integrates with the <a href="https://registry.modelcontextprotocol.io">official MCP Registry</a> to help you:</p>
-<ul>
-<li><strong>Search</strong> for available MCP servers</li>
-<li><strong>Add</strong> servers to your agent or global configuration</li>
-<li><strong>List</strong> installed servers</li>
-<li><strong>Remove</strong> servers you no longer need</li>
-</ul>
-<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<p>The <code>holodeck mcp</code> command group lets you discover, add, list, and remove MCP (Model Context Protocol) servers for your agents.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Add one MCP server from the registry to your <code>agent.yaml</code>, then list it back.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the filesystem server to agent.yaml in the current directory</span>
+holodeck<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>io.github.modelcontextprotocol/server-filesystem
+
+<span class="c1"># Confirm it&#39;s installed</span>
+holodeck<span class="w"> </span>mcp<span class="w"> </span>list
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code>MCP servers in agent.yaml:
+
+NAME        VERSION   TRANSPORT   DESCRIPTION
+filesystem  1.0.0     stdio       Secure file operations
+</code></pre></div>
+<p>The server now appears under <code>tools:</code> in <code>agent.yaml</code> and is available the next time you run <code>holodeck chat</code> or <code>holodeck test</code>.</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>The MCP CLI integrates with the <a href="https://registry.modelcontextprotocol.io">official MCP Registry</a> so you can <strong>search</strong> for servers, <strong>add</strong> them to an agent or global config, <strong>list</strong> what's installed, and <strong>remove</strong> servers. Added servers are written into the agent's <code>tools:</code> section (or global <code>mcp_servers:</code>) and connect over a transport. HoloDeck supports the <strong>stdio</strong>, <strong>sse</strong>, and <strong>http</strong> transports across backends; on the OpenAI backend a <code>transport: websocket</code> server is skipped with a warning (see the <a href="../openai-backend/">OpenAI backend guide</a>). See the <a href="../tools/">Tools Guide</a> for the full MCP tool schema.</p>
+<h2 id="quick-reference">Quick reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2581,10 +2584,10 @@ holodeck<span class="w"> </span>mcp<span class="w"> </span>list<span class="w"> 
 <p><strong>Cause:</strong> The server already exists in the target configuration.</p>
 <p><strong>Solution:</strong> Use <code>holodeck mcp remove</code> first if you want to reconfigure, or check if it's in a different location (agent vs global).</p>
 <h3 id="transport-not-supported">Transport Not Supported<a class="headerlink" href="#transport-not-supported" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Error: Server does not support stdio transport
+<div class="highlight"><pre><span></span><code>Warning: transport &#39;websocket&#39; is not supported on the OpenAI backend; server skipped
 </code></pre></div>
-<p><strong>Cause:</strong> The server only supports transports that HoloDeck doesn't currently implement (SSE, HTTP).</p>
-<p><strong>Solution:</strong> Choose a different server that supports stdio transport, or wait for future HoloDeck releases with additional transport support.</p>
+<p><strong>Cause:</strong> HoloDeck supports the stdio, sse, and http transports. On the OpenAI backend, a server declaring <code>transport: websocket</code> is skipped with a warning.</p>
+<p><strong>Solution:</strong> Use a server that offers stdio, sse, or http, or run the agent on the Claude backend. See the <a href="../openai-backend/">OpenAI backend guide</a> for backend-specific transport behavior.</p>
 <h3 id="no-agent-configuration-found">No Agent Configuration Found<a class="headerlink" href="#no-agent-configuration-found" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>Error: No agent.yaml found in current directory
 </code></pre></div>

@@ -16,7 +16,7 @@
         <link rel="prev" href="../llm-providers/">
       
       
-        <link rel="next" href="../semantic-kernel-backend/">
+        <link rel="next" href="../openai-backend/">
       
       
         
@@ -576,33 +576,16 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick start">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        How it works
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minimal-agent" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Minimal agent
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -900,6 +883,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#serve-and-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serve and deploy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -961,17 +955,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Limitations
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -998,14 +981,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+      <a href="../openai-backend/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -1395,7 +1378,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -1834,34 +1817,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/utilities/" class="md-nav__link">
         
   
@@ -2035,33 +1990,16 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick start">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        How it works
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minimal-agent" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Minimal agent
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2359,6 +2297,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#serve-and-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serve and deploy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2420,17 +2369,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Limitations
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2462,15 +2400,9 @@
 
 
 <h1 id="claude-backend">Claude Backend<a class="headerlink" href="#claude-backend" title="Permanent link">&para;</a></h1>
-<p>The Claude backend runs your agent on top of the <a href="https://docs.anthropic.com/en/api/agent-sdk">Claude Agent SDK</a> — Anthropic's first-class agent runtime. It is automatically selected when <code>model.provider: anthropic</code> is set in your agent configuration.</p>
-<p>This guide is for backend-specific behaviour: authentication, Claude Agent SDK capabilities (permission modes, extended thinking, web search, subagents, etc.), and the full configuration reference. For shared concepts like tools, observability, and vector stores, see the dedicated guides for each.</p>
+<p>The Claude backend runs your agent on top of the <a href="https://docs.anthropic.com/en/api/agent-sdk">Claude Agent SDK</a> — Anthropic's first-class agent runtime. It is automatically selected when <code>model.provider</code> is <code>anthropic</code> or <code>ollama</code> (local models).</p>
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Node.js 18+</strong> — required by the Claude Agent SDK subprocess. Verify with <code>node --version</code>.</li>
-<li>An Anthropic credential. The simplest is a Claude Code OAuth token (recommended for Claude Code users).</li>
-</ul>
-<h3 id="minimal-agent">Minimal agent<a class="headerlink" href="#minimal-agent" title="Permanent link">&para;</a></h3>
+<p>Prerequisites: <strong>Node.js 18+</strong> (the SDK spawns a <code>claude</code> CLI subprocess — verify with <code>node --version</code>) and an Anthropic credential (a Claude Code OAuth token is simplest).</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
 <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-claude-agent</span>
 
@@ -2483,11 +2415,13 @@
 <span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># .env</span>
-<span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="o">=</span>your-oauth-token
+<span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="o">=</span><span class="si">${</span><span class="nv">CLAUDE_CODE_OAUTH_TOKEN</span><span class="si">}</span>
 </code></pre></div>
-<p>Verify:</p>
 <div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml
+<span class="c1"># → starts an interactive chat session backed by Claude</span>
 </code></pre></div>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p><code>BackendSelector</code> routes <code>provider: anthropic</code> (and <code>ollama</code>) to the Claude backend, which drives the Claude Agent SDK. Every Claude-specific capability lives under the top-level <code>claude:</code> block and defaults to disabled (least-privilege). The backend fully supports <code>holodeck chat</code>, <code>test</code>, <code>serve</code>, and <code>deploy</code>. Using OpenAI or Azure models instead? See the <a href="../openai-backend/">OpenAI Backend</a> guide. For shared concepts, see the <a href="../tools/">Tools</a>, <a href="../observability/">Observability</a>, and <a href="../vector-stores/">Vector Stores</a> guides.</p>
 <h2 id="advanced-configuration">Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">&para;</a></h2>
 <p>All Claude-specific settings live under the top-level <code>claude:</code> block in <code>agent.yaml</code>. Every capability defaults to disabled (least-privilege).</p>
 <h3 id="authentication-providers">Authentication providers<a class="headerlink" href="#authentication-providers" title="Permanent link">&para;</a></h3>
@@ -3221,6 +3155,8 @@
 </tr>
 </tbody>
 </table>
+<h2 id="serve-and-deploy">Serve and deploy<a class="headerlink" href="#serve-and-deploy" title="Permanent link">&para;</a></h2>
+<p>The Claude backend fully supports <code>holodeck serve</code> and <code>holodeck deploy</code> — there are no backend-specific restrictions. See <a href="../serve/">Agent Server</a> and <a href="../deployment/">Deployment</a> for the workflow, and <a href="#production-considerations-memory-and-concurrency">Production considerations</a> above for sizing the per-turn subprocess memory under <code>serve</code>.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="cloud-auth-context-missing">Cloud auth context missing<a class="headerlink" href="#cloud-auth-context-missing" title="Permanent link">&para;</a></h3>
 <p><strong>Error</strong>: <code>AWS_REGION environment variable is not set for auth_provider: bedrock</code>
@@ -3245,10 +3181,6 @@
 <li>Ensure no extra whitespace.</li>
 <li>For OAuth, regenerate via the Claude Code CLI.</li>
 </ol>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>holodeck serve</code> and container deployment do not currently support <code>provider: anthropic</code>. Both are planned in a future release. See <a href="../serve/">Agent Server</a> and <a href="../deployment/">Deployment</a> for the current SK-only support matrix.</li>
-</ul>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../agent-configuration/">Agent Configuration</a> — full agent.yaml structure</li>

@@ -276,10 +276,16 @@ def initialize_observability(
 
     # 8. Enable Semantic Kernel telemetry (GenAI semantic conventions)
     from holodeck.lib.observability.instrumentation import (
+        enable_litellm_telemetry,
         enable_semantic_kernel_telemetry,
     )
 
     enable_semantic_kernel_telemetry(config)
+
+    # 9. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).
+    # Must run after set_up_tracing so the callback reuses the global
+    # tracer provider (and its RedactingSpanProcessor).
+    enable_litellm_telemetry(config)
 
     return _observability_context
 ```
@@ -978,10 +984,16 @@ def initialize_observability(
 
     # 8. Enable Semantic Kernel telemetry (GenAI semantic conventions)
     from holodeck.lib.observability.instrumentation import (
+        enable_litellm_telemetry,
         enable_semantic_kernel_telemetry,
     )
 
     enable_semantic_kernel_telemetry(config)
+
+    # 9. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).
+    # Must run after set_up_tracing so the callback reuses the global
+    # tracer provider (and its RedactingSpanProcessor).
+    enable_litellm_telemetry(config)
 
     return _observability_context
 ```
@@ -1330,7 +1342,7 @@ ______________________________________________________________________
 
 ## Instrumentation (`instrumentation`)
 
-Semantic Kernel telemetry integration. Sets the environment variables that Semantic Kernel reads at startup to emit GenAI semantic convention spans.
+Wires up the internal instrumentation layer so it emits GenAI semantic-convention spans. Sets the environment variables that the underlying connector library reads at startup to turn on diagnostic and sensitive-content tracing.
 
 ## `enable_semantic_kernel_telemetry(config)`
 

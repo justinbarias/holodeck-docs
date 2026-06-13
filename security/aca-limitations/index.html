@@ -530,14 +530,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guides/semantic-kernel-backend/" class="md-nav__link">
+      <a href="../../guides/openai-backend/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -927,7 +927,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -1366,34 +1366,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/utilities/" class="md-nav__link">
         
   
@@ -1591,6 +1563,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deferred-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deferred surfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1712,6 +1695,20 @@ of these primitives are on Microsoft's public roadmap for ACA — the
 has no active issue for <code>securityContext</code> support as of 2026-05-23.</p>
 <p>If you need them, AKS (or a non-Azure runtime) is the right deployment
 target — not a different HoloDeck configuration.</p>
+<h2 id="deferred-surfaces">Deferred surfaces<a class="headerlink" href="#deferred-surfaces" title="Permanent link">&para;</a></h2>
+<p>A few hardening surfaces referenced elsewhere are deferred to follow-up
+specs and are <strong>not yet available on any backend</strong>:</p>
+<ul>
+<li><strong><code>deployment.security_profile: hardened</code> (P3 / Envoy sidecar)</strong> — the
+  <code>--network none</code> + Unix-socket egress-proxy equivalent in the table
+  above. Tracked but not shipped.</li>
+<li><strong>US8 sandbox mode</strong> — per-session ephemeral sandboxing for tool
+  execution.</li>
+<li><strong>Computer-use</strong> — the hosted computer-use tool surface.</li>
+</ul>
+<p>These are roadmap items, not configuration flags you can turn on today.
+Until they land, the image-layer + ACA-exposed controls described above
+are the available hardening surface.</p>
 
 
 

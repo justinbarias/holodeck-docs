@@ -1,102 +1,84 @@
 # Deployment Guide
 
-This guide covers deploying HoloDeck agents as containerized applications, including building images with the CLI and DIY manual deployment approaches.
+Package a HoloDeck agent as a container and ship it to the cloud with `holodeck deploy`.
 
-## Overview
+## Quick start
 
-HoloDeck provides two deployment approaches:
-
-- **CLI-based** (`holodeck deploy build`) - Automated image building from agent configuration
-- **DIY Manual** - Build and deploy using the HoloDeck base image directly
-
-Both approaches create OCI-compliant container images that run your agent as an HTTP server.
-
-Claude Agent SDK Not Yet Supported
-
-Container deployment currently supports **Semantic Kernel backends only** (OpenAI, Azure OpenAI, Ollama). Agents configured with `provider: anthropic` cannot be deployed as containers yet because `holodeck serve` — which the container entrypoint relies on — does not yet support the Claude Agent SDK backend. Claude agent deployment is planned for a future release.
-
-## Quick Start
+Build an image from a Claude-backend agent and run it on Azure Container Apps.
 
 ```
-# Build a container image from your agent configuration
-holodeck deploy build agent.yaml
+# agent.yaml
+name: my-agent
+model:
+  provider: anthropic
+  name: claude-sonnet-4-5
+instructions:
+  inline: "You are a helpful assistant."
 
-# Run the built image locally
-docker run -p 8080:8080 ghcr.io/myorg/my-agent:abc1234
-
-# Preview build without executing
-holodeck deploy build agent.yaml --dry-run
+deployment:
+  registry:
+    url: ghcr.io
+    repository: myorg/my-agent
+    tag_strategy: git_sha
+  target:
+    provider: azure
+    azure:
+      subscription_id: "${AZURE_SUBSCRIPTION_ID}"
+      resource_group: my-resource-group
+      environment_name: my-container-env
+      location: eastus
+  port: 8080
 ```
 
-______________________________________________________________________
+```
+holodeck deploy build          # builds ghcr.io/myorg/my-agent:abc1234
+holodeck deploy run            # rolls a revision on Azure Container Apps
+# → live URL, e.g. https://my-agent.<region>.azurecontainerapps.io
+```
 
-## Deploy Build Command
+```
+curl https://my-agent.<region>.azurecontainerapps.io/health
+# {"status":"healthy",...}  → HTTP 200
+```
 
-The `holodeck deploy build` command generates a Dockerfile and builds a container image from your agent configuration.
+Backend support
 
-### CLI Reference
+`holodeck deploy` is fully supported on the Claude backend (`provider: anthropic`) and Ollama. On the OpenAI Agents backend (`provider: openai` / `azure_openai`) deploy is **on the roadmap** — see the [OpenAI Backend guide](https://docs.useholodeck.ai/guides/openai-backend/index.md).
+
+## How it works
+
+`holodeck deploy build` generates a Dockerfile from your agent config, builds an OCI image on the HoloDeck base image, and tags it per your `tag_strategy`. The container entrypoint runs `holodeck serve`, so the image is just your agent behind an HTTP server (see the [Serve guide](https://docs.useholodeck.ai/guides/serve/index.md)). `holodeck deploy run` then provisions or updates the target cloud service from the `deployment.target` block. Prefer the CLI for the happy path; drop to the [DIY approach](#diy-deployment) when you need a custom Dockerfile or base image.
+
+## Deploy build
 
 ```
 holodeck deploy build <agent_config> [OPTIONS]
 ```
 
-### Arguments
+| Option          | Description                                | Default      |
+| --------------- | ------------------------------------------ | ------------ |
+| `agent_config`  | Path to agent.yaml                         | `agent.yaml` |
+| `--tag`         | Custom tag (overrides strategy)            | None         |
+| `--no-cache`    | Build without Docker cache                 | `false`      |
+| `--dry-run`     | Show what would be built without executing | `false`      |
+| `--verbose, -v` | Verbose debug logging                      | `false`      |
+| `--quiet, -q`   | Suppress progress output                   | `false`      |
 
-| Argument       | Description                           | Default      |
-| -------------- | ------------------------------------- | ------------ |
-| `agent_config` | Path to agent.yaml configuration file | `agent.yaml` |
-
-### Options
-
-| Option          | Description                                   | Default |
-| --------------- | --------------------------------------------- | ------- |
-| `--tag`         | Custom tag for the image (overrides strategy) | None    |
-| `--no-cache`    | Build without using Docker cache              | `false` |
-| `--dry-run`     | Show what would be built without executing    | `false` |
-| `--verbose, -v` | Enable verbose debug logging                  | `false` |
-| `--quiet, -q`   | Suppress progress output                      | `false` |
-
-### Exit Codes
-
-| Code | Meaning                    |
-| ---- | -------------------------- |
-| 0    | Build successful           |
-| 2    | Configuration error        |
-| 3    | Docker or deployment error |
-
-### Examples
+Exit codes: `0` success · `2` configuration error · `3` Docker/deployment error.
 
 ```
-# Basic build (uses agent.yaml in current directory)
-holodeck deploy build
-
-# Build with custom tag
+holodeck deploy build --dry-run            # preview Dockerfile
 holodeck deploy build agent.yaml --tag v1.0.0
-
-# Preview Dockerfile without building
-holodeck deploy build --dry-run
-
-# Build with verbose output
-holodeck deploy build agent.yaml -v
-
-# Build without cache (force fresh build)
-holodeck deploy build --no-cache
+holodeck deploy build --no-cache           # force fresh build
 ```
 
 ______________________________________________________________________
 
-## Configuration
+## Deployment configuration
 
-Add a `deployment` section to your `agent.yaml` to configure container builds:
+Add a `deployment` section to `agent.yaml`:
 
 ```
-name: my-agent
-model:
-  provider: openai
-  name: gpt-4o
-instructions:
-  file: instructions/system.md
-
 deployment:
   runtime: container
   registry:
@@ -104,175 +86,115 @@ deployment:
     repository: myorg/my-agent
     tag_strategy: git_sha
   target:
-    provider: aws
-    aws:
-      region: us-east-1
+    provider: azure
+    azure:
+      subscription_id: "${AZURE_SUBSCRIPTION_ID}"
+      resource_group: my-resource-group
+      environment_name: my-container-env
+      location: eastus
   protocol: rest
   port: 8080
   environment:
     LOG_LEVEL: info
+    CUSTOM_API_KEY: "${CUSTOM_API_KEY}"   # from shell environment
 ```
 
-### Registry Configuration
+### Registry
 
-| Field                    | Description                                 | Required | Default   |
-| ------------------------ | ------------------------------------------- | -------- | --------- |
-| `url`                    | Registry URL (e.g., `ghcr.io`, `docker.io`) | Yes      | -         |
-| `repository`             | Repository name (e.g., `org/agent-name`)    | Yes      | -         |
-| `tag_strategy`           | Tag generation strategy                     | No       | `git_sha` |
-| `custom_tag`             | Custom tag (when strategy is `custom`)      | No       | -         |
-| `credentials_env_prefix` | Env var prefix for registry credentials     | No       | -         |
+| Field                    | Description                                   | Required | Default   |
+| ------------------------ | --------------------------------------------- | -------- | --------- |
+| `url`                    | Registry URL (`ghcr.io`, `docker.io`, …)      | Yes      | -         |
+| `repository`             | Repository name (`org/agent-name`, lowercase) | Yes      | -         |
+| `tag_strategy`           | `git_sha`, `git_tag`, `latest`, `custom`      | No       | `git_sha` |
+| `custom_tag`             | Custom tag (when strategy is `custom`)        | No       | -         |
+| `credentials_env_prefix` | Env var prefix for registry credentials       | No       | -         |
 
-### Tag Strategies
+Tag strategies: `git_sha` (first 7 chars of HEAD → `abc1234`), `git_tag` (latest git tag → `v1.2.0`), `latest`, `custom` (uses `custom_tag`).
 
-| Strategy  | Description                              | Example Output |
-| --------- | ---------------------------------------- | -------------- |
-| `git_sha` | First 7 characters of current commit SHA | `abc1234`      |
-| `git_tag` | Latest git tag                           | `v1.2.0`       |
-| `latest`  | Always uses "latest"                     | `latest`       |
-| `custom`  | Uses `custom_tag` value                  | `my-tag`       |
+### Protocol and port
 
-### Protocol Options
+`protocol` selects `rest`, `ag-ui`, or `both`. `port` sets the container's exposed port (default `8080`).
 
-| Protocol | Description                                     |
-| -------- | ----------------------------------------------- |
-| `rest`   | REST API with JSON/SSE responses                |
-| `ag-ui`  | AG-UI protocol for CopilotKit and similar tools |
-| `both`   | Exposes both protocols                          |
+### Cloud targets
 
-### Environment Variables
-
-Add custom environment variables to the container:
+| Provider | Service        | `target.provider` |
+| -------- | -------------- | ----------------- |
+| Azure    | Container Apps | `azure`           |
+| AWS      | App Runner     | `aws`             |
+| GCP      | Cloud Run      | `gcp`             |
 
 ```
-deployment:
-  environment:
-    LOG_LEVEL: debug
-    CUSTOM_API_KEY: "${CUSTOM_API_KEY}"  # From shell environment
+# AWS App Runner
+target:
+  provider: aws
+  aws:
+    region: us-east-1
+    cpu: 1                 # 1, 2, or 4 vCPU
+    memory: 2048           # MB
+    ecr_role_arn: arn:aws:iam::123456789012:role/AppRunnerECRAccess
+    health_check_path: /health
+    auto_scaling_min: 1
+    auto_scaling_max: 5
+```
+
+```
+# GCP Cloud Run
+target:
+  provider: gcp
+  gcp:
+    project_id: my-gcp-project
+    region: us-central1
+    memory: 512Mi
+    cpu: 1
+    concurrency: 80
+    timeout: 300
+    min_instances: 0
+    max_instances: 100
+```
+
+```
+# Azure Container Apps
+target:
+  provider: azure
+  azure:
+    subscription_id: "${AZURE_SUBSCRIPTION_ID}"
+    resource_group: my-resource-group
+    environment_name: my-container-env
+    location: eastus
+    cpu: 0.5               # 0.25, 0.5, 0.75, 1.0, …
+    memory: 1Gi
+    ingress_external: true
+    min_replicas: 0
+    max_replicas: 10
 ```
 
 ______________________________________________________________________
 
-## Registry Push
+## Registry push
 
-Under Construction
-
-The `holodeck deploy push` command is not yet implemented (planned for P2). For now, use Docker directly to push images.
-
-### Planned Features
-
-- Automatic registry authentication
-- Support for multiple registries:
-  - GitHub Container Registry (ghcr.io)
-  - Docker Hub (docker.io)
-  - Amazon ECR
-  - Google Artifact Registry
-  - Azure Container Registry
-
-### Manual Push (Current Workaround)
+Authenticate and push with Docker:
 
 ```
-# Build the image
 holodeck deploy build agent.yaml
-
-# Login to registry
 docker login ghcr.io -u USERNAME
-
-# Push the image
 docker push ghcr.io/myorg/my-agent:abc1234
 ```
 
 ______________________________________________________________________
 
-## Cloud Deployment
+## DIY deployment
 
-Under Construction
+Build and deploy containers manually without the CLI.
 
-The `holodeck deploy run` command is not yet implemented (planned for P3). Cloud deployment configuration is available for future use.
-
-### Planned Cloud Providers
-
-| Provider | Service        | Status  |
-| -------- | -------------- | ------- |
-| AWS      | App Runner     | Planned |
-| GCP      | Cloud Run      | Planned |
-| Azure    | Container Apps | Planned |
-
-### AWS App Runner Configuration
-
-```
-deployment:
-  target:
-    provider: aws
-    aws:
-      region: us-east-1
-      cpu: 1                    # vCPU: 1, 2, or 4
-      memory: 2048              # MB: 2048, 3072, 4096, 8192, 12288
-      ecr_role_arn: arn:aws:iam::123456789012:role/AppRunnerECRAccess
-      health_check_path: /health
-      auto_scaling_min: 1
-      auto_scaling_max: 5
-```
-
-### GCP Cloud Run Configuration
-
-```
-deployment:
-  target:
-    provider: gcp
-    gcp:
-      project_id: my-gcp-project
-      region: us-central1
-      memory: 512Mi            # e.g., 512Mi, 1Gi, 2Gi
-      cpu: 1
-      concurrency: 80
-      timeout: 300             # seconds
-      min_instances: 0
-      max_instances: 100
-```
-
-### Azure Container Apps Configuration
-
-```
-deployment:
-  target:
-    provider: azure
-    azure:
-      subscription_id: 12345678-1234-1234-1234-123456789012
-      resource_group: my-resource-group
-      environment_name: my-container-env
-      location: eastus
-      cpu: 0.5                 # 0.25, 0.5, 0.75, 1.0, etc.
-      memory: 1Gi
-      ingress_external: true
-      min_replicas: 0
-      max_replicas: 10
-```
-
-______________________________________________________________________
-
-## DIY Deployment
-
-Build and deploy containers manually without the HoloDeck CLI.
-
-### Base Image
-
-HoloDeck provides a pre-built base image with all dependencies:
+### Base image
 
 ```
 ghcr.io/justinbarias/holodeck-base:latest
 ```
 
-The base image includes:
+Includes Python 3.10+ with HoloDeck installed, `curl` for health checks, a non-root `holodeck` user, and `/app` as the working directory.
 
-- Python 3.10+ with HoloDeck installed
-- Health check utilities (`curl`)
-- Non-root `holodeck` user for security
-- Working directory at `/app`
-
-### Required Files
-
-Your build context needs these files:
+### Build context
 
 ```
 build-context/
@@ -283,122 +205,77 @@ build-context/
     └── system.md
 ```
 
-### Dockerfile Template
+### Dockerfile
 
 ```
-# HoloDeck Agent Container
 FROM ghcr.io/justinbarias/holodeck-base:latest
 
-# OCI Labels for container metadata
 LABEL org.opencontainers.image.title="my-agent"
 LABEL org.opencontainers.image.version="v1.0.0"
-LABEL org.opencontainers.image.created="2025-01-01T00:00:00Z"
 LABEL com.holodeck.managed="true"
 
-# Switch to root for file operations
 USER root
-
-# Set working directory
 WORKDIR /app
 
-# Copy entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
-
-# Copy agent configuration
 COPY agent.yaml /app/agent.yaml
-
-# Copy instruction files (if any)
 COPY instructions/ /app/instructions/
 
-# Set environment variables
 ENV HOLODECK_PORT="8080"
 ENV HOLODECK_PROTOCOL="rest"
 ENV HOLODECK_AGENT_CONFIG="/app/agent.yaml"
 
-# Expose the configured port
 EXPOSE 8080
-
-# Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 
-# Fix ownership and switch to non-root user
 RUN chown -R holodeck:holodeck /app
 USER holodeck
-
-# Entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
 ```
 
-### Entrypoint Script
-
-Create `entrypoint.sh`:
+### Entrypoint
 
 ```
 #!/bin/bash
 set -e
-
-# Start the HoloDeck agent server
 exec holodeck serve /app/agent.yaml \
     --host 0.0.0.0 \
     --port "${HOLODECK_PORT:-8080}" \
     --protocol "${HOLODECK_PROTOCOL:-rest}"
 ```
 
-### OCI Labels
-
-Standard OCI labels for container metadata:
-
-| Label                              | Description                |
-| ---------------------------------- | -------------------------- |
-| `org.opencontainers.image.title`   | Agent name                 |
-| `org.opencontainers.image.version` | Image version/tag          |
-| `org.opencontainers.image.created` | ISO 8601 build timestamp   |
-| `org.opencontainers.image.source`  | Source URL or git SHA      |
-| `com.holodeck.managed`             | Marker for HoloDeck images |
-
-### Environment Variables
+### Container reference
 
 | Variable                | Description                 | Default           |
 | ----------------------- | --------------------------- | ----------------- |
-| `HOLODECK_PORT`         | Port for the agent server   | `8080`            |
+| `HOLODECK_PORT`         | Agent server port           | `8080`            |
 | `HOLODECK_PROTOCOL`     | Protocol type               | `rest`            |
 | `HOLODECK_AGENT_CONFIG` | Path to agent configuration | `/app/agent.yaml` |
 
-### Build and Run
+OCI labels: `org.opencontainers.image.title` (agent name), `.version`, `.created` (ISO 8601), `.source`, and `com.holodeck.managed` (marker for HoloDeck images).
+
+### Build and run
 
 ```
-# Build the image
 docker build -t my-agent:v1.0.0 .
 
-# Run locally
 docker run -p 8080:8080 \
-  -e OPENAI_API_KEY="${OPENAI_API_KEY}" \
-  my-agent:v1.0.0
-
-# Run with custom port
-docker run -p 3000:3000 \
-  -e HOLODECK_PORT=3000 \
-  -e OPENAI_API_KEY="${OPENAI_API_KEY}" \
+  -e ANTHROPIC_API_KEY="${ANTHROPIC_API_KEY}" \
   my-agent:v1.0.0
 ```
-
-### Docker Compose Example
 
 ```
 # docker-compose.yml
 services:
   agent:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+    build: { context: ., dockerfile: Dockerfile }
+    ports: ["8080:8080"]
     environment:
       - HOLODECK_PORT=8080
       - HOLODECK_PROTOCOL=rest
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
@@ -408,215 +285,59 @@ services:
     restart: unless-stopped
 ```
 
-```
-# Start with Docker Compose
-docker compose up -d
-
-# View logs
-docker compose logs -f agent
-
-# Stop
-docker compose down
-```
-
-______________________________________________________________________
-
-## Complete Examples
-
-### Minimal Build Example
-
-```
-# agent.yaml
-name: simple-assistant
-model:
-  provider: openai
-  name: gpt-4o
-instructions:
-  inline: "You are a helpful assistant."
-
-deployment:
-  registry:
-    url: ghcr.io
-    repository: myorg/simple-assistant
-    tag_strategy: latest
-  target:
-    provider: aws
-    aws:
-      region: us-east-1
-  port: 8080
-```
-
-```
-holodeck deploy build agent.yaml
-# Output: ghcr.io/myorg/simple-assistant:latest
-```
-
-### Build with Git SHA Tag
-
-```
-# agent.yaml
-name: research-agent
-model:
-  provider: openai
-  name: gpt-4o
-instructions:
-  file: instructions/research.md
-tools:
-  - type: vectorstore
-    name: search_docs
-    store: chroma
-    collection: papers
-    source: data/papers/
-
-deployment:
-  registry:
-    url: ghcr.io
-    repository: myorg/research-agent
-    tag_strategy: git_sha
-  target:
-    provider: gcp
-    gcp:
-      project_id: my-project
-      region: us-central1
-  protocol: ag-ui
-  port: 8080
-```
-
-```
-holodeck deploy build agent.yaml -v
-# Output: ghcr.io/myorg/research-agent:abc1234
-```
-
-### DIY with Custom Dockerfile
-
-```
-# Dockerfile
-FROM ghcr.io/justinbarias/holodeck-base:latest
-
-USER root
-WORKDIR /app
-
-# Install additional dependencies
-RUN pip install custom-package
-
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
-
-COPY agent.yaml /app/agent.yaml
-COPY instructions/ /app/instructions/
-COPY data/ /app/data/
-
-ENV HOLODECK_PORT="8080"
-ENV HOLODECK_PROTOCOL="rest"
-
-EXPOSE 8080
-
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/health || exit 1
-
-RUN chown -R holodeck:holodeck /app
-USER holodeck
-
-ENTRYPOINT ["/app/entrypoint.sh"]
-```
-
 ______________________________________________________________________
 
 ## Troubleshooting
 
-### Docker Not Available
+### Docker not available
 
 ```
 Error: Docker is not available
 ```
 
-**Solution:** Ensure Docker Desktop is running or the Docker daemon is started:
+Ensure the Docker daemon is running (`sudo systemctl start docker` on Linux, or start Docker Desktop).
 
-```
-# macOS/Windows: Start Docker Desktop
-
-# Linux
-sudo systemctl start docker
-```
-
-### No Deployment Section
+### No deployment section
 
 ```
 Error: Configuration error
   No 'deployment' section found in agent configuration
 ```
 
-**Solution:** Add a `deployment` section to your `agent.yaml`:
+Add a `deployment` section with `registry` and `target` to `agent.yaml`.
 
-```
-deployment:
-  registry:
-    url: ghcr.io
-    repository: myorg/my-agent
-  target:
-    provider: aws
-    aws:
-      region: us-east-1
-```
-
-### Git SHA Strategy Fails
+### Git SHA strategy fails
 
 ```
 Error: tag_generation failed
   Failed to get git SHA: not a git repository
 ```
 
-**Solution:** Either initialize a git repository or use a different tag strategy:
+Initialize a git repository, or set `tag_strategy: latest` (or pass `--tag`).
 
-```
-deployment:
-  registry:
-    tag_strategy: latest  # or use --tag flag
-```
-
-### Invalid Repository Name
+### Invalid repository name
 
 ```
 Error: Invalid repository name: My-Agent
   Must contain only lowercase letters, numbers, '.', '_', '/', '-'
 ```
 
-**Solution:** Use lowercase repository names:
+Use a lowercase repository name (`myorg/my-agent`).
 
-```
-deployment:
-  registry:
-    repository: myorg/my-agent  # lowercase only
-```
+### Health check fails
 
-### Health Check Fails
+1. Verify the agent starts: `docker run -it --rm my-agent:latest holodeck serve --help`
+1. Confirm required credentials are passed (e.g. `-e ANTHROPIC_API_KEY="${ANTHROPIC_API_KEY}"`).
+1. Inspect logs: `docker logs <container-id>`.
 
-If the container starts but health checks fail:
+### Deploying an OpenAI-provider agent fails
 
-1. Check if the agent can start successfully:
-
-   ```
-   docker run -it --rm my-agent:latest holodeck serve --help
-   ```
-
-1. Verify required environment variables are set:
-
-   ```
-   docker run -p 8080:8080 \
-     -e OPENAI_API_KEY="${OPENAI_API_KEY}" \
-     my-agent:latest
-   ```
-
-1. Check container logs:
-
-   ```
-   docker logs <container-id>
-   ```
+Deploy is not yet supported on the OpenAI Agents backend. Use a Claude-backend agent (`provider: anthropic`) for now; see the [OpenAI Backend guide](https://docs.useholodeck.ai/guides/openai-backend/index.md).
 
 ______________________________________________________________________
 
-## Next Steps
+## Next steps
 
-- See [Agent Server Guide](https://docs.useholodeck.ai/guides/serve/index.md) for detailed server configuration
-- See [Agent Configuration Guide](https://docs.useholodeck.ai/guides/agent-configuration/index.md) for agent.yaml reference
-- See [Observability Guide](https://docs.useholodeck.ai/guides/observability/index.md) for monitoring and tracing
+- [Agent Server Guide](https://docs.useholodeck.ai/guides/serve/index.md) — server configuration and endpoints
+- [Agent Configuration Guide](https://docs.useholodeck.ai/guides/agent-configuration/index.md) — agent.yaml reference
+- [Observability Guide](https://docs.useholodeck.ai/guides/observability/index.md) — monitoring and tracing

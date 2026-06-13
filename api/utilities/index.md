@@ -1685,7 +1685,7 @@ Text splitting and structure-aware chunking for preparing documents for embeddin
 
 ### Text Chunker
 
-Token-based text splitting using Semantic Kernel's paragraph splitter.
+A token-based paragraph splitter (built on the SK connector library internally).
 
 ## `TextChunker(chunk_size=DEFAULT_CHUNK_SIZE, chunk_overlap=DEFAULT_CHUNK_OVERLAP, separator_list=None)`
 
@@ -2601,7 +2601,7 @@ async def contextualize_batch(
 
 ### LLM Context Generator
 
-Uses Semantic Kernel chat completion services for contextual embeddings. Supports adaptive concurrency on rate limiting and exponential backoff retry logic.
+Uses the configured chat-completion provider for contextual embeddings. Supports adaptive concurrency on rate limiting and exponential backoff retry logic.
 
 ## `RetryConfig(max_retries=3, base_delay=1.0, exponential_base=2.0, max_delay=10.0)`
 
@@ -2620,7 +2620,7 @@ Example
 
 With defaults, delays are: 1s, 2s, 4s (capped at max_delay if exceeded).
 
-## `LLMContextGenerator(chat_service, execution_settings=None, max_context_tokens=DEFAULT_MAX_CONTEXT_TOKENS, max_document_tokens=DEFAULT_MAX_DOCUMENT_TOKENS, concurrency=None, retry_config=None)`
+## `LLMContextGenerator(model_spec, max_context_tokens=DEFAULT_MAX_CONTEXT_TOKENS, max_document_tokens=DEFAULT_MAX_DOCUMENT_TOKENS, concurrency=None, retry_config=None)`
 
 Generate contextual embeddings using LLM (Anthropic approach).
 
@@ -2632,7 +2632,7 @@ Attributes:
 
 | Name                   | Type | Description                                            |
 | ---------------------- | ---- | ------------------------------------------------------ |
-| `_chat_service`        |      | Semantic Kernel chat completion service.               |
+| `_model_spec`          |      | Resolved LiteLLM call arguments for the context model. |
 | `_max_context_tokens`  |      | Maximum tokens for generated context (default: 100).   |
 | `_max_document_tokens` |      | Maximum tokens for document in prompt (default: 8000). |
 | `_concurrency`         |      | Current concurrency limit for batch processing.        |
@@ -2640,28 +2640,26 @@ Attributes:
 
 Example
 
-> > > from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion chat_service = OpenAIChatCompletion(ai_model_id="gpt-4o-mini") generator = LLMContextGenerator(chat_service=chat_service) context = await generator.generate_context(chunk_text, document_text)
+> > > from holodeck.lib.litellm_support import resolve_litellm_model spec = resolve_litellm_model(agent.model, kind="chat") generator = LLMContextGenerator(model_spec=spec) context = await generator.generate_context(chunk_text, document_text)
 
 Initialize the LLM Context Generator.
 
 Parameters:
 
-| Name                  | Type                       | Description                                             | Default                                                                                                               |
-| --------------------- | -------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `chat_service`        | `ChatCompletionClientBase` | Semantic Kernel chat completion service instance.       | *required*                                                                                                            |
-| `execution_settings`  | \`PromptExecutionSettings  | None\`                                                  | Optional prompt execution settings. If not provided, defaults will be used with max_tokens set to max_context_tokens. |
-| `max_context_tokens`  | `int`                      | Maximum tokens for generated context (default: 100).    | `DEFAULT_MAX_CONTEXT_TOKENS`                                                                                          |
-| `max_document_tokens` | `int`                      | Maximum tokens for document truncation (default: 8000). | `DEFAULT_MAX_DOCUMENT_TOKENS`                                                                                         |
-| `concurrency`         | \`int                      | None\`                                                  | Maximum concurrent LLM requests (default: 10).                                                                        |
-| `retry_config`        | \`RetryConfig              | None\`                                                  | Configuration for retry logic. Uses defaults if not provided.                                                         |
+| Name                  | Type               | Description                                             | Default                                                       |
+| --------------------- | ------------------ | ------------------------------------------------------- | ------------------------------------------------------------- |
+| `model_spec`          | `LiteLLMModelSpec` | Resolved LiteLLM call arguments (chat kind).            | *required*                                                    |
+| `max_context_tokens`  | `int`              | Maximum tokens for generated context (default: 100).    | `DEFAULT_MAX_CONTEXT_TOKENS`                                  |
+| `max_document_tokens` | `int`              | Maximum tokens for document truncation (default: 8000). | `DEFAULT_MAX_DOCUMENT_TOKENS`                                 |
+| `concurrency`         | \`int              | None\`                                                  | Maximum concurrent LLM requests (default: 10).                |
+| `retry_config`        | \`RetryConfig      | None\`                                                  | Configuration for retry logic. Uses defaults if not provided. |
 
 Source code in `src/holodeck/lib/llm_context_generator.py`
 
 ```
 def __init__(
     self,
-    chat_service: "ChatCompletionClientBase",
-    execution_settings: "PromptExecutionSettings | None" = None,
+    model_spec: LiteLLMModelSpec,
     max_context_tokens: int = DEFAULT_MAX_CONTEXT_TOKENS,
     max_document_tokens: int = DEFAULT_MAX_DOCUMENT_TOKENS,
     concurrency: int | None = None,
@@ -2670,16 +2668,13 @@ def __init__(
     """Initialize the LLM Context Generator.
 
     Args:
-        chat_service: Semantic Kernel chat completion service instance.
-        execution_settings: Optional prompt execution settings. If not provided,
-            defaults will be used with max_tokens set to max_context_tokens.
+        model_spec: Resolved LiteLLM call arguments (chat kind).
         max_context_tokens: Maximum tokens for generated context (default: 100).
         max_document_tokens: Maximum tokens for document truncation (default: 8000).
         concurrency: Maximum concurrent LLM requests (default: 10).
         retry_config: Configuration for retry logic. Uses defaults if not provided.
     """
-    self._chat_service = chat_service
-    self._execution_settings = execution_settings
+    self._model_spec = model_spec
     self._max_context_tokens = max_context_tokens
     self._max_document_tokens = max_document_tokens
     self._concurrency = (
@@ -2896,7 +2891,7 @@ ______________________________________________________________________
 
 ## Tool Initialization
 
-Shared tool initialization for VectorStoreTool and HierarchicalDocumentTool. Provider-agnostic: works for both SK and Claude backend paths.
+Shared tool initialization for VectorStoreTool and HierarchicalDocumentTool. Provider-agnostic: works across every backend (OpenAI Agents and Claude).
 
 ## `resolve_embedding_model(agent)`
 
@@ -2983,7 +2978,7 @@ def resolve_embedding_model(agent: Agent) -> str:
 
 ## `create_embedding_service(agent)`
 
-Create an SK TextEmbedding service from agent config.
+Create a LiteLLM-backed embedding service from agent config.
 
 For Anthropic provider: uses `agent.embedding_provider` config. For OpenAI/Azure/Ollama: uses `agent.model` config directly.
 
@@ -2995,9 +2990,9 @@ Parameters:
 
 Returns:
 
-| Type  | Description                                    |
-| ----- | ---------------------------------------------- |
-| `Any` | An initialized TextEmbedding service instance. |
+| Type  | Description                                      |
+| ----- | ------------------------------------------------ |
+| `Any` | An initialized LiteLLMEmbeddingService instance. |
 
 Raises:
 
@@ -3009,7 +3004,7 @@ Source code in `src/holodeck/lib/tool_initializer.py`
 
 ```
 def create_embedding_service(agent: Agent) -> Any:
-    """Create an SK TextEmbedding service from agent config.
+    """Create a LiteLLM-backed embedding service from agent config.
 
     For Anthropic provider: uses ``agent.embedding_provider`` config.
     For OpenAI/Azure/Ollama: uses ``agent.model`` config directly.
@@ -3018,14 +3013,14 @@ def create_embedding_service(agent: Agent) -> Any:
         agent: Agent configuration.
 
     Returns:
-        An initialized TextEmbedding service instance.
+        An initialized LiteLLMEmbeddingService instance.
 
     Raises:
         ToolInitializerError: If provider doesn't support embeddings.
     """
-    from semantic_kernel.connectors.ai.open_ai import (
-        AzureTextEmbedding,
-        OpenAITextEmbedding,
+    from holodeck.lib.litellm_support import (
+        LiteLLMEmbeddingService,
+        resolve_litellm_model,
     )
 
     provider = _resolve_embedding_provider(agent)
@@ -3038,48 +3033,13 @@ def create_embedding_service(agent: Agent) -> Any:
         provider,
     )
 
-    api_key_raw = (
-        model_config.api_key.get_secret_value()
-        if model_config.api_key is not None
-        else None
+    spec = resolve_litellm_model(
+        model_config, kind="embedding", model_name=embedding_model
     )
-
-    if provider == ProviderEnum.OPENAI:
-        return OpenAITextEmbedding(
-            ai_model_id=embedding_model,
-            api_key=api_key_raw,
-        )
-
-    if provider == ProviderEnum.AZURE_OPENAI:
-        azure_embed_kwargs: dict[str, Any] = {
-            "deployment_name": embedding_model,
-            "endpoint": model_config.endpoint,
-            "api_key": api_key_raw,
-            "api_version": model_config.api_version or AZURE_OPENAI_DEFAULT_API_VERSION,
-        }
-        return AzureTextEmbedding(**azure_embed_kwargs)
-
-    if provider == ProviderEnum.OLLAMA:
-        try:
-            from semantic_kernel.connectors.ai.ollama import OllamaTextEmbedding
-        except ImportError as exc:
-            raise ToolInitializerError(
-                "Ollama provider requires 'ollama' package. "
-                "Install with: pip install ollama"
-            ) from exc
-
-        return OllamaTextEmbedding(
-            ai_model_id=embedding_model,
-            host=model_config.endpoint if model_config.endpoint else None,
-        )
-
-    raise ToolInitializerError(
-        f"Embedding service not supported for provider: {provider}. "
-        "Vectorstore tools require OpenAI, Azure OpenAI, or Ollama provider."
-    )
+    return LiteLLMEmbeddingService(spec)
 ```
 
-## `initialize_tools(agent, force_ingest=False, execution_config=None, chat_service=None, base_dir=None, context_generator=None)`
+## `initialize_tools(agent, force_ingest=False, execution_config=None, base_dir=None, context_generator=None)`
 
 Initialize all vectorstore and hierarchical-doc tools for an agent.
 
@@ -3092,7 +3052,6 @@ Parameters:
 | `agent`             | `Agent`           | Agent configuration.                             | *required*                                                                                                     |
 | `force_ingest`      | `bool`            | Force re-ingestion of vector store source files. | `False`                                                                                                        |
 | `execution_config`  | \`ExecutionConfig | None\`                                           | Execution configuration for file processing.                                                                   |
-| `chat_service`      | \`Any             | None\`                                           | Optional chat service for hierarchical doc tools.                                                              |
 | `base_dir`          | \`str             | None\`                                           | Base directory for resolving relative source paths. If None, falls back to agent_base_dir context variable.    |
 | `context_generator` | \`Any             | None\`                                           | Optional pre-built ContextGenerator instance. When provided, takes highest priority for contextual embeddings. |
 
@@ -3115,7 +3074,6 @@ async def initialize_tools(
     agent: Agent,
     force_ingest: bool = False,
     execution_config: ExecutionConfig | None = None,
-    chat_service: Any | None = None,
     base_dir: str | None = None,
     context_generator: Any | None = None,
 ) -> dict[str, Any]:
@@ -3128,7 +3086,6 @@ async def initialize_tools(
         agent: Agent configuration.
         force_ingest: Force re-ingestion of vector store source files.
         execution_config: Execution configuration for file processing.
-        chat_service: Optional chat service for hierarchical doc tools.
         base_dir: Base directory for resolving relative source paths.
             If None, falls back to agent_base_dir context variable.
         context_generator: Optional pre-built ContextGenerator instance.
@@ -3192,7 +3149,6 @@ async def initialize_tools(
         hd_instances = await initialize_hierarchical_doc_tools(
             agent=agent,
             embedding_service=embedding_service,
-            chat_service=chat_service,
             force_ingest=force_ingest,
             provider_type=provider_type,
             base_dir=effective_base_dir,
@@ -3204,7 +3160,7 @@ async def initialize_tools(
     return instances
 ```
 
-## `initialize_hierarchical_doc_tools(agent, embedding_service, chat_service, force_ingest, provider_type, base_dir=None, context_generator=None, execution_config=None)`
+## `initialize_hierarchical_doc_tools(agent, embedding_service, force_ingest, provider_type, base_dir=None, context_generator=None, execution_config=None)`
 
 Initialize all hierarchical document tools from agent config.
 
@@ -3213,8 +3169,7 @@ Parameters:
 | Name                | Type              | Description                                    | Default                                                                                                                                                                   |
 | ------------------- | ----------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `agent`             | `Agent`           | Agent configuration.                           | *required*                                                                                                                                                                |
-| `embedding_service` | `Any`             | SK TextEmbedding service.                      | *required*                                                                                                                                                                |
-| `chat_service`      | \`Any             | None\`                                         | Optional chat service for context generation.                                                                                                                             |
+| `embedding_service` | `Any`             | Embedding service (LiteLLMEmbeddingService).   | *required*                                                                                                                                                                |
 | `force_ingest`      | `bool`            | Force re-ingestion of source files.            | *required*                                                                                                                                                                |
 | `provider_type`     | `str`             | Provider type string for dimension resolution. | *required*                                                                                                                                                                |
 | `base_dir`          | \`str             | None\`                                         | Base directory for resolving relative source paths.                                                                                                                       |
@@ -3239,7 +3194,6 @@ Source code in `src/holodeck/lib/tool_initializer.py`
 async def initialize_hierarchical_doc_tools(
     agent: Agent,
     embedding_service: Any,
-    chat_service: Any | None,
     force_ingest: bool,
     provider_type: str,
     base_dir: str | None = None,
@@ -3250,8 +3204,7 @@ async def initialize_hierarchical_doc_tools(
 
     Args:
         agent: Agent configuration.
-        embedding_service: SK TextEmbedding service.
-        chat_service: Optional chat service for context generation.
+        embedding_service: Embedding service (LiteLLMEmbeddingService).
         force_ingest: Force re-ingestion of source files.
         provider_type: Provider type string for dimension resolution.
         base_dir: Base directory for resolving relative source paths.
@@ -3305,12 +3258,11 @@ async def initialize_hierarchical_doc_tools(
                     )
                 tool.set_embedding_service(embedding_service)
 
-                # Resolve context generator via 5-tier priority chain
+                # Resolve context generator via 4-tier priority chain
                 resolved_generator = _resolve_context_generator(
                     agent=agent,
                     tool_config=tool_config,
                     context_generator=context_generator,
-                    chat_service=chat_service,
                 )
                 if resolved_generator is not None:
                     tool.set_context_generator(resolved_generator)
@@ -3414,7 +3366,7 @@ ______________________________________________________________________
 
 ## Vector Store
 
-Unified interface for working with various vector storage backends through Semantic Kernel's VectorStoreCollection abstractions. Supports PostgreSQL (pgvector), Azure AI Search, Qdrant, Weaviate, ChromaDB, FAISS, Pinecone, and more.
+Unified interface for working with various vector storage backends through vector store connectors (PostgreSQL/pgvector, Azure AI Search, Qdrant, Weaviate, ChromaDB, FAISS, Pinecone, …).
 
 ## `ChromaConnectionParams`
 

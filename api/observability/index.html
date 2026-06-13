@@ -534,14 +534,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guides/semantic-kernel-backend/" class="md-nav__link">
+      <a href="../../guides/openai-backend/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -931,7 +931,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -2118,34 +2118,6 @@
     
   
     PDF Processor
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
   
 
     
@@ -3917,7 +3889,13 @@ context = initialize_observability(config, agent_name="my-agent")</p>
 <span class="normal">348</span>
 <span class="normal">349</span>
 <span class="normal">350</span>
-<span class="normal">351</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize_observability</span><span class="p">(</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize_observability</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">ObservabilityConfig</span><span class="p">,</span>
     <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -3986,10 +3964,16 @@ context = initialize_observability(config, agent_name="my-agent")</p>
 
     <span class="c1"># 8. Enable Semantic Kernel telemetry (GenAI semantic conventions)</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.observability.instrumentation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">enable_litellm_telemetry</span><span class="p">,</span>
         <span class="n">enable_semantic_kernel_telemetry</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">enable_semantic_kernel_telemetry</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># 9. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).</span>
+    <span class="c1"># Must run after set_up_tracing so the callback reuses the global</span>
+    <span class="c1"># tracer provider (and its RedactingSpanProcessor).</span>
+    <span class="n">enable_litellm_telemetry</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">_observability_context</span>
 </code></pre></div></td></tr></table></div>
@@ -4055,13 +4039,7 @@ Blocks until all pending spans/metrics are flushed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">354</span>
-<span class="normal">355</span>
-<span class="normal">356</span>
-<span class="normal">357</span>
-<span class="normal">358</span>
-<span class="normal">359</span>
-<span class="normal">360</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">360</span>
 <span class="normal">361</span>
 <span class="normal">362</span>
 <span class="normal">363</span>
@@ -4087,7 +4065,13 @@ Blocks until all pending spans/metrics are flushed.</p>
 <span class="normal">383</span>
 <span class="normal">384</span>
 <span class="normal">385</span>
-<span class="normal">386</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">shutdown_observability</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">ObservabilityContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">shutdown_observability</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">ObservabilityContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Flush pending telemetry and shutdown providers.</span>
 
 <span class="sd">    Args:</span>
@@ -4209,13 +4193,7 @@ with tracer.start_as_current_span("my-operation"):
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">389</span>
-<span class="normal">390</span>
-<span class="normal">391</span>
-<span class="normal">392</span>
-<span class="normal">393</span>
-<span class="normal">394</span>
-<span class="normal">395</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">395</span>
 <span class="normal">396</span>
 <span class="normal">397</span>
 <span class="normal">398</span>
@@ -4223,7 +4201,13 @@ with tracer.start_as_current_span("my-operation"):
 <span class="normal">400</span>
 <span class="normal">401</span>
 <span class="normal">402</span>
-<span class="normal">403</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_tracer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tracer</span><span class="p">:</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_tracer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tracer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get an OpenTelemetry tracer instance.</span>
 
 <span class="sd">    Args:</span>
@@ -4327,13 +4311,7 @@ counter.add(1)</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
-<span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">412</span>
 <span class="normal">413</span>
 <span class="normal">414</span>
 <span class="normal">415</span>
@@ -4341,7 +4319,13 @@ counter.add(1)</p>
 <span class="normal">417</span>
 <span class="normal">418</span>
 <span class="normal">419</span>
-<span class="normal">420</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_meter</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Meter</span><span class="p">:</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_meter</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Meter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get an OpenTelemetry meter instance.</span>
 
 <span class="sd">    Args:</span>
@@ -4385,18 +4369,18 @@ required.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span>
-<span class="normal">426</span>
-<span class="normal">427</span>
-<span class="normal">428</span>
-<span class="normal">429</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">429</span>
 <span class="normal">430</span>
 <span class="normal">431</span>
 <span class="normal">432</span>
 <span class="normal">433</span>
-<span class="normal">434</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_observability_context</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ObservabilityContext</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_observability_context</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ObservabilityContext</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the current ObservabilityContext, or None if not initialized.</span>
 
 <span class="sd">    Thread-safety note: This accessor reads module-level state that is set</span>
@@ -5884,7 +5868,13 @@ context = initialize_observability(config, agent_name="my-agent")</p>
 <span class="normal">348</span>
 <span class="normal">349</span>
 <span class="normal">350</span>
-<span class="normal">351</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize_observability</span><span class="p">(</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize_observability</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">ObservabilityConfig</span><span class="p">,</span>
     <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -5953,10 +5943,16 @@ context = initialize_observability(config, agent_name="my-agent")</p>
 
     <span class="c1"># 8. Enable Semantic Kernel telemetry (GenAI semantic conventions)</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.observability.instrumentation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">enable_litellm_telemetry</span><span class="p">,</span>
         <span class="n">enable_semantic_kernel_telemetry</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">enable_semantic_kernel_telemetry</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># 9. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).</span>
+    <span class="c1"># Must run after set_up_tracing so the callback reuses the global</span>
+    <span class="c1"># tracer provider (and its RedactingSpanProcessor).</span>
+    <span class="n">enable_litellm_telemetry</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">_observability_context</span>
 </code></pre></div></td></tr></table></div>
@@ -6022,13 +6018,7 @@ Blocks until all pending spans/metrics are flushed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">354</span>
-<span class="normal">355</span>
-<span class="normal">356</span>
-<span class="normal">357</span>
-<span class="normal">358</span>
-<span class="normal">359</span>
-<span class="normal">360</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">360</span>
 <span class="normal">361</span>
 <span class="normal">362</span>
 <span class="normal">363</span>
@@ -6054,7 +6044,13 @@ Blocks until all pending spans/metrics are flushed.</p>
 <span class="normal">383</span>
 <span class="normal">384</span>
 <span class="normal">385</span>
-<span class="normal">386</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">shutdown_observability</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">ObservabilityContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">shutdown_observability</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">ObservabilityContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Flush pending telemetry and shutdown providers.</span>
 
 <span class="sd">    Args:</span>
@@ -6176,13 +6172,7 @@ with tracer.start_as_current_span("my-operation"):
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">389</span>
-<span class="normal">390</span>
-<span class="normal">391</span>
-<span class="normal">392</span>
-<span class="normal">393</span>
-<span class="normal">394</span>
-<span class="normal">395</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">395</span>
 <span class="normal">396</span>
 <span class="normal">397</span>
 <span class="normal">398</span>
@@ -6190,7 +6180,13 @@ with tracer.start_as_current_span("my-operation"):
 <span class="normal">400</span>
 <span class="normal">401</span>
 <span class="normal">402</span>
-<span class="normal">403</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_tracer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tracer</span><span class="p">:</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_tracer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tracer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get an OpenTelemetry tracer instance.</span>
 
 <span class="sd">    Args:</span>
@@ -6294,13 +6290,7 @@ counter.add(1)</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
-<span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">412</span>
 <span class="normal">413</span>
 <span class="normal">414</span>
 <span class="normal">415</span>
@@ -6308,7 +6298,13 @@ counter.add(1)</p>
 <span class="normal">417</span>
 <span class="normal">418</span>
 <span class="normal">419</span>
-<span class="normal">420</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_meter</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Meter</span><span class="p">:</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_meter</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Meter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get an OpenTelemetry meter instance.</span>
 
 <span class="sd">    Args:</span>
@@ -6352,18 +6348,18 @@ required.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/holodeck/lib/observability/providers.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span>
-<span class="normal">426</span>
-<span class="normal">427</span>
-<span class="normal">428</span>
-<span class="normal">429</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">429</span>
 <span class="normal">430</span>
 <span class="normal">431</span>
 <span class="normal">432</span>
 <span class="normal">433</span>
-<span class="normal">434</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_observability_context</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ObservabilityContext</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_observability_context</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ObservabilityContext</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the current ObservabilityContext, or None if not initialized.</span>
 
 <span class="sd">    Thread-safety note: This accessor reads module-level state that is set</span>
@@ -6818,8 +6814,10 @@ The serve command enables console exporter by default for server logging.</p>
 
 </div><hr />
 <h2 id="instrumentation-instrumentation">Instrumentation (<code>instrumentation</code>)<a class="headerlink" href="#instrumentation-instrumentation" title="Permanent link">&para;</a></h2>
-<p>Semantic Kernel telemetry integration. Sets the environment variables that
-Semantic Kernel reads at startup to emit GenAI semantic convention spans.</p>
+<p>Wires up the internal instrumentation layer so it emits GenAI
+semantic-convention spans. Sets the environment variables that the underlying
+connector library reads at startup to turn on diagnostic and
+sensitive-content tracing.</p>
 
 
 <div class="doc doc-object doc-function">

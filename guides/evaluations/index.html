@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#evaluations-guide" class="md-skip">
+        <a href="#evaluations" class="md-skip">
           Skip to content
         </a>
       
@@ -536,14 +536,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../semantic-kernel-backend/" class="md-nav__link">
+      <a href="../openai-backend/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -708,10 +708,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Quick start
       
     </span>
   </a>
@@ -719,10 +719,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-structure" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic Structure
+        How it works
       
     </span>
   </a>
@@ -730,22 +730,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-levels" class="md-nav__link">
+  <a href="#choosing-a-metric" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Levels
+        Choosing a metric
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuration Levels">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deterministic-nlp-metrics-type-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deterministic &amp; NLP metrics (type: standard)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deterministic &amp; NLP metrics (type: standard)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#level-1-per-metric-override-highest-priority" class="md-nav__link">
+  <a href="#numeric" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Level 1: Per-Metric Override (Highest Priority)
+        Numeric
       
     </span>
   </a>
@@ -753,10 +764,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#level-2-evaluation-wide-model" class="md-nav__link">
+  <a href="#equality" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Level 2: Evaluation-Wide Model
+        Equality
       
     </span>
   </a>
@@ -764,10 +775,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#level-3-agent-model-lowest-priority" class="md-nav__link">
+  <a href="#nlp-overlap-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Level 3: Agent Model (Lowest Priority)
+        NLP overlap metrics
       
     </span>
   </a>
@@ -780,108 +791,25 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deepeval-metrics-recommended" class="md-nav__link">
+  <a href="#deepeval-metrics-type-geval-type-rag" class="md-nav__link">
     <span class="md-ellipsis">
       
-        DeepEval Metrics (Recommended)
+        DeepEval metrics (type: geval, type: rag)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="DeepEval Metrics (Recommended)">
+    <nav class="md-nav" aria-label="DeepEval metrics (type: geval, type: rag)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-deepeval" class="md-nav__link">
+  <a href="#geval-custom-criteria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why DeepEval?
+        GEval — custom criteria
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#supported-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported Providers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geval-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GEval Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="GEval Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geval-configuration-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GEval Configuration Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#evaluation-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Evaluation Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geval-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GEval Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -889,140 +817,7 @@
   <a href="#rag-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RAG Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="RAG Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#available-rag-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available RAG Metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basic-configuration_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-configuration_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rag-metric-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RAG Metric Details
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#nlp-deterministic-metrics-standard" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NLP &amp; Deterministic Metrics (Standard)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="NLP &amp; Deterministic Metrics (Standard)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#f1-score" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        F1 Score
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bleu-bilingual-evaluation-understudy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        BLEU (Bilingual Evaluation Understudy)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rouge-recall-oriented-understudy-for-gisting-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ROUGE (Recall-Oriented Understudy for Gisting Evaluation)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#meteor-metric-for-evaluation-of-translation-with-explicit-ordering" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        METEOR (Metric for Evaluation of Translation with Explicit Ordering)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#equality-deterministic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Equality (Deterministic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#numeric-deterministic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Numeric (Deterministic)
+        RAG metrics
       
     </span>
   </a>
@@ -1035,38 +830,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-graders" class="md-nav__link">
+  <a href="#code-graders-type-code" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Code Graders
+        Code graders (type: code)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Graders">
+    <nav class="md-nav" aria-label="Code graders (type: code)">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to use
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#yaml-schema" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        YAML schema
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#grader-contract" class="md-nav__link">
@@ -1080,10 +853,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#minimal-example" class="md-nav__link">
+  <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Minimal example
+        Example
       
     </span>
   </a>
@@ -1096,177 +869,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#legacy-ai-metrics-deprecated" class="md-nav__link">
+  <a href="#test-cases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Legacy AI Metrics (Deprecated)
+        Test cases
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Legacy AI Metrics (Deprecated)">
+    <nav class="md-nav" aria-label="Test cases">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#groundedness-deprecated" class="md-nav__link">
+  <a href="#per-test-case-metric-overrides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Groundedness (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#relevance-deprecated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relevance (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#coherence-deprecated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coherence (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#safety-deprecated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Safety (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metric-configuration-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metric Configuration Options
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Metric Configuration Options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Threshold
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enabled" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enabled
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fail-on-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fail on Error
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Complete Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-deepeval-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic DeepEval Setup
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rag-pipeline-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RAG Pipeline Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mixed-metrics-deepeval-nlp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mixed Metrics (DeepEval + NLP)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enterprise-setup-with-model-overrides" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enterprise Setup with Model Overrides
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#per-test-case-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Per-Test Case Evaluation
+        Per-test-case metric overrides
       
     </span>
   </a>
@@ -1277,7 +895,7 @@
   <a href="#multi-turn-test-cases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Multi-Turn Test Cases
+        Multi-turn test cases
       
     </span>
   </a>
@@ -1288,7 +906,7 @@
   <a href="#external-test-case-files-test_cases_file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        External Test-Case Files (test_cases_file)
+        External test-case files (test_cases_file)
       
     </span>
   </a>
@@ -1297,6 +915,56 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-model-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation model configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation model configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-options-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric options reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-ai-metrics-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy AI metrics (deprecated)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1304,116 +972,10 @@
   <a href="#test-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Execution
+        Test execution
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Test Execution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example Output
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cost-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cost Optimization
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Cost Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#use-local-models-for-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use Local Models for Development
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-paid-models-only-for-critical-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use Paid Models Only for Critical Metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-nlp-metrics-when-possible" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use NLP Metrics When Possible
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#model-configuration-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Model Configuration Details
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Model Configuration Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#provider-specific-models" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider-Specific Models
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#recommended-settings-for-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Settings for Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1426,96 +988,13 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#error-invalid-metric-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error: "invalid metric type"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#metric-always-fails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metric always fails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#llm-evaluation-too-slow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LLM evaluation too slow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#inconsistent-evaluation-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inconsistent evaluation results
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rag-metric-missing-retrieval_context" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RAG metric missing retrieval_context
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optimizing-agents-holodeck-test-optimize" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optimizing Agents (holodeck test optimize)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Best Practices
-      
-    </span>
-  </a>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Steps
+        Next steps
       
     </span>
   </a>
@@ -1795,7 +1274,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -2234,34 +1713,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/utilities/" class="md-nav__link">
         
   
@@ -2427,10 +1878,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Quick start
       
     </span>
   </a>
@@ -2438,10 +1889,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-structure" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic Structure
+        How it works
       
     </span>
   </a>
@@ -2449,22 +1900,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-levels" class="md-nav__link">
+  <a href="#choosing-a-metric" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Levels
+        Choosing a metric
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuration Levels">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deterministic-nlp-metrics-type-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deterministic &amp; NLP metrics (type: standard)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deterministic &amp; NLP metrics (type: standard)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#level-1-per-metric-override-highest-priority" class="md-nav__link">
+  <a href="#numeric" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Level 1: Per-Metric Override (Highest Priority)
+        Numeric
       
     </span>
   </a>
@@ -2472,10 +1934,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#level-2-evaluation-wide-model" class="md-nav__link">
+  <a href="#equality" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Level 2: Evaluation-Wide Model
+        Equality
       
     </span>
   </a>
@@ -2483,10 +1945,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#level-3-agent-model-lowest-priority" class="md-nav__link">
+  <a href="#nlp-overlap-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Level 3: Agent Model (Lowest Priority)
+        NLP overlap metrics
       
     </span>
   </a>
@@ -2499,108 +1961,25 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deepeval-metrics-recommended" class="md-nav__link">
+  <a href="#deepeval-metrics-type-geval-type-rag" class="md-nav__link">
     <span class="md-ellipsis">
       
-        DeepEval Metrics (Recommended)
+        DeepEval metrics (type: geval, type: rag)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="DeepEval Metrics (Recommended)">
+    <nav class="md-nav" aria-label="DeepEval metrics (type: geval, type: rag)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-deepeval" class="md-nav__link">
+  <a href="#geval-custom-criteria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why DeepEval?
+        GEval — custom criteria
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#supported-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported Providers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geval-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GEval Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="GEval Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geval-configuration-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GEval Configuration Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#evaluation-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Evaluation Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geval-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GEval Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2608,140 +1987,7 @@
   <a href="#rag-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RAG Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="RAG Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#available-rag-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available RAG Metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basic-configuration_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-configuration_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rag-metric-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RAG Metric Details
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#nlp-deterministic-metrics-standard" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NLP &amp; Deterministic Metrics (Standard)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="NLP &amp; Deterministic Metrics (Standard)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#f1-score" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        F1 Score
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bleu-bilingual-evaluation-understudy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        BLEU (Bilingual Evaluation Understudy)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rouge-recall-oriented-understudy-for-gisting-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ROUGE (Recall-Oriented Understudy for Gisting Evaluation)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#meteor-metric-for-evaluation-of-translation-with-explicit-ordering" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        METEOR (Metric for Evaluation of Translation with Explicit Ordering)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#equality-deterministic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Equality (Deterministic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#numeric-deterministic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Numeric (Deterministic)
+        RAG metrics
       
     </span>
   </a>
@@ -2754,38 +2000,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-graders" class="md-nav__link">
+  <a href="#code-graders-type-code" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Code Graders
+        Code graders (type: code)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Graders">
+    <nav class="md-nav" aria-label="Code graders (type: code)">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to use
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#yaml-schema" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        YAML schema
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#grader-contract" class="md-nav__link">
@@ -2799,10 +2023,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#minimal-example" class="md-nav__link">
+  <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Minimal example
+        Example
       
     </span>
   </a>
@@ -2815,177 +2039,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#legacy-ai-metrics-deprecated" class="md-nav__link">
+  <a href="#test-cases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Legacy AI Metrics (Deprecated)
+        Test cases
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Legacy AI Metrics (Deprecated)">
+    <nav class="md-nav" aria-label="Test cases">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#groundedness-deprecated" class="md-nav__link">
+  <a href="#per-test-case-metric-overrides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Groundedness (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#relevance-deprecated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relevance (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#coherence-deprecated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coherence (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#safety-deprecated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Safety (Deprecated)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metric-configuration-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metric Configuration Options
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Metric Configuration Options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Threshold
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enabled" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enabled
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fail-on-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fail on Error
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Complete Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-deepeval-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic DeepEval Setup
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rag-pipeline-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RAG Pipeline Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mixed-metrics-deepeval-nlp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mixed Metrics (DeepEval + NLP)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enterprise-setup-with-model-overrides" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enterprise Setup with Model Overrides
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#per-test-case-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Per-Test Case Evaluation
+        Per-test-case metric overrides
       
     </span>
   </a>
@@ -2996,7 +2065,7 @@
   <a href="#multi-turn-test-cases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Multi-Turn Test Cases
+        Multi-turn test cases
       
     </span>
   </a>
@@ -3007,7 +2076,7 @@
   <a href="#external-test-case-files-test_cases_file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        External Test-Case Files (test_cases_file)
+        External test-case files (test_cases_file)
       
     </span>
   </a>
@@ -3016,6 +2085,56 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-model-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation model configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation model configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-options-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric options reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-ai-metrics-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy AI metrics (deprecated)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3023,116 +2142,10 @@
   <a href="#test-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Execution
+        Test execution
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Test Execution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example Output
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cost-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cost Optimization
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Cost Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#use-local-models-for-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use Local Models for Development
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-paid-models-only-for-critical-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use Paid Models Only for Critical Metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-nlp-metrics-when-possible" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use NLP Metrics When Possible
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#model-configuration-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Model Configuration Details
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Model Configuration Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#provider-specific-models" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider-Specific Models
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#recommended-settings-for-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Settings for Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3145,96 +2158,13 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#error-invalid-metric-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error: "invalid metric type"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#metric-always-fails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metric always fails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#llm-evaluation-too-slow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LLM evaluation too slow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#inconsistent-evaluation-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inconsistent evaluation results
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rag-metric-missing-retrieval_context" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RAG metric missing retrieval_context
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optimizing-agents-holodeck-test-optimize" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optimizing Agents (holodeck test optimize)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Best Practices
-      
-    </span>
-  </a>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Steps
+        Next steps
       
     </span>
   </a>
@@ -3261,467 +2191,88 @@
   
 
 
-<h1 id="evaluations-guide">Evaluations Guide<a class="headerlink" href="#evaluations-guide" title="Permanent link">&para;</a></h1>
-<p>This guide explains HoloDeck's evaluation system for measuring agent quality.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Evaluations measure how well your agent performs. You define metrics in <code>agent.yaml</code> to automatically grade agent responses against test cases.</p>
-<p>HoloDeck supports four categories of metrics (in order of recommendation):</p>
-<ol>
-<li><strong>DeepEval Metrics (Recommended)</strong> - LLM-as-a-judge with custom criteria (GEval) and RAG-specific metrics</li>
-<li><strong>Code Graders</strong> - User-supplied Python callables that score per-turn behavior with full access to tool calls</li>
-<li><strong>NLP &amp; Deterministic Metrics (Standard)</strong> - Text comparison algorithms (F1, BLEU, ROUGE, METEOR) and zero-LLM evaluators (equality, numeric)</li>
-<li><strong>Legacy AI Metrics (Deprecated)</strong> - Azure AI-based metrics (groundedness, relevance, coherence, safety)</li>
-</ol>
-<h2 id="basic-structure">Basic Structure<a class="headerlink" href="#basic-structure" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">      </span><span class="c1"># Optional: Default LLM for evaluation</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span><span class="w">    </span><span class="c1"># Required: Metrics to compute</span>
-<span class="w">    </span><span class="c1"># DeepEval GEval metric (recommended)</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Response</span><span class="nv"> </span><span class="s">Quality&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">accurate&quot;</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-
-<span class="w">    </span><span class="c1"># DeepEval RAG metric</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-<h2 id="configuration-levels">Configuration Levels<a class="headerlink" href="#configuration-levels" title="Permanent link">&para;</a></h2>
-<p>Model configuration for evaluations works at three levels (priority order):</p>
-<h3 id="level-1-per-metric-override-highest-priority">Level 1: Per-Metric Override (Highest Priority)<a class="headerlink" href="#level-1-per-metric-override-highest-priority" title="Permanent link">&para;</a></h3>
-<p>Override model for a specific metric:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Critical</span><span class="nv"> </span><span class="s">Metric&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w">                    </span><span class="c1"># Uses this model for this metric only</span>
-<span class="w">        </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
-</code></pre></div>
-<h3 id="level-2-evaluation-wide-model">Level 2: Evaluation-Wide Model<a class="headerlink" href="#level-2-evaluation-wide-model" title="Permanent link">&para;</a></h3>
-<p>Default for all metrics without override:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">                        </span><span class="c1"># Uses for all metrics</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-<span class="w">      </span><span class="c1"># Uses evaluation.model above</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">      </span><span class="c1"># Also uses evaluation.model above</span>
-</code></pre></div>
-<h3 id="level-3-agent-model-lowest-priority">Level 3: Agent Model (Lowest Priority)<a class="headerlink" href="#level-3-agent-model-lowest-priority" title="Permanent link">&para;</a></h3>
-<p>Used if neither Level 1 nor Level 2 specified:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w">                          </span><span class="c1"># Agent&#39;s main model</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-
+<h1 id="evaluations">Evaluations<a class="headerlink" href="#evaluations" title="Permanent link">&para;</a></h1>
+<p>HoloDeck grades your agent automatically: you declare <strong>metrics</strong> in <code>agent.yaml</code>, attach <strong>test cases</strong>, and run <code>holodeck test run</code>. Each metric scores the agent's response (0.0–1.0) and passes or fails against a threshold.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Add one deterministic <code>numeric</code> metric and one test case to <code>agent.yaml</code>, then run the suite. This case asserts the agent returns <code>60.94</code> within a 1% relative tolerance:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
 <span class="nt">evaluations</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quality&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-<span class="w">      </span><span class="c1"># Falls back to agent.model above</span>
-</code></pre></div>
-<hr />
-<h2 id="deepeval-metrics-recommended">DeepEval Metrics (Recommended)<a class="headerlink" href="#deepeval-metrics-recommended" title="Permanent link">&para;</a></h2>
-<p>DeepEval provides powerful LLM-as-a-judge evaluation with two metric types:</p>
-<ul>
-<li><strong>GEval</strong>: Custom criteria evaluation using chain-of-thought prompting</li>
-<li><strong>RAG Metrics</strong>: Specialized metrics for retrieval-augmented generation pipelines</li>
-</ul>
-<h3 id="why-deepeval">Why DeepEval?<a class="headerlink" href="#why-deepeval" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Flexible</strong>: Define custom evaluation criteria in natural language</li>
-<li><strong>Local Models</strong>: Works with Ollama for free, local evaluation</li>
-<li><strong>RAG-Focused</strong>: Purpose-built metrics for RAG pipeline evaluation</li>
-<li><strong>Chain-of-Thought</strong>: Uses G-Eval algorithm for more accurate scoring</li>
-</ul>
-<h3 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span><span class="w">        </span><span class="c1"># Free, local inference (recommended for development)</span>
-<span class="w">  </span><span class="c1"># provider: openai      # OpenAI API</span>
-<span class="w">  </span><span class="c1"># provider: anthropic   # Anthropic API</span>
-<span class="w">  </span><span class="c1"># provider: azure_openai # Azure OpenAI</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w">        </span><span class="c1"># Use 0 for deterministic evaluation</span>
-</code></pre></div>
-<hr />
-<h3 id="geval-metrics">GEval Metrics<a class="headerlink" href="#geval-metrics" title="Permanent link">&para;</a></h3>
-<p>GEval uses the G-Eval algorithm with chain-of-thought prompting to evaluate responses against custom criteria.</p>
-<h4 id="basic-configuration">Basic Configuration<a class="headerlink" href="#basic-configuration" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">clear,</span><span class="nv"> </span><span class="s">well-structured,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">easy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">understand.&quot;</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-<h4 id="full-configuration">Full Configuration<a class="headerlink" href="#full-configuration" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Technical</span><span class="nv"> </span><span class="s">Accuracy&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">    </span><span class="no">Evaluate whether the response provides accurate technical information</span>
-<span class="w">    </span><span class="no">that correctly addresses the user&#39;s question.</span>
-<span class="w">  </span><span class="nt">evaluation_steps</span><span class="p">:</span><span class="w">              </span><span class="c1"># Optional: Auto-generated if omitted</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Check</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">directly</span><span class="nv"> </span><span class="s">addresses</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">user&#39;s</span><span class="nv"> </span><span class="s">question&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Verify</span><span class="nv"> </span><span class="s">technical</span><span class="nv"> </span><span class="s">accuracy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">any</span><span class="nv"> </span><span class="s">code</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">commands</span><span class="nv"> </span><span class="s">provided&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Ensure</span><span class="nv"> </span><span class="s">explanations</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">correct</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">misleading&quot;</span>
-<span class="w">  </span><span class="nt">evaluation_params</span><span class="p">:</span><span class="w">             </span><span class="c1"># Which test case fields to use</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actual_output</span><span class="w">              </span><span class="c1"># Required: Agent&#39;s response</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input</span><span class="w">                      </span><span class="c1"># Optional: User&#39;s query</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expected_output</span><span class="w">            </span><span class="c1"># Optional: Ground truth</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context</span><span class="w">                    </span><span class="c1"># Optional: Additional context</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">retrieval_context</span><span class="w">          </span><span class="c1"># Optional: Retrieved documents</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-<span class="w">  </span><span class="nt">strict_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">             </span><span class="c1"># Binary scoring (1.0 or 0.0) when true</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">fail_on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">                         </span><span class="c1"># Optional: Per-metric model override</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
-</code></pre></div>
-<h4 id="geval-configuration-options">GEval Configuration Options<a class="headerlink" href="#geval-configuration-options" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>type</code></td>
-<td>string</td>
-<td>Yes</td>
-<td>Must be <code>"geval"</code></td>
-</tr>
-<tr>
-<td><code>name</code></td>
-<td>string</td>
-<td>Yes</td>
-<td>Custom metric name (e.g., "Coherence", "Helpfulness")</td>
-</tr>
-<tr>
-<td><code>criteria</code></td>
-<td>string</td>
-<td>Yes</td>
-<td>Natural language evaluation criteria</td>
-</tr>
-<tr>
-<td><code>evaluation_steps</code></td>
-<td>list</td>
-<td>No</td>
-<td>Step-by-step evaluation instructions (auto-generated if omitted)</td>
-</tr>
-<tr>
-<td><code>evaluation_params</code></td>
-<td>list</td>
-<td>No</td>
-<td>Test case fields to use (default: <code>["actual_output"]</code>)</td>
-</tr>
-<tr>
-<td><code>threshold</code></td>
-<td>float</td>
-<td>No</td>
-<td>Minimum passing score (0-1)</td>
-</tr>
-<tr>
-<td><code>strict_mode</code></td>
-<td>bool</td>
-<td>No</td>
-<td>Binary scoring when true (default: false)</td>
-</tr>
-<tr>
-<td><code>enabled</code></td>
-<td>bool</td>
-<td>No</td>
-<td>Enable/disable metric (default: true)</td>
-</tr>
-<tr>
-<td><code>fail_on_error</code></td>
-<td>bool</td>
-<td>No</td>
-<td>Fail test on evaluation error (default: false)</td>
-</tr>
-<tr>
-<td><code>model</code></td>
-<td>object</td>
-<td>No</td>
-<td>Per-metric model override</td>
-</tr>
-</tbody>
-</table>
-<h4 id="evaluation-parameters">Evaluation Parameters<a class="headerlink" href="#evaluation-parameters" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-<th>When to Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>actual_output</code></td>
-<td>Agent's response</td>
-<td>Always (required for evaluation)</td>
-</tr>
-<tr>
-<td><code>input</code></td>
-<td>User's query/question</td>
-<td>When relevance to query matters</td>
-</tr>
-<tr>
-<td><code>expected_output</code></td>
-<td>Ground truth answer</td>
-<td>When comparing to expected response</td>
-</tr>
-<tr>
-<td><code>context</code></td>
-<td>Additional context provided</td>
-<td>When evaluating context usage</td>
-</tr>
-<tr>
-<td><code>retrieval_context</code></td>
-<td>Retrieved documents</td>
-<td>For RAG pipeline evaluation</td>
-</tr>
-</tbody>
-</table>
-<h4 id="geval-examples">GEval Examples<a class="headerlink" href="#geval-examples" title="Permanent link">&para;</a></h4>
-<p><strong>Coherence Check:</strong>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">clear,</span><span class="nv"> </span><span class="s">well-structured,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">easy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">understand.&quot;</span>
-<span class="w">  </span><span class="nt">evaluation_steps</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">uses</span><span class="nv"> </span><span class="s">clear</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">direct</span><span class="nv"> </span><span class="s">language.&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Check</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">explanation</span><span class="nv"> </span><span class="s">avoids</span><span class="nv"> </span><span class="s">jargon</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">explains</span><span class="nv"> </span><span class="s">it</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">used.&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Assess</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">complex</span><span class="nv"> </span><span class="s">ideas</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">presented</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">way</span><span class="nv"> </span><span class="s">that&#39;s</span><span class="nv"> </span><span class="s">easy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">follow.&quot;</span>
-<span class="w">  </span><span class="nt">evaluation_params</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actual_output</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div></p>
-<p><strong>Helpfulness Check:</strong>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Helpfulness&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">    </span><span class="no">Evaluate whether the response provides actionable, practical help</span>
-<span class="w">    </span><span class="no">that addresses the user&#39;s needs.</span>
-<span class="w">  </span><span class="nt">evaluation_params</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actual_output</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span>
-</code></pre></div></p>
-<p><strong>Factual Accuracy:</strong>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Factual</span><span class="nv"> </span><span class="s">Accuracy&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">    </span><span class="no">Evaluate whether the response is factually accurate when compared</span>
-<span class="w">    </span><span class="no">to the expected answer and provided context.</span>
-<span class="w">  </span><span class="nt">evaluation_params</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actual_output</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expected_output</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.85</span>
-<span class="w">  </span><span class="nt">strict_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># Binary pass/fail</span>
-</code></pre></div></p>
-<hr />
-<h3 id="rag-metrics">RAG Metrics<a class="headerlink" href="#rag-metrics" title="Permanent link">&para;</a></h3>
-<p>RAG (Retrieval-Augmented Generation) metrics evaluate the quality of responses generated using retrieved context.</p>
-<h4 id="available-rag-metrics">Available RAG Metrics<a class="headerlink" href="#available-rag-metrics" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Metric Type</th>
-<th>Purpose</th>
-<th>Required Parameters</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>faithfulness</code></td>
-<td>Detects hallucinations</td>
-<td>input, actual_output, retrieval_context</td>
-</tr>
-<tr>
-<td><code>answer_relevancy</code></td>
-<td>Response relevance to query</td>
-<td>input, actual_output</td>
-</tr>
-<tr>
-<td><code>contextual_relevancy</code></td>
-<td>Retrieved chunks relevance</td>
-<td>input, actual_output, retrieval_context</td>
-</tr>
-<tr>
-<td><code>contextual_precision</code></td>
-<td>Chunk ranking quality</td>
-<td>input, actual_output, expected_output, retrieval_context</td>
-</tr>
-<tr>
-<td><code>contextual_recall</code></td>
-<td>Retrieval completeness</td>
-<td>input, actual_output, expected_output, retrieval_context</td>
-</tr>
-</tbody>
-</table>
-<h4 id="basic-configuration_1">Basic Configuration<a class="headerlink" href="#basic-configuration_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">      </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numeric</span>
+<span class="w">      </span><span class="nt">relative_tolerance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+<span class="nt">test_cases</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Exercise</span><span class="nv"> </span><span class="s">price&quot;</span>
+<span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;What</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">weighted</span><span class="nv"> </span><span class="s">average</span><span class="nv"> </span><span class="s">exercise</span><span class="nv"> </span><span class="s">price</span><span class="nv"> </span><span class="s">per</span><span class="nv"> </span><span class="s">share</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">2007?&quot;</span>
+<span class="w">    </span><span class="nt">ground_truth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;60.94&quot;</span>
 </code></pre></div>
-<h4 id="full-configuration_1">Full Configuration<a class="headerlink" href="#full-configuration_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-<span class="w">  </span><span class="nt">include_reason</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">           </span><span class="c1"># Include reasoning in results</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">fail_on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">                         </span><span class="c1"># Optional: Per-metric model override</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>run<span class="w"> </span>agent.yaml
 </code></pre></div>
-<h4 id="rag-metric-details">RAG Metric Details<a class="headerlink" href="#rag-metric-details" title="Permanent link">&para;</a></h4>
-<p><strong>Faithfulness</strong> - Detects hallucinations by comparing response to retrieval context:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-<span class="w">  </span><span class="nt">include_reason</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code>Test: &quot;Exercise price&quot;
+Metrics:
+  ✓ numeric: 1.00 (threshold: —)
+Result: PASS
+
+1 passed, 0 failed
 </code></pre></div>
-- <strong>What it measures</strong>: Whether claims in the response are supported by retrieved documents
-- <strong>When to use</strong>: Critical for factual accuracy in RAG pipelines
-- <strong>Example</strong>: Agent says "The product costs $99" - faithfulness checks if this is in the retrieved context</p>
-<p><strong>Answer Relevancy</strong> - Measures response relevance to the query:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-- <strong>What it measures</strong>: How well the response addresses the user's question
-- <strong>When to use</strong>: General quality assurance for any agent
-- <strong>Example</strong>: User asks "How do I reset my password?" - checks if response actually explains password reset</p>
-<p><strong>Contextual Relevancy</strong> - Measures relevance of retrieved chunks:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contextual_relevancy</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span>
-</code></pre></div>
-- <strong>What it measures</strong>: Whether retrieved documents are relevant to the query
-- <strong>When to use</strong>: Diagnosing retrieval quality issues</p>
-<p><strong>Contextual Precision</strong> - Evaluates chunk ranking quality:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contextual_precision</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-</code></pre></div>
-- <strong>What it measures</strong>: Whether the most relevant chunks are ranked highest
-- <strong>When to use</strong>: Optimizing retrieval ranking algorithms</p>
-<p><strong>Contextual Recall</strong> - Measures retrieval completeness:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contextual_recall</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-- <strong>What it measures</strong>: Whether all information needed for the expected answer was retrieved
-- <strong>When to use</strong>: Ensuring comprehensive retrieval coverage</p>
-<hr />
-<h2 id="nlp-deterministic-metrics-standard">NLP &amp; Deterministic Metrics (Standard)<a class="headerlink" href="#nlp-deterministic-metrics-standard" title="Permanent link">&para;</a></h2>
-<p>Standard metrics compare the agent response to <code>ground_truth</code> (or its tokens) without an LLM call — they're fast, free, and reproducible. They split into two families:</p>
-<ul>
-<li><strong>NLP metrics</strong> — token / n-gram overlap (F1, BLEU, ROUGE, METEOR).</li>
-<li><strong>Deterministic evaluators</strong> — <code>equality</code> (string match with normalization flags) and <code>numeric</code> (tolerance-based number compare). Implemented in <code>src/holodeck/lib/evaluators/deterministic.py</code>.</li>
-</ul>
-<p>All standard metrics use <code>type: standard</code> with a <code>metric:</code> discriminator and emit <code>score</code> in the 0.0-1.0 range.</p>
-<h3 id="f1-score">F1 Score<a class="headerlink" href="#f1-score" title="Permanent link">&para;</a></h3>
-<p>Measures precision and recall of token overlap.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1_score</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-</code></pre></div>
-<p><strong>Scale</strong>: 0.0-1.0 (higher is better)</p>
-<p><strong>What it measures</strong>:
-- Token-level match with ground truth
-- Balanced precision/recall</p>
-<p><strong>When to use</strong>: When exact word matching is important</p>
-<h3 id="bleu-bilingual-evaluation-understudy">BLEU (Bilingual Evaluation Understudy)<a class="headerlink" href="#bleu-bilingual-evaluation-understudy" title="Permanent link">&para;</a></h3>
-<p>Measures n-gram overlap with reference translation.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bleu</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
-</code></pre></div>
-<p><strong>Scale</strong>: 0.0-1.0 (higher is better)</p>
-<p><strong>What it measures</strong>:
-- N-gram similarity to reference
-- Penalizes brevity</p>
-<p><strong>When to use</strong>: For translation, paraphrase evaluation</p>
-<h3 id="rouge-recall-oriented-understudy-for-gisting-evaluation">ROUGE (Recall-Oriented Understudy for Gisting Evaluation)<a class="headerlink" href="#rouge-recall-oriented-understudy-for-gisting-evaluation" title="Permanent link">&para;</a></h3>
-<p>Measures recall of n-grams with reference.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rouge</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-<p><strong>Scale</strong>: 0.0-1.0 (higher is better)</p>
-<p><strong>What it measures</strong>:
-- Recall of n-grams
-- Coverage of reference content</p>
-<p><strong>When to use</strong>: For summarization tasks</p>
-<h3 id="meteor-metric-for-evaluation-of-translation-with-explicit-ordering">METEOR (Metric for Evaluation of Translation with Explicit Ordering)<a class="headerlink" href="#meteor-metric-for-evaluation-of-translation-with-explicit-ordering" title="Permanent link">&para;</a></h3>
-<p>Similar to BLEU but with better handling of synonyms.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meteor</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.65</span>
-</code></pre></div>
-<p><strong>Scale</strong>: 0.0-1.0 (higher is better)</p>
-<p><strong>What it measures</strong>:
-- N-gram match with synonyms
-- Word order</p>
-<p><strong>When to use</strong>: For translation, paraphrase with synonyms</p>
-<h3 id="equality-deterministic">Equality (Deterministic)<a class="headerlink" href="#equality-deterministic" title="Permanent link">&para;</a></h3>
-<p>Strict string equality with optional normalization. Score is <code>1.0</code> on match, <code>0.0</code> otherwise.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">equality</span>
-<span class="w">  </span><span class="nt">case_insensitive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">strip_whitespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">strip_punctuation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-</code></pre></div>
-<p><strong>Optional flags</strong> (all default to <code>false</code>):</p>
+<p><code>numeric</code> runs locally with <strong>no LLM call</strong> — fast, free, and reproducible. Swap in <code>metric: equality</code> for exact string answers, or <code>type: geval</code> for LLM-judged quality (see below).</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>You attach <code>metrics</code> under <code>evaluations</code> and a list of <code>test_cases</code> (each with an <code>input</code> and optional <code>ground_truth</code>). When you run <code>holodeck test run agent.yaml</code>, HoloDeck invokes the agent on each test input, records its response and tool calls, then runs every enabled metric. Metrics fall into four families: <strong>deterministic / NLP</strong> (<code>type: standard</code> — no LLM, scores token overlap or compares numbers/strings), <strong>DeepEval</strong> (<code>type: geval</code> and <code>type: rag</code> — LLM-as-a-judge), <strong>code graders</strong> (<code>type: code</code> — your Python callable with full tool-call access), and <strong>legacy Azure AI</strong> metrics (deprecated). A metric <strong>passes</strong> when its score meets its <code>threshold</code>; a test case passes when all its metrics pass. The evaluation LLM (for <code>geval</code>/<code>rag</code>) is provider-agnostic — configure it via a <code>model:</code> block (see <a href="#evaluation-model-configuration">Evaluation model configuration</a>).</p>
+<h2 id="choosing-a-metric">Choosing a metric<a class="headerlink" href="#choosing-a-metric" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Flag</th>
-<th>Effect</th>
+<th>Family</th>
+<th><code>type</code></th>
+<th>LLM needed?</th>
+<th>Use for</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>case_insensitive</code></td>
-<td>Lowercase both sides before compare</td>
+<td>Deterministic</td>
+<td><code>standard</code> (<code>equality</code>, <code>numeric</code>)</td>
+<td>No</td>
+<td>Exact strings, numbers, slot-filling, classification labels</td>
 </tr>
 <tr>
-<td><code>strip_whitespace</code></td>
-<td>Collapse whitespace runs and trim before compare</td>
+<td>NLP overlap</td>
+<td><code>standard</code> (<code>f1_score</code>, <code>bleu</code>, <code>rouge</code>, <code>meteor</code>)</td>
+<td>No</td>
+<td>Token / n-gram similarity to a reference</td>
 </tr>
 <tr>
-<td><code>strip_punctuation</code></td>
-<td>Remove <code>string.punctuation</code> before compare</td>
+<td>DeepEval GEval</td>
+<td><code>geval</code></td>
+<td>Yes</td>
+<td>Custom natural-language quality criteria</td>
+</tr>
+<tr>
+<td>DeepEval RAG</td>
+<td><code>rag</code></td>
+<td>Yes</td>
+<td>Hallucination / retrieval quality in RAG pipelines</td>
+</tr>
+<tr>
+<td>Code grader</td>
+<td><code>code</code></td>
+<td>No</td>
+<td>Tool-call assertions, domain logic over tool results</td>
+</tr>
+<tr>
+<td>Legacy (deprecated)</td>
+<td><code>standard</code> (<code>groundedness</code>, etc.)</td>
+<td>Yes</td>
+<td>Migrate to <code>geval</code>/<code>rag</code> instead</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Required test-case fields</strong>: <code>ground_truth</code>.</p>
-<p><strong>When to use</strong>: Closed-form answers where the agent must return an exact token (slot-filling, classification labels, "yes"/"no", enum values). Setting an LLM <code>model</code> override on this metric is a no-op (a warning is logged).</p>
-<h3 id="numeric-deterministic">Numeric (Deterministic)<a class="headerlink" href="#numeric-deterministic" title="Permanent link">&para;</a></h3>
-<p>Number compare with absolute and/or relative tolerance. Score is <code>1.0</code> if either tolerance passes, <code>0.0</code> otherwise.</p>
+<hr />
+<h2 id="deterministic-nlp-metrics-type-standard">Deterministic &amp; NLP metrics (<code>type: standard</code>)<a class="headerlink" href="#deterministic-nlp-metrics-type-standard" title="Permanent link">&para;</a></h2>
+<p>Standard metrics compare the agent response to <code>ground_truth</code> without an LLM call. They emit a <code>score</code> in <code>0.0</code>–<code>1.0</code> and use a <code>metric:</code> discriminator. Implemented in <code>src/holodeck/lib/evaluators/deterministic.py</code>.</p>
+<h3 id="numeric">Numeric<a class="headerlink" href="#numeric" title="Permanent link">&para;</a></h3>
+<p>Number compare with absolute and/or relative tolerance. Score is <code>1.0</code> if <strong>either</strong> tolerance passes, <code>0.0</code> otherwise. Requires <code>ground_truth</code> (must parse to a number).</p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
 <span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numeric</span>
 <span class="w">  </span><span class="nt">absolute_tolerance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
@@ -3729,7 +2280,6 @@
 <span class="w">  </span><span class="nt">accept_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">accept_thousands_separators</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
-<p><strong>Optional flags</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -3757,57 +2307,158 @@
 <tr>
 <td><code>accept_thousands_separators</code></td>
 <td><code>false</code></td>
-<td>Strip <code>,</code>, <code>_</code>, and NBSP characters before parsing</td>
+<td>Strip <code>,</code>, <code>_</code>, and NBSP before parsing</td>
+</tr>
+<tr>
+<td><code>response_path</code></td>
+<td>—</td>
+<td>Extract a leaf from a JSON response envelope before parsing (e.g. <code>answer</code> for <code>{"answer": 60.94}</code>)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Required test-case fields</strong>: <code>ground_truth</code> (must parse to a number).</p>
-<p><strong>When to use</strong>: Financial / quantitative answers where the agent's reply is a number. Common pairing: enable both <code>accept_percent</code> and <code>accept_thousands_separators</code> for filings-style data (<code>"1,234.56"</code>, <code>"35.8%"</code>). See <code>sample/financial-assistant/claude/agent.yaml</code> for a working example.</p>
-<hr />
-<h2 id="code-graders">Code Graders<a class="headerlink" href="#code-graders" title="Permanent link">&para;</a></h2>
-<p>Code graders are user-supplied Python callables that score a turn's behavior. Unlike standard / DeepEval metrics — which only see the textual response — a code grader receives the full per-turn context: the input, the agent response, the ground truth, <strong>all tool invocations with their args and results</strong>, and a free-form <code>turn_config</code> payload from the test case.</p>
-<p>Code graders run in-process, so they're free, deterministic, and as fast as the user's Python.</p>
-<h3 id="when-to-use">When to use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Verifying tool-call ordering or argument shapes (e.g., "did the agent call <code>subtract(60.94, 25.14)</code>?")</li>
-<li>Domain logic that needs the actual values returned by tools (program equivalence, schema-aware diff, structured equality)</li>
-<li>Anything that doesn't reduce to a single LLM-judgeable string</li>
-</ul>
-<h3 id="yaml-schema">YAML schema<a class="headerlink" href="#yaml-schema" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code</span>
-<span class="w">  </span><span class="nt">grader</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;graders.turn_program_equivalence:turn_program_equivalence&quot;</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span><span class="w">         </span><span class="c1"># Optional — used when grader returns a bare float</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">          </span><span class="c1"># Optional — default true</span>
-<span class="w">  </span><span class="nt">fail_on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># Optional — true = grader exception fails the case</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Turn</span><span class="nv"> </span><span class="s">Program&quot;</span><span class="w">   </span><span class="c1"># Optional — defaults to the callable name</span>
+<p><strong>When to use</strong>: financial / quantitative answers. Common pairing: enable both <code>accept_percent</code> and <code>accept_thousands_separators</code> for filings-style data (<code>"1,234.56"</code>, <code>"35.8%"</code>). See <code>sample/financial-assistant/claude/agent.yaml</code> for a working example that grades the <code>answer</code> leaf of a structured-output envelope via <code>response_path</code>.</p>
+<h3 id="equality">Equality<a class="headerlink" href="#equality" title="Permanent link">&para;</a></h3>
+<p>Strict string equality with optional normalization. Score is <code>1.0</code> on match, <code>0.0</code> otherwise. Requires <code>ground_truth</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">equality</span>
+<span class="w">  </span><span class="nt">case_insensitive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">strip_whitespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">strip_punctuation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Effect (all default <code>false</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_insensitive</code></td>
+<td>Lowercase both sides before compare</td>
+</tr>
+<tr>
+<td><code>strip_whitespace</code></td>
+<td>Collapse whitespace runs and trim before compare</td>
+</tr>
+<tr>
+<td><code>strip_punctuation</code></td>
+<td>Remove <code>string.punctuation</code> before compare</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use</strong>: closed-form answers where the agent must return an exact token (slot-filling, classification labels, "yes"/"no", enum values). Setting a <code>model</code> override on this metric is a no-op (a warning is logged).</p>
+<h3 id="nlp-overlap-metrics">NLP overlap metrics<a class="headerlink" href="#nlp-overlap-metrics" title="Permanent link">&para;</a></h3>
+<p>Token / n-gram overlap against <code>ground_truth</code>. All score <code>0.0</code>–<code>1.0</code> (higher is better).</p>
+<table>
+<thead>
+<tr>
+<th><code>metric</code></th>
+<th>Measures</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>f1_score</code></td>
+<td>Token-level precision/recall balance</td>
+<td>Exact word matching matters</td>
+</tr>
+<tr>
+<td><code>bleu</code></td>
+<td>N-gram similarity; penalizes brevity</td>
+<td>Translation, paraphrase</td>
+</tr>
+<tr>
+<td><code>rouge</code></td>
+<td>Recall of n-grams; reference coverage</td>
+<td>Summarization</td>
+</tr>
+<tr>
+<td><code>meteor</code></td>
+<td>N-gram match with synonyms + word order</td>
+<td>Translation/paraphrase with synonyms</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1_score</span>
+<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+</code></pre></div>
+<hr />
+<h2 id="deepeval-metrics-type-geval-type-rag">DeepEval metrics (<code>type: geval</code>, <code>type: rag</code>)<a class="headerlink" href="#deepeval-metrics-type-geval-type-rag" title="Permanent link">&para;</a></h2>
+<p>DeepEval provides LLM-as-a-judge evaluation. It works with any configured provider (Ollama for free local eval, or OpenAI / Anthropic / Azure OpenAI). Set <code>temperature: 0.0</code> for deterministic scoring.</p>
+<h3 id="geval-custom-criteria">GEval — custom criteria<a class="headerlink" href="#geval-custom-criteria" title="Permanent link">&para;</a></h3>
+<p>GEval uses the G-Eval algorithm with chain-of-thought prompting to score responses against natural-language criteria.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Technical</span><span class="nv"> </span><span class="s">Accuracy&quot;</span>
+<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">Evaluate whether the response provides accurate technical information</span>
+<span class="w">    </span><span class="no">that correctly addresses the user&#39;s question.</span>
+<span class="w">  </span><span class="nt">evaluation_steps</span><span class="p">:</span><span class="w">              </span><span class="c1"># Optional: auto-generated if omitted</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Check</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">directly</span><span class="nv"> </span><span class="s">addresses</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">user&#39;s</span><span class="nv"> </span><span class="s">question&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Verify</span><span class="nv"> </span><span class="s">technical</span><span class="nv"> </span><span class="s">accuracy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">any</span><span class="nv"> </span><span class="s">code</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">commands</span><span class="nv"> </span><span class="s">provided&quot;</span>
+<span class="w">  </span><span class="nt">evaluation_params</span><span class="p">:</span><span class="w">             </span><span class="c1"># Which test-case fields to feed in</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actual_output</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input</span>
+<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">strict_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">             </span><span class="c1"># Binary scoring (1.0 / 0.0) when true</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">                         </span><span class="c1"># Optional per-metric model override</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+</code></pre></div>
+<p><strong>GEval config fields</strong>:</p>
 <table>
 <thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Required</th>
-<th>Notes</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>type</code></td>
-<td><code>"code"</code></td>
-<td>Yes</td>
-<td>Discriminator</td>
-</tr>
-<tr>
-<td><code>grader</code></td>
 <td>string</td>
 <td>Yes</td>
-<td><code>"module.path:callable_name"</code>. Resolved at config-load time via <code>importlib.import_module</code> + <code>getattr</code>; a missing module / attribute / non-callable raises <code>ConfigError</code> <em>before</em> any agent runs</td>
+<td><code>"geval"</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Metric name (e.g. "Coherence")</td>
+</tr>
+<tr>
+<td><code>criteria</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Natural-language evaluation criteria</td>
+</tr>
+<tr>
+<td><code>evaluation_steps</code></td>
+<td>list</td>
+<td>No</td>
+<td>Step-by-step instructions (auto-generated if omitted)</td>
+</tr>
+<tr>
+<td><code>evaluation_params</code></td>
+<td>list</td>
+<td>No</td>
+<td>Test-case fields to use (default <code>["actual_output"]</code>)</td>
 </tr>
 <tr>
 <td><code>threshold</code></td>
 <td>float</td>
 <td>No</td>
-<td>Applied when the grader returns a bare float without <code>passed=...</code></td>
+<td>Minimum passing score (0–1)</td>
+</tr>
+<tr>
+<td><code>strict_mode</code></td>
+<td>bool</td>
+<td>No</td>
+<td>Binary scoring when <code>true</code> (default <code>false</code>)</td>
 </tr>
 <tr>
 <td><code>enabled</code></td>
@@ -3819,115 +2470,122 @@
 <td><code>fail_on_error</code></td>
 <td>bool</td>
 <td>No</td>
-<td>Default <code>false</code>; if <code>true</code>, an unhandled exception inside the grader fails the whole test case</td>
+<td>Fail test on evaluation error (default <code>false</code>)</td>
 </tr>
 <tr>
-<td><code>name</code></td>
-<td>string</td>
+<td><code>model</code></td>
+<td>object</td>
 <td>No</td>
-<td>Display name in reports / dashboard; defaults to the callable name</td>
+<td>Per-metric model override</td>
 </tr>
 </tbody>
 </table>
-<p>The grader path's module must be importable from the working directory when the test is run (e.g., a <code>graders/</code> package next to <code>agent.yaml</code>).</p>
+<p><strong>Evaluation parameters</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>actual_output</code></td>
+<td>Agent's response</td>
+<td>Always (required)</td>
+</tr>
+<tr>
+<td><code>input</code></td>
+<td>User's query</td>
+<td>When relevance to query matters</td>
+</tr>
+<tr>
+<td><code>expected_output</code></td>
+<td>Ground-truth answer</td>
+<td>When comparing to expected response</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>Additional context provided</td>
+<td>When evaluating context usage</td>
+</tr>
+<tr>
+<td><code>retrieval_context</code></td>
+<td>Retrieved documents</td>
+<td>For RAG evaluation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rag-metrics">RAG metrics<a class="headerlink" href="#rag-metrics" title="Permanent link">&para;</a></h3>
+<p>RAG metrics evaluate responses generated from retrieved context.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
+<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
+<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">  </span><span class="nt">include_reason</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">           </span><span class="c1"># Include reasoning in results</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">                         </span><span class="c1"># Optional per-metric override</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th><code>metric_type</code></th>
+<th>Detects / measures</th>
+<th>Required params</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>faithfulness</code></td>
+<td>Hallucinations (claims unsupported by context)</td>
+<td>input, actual_output, retrieval_context</td>
+</tr>
+<tr>
+<td><code>answer_relevancy</code></td>
+<td>Response relevance to query</td>
+<td>input, actual_output</td>
+</tr>
+<tr>
+<td><code>contextual_relevancy</code></td>
+<td>Relevance of retrieved chunks</td>
+<td>input, actual_output, retrieval_context</td>
+</tr>
+<tr>
+<td><code>contextual_precision</code></td>
+<td>Chunk ranking quality (most-relevant ranked highest)</td>
+<td>input, actual_output, expected_output, retrieval_context</td>
+</tr>
+<tr>
+<td><code>contextual_recall</code></td>
+<td>Retrieval completeness for the expected answer</td>
+<td>input, actual_output, expected_output, retrieval_context</td>
+</tr>
+</tbody>
+</table>
+<p>The test runner automatically extracts <code>retrieval_context</code> from vectorstore tool results, or you can supply it per test case.</p>
+<hr />
+<h2 id="code-graders-type-code">Code graders (<code>type: code</code>)<a class="headerlink" href="#code-graders-type-code" title="Permanent link">&para;</a></h2>
+<p>Code graders are user-supplied Python callables that score a turn's behavior with the <strong>full per-turn context</strong>: input, response, ground truth, <strong>all tool invocations (args + results)</strong>, and a free-form <code>turn_config</code>. They run in-process — free, deterministic, and as fast as your Python.</p>
+<p><strong>When to use</strong>: verifying tool-call ordering or argument shapes, domain logic over actual tool-returned values (program equivalence, schema-aware diff), or anything that doesn't reduce to a single LLM-judgeable string.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code</span>
+<span class="w">  </span><span class="nt">grader</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;graders.exact_tool_call:called_subtract_with&quot;</span>
+<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span><span class="w">         </span><span class="c1"># Optional — used when grader returns a bare float</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">          </span><span class="c1"># Optional — default true</span>
+<span class="w">  </span><span class="nt">fail_on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># Optional — true = grader exception fails the case</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Turn</span><span class="nv"> </span><span class="s">Program&quot;</span><span class="w">   </span><span class="c1"># Optional — defaults to the callable name</span>
+</code></pre></div>
+<p>The <code>grader</code> is a <code>"module.path:callable"</code> reference resolved at config-load time (a missing module / attribute / non-callable raises <code>ConfigError</code> <em>before</em> any agent runs). The module must be importable from the working directory (e.g. a <code>graders/</code> package next to <code>agent.yaml</code>).</p>
 <h3 id="grader-contract">Grader contract<a class="headerlink" href="#grader-contract" title="Permanent link">&para;</a></h3>
-<p>A grader is any callable with this signature:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.test_runner.code_grader</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraderContext</span><span class="p">,</span> <span class="n">GraderResult</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">my_grader</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">GraderContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GraderResult</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
     <span class="o">...</span>
 </code></pre></div>
-<p><code>GraderContext</code> (frozen dataclass — <code>holodeck.lib.test_runner.code_grader.GraderContext</code>):</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>turn_input</code></td>
-<td><code>str</code></td>
-<td>The user message for this turn</td>
-</tr>
-<tr>
-<td><code>agent_response</code></td>
-<td><code>str</code></td>
-<td>What the agent said</td>
-</tr>
-<tr>
-<td><code>ground_truth</code></td>
-<td><code>str \| None</code></td>
-<td>From the turn's <code>ground_truth</code></td>
-</tr>
-<tr>
-<td><code>tool_invocations</code></td>
-<td><code>tuple[ToolInvocation, ...]</code></td>
-<td>Every tool call this turn made, in order. Immutable; each entry exposes <code>name</code>, <code>args</code>, <code>result</code>, <code>bytes</code>, <code>duration_ms</code>, <code>error</code></td>
-</tr>
-<tr>
-<td><code>retrieval_context</code></td>
-<td><code>tuple[str, ...] \| None</code></td>
-<td>Carried-over RAG context</td>
-</tr>
-<tr>
-<td><code>turn_index</code></td>
-<td><code>int</code></td>
-<td>0-based position in the conversation</td>
-</tr>
-<tr>
-<td><code>test_case_name</code></td>
-<td><code>str \| None</code></td>
-<td>The enclosing test case's <code>name</code></td>
-</tr>
-<tr>
-<td><code>turn_config</code></td>
-<td><code>dict[str, Any]</code></td>
-<td>The turn's <code>turn_config:</code> payload — your scratchpad for grader-specific keys (e.g., <code>turn_program</code>, expected counts)</td>
-</tr>
-</tbody>
-</table>
-<p><code>GraderResult</code> (frozen dataclass):</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>score</code></td>
-<td><code>float</code></td>
-<td>Normalized to <code>[0.0, 1.0]</code></td>
-</tr>
-<tr>
-<td><code>passed</code></td>
-<td><code>bool \| None</code></td>
-<td>Optional; <code>None</code> defers to <code>threshold</code> (or <code>&gt;= 0.5</code> if no threshold set)</td>
-</tr>
-<tr>
-<td><code>reason</code></td>
-<td><code>str \| None</code></td>
-<td>Surfaced in the report / dashboard</td>
-</tr>
-<tr>
-<td><code>details</code></td>
-<td><code>dict[str, Any] \| None</code></td>
-<td>Free-form payload for the dashboard's grader drilldown</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Shortcut returns</strong> (the runner normalizes them):</p>
-<ul>
-<li><code>True</code> → <code>GraderResult(score=1.0, passed=True)</code></li>
-<li><code>False</code> → <code>GraderResult(score=0.0, passed=False)</code></li>
-<li>bare <code>float</code> / <code>int</code> → <code>GraderResult(score=value, passed=None)</code> — caller derives <code>passed</code> from <code>threshold</code></li>
-</ul>
-<h3 id="minimal-example">Minimal example<a class="headerlink" href="#minimal-example" title="Permanent link">&para;</a></h3>
+<p><code>GraderContext</code> (frozen dataclass) fields: <code>turn_input</code>, <code>agent_response</code>, <code>ground_truth</code>, <code>tool_invocations</code> (immutable tuple; each exposes <code>name</code>, <code>args</code>, <code>result</code>, <code>bytes</code>, <code>duration_ms</code>, <code>error</code>), <code>retrieval_context</code>, <code>turn_index</code>, <code>test_case_name</code>, <code>turn_config</code>.</p>
+<p><code>GraderResult</code> fields: <code>score</code> (<code>float</code>, normalized to <code>[0,1]</code>), <code>passed</code> (<code>bool | None</code> — <code>None</code> defers to <code>threshold</code>, or <code>&gt;= 0.5</code> if unset), <code>reason</code> (<code>str | None</code>), <code>details</code> (<code>dict | None</code>).</p>
+<p><strong>Shortcut returns</strong>: <code>True</code> → <code>score=1.0, passed=True</code>; <code>False</code> → <code>score=0.0, passed=False</code>; bare <code>float</code>/<code>int</code> → <code>score=value, passed=None</code> (caller derives <code>passed</code> from <code>threshold</code>).</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># graders/exact_tool_call.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.test_runner.code_grader</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraderContext</span><span class="p">,</span> <span class="n">GraderResult</span>
 
@@ -3937,232 +2595,13 @@
     <span class="k">for</span> <span class="n">inv</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tool_invocations</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">inv</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;subtract&quot;</span> <span class="ow">and</span> <span class="n">inv</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_a</span> <span class="ow">and</span> <span class="n">inv</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_b</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">GraderResult</span><span class="p">(</span><span class="n">score</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;exact match&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">GraderResult</span><span class="p">(</span>
-        <span class="n">score</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-        <span class="n">passed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;no subtract(</span><span class="si">{</span><span class="n">expected_a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">expected_b</span><span class="si">}</span><span class="s2">) call observed&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">GraderResult</span><span class="p">(</span><span class="n">score</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">passed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;no matching subtract call&quot;</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># in the test case</span>
-<span class="nt">turn_config</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">expected_a</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;60.94&quot;</span>
-<span class="w">  </span><span class="nt">expected_b</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;25.14&quot;</span>
-<span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code</span>
-<span class="w">    </span><span class="nt">grader</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;graders.exact_tool_call:called_subtract_with&quot;</span>
-</code></pre></div>
-<p>A complete production-style example lives at <code>sample/financial-assistant/claude/graders/turn_program_equivalence.py</code>, which walks ConvFinQA <code>turn_program</code> strings against the actual <code>subtract</code> / <code>divide</code> tool calls.</p>
+<p>A production-style example lives at <code>sample/financial-assistant/claude/graders/turn_program_equivalence.py</code>, which walks ConvFinQA <code>turn_program</code> strings against the actual <code>subtract</code> / <code>divide</code> tool calls.</p>
 <hr />
-<h2 id="legacy-ai-metrics-deprecated">Legacy AI Metrics (Deprecated)<a class="headerlink" href="#legacy-ai-metrics-deprecated" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>DEPRECATED</strong>: Azure AI-based metrics (groundedness, relevance, coherence, safety) are deprecated and will be removed in a future version.</p>
-<p><strong>Migration Guide</strong>:
-- For custom criteria evaluation → Use <code>type: geval</code> with natural language criteria
-- For RAG hallucination detection → Use <code>type: rag</code> with <code>metric_type: faithfulness</code>
-- For relevance checking → Use <code>type: rag</code> with <code>metric_type: answer_relevancy</code></p>
-</blockquote>
-<p>These legacy metrics are still supported for backwards compatibility:</p>
-<h3 id="groundedness-deprecated">Groundedness (Deprecated)<a class="headerlink" href="#groundedness-deprecated" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># DEPRECATED - Use type: rag with metric_type: faithfulness instead</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">groundedness</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-</code></pre></div>
-<p><strong>Migration</strong>: Replace with:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-</code></pre></div></p>
-<h3 id="relevance-deprecated">Relevance (Deprecated)<a class="headerlink" href="#relevance-deprecated" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># DEPRECATED - Use type: rag with metric_type: answer_relevancy instead</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relevance</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span>
-</code></pre></div>
-<p><strong>Migration</strong>: Replace with:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span>
-</code></pre></div></p>
-<h3 id="coherence-deprecated">Coherence (Deprecated)<a class="headerlink" href="#coherence-deprecated" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># DEPRECATED - Use type: geval with custom criteria instead</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coherence</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-<p><strong>Migration</strong>: Replace with:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">clear,</span><span class="nv"> </span><span class="s">well-structured,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">easy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">understand.&quot;</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div></p>
-<h3 id="safety-deprecated">Safety (Deprecated)<a class="headerlink" href="#safety-deprecated" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># DEPRECATED - Use type: geval with custom criteria instead</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">safety</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
-</code></pre></div>
-<p><strong>Migration</strong>: Replace with:
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Safety&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">    </span><span class="no">Evaluate whether the response is safe and appropriate:</span>
-<span class="w">    </span><span class="no">- No harmful or dangerous content</span>
-<span class="w">    </span><span class="no">- No PII leakage</span>
-<span class="w">    </span><span class="no">- Appropriate tone and language</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
-</code></pre></div></p>
-<hr />
-<h2 id="metric-configuration-options">Metric Configuration Options<a class="headerlink" href="#metric-configuration-options" title="Permanent link">&para;</a></h2>
-<h3 id="threshold">Threshold<a class="headerlink" href="#threshold" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Type</strong>: Float</li>
-<li><strong>Purpose</strong>: Minimum score for test to pass</li>
-<li><strong>Scale</strong>: 0-1 for all metrics</li>
-<li><strong>Optional</strong>: Yes (default: no threshold, metric is informational)</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quality&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-</code></pre></div>
-<h3 id="enabled">Enabled<a class="headerlink" href="#enabled" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Type</strong>: Boolean</li>
-<li><strong>Default</strong>: <code>true</code></li>
-<li><strong>Purpose</strong>: Temporarily disable metric without removing it</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">  </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># Metric runs but doesn&#39;t fail test</span>
-</code></pre></div>
-<h3 id="fail-on-error">Fail on Error<a class="headerlink" href="#fail-on-error" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Type</strong>: Boolean</li>
-<li><strong>Default</strong>: <code>false</code> (soft failure)</li>
-<li><strong>Purpose</strong>: Whether to fail test if evaluation errors</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quality&quot;</span>
-<span class="w">  </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-<span class="w">  </span><span class="nt">fail_on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># Continues even if LLM evaluation fails</span>
-</code></pre></div>
-<hr />
-<h2 id="complete-examples">Complete Examples<a class="headerlink" href="#complete-examples" title="Permanent link">&para;</a></h2>
-<h3 id="basic-deepeval-setup">Basic DeepEval Setup<a class="headerlink" href="#basic-deepeval-setup" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">clear</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">well-structured.&quot;</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-<h3 id="rag-pipeline-evaluation">RAG Pipeline Evaluation<a class="headerlink" href="#rag-pipeline-evaluation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="c1"># Detect hallucinations</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.85</span>
-<span class="w">      </span><span class="nt">include_reason</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Check response relevance</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span>
-
-<span class="w">    </span><span class="c1"># Evaluate retrieval quality</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contextual_relevancy</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-
-<span class="w">    </span><span class="c1"># Check retrieval completeness</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contextual_recall</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-<h3 id="mixed-metrics-deepeval-nlp">Mixed Metrics (DeepEval + NLP)<a class="headerlink" href="#mixed-metrics-deepeval-nlp" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="c1"># DeepEval metrics (primary)</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Response</span><span class="nv"> </span><span class="s">Quality&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">accurate.&quot;</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span>
-
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
-
-<span class="w">    </span><span class="c1"># NLP metrics (secondary)</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">      </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1_score</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">      </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rouge</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
-</code></pre></div>
-<h3 id="enterprise-setup-with-model-overrides">Enterprise Setup with Model Overrides<a class="headerlink" href="#enterprise-setup-with-model-overrides" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span><span class="w">  </span><span class="c1"># Default: free, local</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="c1"># Critical metrics - use powerful model</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
-<span class="w">      </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
-
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Safety&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">safety</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">appropriateness.&quot;</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.95</span>
-<span class="w">      </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
-
-<span class="w">    </span><span class="c1"># Standard metrics - use default local model</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
-<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">clarity.&quot;</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span>
-
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-
-<span class="w">    </span><span class="c1"># NLP metrics - no LLM needed</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">      </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1_score</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-</code></pre></div>
-<h3 id="per-test-case-evaluation">Per-Test Case Evaluation<a class="headerlink" href="#per-test-case-evaluation" title="Permanent link">&para;</a></h3>
-<p>Test cases can specify which metrics to run:</p>
+<h2 id="test-cases">Test cases<a class="headerlink" href="#test-cases" title="Permanent link">&para;</a></h2>
+<h3 id="per-test-case-metric-overrides">Per-test-case metric overrides<a class="headerlink" href="#per-test-case-metric-overrides" title="Permanent link">&para;</a></h3>
+<p>A test case can specify its own <code>evaluations:</code> list, overriding the agent-wide metrics for that case:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">test_cases</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fact</span><span class="nv"> </span><span class="s">check</span><span class="nv"> </span><span class="s">test&quot;</span>
 <span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;What&#39;s</span><span class="nv"> </span><span class="s">our</span><span class="nv"> </span><span class="s">company&#39;s</span><span class="nv"> </span><span class="s">founding</span><span class="nv"> </span><span class="s">date?&quot;</span>
@@ -4175,18 +2614,9 @@
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
 <span class="w">        </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answer_relevancy</span>
 <span class="w">        </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Creative</span><span class="nv"> </span><span class="s">task&quot;</span>
-<span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">company</span><span class="nv"> </span><span class="s">tagline&quot;</span>
-<span class="w">    </span><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Creativity&quot;</span>
-<span class="w">        </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">tagline</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">creative</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">memorable.&quot;</span>
-<span class="w">        </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-<span class="w">      </span><span class="c1"># Skip faithfulness since no retrieval context</span>
 </code></pre></div>
-<h3 id="multi-turn-test-cases">Multi-Turn Test Cases<a class="headerlink" href="#multi-turn-test-cases" title="Permanent link">&para;</a></h3>
-<p>A test case is <strong>multi-turn</strong> when it carries a <code>turns:</code> list instead of a top-level <code>input</code> / <code>ground_truth</code> / <code>expected_tools</code>. Each turn drives one exchange through the same agent session, so retrieval context, conversation history, and tool state carry forward as the user would expect.</p>
+<h3 id="multi-turn-test-cases">Multi-turn test cases<a class="headerlink" href="#multi-turn-test-cases" title="Permanent link">&para;</a></h3>
+<p>A test case is <strong>multi-turn</strong> when it carries a <code>turns:</code> list instead of a top-level <code>input</code> / <code>ground_truth</code> / <code>expected_tools</code>. Each turn drives one exchange through the same agent session, so retrieval context, history, and tool state carry forward.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">test_cases</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ConvFinQA</span><span class="nv"> </span><span class="s">·</span><span class="nv"> </span><span class="s">MRO</span><span class="nv"> </span><span class="s">2007&quot;</span>
 <span class="w">    </span><span class="nt">turns</span><span class="p">:</span>
@@ -4211,7 +2641,7 @@
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code</span>
 <span class="w">            </span><span class="nt">grader</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;graders.turn_program_equivalence:turn_program_equivalence&quot;</span>
 </code></pre></div>
-<p><strong>Per-turn fields</strong> (from <code>holodeck.models.test_case.Turn</code>):</p>
+<p><strong>Per-turn fields</strong> (<code>holodeck.models.test_case.Turn</code>):</p>
 <table>
 <thead>
 <tr>
@@ -4234,7 +2664,7 @@
 <tr>
 <td><code>expected_tools</code></td>
 <td>list[str | ExpectedTool]</td>
-<td>Per-turn tool assertions; bare strings are promoted to <code>ExpectedTool(name=..., count=1)</code></td>
+<td>Per-turn tool assertions; bare strings → <code>ExpectedTool(name=..., count=1)</code></td>
 </tr>
 <tr>
 <td><code>files</code></td>
@@ -4249,7 +2679,7 @@
 <tr>
 <td><code>evaluations</code></td>
 <td>list[metric]</td>
-<td>Per-turn metric overrides — same <code>type</code> discriminators as top-level metrics (<code>standard</code> / <code>geval</code> / <code>rag</code> / <code>code</code>)</td>
+<td>Per-turn metric overrides (same <code>type</code> discriminators)</td>
 </tr>
 <tr>
 <td><code>turn_config</code></td>
@@ -4258,8 +2688,8 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Mutual exclusivity</strong>: when <code>turns:</code> is present, the top-level <code>input</code>, <code>ground_truth</code>, <code>expected_tools</code>, <code>files</code>, and <code>retrieval_context</code> keys must not be set. Pick one shape per case.</p>
-<p><strong>Argument matchers</strong> in <code>expected_tools[*].args</code> use a shape-discriminated mapping:</p>
+<p><strong>Mutual exclusivity</strong>: when <code>turns:</code> is present, the top-level <code>input</code>, <code>ground_truth</code>, <code>expected_tools</code>, <code>files</code>, and <code>retrieval_context</code> keys must not be set.</p>
+<p><strong>Argument matchers</strong> in <code>expected_tools[*].args</code>:</p>
 <table>
 <thead>
 <tr>
@@ -4286,196 +2716,167 @@
 </tr>
 </tbody>
 </table>
-<p>A bare string in <code>expected_tools</code> (e.g., <code>expected_tools: [subtract, divide]</code>) is shorthand for <code>ExpectedTool(name="…", count=1)</code> with no argument matchers.</p>
-<p>The dashboard renders multi-turn results with per-turn input / response / tool-call / metric blocks; see the Explorer view for a working example.</p>
-<h3 id="external-test-case-files-test_cases_file">External Test-Case Files (<code>test_cases_file</code>)<a class="headerlink" href="#external-test-case-files-test_cases_file" title="Permanent link">&para;</a></h3>
-<p>For large or shared test suites, lift <code>test_cases:</code> out of <code>agent.yaml</code> and reference an external file with <code>test_cases_file:</code> instead.</p>
+<h3 id="external-test-case-files-test_cases_file">External test-case files (<code>test_cases_file</code>)<a class="headerlink" href="#external-test-case-files-test_cases_file" title="Permanent link">&para;</a></h3>
+<p>For large or shared suites, lift <code>test_cases:</code> out of <code>agent.yaml</code> and reference an external file:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">financial-assistant</span>
-<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> provider</span><span class="p">:</span><span class="w"> </span><span class="nv">anthropic</span><span class="p p-Indicator">,</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">claude-sonnet-4-6</span><span class="w"> </span><span class="p p-Indicator">}</span>
-
 <span class="nt">evaluations</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
 <span class="w">      </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numeric</span>
-<span class="w">      </span><span class="nt">absolute_tolerance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
-<span class="w">      </span><span class="nt">accept_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">accept_thousands_separators</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">relative_tolerance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
 
 <span class="nt">test_cases_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/convfinqa_subset.yaml</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># data/convfinqa_subset.yaml — top-level list of cases</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Single_MRO/2007/page_134.pdf-1</span>
-<span class="w">  </span><span class="nt">turns</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-<span class="w">      </span><span class="nt">ground_truth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;60.94&quot;</span>
-<span class="w">      </span><span class="nt">turn_config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> turn_program</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;60.94&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
-</code></pre></div>
-<p>Or, for tooling that wants a wrapping document:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># data/convfinqa_subset.yaml — wrapped form</span>
-<span class="nt">test_cases</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">case-1</span>
-<span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-<span class="w">    </span><span class="nt">ground_truth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
-</code></pre></div>
-<p><strong>Resolution rules</strong> (<code>src/holodeck/config/loader.py:_resolve_test_cases_file</code>):</p>
+<p>The referenced file may be either a top-level <strong>list</strong> of cases or a <strong>dict</strong> with a <code>test_cases:</code> key. Resolution rules (<code>src/holodeck/config/loader.py:_resolve_test_cases_file</code>):</p>
 <ul>
-<li>The path is resolved relative to the directory containing <code>agent.yaml</code> (absolute paths also work).</li>
-<li>The referenced file is parsed as YAML with environment-variable substitution applied to its raw text — the same <code>${VAR}</code> expansion that runs on <code>agent.yaml</code> itself.</li>
-<li>The file's payload may be either a top-level <strong>list</strong> of test cases or a <strong>dict</strong> with a <code>test_cases:</code> key — both shapes are accepted.</li>
-<li><code>test_cases_file</code> is mutually exclusive with an inline <code>test_cases:</code> block on the same agent. Specifying both raises a <code>ConfigError</code> at load time.</li>
-<li>Missing files, parse errors, and non-list payloads also raise <code>ConfigError</code> before any test runs.</li>
+<li>Resolved relative to the directory containing <code>agent.yaml</code> (absolute paths also work).</li>
+<li>Parsed as YAML with the same <code>${VAR}</code> environment-variable substitution applied to <code>agent.yaml</code>.</li>
+<li>Mutually exclusive with an inline <code>test_cases:</code> block — specifying both raises <code>ConfigError</code> at load time.</li>
+<li>Missing files, parse errors, and non-list/dict payloads raise <code>ConfigError</code> before any test runs.</li>
 </ul>
-<p><strong>When to use</strong>:</p>
+<p><strong>When to use</strong>: large suites (hundreds of cases), generated fixtures, or sharing one corpus across multiple agent variants.</p>
+<hr />
+<h2 id="evaluation-model-configuration">Evaluation model configuration<a class="headerlink" href="#evaluation-model-configuration" title="Permanent link">&para;</a></h2>
+<p>LLM-backed metrics (<code>geval</code>, <code>rag</code>) need an evaluation model. It is <strong>provider-agnostic</strong> — configure it with the same <code>model:</code> block shape used elsewhere, at any of three levels (highest priority first):</p>
+<ol>
+<li><strong>Per-metric</strong> — a <code>model:</code> on the metric itself, used for that metric only.</li>
+<li><strong>Evaluation-wide</strong> — <code>evaluations.model</code>, the default for all metrics without an override.</li>
+<li><strong>Agent model</strong> — falls back to the agent's top-level <code>model</code> if neither above is set.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w">                          </span><span class="c1"># Level 2: default for all metrics</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span><span class="w">              </span><span class="c1"># Free local inference</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
+<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
+<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w">                      </span><span class="c1"># Level 1: override for this critical metric</span>
+<span class="w">        </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geval</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Coherence&quot;</span>
+<span class="w">      </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Evaluate</span><span class="nv"> </span><span class="s">response</span><span class="nv"> </span><span class="s">clarity.&quot;</span>
+<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.75</span><span class="w">             </span><span class="c1"># Uses the Level 2 model above</span>
+</code></pre></div>
+<p><strong>Model fields</strong>: <code>provider</code> (<code>ollama</code> / <code>openai</code> / <code>azure_openai</code> / <code>anthropic</code>) and <code>name</code> are required; <code>temperature</code> (recommend <code>0.0</code>), <code>max_tokens</code>, and <code>top_p</code> are optional. Backends route automatically: <code>openai</code> / <code>azure_openai</code> use the <a href="../openai-backend/">OpenAI Agents backend</a>; <code>anthropic</code> / <code>ollama</code> use the <a href="../claude-backend/">Claude backend</a>. The eval model is independent of which backend runs the agent.</p>
+<h3 id="cost-optimization">Cost optimization<a class="headerlink" href="#cost-optimization" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Large suites (hundreds of cases) you don't want to scroll past in <code>agent.yaml</code>.</li>
-<li>Generated fixtures (e.g., <code>scripts/convert_convfinqa.py</code> writing <code>data/convfinqa_subset.yaml</code>).</li>
-<li>Sharing one corpus across multiple agent variants — point each variant's <code>agent.yaml</code> at the same file.</li>
+<li>Default to free local Ollama; override to a paid model only for critical metrics (per-metric <code>model:</code>).</li>
+<li>Prefer deterministic / NLP <code>type: standard</code> metrics where possible — they make <strong>no LLM calls</strong> at all.</li>
+<li>For LLM metrics, a smaller model (e.g. <code>gpt-4o-mini</code>) is often enough and far cheaper than <code>gpt-4</code>.</li>
 </ul>
 <hr />
-<h2 id="test-execution">Test Execution<a class="headerlink" href="#test-execution" title="Permanent link">&para;</a></h2>
-<p>When running tests, HoloDeck:</p>
+<h2 id="metric-options-reference">Metric options reference<a class="headerlink" href="#metric-options-reference" title="Permanent link">&para;</a></h2>
+<p>These fields apply to most metric types:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>threshold</code></td>
+<td>float (0–1)</td>
+<td>none</td>
+<td>Minimum score to pass. Without it, the metric is informational.</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td>bool</td>
+<td><code>true</code></td>
+<td>Temporarily disable a metric without removing it.</td>
+</tr>
+<tr>
+<td><code>fail_on_error</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Whether an evaluation error fails the test (soft failure by default).</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>object</td>
+<td>inherited</td>
+<td>Per-metric LLM override (LLM-backed metrics only).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="legacy-ai-metrics-deprecated">Legacy AI metrics (deprecated)<a class="headerlink" href="#legacy-ai-metrics-deprecated" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Deprecated</p>
+<p>Azure AI-based metrics (<code>groundedness</code>, <code>relevance</code>, <code>coherence</code>, <code>safety</code>) are deprecated and will be removed in a future version. They remain supported for backwards compatibility only.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Legacy metric</th>
+<th>Migrate to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>groundedness</code></td>
+<td><code>type: rag</code>, <code>metric_type: faithfulness</code></td>
+</tr>
+<tr>
+<td><code>relevance</code></td>
+<td><code>type: rag</code>, <code>metric_type: answer_relevancy</code></td>
+</tr>
+<tr>
+<td><code>coherence</code></td>
+<td><code>type: geval</code> with custom <code>criteria</code></td>
+</tr>
+<tr>
+<td><code>safety</code></td>
+<td><code>type: geval</code> with safety <code>criteria</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># Before (deprecated)            # After</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type: standard                 - type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
+<span class="w">  </span><span class="nt">metric: groundedness             metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
+<span class="w">  </span><span class="nt">threshold: 0.8                   threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+</code></pre></div>
+<hr />
+<h2 id="test-execution">Test execution<a class="headerlink" href="#test-execution" title="Permanent link">&para;</a></h2>
+<p><code>holodeck test run agent.yaml</code> (or the shorthand <code>holodeck test agent.yaml</code>) for each test case:</p>
 <ol>
-<li>Executes agent with test input</li>
-<li>Records which tools were called</li>
-<li>Validates tool usage (<code>expected_tools</code>)</li>
-<li>Runs each enabled metric</li>
-<li>Compares results against thresholds</li>
-<li>Reports pass/fail per metric</li>
+<li>Executes the agent with the test input.</li>
+<li>Records which tools were called and validates them against <code>expected_tools</code>.</li>
+<li>Runs each enabled metric and compares against thresholds.</li>
+<li>Reports pass/fail per metric, then an overall <code>N passed, M failed</code> summary.</li>
 </ol>
-<h3 id="example-output">Example Output<a class="headerlink" href="#example-output" title="Permanent link">&para;</a></h3>
+<p>The command exits non-zero if any test fails (CI-friendly). Use <code>holodeck test view</code> to launch the dashboard over past runs — see the <a href="../dashboard/">Dashboard guide</a>.</p>
 <div class="highlight"><pre><span></span><code>Test: &quot;Password Reset&quot;
 Input: &quot;How do I reset my password?&quot;
 Tools called: [search_kb] ✓
 Metrics:
   ✓ Faithfulness: 0.92 (threshold: 0.8)
   ✓ Answer Relevancy: 0.88 (threshold: 0.75)
-  ✓ Coherence: 0.85 (threshold: 0.7)
   ✓ F1 Score: 0.81 (threshold: 0.7)
 Result: PASS
 </code></pre></div>
 <hr />
-<h2 id="cost-optimization">Cost Optimization<a class="headerlink" href="#cost-optimization" title="Permanent link">&para;</a></h2>
-<h3 id="use-local-models-for-development">Use Local Models for Development<a class="headerlink" href="#use-local-models-for-development" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span><span class="w">           </span><span class="c1"># Free, local</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-</code></pre></div>
-<h3 id="use-paid-models-only-for-critical-metrics">Use Paid Models Only for Critical Metrics<a class="headerlink" href="#use-paid-models-only-for-critical-metrics" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">evaluations</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span><span class="w">           </span><span class="c1"># Default: free</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rag</span>
-<span class="w">      </span><span class="nt">metric_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">faithfulness</span>
-<span class="w">      </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span><span class="w">            </span><span class="c1"># Expensive override only for critical metric</span>
-</code></pre></div>
-<h3 id="use-nlp-metrics-when-possible">Use NLP Metrics When Possible<a class="headerlink" href="#use-nlp-metrics-when-possible" title="Permanent link">&para;</a></h3>
-<p>NLP metrics are free (no LLM calls):</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1_score</span><span class="w">  </span><span class="c1"># No LLM cost</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rouge</span><span class="w">     </span><span class="c1"># No LLM cost</span>
-</code></pre></div>
-<hr />
-<h2 id="model-configuration-details">Model Configuration Details<a class="headerlink" href="#model-configuration-details" title="Permanent link">&para;</a></h2>
-<p>When specifying a model for evaluation:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama|openai|azure_openai|anthropic</span><span class="w">  </span><span class="c1"># Required</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">model-identifier</span><span class="w">                          </span><span class="c1"># Required</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0-2.0</span><span class="w">                            </span><span class="c1"># Optional (recommend 0.0 for evaluation)</span>
-<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w">                             </span><span class="c1"># Optional</span>
-<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0-1.0</span><span class="w">                                  </span><span class="c1"># Optional</span>
-</code></pre></div>
-<h3 id="provider-specific-models">Provider-Specific Models<a class="headerlink" href="#provider-specific-models" title="Permanent link">&para;</a></h3>
-<p><strong>Ollama (Recommended for Development)</strong>
-- <code>llama3.2:latest</code> - Fast, capable
-- <code>llama3.1:latest</code> - More capable
-- Any model available in your Ollama installation</p>
-<p><strong>OpenAI</strong>
-- <code>gpt-4o</code> - Latest, best quality
-- <code>gpt-4o-mini</code> - Fast, cheap
-- <code>gpt-4-turbo</code> - Previous generation</p>
-<p><strong>Azure OpenAI</strong>
-- <code>gpt-4</code> - Standard
-- <code>gpt-4-32k</code> - Extended context</p>
-<p><strong>Anthropic</strong>
-- <code>claude-3-opus</code> - Most capable
-- <code>claude-3-sonnet</code> - Balanced
-- <code>claude-3-haiku</code> - Fast, cheap</p>
-<h3 id="recommended-settings-for-evaluation">Recommended Settings for Evaluation<a class="headerlink" href="#recommended-settings-for-evaluation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2:latest</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w">  </span><span class="c1"># Deterministic for consistency</span>
-</code></pre></div>
-<hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="error-invalid-metric-type">Error: "invalid metric type"<a class="headerlink" href="#error-invalid-metric-type" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Check metric type is valid</li>
-<li>Valid types: <code>geval</code>, <code>rag</code>, <code>standard</code>, <code>code</code></li>
-<li>For standard metrics: f1_score, bleu, rouge, meteor, equality, numeric</li>
-<li>For RAG metrics: faithfulness, answer_relevancy, contextual_relevancy, contextual_precision, contextual_recall</li>
-<li>For code metrics: provide a <code>grader: "module.path:callable"</code> reference</li>
-</ul>
-<h3 id="metric-always-fails">Metric always fails<a class="headerlink" href="#metric-always-fails" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Check evaluation model is working</li>
-<li>Try without threshold first</li>
-<li>Test evaluation model manually</li>
-<li>For RAG metrics, ensure required parameters are available</li>
-</ul>
-<h3 id="llm-evaluation-too-slow">LLM evaluation too slow<a class="headerlink" href="#llm-evaluation-too-slow" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Use local Ollama model instead of API</li>
-<li>Use faster model: <code>gpt-4o-mini</code> instead of <code>gpt-4</code></li>
-<li>Use NLP metrics instead (free and fast)</li>
-</ul>
-<h3 id="inconsistent-evaluation-results">Inconsistent evaluation results<a class="headerlink" href="#inconsistent-evaluation-results" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Set temperature to 0.0 for deterministic results</li>
-<li>Use more powerful model for complex evaluations</li>
-<li>Add <code>evaluation_steps</code> to GEval for better consistency</li>
-</ul>
-<h3 id="rag-metric-missing-retrieval_context">RAG metric missing retrieval_context<a class="headerlink" href="#rag-metric-missing-retrieval_context" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Ensure your agent uses a vectorstore tool</li>
-<li>The test runner automatically extracts retrieval_context from tool results</li>
-<li>Or provide manual retrieval_context in test case</li>
-</ul>
+<p><strong>Error: "invalid metric type"</strong> — valid <code>type</code> values are <code>geval</code>, <code>rag</code>, <code>standard</code>, <code>code</code>. For <code>standard</code>: <code>f1_score</code>, <code>bleu</code>, <code>rouge</code>, <code>meteor</code>, <code>equality</code>, <code>numeric</code>. For <code>rag</code>: <code>faithfulness</code>, <code>answer_relevancy</code>, <code>contextual_relevancy</code>, <code>contextual_precision</code>, <code>contextual_recall</code>. For <code>code</code>, provide a <code>grader: "module.path:callable"</code>.</p>
+<p><strong>Metric always fails</strong> — check the evaluation model is working; try without a threshold first; for RAG metrics ensure the required parameters are available.</p>
+<p><strong>LLM evaluation too slow</strong> — use a local Ollama model, a faster model (<code>gpt-4o-mini</code>), or switch to NLP / deterministic metrics (free and fast).</p>
+<p><strong>Inconsistent evaluation results</strong> — set <code>temperature: 0.0</code>; use a more powerful model for complex criteria; add <code>evaluation_steps</code> to GEval for more stable scoring.</p>
+<p><strong>RAG metric missing <code>retrieval_context</code></strong> — ensure your agent uses a vectorstore tool (the runner auto-extracts context from tool results), or supply manual <code>retrieval_context</code> in the test case.</p>
 <hr />
-<h2 id="optimizing-agents-holodeck-test-optimize">Optimizing Agents (<code>holodeck test optimize</code>)<a class="headerlink" href="#optimizing-agents-holodeck-test-optimize" title="Permanent link">&para;</a></h2>
-<p>Once you have an evaluation suite, <code>holodeck test optimize</code> automates the
-hand-tuning loop — change a knob or instruction, re-run <code>holodeck test</code>, eyeball
-the score, repeat — as a <strong>compounding coordinate-descent optimizer</strong> that
-advances a best-candidate <code>agent.yaml</code> on every accepted improvement.</p>
-<p>See the dedicated <strong><a href="../optimizer/">Optimizer guide</a></strong> for the full reference:
-the cycle/phase/trial model, axis configuration, CLI flags, outputs, acceptance
-scoring, and observability.</p>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Start with DeepEval</strong>: Use GEval and RAG metrics as primary evaluation</li>
-<li><strong>Use Local Models</strong>: Start with Ollama for free development, upgrade for production</li>
-<li><strong>Mix Metric Types</strong>: Combine DeepEval (semantic) with NLP (keyword-based)</li>
-<li><strong>Cost-Aware</strong>: Use cheaper/local models by default, expensive models only for critical metrics</li>
-<li><strong>Realistic Thresholds</strong>: Set thresholds based on actual agent performance</li>
-<li><strong>Monitor</strong>: Run metrics on sample of tests first</li>
-<li><strong>Iterate</strong>: Adjust thresholds and metrics based on results</li>
-<li><strong>Migrate from Legacy</strong>: Replace deprecated Azure AI metrics with DeepEval equivalents</li>
-</ol>
-<hr />
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>See <a href="../agent-configuration/">Agent Configuration Guide</a> for how to set up evaluations</li>
-<li>See <a href="../examples/">Examples</a> for complete evaluation configurations</li>
-<li>See <a href="../global-config/">Global Configuration</a> for shared settings</li>
-<li>See <a href="../../api/evaluators/">API Reference</a> for evaluator class details</li>
+<li><a href="../optimizer/">Optimizer guide</a> — <code>holodeck test optimize</code> automates the tune-and-rerun loop as a coordinate-descent optimizer over your eval suite.</li>
+<li><a href="../agent-configuration/">Agent Configuration Guide</a> — full <code>agent.yaml</code> reference.</li>
+<li><a href="../dashboard/">Dashboard guide</a> — visualize eval-run history.</li>
+<li><a href="../../api/evaluators/">API Reference</a> — evaluator class details.</li>
 </ul>
 
 

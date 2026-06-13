@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://docs.useholodeck.ai/guides/semantic-kernel-backend/">
+        <link rel="canonical" href="https://docs.useholodeck.ai/guides/openai-backend/">
       
       
         <link rel="prev" href="../claude-backend/">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Semantic Kernel Backend - HoloDeck Documentation</title>
+        <title>OpenAI Backend - HoloDeck Documentation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#semantic-kernel-backend" class="md-skip">
+        <a href="#openai-backend" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Semantic Kernel Backend
+              OpenAI Backend
             
           </span>
         </div>
@@ -552,7 +552,7 @@
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -570,7 +570,7 @@
   <span class="md-ellipsis">
     
   
-    Semantic Kernel Backend
+    OpenAI Backend
   
 
     
@@ -607,155 +607,131 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-configuration" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Advanced configuration
+        How it works
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Advanced configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#provider-openai" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider: OpenAI
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-azure-openai" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider: Azure OpenAI
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Provider: Azure OpenAI">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#deployment-names" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Deployment names
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-ollama" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider: Ollama
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Provider: Ollama">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#running-ollama-as-a-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running Ollama as a service
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#context-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Context size
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backend-behaviour-vs-claude" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backend behaviour vs Claude
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-reference" class="md-nav__link">
+  <a href="#the-openai-block" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration reference
+        The openai: block
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Configuration reference">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#model-fields-per-provider" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        model.* fields per provider
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-specific-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider-specific environment variables
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations-roadmap" class="md-nav__link">
+  <a href="#reasoning-effort" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Limitations &amp; roadmap
+        Reasoning effort
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structured-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structured output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thinking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-backend-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-backend semantics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coming soon
       
     </span>
   </a>
@@ -775,10 +751,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#invalid-api-key" class="md-nav__link">
+  <a href="#missing-azure-credentials" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Invalid API key
+        Missing Azure credentials
       
     </span>
   </a>
@@ -786,10 +762,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#azure-endpoint-missing" class="md-nav__link">
+  <a href="#oneof-schema-rejected" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Azure endpoint missing
+        oneOf schema rejected
       
     </span>
   </a>
@@ -797,10 +773,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#model-deployment-not-found" class="md-nav__link">
+  <a href="#reasoning-model-sampling-params-ignored-or-erroring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Model / deployment not found
+        Reasoning-model sampling params ignored or erroring
       
     </span>
   </a>
@@ -808,43 +784,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ollama-connection-refused" class="md-nav__link">
+  <a href="#mcp-websocket-tool-skipped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ollama: connection refused
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ollama-model-not-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ollama: model not found
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rate-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rate limits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#temperature-out-of-range" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temperature out of range
+        MCP WebSocket tool skipped
       
     </span>
   </a>
@@ -1252,7 +1195,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Examples
   
 
     
@@ -1691,34 +1634,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/tool-filter/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tool Filter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/utilities/" class="md-nav__link">
         
   
@@ -1895,155 +1810,131 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-configuration" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Advanced configuration
+        How it works
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Advanced configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#provider-openai" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider: OpenAI
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-azure-openai" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider: Azure OpenAI
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Provider: Azure OpenAI">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#deployment-names" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Deployment names
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-ollama" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider: Ollama
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Provider: Ollama">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#running-ollama-as-a-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running Ollama as a service
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#context-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Context size
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backend-behaviour-vs-claude" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backend behaviour vs Claude
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-reference" class="md-nav__link">
+  <a href="#the-openai-block" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration reference
+        The openai: block
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Configuration reference">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#model-fields-per-provider" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        model.* fields per provider
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provider-specific-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Provider-specific environment variables
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations-roadmap" class="md-nav__link">
+  <a href="#reasoning-effort" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Limitations &amp; roadmap
+        Reasoning effort
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structured-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structured output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thinking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-backend-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-backend semantics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coming soon
       
     </span>
   </a>
@@ -2063,10 +1954,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#invalid-api-key" class="md-nav__link">
+  <a href="#missing-azure-credentials" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Invalid API key
+        Missing Azure credentials
       
     </span>
   </a>
@@ -2074,10 +1965,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#azure-endpoint-missing" class="md-nav__link">
+  <a href="#oneof-schema-rejected" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Azure endpoint missing
+        oneOf schema rejected
       
     </span>
   </a>
@@ -2085,10 +1976,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#model-deployment-not-found" class="md-nav__link">
+  <a href="#reasoning-model-sampling-params-ignored-or-erroring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Model / deployment not found
+        Reasoning-model sampling params ignored or erroring
       
     </span>
   </a>
@@ -2096,43 +1987,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ollama-connection-refused" class="md-nav__link">
+  <a href="#mcp-websocket-tool-skipped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ollama: connection refused
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ollama-model-not-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ollama: model not found
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rate-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rate limits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#temperature-out-of-range" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temperature out of range
+        MCP WebSocket tool skipped
       
     </span>
   </a>
@@ -2175,493 +2033,405 @@
   
 
 
-<h1 id="semantic-kernel-backend">Semantic Kernel Backend<a class="headerlink" href="#semantic-kernel-backend" title="Permanent link">&para;</a></h1>
-<p>The Semantic Kernel (SK) backend powers HoloDeck agents that run against OpenAI, Azure OpenAI, or local Ollama models. It is automatically selected for any <code>model.provider</code> other than <code>anthropic</code>.</p>
-<p>This guide is for backend-specific behaviour: per-provider setup, deployment-name mechanics, local-model nuances, and the full configuration reference. For shared concepts like tools, observability, and vector stores, see the dedicated guides for each.</p>
+<h1 id="openai-backend">OpenAI Backend<a class="headerlink" href="#openai-backend" title="Permanent link">&para;</a></h1>
+<p>The OpenAI backend runs your agent on top of the <a href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK</a> — OpenAI's native agent runtime. It is automatically selected when <code>model.provider</code> is <code>openai</code> or <code>azure_openai</code>.</p>
+<p>This guide is for backend-specific behaviour: the <code>openai:</code> configuration block, reasoning effort, budget caps, model fallback, structured output, and tracing. For shared concepts like tools, observability, and vector stores, see the dedicated guides for each. It is the sibling of the <a href="../claude-backend/">Claude Backend</a> guide.</p>
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<p>OpenAI is the most common entry point. Set an API key and point an agent at it:</p>
+<p>A minimal <code>azure_openai</code> agent with three function tools — deterministic enough to verify with <code>holodeck test</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-agent</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warehouse-agent</span>
 
 <span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
-<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-5.4</span><span class="w"> </span><span class="c1"># MUST match your Azure deployment name</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
 
 <span class="nt">instructions</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
+<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">warehouse</span><span class="nv"> </span><span class="s">assistant.</span><span class="nv"> </span><span class="s">Use</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">tools</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">answer</span><span class="nv"> </span><span class="s">stock</span><span class="nv"> </span><span class="s">questions.&quot;</span>
+
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get_inventory</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Look up catalog stock and unit price for a SKU.</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/warehouse.py</span>
+<span class="w">    </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get_inventory</span>
+
+<span class="nt">test_cases</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Single-tool</span><span class="nv"> </span><span class="s">lookup&quot;</span>
+<span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Is</span><span class="nv"> </span><span class="s">SKU</span><span class="nv"> </span><span class="s">WIDGET-1</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">stock,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">what</span><span class="nv"> </span><span class="s">does</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">cost?&quot;</span>
+<span class="w">    </span><span class="nt">expected_tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">get_inventory</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">ground_truth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;WIDGET-1</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">stock</span><span class="nv"> </span><span class="s">(120</span><span class="nv"> </span><span class="s">units)</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">$12.50</span><span class="nv"> </span><span class="s">each.&quot;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># .env</span>
-<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
+<span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://your-resource.openai.azure.com
+<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>your-azure-key
 </code></pre></div>
-<p>Verify:</p>
-<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span>chat<span class="w"> </span>agent.yaml
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>run<span class="w"> </span>agent.yaml<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span>
+<span class="c1"># =&gt; PASS  Single-tool lookup  (tool calls: get_inventory)</span>
 </code></pre></div>
-<p>For Azure OpenAI or Ollama, see the per-provider sections below.</p>
-<h2 id="advanced-configuration">Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">&para;</a></h2>
-<p>The SK backend doesn't expose a separate top-level config block — all backend behaviour is driven by the <code>model</code> settings of the active provider plus the provider's own infrastructure.</p>
-<h3 id="provider-openai">Provider: OpenAI<a class="headerlink" href="#provider-openai" title="Permanent link">&para;</a></h3>
-<p>OpenAI provides GPT-4o, GPT-4o-mini, and other models through their hosted API.</p>
-<p><strong>Prerequisites:</strong></p>
-<ol>
-<li>Create an account at <a href="https://platform.openai.com">platform.openai.com</a>.</li>
-<li>Generate an API key in the <a href="https://platform.openai.com/api-keys">API Keys section</a>.</li>
-<li>Set up billing.</li>
-</ol>
-<p><strong>Configuration:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
-<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
+<p>For plain OpenAI instead, set <code>model.provider: openai</code>, <code>name: gpt-4o-mini</code> (drop <code>endpoint</code>), and supply <code>OPENAI_API_KEY</code>.</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p><code>BackendSelector</code> routes <code>provider: openai</code> and <code>provider: azure_openai</code> to the OpenAI Agents backend; Anthropic and Ollama route to the <a href="../claude-backend/">Claude backend</a>. The backend runs the SDK <code>Runner</code> loop <strong>in-process</strong> (no per-turn subprocess), driving up to <code>openai.max_turns</code> agent iterations per call. The <code>openai</code> / <code>agents</code> SDK is imported lazily — only when an OpenAI-provider agent is actually selected — so non-OpenAI agents never pay its import cost. HoloDeck tools (function, vectorstore, hierarchical_document, MCP) are adapted onto the SDK's tool surface; structured output, budget, fallback, and tracing are layered on via the SDK's output-schema, <code>RunHooks</code>, model-wrapping, and <code>TracingProcessor</code> extension points.</p>
+<h2 id="the-openai-block">The <code>openai:</code> block<a class="headerlink" href="#the-openai-block" title="Permanent link">&para;</a></h2>
+<p>All OpenAI-specific settings live under the top-level <code>openai:</code> block in <code>agent.yaml</code>. Every field is optional.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">openai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">max_turns</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">  </span><span class="nt">effort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-agent</span>
-
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4000</span>
-
-<span class="nt">instructions</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
-</code></pre></div>
-<p><strong>Environment variables:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
-</code></pre></div>
-<p><strong>Available models:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Description</th>
-<th>Context window</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>gpt-4o</code></td>
-<td>Most capable, multimodal</td>
-<td>128K tokens</td>
-</tr>
-<tr>
-<td><code>gpt-4o-mini</code></td>
-<td>Fast and cost-effective</td>
-<td>128K tokens</td>
-</tr>
-<tr>
-<td><code>gpt-4-turbo</code></td>
-<td>Previous-generation flagship</td>
-<td>128K tokens</td>
-</tr>
-<tr>
-<td><code>gpt-3.5-turbo</code></td>
-<td>Fast, lower cost</td>
-<td>16K tokens</td>
-</tr>
-</tbody>
-</table>
-<h3 id="provider-azure-openai">Provider: Azure OpenAI<a class="headerlink" href="#provider-azure-openai" title="Permanent link">&para;</a></h3>
-<p>Azure OpenAI Service provides OpenAI models via Microsoft Azure with enterprise features.</p>
-<p><strong>Prerequisites:</strong></p>
-<ol>
-<li>Azure subscription with Azure OpenAI access.</li>
-<li>Create an Azure OpenAI resource in the <a href="https://portal.azure.com">Azure Portal</a>.</li>
-<li>Deploy a model in Azure OpenAI Studio.</li>
-<li>Note the endpoint URL and API key.</li>
-</ol>
-<p><strong>Configuration:</strong></p>
-<p>Both <code>endpoint</code> and <code>api_key</code> are required:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">azure_openai</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-deployment</span><span class="w">    </span><span class="c1"># see &quot;Deployment names&quot; below</span>
-<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_ENDPOINT}</span>
-<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
-<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enterprise-agent</span>
-
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-deployment</span>
-<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://my-resource.openai.azure.com/</span>
-
-<span class="nt">instructions</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">an</span><span class="nv"> </span><span class="s">enterprise</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
-</code></pre></div>
-<p><strong>Environment variables:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://your-resource-name.openai.azure.com/
-<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>your-api-key-here
-</code></pre></div>
-<p><strong>Endpoint format:</strong></p>
-<div class="highlight"><pre><span></span><code>https://{resource-name}.openai.azure.com/
-</code></pre></div>
-<p>Find your endpoint in: Azure Portal → Your OpenAI Resource → Keys and Endpoint, or Azure OpenAI Studio → Deployments → Your Deployment.</p>
-<h4 id="deployment-names">Deployment names<a class="headerlink" href="#deployment-names" title="Permanent link">&para;</a></h4>
-<div class="admonition warning">
-<p class="admonition-title"><code>name</code> refers to the deployment, not the base model</p>
-<p>In Azure OpenAI, the <code>name</code> field must match your <strong>deployment name</strong>, not the base model. This is different from OpenAI's API.</p>
-</div>
-<p>When you deploy a model in Azure OpenAI Studio, you create a deployment with a custom name:</p>
-<ul>
-<li><strong>Base model</strong>: <code>gpt-4o</code>, <code>gpt-4o-mini</code>, etc.</li>
-<li><strong>Deployment name</strong>: your custom identifier (e.g. <code>my-gpt4o</code>, <code>prod-gpt4</code>).</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># If your deployment is &quot;my-gpt4o-production&quot; backed by gpt-4o:</span>
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-production</span>
-<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://my-resource.openai.azure.com/</span>
-</code></pre></div>
-<p>Common mistake:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># WRONG — using the base model name</span>
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span><span class="w">    </span><span class="c1"># only works if the deployment is literally named &quot;gpt-4o&quot;</span>
-
-<span class="c1"># CORRECT — using your deployment name</span>
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-gpt4o-deployment</span>
-</code></pre></div>
-<h3 id="provider-ollama">Provider: Ollama<a class="headerlink" href="#provider-ollama" title="Permanent link">&para;</a></h3>
-<p>Ollama runs open-source LLMs locally — ideal for privacy-sensitive workloads, offline use, and avoiding API costs.</p>
-<p><strong>Prerequisites:</strong></p>
-<ol>
-<li>Install Ollama from <a href="https://ollama.com">ollama.com</a>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># macOS / Linux</span>
-curl<span class="w"> </span>-fsSL<span class="w"> </span>https://ollama.com/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-</code></pre></div>
-<ol>
-<li>Pull a model:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.2
-</code></pre></div>
-<ol>
-<li>Verify it's running:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
-</code></pre></div>
-<p><strong>Configuration:</strong></p>
-<p>Ollama requires an <code>endpoint</code> pointing to your local server:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ollama</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2</span>
-<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
-<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
-<span class="w">    </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># agent.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-agent</span>
-
-<span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.2</span>
-<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
-
-<span class="nt">instructions</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">local</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
-</code></pre></div>
-<p><strong>Environment variables:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nv">OLLAMA_ENDPOINT</span><span class="o">=</span>http://localhost:11434
-</code></pre></div>
-<p><strong>Available models</strong> (pull with <code>ollama pull &lt;model&gt;</code>):</p>
-<table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Command</th>
-<th>Description</th>
-<th>Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPT-OSS (20B)</td>
-<td><code>ollama pull gpt-oss:20b</code></td>
-<td>Recommended completion</td>
-<td>40 GB</td>
-</tr>
-<tr>
-<td>Nomic Embed Text</td>
-<td><code>ollama pull nomic-embed-text:latest</code></td>
-<td>Recommended embeddings</td>
-<td>274 MB</td>
-</tr>
-<tr>
-<td>Llama 3.2</td>
-<td><code>ollama pull llama3.2</code></td>
-<td>Meta's latest, general</td>
-<td>2 GB</td>
-</tr>
-<tr>
-<td>Llama 3.2 (3B)</td>
-<td><code>ollama pull llama3.2:3b</code></td>
-<td>Larger Llama variant</td>
-<td>5 GB</td>
-</tr>
-<tr>
-<td>Mistral</td>
-<td><code>ollama pull mistral</code></td>
-<td>Fast and capable</td>
-<td>4 GB</td>
-</tr>
-<tr>
-<td>CodeLlama</td>
-<td><code>ollama pull codellama</code></td>
-<td>Optimised for code</td>
-<td>4 GB</td>
-</tr>
-<tr>
-<td>Phi-3</td>
-<td><code>ollama pull phi3</code></td>
-<td>Microsoft compact model</td>
-<td>2 GB</td>
-</tr>
-<tr>
-<td>Gemma 2</td>
-<td><code>ollama pull gemma2</code></td>
-<td>Google's open model</td>
-<td>5 GB</td>
-</tr>
-</tbody>
-</table>
-<h4 id="running-ollama-as-a-service">Running Ollama as a service<a class="headerlink" href="#running-ollama-as-a-service" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>serve
-</code></pre></div>
-<p>Or with Docker:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="w"> </span>ollama<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-p<span class="w"> </span><span class="m">11434</span>:11434<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span>ollama-data:/root/.ollama<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>ollama/ollama
-</code></pre></div>
-<h4 id="context-size">Context size<a class="headerlink" href="#context-size" title="Permanent link">&para;</a></h4>
-<p>For agent workloads, configure a context size of at least <strong>16k tokens</strong>. Default Ollama context windows can be small enough to clip tool outputs.</p>
-<p>Create a custom model with extended context:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; Modelfile</span>
-<span class="s">FROM gpt-oss:20b</span>
-<span class="s">PARAMETER num_ctx 16384</span>
-<span class="s">EOF</span>
-
-ollama<span class="w"> </span>create<span class="w"> </span>gpt-oss:20b-16k<span class="w"> </span>-f<span class="w"> </span>Modelfile
-</code></pre></div>
-<p>For 32k:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; Modelfile</span>
-<span class="s">FROM gpt-oss:20b</span>
-<span class="s">PARAMETER num_ctx 32768</span>
-<span class="s">EOF</span>
-
-ollama<span class="w"> </span>create<span class="w"> </span>gpt-oss:20b-32k<span class="w"> </span>-f<span class="w"> </span>Modelfile
-</code></pre></div>
-<p>Use it:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-oss:20b-16k</span>
-<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Memory pressure scales with context</p>
-<p>A 32k context with a 20B-parameter model typically requires 48 GB+ RAM or a GPU with 16 GB+ VRAM.</p>
-</div>
-<h3 id="backend-behaviour-vs-claude">Backend behaviour vs Claude<a class="headerlink" href="#backend-behaviour-vs-claude" title="Permanent link">&para;</a></h3>
-<p>The SK backend is automatically selected when <code>model.provider</code> is anything other than <code>anthropic</code>. There is no top-level <code>claude:</code> block — capabilities like permission modes, extended thinking, web search, and subagents are Claude-only and are documented in the <a href="../claude-backend/">Claude Backend</a> guide.</p>
-<h2 id="configuration-reference">Configuration reference<a class="headerlink" href="#configuration-reference" title="Permanent link">&para;</a></h2>
-<h3 id="model-fields-per-provider"><code>model.*</code> fields per provider<a class="headerlink" href="#model-fields-per-provider" title="Permanent link">&para;</a></h3>
-<p>All providers share these fields:</p>
 <table>
 <thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
-<th>Required</th>
 <th>Default</th>
-<th>Description</th>
+<th>Constraint</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>provider</code></td>
-<td>string</td>
-<td>yes</td>
-<td>-</td>
-<td><code>openai</code>, <code>azure_openai</code>, or <code>ollama</code></td>
+<td><code>max_turns</code></td>
+<td>int</td>
+<td><code>20</code></td>
+<td>≥ 1</td>
+<td>Maximum agent loop iterations passed to <code>Runner.run</code>. <strong>Shipped.</strong></td>
 </tr>
 <tr>
-<td><code>name</code></td>
-<td>string</td>
-<td>yes</td>
-<td>-</td>
-<td>Model name (deployment name for Azure)</td>
+<td><code>effort</code></td>
+<td>enum</td>
+<td>–</td>
+<td><code>low</code>|<code>medium</code>|<code>high</code>|<code>max</code></td>
+<td>Reasoning effort for reasoning models (see <a href="#reasoning-effort">Reasoning effort</a>). <strong>Shipped.</strong></td>
 </tr>
 <tr>
-<td><code>temperature</code></td>
+<td><code>max_budget_usd</code></td>
 <td>float</td>
-<td>no</td>
-<td><code>0.3</code></td>
-<td>Randomness, <code>0.0</code>–<code>2.0</code></td>
+<td>–</td>
+<td>&gt; 0</td>
+<td>Hard cap on session spend in USD (see <a href="#budget">Budget</a>). <strong>Shipped.</strong></td>
 </tr>
 <tr>
-<td><code>max_tokens</code></td>
-<td>integer</td>
-<td>no</td>
-<td><code>1000</code></td>
-<td>Maximum response tokens</td>
+<td><code>fallback_model</code></td>
+<td>str</td>
+<td>–</td>
+<td>–</td>
+<td>Model used on a retryable primary failure (see <a href="#fallback">Fallback</a>). <strong>Shipped.</strong></td>
 </tr>
 <tr>
-<td><code>top_p</code></td>
-<td>float</td>
-<td>no</td>
-<td>-</td>
-<td>Nucleus sampling, <code>0.0</code>–<code>1.0</code></td>
+<td><code>disallowed_tools</code></td>
+<td>list[str]</td>
+<td>–</td>
+<td>–</td>
+<td>Tools removed from the resolved agent at build time. <strong>Shipped.</strong></td>
 </tr>
 <tr>
-<td><code>api_key</code></td>
-<td>string</td>
-<td>varies</td>
-<td>-</td>
-<td>API key (required for OpenAI / Azure)</td>
+<td><code>session_memory_estimate_mib</code></td>
+<td>int</td>
+<td><code>100</code></td>
+<td>50–2000</td>
+<td>Estimated peak resident memory per active turn; used by <code>serve</code> to derive the concurrency cap. The backend runs in-process (no per-turn subprocess), so this is lower than the Claude default. <em>Config accepted; serve auto-sizing lands in a later release.</em></td>
 </tr>
 <tr>
-<td><code>endpoint</code></td>
-<td>string</td>
-<td>varies</td>
-<td>-</td>
-<td>Endpoint URL (required for Azure / Ollama)</td>
+<td><code>max_concurrent_sessions</code></td>
+<td>int</td>
+<td>– (derived)</td>
+<td>1–500</td>
+<td>Hard cap on concurrent active turns per serve instance. When unset, derived from the replica's memory limit ÷ <code>session_memory_estimate_mib</code>. <em>Config accepted; serve enforcement lands in a later release.</em></td>
+</tr>
+<tr>
+<td><code>permissions.allowed_tools</code></td>
+<td>list[str]</td>
+<td><code>null</code> (all)</td>
+<td>–</td>
+<td>Explicit tool allowlist. <em>Config accepted; full enforcement nuance lands in a later release — prefer <code>disallowed_tools</code> today.</em></td>
+</tr>
+<tr>
+<td><code>permissions.disallowed_tools</code></td>
+<td>list[str]</td>
+<td>–</td>
+<td>–</td>
+<td>Deny list; takes precedence over <code>allowed_tools</code>. <em>Config accepted; prefer the top-level <code>disallowed_tools</code> today.</em></td>
+</tr>
+<tr>
+<td><code>i_understand_this_is_unsafe</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>–</td>
+<td>Acknowledges that hosted tools (e.g. code interpreter) permit server-side code execution. <em>Config accepted; hosted tools are not yet shipped — see <a href="#coming-soon">Coming soon</a>.</em></td>
+</tr>
+<tr>
+<td><code>disable_default_hooks</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>–</td>
+<td>Disables HoloDeck's default credential-redaction output guardrail. <em>Config accepted; default redaction guardrails are not yet shipped, so this is currently a no-op. OTel attribute redaction runs independently and is unaffected.</em></td>
+</tr>
+<tr>
+<td><code>disable_subprocess_env_scrub</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>–</td>
+<td>Disables env scrubbing for stdio MCP servers / shelling-out function tools. <em>Config accepted; full enforcement lands in a later release.</em></td>
 </tr>
 </tbody>
 </table>
-<p>Per-provider requirements:</p>
+<div class="admonition note">
+<p class="admonition-title">Honest status labels</p>
+<p>Fields marked <em>config accepted</em> validate and load today but their runtime feature ships later. They are documented so you can author forward-compatible configs, not because the behaviour is live. The four <strong>Shipped</strong> runtime features (<code>effort</code>, <code>max_budget_usd</code>, <code>fallback_model</code>, <code>disallowed_tools</code>) plus <code>max_turns</code> are fully enforced now.</p>
+</div>
+<h2 id="reasoning-effort">Reasoning effort<a class="headerlink" href="#reasoning-effort" title="Permanent link">&para;</a></h2>
+<p><code>effort</code> requests deeper internal reasoning from reasoning models (o-series and <code>gpt-5</code>+). It only affects reasoning models; on non-reasoning models it has no effect.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">openai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">effort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+</code></pre></div>
+<p>The level maps onto the SDK's <code>ReasoningEffort</code> literal:</p>
 <table>
 <thead>
 <tr>
-<th>Provider</th>
-<th><code>api_key</code></th>
-<th><code>endpoint</code></th>
-<th>Notes</th>
+<th><code>effort</code></th>
+<th>SDK <code>ReasoningEffort</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>openai</code></td>
-<td>required</td>
-<td>-</td>
-<td>-</td>
+<td><code>low</code></td>
+<td><code>low</code></td>
 </tr>
 <tr>
-<td><code>azure_openai</code></td>
-<td>required</td>
-<td>required</td>
-<td><code>name</code> must match the deployment name, not the base model</td>
+<td><code>medium</code></td>
+<td><code>medium</code></td>
 </tr>
 <tr>
-<td><code>ollama</code></td>
-<td>-</td>
-<td>required</td>
-<td>Default endpoint <code>http://localhost:11434</code></td>
+<td><code>high</code></td>
+<td><code>high</code></td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td><code>xhigh</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="provider-specific-environment-variables">Provider-specific environment variables<a class="headerlink" href="#provider-specific-environment-variables" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Provider</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OPENAI_API_KEY</code></td>
-<td>OpenAI</td>
-<td>API authentication key</td>
-</tr>
-<tr>
-<td><code>AZURE_OPENAI_ENDPOINT</code></td>
-<td>Azure OpenAI</td>
-<td>Resource endpoint URL</td>
-</tr>
-<tr>
-<td><code>AZURE_OPENAI_API_KEY</code></td>
-<td>Azure OpenAI</td>
-<td>API authentication key</td>
-</tr>
-<tr>
-<td><code>OLLAMA_ENDPOINT</code></td>
-<td>Ollama</td>
-<td>Server endpoint (default <code>http://localhost:11434</code>)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="limitations-roadmap">Limitations &amp; roadmap<a class="headerlink" href="#limitations-roadmap" title="Permanent link">&para;</a></h2>
-<p>The SK backend currently powers <code>holodeck serve</code> and <code>holodeck deploy build</code>; the Claude backend does not yet support those commands.</p>
+<div class="admonition note">
+<p class="admonition-title"><code>max</code> → <code>xhigh</code> is an intentional deviation</p>
+<p>HoloDeck exposes <code>max</code> as the strongest level; it maps to the SDK's <code>xhigh</code> rather than a literal <code>max</code>. This is deliberate so the HoloDeck vocabulary stays stable as the SDK's effort ceiling evolves.</p>
+</div>
+<p>Setting <code>effort</code> also requests reasoning <strong>summaries</strong> (<code>summary="auto"</code>), which populate the <a href="#thinking"><code>thinking</code></a> field on the result. With <code>effort</code> unset, no summary is requested.</p>
+<h2 id="budget">Budget<a class="headerlink" href="#budget" title="Permanent link">&para;</a></h2>
+<p><code>max_budget_usd</code> caps total spend across a session. A <code>RunHooks</code> cost accountant prices every LLM response from the SDK's per-response token usage against a bundled, versioned per-model price table and accumulates the running total.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">openai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">max_budget_usd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.50</span>
+</code></pre></div>
 <ul>
-<li><a href="../serve/">Agent Server</a>: SK-only.</li>
-<li><a href="../deployment/">Deployment</a>: SK-only (containerisation).</li>
+<li>When the accumulated cost reaches the cap, the hook aborts the turn (<code>BackendBudgetExceededError</code>), and the backend surfaces it on the standard error path (<code>is_error</code> / <code>error_reason</code>) with the <strong>partial response preserved</strong> — whatever assistant text the model produced before the cap tripped.</li>
+<li>The budget is <strong>per session</strong>: one accountant is shared across every turn of a session, so the cap covers the whole conversation.</li>
+<li>An <strong>unknown model</strong> (e.g. an opaque Azure deployment name that doesn't resolve to a base model) logs a single warning and contributes no cost — enforcement is silently disabled for that model rather than crashing the run.</li>
 </ul>
-<p>Both will gain Claude support in a future release.</p>
+<h2 id="fallback">Fallback<a class="headerlink" href="#fallback" title="Permanent link">&para;</a></h2>
+<p><code>fallback_model</code> wraps the primary model so that a <strong>retryable</strong> upstream failure is re-issued <strong>once</strong> against the fallback.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">openai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fallback_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
+</code></pre></div>
+<ul>
+<li><strong>Retryable set (fixed):</strong> HTTP 429 (rate limit) and 5xx (server-side). Everything else — 400/401/403/404/422, connection/timeout errors, non-OpenAI exceptions — propagates unchanged; the fallback is never consulted.</li>
+<li><strong>Ordering:</strong> if you enable the SDK runner's own retries, the primary retries exhaust <strong>first</strong>, then exactly one fallback attempt. No double-fallback, no fallback mid-retry — the wrapper itself never retries the fallback.</li>
+<li><strong>Streaming:</strong> the wrapper falls back only if the primary stream fails <strong>before its first event</strong>. Once any event has been emitted, a later failure propagates unchanged (restarting on the fallback would replay already-delivered deltas).</li>
+<li><strong>Tracing:</strong> both the primary and the fallback attempt open their own generation span, so both are visible in the trace.</li>
+</ul>
+<p>For Azure, build the fallback as another deployment on the same endpoint/credentials.</p>
+<h2 id="structured-output">Structured output<a class="headerlink" href="#structured-output" title="Permanent link">&para;</a></h2>
+<p><code>response_format</code> constrains every final response to a JSON schema. It accepts a JSON-schema <strong>dict</strong> inline, a <strong>string</strong> path to a JSON file, or <code>None</code>. The resolved schema drives the SDK's structured-output path, and the parsed object is populated on the <code>ExecutionResult.structured_output</code> field — downstream graders <code>json.loads</code> the response.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">response_format</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">  </span><span class="nt">additionalProperties</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">answer</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">answer</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">anyOf</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Portability: use <code>anyOf</code>, never <code>oneOf</code></p>
+<p>OpenAI structured outputs <strong>reject <code>oneOf</code></strong>. Use <code>anyOf</code> instead (we hit this live against Azure OpenAI). The same <code>anyOf</code> schema also works on the <a href="../claude-backend/">Claude backend</a>, so authoring with <code>anyOf</code> keeps your schema portable across both backends.</p>
+</div>
+<p><strong>Strict mode</strong> is auto-enabled only when the schema already qualifies: a top-level <code>type: object</code> with <code>additionalProperties: false</code> and <strong>every</strong> declared property listed in <code>required</code>. HoloDeck never rewrites your schema to force strictness — if it doesn't qualify, the schema is still enforced via <code>jsonschema</code> validation, just without provider strict-mode guarantees.</p>
+<h2 id="thinking">Thinking<a class="headerlink" href="#thinking" title="Permanent link">&para;</a></h2>
+<p>The <code>thinking</code> field is populated from a reasoning model's <strong>summaries</strong>, which are only requested when <code>openai.effort</code> is set (it implies <code>summary="auto"</code>). Without <code>effort</code>, or on a non-reasoning model, <code>thinking</code> is empty.</p>
+<h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool type</th>
+<th>Behaviour on this backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>function</code></td>
+<td>Python callables (sync or async) wrapped as SDK function tools.</td>
+</tr>
+<tr>
+<td><code>vectorstore</code></td>
+<td>Wraps the tool's <code>.search()</code>; surfaced to the model as <code>{name}_search</code>. Requires an <code>embedding_provider</code>.</td>
+</tr>
+<tr>
+<td><code>hierarchical_document</code></td>
+<td>Same wrapping pattern; surfaced as <code>{name}_search</code>. Requires an <code>embedding_provider</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>{name}_search</code> naming keeps <code>disallowed_tools</code> portable across backends. For RAG configuration depth (chunking, hybrid search, databases), see <a href="../tools/">Tools</a> and <a href="../vector-stores/">Vector Stores</a> rather than duplicating it here.</p>
+<h2 id="mcp">MCP<a class="headerlink" href="#mcp" title="Permanent link">&para;</a></h2>
+<p>MCP tools map onto the SDK's MCP server classes by transport:</p>
+<table>
+<thead>
+<tr>
+<th><code>transport</code></th>
+<th>SDK server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stdio</code></td>
+<td><code>MCPServerStdio</code></td>
+</tr>
+<tr>
+<td><code>sse</code></td>
+<td><code>MCPServerSse</code></td>
+</tr>
+<tr>
+<td><code>http</code></td>
+<td><code>MCPServerStreamableHttp</code></td>
+</tr>
+<tr>
+<td><code>websocket</code></td>
+<td><strong>Skipped with a warning</strong> — the SDK has no WebSocket transport. The load does <strong>not</strong> fail.</td>
+</tr>
+</tbody>
+</table>
+<p>A per-server <code>allowed_tools</code> list becomes a static SDK tool filter (only the listed MCP tools are exposed). See <a href="../mcp-cli/">MCP CLI</a> for transport configuration.</p>
+<h2 id="tracing">Tracing<a class="headerlink" href="#tracing" title="Permanent link">&para;</a></h2>
+<p>The SDK runs its own tracing pipeline. HoloDeck installs an OTel-mirroring <code>TracingProcessor</code> that reconstructs each finished SDK span as an OTel span on HoloDeck's global tracer (carrying the redacting span processor and your configured exporters). The mirror is installed only when <code>observability.enabled</code> <strong>and</strong> <code>observability.traces.enabled</code> are both true.</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>platform.openai.com upload</th>
+<th>OTel mirror</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>provider: openai</code></td>
+<td>retained (default exporter kept)</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>provider: azure_openai</code></td>
+<td>none (mirror only)</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>observability.disable_provider_tracing: true</code> (either provider)</td>
+<td>none (mirror only)</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Sensitive data is not uploaded by default</p>
+<p>The SDK's <code>trace_include_sensitive_data</code> is bound to <code>observability.traces.capture_content</code> (default <strong>false</strong>). With the default, tool input/output is <strong>not</strong> included in uploaded spans. Set <code>capture_content: true</code> only when the data is safe to capture. See <a href="../observability/">Observability</a>.</p>
+</div>
+<h2 id="per-backend-semantics">Per-backend semantics<a class="headerlink" href="#per-backend-semantics" title="Permanent link">&para;</a></h2>
+<p>Shipped surface only, OpenAI vs Claude:</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>OpenAI</th>
+<th>Claude</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Function tools</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>RAG (vectorstore / hierarchical_document)</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>MCP stdio / sse / http</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Structured output</td>
+<td>✓ (use <code>anyOf</code>, not <code>oneOf</code>)</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Reasoning / <code>thinking</code></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>effort</code> / <code>max_budget_usd</code> / <code>fallback_model</code></td>
+<td>✓ (via <code>openai:</code>)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>holodeck chat</code> / <code>holodeck test</code></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>holodeck serve</code> / <code>holodeck deploy</code></td>
+<td>✗ (roadmap)</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<p><code>holodeck serve</code> and <code>holodeck deploy</code> are fully supported on the <strong>Claude
+backend</strong> today. On the OpenAI backend they are on the <a href="#coming-soon">roadmap</a> —
+use <code>holodeck chat</code> and <code>holodeck test</code> for now.</p>
+<h2 id="coming-soon">Coming soon<a class="headerlink" href="#coming-soon" title="Permanent link">&para;</a></h2>
+<p>The following are <strong>not yet available</strong> on this backend — they are roadmap, not shipped:</p>
+<ul>
+<li><strong>Subagents / handoffs</strong> — a multi-agent <code>openai.agents</code> block.</li>
+<li><strong>YAML hooks</strong> — user-defined <code>openai.hooks</code>.</li>
+<li><strong>Hosted tools</strong> — web search, code interpreter, file search, image generation, hosted MCP (this is what <code>i_understand_this_is_unsafe</code> gates).</li>
+<li><strong><code>holodeck serve</code> &amp; <code>holodeck deploy</code></strong> — running this backend as a REST/AG-UI server or deploying it to a container platform is not yet wired. (Both are fully supported on the <a href="../claude-backend/">Claude backend</a>.) The <code>max_concurrent_sessions</code> / <code>session_memory_estimate_mib</code> knobs are accepted in config ahead of that work but are not yet enforced.</li>
+<li><strong>Default credential-redaction guardrails</strong> — the output guardrail that <code>disable_default_hooks</code> would turn off.</li>
+</ul>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="invalid-api-key">Invalid API key<a class="headerlink" href="#invalid-api-key" title="Permanent link">&para;</a></h3>
-<p><strong>Error</strong>: <code>AuthenticationError</code> or <code>Invalid API key</code>.</p>
+<h3 id="missing-azure-credentials">Missing Azure credentials<a class="headerlink" href="#missing-azure-credentials" title="Permanent link">&para;</a></h3>
+<p><strong>Error</strong>: <code>AZURE_OPENAI_API_KEY is required for provider 'azure_openai'</code> or <code>AZURE_OPENAI_ENDPOINT ...</code></p>
 <ol>
-<li>Verify the key: <code>echo $OPENAI_API_KEY</code> (or the Azure / Ollama equivalent).</li>
-<li>Ensure no extra whitespace.</li>
-<li>Regenerate the API key if needed.</li>
+<li>Set <code>AZURE_OPENAI_API_KEY</code> and <code>AZURE_OPENAI_ENDPOINT</code> (env or <code>model.api_key</code> / <code>model.endpoint</code>).</li>
+<li>Confirm <code>model.name</code> matches your Azure <strong>deployment</strong> name, not a base model id.</li>
+<li>For plain OpenAI, set <code>OPENAI_API_KEY</code> and use <code>provider: openai</code> (no endpoint).</li>
 </ol>
-<h3 id="azure-endpoint-missing">Azure endpoint missing<a class="headerlink" href="#azure-endpoint-missing" title="Permanent link">&para;</a></h3>
-<p><strong>Error</strong>: <code>endpoint is required for azure_openai provider</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-deployment</span>
-<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://my-resource.openai.azure.com/</span>
-</code></pre></div>
-<h3 id="model-deployment-not-found">Model / deployment not found<a class="headerlink" href="#model-deployment-not-found" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>OpenAI</strong>: check the model identifier (e.g. <code>gpt-4o</code>, not <code>gpt4o</code>).</li>
-<li><strong>Azure</strong>: ensure <code>name</code> matches the deployment name exactly.</li>
-<li><strong>Ollama</strong>: pull first with <code>ollama pull &lt;model&gt;</code>.</li>
-</ul>
-<h3 id="ollama-connection-refused">Ollama: connection refused<a class="headerlink" href="#ollama-connection-refused" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Verify the daemon: <code>ollama list</code>.</li>
-<li>Start the server: <code>ollama serve</code>.</li>
-<li>Confirm the <code>endpoint</code> URL.</li>
-</ol>
-<h3 id="ollama-model-not-found">Ollama: model not found<a class="headerlink" href="#ollama-model-not-found" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.2
-</code></pre></div>
-<h3 id="rate-limits">Rate limits<a class="headerlink" href="#rate-limits" title="Permanent link">&para;</a></h3>
-<p><strong>Error</strong>: <code>Rate limit exceeded</code> (OpenAI / Azure).</p>
-<ol>
-<li>Implement retry with exponential backoff.</li>
-<li>Reduce <code>max_tokens</code>.</li>
-<li>Use a faster / cheaper model.</li>
-<li>Upgrade the API plan.</li>
-</ol>
-<h3 id="temperature-out-of-range">Temperature out of range<a class="headerlink" href="#temperature-out-of-range" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span><span class="w">   </span><span class="c1"># must be 0.0 – 2.0</span>
-</code></pre></div>
+<h3 id="oneof-schema-rejected"><code>oneOf</code> schema rejected<a class="headerlink" href="#oneof-schema-rejected" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: the provider rejects your <code>response_format</code> schema.</p>
+<p><strong>Fix</strong>: replace <code>oneOf</code> with <code>anyOf</code> — OpenAI structured outputs do not accept <code>oneOf</code>. The <code>anyOf</code> form also works on the Claude backend.</p>
+<h3 id="reasoning-model-sampling-params-ignored-or-erroring">Reasoning-model sampling params ignored or erroring<a class="headerlink" href="#reasoning-model-sampling-params-ignored-or-erroring" title="Permanent link">&para;</a></h3>
+<p>Reasoning models (o-series, <code>gpt-5</code>+) reject <code>temperature</code> / <code>top_p</code> and use <code>max_output_tokens</code> rather than <code>max_tokens</code>. The backend detects reasoning models by name prefix; if your Azure deployment name is opaque (doesn't embed the base model), set sane sampling params explicitly and don't rely on auto-detection.</p>
+<h3 id="mcp-websocket-tool-skipped">MCP WebSocket tool skipped<a class="headerlink" href="#mcp-websocket-tool-skipped" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: a <code>transport: websocket</code> MCP tool logs <code>Skipping MCP tool '...': websocket transport is not supported</code>.</p>
+<p>This is expected — the SDK has no WebSocket transport, so the tool is skipped (the load does not fail). Use <code>stdio</code>, <code>sse</code>, or <code>http</code>.</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../agent-configuration/">Agent Configuration</a> — full agent.yaml structure</li>
 <li><a href="../tools/">Tools</a> — extending agent capabilities</li>
-<li><a href="../observability/">Observability</a> — tracing and metrics</li>
 <li><a href="../vector-stores/">Vector Stores</a> — semantic search configuration</li>
-<li><a href="../serve/">Agent Server</a> and <a href="../deployment/">Deployment</a> — running SK agents as services</li>
+<li><a href="../observability/">Observability</a> — tracing and metrics</li>
+<li><a href="../claude-backend/">Claude Backend</a> — the sibling backend</li>
 </ul>
 
 

@@ -6,10 +6,10 @@ The backend abstraction layer provides a provider-agnostic interface for agent e
 
 `BackendSelector` inspects `model.provider` and instantiates the correct backend automatically:
 
-| Provider                           | Backend         |
-| ---------------------------------- | --------------- |
-| `openai`, `azure_openai`, `ollama` | `SKBackend`     |
-| `anthropic`                        | `ClaudeBackend` |
+| Provider                 | Backend               |
+| ------------------------ | --------------------- |
+| `openai`, `azure_openai` | `OpenAIAgentsBackend` |
+| `anthropic`, `ollama`    | `ClaudeBackend`       |
 
 ______________________________________________________________________
 
@@ -18,6 +18,8 @@ ______________________________________________________________________
 Defines the provider-agnostic contracts that every backend must satisfy and the unified result types returned to callers.
 
 ### ExecutionResult
+
+The unified result type returned by every backend. Fields: `response`, `tool_calls`, `tool_results`, `token_usage`, `structured_output`, `num_turns`, `is_error`, `error_reason`, and `thinking` (extended-thinking text, empty when disabled or unsupported by the active backend).
 
 ## `ExecutionResult(response, tool_calls=list(), tool_results=list(), token_usage=TokenUsage.zero(), structured_output=None, num_turns=1, is_error=False, error_reason=None, thinking='')`
 
@@ -457,16 +459,16 @@ async def select(
     """
     provider = agent.model.provider
 
-    if provider in (
-        ProviderEnum.OPENAI,
-        ProviderEnum.AZURE_OPENAI,
-        ProviderEnum.OLLAMA,
-    ):
-        backend = SKBackend(agent_config=agent)
-        await backend.initialize()
-        return backend
+    if provider in (ProviderEnum.OPENAI, ProviderEnum.AZURE_OPENAI):
+        # Lazy import keeps the optional openai-agents SDK off the import
+        # path for non-OpenAI providers (SC-005).
+        from holodeck.lib.backends.openai_agents_backend import OpenAIAgentsBackend
 
-    if provider == ProviderEnum.ANTHROPIC:
+        openai_backend = OpenAIAgentsBackend(agent=agent)
+        await openai_backend.initialize()
+        return openai_backend
+
+    if provider in (ProviderEnum.ANTHROPIC, ProviderEnum.OLLAMA):
         claude_backend = ClaudeBackend(
             agent=agent,
             tool_instances=tool_instances,
@@ -480,83 +482,168 @@ async def select(
 
 ______________________________________________________________________
 
-## `holodeck.lib.backends.sk_backend` -- Semantic Kernel Backend
+## `holodeck.lib.backends.openai_agents_backend` -- OpenAI Agents Backend
 
-Wraps the existing `AgentFactory` / `AgentThreadRun` infrastructure behind the provider-agnostic backend interfaces. Handles OpenAI, Azure OpenAI, and Ollama providers.
+Implements the backend for `provider: openai` and `provider: azure_openai` natively on the OpenAI Agents SDK, behind the provider-agnostic backend interfaces.
 
-### SKBackend
+### OpenAIAgentsBackend
 
-## `SKBackend(agent_config)`
+## `OpenAIAgentsBackend(agent, base_dir=None)`
 
-Semantic Kernel backend implementing the AgentBackend protocol.
+OpenAI Agents SDK backend implementing the `AgentBackend` protocol.
 
-Wraps AgentFactory to provide the provider-agnostic backend interface used by downstream consumers.
+Wraps an SDK `Agent` (built from the HoloDeck agent config) and drives it through `Runner.run` for single-turn invocations and `SQLiteSession`- backed multi-turn sessions.
 
-Initialize the SK backend with agent configuration.
+Initialize the backend with agent configuration.
 
 Parameters:
 
-| Name           | Type    | Description                                      | Default    |
-| -------------- | ------- | ------------------------------------------------ | ---------- |
-| `agent_config` | `Agent` | Agent configuration with model and instructions. | *required* |
+| Name       | Type    | Description                       | Default                                                                                                     |
+| ---------- | ------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `agent`    | `Agent` | The HoloDeck agent configuration. | *required*                                                                                                  |
+| `base_dir` | \`Path  | None\`                            | Directory for resolving relative tool/instruction paths. Falls back to the agent_base_dir context variable. |
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
-def __init__(self, agent_config: Agent) -> None:
-    """Initialize the SK backend with agent configuration.
+def __init__(self, agent: Agent, base_dir: Path | None = None) -> None:
+    """Initialize the backend with agent configuration.
 
     Args:
-        agent_config: Agent configuration with model and instructions.
+        agent: The HoloDeck agent configuration.
+        base_dir: Directory for resolving relative tool/instruction paths.
+            Falls back to the ``agent_base_dir`` context variable.
     """
-    self._factory = AgentFactory(agent_config=agent_config)
+    self._agent_config = agent
+    self._base_dir = base_dir
+    self._sdk_agent: Any | None = None
+    self._has_structured_output = False
+    self._tool_instances: dict[str, Any] = {}
+    self._owned_tools: list[Any] = []
+    self._mcp_servers: list[Any] = []
 ```
 
 ### `create_session(*, eager_connect=True)`
 
-Create a new stateful multi-turn session.
+Create a stateful multi-turn session backed by a fresh SQLiteSession.
 
 Parameters:
 
-| Name            | Type   | Description                                                                                                                                      | Default |
-| --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| `eager_connect` | `bool` | Accepted for protocol compatibility with backends that have lazy-connect semantics (Claude). SK creates its thread run synchronously regardless. | `True`  |
+| Name            | Type   | Description                                                                                  | Default |
+| --------------- | ------ | -------------------------------------------------------------------------------------------- | ------- |
+| `eager_connect` | `bool` | Accepted for protocol compatibility; the SQLite session is created synchronously regardless. | `True`  |
 
 Returns:
 
-| Type           | Description                                        |
-| -------------- | -------------------------------------------------- |
-| `AgentSession` | An SKSession instance bound to a fresh thread run. |
+| Type           | Description                                               |
+| -------------- | --------------------------------------------------------- |
+| `AgentSession` | An OpenAIAgentsSession bound to this backend's SDK agent. |
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def create_session(self, *, eager_connect: bool = True) -> AgentSession:
-    """Create a new stateful multi-turn session.
+    """Create a stateful multi-turn session backed by a fresh SQLiteSession.
 
     Args:
-        eager_connect: Accepted for protocol compatibility with
-            backends that have lazy-connect semantics (Claude).
-            SK creates its thread run synchronously regardless.
+        eager_connect: Accepted for protocol compatibility; the SQLite
+            session is created synchronously regardless.
 
     Returns:
-        An SKSession instance bound to a fresh thread run.
+        An ``OpenAIAgentsSession`` bound to this backend's SDK agent.
     """
-    del eager_connect  # SK has no lazy connect path
-    thread_run = await self._factory.create_thread_run()
-    return SKSession(thread_run=thread_run)
+    del eager_connect  # no lazy-connect transport for this backend
+    sdk_agent = self._require_agent()
+    from agents import SQLiteSession
+
+    session_id = f"holodeck-{uuid.uuid4().hex}"
+    session = SQLiteSession(session_id)
+    return OpenAIAgentsSession(
+        sdk_agent=sdk_agent,
+        sqlite_session=session,
+        agent_config=self._agent_config,
+        group_id=session_id,
+        max_turns=_max_turns(self._agent_config),
+        budget_usd=_max_budget_usd(self._agent_config),
+        structured_output=self._has_structured_output,
+    )
 ```
 
 ### `initialize()`
 
-Prepare the backend for use by initializing tools.
+Build the SDK `Agent` — validating credentials and tools.
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Raises:
+
+| Type               | Description                                                |
+| ------------------ | ---------------------------------------------------------- |
+| `BackendInitError` | If credentials are missing or the provider is unsupported. |
+| `ConfigError`      | If a tool config is unsupported or fails to load.          |
+
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def initialize(self) -> None:
-    """Prepare the backend for use by initializing tools."""
-    await self._factory._ensure_tools_initialized()
+    """Build the SDK ``Agent`` — validating credentials and tools.
+
+    Raises:
+        BackendInitError: If credentials are missing or the provider is
+            unsupported.
+        ConfigError: If a tool config is unsupported or fails to load.
+    """
+    from agents import Agent as SDKAgent
+
+    from holodeck.lib.backends.openai_agents_output import (
+        build_output_schema,
+        load_response_format_schema,
+    )
+    from holodeck.lib.backends.openai_agents_tool_adapters import build_sdk_tools
+    from holodeck.lib.backends.validators import validate_openai_agents
+    from holodeck.lib.instruction_resolver import resolve_instructions
+
+    # FR-034 / FR-110: fail load on credential gaps and allow ∩ disallow
+    # conflicts (all problems surfaced together) before any SDK side effects.
+    validate_openai_agents(self._agent_config)
+
+    # Install the OTel-mirroring TracingProcessor once, before any run emits
+    # spans (H1). Gated on the agent's observability/tracing being enabled.
+    _install_tracing_mirror(self._agent_config)
+
+    base_dir = self._resolve_base_dir()
+    disallowed = _disallowed_tool_names(self._agent_config)
+    model = _build_model(self._agent_config)
+    instructions = resolve_instructions(
+        self._agent_config.instructions, base_dir=base_dir
+    )
+    await self._initialize_tool_instances()
+    tools = build_sdk_tools(
+        self._agent_config.tools,
+        base_dir,
+        tool_instances=self._tool_instances,
+        disallowed=disallowed,
+    )
+    mcp_servers = await self._initialize_mcp_servers(base_dir, disallowed)
+
+    model_settings = _build_model_settings(
+        self._agent_config.model, self._agent_config.openai
+    )
+
+    # FR-004: wire response_format (dict | str path | None) to output_type.
+    schema = load_response_format_schema(
+        self._agent_config.response_format, base_dir
+    )
+    output_type = build_output_schema(schema) if schema is not None else None
+    self._has_structured_output = output_type is not None
+
+    self._sdk_agent = SDKAgent(
+        name=self._agent_config.name,
+        instructions=instructions,
+        model=model,
+        tools=tools,
+        mcp_servers=mcp_servers,
+        model_settings=model_settings,
+        output_type=output_type,
+    )
 ```
 
 ### `invoke_once(message, context=None)`
@@ -565,18 +652,24 @@ Execute a single stateless agent turn.
 
 Parameters:
 
-| Name      | Type                     | Description                            | Default                                                     |
-| --------- | ------------------------ | -------------------------------------- | ----------------------------------------------------------- |
-| `message` | `str`                    | The user message to send to the agent. | *required*                                                  |
-| `context` | \`list\[dict[str, Any]\] | None\`                                 | Optional list of prior conversation turns (unused for now). |
+| Name      | Type                     | Description                            | Default                                   |
+| --------- | ------------------------ | -------------------------------------- | ----------------------------------------- |
+| `message` | `str`                    | The user message to send to the agent. | *required*                                |
+| `context` | \`list\[dict[str, Any]\] | None\`                                 | Optional prior turns (unused in the MVP). |
 
 Returns:
 
-| Type              | Description                                                 |
-| ----------------- | ----------------------------------------------------------- |
-| `ExecutionResult` | ExecutionResult containing the agent response and metadata. |
+| Type              | Description                   |
+| ----------------- | ----------------------------- |
+| `ExecutionResult` | ExecutionResult for the turn. |
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Raises:
+
+| Type                  | Description                      |
+| --------------------- | -------------------------------- |
+| `BackendSessionError` | If the SDK run fails at runtime. |
+
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def invoke_once(
@@ -588,90 +681,158 @@ async def invoke_once(
 
     Args:
         message: The user message to send to the agent.
-        context: Optional list of prior conversation turns (unused for now).
+        context: Optional prior turns (unused in the MVP).
 
     Returns:
-        ExecutionResult containing the agent response and metadata.
+        ExecutionResult for the turn.
+
+    Raises:
+        BackendSessionError: If the SDK run fails at runtime.
     """
-    thread_run = await self._factory.create_thread_run()
-    result = await thread_run.invoke(message)
-    response = _extract_response(result.chat_history)
-    token_usage = result.token_usage if result.token_usage else TokenUsage.zero()
-    return ExecutionResult(
-        response=response,
-        tool_calls=result.tool_calls,
-        tool_results=result.tool_results,
-        token_usage=token_usage,
-    )
+    del context  # not threaded into the SDK loop for the MVP
+    sdk_agent = self._require_agent()
+    from agents import Runner
+
+    try:
+        result = await Runner.run(
+            sdk_agent,
+            message,
+            max_turns=_max_turns(self._agent_config),
+            run_config=_build_run_config(self._agent_config),
+            hooks=self._invoke_hooks(),
+        )
+    except BackendBudgetExceededError as exc:
+        # Surface the budget abort as an error result so the partial response
+        # and accumulated cost are preserved (FR-032), not lost to a raise.
+        return _budget_error_result(exc)
+    except Exception as exc:  # noqa: BLE001 - re-raised as backend error
+        raise BackendSessionError(
+            f"OpenAI Agents run failed: {type(exc).__name__}: {exc}"
+        ) from exc
+    return _to_execution_result(result, structured=self._has_structured_output)
 ```
 
 ### `teardown()`
 
-Release all backend resources.
+Release backend resources, cleaning up RAG tools and MCP servers.
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def teardown(self) -> None:
-    """Release all backend resources."""
-    await self._factory.shutdown()
+    """Release backend resources, cleaning up RAG tools and MCP servers."""
+    for tool_inst in self._owned_tools:
+        cleanup = getattr(tool_inst, "cleanup", None)
+        if callable(cleanup):
+            try:
+                await cleanup()
+            except Exception as exc:  # noqa: BLE001 - best-effort cleanup
+                logger.warning("Error cleaning up tool: %s", exc)
+    self._owned_tools = []
+    self._tool_instances = {}
+
+    for server in self._mcp_servers:
+        try:
+            await server.cleanup()
+        except Exception as exc:  # noqa: BLE001 - best-effort cleanup
+            logger.warning("Error cleaning up MCP server: %s", exc)
+    self._mcp_servers = []
 ```
 
-### SKSession
+### OpenAIAgentsSession
 
-## `SKSession(thread_run)`
+## `OpenAIAgentsSession(sdk_agent, sqlite_session, *, agent_config=None, group_id=None, max_turns=20, budget_usd=None, structured_output=False)`
 
-Stateful multi-turn session backed by an AgentThreadRun.
+Stateful multi-turn session backed by an SDK `SQLiteSession`.
 
-Implements the AgentSession protocol by delegating to the underlying Semantic Kernel thread run for conversation management.
+Each `send` runs the SDK agent loop with the shared `SQLiteSession` so the SDK persists turn history. Idle sessions are SQLite rows, not held processes.
 
-Initialize session with an AgentThreadRun.
+Bind the session to an SDK agent and its SQLite-backed history.
 
 Parameters:
 
-| Name         | Type  | Description                                   | Default    |
-| ------------ | ----- | --------------------------------------------- | ---------- |
-| `thread_run` | `Any` | An AgentThreadRun instance from AgentFactory. | *required* |
+| Name                | Type    | Description                                                                                           | Default                                                                                                                                                                     |
+| ------------------- | ------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sdk_agent`         | `Any`   | The built SDK Agent.                                                                                  | *required*                                                                                                                                                                  |
+| `sqlite_session`    | `Any`   | The SDK SQLiteSession persisting turn history.                                                        | *required*                                                                                                                                                                  |
+| `agent_config`      | \`Agent | None\`                                                                                                | The HoloDeck agent config used to build the per-run RunConfig. When None no RunConfig is attached.                                                                          |
+| `group_id`          | \`str   | None\`                                                                                                | The session id, carried as RunConfig.group_id so the session's turns correlate in the trace.                                                                                |
+| `max_turns`         | `int`   | The agent-loop cap passed to Runner.run.                                                              | `20`                                                                                                                                                                        |
+| `budget_usd`        | \`float | None\`                                                                                                | The configured max_budget_usd. When set, a single cost accountant is shared across every turn so the budget covers the whole session; when None no cost hooks are attached. |
+| `structured_output` | `bool`  | Whether the agent has an output schema, so each turn's final_output is parsed into structured_output. | `False`                                                                                                                                                                     |
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
-def __init__(self, thread_run: Any) -> None:
-    """Initialize session with an AgentThreadRun.
+def __init__(
+    self,
+    sdk_agent: Any,
+    sqlite_session: Any,
+    *,
+    agent_config: Agent | None = None,
+    group_id: str | None = None,
+    max_turns: int = 20,
+    budget_usd: float | None = None,
+    structured_output: bool = False,
+) -> None:
+    """Bind the session to an SDK agent and its SQLite-backed history.
 
     Args:
-        thread_run: An AgentThreadRun instance from AgentFactory.
+        sdk_agent: The built SDK ``Agent``.
+        sqlite_session: The SDK ``SQLiteSession`` persisting turn history.
+        agent_config: The HoloDeck agent config used to build the per-run
+            ``RunConfig``. When ``None`` no ``RunConfig`` is attached.
+        group_id: The session id, carried as ``RunConfig.group_id`` so the
+            session's turns correlate in the trace.
+        max_turns: The agent-loop cap passed to ``Runner.run``.
+        budget_usd: The configured ``max_budget_usd``. When set, a single
+            cost accountant is shared across every turn so the budget covers
+            the whole session; when ``None`` no cost hooks are attached.
+        structured_output: Whether the agent has an output schema, so each
+            turn's ``final_output`` is parsed into ``structured_output``.
     """
-    self._thread_run = thread_run
+    self._sdk_agent = sdk_agent
+    self._session = sqlite_session
+    self._agent_config = agent_config
+    self._group_id = group_id
+    self._max_turns = max_turns
+    self._budget_usd = budget_usd
+    self._structured_output = structured_output
+    # One accountant shared across the session's turns (FR-032).
+    self._accountant: Any | None = None
 ```
 
 ### `close()`
 
-Release session resources. No-op for SK sessions.
+Release the SQLite session connection, if any.
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def close(self) -> None:
-    """Release session resources. No-op for SK sessions."""
-    pass
+    """Release the SQLite session connection, if any."""
+    close = getattr(self._session, "close", None)
+    if callable(close):
+        maybe = close()
+        if hasattr(maybe, "__await__"):
+            await maybe
 ```
 
 ### `prepare()`
 
-No-op. SK thread runs are connected at construction time.
+No-op. The SQLite session is ready at construction time.
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def prepare(self) -> None:
-    """No-op. SK thread runs are connected at construction time."""
+    """No-op. The SQLite session is ready at construction time."""
     return None
 ```
 
 ### `send(message)`
 
-Send a message and receive a single-turn result.
+Run one turn against the persistent session.
 
 Parameters:
 
@@ -681,38 +842,53 @@ Parameters:
 
 Returns:
 
-| Type              | Description                                                 |
-| ----------------- | ----------------------------------------------------------- |
-| `ExecutionResult` | ExecutionResult containing the agent response and metadata. |
+| Type              | Description                                                        |
+| ----------------- | ------------------------------------------------------------------ |
+| `ExecutionResult` | ExecutionResult for this turn. Runtime failures are returned as an |
+| `ExecutionResult` | error result (is_error=True) rather than raised, so the multi-turn |
+| `ExecutionResult` | executor can record per-turn failures.                             |
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def send(self, message: str) -> ExecutionResult:
-    """Send a message and receive a single-turn result.
+    """Run one turn against the persistent session.
 
     Args:
         message: The user message to send to the agent.
 
     Returns:
-        ExecutionResult containing the agent response and metadata.
+        ExecutionResult for this turn. Runtime failures are returned as an
+        error result (``is_error=True``) rather than raised, so the multi-turn
+        executor can record per-turn failures.
     """
-    result = await self._thread_run.invoke(message)
-    response = _extract_response(result.chat_history)
-    token_usage = result.token_usage if result.token_usage else TokenUsage.zero()
-    return ExecutionResult(
-        response=response,
-        tool_calls=result.tool_calls,
-        tool_results=result.tool_results,
-        token_usage=token_usage,
-    )
+    from agents import Runner
+
+    try:
+        result = await Runner.run(
+            self._sdk_agent,
+            message,
+            session=self._session,
+            max_turns=self._max_turns,
+            run_config=self._run_config(),
+            hooks=self._hooks(),
+        )
+    except BackendBudgetExceededError as exc:
+        return _budget_error_result(exc)
+    except Exception as exc:  # noqa: BLE001 - surfaced via ExecutionResult
+        return ExecutionResult(
+            response="",
+            is_error=True,
+            error_reason=f"{type(exc).__name__}: {exc}",
+        )
+    return _to_execution_result(result, structured=self._structured_output)
 ```
 
 ### `send_streaming(message)`
 
-Send a message and stream the response.
+Stream the agent response token by token.
 
-Currently delegates to send() and yields the full response as a single chunk. True streaming will be implemented in a future phase.
+Runs the SDK agent loop via `Runner.run_streamed` and forwards each model text delta as it arrives. Text deltas surface as raw-response events carrying a `ResponseTextDeltaEvent`; tool-call and lifecycle events are ignored for the streamed text channel.
 
 Parameters:
 
@@ -722,34 +898,56 @@ Parameters:
 
 Yields:
 
-| Type                        | Description                          |
-| --------------------------- | ------------------------------------ |
-| `AsyncGenerator[str, None]` | String chunks of the agent response. |
+| Type                        | Description                                                     |
+| --------------------------- | --------------------------------------------------------------- |
+| `AsyncGenerator[str, None]` | String chunks of the agent response as the model produces them. |
 
-Source code in `src/holodeck/lib/backends/sk_backend.py`
+Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def send_streaming(self, message: str) -> AsyncGenerator[str, None]:
-    """Send a message and stream the response.
+    """Stream the agent response token by token.
 
-    Currently delegates to send() and yields the full response as a
-    single chunk. True streaming will be implemented in a future phase.
+    Runs the SDK agent loop via ``Runner.run_streamed`` and forwards each
+    model text delta as it arrives. Text deltas surface as raw-response
+    events carrying a ``ResponseTextDeltaEvent``; tool-call and lifecycle
+    events are ignored for the streamed text channel.
 
     Args:
         message: The user message to send to the agent.
 
     Yields:
-        String chunks of the agent response.
+        String chunks of the agent response as the model produces them.
     """
-    result = await self.send(message)
-    yield result.response
+    from agents import Runner
+    from openai.types.responses import ResponseTextDeltaEvent
+
+    result = Runner.run_streamed(
+        self._sdk_agent,
+        message,
+        session=self._session,
+        max_turns=self._max_turns,
+        run_config=self._run_config(),
+        hooks=self._hooks(),
+    )
+    try:
+        async for event in result.stream_events():
+            if event.type != "raw_response_event":
+                continue
+            data = event.data
+            if isinstance(data, ResponseTextDeltaEvent) and data.delta:
+                yield data.delta
+    except BackendBudgetExceededError:
+        # The budget tripped mid-stream; the deltas produced so far have
+        # already been yielded, so end the stream gracefully (FR-032).
+        return
 ```
 
 ______________________________________________________________________
 
 ## `holodeck.lib.backends.claude_backend` -- Claude Agent SDK Backend
 
-Implements the backend for `provider: anthropic`. Single-turn invocations use the top-level `query()` SDK function; multi-turn chat sessions use `ClaudeSDKClient`.
+Implements the backend for `provider: anthropic` (and local `provider: ollama` models). Single-turn invocations use the top-level `query()` SDK function; multi-turn chat sessions use `ClaudeSDKClient`.
 
 ### ClaudeBackend
 
@@ -881,10 +1079,7 @@ async def initialize(self) -> None:
         # 3. Embedding provider (vectorstore tools)
         validate_embedding_provider(agent)
 
-        # 4. Tool filtering (warning only)
-        validate_tool_filtering(agent)
-
-        # 4b. Auto-initialize vectorstore/hierarchical-doc tools if needed
+        # 4. Auto-initialize vectorstore/hierarchical-doc tools if needed
         await self._initialize_tools()
 
         # 5. Tool adapters
@@ -2371,48 +2566,6 @@ def validate_embedding_provider(agent: Agent) -> None:
             "embedding_provider is required when using vectorstore tools with "
             "provider: anthropic. Add an embedding_provider using openai or "
             "azure_openai.",
-        )
-```
-
-### validate_tool_filtering
-
-## `validate_tool_filtering(agent)`
-
-Warn if tool_filtering is configured for Anthropic provider.
-
-Claude Agent SDK manages tool selection natively; tool_filtering is a Semantic Kernel feature that is not supported by the Claude backend.
-
-This validator never raises — it only emits a warning. The tool_filtering field is not mutated.
-
-Parameters:
-
-| Name    | Type    | Description                      | Default    |
-| ------- | ------- | -------------------------------- | ---------- |
-| `agent` | `Agent` | Agent configuration to validate. | *required* |
-
-Source code in `src/holodeck/lib/backends/validators.py`
-
-```
-def validate_tool_filtering(agent: Agent) -> None:
-    """Warn if tool_filtering is configured for Anthropic provider.
-
-    Claude Agent SDK manages tool selection natively; tool_filtering is a
-    Semantic Kernel feature that is not supported by the Claude backend.
-
-    This validator never raises — it only emits a warning. The
-    tool_filtering field is not mutated.
-
-    Args:
-        agent: Agent configuration to validate.
-    """
-    if agent.tool_filtering is None:
-        return
-
-    if agent.model.provider == ProviderEnum.ANTHROPIC:
-        logger.warning(
-            "tool_filtering is configured but will be ignored when using "
-            "provider: anthropic with the Claude Agent SDK backend. "
-            "Claude manages tool selection natively.",
         )
 ```
 

@@ -397,6 +397,26 @@ US3 validators (prompt/prompt_file mutual exclusion and file resolution) are del
 
 ______________________________________________________________________
 
+## OpenAI Agents SDK
+
+Configuration models for the `openai:` block, applied when `model.provider` is `openai` or `azure_openai`. `OpenAIConfig` is the sibling of `ClaudeConfig`: it carries serve sizing (`max_concurrent_sessions`, `session_memory_estimate_mib`), the agent-loop bound (`max_turns`), reasoning `effort`, the `max_budget_usd` spend cap, `fallback_model`, tool allow/deny lists, and the safety/redaction opt-outs. All fields are optional. See the [OpenAI Backend guide](https://docs.useholodeck.ai/guides/openai-backend/index.md) for end-to-end usage.
+
+## `OpenAIConfig`
+
+Bases: `BaseModel`
+
+OpenAI Agents SDK-specific settings.
+
+All fields optional. Applicable only when `model.provider` is `openai` or `azure_openai`.
+
+## `OpenAIPermissionsConfig`
+
+Bases: `BaseModel`
+
+Tool permission lists for the OpenAI Agents backend.
+
+______________________________________________________________________
+
 ## Backend Abstraction Layer
 
 Provider-agnostic protocols and data classes for agent execution are documented in the [Backends API Reference](https://docs.useholodeck.ai/api/backends/index.md). Key types: `AgentBackend`, `AgentSession`, `ContextGenerator`, `ExecutionResult`, `ToolEvent`.
@@ -3694,20 +3714,6 @@ def __init__(self, agent_name: str, message: str) -> None:
     super().__init__(f"Agent '{agent_name}' failed to initialize: {message}")
 ```
 
-## `AgentFactoryError`
-
-Bases: `HoloDeckError`
-
-Exception raised during agent factory operations.
-
-Base exception for errors during agent initialization and execution.
-
-Attributes:
-
-| Name      | Type | Description                  |
-| --------- | ---- | ---------------------------- |
-| `message` |      | Human-readable error message |
-
 ### Chat Errors
 
 ## `ChatValidationError(message)`
@@ -3741,98 +3747,6 @@ Source code in `src/holodeck/lib/errors.py`
 def __init__(self, message: str) -> None:
     """Create a chat session error."""
     self.message = message
-    super().__init__(message)
-```
-
-### Ollama Errors
-
-## `OllamaConnectionError(endpoint, original_error=None)`
-
-Bases: `AgentFactoryError`
-
-Error raised when Ollama endpoint is unreachable.
-
-Provides actionable guidance for resolving connectivity issues with local or remote Ollama servers.
-
-Attributes:
-
-| Name       | Type | Description                                           |
-| ---------- | ---- | ----------------------------------------------------- |
-| `endpoint` |      | The Ollama endpoint URL that failed                   |
-| `message`  |      | Human-readable error message with resolution guidance |
-
-Initialize OllamaConnectionError with endpoint and optional cause.
-
-Parameters:
-
-| Name             | Type        | Description                                    | Default                                                     |
-| ---------------- | ----------- | ---------------------------------------------- | ----------------------------------------------------------- |
-| `endpoint`       | `str`       | The Ollama endpoint URL that failed to connect | *required*                                                  |
-| `original_error` | \`Exception | None\`                                         | The underlying exception that caused the connection failure |
-
-Source code in `src/holodeck/lib/errors.py`
-
-```
-def __init__(self, endpoint: str, original_error: Exception | None = None) -> None:
-    """Initialize OllamaConnectionError with endpoint and optional cause.
-
-    Args:
-        endpoint: The Ollama endpoint URL that failed to connect
-        original_error: The underlying exception that caused the connection failure
-    """
-    self.endpoint = endpoint
-    message = (
-        f"Failed to connect to Ollama endpoint at {endpoint}.\n"
-        f"Ensure Ollama is running: ollama serve\n"
-        f"Check endpoint URL is correct and accessible."
-    )
-    if original_error:
-        message += f"\nOriginal error: {original_error}"
-    super().__init__(message)
-```
-
-## `OllamaModelNotFoundError(model_name, endpoint)`
-
-Bases: `AgentFactoryError`
-
-Error raised when requested Ollama model is not found.
-
-Provides specific resolution steps for pulling missing models.
-
-Attributes:
-
-| Name         | Type | Description                                           |
-| ------------ | ---- | ----------------------------------------------------- |
-| `model_name` |      | The model that was not found                          |
-| `endpoint`   |      | The Ollama endpoint that was queried                  |
-| `message`    |      | Human-readable error message with resolution guidance |
-
-Initialize OllamaModelNotFoundError with model and endpoint details.
-
-Parameters:
-
-| Name         | Type  | Description                              | Default    |
-| ------------ | ----- | ---------------------------------------- | ---------- |
-| `model_name` | `str` | The name of the model that was not found | *required* |
-| `endpoint`   | `str` | The Ollama endpoint URL that was queried | *required* |
-
-Source code in `src/holodeck/lib/errors.py`
-
-```
-def __init__(self, model_name: str, endpoint: str) -> None:
-    """Initialize OllamaModelNotFoundError with model and endpoint details.
-
-    Args:
-        model_name: The name of the model that was not found
-        endpoint: The Ollama endpoint URL that was queried
-    """
-    self.model_name = model_name
-    self.endpoint = endpoint
-    message = (
-        f"Model '{model_name}' not found on Ollama endpoint {endpoint}.\n"
-        f"Pull the model first: ollama pull {model_name}\n"
-        f"List available models: ollama list"
-    )
     super().__init__(message)
 ```
 

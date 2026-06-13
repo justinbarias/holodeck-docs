@@ -8,6 +8,16 @@ The `holodeck test view` command launches an interactive Dash-based dashboard th
 
 The dashboard complements `holodeck test`: CI gets hard pass/fail, humans get a UI for spotting regressions and prompt-version drift.
 
+## Quick start
+
+```
+uv add "holodeck-ai[dashboard]"   # one-time: install the optional extra
+holodeck test view                # from any directory with an agent.yaml
+# → serves the dashboard at http://127.0.0.1:8501/ (Ctrl+C to stop)
+```
+
+No real runs yet? `holodeck test view --seed` renders a built-in golden fixture.
+
 ## Installation
 
 The dashboard is an optional extra — install it with:

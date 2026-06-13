@@ -6,7 +6,7 @@ The framework follows a sequential flow:
 
 1. Load agent configuration from YAML
 1. Resolve execution configuration (CLI > YAML > env > defaults)
-1. Initialize components (FileProcessor, AgentFactory/Backend, Evaluators)
+1. Initialize components (FileProcessor, AgentBackend, Evaluators)
 1. Execute each test case (file processing, agent invocation, tool validation, evaluation)
 1. Generate a `TestReport` with summary statistics
 
@@ -14,11 +14,11 @@ ______________________________________________________________________
 
 ## Executor
 
-The executor module coordinates all stages of test execution. It owns configuration resolution, evaluator creation, the agent invocation dispatch (backend or legacy factory), and report generation.
+The executor module coordinates all stages of test execution. It owns configuration resolution, evaluator creation, agent invocation, and report generation. Agents are driven through the provider-agnostic `AgentBackend` interface — the executor auto-selects the correct backend (Claude or OpenAI Agents) via `BackendSelector` based on `model.provider`, or uses one injected by the caller.
 
 ### TestExecutor
 
-## `TestExecutor(agent_config_path, execution_config=None, file_processor=None, agent_factory=None, evaluators=None, config_loader=None, progress_callback=None, on_test_start=None, force_ingest=False, agent_config=None, resolved_execution_config=None, backend=None)`
+## `TestExecutor(agent_config_path, execution_config=None, file_processor=None, evaluators=None, config_loader=None, progress_callback=None, on_test_start=None, force_ingest=False, agent_config=None, resolved_execution_config=None, backend=None)`
 
 Executor for running agent test cases.
 
@@ -26,23 +26,22 @@ Orchestrates the complete test execution flow:
 
 1. Loads agent configuration from YAML file
 1. Resolves execution configuration (CLI > YAML > env > defaults)
-1. Initializes components (FileProcessor, AgentFactory, Evaluators)
+1. Initializes components (FileProcessor, AgentBackend, Evaluators)
 1. Executes test cases sequentially
 1. Generates test report with results and summary
 
 Attributes:
 
-| Name                | Type           | Description                                       |
-| ------------------- | -------------- | ------------------------------------------------- |
-| `agent_config_path` |                | Path to agent configuration YAML file             |
-| `cli_config`        |                | Execution config from CLI flags (optional)        |
-| `agent_config`      |                | Loaded agent configuration                        |
-| `config`            |                | Resolved execution configuration                  |
-| `file_processor`    |                | FileProcessor instance                            |
-| `agent_factory`     | \`AgentFactory | None\`                                            |
-| `evaluators`        |                | Dictionary of evaluator instances by metric name  |
-| `config_loader`     |                | ConfigLoader instance                             |
-| `progress_callback` |                | Optional callback function for progress reporting |
+| Name                | Type | Description                                       |
+| ------------------- | ---- | ------------------------------------------------- |
+| `agent_config_path` |      | Path to agent configuration YAML file             |
+| `cli_config`        |      | Execution config from CLI flags (optional)        |
+| `agent_config`      |      | Loaded agent configuration                        |
+| `config`            |      | Resolved execution configuration                  |
+| `file_processor`    |      | FileProcessor instance                            |
+| `evaluators`        |      | Dictionary of evaluator instances by metric name  |
+| `config_loader`     |      | ConfigLoader instance                             |
+| `progress_callback` |      | Optional callback function for progress reporting |
 
 Initialize test executor with optional dependency injection.
 
@@ -51,7 +50,7 @@ Follows dependency injection pattern for testability. Dependencies can be:
 - Injected explicitly (for testing with mocks)
 - Created automatically using factory methods (for normal usage)
 
-When `backend` is provided, the executor uses the provider-agnostic `AgentBackend.invoke_once()` path and skips `AgentFactory` creation. When neither `backend` nor `agent_factory` is provided, the executor can auto-select a backend via `BackendSelector` at execution time.
+When `backend` is provided, the executor uses that `AgentBackend.invoke_once()` path directly. When it is omitted, the executor auto-selects a backend via `BackendSelector` at execution time (normal CLI usage).
 
 Parameters:
 
@@ -60,14 +59,13 @@ Parameters:
 | `agent_config_path`         | `str`                            | Path to agent configuration file                 | *required*                                                                                                    |
 | `execution_config`          | \`ExecutionConfig                | None\`                                           | Optional execution config from CLI flags                                                                      |
 | `file_processor`            | \`FileProcessor                  | None\`                                           | Optional FileProcessor instance (auto-created if None)                                                        |
-| `agent_factory`             | \`AgentFactory                   | None\`                                           | Optional AgentFactory instance (auto-created if None)                                                         |
 | `evaluators`                | \`dict[str, BaseEvaluator]       | None\`                                           | Optional dict of evaluator instances (auto-created if None)                                                   |
 | `config_loader`             | \`ConfigLoader                   | None\`                                           | Optional ConfigLoader instance (auto-created if None)                                                         |
 | `progress_callback`         | \`Callable\[[TestResult], None\] | None\`                                           | Optional callback function called after each test. Called with TestResult instance. Use for progress display. |
 | `force_ingest`              | `bool`                           | Force re-ingestion of vector store source files. | `False`                                                                                                       |
 | `agent_config`              | \`Agent                          | None\`                                           | Optional pre-loaded Agent config (auto-loaded if None)                                                        |
 | `resolved_execution_config` | \`ExecutionConfig                | None\`                                           | Optional pre-resolved execution config (auto-resolved if None)                                                |
-| `backend`                   | \`AgentBackend                   | None\`                                           | Optional AgentBackend instance. When provided, the executor uses invoke_once() instead of AgentFactory.       |
+| `backend`                   | \`AgentBackend                   | None\`                                           | Optional AgentBackend instance. When provided, the executor uses it directly instead of auto-selecting one.   |
 
 Source code in `src/holodeck/lib/test_runner/executor.py`
 
@@ -77,7 +75,6 @@ def __init__(
     agent_config_path: str,
     execution_config: ExecutionConfig | None = None,
     file_processor: FileProcessor | None = None,
-    agent_factory: AgentFactory | None = None,
     evaluators: dict[str, BaseEvaluator] | None = None,
     config_loader: ConfigLoader | None = None,
     progress_callback: Callable[[TestResult], None] | None = None,
@@ -93,16 +90,15 @@ def __init__(
     - Injected explicitly (for testing with mocks)
     - Created automatically using factory methods (for normal usage)
 
-    When ``backend`` is provided, the executor uses the provider-agnostic
-    ``AgentBackend.invoke_once()`` path and skips ``AgentFactory`` creation.
-    When neither ``backend`` nor ``agent_factory`` is provided, the executor
-    can auto-select a backend via ``BackendSelector`` at execution time.
+    When ``backend`` is provided, the executor uses that
+    ``AgentBackend.invoke_once()`` path directly. When it is omitted, the
+    executor auto-selects a backend via ``BackendSelector`` at execution
+    time (normal CLI usage).
 
     Args:
         agent_config_path: Path to agent configuration file
         execution_config: Optional execution config from CLI flags
         file_processor: Optional FileProcessor instance (auto-created if None)
-        agent_factory: Optional AgentFactory instance (auto-created if None)
         evaluators: Optional dict of evaluator instances (auto-created if None)
         config_loader: Optional ConfigLoader instance (auto-created if None)
         progress_callback: Optional callback function called after each test.
@@ -112,7 +108,7 @@ def __init__(
         resolved_execution_config: Optional pre-resolved execution config
                                    (auto-resolved if None)
         backend: Optional AgentBackend instance. When provided, the executor
-                 uses invoke_once() instead of AgentFactory.
+                 uses it directly instead of auto-selecting one.
     """
     self.agent_config_path = agent_config_path
     self.cli_config = execution_config
@@ -134,22 +130,16 @@ def __init__(
     logger.debug("Initializing FileProcessor component")
     self.file_processor = file_processor or self._create_file_processor()
 
-    # Resolve agent invocation path:
-    # 1. Injected backend  → use it, skip AgentFactory
-    # 2. Injected factory  → use it (legacy / tests)
-    # 3. Neither injected  → defer to _ensure_backend_initialized()
+    # The agent invocation path is the provider-agnostic AgentBackend. When
+    # no backend is injected it is auto-selected lazily via BackendSelector
+    # in _ensure_backend_initialized() at execution time.
     if self._backend is not None:
-        logger.debug("Using injected AgentBackend — skipping AgentFactory creation")
-        self.agent_factory: AgentFactory | None = agent_factory
-    elif agent_factory is not None:
-        logger.debug("Using injected AgentFactory")
-        self.agent_factory = agent_factory
+        logger.debug("Using injected AgentBackend")
     else:
         logger.debug(
-            "No backend or agent_factory injected "
-            "— will auto-select via BackendSelector at execution time"
+            "No backend injected — will auto-select via BackendSelector "
+            "at execution time"
         )
-        self.agent_factory = None
 
     logger.debug("Initializing Evaluators component")
     self.evaluators = evaluators or self._create_evaluators()
@@ -242,8 +232,6 @@ async def shutdown(self) -> None:
         logger.debug("TestExecutor shutting down")
         if self._backend is not None:
             await self._backend.teardown()
-        elif self.agent_factory is not None:
-            await self.agent_factory.shutdown()
         logger.debug("TestExecutor shutdown complete")
     except Exception as e:
         logger.error(f"Error during TestExecutor shutdown: {e}")
@@ -345,401 +333,9 @@ Module-level dictionary mapping `RAGMetricType` enum members to their evaluator 
 
 ______________________________________________________________________
 
-## Agent Factory
+## Agent Invocation
 
-The agent factory module provides Semantic Kernel-based agent creation, invocation with timeout/retry logic, and response/tool-call extraction.
-
-### AgentFactory
-
-## `AgentFactory(agent_config, max_retries=DEFAULT_MAX_RETRIES, retry_delay=DEFAULT_RETRY_DELAY_SECONDS, retry_exponential_base=DEFAULT_RETRY_EXPONENTIAL_BASE, force_ingest=False, execution_config=None)`
-
-Factory for creating and executing agents using Semantic Kernel.
-
-Handles Kernel creation, agent invocation, response extraction, and tool call handling with support for multiple LLM providers.
-
-Initialize agent factory with Semantic Kernel.
-
-Parameters:
-
-| Name                     | Type              | Description                                             | Default                                                  |
-| ------------------------ | ----------------- | ------------------------------------------------------- | -------------------------------------------------------- |
-| `agent_config`           | `Agent`           | Agent configuration with model and instructions         | *required*                                               |
-| `max_retries`            | `int`             | Maximum number of retry attempts for transient failures | `DEFAULT_MAX_RETRIES`                                    |
-| `retry_delay`            | `float`           | Base delay in seconds for exponential backoff           | `DEFAULT_RETRY_DELAY_SECONDS`                            |
-| `retry_exponential_base` | `float`           | Exponential base for backoff calculation                | `DEFAULT_RETRY_EXPONENTIAL_BASE`                         |
-| `force_ingest`           | `bool`            | Force re-ingestion of vector store source files         | `False`                                                  |
-| `execution_config`       | \`ExecutionConfig | None\`                                                  | Execution configuration for timeouts and file processing |
-
-Raises:
-
-| Type                | Description                    |
-| ------------------- | ------------------------------ |
-| `AgentFactoryError` | If kernel initialization fails |
-
-Source code in `src/holodeck/lib/test_runner/agent_factory.py`
-
-```
-def __init__(
-    self,
-    agent_config: Agent,
-    max_retries: int = DEFAULT_MAX_RETRIES,
-    retry_delay: float = DEFAULT_RETRY_DELAY_SECONDS,
-    retry_exponential_base: float = DEFAULT_RETRY_EXPONENTIAL_BASE,
-    force_ingest: bool = False,
-    execution_config: ExecutionConfig | None = None,
-) -> None:
-    """Initialize agent factory with Semantic Kernel.
-
-    Args:
-        agent_config: Agent configuration with model and instructions
-        max_retries: Maximum number of retry attempts for transient failures
-        retry_delay: Base delay in seconds for exponential backoff
-        retry_exponential_base: Exponential base for backoff calculation
-        force_ingest: Force re-ingestion of vector store source files
-        execution_config: Execution configuration for timeouts and file processing
-
-    Raises:
-        AgentFactoryError: If kernel initialization fails
-    """
-    self.agent_config = agent_config
-    self._execution_config = execution_config
-    # Get timeout from execution_config or use default
-    self.timeout: float | None = (
-        execution_config.llm_timeout
-        if execution_config
-        else DEFAULT_TIMEOUT_SECONDS
-    )
-    self.max_retries = max_retries
-    self.retry_delay = retry_delay
-    self.retry_exponential_base = retry_exponential_base
-    self._retry_count = 0
-    self.kernel_arguments: KernelArguments | None = None
-    self._llm_service: Any | None = None
-    self._force_ingest = force_ingest
-
-    # Vectorstore tool support
-    self._tools_initialized = False
-    self._vectorstore_tools: list[Any] = []
-    self._embedding_service: Any = None
-
-    # Hierarchical document tool support
-    self._hierarchical_document_tools: list[Any] = []
-
-    # MCP tool support
-    self._mcp_plugins: list[Any] = []
-
-    # Tool filtering support
-    self._tool_filter_manager: ToolFilterManager | None = None
-
-    logger.debug(
-        f"Initializing AgentFactory: agent={agent_config.name}, "
-        f"provider={agent_config.model.provider}, timeout={self.timeout}s, "
-        f"max_retries={max_retries}"
-    )
-
-    try:
-        self.kernel = self._create_kernel()
-
-        # Register embedding service if vectorstore or hierarchical document tools
-        if self._has_vectorstore_tools() or self._has_hierarchical_document_tools():
-            self._register_embedding_service()
-
-        self.agent = self._create_agent()
-        logger.info(
-            f"AgentFactory initialized successfully for agent: {agent_config.name}"
-        )
-    except Exception as e:
-        logger.error(f"Failed to initialize agent factory: {e}", exc_info=True)
-        raise AgentFactoryError(f"Failed to initialize agent factory: {e}") from e
-```
-
-### `create_thread_run()`
-
-Create a new isolated agent thread run.
-
-Each thread run has its own ChatHistory, suitable for:
-
-- Individual test case execution
-- Isolated conversation sessions
-
-This method ensures tools are initialized before creating the run.
-
-Returns:
-
-| Type             | Description                                            |
-| ---------------- | ------------------------------------------------------ |
-| `AgentThreadRun` | A new AgentThreadRun instance with fresh chat history. |
-
-Source code in `src/holodeck/lib/test_runner/agent_factory.py`
-
-```
-async def create_thread_run(self) -> AgentThreadRun:
-    """Create a new isolated agent thread run.
-
-    Each thread run has its own ChatHistory, suitable for:
-    - Individual test case execution
-    - Isolated conversation sessions
-
-    This method ensures tools are initialized before creating the run.
-
-    Returns:
-        A new AgentThreadRun instance with fresh chat history.
-    """
-    await self._ensure_tools_initialized()
-
-    # Ensure kernel_arguments are built
-    if self.kernel_arguments is None:
-        self.kernel_arguments = self._build_kernel_arguments()
-
-    exec_timeout = (
-        self._execution_config.llm_timeout if self._execution_config else "N/A"
-    )
-    logger.debug(
-        f"Creating AgentThreadRun with timeout={self.timeout}s "
-        f"(from execution_config.llm_timeout={exec_timeout})"
-    )
-
-    return AgentThreadRun(
-        agent=self.agent,
-        kernel=self.kernel,
-        kernel_arguments=self.kernel_arguments,
-        timeout=self.timeout,
-        max_retries=self.max_retries,
-        retry_delay=self.retry_delay,
-        retry_exponential_base=self.retry_exponential_base,
-        observability_enabled=self._is_observability_enabled(),
-        tool_filter_manager=self._tool_filter_manager,
-    )
-```
-
-### `shutdown()`
-
-Shutdown all MCP plugins and release resources.
-
-Must be called from the same task context where the factory was used. Properly exits all MCP plugin async context managers to avoid 'Attempted to exit cancel scope in a different task' errors.
-
-Source code in `src/holodeck/lib/test_runner/agent_factory.py`
-
-```
-async def shutdown(self) -> None:
-    """Shutdown all MCP plugins and release resources.
-
-    Must be called from the same task context where the factory was used.
-    Properly exits all MCP plugin async context managers to avoid
-    'Attempted to exit cancel scope in a different task' errors.
-    """
-    errors: list[Exception] = []
-
-    # Shutdown MCP plugins in reverse order
-    for plugin in reversed(self._mcp_plugins):
-        try:
-            plugin_name = getattr(plugin, "name", "unknown")
-            logger.debug(f"Shutting down MCP plugin: {plugin_name}")
-            await plugin.__aexit__(None, None, None)
-            logger.info(f"MCP plugin shut down: {plugin_name}")
-        except Exception as e:
-            plugin_name = getattr(plugin, "name", "unknown")
-            logger.warning(f"Error shutting down MCP plugin {plugin_name}: {e}")
-            errors.append(e)
-
-    self._mcp_plugins.clear()
-
-    # Cleanup vectorstore tools if they have cleanup methods
-    for tool in self._vectorstore_tools:
-        try:
-            if hasattr(tool, "cleanup"):
-                await tool.cleanup()
-        except Exception as e:
-            logger.warning(f"Error cleaning up vectorstore tool: {e}")
-            errors.append(e)
-
-    self._vectorstore_tools.clear()
-
-    # Cleanup hierarchical document tools if they have cleanup methods
-    for tool in self._hierarchical_document_tools:
-        try:
-            if hasattr(tool, "cleanup"):
-                await tool.cleanup()
-        except Exception as e:
-            logger.warning(f"Error cleaning up hierarchical document tool: {e}")
-            errors.append(e)
-
-    self._hierarchical_document_tools.clear()
-    self._tools_initialized = False
-
-    if errors:
-        logger.warning(f"Shutdown completed with {len(errors)} error(s)")
-```
-
-### AgentThreadRun
-
-Encapsulates a single agent execution thread with an isolated `ChatHistory`. Created by `AgentFactory.create_thread_run()` to ensure test-case isolation.
-
-## `AgentThreadRun(agent, kernel, kernel_arguments, timeout=None, max_retries=DEFAULT_MAX_RETRIES, retry_delay=DEFAULT_RETRY_DELAY_SECONDS, retry_exponential_base=DEFAULT_RETRY_EXPONENTIAL_BASE, observability_enabled=False, tool_filter_manager=None)`
-
-Encapsulates a single agent execution thread with isolated chat history.
-
-Each instance maintains its own ChatHistory, ensuring test case isolation. Created by AgentFactory.create_thread_run().
-
-This class owns the invocation logic and response extraction methods, providing complete isolation between different test cases or chat sessions.
-
-Initialize an agent thread run with isolated chat history.
-
-Parameters:
-
-| Name                     | Type                | Description                                    | Default                                           |
-| ------------------------ | ------------------- | ---------------------------------------------- | ------------------------------------------------- |
-| `agent`                  | `Agent`             | Semantic Kernel agent instance.                | *required*                                        |
-| `kernel`                 | `Kernel`            | Configured Kernel instance.                    | *required*                                        |
-| `kernel_arguments`       | `KernelArguments`   | KernelArguments for agent invocation.          | *required*                                        |
-| `timeout`                | \`float             | None\`                                         | Timeout in seconds for agent invocation.          |
-| `max_retries`            | `int`               | Maximum retry attempts for transient failures. | `DEFAULT_MAX_RETRIES`                             |
-| `retry_delay`            | `float`             | Base delay in seconds for exponential backoff. | `DEFAULT_RETRY_DELAY_SECONDS`                     |
-| `retry_exponential_base` | `float`             | Exponential base for backoff calculation.      | `DEFAULT_RETRY_EXPONENTIAL_BASE`                  |
-| `observability_enabled`  | `bool`              | Whether OTel tracing is enabled.               | `False`                                           |
-| `tool_filter_manager`    | \`ToolFilterManager | None\`                                         | Optional manager for filtering tools per request. |
-
-Source code in `src/holodeck/lib/test_runner/agent_factory.py`
-
-```
-def __init__(
-    self,
-    agent: SKAgent,
-    kernel: Kernel,
-    kernel_arguments: KernelArguments,
-    timeout: float | None = None,
-    max_retries: int = DEFAULT_MAX_RETRIES,
-    retry_delay: float = DEFAULT_RETRY_DELAY_SECONDS,
-    retry_exponential_base: float = DEFAULT_RETRY_EXPONENTIAL_BASE,
-    observability_enabled: bool = False,
-    tool_filter_manager: ToolFilterManager | None = None,
-) -> None:
-    """Initialize an agent thread run with isolated chat history.
-
-    Args:
-        agent: Semantic Kernel agent instance.
-        kernel: Configured Kernel instance.
-        kernel_arguments: KernelArguments for agent invocation.
-        timeout: Timeout in seconds for agent invocation.
-        max_retries: Maximum retry attempts for transient failures.
-        retry_delay: Base delay in seconds for exponential backoff.
-        retry_exponential_base: Exponential base for backoff calculation.
-        observability_enabled: Whether OTel tracing is enabled.
-        tool_filter_manager: Optional manager for filtering tools per request.
-    """
-    self.agent = agent
-    self.kernel = kernel
-    self.kernel_arguments = kernel_arguments
-    self.timeout = timeout
-    self.max_retries = max_retries
-    self.retry_delay = retry_delay
-    self.retry_exponential_base = retry_exponential_base
-    self.observability_enabled = observability_enabled
-    self.tool_filter_manager = tool_filter_manager
-    self.chat_history = ChatHistory()  # Fresh history per instance
-
-    logger.debug(
-        f"AgentThreadRun initialized: timeout={self.timeout}s, "
-        f"max_retries={self.max_retries}, retry_delay={self.retry_delay}s, "
-        f"tool_filtering={'enabled' if tool_filter_manager else 'disabled'}"
-    )
-```
-
-### `invoke(user_input)`
-
-Invoke agent with user input.
-
-Parameters:
-
-| Name         | Type  | Description           | Default    |
-| ------------ | ----- | --------------------- | ---------- |
-| `user_input` | `str` | User's input message. | *required* |
-
-Returns:
-
-| Type                   | Description                                                     |
-| ---------------------- | --------------------------------------------------------------- |
-| `AgentExecutionResult` | AgentExecutionResult with tool_calls and complete chat_history. |
-
-Raises:
-
-| Type                | Description                        |
-| ------------------- | ---------------------------------- |
-| `AgentFactoryError` | If invocation fails after retries. |
-
-Source code in `src/holodeck/lib/test_runner/agent_factory.py`
-
-```
-async def invoke(self, user_input: str) -> AgentExecutionResult:
-    """Invoke agent with user input.
-
-    Args:
-        user_input: User's input message.
-
-    Returns:
-        AgentExecutionResult with tool_calls and complete chat_history.
-
-    Raises:
-        AgentFactoryError: If invocation fails after retries.
-    """
-    # Create tracer span only if observability is enabled
-    if self.observability_enabled:
-        from holodeck.lib.observability import get_tracer
-
-        tracer = get_tracer(__name__)
-        span_context: Any = tracer.start_as_current_span("holodeck.agent.invoke")
-    else:
-        span_context = nullcontext()
-
-    with span_context:
-        try:
-            # Add user input to chat history
-            self.chat_history.add_user_message(user_input)
-
-            # Invoke with timeout and retry logic
-            if self.timeout:
-                logger.debug(
-                    f"Invoking agent with timeout={self.timeout}s "
-                    f"(input length: {len(user_input)} chars)"
-                )
-                result = await asyncio.wait_for(
-                    self._invoke_with_retry(), timeout=self.timeout
-                )
-            else:
-                logger.debug(
-                    f"Invoking agent without timeout "
-                    f"(input length: {len(user_input)} chars)"
-                )
-                result = await self._invoke_with_retry()
-
-            return result
-
-        except TimeoutError as e:
-            raise AgentFactoryError(
-                f"Agent invocation timeout after {self.timeout}s"
-            ) from e
-        except AgentFactoryError:
-            raise
-        except Exception as e:
-            raise AgentFactoryError(f"Agent invocation failed: {e}") from e
-```
-
-### AgentExecutionResult
-
-Dataclass returned by `AgentThreadRun.invoke()` containing tool calls, tool results, the full conversation history, optional token usage, and the extracted response text.
-
-## `AgentExecutionResult(tool_calls, tool_results, chat_history, token_usage=None, response='')`
-
-Result of agent execution containing tool calls and conversation history.
-
-Attributes:
-
-| Name           | Type                   | Description                                                                                                                  |
-| -------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `tool_calls`   | `list[dict[str, Any]]` | List of tool calls made by the agent during execution. Each dict contains 'name' and 'arguments' keys.                       |
-| `tool_results` | `list[dict[str, Any]]` | List of tool execution results for retrieval context. Each dict contains 'name' (tool name) and 'result' (execution output). |
-| `chat_history` | `ChatHistory`          | Complete conversation history including user inputs and agent responses                                                      |
-| `token_usage`  | \`TokenUsage           | None\`                                                                                                                       |
+Agent execution is delegated to the backend layer rather than a test-runner-owned agent factory. The executor invokes `AgentBackend.invoke_once()` (or runs a multi-turn session) and normalizes the returned `ExecutionResult` — response text, tool calls, tool results, and token usage — for evaluation. See the [Backend Abstraction](https://docs.useholodeck.ai/api/backends/index.md) reference for `AgentBackend`, `BackendSelector`, and `ExecutionResult`.
 
 ______________________________________________________________________
 
