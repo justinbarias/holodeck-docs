@@ -736,7 +736,7 @@ def _save_report(report: TestReport, output: str, format: str | None) -> None:
 
 Compounding coordinate-descent optimizer that tunes an agent's declared numeric/textual axes against its own test suite. See the [Optimizer](https://docs.useholodeck.ai/guides/optimizer/index.md) guide for configuration.
 
-## `optimize(agent_config, max_cycles, numeric_max_trials, numeric_patience, textual_max_trials, textual_patience, seed, output_dir, verbose, quiet)`
+## `optimize(agent_config, max_cycles, numeric_max_trials, numeric_patience, textual_max_trials, textual_patience, seed, output_dir, verbose, quiet, progress)`
 
 Optimize an agent's instructions and hyperparameters against its tests.
 
@@ -787,6 +787,19 @@ Source code in `src/holodeck/cli/commands/optimize.py`
 )
 @click.option("--verbose", "-v", is_flag=True, help="Enable verbose debug output.")
 @click.option("--quiet", "-q", is_flag=True, help="Suppress per-trial streaming.")
+@click.option(
+    "--progress",
+    type=click.Choice(["plain", "json"]),
+    default="plain",
+    show_default=True,
+    help=(
+        "Progress output mode. 'plain' streams human-readable per-trial lines to "
+        "stdout (unchanged). 'json' emits a versioned NDJSON event stream to stdout "
+        "(one object per line, flushed per event) and routes all human and library "
+        "logs to stderr, so a subprocess can read stdout as pure events. See the "
+        "schema at schemas/optimize-progress.schema.json."
+    ),
+)
 def optimize(
     agent_config: str,
     max_cycles: int | None,
@@ -798,6 +811,7 @@ def optimize(
     output_dir: str,
     verbose: bool,
     quiet: bool,
+    progress: str,
 ) -> None:
     """Optimize an agent's instructions and hyperparameters against its tests.
 
@@ -808,6 +822,14 @@ def optimize(
     # Set when observability is enabled; gates the root span + shutdown.
     obs_context: ObservabilityContext | None = None
     effective_quiet = quiet and not verbose
+
+    # Under `--progress json`, stdout is the machine channel (pure NDJSON) and all
+    # human/library output is routed to stderr; `plain` keeps today's behavior with a
+    # no-op emitter. Created before the try so the except blocks can emit a fatal error.
+    json_progress = progress == "json"
+    emitter: ProgressEmitter = (
+        JsonlEmitter(sys.stdout) if json_progress else NullEmitter()
+    )
 
     try:
         from holodeck.config.loader import load_agent_with_config
@@ -873,13 +895,10 @@ def optimize(
                 f"— {status}"
             )
 
-        run_id = (
-            datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-            + "-"
-            + uuid.uuid4().hex[:6]
-        )
+        started_at = datetime.now(timezone.utc)
+        run_id = started_at.strftime("%Y%m%d-%H%M%S") + "-" + uuid.uuid4().hex[:6]
 
-        click.echo(f"Optimizing '{agent.name}' (run {run_id})…")
+        click.echo(f"Optimizing '{agent.name}' (run {run_id})…", err=json_progress)
         loop = OptimizerLoop(
             original_agent=agent,
             scorer=scorer,  # type: ignore[arg-type]
@@ -887,7 +906,10 @@ def optimize(
             numeric_proposer=numeric,
             textual_proposer=textual,
             run_id=run_id,
-            progress_callback=on_trial,
+            # In json mode the trial events replace human stdout streaming.
+            progress_callback=None if json_progress else on_trial,
+            emitter=emitter,
+            started_at=started_at,
         )
 
         async def _run() -> OptimizationResult:
@@ -923,17 +945,36 @@ def optimize(
 
         run_dir = write_outputs(result, Path(output_dir))
 
+        # Closing event: artifact paths are only known now that they are written.
+        emitter.emit(
+            RunCompleted(
+                run_id=result.run_id,
+                baseline_loss=result.baseline_loss,
+                best_loss=result.best_loss,
+                accepted=result.accepted_count,
+                cycles=result.cycles_run,
+                artifacts=RunArtifacts(
+                    best_yaml=str(run_dir / "best.yaml"),
+                    trials_jsonl=str(run_dir / "trials.jsonl"),
+                    report_md=str(run_dir / "report.md"),
+                ),
+            )
+        )
+
         click.echo(
             f"\nBaseline loss {result.baseline_loss:.4f} → best "
             f"{result.best_loss:.4f} "
-            f"({result.accepted_count} accepted over {result.cycles_run} cycles)."
+            f"({result.accepted_count} accepted over {result.cycles_run} cycles).",
+            err=json_progress,
         )
-        click.echo(f"Artifacts written to {run_dir}")
+        click.echo(f"Artifacts written to {run_dir}", err=json_progress)
 
     except OptimizerError as exc:
+        emitter.emit(ErrorEvent(message=str(exc), fatal=True))
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)
     except Exception as exc:  # noqa: BLE001
+        emitter.emit(ErrorEvent(message=str(exc), fatal=True))
         logger.exception("Optimization failed")
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)
