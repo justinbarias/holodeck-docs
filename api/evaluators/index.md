@@ -1,9 +1,8 @@
 # Evaluation Framework API
 
-HoloDeck provides a flexible evaluation framework for measuring agent response quality. The framework supports three tiers of metrics:
+HoloDeck provides a flexible evaluation framework for measuring agent response quality. The framework supports two tiers of metrics:
 
 1. **Standard NLP Metrics** -- Traditional text-comparison metrics (BLEU, ROUGE, METEOR) that require no LLM
-1. **Azure AI Metrics** -- AI-assisted quality metrics via Azure AI Evaluation SDK (groundedness, relevance, coherence, fluency, similarity)
 1. **DeepEval Metrics** -- LLM-as-a-judge evaluation with multi-provider support (G-Eval custom criteria, RAG pipeline metrics)
 
 All evaluators share a common base class with retry logic, timeout handling, and a unified parameter specification system.
@@ -17,12 +16,6 @@ BaseEvaluator (base.py)
 ├── BLEUEvaluator (nlp_metrics.py)
 ├── ROUGEEvaluator (nlp_metrics.py)
 ├── METEOREvaluator (nlp_metrics.py)
-├── AzureAIEvaluator (azure_ai.py)
-│   ├── GroundednessEvaluator
-│   ├── RelevanceEvaluator
-│   ├── CoherenceEvaluator
-│   ├── FluencyEvaluator
-│   └── SimilarityEvaluator
 └── DeepEvalBaseEvaluator (deepeval/base.py)
     ├── GEvalEvaluator (deepeval/geval.py)
     ├── FaithfulnessEvaluator (deepeval/faithfulness.py)
@@ -702,10 +695,10 @@ DEEPEVAL_PARAMS = frozenset(
 
 Two naming conventions exist side-by-side:
 
-| Convention     | Query   | Response        | Reference         |
-| -------------- | ------- | --------------- | ----------------- |
-| Azure AI / NLP | `query` | `response`      | `ground_truth`    |
-| DeepEval       | `input` | `actual_output` | `expected_output` |
+| Convention | Query   | Response        | Reference         |
+| ---------- | ------- | --------------- | ----------------- |
+| NLP        | `query` | `response`      | `ground_truth`    |
+| DeepEval   | `input` | `actual_output` | `expected_output` |
 
 Both conventions share `context` and `retrieval_context`.
 
@@ -751,6 +744,12 @@ Parameters:
 | `timeout`   | \`float | None\`                                       | Timeout in seconds              |
 | `**kwargs`  | `Any`   | Additional arguments passed to BaseEvaluator | `{}`                            |
 
+Raises:
+
+| Type                | Description                                 |
+| ------------------- | ------------------------------------------- |
+| `MissingExtraError` | SacreBLEU (the nlp extra) is not installed. |
+
 Source code in `src/holodeck/lib/evaluators/nlp_metrics.py`
 
 ```
@@ -766,7 +765,11 @@ def __init__(
         threshold: Minimum passing score (0.0-1.0)
         timeout: Timeout in seconds
         **kwargs: Additional arguments passed to BaseEvaluator
+
+    Raises:
+        MissingExtraError: SacreBLEU (the ``nlp`` extra) is not installed.
     """
+    require_extra("sacrebleu", NLP_EXTRA, "The BLEU metric")
     super().__init__(timeout=timeout, **kwargs)
     self.threshold = threshold
 ```
@@ -922,9 +925,10 @@ Parameters:
 
 Raises:
 
-| Type         | Description             |
-| ------------ | ----------------------- |
-| `ValueError` | If variant is not valid |
+| Type                | Description                                   |
+| ------------------- | --------------------------------------------- |
+| `ValueError`        | If variant is not valid                       |
+| `MissingExtraError` | rouge_score (the nlp extra) is not installed. |
 
 Source code in `src/holodeck/lib/evaluators/nlp_metrics.py`
 
@@ -947,7 +951,9 @@ def __init__(
 
     Raises:
         ValueError: If variant is not valid
+        MissingExtraError: rouge_score (the ``nlp`` extra) is not installed.
     """
+    require_extra("rouge_score", NLP_EXTRA, "The ROUGE metric")
     super().__init__(timeout=timeout, **kwargs)
     self.threshold = threshold
 
@@ -955,7 +961,7 @@ def __init__(
     if variant not in valid_variants:
         raise ValueError(f"variant must be one of {valid_variants}, got: {variant}")
     self.variant = variant
-    self._metric = None  # Lazy loaded
+    self._metric: Any = None  # Lazy loaded
 ```
 
 ### `name`
@@ -1099,6 +1105,12 @@ Parameters:
 | `timeout`   | \`float | None\`                                       | Timeout in seconds              |
 | `**kwargs`  | `Any`   | Additional arguments passed to BaseEvaluator | `{}`                            |
 
+Raises:
+
+| Type                | Description                            |
+| ------------------- | -------------------------------------- |
+| `MissingExtraError` | NLTK (the nlp extra) is not installed. |
+
 Source code in `src/holodeck/lib/evaluators/nlp_metrics.py`
 
 ```
@@ -1114,10 +1126,14 @@ def __init__(
         threshold: Minimum passing score (0.0-1.0)
         timeout: Timeout in seconds
         **kwargs: Additional arguments passed to BaseEvaluator
+
+    Raises:
+        MissingExtraError: NLTK (the ``nlp`` extra) is not installed.
     """
+    require_extra("nltk", NLP_EXTRA, "The METEOR metric")
     super().__init__(timeout=timeout, **kwargs)
     self.threshold = threshold
-    self._metric = None  # Lazy loaded
+    self._metric: Any = None  # Lazy loaded
 ```
 
 ### `name`
@@ -1264,997 +1280,9 @@ print(result["rouge1"], result["rouge2"], result["rougeL"])
 
 ______________________________________________________________________
 
-## Azure AI Metrics
+## Removed Azure AI Metrics
 
-AI-assisted quality metrics powered by the Azure AI Evaluation SDK. All Azure evaluators normalize scores from a 1--5 scale to 0.0--1.0.
-
-### ModelConfig
-
-## `ModelConfig`
-
-Bases: `BaseModel`
-
-Azure OpenAI model configuration for evaluators.
-
-Attributes:
-
-| Name               | Type  | Description                                              |
-| ------------------ | ----- | -------------------------------------------------------- |
-| `azure_endpoint`   | `str` | Azure OpenAI endpoint URL                                |
-| `api_key`          | `str` | Azure OpenAI API key                                     |
-| `azure_deployment` | `str` | Azure deployment name (e.g., "gpt-4o", "gpt-4o-mini")    |
-| `api_version`      | `str` | Azure OpenAI API version (default: "2024-02-15-preview") |
-
-Example
-
-> > > config = ModelConfig( ... azure_endpoint="https://my-resource.openai.azure.com/", ... api_key="my-api-key", ... azure_deployment="gpt-4o" ... )
-
-### AzureAIEvaluator
-
-## `AzureAIEvaluator(model_config, timeout=60.0, retry_config=None)`
-
-Bases: `BaseEvaluator`
-
-Base class for Azure AI Evaluation SDK evaluators.
-
-Provides common functionality for all Azure AI evaluators:
-
-- Model configuration
-- Retry logic with exponential backoff
-- Timeout handling
-- Score normalization (5-point scale to 0-1)
-
-Attributes:
-
-| Name           | Type | Description                                  |
-| -------------- | ---- | -------------------------------------------- |
-| `model_config` |      | Azure OpenAI model configuration             |
-| `timeout`      |      | Timeout in seconds (default: 60s)            |
-| `retry_config` |      | Retry configuration with exponential backoff |
-
-Example
-
-> > > config = ModelConfig( ... azure_endpoint="https://test.openai.azure.com/", ... api_key="key", ... azure_deployment="gpt-4o-mini" ... ) evaluator = RelevanceEvaluator(model_config=config) result = await evaluator.evaluate(query="test", response="answer")
-
-Initialize Azure AI evaluator.
-
-Parameters:
-
-| Name           | Type          | Description                      | Default                                                |
-| -------------- | ------------- | -------------------------------- | ------------------------------------------------------ |
-| `model_config` | `ModelConfig` | Azure OpenAI model configuration | *required*                                             |
-| `timeout`      | \`float       | None\`                           | Timeout in seconds (default: 60s, None for no timeout) |
-| `retry_config` | \`RetryConfig | None\`                           | Retry configuration (uses defaults if not provided)    |
-
-Source code in `src/holodeck/lib/evaluators/azure_ai.py`
-
-```
-def __init__(
-    self,
-    model_config: ModelConfig,
-    timeout: float | None = 60.0,
-    retry_config: RetryConfig | None = None,
-) -> None:
-    """Initialize Azure AI evaluator.
-
-    Args:
-        model_config: Azure OpenAI model configuration
-        timeout: Timeout in seconds (default: 60s, None for no timeout)
-        retry_config: Retry configuration (uses defaults if not provided)
-    """
-    super().__init__(timeout=timeout, retry_config=retry_config)
-    self.model_config = model_config
-```
-
-### `name`
-
-Return evaluator name (class name by default).
-
-### `evaluate(**kwargs)`
-
-Evaluate with timeout and retry logic.
-
-This is the main public interface for evaluation. It wraps the implementation with timeout and retry handling.
-
-Parameters:
-
-| Name       | Type  | Description                                                          | Default |
-| ---------- | ----- | -------------------------------------------------------------------- | ------- |
-| `**kwargs` | `Any` | Evaluation parameters (query, response, context, ground_truth, etc.) | `{}`    |
-
-Returns:
-
-| Type             | Description                  |
-| ---------------- | ---------------------------- |
-| `dict[str, Any]` | Evaluation result dictionary |
-
-Raises:
-
-| Type              | Description                       |
-| ----------------- | --------------------------------- |
-| `TimeoutError`    | If evaluation exceeds timeout     |
-| `EvaluationError` | If evaluation fails after retries |
-
-Example
-
-> > > evaluator = MyEvaluator(timeout=30.0) result = await evaluator.evaluate( ... query="What is the capital of France?", ... response="The capital of France is Paris.", ... context="France is a country in Europe.", ... ground_truth="Paris" ... ) print(result["score"]) 0.95
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-async def evaluate(self, **kwargs: Any) -> dict[str, Any]:
-    """Evaluate with timeout and retry logic.
-
-    This is the main public interface for evaluation. It wraps the
-    implementation with timeout and retry handling.
-
-    Args:
-        **kwargs: Evaluation parameters
-            (query, response, context, ground_truth, etc.)
-
-    Returns:
-        Evaluation result dictionary
-
-    Raises:
-        asyncio.TimeoutError: If evaluation exceeds timeout
-        EvaluationError: If evaluation fails after retries
-
-    Example:
-        >>> evaluator = MyEvaluator(timeout=30.0)
-        >>> result = await evaluator.evaluate(
-        ...     query="What is the capital of France?",
-        ...     response="The capital of France is Paris.",
-        ...     context="France is a country in Europe.",
-        ...     ground_truth="Paris"
-        ... )
-        >>> print(result["score"])
-        0.95
-    """
-    logger.debug(f"Starting evaluation: {self.name} (timeout={self.timeout}s)")
-
-    if self.timeout is None:
-        # No timeout - evaluate directly with retry
-        logger.debug(f"Evaluation {self.name}: no timeout")
-        return await self._evaluate_with_retry(**kwargs)
-
-    # Apply timeout using asyncio.wait_for
-    try:
-        logger.debug(f"Evaluation {self.name}: applying timeout of {self.timeout}s")
-        return await asyncio.wait_for(
-            self._evaluate_with_retry(**kwargs), timeout=self.timeout
-        )
-    except TimeoutError:
-        logger.error(f"Evaluation {self.name} exceeded timeout of {self.timeout}s")
-        raise  # Re-raise timeout error as-is
-```
-
-### `get_param_spec()`
-
-Get the parameter specification for this evaluator.
-
-Returns:
-
-| Type        | Description                                                         |
-| ----------- | ------------------------------------------------------------------- |
-| `ParamSpec` | ParamSpec declaring required/optional parameters and context flags. |
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-@classmethod
-def get_param_spec(cls) -> ParamSpec:
-    """Get the parameter specification for this evaluator.
-
-    Returns:
-        ParamSpec declaring required/optional parameters and context flags.
-    """
-    return cls.PARAM_SPEC
-```
-
-### GroundednessEvaluator
-
-Assesses whether all claims in the response are supported by the provided context. Use an expensive model (e.g., `gpt-4o`) for this critical metric.
-
-## `GroundednessEvaluator(model_config, timeout=60.0, retry_config=None)`
-
-Bases: `AzureAIEvaluator`
-
-Groundedness evaluator using Azure AI Evaluation SDK.
-
-Assesses correspondence between claims in AI-generated answers and source context. Measures factual accuracy by verifying that all claims in the response are supported by the provided context.
-
-Query parameter is optional but recommended for better accuracy.
-
-Scale: 1-5 (normalized to 0.0-1.0)
-
-Example
-
-> > > config = ModelConfig( ... azure_endpoint="https://test.openai.azure.com/", ... api_key="key", ... azure_deployment="gpt-4o" # Use expensive model for critical metric ... ) evaluator = GroundednessEvaluator(model_config=config) result = await evaluator.evaluate( ... query="What is the capital?", ... response="The capital is Paris.", ... context="France's capital is Paris." ... ) print(result["score"]) # 0.0-1.0 0.95
-
-Initialize Azure AI evaluator.
-
-Parameters:
-
-| Name           | Type          | Description                      | Default                                                |
-| -------------- | ------------- | -------------------------------- | ------------------------------------------------------ |
-| `model_config` | `ModelConfig` | Azure OpenAI model configuration | *required*                                             |
-| `timeout`      | \`float       | None\`                           | Timeout in seconds (default: 60s, None for no timeout) |
-| `retry_config` | \`RetryConfig | None\`                           | Retry configuration (uses defaults if not provided)    |
-
-Source code in `src/holodeck/lib/evaluators/azure_ai.py`
-
-```
-def __init__(
-    self,
-    model_config: ModelConfig,
-    timeout: float | None = 60.0,
-    retry_config: RetryConfig | None = None,
-) -> None:
-    """Initialize Azure AI evaluator.
-
-    Args:
-        model_config: Azure OpenAI model configuration
-        timeout: Timeout in seconds (default: 60s, None for no timeout)
-        retry_config: Retry configuration (uses defaults if not provided)
-    """
-    super().__init__(timeout=timeout, retry_config=retry_config)
-    self.model_config = model_config
-```
-
-### `name`
-
-Return evaluator name (class name by default).
-
-### `evaluate(**kwargs)`
-
-Evaluate with timeout and retry logic.
-
-This is the main public interface for evaluation. It wraps the implementation with timeout and retry handling.
-
-Parameters:
-
-| Name       | Type  | Description                                                          | Default |
-| ---------- | ----- | -------------------------------------------------------------------- | ------- |
-| `**kwargs` | `Any` | Evaluation parameters (query, response, context, ground_truth, etc.) | `{}`    |
-
-Returns:
-
-| Type             | Description                  |
-| ---------------- | ---------------------------- |
-| `dict[str, Any]` | Evaluation result dictionary |
-
-Raises:
-
-| Type              | Description                       |
-| ----------------- | --------------------------------- |
-| `TimeoutError`    | If evaluation exceeds timeout     |
-| `EvaluationError` | If evaluation fails after retries |
-
-Example
-
-> > > evaluator = MyEvaluator(timeout=30.0) result = await evaluator.evaluate( ... query="What is the capital of France?", ... response="The capital of France is Paris.", ... context="France is a country in Europe.", ... ground_truth="Paris" ... ) print(result["score"]) 0.95
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-async def evaluate(self, **kwargs: Any) -> dict[str, Any]:
-    """Evaluate with timeout and retry logic.
-
-    This is the main public interface for evaluation. It wraps the
-    implementation with timeout and retry handling.
-
-    Args:
-        **kwargs: Evaluation parameters
-            (query, response, context, ground_truth, etc.)
-
-    Returns:
-        Evaluation result dictionary
-
-    Raises:
-        asyncio.TimeoutError: If evaluation exceeds timeout
-        EvaluationError: If evaluation fails after retries
-
-    Example:
-        >>> evaluator = MyEvaluator(timeout=30.0)
-        >>> result = await evaluator.evaluate(
-        ...     query="What is the capital of France?",
-        ...     response="The capital of France is Paris.",
-        ...     context="France is a country in Europe.",
-        ...     ground_truth="Paris"
-        ... )
-        >>> print(result["score"])
-        0.95
-    """
-    logger.debug(f"Starting evaluation: {self.name} (timeout={self.timeout}s)")
-
-    if self.timeout is None:
-        # No timeout - evaluate directly with retry
-        logger.debug(f"Evaluation {self.name}: no timeout")
-        return await self._evaluate_with_retry(**kwargs)
-
-    # Apply timeout using asyncio.wait_for
-    try:
-        logger.debug(f"Evaluation {self.name}: applying timeout of {self.timeout}s")
-        return await asyncio.wait_for(
-            self._evaluate_with_retry(**kwargs), timeout=self.timeout
-        )
-    except TimeoutError:
-        logger.error(f"Evaluation {self.name} exceeded timeout of {self.timeout}s")
-        raise  # Re-raise timeout error as-is
-```
-
-### `get_param_spec()`
-
-Get the parameter specification for this evaluator.
-
-Returns:
-
-| Type        | Description                                                         |
-| ----------- | ------------------------------------------------------------------- |
-| `ParamSpec` | ParamSpec declaring required/optional parameters and context flags. |
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-@classmethod
-def get_param_spec(cls) -> ParamSpec:
-    """Get the parameter specification for this evaluator.
-
-    Returns:
-        ParamSpec declaring required/optional parameters and context flags.
-    """
-    return cls.PARAM_SPEC
-```
-
-### RelevanceEvaluator
-
-Measures whether the response directly addresses the user's question.
-
-## `RelevanceEvaluator(model_config, timeout=60.0, retry_config=None)`
-
-Bases: `AzureAIEvaluator`
-
-Relevance evaluator using Azure AI Evaluation SDK.
-
-Measures relevance of response to query. Assesses whether the response directly addresses the user's question or request.
-
-Scale: 1-5 (normalized to 0.0-1.0)
-
-Example
-
-> > > config = ModelConfig( ... azure_endpoint="https://test.openai.azure.com/", ... api_key="key", ... azure_deployment="gpt-4o" # Critical metric ... ) evaluator = RelevanceEvaluator(model_config=config) result = await evaluator.evaluate( ... query="What is ML?", ... response="ML is machine learning, a subset of AI." ... )
-
-Initialize Azure AI evaluator.
-
-Parameters:
-
-| Name           | Type          | Description                      | Default                                                |
-| -------------- | ------------- | -------------------------------- | ------------------------------------------------------ |
-| `model_config` | `ModelConfig` | Azure OpenAI model configuration | *required*                                             |
-| `timeout`      | \`float       | None\`                           | Timeout in seconds (default: 60s, None for no timeout) |
-| `retry_config` | \`RetryConfig | None\`                           | Retry configuration (uses defaults if not provided)    |
-
-Source code in `src/holodeck/lib/evaluators/azure_ai.py`
-
-```
-def __init__(
-    self,
-    model_config: ModelConfig,
-    timeout: float | None = 60.0,
-    retry_config: RetryConfig | None = None,
-) -> None:
-    """Initialize Azure AI evaluator.
-
-    Args:
-        model_config: Azure OpenAI model configuration
-        timeout: Timeout in seconds (default: 60s, None for no timeout)
-        retry_config: Retry configuration (uses defaults if not provided)
-    """
-    super().__init__(timeout=timeout, retry_config=retry_config)
-    self.model_config = model_config
-```
-
-### `name`
-
-Return evaluator name (class name by default).
-
-### `evaluate(**kwargs)`
-
-Evaluate with timeout and retry logic.
-
-This is the main public interface for evaluation. It wraps the implementation with timeout and retry handling.
-
-Parameters:
-
-| Name       | Type  | Description                                                          | Default |
-| ---------- | ----- | -------------------------------------------------------------------- | ------- |
-| `**kwargs` | `Any` | Evaluation parameters (query, response, context, ground_truth, etc.) | `{}`    |
-
-Returns:
-
-| Type             | Description                  |
-| ---------------- | ---------------------------- |
-| `dict[str, Any]` | Evaluation result dictionary |
-
-Raises:
-
-| Type              | Description                       |
-| ----------------- | --------------------------------- |
-| `TimeoutError`    | If evaluation exceeds timeout     |
-| `EvaluationError` | If evaluation fails after retries |
-
-Example
-
-> > > evaluator = MyEvaluator(timeout=30.0) result = await evaluator.evaluate( ... query="What is the capital of France?", ... response="The capital of France is Paris.", ... context="France is a country in Europe.", ... ground_truth="Paris" ... ) print(result["score"]) 0.95
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-async def evaluate(self, **kwargs: Any) -> dict[str, Any]:
-    """Evaluate with timeout and retry logic.
-
-    This is the main public interface for evaluation. It wraps the
-    implementation with timeout and retry handling.
-
-    Args:
-        **kwargs: Evaluation parameters
-            (query, response, context, ground_truth, etc.)
-
-    Returns:
-        Evaluation result dictionary
-
-    Raises:
-        asyncio.TimeoutError: If evaluation exceeds timeout
-        EvaluationError: If evaluation fails after retries
-
-    Example:
-        >>> evaluator = MyEvaluator(timeout=30.0)
-        >>> result = await evaluator.evaluate(
-        ...     query="What is the capital of France?",
-        ...     response="The capital of France is Paris.",
-        ...     context="France is a country in Europe.",
-        ...     ground_truth="Paris"
-        ... )
-        >>> print(result["score"])
-        0.95
-    """
-    logger.debug(f"Starting evaluation: {self.name} (timeout={self.timeout}s)")
-
-    if self.timeout is None:
-        # No timeout - evaluate directly with retry
-        logger.debug(f"Evaluation {self.name}: no timeout")
-        return await self._evaluate_with_retry(**kwargs)
-
-    # Apply timeout using asyncio.wait_for
-    try:
-        logger.debug(f"Evaluation {self.name}: applying timeout of {self.timeout}s")
-        return await asyncio.wait_for(
-            self._evaluate_with_retry(**kwargs), timeout=self.timeout
-        )
-    except TimeoutError:
-        logger.error(f"Evaluation {self.name} exceeded timeout of {self.timeout}s")
-        raise  # Re-raise timeout error as-is
-```
-
-### `get_param_spec()`
-
-Get the parameter specification for this evaluator.
-
-Returns:
-
-| Type        | Description                                                         |
-| ----------- | ------------------------------------------------------------------- |
-| `ParamSpec` | ParamSpec declaring required/optional parameters and context flags. |
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-@classmethod
-def get_param_spec(cls) -> ParamSpec:
-    """Get the parameter specification for this evaluator.
-
-    Returns:
-        ParamSpec declaring required/optional parameters and context flags.
-    """
-    return cls.PARAM_SPEC
-```
-
-### CoherenceEvaluator
-
-Evaluates logical flow and readability of the response.
-
-## `CoherenceEvaluator(model_config, timeout=60.0, retry_config=None)`
-
-Bases: `AzureAIEvaluator`
-
-Coherence evaluator using Azure AI Evaluation SDK.
-
-Evaluates logical flow and readability. Measures how well the response is organized and whether ideas connect logically.
-
-Scale: 1-5 (normalized to 0.0-1.0)
-
-Example
-
-> > > config = ModelConfig( ... azure_endpoint="https://test.openai.azure.com/", ... api_key="key", ... azure_deployment="gpt-4o-mini" # Less critical metric ... ) evaluator = CoherenceEvaluator(model_config=config) result = await evaluator.evaluate( ... query="Explain X", ... response="X is... Furthermore... In conclusion..." ... )
-
-Initialize Azure AI evaluator.
-
-Parameters:
-
-| Name           | Type          | Description                      | Default                                                |
-| -------------- | ------------- | -------------------------------- | ------------------------------------------------------ |
-| `model_config` | `ModelConfig` | Azure OpenAI model configuration | *required*                                             |
-| `timeout`      | \`float       | None\`                           | Timeout in seconds (default: 60s, None for no timeout) |
-| `retry_config` | \`RetryConfig | None\`                           | Retry configuration (uses defaults if not provided)    |
-
-Source code in `src/holodeck/lib/evaluators/azure_ai.py`
-
-```
-def __init__(
-    self,
-    model_config: ModelConfig,
-    timeout: float | None = 60.0,
-    retry_config: RetryConfig | None = None,
-) -> None:
-    """Initialize Azure AI evaluator.
-
-    Args:
-        model_config: Azure OpenAI model configuration
-        timeout: Timeout in seconds (default: 60s, None for no timeout)
-        retry_config: Retry configuration (uses defaults if not provided)
-    """
-    super().__init__(timeout=timeout, retry_config=retry_config)
-    self.model_config = model_config
-```
-
-### `name`
-
-Return evaluator name (class name by default).
-
-### `evaluate(**kwargs)`
-
-Evaluate with timeout and retry logic.
-
-This is the main public interface for evaluation. It wraps the implementation with timeout and retry handling.
-
-Parameters:
-
-| Name       | Type  | Description                                                          | Default |
-| ---------- | ----- | -------------------------------------------------------------------- | ------- |
-| `**kwargs` | `Any` | Evaluation parameters (query, response, context, ground_truth, etc.) | `{}`    |
-
-Returns:
-
-| Type             | Description                  |
-| ---------------- | ---------------------------- |
-| `dict[str, Any]` | Evaluation result dictionary |
-
-Raises:
-
-| Type              | Description                       |
-| ----------------- | --------------------------------- |
-| `TimeoutError`    | If evaluation exceeds timeout     |
-| `EvaluationError` | If evaluation fails after retries |
-
-Example
-
-> > > evaluator = MyEvaluator(timeout=30.0) result = await evaluator.evaluate( ... query="What is the capital of France?", ... response="The capital of France is Paris.", ... context="France is a country in Europe.", ... ground_truth="Paris" ... ) print(result["score"]) 0.95
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-async def evaluate(self, **kwargs: Any) -> dict[str, Any]:
-    """Evaluate with timeout and retry logic.
-
-    This is the main public interface for evaluation. It wraps the
-    implementation with timeout and retry handling.
-
-    Args:
-        **kwargs: Evaluation parameters
-            (query, response, context, ground_truth, etc.)
-
-    Returns:
-        Evaluation result dictionary
-
-    Raises:
-        asyncio.TimeoutError: If evaluation exceeds timeout
-        EvaluationError: If evaluation fails after retries
-
-    Example:
-        >>> evaluator = MyEvaluator(timeout=30.0)
-        >>> result = await evaluator.evaluate(
-        ...     query="What is the capital of France?",
-        ...     response="The capital of France is Paris.",
-        ...     context="France is a country in Europe.",
-        ...     ground_truth="Paris"
-        ... )
-        >>> print(result["score"])
-        0.95
-    """
-    logger.debug(f"Starting evaluation: {self.name} (timeout={self.timeout}s)")
-
-    if self.timeout is None:
-        # No timeout - evaluate directly with retry
-        logger.debug(f"Evaluation {self.name}: no timeout")
-        return await self._evaluate_with_retry(**kwargs)
-
-    # Apply timeout using asyncio.wait_for
-    try:
-        logger.debug(f"Evaluation {self.name}: applying timeout of {self.timeout}s")
-        return await asyncio.wait_for(
-            self._evaluate_with_retry(**kwargs), timeout=self.timeout
-        )
-    except TimeoutError:
-        logger.error(f"Evaluation {self.name} exceeded timeout of {self.timeout}s")
-        raise  # Re-raise timeout error as-is
-```
-
-### `get_param_spec()`
-
-Get the parameter specification for this evaluator.
-
-Returns:
-
-| Type        | Description                                                         |
-| ----------- | ------------------------------------------------------------------- |
-| `ParamSpec` | ParamSpec declaring required/optional parameters and context flags. |
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-@classmethod
-def get_param_spec(cls) -> ParamSpec:
-    """Get the parameter specification for this evaluator.
-
-    Returns:
-        ParamSpec declaring required/optional parameters and context flags.
-    """
-    return cls.PARAM_SPEC
-```
-
-### FluencyEvaluator
-
-Assesses grammar, spelling, punctuation, word choice, and sentence structure.
-
-## `FluencyEvaluator(model_config, timeout=60.0, retry_config=None)`
-
-Bases: `AzureAIEvaluator`
-
-Fluency evaluator using Azure AI Evaluation SDK.
-
-Assesses language quality. Measures grammar, spelling, punctuation, word choice, and sentence structure.
-
-Scale: 1-5 (normalized to 0.0-1.0)
-
-Example
-
-> > > config = ModelConfig( ... azure_endpoint="https://test.openai.azure.com/", ... api_key="key", ... azure_deployment="gpt-4o-mini" # Less critical metric ... ) evaluator = FluencyEvaluator(model_config=config) result = await evaluator.evaluate( ... query="Test", ... response="This is a well-written response." ... )
-
-Initialize Azure AI evaluator.
-
-Parameters:
-
-| Name           | Type          | Description                      | Default                                                |
-| -------------- | ------------- | -------------------------------- | ------------------------------------------------------ |
-| `model_config` | `ModelConfig` | Azure OpenAI model configuration | *required*                                             |
-| `timeout`      | \`float       | None\`                           | Timeout in seconds (default: 60s, None for no timeout) |
-| `retry_config` | \`RetryConfig | None\`                           | Retry configuration (uses defaults if not provided)    |
-
-Source code in `src/holodeck/lib/evaluators/azure_ai.py`
-
-```
-def __init__(
-    self,
-    model_config: ModelConfig,
-    timeout: float | None = 60.0,
-    retry_config: RetryConfig | None = None,
-) -> None:
-    """Initialize Azure AI evaluator.
-
-    Args:
-        model_config: Azure OpenAI model configuration
-        timeout: Timeout in seconds (default: 60s, None for no timeout)
-        retry_config: Retry configuration (uses defaults if not provided)
-    """
-    super().__init__(timeout=timeout, retry_config=retry_config)
-    self.model_config = model_config
-```
-
-### `name`
-
-Return evaluator name (class name by default).
-
-### `evaluate(**kwargs)`
-
-Evaluate with timeout and retry logic.
-
-This is the main public interface for evaluation. It wraps the implementation with timeout and retry handling.
-
-Parameters:
-
-| Name       | Type  | Description                                                          | Default |
-| ---------- | ----- | -------------------------------------------------------------------- | ------- |
-| `**kwargs` | `Any` | Evaluation parameters (query, response, context, ground_truth, etc.) | `{}`    |
-
-Returns:
-
-| Type             | Description                  |
-| ---------------- | ---------------------------- |
-| `dict[str, Any]` | Evaluation result dictionary |
-
-Raises:
-
-| Type              | Description                       |
-| ----------------- | --------------------------------- |
-| `TimeoutError`    | If evaluation exceeds timeout     |
-| `EvaluationError` | If evaluation fails after retries |
-
-Example
-
-> > > evaluator = MyEvaluator(timeout=30.0) result = await evaluator.evaluate( ... query="What is the capital of France?", ... response="The capital of France is Paris.", ... context="France is a country in Europe.", ... ground_truth="Paris" ... ) print(result["score"]) 0.95
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-async def evaluate(self, **kwargs: Any) -> dict[str, Any]:
-    """Evaluate with timeout and retry logic.
-
-    This is the main public interface for evaluation. It wraps the
-    implementation with timeout and retry handling.
-
-    Args:
-        **kwargs: Evaluation parameters
-            (query, response, context, ground_truth, etc.)
-
-    Returns:
-        Evaluation result dictionary
-
-    Raises:
-        asyncio.TimeoutError: If evaluation exceeds timeout
-        EvaluationError: If evaluation fails after retries
-
-    Example:
-        >>> evaluator = MyEvaluator(timeout=30.0)
-        >>> result = await evaluator.evaluate(
-        ...     query="What is the capital of France?",
-        ...     response="The capital of France is Paris.",
-        ...     context="France is a country in Europe.",
-        ...     ground_truth="Paris"
-        ... )
-        >>> print(result["score"])
-        0.95
-    """
-    logger.debug(f"Starting evaluation: {self.name} (timeout={self.timeout}s)")
-
-    if self.timeout is None:
-        # No timeout - evaluate directly with retry
-        logger.debug(f"Evaluation {self.name}: no timeout")
-        return await self._evaluate_with_retry(**kwargs)
-
-    # Apply timeout using asyncio.wait_for
-    try:
-        logger.debug(f"Evaluation {self.name}: applying timeout of {self.timeout}s")
-        return await asyncio.wait_for(
-            self._evaluate_with_retry(**kwargs), timeout=self.timeout
-        )
-    except TimeoutError:
-        logger.error(f"Evaluation {self.name} exceeded timeout of {self.timeout}s")
-        raise  # Re-raise timeout error as-is
-```
-
-### `get_param_spec()`
-
-Get the parameter specification for this evaluator.
-
-Returns:
-
-| Type        | Description                                                         |
-| ----------- | ------------------------------------------------------------------- |
-| `ParamSpec` | ParamSpec declaring required/optional parameters and context flags. |
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-@classmethod
-def get_param_spec(cls) -> ParamSpec:
-    """Get the parameter specification for this evaluator.
-
-    Returns:
-        ParamSpec declaring required/optional parameters and context flags.
-    """
-    return cls.PARAM_SPEC
-```
-
-### SimilarityEvaluator
-
-Compares semantic similarity between response and ground truth.
-
-## `SimilarityEvaluator(model_config, timeout=60.0, retry_config=None)`
-
-Bases: `AzureAIEvaluator`
-
-Similarity evaluator using Azure AI Evaluation SDK.
-
-Compares semantic similarity between response and ground truth. Measures how closely the response matches the expected answer.
-
-Requires ground_truth parameter.
-
-Scale: 1-5 (normalized to 0.0-1.0)
-
-Example
-
-> > > config = ModelConfig( ... azure_endpoint="https://test.openai.azure.com/", ... api_key="key", ... azure_deployment="gpt-4o-mini" ... ) evaluator = SimilarityEvaluator(model_config=config) result = await evaluator.evaluate( ... query="What is 2+2?", ... response="The answer is 4.", ... ground_truth="2+2 equals 4." ... )
-
-Initialize Azure AI evaluator.
-
-Parameters:
-
-| Name           | Type          | Description                      | Default                                                |
-| -------------- | ------------- | -------------------------------- | ------------------------------------------------------ |
-| `model_config` | `ModelConfig` | Azure OpenAI model configuration | *required*                                             |
-| `timeout`      | \`float       | None\`                           | Timeout in seconds (default: 60s, None for no timeout) |
-| `retry_config` | \`RetryConfig | None\`                           | Retry configuration (uses defaults if not provided)    |
-
-Source code in `src/holodeck/lib/evaluators/azure_ai.py`
-
-```
-def __init__(
-    self,
-    model_config: ModelConfig,
-    timeout: float | None = 60.0,
-    retry_config: RetryConfig | None = None,
-) -> None:
-    """Initialize Azure AI evaluator.
-
-    Args:
-        model_config: Azure OpenAI model configuration
-        timeout: Timeout in seconds (default: 60s, None for no timeout)
-        retry_config: Retry configuration (uses defaults if not provided)
-    """
-    super().__init__(timeout=timeout, retry_config=retry_config)
-    self.model_config = model_config
-```
-
-### `name`
-
-Return evaluator name (class name by default).
-
-### `evaluate(**kwargs)`
-
-Evaluate with timeout and retry logic.
-
-This is the main public interface for evaluation. It wraps the implementation with timeout and retry handling.
-
-Parameters:
-
-| Name       | Type  | Description                                                          | Default |
-| ---------- | ----- | -------------------------------------------------------------------- | ------- |
-| `**kwargs` | `Any` | Evaluation parameters (query, response, context, ground_truth, etc.) | `{}`    |
-
-Returns:
-
-| Type             | Description                  |
-| ---------------- | ---------------------------- |
-| `dict[str, Any]` | Evaluation result dictionary |
-
-Raises:
-
-| Type              | Description                       |
-| ----------------- | --------------------------------- |
-| `TimeoutError`    | If evaluation exceeds timeout     |
-| `EvaluationError` | If evaluation fails after retries |
-
-Example
-
-> > > evaluator = MyEvaluator(timeout=30.0) result = await evaluator.evaluate( ... query="What is the capital of France?", ... response="The capital of France is Paris.", ... context="France is a country in Europe.", ... ground_truth="Paris" ... ) print(result["score"]) 0.95
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-async def evaluate(self, **kwargs: Any) -> dict[str, Any]:
-    """Evaluate with timeout and retry logic.
-
-    This is the main public interface for evaluation. It wraps the
-    implementation with timeout and retry handling.
-
-    Args:
-        **kwargs: Evaluation parameters
-            (query, response, context, ground_truth, etc.)
-
-    Returns:
-        Evaluation result dictionary
-
-    Raises:
-        asyncio.TimeoutError: If evaluation exceeds timeout
-        EvaluationError: If evaluation fails after retries
-
-    Example:
-        >>> evaluator = MyEvaluator(timeout=30.0)
-        >>> result = await evaluator.evaluate(
-        ...     query="What is the capital of France?",
-        ...     response="The capital of France is Paris.",
-        ...     context="France is a country in Europe.",
-        ...     ground_truth="Paris"
-        ... )
-        >>> print(result["score"])
-        0.95
-    """
-    logger.debug(f"Starting evaluation: {self.name} (timeout={self.timeout}s)")
-
-    if self.timeout is None:
-        # No timeout - evaluate directly with retry
-        logger.debug(f"Evaluation {self.name}: no timeout")
-        return await self._evaluate_with_retry(**kwargs)
-
-    # Apply timeout using asyncio.wait_for
-    try:
-        logger.debug(f"Evaluation {self.name}: applying timeout of {self.timeout}s")
-        return await asyncio.wait_for(
-            self._evaluate_with_retry(**kwargs), timeout=self.timeout
-        )
-    except TimeoutError:
-        logger.error(f"Evaluation {self.name} exceeded timeout of {self.timeout}s")
-        raise  # Re-raise timeout error as-is
-```
-
-### `get_param_spec()`
-
-Get the parameter specification for this evaluator.
-
-Returns:
-
-| Type        | Description                                                         |
-| ----------- | ------------------------------------------------------------------- |
-| `ParamSpec` | ParamSpec declaring required/optional parameters and context flags. |
-
-Source code in `src/holodeck/lib/evaluators/base.py`
-
-```
-@classmethod
-def get_param_spec(cls) -> ParamSpec:
-    """Get the parameter specification for this evaluator.
-
-    Returns:
-        ParamSpec declaring required/optional parameters and context flags.
-    """
-    return cls.PARAM_SPEC
-```
-
-### Azure AI Usage
-
-```
-from holodeck.lib.evaluators.azure_ai import (
-    ModelConfig,
-    GroundednessEvaluator,
-    RelevanceEvaluator,
-)
-
-config = ModelConfig(
-    azure_endpoint="https://my-resource.openai.azure.com/",
-    api_key="my-api-key",
-    azure_deployment="gpt-4o",
-)
-
-groundedness = GroundednessEvaluator(model_config=config)
-result = await groundedness.evaluate(
-    query="What is the capital of France?",
-    response="The capital of France is Paris.",
-    context="France is a country in Europe. Its capital is Paris.",
-)
-print(result["score"])          # 0.0-1.0 (normalized from 1-5)
-print(result["groundedness"])   # Raw 1-5 score
-print(result["reasoning"])      # LLM explanation
-```
-
-### Azure AI Metrics Summary
-
-| Evaluator               | Required Params                     | Optional Params | Score Key      |
-| ----------------------- | ----------------------------------- | --------------- | -------------- |
-| `GroundednessEvaluator` | `response`, `context`               | `query`         | `groundedness` |
-| `RelevanceEvaluator`    | `response`, `query`                 | `context`       | `relevance`    |
-| `CoherenceEvaluator`    | `response`, `query`                 | --              | `coherence`    |
-| `FluencyEvaluator`      | `response`, `query`                 | --              | `fluency`      |
-| `SimilarityEvaluator`   | `response`, `query`, `ground_truth` | --              | `similarity`   |
+The Azure AI evaluators (`groundedness`, `relevance`, `coherence`, `fluency`, `similarity`) and the `azure-ai-evaluation` dependency were removed in HoloDeck 0.8.0. See [Removed Azure AI metrics](https://docs.useholodeck.ai/guides/evaluations/#removed-azure-ai-metrics) for the DeepEval replacements.
 
 ______________________________________________________________________
 
@@ -2366,6 +1394,12 @@ def to_deepeval_model(self) -> DeepEvalModel:
     elif self.provider == ProviderEnum.ANTHROPIC:
         from deepeval.models import AnthropicModel
 
+        from holodeck.lib.extras import require_extra
+
+        # DeepEval imports the Anthropic SDK lazily; check it here so a
+        # missing package names the extra instead of failing mid-run.
+        require_extra("anthropic", "eval", "DeepEval metrics with Anthropic")
+
         kwargs = {
             "model": self.model_name,
             "temperature": self.temperature,
@@ -2376,6 +1410,10 @@ def to_deepeval_model(self) -> DeepEvalModel:
 
     elif self.provider == ProviderEnum.OLLAMA:
         from deepeval.models import OllamaModel
+
+        from holodeck.lib.extras import require_extra
+
+        require_extra("ollama", "eval", "DeepEval metrics with Ollama")
 
         return OllamaModel(
             model=self.model_name,

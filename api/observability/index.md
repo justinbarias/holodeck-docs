@@ -12,7 +12,7 @@ This module provides telemetry instrumentation for HoloDeck agents, following Op
 
 Public API
 
-initialize_observability: Initialize all telemetry providers shutdown_observability: Gracefully shutdown providers get_tracer: Get a tracer for creating spans get_meter: Get a meter for creating metrics enable_semantic_kernel_telemetry: Enable SK's native GenAI instrumentation ObservabilityContext: Container for initialized providers
+initialize_observability: Initialize all telemetry providers shutdown_observability: Gracefully shutdown providers get_tracer: Get a tracer for creating spans get_meter: Get a meter for creating metrics enable_litellm_telemetry: Enable LiteLLM's GenAI instrumentation ObservabilityContext: Container for initialized providers
 
 Errors
 
@@ -274,15 +274,9 @@ def initialize_observability(
         resource=resource,
     )
 
-    # 8. Enable Semantic Kernel telemetry (GenAI semantic conventions)
-    from holodeck.lib.observability.instrumentation import (
-        enable_litellm_telemetry,
-        enable_semantic_kernel_telemetry,
-    )
+    # 8. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).
+    from holodeck.lib.observability.instrumentation import enable_litellm_telemetry
 
-    enable_semantic_kernel_telemetry(config)
-
-    # 9. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).
     # Must run after set_up_tracing so the callback reuses the global
     # tracer provider (and its RedactingSpanProcessor).
     enable_litellm_telemetry(config)
@@ -445,79 +439,83 @@ def get_observability_context() -> ObservabilityContext | None:
     return _observability_context
 ```
 
-### `enable_semantic_kernel_telemetry(config)`
+### `enable_litellm_telemetry(config)`
 
-Enable Semantic Kernel's native OpenTelemetry instrumentation.
+Register LiteLLM's OpenTelemetry callback for GenAI spans.
 
-Sets environment variables that Semantic Kernel reads to enable telemetry. SK provides comprehensive GenAI semantic convention support, automatically capturing attributes like:
+LiteLLM backs the RAG layer (embeddings + contextual-retrieval chat). Its OTel callback emits GenAI semantic-convention spans (`gen_ai.operation.name`, `gen_ai.request.model`, token usage) and, when content capture is on, message content under `gen_ai.input.messages` / `gen_ai.output.messages` — both prefixes are scrubbed by `RedactingSpanProcessor`.
 
-- gen_ai.operation.name (e.g., "chat.completions")
-- gen_ai.system (e.g., "openai")
-- gen_ai.request.model (e.g., "gpt-4o")
-- gen_ai.response.id, gen_ai.response.finish_reason
-- gen_ai.usage.prompt_tokens, gen_ai.usage.completion_tokens
+Must be called AFTER the global tracer provider is configured: the callback reuses an existing SDK `TracerProvider`, so LiteLLM spans flow through HoloDeck's processor chain (including redaction) and exporters. Idempotent — a second call is a no-op.
 
-When sensitive diagnostics is enabled, SK also captures:
+Semantic-convention shape (pinned against LiteLLM 1.88): HoloDeck does not set `OTEL_SEMCONV_STABILITY_OPT_IN`. With the default (legacy) shape every call is one `litellm_request` span whose operation rides on `llm.request.type` (`aembedding` / `acompletion`) and whose provider rides on `gen_ai.system`. Operators who export `OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental` before startup get the current GenAI shape instead (span name `embeddings <model>` / `chat <model>`, `gen_ai.provider.name`). In both shapes `gen_ai.operation.name` and the finish-reason attribute are written only together with captured content. The model, token-usage, and content attribute names are identical in both shapes, so redaction and the no-content mode hold either way.
 
-- gen_ai.content.prompt (via span events)
-- gen_ai.content.completion (via span events)
+Content capture: with `SPAN_ONLY` LiteLLM also emits a `raw_gen_ai_request` child span carrying the provider payload under `llm.openai.stringified_raw_response` (skipped under the semconv opt-in); that key is in the redaction prefix list. With `NO_CONTENT` neither the message attributes nor the raw-response span are emitted. Failure spans carry `error.*` attributes and an `exception` event in every mode; `RedactingSpanProcessor` scrubs those as well. The env opt-in is read once when the callback is constructed.
 
 Parameters:
 
-| Name     | Type                  | Description                              | Default    |
-| -------- | --------------------- | ---------------------------------------- | ---------- |
-| `config` | `ObservabilityConfig` | ObservabilityConfig with traces settings | *required* |
-
-Note
-
-This function must be called BEFORE any Semantic Kernel operations. SK reads these environment variables at initialization time.
-
-Example
-
-> > > from holodeck.models.observability import ObservabilityConfig config = ObservabilityConfig(enabled=True) enable_semantic_kernel_telemetry(config)
-> > >
-> > > #### SK will now emit GenAI semantic convention spans
+| Name     | Type                  | Description                               | Default    |
+| -------- | --------------------- | ----------------------------------------- | ---------- |
+| `config` | `ObservabilityConfig` | ObservabilityConfig with traces settings. | *required* |
 
 Source code in `src/holodeck/lib/observability/instrumentation.py`
 
 ```
-def enable_semantic_kernel_telemetry(config: ObservabilityConfig) -> None:
-    """Enable Semantic Kernel's native OpenTelemetry instrumentation.
+def enable_litellm_telemetry(config: ObservabilityConfig) -> None:
+    """Register LiteLLM's OpenTelemetry callback for GenAI spans.
 
-    Sets environment variables that Semantic Kernel reads to enable telemetry.
-    SK provides comprehensive GenAI semantic convention support, automatically
-    capturing attributes like:
+    LiteLLM backs the RAG layer (embeddings + contextual-retrieval chat).
+    Its OTel callback emits GenAI semantic-convention spans
+    (``gen_ai.operation.name``, ``gen_ai.request.model``, token usage) and,
+    when content capture is on, message content under
+    ``gen_ai.input.messages`` / ``gen_ai.output.messages`` — both prefixes
+    are scrubbed by ``RedactingSpanProcessor``.
 
-    - gen_ai.operation.name (e.g., "chat.completions")
-    - gen_ai.system (e.g., "openai")
-    - gen_ai.request.model (e.g., "gpt-4o")
-    - gen_ai.response.id, gen_ai.response.finish_reason
-    - gen_ai.usage.prompt_tokens, gen_ai.usage.completion_tokens
+    Must be called AFTER the global tracer provider is configured: the
+    callback reuses an existing SDK ``TracerProvider``, so LiteLLM spans
+    flow through HoloDeck's processor chain (including redaction) and
+    exporters. Idempotent — a second call is a no-op.
 
-    When sensitive diagnostics is enabled, SK also captures:
-    - gen_ai.content.prompt (via span events)
-    - gen_ai.content.completion (via span events)
+    Semantic-convention shape (pinned against LiteLLM 1.88): HoloDeck does
+    not set ``OTEL_SEMCONV_STABILITY_OPT_IN``. With the default (legacy)
+    shape every call is one ``litellm_request`` span whose operation rides on
+    ``llm.request.type`` (``aembedding`` / ``acompletion``) and whose provider
+    rides on ``gen_ai.system``. Operators who export
+    ``OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental`` before
+    startup get the current GenAI shape instead (span name
+    ``embeddings <model>`` / ``chat <model>``, ``gen_ai.provider.name``).
+    In both shapes ``gen_ai.operation.name`` and the finish-reason attribute
+    are written only together with captured content. The model, token-usage,
+    and content attribute names are identical in both shapes, so redaction
+    and the no-content mode hold either way.
+
+    Content capture: with ``SPAN_ONLY`` LiteLLM also emits a
+    ``raw_gen_ai_request`` child span carrying the provider payload under
+    ``llm.openai.stringified_raw_response`` (skipped under the semconv
+    opt-in); that key is in the redaction prefix list. With ``NO_CONTENT``
+    neither the message attributes nor the raw-response span are emitted.
+    Failure spans carry ``error.*`` attributes and an ``exception`` event in
+    every mode; ``RedactingSpanProcessor`` scrubs those as well. The env
+    opt-in is read once when the callback is constructed.
 
     Args:
-        config: ObservabilityConfig with traces settings
-
-    Note:
-        This function must be called BEFORE any Semantic Kernel operations.
-        SK reads these environment variables at initialization time.
-
-    Example:
-        >>> from holodeck.models.observability import ObservabilityConfig
-        >>> config = ObservabilityConfig(enabled=True)
-        >>> enable_semantic_kernel_telemetry(config)
-        >>> # SK will now emit GenAI semantic convention spans
+        config: ObservabilityConfig with traces settings.
     """
-    # Always enable basic GenAI diagnostics when observability is on
-    os.environ[SK_OTEL_DIAGNOSTICS_ENV] = "true"
+    import litellm
+    from litellm.integrations.opentelemetry import (
+        OpenTelemetry,
+        OpenTelemetryConfig,
+    )
 
-    # Enable sensitive content capture if explicitly configured
-    # This captures prompts and completions in span events
-    if config.traces.capture_content:
-        os.environ[SK_OTEL_SENSITIVE_ENV] = "true"
+    if any(isinstance(callback, OpenTelemetry) for callback in litellm.callbacks):
+        return
+
+    # SPAN_ONLY (not SPAN_AND_EVENT): RedactingSpanProcessor scrubs span
+    # attributes, not span events, so content must never ride on events.
+    capture_mode = "SPAN_ONLY" if config.traces.capture_content else "NO_CONTENT"
+    otel_callback = OpenTelemetry(
+        config=OpenTelemetryConfig(capture_message_content=capture_mode)
+    )
+    litellm.callbacks.append(otel_callback)
 ```
 
 ______________________________________________________________________
@@ -761,7 +759,7 @@ Returns:
 
 Note
 
-This must be called before any code that creates spans. The SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS env var should be set in main.py before any SK imports.
+This must be called before any code that creates spans.
 
 Source code in `src/holodeck/lib/observability/providers.py`
 
@@ -786,9 +784,7 @@ def set_up_tracing(
         Configured TracerProvider instance
 
     Note:
-        This must be called before any code that creates spans. The
-        SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS env var
-        should be set in main.py before any SK imports.
+        This must be called before any code that creates spans.
     """
     from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
@@ -982,15 +978,9 @@ def initialize_observability(
         resource=resource,
     )
 
-    # 8. Enable Semantic Kernel telemetry (GenAI semantic conventions)
-    from holodeck.lib.observability.instrumentation import (
-        enable_litellm_telemetry,
-        enable_semantic_kernel_telemetry,
-    )
+    # 8. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).
+    from holodeck.lib.observability.instrumentation import enable_litellm_telemetry
 
-    enable_semantic_kernel_telemetry(config)
-
-    # 9. Enable LiteLLM telemetry (RAG embeddings + contextual retrieval).
     # Must run after set_up_tracing so the callback reuses the global
     # tracer provider (and its RedactingSpanProcessor).
     enable_litellm_telemetry(config)
@@ -1342,86 +1332,86 @@ ______________________________________________________________________
 
 ## Instrumentation (`instrumentation`)
 
-Wires up the internal instrumentation layer so it emits GenAI semantic-convention spans. Sets the environment variables that the underlying connector library reads at startup to turn on diagnostic and sensitive-content tracing.
+Registers LiteLLM's OpenTelemetry callback, so the embedding and contextual-retrieval calls of the RAG layer emit GenAI semantic-convention spans through HoloDeck's tracer provider and redaction.
 
-## `enable_semantic_kernel_telemetry(config)`
+## `enable_litellm_telemetry(config)`
 
-Enable Semantic Kernel's native OpenTelemetry instrumentation.
+Register LiteLLM's OpenTelemetry callback for GenAI spans.
 
-Sets environment variables that Semantic Kernel reads to enable telemetry. SK provides comprehensive GenAI semantic convention support, automatically capturing attributes like:
+LiteLLM backs the RAG layer (embeddings + contextual-retrieval chat). Its OTel callback emits GenAI semantic-convention spans (`gen_ai.operation.name`, `gen_ai.request.model`, token usage) and, when content capture is on, message content under `gen_ai.input.messages` / `gen_ai.output.messages` — both prefixes are scrubbed by `RedactingSpanProcessor`.
 
-- gen_ai.operation.name (e.g., "chat.completions")
-- gen_ai.system (e.g., "openai")
-- gen_ai.request.model (e.g., "gpt-4o")
-- gen_ai.response.id, gen_ai.response.finish_reason
-- gen_ai.usage.prompt_tokens, gen_ai.usage.completion_tokens
+Must be called AFTER the global tracer provider is configured: the callback reuses an existing SDK `TracerProvider`, so LiteLLM spans flow through HoloDeck's processor chain (including redaction) and exporters. Idempotent — a second call is a no-op.
 
-When sensitive diagnostics is enabled, SK also captures:
+Semantic-convention shape (pinned against LiteLLM 1.88): HoloDeck does not set `OTEL_SEMCONV_STABILITY_OPT_IN`. With the default (legacy) shape every call is one `litellm_request` span whose operation rides on `llm.request.type` (`aembedding` / `acompletion`) and whose provider rides on `gen_ai.system`. Operators who export `OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental` before startup get the current GenAI shape instead (span name `embeddings <model>` / `chat <model>`, `gen_ai.provider.name`). In both shapes `gen_ai.operation.name` and the finish-reason attribute are written only together with captured content. The model, token-usage, and content attribute names are identical in both shapes, so redaction and the no-content mode hold either way.
 
-- gen_ai.content.prompt (via span events)
-- gen_ai.content.completion (via span events)
+Content capture: with `SPAN_ONLY` LiteLLM also emits a `raw_gen_ai_request` child span carrying the provider payload under `llm.openai.stringified_raw_response` (skipped under the semconv opt-in); that key is in the redaction prefix list. With `NO_CONTENT` neither the message attributes nor the raw-response span are emitted. Failure spans carry `error.*` attributes and an `exception` event in every mode; `RedactingSpanProcessor` scrubs those as well. The env opt-in is read once when the callback is constructed.
 
 Parameters:
 
-| Name     | Type                  | Description                              | Default    |
-| -------- | --------------------- | ---------------------------------------- | ---------- |
-| `config` | `ObservabilityConfig` | ObservabilityConfig with traces settings | *required* |
-
-Note
-
-This function must be called BEFORE any Semantic Kernel operations. SK reads these environment variables at initialization time.
-
-Example
-
-> > > from holodeck.models.observability import ObservabilityConfig config = ObservabilityConfig(enabled=True) enable_semantic_kernel_telemetry(config)
-> > >
-> > > ### SK will now emit GenAI semantic convention spans
+| Name     | Type                  | Description                               | Default    |
+| -------- | --------------------- | ----------------------------------------- | ---------- |
+| `config` | `ObservabilityConfig` | ObservabilityConfig with traces settings. | *required* |
 
 Source code in `src/holodeck/lib/observability/instrumentation.py`
 
 ```
-def enable_semantic_kernel_telemetry(config: ObservabilityConfig) -> None:
-    """Enable Semantic Kernel's native OpenTelemetry instrumentation.
+def enable_litellm_telemetry(config: ObservabilityConfig) -> None:
+    """Register LiteLLM's OpenTelemetry callback for GenAI spans.
 
-    Sets environment variables that Semantic Kernel reads to enable telemetry.
-    SK provides comprehensive GenAI semantic convention support, automatically
-    capturing attributes like:
+    LiteLLM backs the RAG layer (embeddings + contextual-retrieval chat).
+    Its OTel callback emits GenAI semantic-convention spans
+    (``gen_ai.operation.name``, ``gen_ai.request.model``, token usage) and,
+    when content capture is on, message content under
+    ``gen_ai.input.messages`` / ``gen_ai.output.messages`` — both prefixes
+    are scrubbed by ``RedactingSpanProcessor``.
 
-    - gen_ai.operation.name (e.g., "chat.completions")
-    - gen_ai.system (e.g., "openai")
-    - gen_ai.request.model (e.g., "gpt-4o")
-    - gen_ai.response.id, gen_ai.response.finish_reason
-    - gen_ai.usage.prompt_tokens, gen_ai.usage.completion_tokens
+    Must be called AFTER the global tracer provider is configured: the
+    callback reuses an existing SDK ``TracerProvider``, so LiteLLM spans
+    flow through HoloDeck's processor chain (including redaction) and
+    exporters. Idempotent — a second call is a no-op.
 
-    When sensitive diagnostics is enabled, SK also captures:
-    - gen_ai.content.prompt (via span events)
-    - gen_ai.content.completion (via span events)
+    Semantic-convention shape (pinned against LiteLLM 1.88): HoloDeck does
+    not set ``OTEL_SEMCONV_STABILITY_OPT_IN``. With the default (legacy)
+    shape every call is one ``litellm_request`` span whose operation rides on
+    ``llm.request.type`` (``aembedding`` / ``acompletion``) and whose provider
+    rides on ``gen_ai.system``. Operators who export
+    ``OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental`` before
+    startup get the current GenAI shape instead (span name
+    ``embeddings <model>`` / ``chat <model>``, ``gen_ai.provider.name``).
+    In both shapes ``gen_ai.operation.name`` and the finish-reason attribute
+    are written only together with captured content. The model, token-usage,
+    and content attribute names are identical in both shapes, so redaction
+    and the no-content mode hold either way.
+
+    Content capture: with ``SPAN_ONLY`` LiteLLM also emits a
+    ``raw_gen_ai_request`` child span carrying the provider payload under
+    ``llm.openai.stringified_raw_response`` (skipped under the semconv
+    opt-in); that key is in the redaction prefix list. With ``NO_CONTENT``
+    neither the message attributes nor the raw-response span are emitted.
+    Failure spans carry ``error.*`` attributes and an ``exception`` event in
+    every mode; ``RedactingSpanProcessor`` scrubs those as well. The env
+    opt-in is read once when the callback is constructed.
 
     Args:
-        config: ObservabilityConfig with traces settings
-
-    Note:
-        This function must be called BEFORE any Semantic Kernel operations.
-        SK reads these environment variables at initialization time.
-
-    Example:
-        >>> from holodeck.models.observability import ObservabilityConfig
-        >>> config = ObservabilityConfig(enabled=True)
-        >>> enable_semantic_kernel_telemetry(config)
-        >>> # SK will now emit GenAI semantic convention spans
+        config: ObservabilityConfig with traces settings.
     """
-    # Always enable basic GenAI diagnostics when observability is on
-    os.environ[SK_OTEL_DIAGNOSTICS_ENV] = "true"
+    import litellm
+    from litellm.integrations.opentelemetry import (
+        OpenTelemetry,
+        OpenTelemetryConfig,
+    )
 
-    # Enable sensitive content capture if explicitly configured
-    # This captures prompts and completions in span events
-    if config.traces.capture_content:
-        os.environ[SK_OTEL_SENSITIVE_ENV] = "true"
+    if any(isinstance(callback, OpenTelemetry) for callback in litellm.callbacks):
+        return
+
+    # SPAN_ONLY (not SPAN_AND_EVENT): RedactingSpanProcessor scrubs span
+    # attributes, not span events, so content must never ride on events.
+    capture_mode = "SPAN_ONLY" if config.traces.capture_content else "NO_CONTENT"
+    otel_callback = OpenTelemetry(
+        config=OpenTelemetryConfig(capture_message_content=capture_mode)
+    )
+    litellm.callbacks.append(otel_callback)
 ```
-
-## `SK_OTEL_DIAGNOSTICS_ENV = 'SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS'`
-
-## `SK_OTEL_SENSITIVE_ENV = 'SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS_SENSITIVE'`
 
 ______________________________________________________________________
 

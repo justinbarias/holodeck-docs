@@ -1,0 +1,3896 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/034-production-hardening/2026-05-18-production-hardening-for-claude-agents/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Production Hardening for Claude-Backed Agents — Design - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#production-hardening-for-claude-backed-agents-design" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Production Hardening for Claude-Backed Agents — Design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-broken-today-concrete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's broken today (concrete)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-tracker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status tracker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1a-stop-the-oom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1a — Stop the OOM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1a — Stop the OOM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-sizing-follows-the-sdks-documented-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture: sizing follows the SDK's documented unit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-2-and-not-something-smarter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "× 2" and not something smarter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backpressure-429-with-retry-after" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backpressure: 429 with Retry-After
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_turns-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        max_turns default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readiness-probe-distinct-from-liveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Readiness probe distinct from liveness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-visible-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator-visible verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-stop-the-oom-does-not-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What "stop the OOM" does not fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1b-permission-posture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1b — Permission posture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1b — Permission posture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-current-default-is-unsafe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The current default is unsafe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-claudepermissions-schema-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New claude.permissions schema block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-permission-posture-does-not-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What permission posture does not fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2a-container-runtime-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2a — Container runtime hardening
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2a — Container runtime hardening">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generated-dockerfile-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated Dockerfile changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aca-template-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACA template changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingress-defaults-to-internal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingress defaults to internal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2b-prompt-injection-defenses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2b — Prompt-injection defenses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2b — Prompt-injection defenses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-hook-surface-is-already-there" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The hook surface is already there
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-hook-1-bash-ast-deny-list-pretooluse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default hook 1 — Bash AST deny list (PreToolUse)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-hook-2-credential-redaction-posttooluse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default hook 2 — Credential redaction (PostToolUse)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otel-attribute-redaction-independent-of-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OTel attribute redaction (independent of hooks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-hooks-do-not-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What hooks do not fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-credential-boundary-opt-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 — Credential boundary (opt-in)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3 — Credential boundary (opt-in)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-this-phase-applies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When this phase applies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opt-in-deploymentsecurity_profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opt-in: deployment.security_profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-proxy-pattern-does-not-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the proxy pattern does not fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-hybrid-sessions-sdk-subprocess-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4 — Hybrid sessions / SDK subprocess pooling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4 — Hybrid sessions / SDK subprocess pooling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-the-sdk-actually-supports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the SDK actually supports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-model-vs-phase-4-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current model vs. Phase 4 model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture sketch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risks-to-validate-before-committing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks to validate before committing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Risks to validate before committing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spike-data-2026-05-19-financial-assistant-sample-sequential-turns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spike data (2026-05-19, financial-assistant sample, sequential turns)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-didnt-ship-in-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this didn't ship in v1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-are-deliberately-not-doing-in-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What we are deliberately not doing in v1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost reality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-holodecks-structure-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How HoloDeck's structure changes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How HoloDeck&#39;s structure changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema additions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serve-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serve changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-at-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation at startup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI surface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-by-phase-ship-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase-by-phase ship criteria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks and mitigations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#out-of-scope-for-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope for v1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions-resolved-during-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open questions resolved during design
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1 contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-surface-modules-to-create-modify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation surface — modules to create / modify
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-to-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies to add
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="production-hardening-for-claude-backed-agents-design">Production Hardening for Claude-Backed Agents — Design<a class="headerlink" href="#production-hardening-for-claude-backed-agents-design" title="Permanent link">&para;</a></h1>
+<p><strong>Status:</strong> Draft for review
+<strong>Date:</strong> 2026-05-18
+<strong>Author:</strong> justinbarias (with Claude)
+<strong>Related:</strong> <code>docs/product-specs/021-claude-agent-sdk</code>, <code>docs/product-specs/024-claude-serve-deploy</code>, <code>docs/product-specs/028-yaml-hooks-system</code>
+<strong>External refs:</strong> <a href="https://code.claude.com/docs/en/agent-sdk/hosting">Anthropic — Hosting the Agent SDK</a>, <a href="https://code.claude.com/docs/en/agent-sdk/secure-deployment">Anthropic — Securely Deploying AI Agents</a></p>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h2>
+<p>HoloDeck ships a Claude backend that wraps the Claude Agent SDK and exposes it over AG-UI for chat and over REST for evaluation. In practice, the SDK is not a stateless API call — it spawns a long-running Claude Code CLI subprocess per session, holds shell state, and consumes ~150–300 MiB resident per process. We have been sizing and securing it as if it were a stateless API call.</p>
+<p>The financial-assistant sample exposed three failure modes in production:</p>
+<ol>
+<li><strong>Stability.</strong> Two concurrent AG-UI sessions on a 1 GiB / 0.5 CPU replica are enough to cgroup-OOM the container. Each session spawns its own SDK subprocess and <code>WorkingSetBytes</code> spikes faster than ACA's 1-minute metric resolution can observe. We had been treating this as a transient bug; it is structural.</li>
+<li><strong>Permission posture.</strong> HoloDeck's <code>permission_mode: acceptAll</code> maps to the SDK's <code>bypassPermissions</code>, which disables the SDK permission system entirely. The agent has Bash, Write, Edit, WebFetch available by default. A prompt-injection payload in any document the agent reads can — today — issue arbitrary shell commands inside the container.</li>
+<li><strong>Credential surface.</strong> OAuth token, Azure key, Qdrant JWT live in container env vars and are inherited by every SDK subprocess and every tool subprocess. There is no credential boundary; there is no egress allowlist; there is no redaction on tool outputs that enter the model context or OTel traces.</li>
+</ol>
+<p>Anthropic's <a href="https://code.claude.com/docs/en/agent-sdk/hosting">hosting guide</a> and <a href="https://code.claude.com/docs/en/agent-sdk/secure-deployment">secure-deployment guide</a> describe the patterns and isolation primitives needed to fix all three. This spec aligns HoloDeck with those guides and ships secure-by-default container deployments.</p>
+<p>The design is structured in four phases so that the parts that stop the bleeding ship first, and the parts that require multi-week infra work are scoped and isolated.</p>
+<p>The key constraints driving the design:</p>
+<ol>
+<li><strong>Stability fix is non-negotiable and ships first.</strong> Everything else waits behind the OOM fix.</li>
+<li><strong>Secure-by-default, opt-out for permissive.</strong> Operators inherit a permission posture that fails closed. The escape hatch exists, but its name signals risk and the warning is loud.</li>
+<li><strong>No required user YAML changes for P1 and P2.</strong> New defaults are inferred from existing fields. Operators who want to override get a new schema field; they do not have to use it.</li>
+<li><strong>Defense in depth.</strong> Container hardening, permission allowlists, hook-based redaction, and an opt-in egress proxy each address a different layer. None replaces the others.</li>
+<li><strong>The egress-proxy / hardened-profile work is genuinely larger.</strong> It is gated behind <code>deployment.security_profile: hardened</code> so the simpler P1/P2 work can ship without waiting on it.</li>
+</ol>
+<h2 id="whats-broken-today-concrete">What's broken today (concrete)<a class="headerlink" href="#whats-broken-today-concrete" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Today</th>
+<th>What that means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replica sizing</td>
+<td>ACA defaults from operator YAML; financial-assistant sample is <code>cpu: 0.5 / memory: 1Gi</code></td>
+<td>Two concurrent SDK subprocesses can exceed the cgroup memory limit between metric samples; exit-137 with no metric warning</td>
+</tr>
+<tr>
+<td>Concurrent session cap</td>
+<td>Static default <code>10</code> in <code>server.py:121</code></td>
+<td>Decoupled from replica resources; cap doesn't help small replicas and doesn't scale with large ones</td>
+</tr>
+<tr>
+<td><code>max_turns</code></td>
+<td>Defaults to whatever the SDK does when not set</td>
+<td>SDK hosting FAQ explicitly recommends bounding this</td>
+</tr>
+<tr>
+<td>Permission mode</td>
+<td><code>acceptAll</code> → <code>bypassPermissions</code> (<code>validators.py:307</code>)</td>
+<td>Permission system disabled entirely; Bash/Write/Edit/WebFetch unconditionally allowed</td>
+</tr>
+<tr>
+<td>Built-in tool allowlist</td>
+<td>Whatever the SDK ships with by default</td>
+<td>The SDK ships with Bash/Write/Edit/WebFetch; we do not restrict them</td>
+</tr>
+<tr>
+<td>Container user</td>
+<td><code>holodeck</code> UID 1000 (non-root) ✓</td>
+<td>Good — keep</td>
+</tr>
+<tr>
+<td>Container fs</td>
+<td>RW root, RW agent corpus</td>
+<td>Agent can persist changes anywhere under <code>/app</code>; no read-only enforcement</td>
+</tr>
+<tr>
+<td>Container caps</td>
+<td>Default</td>
+<td>No <code>--cap-drop ALL</code>; no <code>no-new-privileges</code></td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>Always installed in generated Dockerfile</td>
+<td>SDK ships its own bundled CLI; the only reason to install Node.js is for stdio MCP servers that need it</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td>Liveness only</td>
+<td>Replica accepts traffic before tool init completes; first request races init</td>
+</tr>
+<tr>
+<td>Ingress</td>
+<td><code>ingress_external</code> per YAML; samples set <code>true</code></td>
+<td>Easy to leave external by accident; no warning at deploy time</td>
+</tr>
+<tr>
+<td>Hooks</td>
+<td>YAML hook surface exists (spec 028); no HoloDeck-provided defaults</td>
+<td>Prompt-injection defenses are entirely on the operator</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>All in container env, inherited by every subprocess</td>
+<td>No proxy; no allowlist; no redaction layer</td>
+</tr>
+<tr>
+<td>OTel</td>
+<td><code>capture_content: true</code> captures everything including any credential-shaped strings in tool outputs</td>
+<td>Traces leak whatever the tool returned</td>
+</tr>
+</tbody>
+</table>
+<p>The plan replaces each row of "Today" with a specific change, grouped into four phases.</p>
+<h2 id="phase-overview">Phase overview<a class="headerlink" href="#phase-overview" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────┐
+│ P1 — Stop the OOM                              (days, ships first)  │
+│   • ACA defaults: 1 CPU / 2 GiB for Claude agents                   │
+│   • max_concurrent_sessions = floor(cpu_cores × 2)                  │
+│   • 429 with Retry-After on overflow                                │
+│   • max_turns = 20 when unset                                       │
+│   • Readiness probe distinct from liveness                          │
+│   • Echo resolved limits at `deploy run`                            │
+├─────────────────────────────────────────────────────────────────────┤
+│ P1 — Permission posture                        (days, ships with ↑) │
+│   • auto-disallow Bash/Write/Edit/WebFetch unless declared          │
+│   • manual → SDK `plan` mode in serve context                       │
+│   • deprecate acceptAll; require explicit unsafe opt-in             │
+│   • new `claude.permissions` schema field                           │
+├─────────────────────────────────────────────────────────────────────┤
+│ P2 — Container runtime                         (1–2 sprints)        │
+│   • generated Dockerfile drops Node.js when not needed              │
+│   • read-only corpus dirs; writable scratch via tmpfs               │
+│   • ACA securityContext: drop caps, readOnlyRootFilesystem          │
+│   • ingress defaults to internal; opt-in for external               │
+├─────────────────────────────────────────────────────────────────────┤
+│ P2 — Prompt-injection defenses                 (1–2 sprints)        │
+│   • PreToolUse Bash AST deny list (HoloDeck-provided hook)          │
+│   • PostToolUse credential redaction in tool outputs                │
+│   • OTel attribute redaction independent of hooks                   │
+├─────────────────────────────────────────────────────────────────────┤
+│ P3 — Credential boundary, opt-in               (multi-week)         │
+│   • `deployment.security_profile: hardened`                         │
+│   • Envoy sidecar holds credentials; agent has none                 │
+│   • Domain allowlist derived from agent.yaml                        │
+│   • ANTHROPIC_BASE_URL → localhost sidecar                          │
+├─────────────────────────────────────────────────────────────────────┤
+│ P4 — Hybrid sessions / SDK subprocess pooling   (1–2 sprints)       │
+│   • Switch claude_backend to per-turn `query(resume=session_id)`    │
+│   • Memory scales with concurrent **turns**, not open sessions      │
+│   • Transcript on disk is the durable state; subprocess is ephemeral│
+│   • Aligns with SDK's documented "Pattern 3 — Hybrid Sessions"      │
+└─────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<p>P1 is one focused PR (and probably ships under a feature branch within days). P2 and P3 land independently after P1 stabilises trunk. P4 is the biggest memory-headroom win after P1 but requires reshaping <code>claude_backend.py</code>'s session model.</p>
+<h3 id="status-tracker">Status tracker<a class="headerlink" href="#status-tracker" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Status</th>
+<th>Branch / PR</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1a — OOM stability</td>
+<td>✅ shipped</td>
+<td><code>feature/034-p1-stability-permissions</code> (commits <code>a391c7d</code>, <code>b344684</code>, <code>777ece1</code>)</td>
+<td>ACA defaults bumped, memory-derived session cap, 429 backpressure, readiness probe. Memory derivation (not CPU) confirmed in ACA via <code>Claude cgroup memory limit: 2147483648 bytes</code> startup log. <code>max_concurrent_sessions</code> upper bound widened to 500 as an explicit-override escape hatch for warm-only workloads (P4 makes this a concurrent-turn cap).</td>
+</tr>
+<tr>
+<td>P1b — Permission posture</td>
+<td>✅ shipped</td>
+<td>same branch</td>
+<td><code>manual → acceptEdits</code> mapping in serve, auto-disallow risky built-ins, <code>i_understand_this_is_unsafe</code> gate on <code>acceptAll</code>, silent test-mode escalation removed.</td>
+</tr>
+<tr>
+<td>P2a — Container hardening</td>
+<td>✅ shipped</td>
+<td><code>feature/034-p2-container-runtime</code></td>
+<td>Dockerfile root-own corpus + chmod a-w; ACA emits EmptyDir volumes for /tmp + /var/holodeck/work (the only securityContext-adjacent primitive ACA exposes); Node.js gated on stdio-MCP detection; deploy-time credential-filename lint. <strong>Verified 2026-05-23</strong>: ACA does NOT expose runAsNonRoot, allowPrivilegeEscalation, capabilities.drop, readOnlyRootFilesystem, or seccomp at any API version — non-root + read-only-corpus posture is enforced at the image layer instead. Full gap analysis + AKS escape hatch in docs/security/aca-limitations.md.</td>
+</tr>
+<tr>
+<td>P2b — Prompt-injection defenses</td>
+<td>✅ shipped</td>
+<td><code>feature/034-p2-container-runtime</code></td>
+<td>New <code>claude_hooks</code> module: PostToolUse credential redaction (5 patterns). Default-on; opt-out via <code>claude.disable_default_hooks: true</code> with loud warning. <code>RedactingSpanProcessor</code> scrubs <code>tool.input.*</code>, <code>tool.output.*</code>, <code>gen_ai.*</code> span attributes independently of the hooks flag. <strong>Default-on subprocess env scrubbing</strong> (Task 4.5): <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1</code> + <code>CLAUDE_CODE_MCP_ALLOWLIST_ENV=1</code> set on every agent's options.env so tool/MCP subprocesses don't inherit Anthropic/cloud creds; opt-out via <code>claude.disable_subprocess_env_scrub: true</code>. <strong>Bash AST deny hook dropped 2026-05-23</strong> as redundant — the SDK already parses Bash commands into an AST against operator-supplied permission rules, and P1b auto-disallows <code>Bash</code> for any agent that doesn't declare it. The SDK subprocess itself still inherits the full HoloDeck-serve env — that's P3's domain.</td>
+</tr>
+<tr>
+<td>P3 — Credential boundary</td>
+<td>⏳ not started</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>P4 — Hybrid sessions / pooling</td>
+<td>✅ shipped</td>
+<td><code>feature/034-p4-hybrid-sessions</code> (commits <code>6a2ad9c</code> → <code>72bba40</code>)</td>
+<td>9 surgical commits, 124 unit tests green. <code>ClaudeSession</code> now uses top-level <code>query(resume=sdk_session_id)</code> per turn; <code>_send_lock</code> serialises concurrent sends; <code>close()</code> deletes the on-disk JSONL transcript. End-to-end ACA deploy validated 2026-05-19: AG-UI single-turn + multi-turn <code>resume=</code> + 3 concurrent threads all 200 with no OOM. <strong>Follow-up still open:</strong> SessionStore cap remains binding on open-session count (not concurrent turns), so 5-concurrent cold burst against the 2 GiB / cap-4 replica returned 2 × 429 as expected; the structural-pool win lands when the cap is repurposed (separate PR).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="phase-1a-stop-the-oom">Phase 1a — Stop the OOM<a class="headerlink" href="#phase-1a-stop-the-oom" title="Permanent link">&para;</a></h2>
+<h3 id="architecture-sizing-follows-the-sdks-documented-unit">Architecture: sizing follows the SDK's documented unit<a class="headerlink" href="#architecture-sizing-follows-the-sdks-documented-unit" title="Permanent link">&para;</a></h3>
+<p>The hosting guide is explicit: "Recommended: 1 GiB RAM, 5 GiB of disk, and 1 CPU. Vary this based on your task as needed." That recommendation describes one SDK instance, not one container. With Pattern 2 (long-running, multi-process) — which is what HoloDeck does today — the container has to fit one or more SDK subprocesses plus the serve process plus tool subprocesses. The financial-assistant 0.5 CPU / 1 GiB sizing is below the documented per-instance minimum, before you even count the serve overhead.</p>
+<p>The fix is to make sizing-driven decisions the default:</p>
+<div class="highlight"><pre><span></span><code>replica_cpu (from agent.yaml or ACA default)
+       │
+       ▼
+default replica_memory = max(2 GiB, 2 × replica_cpu Gi)   # ACA constraint
+       │
+       ▼
+default max_concurrent_sessions = max(1, floor(replica_cpu × 2))
+       │
+       ▼
+echo resolved values at `holodeck deploy run` time
+</code></pre></div>
+<p>For a 1 CPU replica → 2 GiB memory, 2 concurrent sessions max. For a 2 CPU replica → 4 GiB, 4 sessions. The "× 2" is calibrated against the ~300 MiB-per-subprocess observation from the financial-assistant investigation, plus headroom for the serve process and tool subprocesses. If real-world numbers diverge materially the multiplier is one constant to tune.</p>
+<h3 id="why-2-and-not-something-smarter">Why "× 2" and not something smarter<a class="headerlink" href="#why-2-and-not-something-smarter" title="Permanent link">&para;</a></h3>
+<p>The right answer is a per-replica memory accountant that reads cgroup pressure and gates new sessions. That is a separate feature. For now, "× 2" is honest: it is a heuristic, it is documented, and it is checkable at deploy time because we echo the resolved cap.</p>
+<h3 id="backpressure-429-with-retry-after">Backpressure: 429 with Retry-After<a class="headerlink" href="#backpressure-429-with-retry-after" title="Permanent link">&para;</a></h3>
+<p>Today the serve layer accepts a request, forwards to <code>agui.py:_get_or_create_session()</code>, and if a new SDK subprocess can't be created the failure surfaces as an OOM mid-request. The fix is an <code>asyncio.Semaphore(max_concurrent_sessions)</code> wrapping session creation. When the cap is hit:</p>
+<div class="highlight"><pre><span></span><code>HTTP/1.1 429 Too Many Requests
+Retry-After: 5
+Content-Type: application/problem+json
+
+{
+  "type": "https://holodeck.dev/errors/session-cap-exceeded",
+  "title": "Session limit reached",
+  "status": 429,
+  "detail": "This replica is serving the maximum of 2 concurrent sessions. Retry shortly.",
+  "session_cap": 2,
+  "in_flight_sessions": 2
+}
+</code></pre></div>
+<p>The semaphore is per-replica. ACA's autoscaler ramps replicas; the operator sees backpressure as 429s, not OOM crashes.</p>
+<h3 id="max_turns-default"><code>max_turns</code> default<a class="headerlink" href="#max_turns-default" title="Permanent link">&para;</a></h3>
+<p>The hosting FAQ: <em>"An agent session will not timeout, but consider setting a 'maxTurns' property to prevent Claude from getting stuck in a loop."</em> When unset, we default to 20 in <code>build_options()</code>. Operators can override per-agent. The number is conservative enough that legitimate multi-step ConvFinQA reasoning is unaffected and low enough to bound runaway tool-call loops.</p>
+<h3 id="readiness-probe-distinct-from-liveness">Readiness probe distinct from liveness<a class="headerlink" href="#readiness-probe-distinct-from-liveness" title="Permanent link">&para;</a></h3>
+<p>Today the generated ACA template emits a single HTTP probe at <code>/health</code> used for both liveness and readiness implicitly. Tool init (qdrant connection, payload index check, OpenSearch wipe-and-rebuild for relevant providers) runs at startup before any traffic should be routed.</p>
+<p>The change:</p>
+<ul>
+<li>Liveness probe stays at <code>/health</code> — confirms the process is alive.</li>
+<li>New readiness probe at <code>/ready</code> — returns 200 only after <code>tool_init_manager.py</code> reports all tools initialized.</li>
+</ul>
+<p>ACA routes traffic only to ready replicas. First requests no longer race tool init.</p>
+<h3 id="operator-visible-verification">Operator-visible verification<a class="headerlink" href="#operator-visible-verification" title="Permanent link">&para;</a></h3>
+<p><code>holodeck deploy run</code> prints the resolved limits:</p>
+<div class="highlight"><pre><span></span><code>Deploying financial-assistant to Container App 'financial-assistant'
+  Replica: 1.0 CPU / 2 GiB memory
+  Concurrent sessions per replica: 4 (derived from 2048 MiB memory limit @ 400 MiB/session)
+  Max turns per session: 20 (default)
+  Ingress: internal
+  Readiness probe: /ready (initial delay 5s)
+</code></pre></div>
+<p>If the operator's sizing is silently below the SDK guidance — e.g. they set <code>cpu: 0.25</code> — we emit a warning:</p>
+<div class="highlight"><pre><span></span><code>WARNING: replica CPU (0.25) is below Anthropic's recommended minimum of 1 CPU per SDK instance.
+  Concurrent sessions will be capped at 1. Consider increasing `deployment.target.azure.cpu`.
+</code></pre></div>
+<h3 id="what-stop-the-oom-does-not-fix">What "stop the OOM" does <em>not</em> fix<a class="headerlink" href="#what-stop-the-oom-does-not-fix" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Burst traffic past <code>max_replicas × max_concurrent_sessions</code>. The 429 surfaces this honestly; raising replica count is on the operator.</li>
+<li>One absurdly large prompt that single-handedly OOMs a replica. The semaphore caps process count, not per-process memory.</li>
+<li>Cold-start latency. P1 surfaces a readiness probe but doesn't make init faster. That's separate work folded into P2.</li>
+<li><strong>Idle sessions costing one full SDK subprocess each.</strong> P1 caps concurrent <em>open sessions</em> because each one holds a persistent <code>ClaudeSDKClient</code>. A user who opens 5 chat windows and walks away pins 5 × ~330 MiB even though nothing is running. Fixing this structurally is <strong>Phase 4</strong> (hybrid sessions — see below). P1 is a ceiling, not an architectural fix.</li>
+</ul>
+<h2 id="phase-1b-permission-posture">Phase 1b — Permission posture<a class="headerlink" href="#phase-1b-permission-posture" title="Permanent link">&para;</a></h2>
+<h3 id="the-current-default-is-unsafe">The current default is unsafe<a class="headerlink" href="#the-current-default-is-unsafe" title="Permanent link">&para;</a></h3>
+<p><code>validators.py:_build_permission_mode()</code> maps:</p>
+<table>
+<thead>
+<tr>
+<th>HoloDeck mode</th>
+<th>SDK literal</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>manual</code></td>
+<td><code>default</code></td>
+<td>SDK prompts the user before each tool call</td>
+</tr>
+<tr>
+<td><code>acceptEdits</code></td>
+<td><code>acceptEdits</code></td>
+<td>SDK auto-approves edits, prompts for others</td>
+</tr>
+<tr>
+<td><code>acceptAll</code></td>
+<td><code>bypassPermissions</code></td>
+<td>SDK permission system disabled entirely</td>
+</tr>
+</tbody>
+</table>
+<p>In <code>serve</code> mode there is no operator at the terminal, so <code>manual</code> → <code>default</code> effectively wedges the SDK on the first tool call. That has pushed operators toward <code>acceptAll</code>, which disables permissions entirely. The current path of least resistance is the least safe one.</p>
+<h3 id="the-fix">The fix<a class="headerlink" href="#the-fix" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>                  ┌───────────────────────────────────┐
+                  │ HoloDeck permission_mode          │
+                  └───────────────────────────────────┘
+                            │
+        ┌───────────────────┼────────────────────────┐
+        │                   │                        │
+        ▼                   ▼                        ▼
+   `manual`            `acceptEdits`             `acceptAll`
+        │                   │                        │
+   serve mode?              ▼                   has top-level
+        ├─ yes → SDK   SDK `acceptEdits`        `claude.i_understand_
+        │  `plan`                                this_is_unsafe: true`?
+        └─ no  → SDK                            ┌─ yes → SDK `bypassPermissions`
+           `default`                            │        + loud warning at load
+                                                └─ no  → load fails with migration error
+</code></pre></div>
+<p>In parallel, regardless of <code>permission_mode</code>, we auto-populate <code>disallowed_tools</code> with <code>{Bash, Write, Edit, WebFetch}</code> for any not declared in <code>agent.tools</code>. The SDK ships with these tools available; HoloDeck removes them unless the operator explicitly asked for them.</p>
+<h3 id="new-claudepermissions-schema-block">New <code>claude.permissions</code> schema block<a class="headerlink" href="#new-claudepermissions-schema-block" title="Permanent link">&para;</a></h3>
+<p>Operators who want explicit control get a typed field instead of having to read the validator source to learn what's auto-derived:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">claude</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">permissions</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">allowed_tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Read</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Grep</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">disallowed_tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Bash</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Write</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Edit</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">WebFetch</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">permission_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plan</span><span class="w">         </span><span class="c1"># plan | acceptEdits | manual</span>
+<span class="w">  </span><span class="c1"># Legacy escape hatch — required when permission_mode resolves to bypassPermissions</span>
+<span class="w">  </span><span class="nt">i_understand_this_is_unsafe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>When <code>claude.permissions.*</code> is set, the explicit values win over the auto-derivation. When the block is absent, the auto-derivation runs.</p>
+<h3 id="migration-path">Migration path<a class="headerlink" href="#migration-path" title="Permanent link">&para;</a></h3>
+<p>The change is breaking for one specific case: an agent that today uses <code>acceptAll</code> and does not declare its built-in tools. On load:</p>
+<div class="highlight"><pre><span></span><code>ERROR loading agent 'my-agent':
+  permission_mode 'acceptAll' is deprecated because it disables the Claude SDK
+  permission system entirely. This is the most direct path from prompt-injection
+  to arbitrary tool execution.
+
+  To migrate:
+    1. List the tools your agent actually needs in `agent.tools` (recommended), or
+    2. Add `claude.i_understand_this_is_unsafe: true` to keep the legacy behavior.
+
+  See: docs/security/permissions.md
+</code></pre></div>
+<p>The legacy escape hatch keeps working; using it requires opting in by name.</p>
+<h3 id="what-permission-posture-does-not-fix">What permission posture does <em>not</em> fix<a class="headerlink" href="#what-permission-posture-does-not-fix" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The SDK still runs with whatever filesystem and network the container gives it. Permissions are an SDK-level allowlist, not an OS-level sandbox. Container hardening (P2) and the egress proxy (P3) layer in on top.</li>
+<li>Prompt-injection payloads that target the <em>allowed</em> tools (e.g. an agent that legitimately has <code>Read</code> and gets instructed to read <code>/etc/passwd</code>) are not stopped by the allowlist. The hook layer (P2) is the next line of defense.</li>
+</ul>
+<h2 id="phase-2a-container-runtime-hardening">Phase 2a — Container runtime hardening<a class="headerlink" href="#phase-2a-container-runtime-hardening" title="Permanent link">&para;</a></h2>
+<h3 id="generated-dockerfile-changes">Generated Dockerfile changes<a class="headerlink" href="#generated-dockerfile-changes" title="Permanent link">&para;</a></h3>
+<p><code>src/holodeck/deploy/dockerfile.py</code> produces the per-agent Dockerfile that <code>holodeck deploy build</code> consumes. The current template:</p>
+<ul>
+<li>Always installs Node.js (40–80 MiB image bloat).</li>
+<li>COPYs the agent corpus owned by <code>holodeck:holodeck</code> with default permissions, so the runtime user can write to it.</li>
+<li>Sets <code>WORKDIR /app</code> with no explicit read-only enforcement.</li>
+</ul>
+<p>The hosting doc is explicit: <em>"Both SDK packages bundle a native Claude Code binary for the host platform, so no separate Claude Code or Node.js install is needed for the spawned CLI."</em> The only reason HoloDeck needs Node.js is when an MCP server's <code>command</code> requires it (typically <code>node</code> or <code>npx</code>).</p>
+<p>Changes:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Conditional: omit when agent.yaml has no Node-requiring stdio MCP server</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nodejs<span class="w"> </span>npm<span class="w">   </span>#<span class="w"> </span>←<span class="w"> </span>gated
+
+<span class="c"># Corpus dirs become root-owned and writable only via tmpfs scratch</span>
+<span class="k">COPY</span><span class="w"> </span>--chown<span class="o">=</span>root:root<span class="w"> </span>data<span class="w"> </span>/app/data
+<span class="k">COPY</span><span class="w"> </span>--chown<span class="o">=</span>root:root<span class="w"> </span>instructions<span class="w"> </span>/app/instructions
+<span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span>a-w<span class="w"> </span>/app/data<span class="w"> </span>/app/instructions
+
+<span class="c"># SDK scratch directory — writable, mounted as tmpfs by ACA</span>
+<span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/holodeck/work<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chown<span class="w"> </span>holodeck:holodeck<span class="w"> </span>/var/holodeck/work
+</code></pre></div>
+<p>The runtime user (<code>holodeck</code>) can read corpus files but not modify them. Anything the SDK or its tools need to write goes under <code>/var/holodeck/work</code>, which ACA mounts as tmpfs.</p>
+<h3 id="aca-template-changes">ACA template changes<a class="headerlink" href="#aca-template-changes" title="Permanent link">&para;</a></h3>
+<p><code>src/holodeck/deploy/deployers/azure_containerapps.py</code> emits the Container App spec. Today it sets <code>cpu</code>/<code>memory</code>/<code>min_replicas</code>/<code>max_replicas</code> from agent.yaml. The new template adds:</p>
+<div class="highlight"><pre><span></span><code><span class="n">container_spec</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="n">agent_name</span><span class="p">,</span>
+    <span class="s2">"image"</span><span class="p">:</span> <span class="n">image_ref</span><span class="p">,</span>
+    <span class="s2">"resources"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"cpu"</span><span class="p">:</span> <span class="n">cpu</span><span class="p">,</span> <span class="s2">"memory"</span><span class="p">:</span> <span class="n">memory</span><span class="p">},</span>
+    <span class="s2">"probes"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Liveness"</span><span class="p">,</span>   <span class="s2">"httpGet"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"path"</span><span class="p">:</span> <span class="s2">"/health"</span><span class="p">},</span> <span class="o">...</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Readiness"</span><span class="p">,</span>  <span class="s2">"httpGet"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"path"</span><span class="p">:</span> <span class="s2">"/ready"</span><span class="p">},</span>  <span class="o">...</span><span class="p">},</span>  <span class="c1"># NEW</span>
+    <span class="p">],</span>
+    <span class="c1"># NEW securityContext block — degrades gracefully to what ACA supports</span>
+    <span class="s2">"securityContext"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"runAsNonRoot"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"readOnlyRootFilesystem"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"allowPrivilegeEscalation"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">"capabilities"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"drop"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"ALL"</span><span class="p">]},</span>
+    <span class="p">},</span>
+    <span class="c1"># NEW writable volumes mounted as tmpfs by ACA</span>
+    <span class="s2">"volumeMounts"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"volumeName"</span><span class="p">:</span> <span class="s2">"tmp"</span><span class="p">,</span>         <span class="s2">"mountPath"</span><span class="p">:</span> <span class="s2">"/tmp"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"volumeName"</span><span class="p">:</span> <span class="s2">"sdk-scratch"</span><span class="p">,</span> <span class="s2">"mountPath"</span><span class="p">:</span> <span class="s2">"/var/holodeck/work"</span><span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>ACA's surface is a subset of full Kubernetes; not every property maps 1:1. Where ACA degrades gracefully (e.g. <code>capabilities.drop</code>), we use the supported form. Where ACA doesn't expose a primitive (e.g. seccomp profiles), we document the gap and accept it. The opt-in <code>security_profile: hardened</code> path (P3) covers the cases ACA can't, by adding an Envoy sidecar.</p>
+<h3 id="ingress-defaults-to-internal">Ingress defaults to internal<a class="headerlink" href="#ingress-defaults-to-internal" title="Permanent link">&para;</a></h3>
+<p>Today <code>deployment.target.azure.ingress_external</code> defaults to whatever the operator writes. Sample agents set it to <code>true</code>. New default:</p>
+<div class="highlight"><pre><span></span><code>ingress_external: false
+</code></pre></div>
+<p>If the operator sets it to <code>true</code>, <code>holodeck deploy run</code> emits:</p>
+<div class="highlight"><pre><span></span><code>WARNING: deploying with PUBLIC ingress (ingress_external: true).
+  This Container App will be reachable from the public internet at:
+    https://&lt;fqdn&gt;
+  If this was unintentional, set `deployment.target.azure.ingress_external: false`
+  in agent.yaml and redeploy.
+</code></pre></div>
+<p>The warning is non-fatal; it just makes the choice deliberate.</p>
+<h2 id="phase-2b-prompt-injection-defenses">Phase 2b — Prompt-injection defenses<a class="headerlink" href="#phase-2b-prompt-injection-defenses" title="Permanent link">&para;</a></h2>
+<h3 id="the-hook-surface-is-already-there">The hook surface is already there<a class="headerlink" href="#the-hook-surface-is-already-there" title="Permanent link">&para;</a></h3>
+<p>Spec 028 (<code>yaml-hooks-system</code>) shipped the YAML surface for user-defined hooks. <code>_options_with_hooks()</code> in <code>claude_backend.py:601</code> merges them into <code>ClaudeAgentOptions.hooks</code>. P2 plumbs HoloDeck-provided default hooks into that pipeline ahead of any user hooks.</p>
+<div class="highlight"><pre><span></span><code>SDK PreToolUse event
+   │
+   ▼
+┌────────────────────────────────────┐
+│ HoloDeck default hooks (this spec) │
+│  • Bash AST deny list              │
+└────────────────────────────────────┘
+   │
+   ▼
+┌────────────────────────────────────┐
+│ User-defined hooks (spec 028)       │
+└────────────────────────────────────┘
+   │
+   ▼
+Tool call proceeds (or is denied)
+</code></pre></div>
+<p>The default hook chain is opt-out via <code>claude.disable_default_hooks: true</code>. We do not let it be silently disabled — disabling it emits a load-time warning naming the agent and the hooks being disabled.</p>
+<h3 id="default-hook-1-bash-ast-deny-list-pretooluse">Default hook 1 — Bash AST deny list (PreToolUse)<a class="headerlink" href="#default-hook-1-bash-ast-deny-list-pretooluse" title="Permanent link">&para;</a></h3>
+<p>The secure-deployment doc describes the SDK's built-in command parsing: <em>"Before executing bash commands, Claude Code parses them into an AST and matches the result against your permission rules."</em> HoloDeck adds a default rule set:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eval</code> (always requires approval per SDK)</td>
+<td>We emit a structured rejection rather than letting the SDK prompt</td>
+</tr>
+<tr>
+<td>Piped <code>curl ... | sh</code>, <code>curl ... | bash</code>, <code>wget ... | sh</code></td>
+<td>Remote-code-execution vector</td>
+</tr>
+<tr>
+<td><code>bash -c</code> with command substitution <code>$(...)</code> or backticks</td>
+<td>Dynamic command construction defeats the deny list</td>
+</tr>
+<tr>
+<td>Raw <code>sudo</code></td>
+<td>No legitimate use inside a non-root container; defends against suid bugs</td>
+</tr>
+<tr>
+<td><code>nc</code>, <code>ncat</code>, <code>socat</code></td>
+<td>Reverse-shell vector</td>
+</tr>
+</tbody>
+</table>
+<p>When the AST matches, the hook returns a structured rejection that surfaces in OTel as a <code>tool.denied</code> span with the matched pattern:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"block"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bash command rejected by HoloDeck default deny list"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"matched_rule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curl_pipe_sh"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"stop_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default_hook"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This is opt-out, not configurable in-depth. Operators who need a different rule set use the user-hook surface (spec 028) and set <code>claude.disable_default_hooks: true</code>.</p>
+<h3 id="default-hook-2-credential-redaction-posttooluse">Default hook 2 — Credential redaction (PostToolUse)<a class="headerlink" href="#default-hook-2-credential-redaction-posttooluse" title="Permanent link">&para;</a></h3>
+<p>Tool outputs flow back into the model context. Today nothing redacts them. The default PostToolUse hook scans <code>tool_result.content</code> for credential-shaped patterns and replaces them with <code>[REDACTED:&lt;kind&gt;]</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Replaced with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sk-ant-api03-…</code></td>
+<td><code>[REDACTED:anthropic-key]</code></td>
+</tr>
+<tr>
+<td><code>AKIA[0-9A-Z]{16}</code></td>
+<td><code>[REDACTED:aws-access-key]</code></td>
+</tr>
+<tr>
+<td><code>ghp_[A-Za-z0-9]{36}</code></td>
+<td><code>[REDACTED:github-token]</code></td>
+</tr>
+<tr>
+<td>JWT (<code>eyJ…\.…\.…</code>)</td>
+<td><code>[REDACTED:jwt]</code></td>
+</tr>
+<tr>
+<td><code>Bearer [A-Za-z0-9_\-\.]+</code> in HTTP headers</td>
+<td><code>Bearer [REDACTED]</code></td>
+</tr>
+</tbody>
+</table>
+<p>These are heuristics — a false positive risk exists. Operators can opt out per-tool or globally via the user-hook surface. The patterns themselves are a versioned constant; we don't expose them as configuration in v1.</p>
+<h3 id="otel-attribute-redaction-independent-of-hooks">OTel attribute redaction (independent of hooks)<a class="headerlink" href="#otel-attribute-redaction-independent-of-hooks" title="Permanent link">&para;</a></h3>
+<p>The hook above only protects the model context. OTel traces with <code>capture_content: true</code> capture tool outputs separately, before any hook fires. We add a redaction pass inside <code>otel_bridge.py</code> that applies the same patterns to span attributes whose names start with <code>tool.output</code> or <code>tool.input</code>.</p>
+<p>This is independent of <code>disable_default_hooks</code> — operators cannot accidentally disable trace redaction by disabling hooks.</p>
+<h3 id="what-hooks-do-not-fix">What hooks do <em>not</em> fix<a class="headerlink" href="#what-hooks-do-not-fix" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A determined attacker who base64-encodes their payload defeats both the Bash deny list (no AST match) and the credential redaction (no pattern match). Defense in depth means the next layer (P3 egress proxy) is what stops the post-exploitation step.</li>
+<li>A legitimate tool output that contains a credential-shaped string the agent needs. Operators with this case opt out per-tool or move to the hardened profile (P3) where the credential never enters the agent in the first place.</li>
+</ul>
+<h2 id="phase-3-credential-boundary-opt-in">Phase 3 — Credential boundary (opt-in)<a class="headerlink" href="#phase-3-credential-boundary-opt-in" title="Permanent link">&para;</a></h2>
+<h3 id="when-this-phase-applies">When this phase applies<a class="headerlink" href="#when-this-phase-applies" title="Permanent link">&para;</a></h3>
+<p>Phases 1–2 close the most common failure modes for single-tenant deployments. They do not move credentials out of the agent's environment. The secure-deployment doc's "proxy pattern" is the answer when:</p>
+<ul>
+<li>The agent processes content from multiple tenants in the same container.</li>
+<li>The agent reads untrusted documents whose contents could include prompt-injection payloads designed to exfiltrate credentials.</li>
+<li>Compliance requires that credentials never appear in the agent's process environment.</li>
+</ul>
+<p>Operators who don't have those constraints stay on the default profile.</p>
+<h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>┌────────────────────────────────────────────────────────────────┐
+│ Azure Container App (single revision)                          │
+│                                                                │
+│  ┌─────────────────────┐         ┌──────────────────────────┐ │
+│  │ agent container      │         │ envoy sidecar             │ │
+│  │  • holodeck serve    │         │  • credential_injector    │ │
+│  │  • no creds in env   │  HTTP   │  • domain allowlist       │ │
+│  │  • ANTHROPIC_BASE_URL├────────►│  • secret-mounted          │ │
+│  │    = localhost:8081  │ localhost│   credentials             │ │
+│  │  • HTTP_PROXY=       │         │                           │ │
+│  │    localhost:8081    │         │                           │ │
+│  └─────────────────────┘         └────────────┬──────────────┘ │
+│                                                │                │
+└────────────────────────────────────────────────┼────────────────┘
+                                                 ▼
+                                       api.anthropic.com
+                                       configured MCP HTTP endpoints
+                                       embedding provider endpoint
+                                       (everything else: rejected)
+</code></pre></div>
+<p>The agent container has zero secret-bearing env vars. The Envoy sidecar holds them (mounted as Azure Container App secrets, mounted only to the sidecar). The sidecar enforces a domain allowlist derived from the agent.yaml at deploy time:</p>
+<ul>
+<li><code>api.anthropic.com</code> (always)</li>
+<li>Embedding provider endpoint (from <code>agent.embedding_provider.endpoint</code>)</li>
+<li>Each MCP server's HTTP endpoint (from <code>agent.tools[*].connection_url</code> for MCP HTTP/SSE)</li>
+<li>Nothing else</li>
+</ul>
+<h3 id="opt-in-deploymentsecurity_profile">Opt-in: <code>deployment.security_profile</code><a class="headerlink" href="#opt-in-deploymentsecurity_profile" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">deployment</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">security_profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hardened</span><span class="w">       </span><span class="c1"># default | hardened</span>
+<span class="w">  </span><span class="nt">target</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure</span>
+<span class="w">    </span><span class="nt">azure</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+</code></pre></div>
+<p>When <code>security_profile: hardened</code>, <code>holodeck deploy run</code>:</p>
+<ol>
+<li>Reads the agent.yaml and builds the domain allowlist.</li>
+<li>Emits an Envoy config (<code>envoy.yaml</code>) as a Container App config map.</li>
+<li>Provisions the Container App with two containers (agent + envoy sidecar) sharing localhost.</li>
+<li>Moves credentials from agent container env to Container App secrets mounted only to the sidecar.</li>
+<li>Sets <code>ANTHROPIC_BASE_URL=http://localhost:&lt;envoy-port&gt;</code> and <code>HTTPS_PROXY=http://localhost:&lt;envoy-port&gt;</code> in the agent container.</li>
+</ol>
+<p>The Claude backend, on detecting <code>security_profile: hardened</code>, requires <code>ANTHROPIC_BASE_URL</code> to be set — there is no silent fallback to direct Anthropic API calls.</p>
+<h3 id="what-the-proxy-pattern-does-not-fix">What the proxy pattern does <em>not</em> fix<a class="headerlink" href="#what-the-proxy-pattern-does-not-fix" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>TLS interception of arbitrary HTTPS.</strong> The doc is clear: for non-Anthropic HTTPS without a TLS-terminating proxy, the sidecar only sees opaque TLS tunnels. We don't ship a CA-injection setup in v1. MCP servers needed at the application layer are handled via the <code>custom tool</code> pattern from the secure-deployment doc — they expose an HTTP endpoint inside the sidecar and the agent calls them via plain HTTP.</li>
+<li><strong>Multi-tenant-per-container isolation.</strong> This profile assumes one tenant per replica. Multiple end-customers concurrently inside the same container with hard isolation between them is a separate spec (would require per-session ephemeral containers, Pattern 1 in the hosting doc).</li>
+</ul>
+<h2 id="phase-4-hybrid-sessions-sdk-subprocess-pooling">Phase 4 — Hybrid sessions / SDK subprocess pooling<a class="headerlink" href="#phase-4-hybrid-sessions-sdk-subprocess-pooling" title="Permanent link">&para;</a></h2>
+<p>P1 caps concurrent SDK subprocesses to whatever fits in cgroup memory. That cap is binding on <strong>open sessions</strong>, not on <strong>active turns</strong> — a 2 GiB replica with 5 idle chat sessions is at the cap even though the CPU and most of the memory is idle. Phase 4 removes that cliff by aligning HoloDeck with the SDK's documented <strong>Pattern 3 — Hybrid Sessions</strong>: each turn is its own subprocess, conversation state lives in a transcript file, idle sessions cost ~zero resident memory.</p>
+<h3 id="what-the-sdk-actually-supports">What the SDK actually supports<a class="headerlink" href="#what-the-sdk-actually-supports" title="Permanent link">&para;</a></h3>
+<p>From the SDK sessions doc (verified during P1 validation):</p>
+<ol>
+<li><strong>Session state is a JSONL transcript on disk</strong>, written automatically to <code>~/.claude/projects/&lt;encoded-cwd&gt;/&lt;session-id&gt;.jsonl</code>. Not opaque in-subprocess state.</li>
+<li><strong><code>ClaudeAgentOptions.resume=&lt;session_id&gt;</code></strong> rehydrates a subprocess from that transcript at spawn time. Fully supported on the top-level <code>query()</code> function.</li>
+<li><strong><code>ClaudeSDKClient</code></strong> (what HoloDeck uses today) keeps one subprocess for its lifetime and locks to one session_id internally. <strong>Cannot be reused across distinct sessions</strong> — confirmed both by the docs and by the existing codebase comment in <code>claude_backend.py</code> (rotating session_id wedges the CLI).</li>
+<li>There is <strong>no public API for subprocess pooling</strong> in the conventional warm-worker sense. The SDK owns subprocess lifecycle; the only pooling lever the SDK gives you is "make subprocesses ephemeral via <code>resume=</code>."</li>
+</ol>
+<h3 id="current-model-vs-phase-4-model">Current model vs. Phase 4 model<a class="headerlink" href="#current-model-vs-phase-4-model" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Today (P1):                       Phase 4 (Hybrid):
+1 session = 1 ClaudeSDKClient     1 session = 1 transcript file
+        = 1 persistent subprocess         (cheap, on disk)
+        = ~330 MiB resident       1 turn   = spawn subprocess
+                                          + query(resume=session_id)
+N idle sessions: N × 330 MiB              + run turn, exit
+                                  Resident memory tracks *active turns*.
+</code></pre></div>
+<p>For typical chat duty cycle (sessions spend ≥90% of wall time waiting on the user), this is 5–10× less resident memory.</p>
+<h3 id="architecture-sketch">Architecture sketch<a class="headerlink" href="#architecture-sketch" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Replace <code>ClaudeSession._ensure_client()</code> and <code>ClaudeSession.send()</code> so each <code>send()</code> calls the top-level <code>query(prompt, options=ClaudeAgentOptions(resume=session_id, ...))</code> and drains the async-iterable.</li>
+<li>On first turn, capture <code>session_id</code> from <code>ResultMessage</code> and store it on the HoloDeck <code>ServerSession</code>.</li>
+<li>The HoloDeck <code>SessionStore</code> cap changes meaning: it now tracks <strong>concurrent turns</strong> in flight, not open sessions. Probably rename to <code>max_concurrent_turns</code> to be honest. Cap can be much higher (e.g. 20–50 on a 2 GiB replica) because idle sessions are free.</li>
+<li>Transcript cleanup: on <code>ServerSession.close()</code> and on an idle TTL (e.g. 1h), delete the JSONL. Otherwise <code>~/.claude/projects/</code> grows unboundedly.</li>
+<li>AG-UI streaming: the top-level <code>query()</code> async-iterable yields the same SDK message types as <code>client.send_streaming()</code>, so the AG-UI bridge mapping should be near-identical. Worth confirming on the spike.</li>
+</ul>
+<h3 id="risks-to-validate-before-committing">Risks to validate before committing<a class="headerlink" href="#risks-to-validate-before-committing" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Why it matters</th>
+<th>Validation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MCP server reinit cost per turn</strong></td>
+<td>qdrant client reconnect + hierarchical-doc tool warmup + ingestion idempotency check on every spawn. Could push P50 mid-conversation latency from ~30s to ~40s.</td>
+<td>Five sequential turns of the same session under both models on the financial-assistant.</td>
+<td>✅ <strong>Resolved by spike</strong> (2026-05-19). P4 total 101.13s vs baseline 112.72s over 5 turns; P4 was <em>2.32s/turn faster</em>. Per-turn variance dominated by LLM + retrieval, not subprocess spawn.</td>
+</tr>
+<tr>
+<td><strong><code>resume=session_id</code> context fidelity</strong></td>
+<td>If the transcript replay loses tool-use/tool-result blocks, the agent would re-retrieve every turn and lose conversation continuity.</td>
+<td>Conversation-dependent follow-up turns ("and the prior year?") that can only be answered using prior context.</td>
+<td>✅ <strong>Resolved by spike v2</strong> (2026-05-19). Five-turn conversation with three follow-up turns: P4 correctly referenced ALXN/rental-payments and JKHY/capex anchors across spawns, including prior tool-result blocks ("from the <strong>same retrieved JKHY 2008 filing</strong>, the answer is already in context").</td>
+</tr>
+<tr>
+<td><strong>AG-UI stream-shape compat</strong></td>
+<td>The current AG-UI bridge consumes SDK messages emitted via <code>client.send_streaming()</code>.</td>
+<td>No separate spike needed — <code>query()</code> yields the same SDK message types. Validate by keeping <code>ClaudeSession.send_streaming()</code> as the stable public surface and swapping its guts; the AG-UI bridge above is unchanged. Cover via the existing deploy validation loop.</td>
+<td>⏳ Validate during implementation.</td>
+</tr>
+<tr>
+<td><strong>String-prompt + SDK MCP tool callbacks deadlock</strong></td>
+<td>Discovered in spike v1: when <code>query()</code> is called with a <code>str</code> prompt, it calls <code>end_input()</code> after writing the prompt, which closes stdin. Subsequent control-channel messages (the SDK's reverse path used by SDK MCP tool callbacks) fail with <code>ProcessTransport is not ready for writing</code>.</td>
+<td>Use streaming-mode prompts (<code>AsyncIterable[dict]</code>) for every P4 turn — the SDK keeps stdin open via the background <code>stream_input</code> task.</td>
+<td>✅ <strong>Resolved by spike</strong> — required for any implementation using <code>holodeck_tools</code> SDK MCP server.</td>
+</tr>
+<tr>
+<td><strong>Subprocess spawn jitter under burst</strong></td>
+<td>Spawning 5 subprocesses at once = 5 simultaneous Node.js CLI starts + 5 MCP server inits. Could cause CPU saturation despite memory headroom.</td>
+<td>Re-run the 5-concurrent burst test from P1 validation; measure end-to-end latency distribution.</td>
+<td>⏳ Validate during implementation.</td>
+</tr>
+<tr>
+<td><strong>Transcript disk pressure</strong></td>
+<td>Long-lived deployments accumulate JSONLs forever without cleanup.</td>
+<td>Implement TTL job; size estimate per session before committing.</td>
+<td>⏳ Implementation detail.</td>
+</tr>
+<tr>
+<td><strong>Lost session state on transcript corruption</strong></td>
+<td>A corrupted transcript bricks the session permanently (no in-memory fallback as we have today).</td>
+<td>Catch decode errors at resume; surface as "session lost, please reconnect" rather than 500.</td>
+<td>⏳ Implementation detail.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="spike-data-2026-05-19-financial-assistant-sample-sequential-turns">Spike data (2026-05-19, financial-assistant sample, sequential turns)<a class="headerlink" href="#spike-data-2026-05-19-financial-assistant-sample-sequential-turns" title="Permanent link">&para;</a></h4>
+<p>Spike v1 — latency, independent turns:</p>
+<table>
+<thead>
+<tr>
+<th>turn</th>
+<th style="text-align: right;">baseline</th>
+<th style="text-align: right;">P4 (<code>query</code> + <code>resume</code>)</th>
+<th style="text-align: right;">delta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 (cold)</td>
+<td style="text-align: right;">47.05s</td>
+<td style="text-align: right;">45.34s</td>
+<td style="text-align: right;">-1.71s</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: right;">8.67s</td>
+<td style="text-align: right;">10.86s</td>
+<td style="text-align: right;">+2.19s</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: right;">20.84s</td>
+<td style="text-align: right;">14.69s</td>
+<td style="text-align: right;">-6.15s</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: right;">16.99s</td>
+<td style="text-align: right;">15.23s</td>
+<td style="text-align: right;">-1.76s</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align: right;">19.16s</td>
+<td style="text-align: right;">15.01s</td>
+<td style="text-align: right;">-4.15s</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td style="text-align: right;"><strong>112.72s</strong></td>
+<td style="text-align: right;"><strong>101.13s</strong></td>
+<td style="text-align: right;"><strong>-11.59s</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Spike v2 — context preservation, conversation-dependent turns:</p>
+<table>
+<thead>
+<tr>
+<th>turn</th>
+<th style="text-align: right;">baseline</th>
+<th style="text-align: right;">P4</th>
+<th style="text-align: right;">delta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 (cold)</td>
+<td style="text-align: right;">38.69s</td>
+<td style="text-align: right;">40.38s</td>
+<td style="text-align: right;">+1.69s</td>
+</tr>
+<tr>
+<td>2 ("prior year")</td>
+<td style="text-align: right;">18.80s</td>
+<td style="text-align: right;">20.90s</td>
+<td style="text-align: right;">+2.10s</td>
+</tr>
+<tr>
+<td>3 ("percentage change")</td>
+<td style="text-align: right;">5.17s</td>
+<td style="text-align: right;">12.04s</td>
+<td style="text-align: right;">+6.87s</td>
+</tr>
+<tr>
+<td>4 (context switch)</td>
+<td style="text-align: right;">15.78s</td>
+<td style="text-align: right;">9.21s</td>
+<td style="text-align: right;">-6.58s</td>
+</tr>
+<tr>
+<td>5 ("year before")</td>
+<td style="text-align: right;">11.37s</td>
+<td style="text-align: right;">5.31s</td>
+<td style="text-align: right;">-6.06s</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td style="text-align: right;"><strong>89.81s</strong></td>
+<td style="text-align: right;"><strong>87.84s</strong></td>
+<td style="text-align: right;"><strong>-1.97s</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Both legs answered every conversation-dependent turn correctly, demonstrating that <code>resume=</code> faithfully replays user messages, assistant responses, and tool-use/tool-result blocks across spawned subprocesses.</p>
+<h3 id="why-this-didnt-ship-in-v1">Why this didn't ship in v1<a class="headerlink" href="#why-this-didnt-ship-in-v1" title="Permanent link">&para;</a></h3>
+<p>The two-week diagnostic loop that produced P1 surfaced this as the natural next move, but P1 was already a bounded scope with clear success criteria (no more OOM, cap is binding, permissions tightened). Stuffing a subprocess-lifecycle rewrite into the same PR would have made it un-reviewable. P1 gets us to "no OOM at our current scale" — P4 gets us to "no OOM as scale grows."</p>
+<h3 id="open-questions">Open questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Does <code>query(resume=session_id)</code> round-trip every option</strong> (hooks, MCP servers, allowed_tools, permission_mode) cleanly? ✅ Spike confirmed MCP servers, allowed_tools, and prompt envelope all round-trip — same <code>options</code> dataclass reused per turn with only <code>resume</code> mutated. Hooks and <code>permission_mode</code> round-trip implicitly because they're carried on the same options object.</li>
+<li><strong>Does the SDK serialize tool-use blocks faithfully in the transcript?</strong> ✅ Spike v2 confirmed — turn 5 ("And the year before?") reproduced the $34,202 figure from turn 4's tool result <em>without re-running the retrieval tool</em>, proving tool-use AND tool-result blocks are replayed from the transcript.</li>
+<li><strong>Streaming-mode vs string-mode <code>query()</code></strong> — spike v1 surfaced this: string-mode closes stdin after writing the prompt, deadlocking any SDK MCP tool callback. P4 implementation <strong>must</strong> use streaming-mode (<code>AsyncIterable[dict]</code>) prompts. Documented as a hard requirement above.</li>
+<li><strong>Transcript bloat on long tool outputs</strong> — still open. The hierarchical_document tool can return 8KB-ish per retrieval; 50 turns × 5 retrievals × 8KB = 2MB transcript that gets read+parsed every turn. Need a size-budget knob or rolling-summary mechanism before exposing P4 to long-running chat sessions.</li>
+<li><strong>OTel context propagation across spawned subprocesses</strong> — today the OTel instrumentor patches <code>ClaudeSDKClient</code> instances. With <code>query()</code> we get a fresh client each turn; need to verify the instrumentor still wires the trace context, or move the patch to the top-level <code>query</code> function.</li>
+</ol>
+<h2 id="what-we-are-deliberately-not-doing-in-v1">What we are deliberately <em>not</em> doing in v1<a class="headerlink" href="#what-we-are-deliberately-not-doing-in-v1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Per-session ephemeral containers (Pattern 1).</strong> That's the strongest isolation pattern in the hosting doc but requires a new deployer (Modal, Fly Machines, etc.) and per-session billing infrastructure. Documented as a follow-up spec.</li>
+<li><strong>gVisor / Firecracker runtime.</strong> ACA doesn't support gVisor. Self-hosted Docker users could opt into <code>runsc</code>, but we don't template it.</li>
+<li><strong>Statistical anomaly detection on tool calls.</strong> Out of scope; the hook layer is the right abstraction for layering this later.</li>
+<li><strong>Auto-derived domain allowlist from prompt content.</strong> P3 derives the allowlist from explicit YAML fields. Inferring it from prompt text or runtime behavior is brittle and is not what the secure-deployment doc recommends.</li>
+<li><strong>Per-tool credential mapping in default profile.</strong> P3 moves credentials behind the sidecar. The default profile keeps the existing env-var model; we don't try to half-implement credential separation.</li>
+<li><strong>Replacing the existing YAML hook surface.</strong> Spec 028 stays as-is. P2's defaults plug into the same chain.</li>
+</ul>
+<h2 id="cost-reality">Cost reality<a class="headerlink" href="#cost-reality" title="Permanent link">&para;</a></h2>
+<p>P1 changes are nearly free at runtime: a semaphore acquisition, a probe endpoint, a default in <code>build_options()</code>. Operator-visible cost is the bumped replica spec (1 CPU → 2 GiB), which roughly doubles the per-replica ACA bill from ~$0.05/hr to ~$0.10/hr on consumption profile. ACA scale-to-zero is preserved.</p>
+<p>P2 changes are also free at runtime: dropping Node.js shrinks the image (~50 MiB → faster pulls, faster cold starts), hook execution is a few microseconds per tool call, and OTel redaction is a regex pass per span attribute.</p>
+<p>P3 adds the Envoy sidecar to every replica, roughly doubling per-replica memory (~50–80 MiB for Envoy) and adding ~1 ms latency per upstream request. This is why it is opt-in.</p>
+<h2 id="how-holodecks-structure-changes">How HoloDeck's structure changes<a class="headerlink" href="#how-holodecks-structure-changes" title="Permanent link">&para;</a></h2>
+<h3 id="schema-additions">Schema additions<a class="headerlink" href="#schema-additions" title="Permanent link">&para;</a></h3>
+<p>New fields under <code>claude:</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">claude</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">permissions</span><span class="p">:</span><span class="w">                    </span><span class="c1"># NEW (P1b)</span>
+<span class="w">    </span><span class="nt">allowed_tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">disallowed_tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">permission_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plan | acceptEdits | manual</span>
+<span class="w">  </span><span class="nt">disable_default_hooks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">    </span><span class="c1"># NEW (P2b)</span>
+<span class="w">  </span><span class="nt">i_understand_this_is_unsafe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># NEW (P1b) — required for bypassPermissions</span>
+<span class="w">  </span><span class="nt">max_concurrent_sessions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">   </span><span class="c1"># existing — default now derived from cgroup memory</span>
+<span class="w">  </span><span class="nt">session_memory_estimate_mib</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w">  </span><span class="c1"># NEW (P1a) — per-session memory budget for derivation</span>
+</code></pre></div>
+<p>New field under <code>deployment:</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">deployment</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">security_profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default | hardened</span><span class="w">   </span><span class="c1"># NEW (P3)</span>
+</code></pre></div>
+<p>Reuses spec 028's <code>claude.hooks</code> surface for user-defined hooks; no new field needed.</p>
+<h3 id="backend-changes">Backend changes<a class="headerlink" href="#backend-changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/holodeck/lib/backends/claude_backend.py</code></td>
+<td><code>build_options()</code> derives <code>disallowed_tools</code> from <code>agent.tools</code>; sets <code>max_turns</code> default; plumbs default hooks</td>
+</tr>
+<tr>
+<td><code>src/holodeck/lib/backends/validators.py</code></td>
+<td><code>_build_permission_mode()</code> rewritten per the decision tree above; emits migration error for legacy <code>acceptAll</code> without opt-in</td>
+</tr>
+<tr>
+<td><code>src/holodeck/lib/backends/claude_hooks.py</code></td>
+<td>NEW — bundled default hooks (Bash AST deny, credential redaction)</td>
+</tr>
+<tr>
+<td><code>src/holodeck/lib/backends/otel_bridge.py</code></td>
+<td>Add redaction pass on <code>tool.input</code>/<code>tool.output</code> attributes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serve-changes">Serve changes<a class="headerlink" href="#serve-changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/holodeck/serve/server.py</code></td>
+<td><code>max_concurrent_sessions</code> default becomes <code>max(1, floor(cpu_cores × 2))</code> derived from replica env (<code>HOLODECK_REPLICA_CPU</code> env var emitted by deployer)</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/protocols/agui.py</code></td>
+<td>Wrap <code>_get_or_create_session()</code> in <code>asyncio.Semaphore</code>; return 429 on overflow</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/server.py</code></td>
+<td>Add <code>/ready</code> endpoint distinct from <code>/health</code>; returns 200 only after <code>tool_init_manager</code> reports ready</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deploy-changes">Deploy changes<a class="headerlink" href="#deploy-changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/holodeck/deploy/dockerfile.py</code></td>
+<td>Conditional Node.js install; chown corpus to root + chmod a-w; create <code>/var/holodeck/work</code></td>
+</tr>
+<tr>
+<td><code>src/holodeck/deploy/deployers/azure_containerapps.py</code></td>
+<td>Emit <code>securityContext</code>; readiness probe; <code>ingress_external</code> defaults to <code>false</code>; echo resolved limits at deploy time</td>
+</tr>
+<tr>
+<td><code>src/holodeck/deploy/deployers/azure_containerapps.py</code></td>
+<td>When <code>security_profile: hardened</code>, emit two containers + Envoy config + Container App secrets</td>
+</tr>
+<tr>
+<td><code>src/holodeck/deploy/envoy.py</code></td>
+<td>NEW — generate Envoy config from agent.yaml allowlist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-changes">Model changes<a class="headerlink" href="#model-changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/holodeck/models/claude_config.py</code></td>
+<td>Add <code>permissions: ClaudePermissionsConfig</code>, <code>disable_default_hooks</code>, <code>i_understand_this_is_unsafe</code>; remove the implicit <code>acceptAll</code> mapping</td>
+</tr>
+<tr>
+<td><code>src/holodeck/models/deployment.py</code></td>
+<td>Add <code>security_profile</code>; default Azure <code>cpu</code>/<code>memory</code> to <code>1.0</code>/<code>2Gi</code> for Claude agents; default <code>ingress_external</code> to <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="validation-at-startup">Validation at startup<a class="headerlink" href="#validation-at-startup" title="Permanent link">&para;</a></h2>
+<p>Phases 1–2 add the following load-time checks. Phase 3 adds two more.</p>
+<ol>
+<li>Existing agent.yaml validation (unchanged).</li>
+<li><strong>(P1b)</strong> If <code>permission_mode: acceptAll</code> and <code>i_understand_this_is_unsafe: false</code>: load fails with migration error.</li>
+<li><strong>(P1b)</strong> If <code>claude.permissions</code> and any legacy permission fields are both set on the same agent: load fails with a "choose one" error.</li>
+<li><strong>(P2b)</strong> If <code>claude.disable_default_hooks: true</code>: load succeeds with a loud warning naming the agent.</li>
+<li><strong>(P3)</strong> If <code>security_profile: hardened</code> and any credential-bearing env var is set on the agent container: load fails — the operator has half-migrated.</li>
+<li><strong>(P3)</strong> If <code>security_profile: hardened</code> and <code>agent.embedding_provider.endpoint</code> or any MCP HTTP endpoint is missing: load fails — the allowlist would be incomplete.</li>
+</ol>
+<p>All validation errors collected in a single pass, surfaced together.</p>
+<h2 id="cli-surface">CLI surface<a class="headerlink" href="#cli-surface" title="Permanent link">&para;</a></h2>
+<p>No new top-level subcommands. Two existing commands grow output:</p>
+<div class="highlight"><pre><span></span><code>$ holodeck deploy run sample/financial-assistant/claude
+Building image…                              done (32s)
+Pushing to ghcr.io/justinbarias/...          done (12s)
+Resolving deployment configuration:
+  Replica: 1.0 CPU / 2 GiB memory
+  Concurrent sessions per replica: 2
+  Max turns per session: 20
+  Permission mode: plan (auto-mapped from `manual` in serve context)
+  Disallowed tools (auto): Bash, Write, Edit, WebFetch
+  Default hooks: enabled
+  Ingress: internal
+  Security profile: default
+Deploying to Azure Container Apps…           done (28s)
+Container App URL (internal):
+  https://financial-assistant.internal.nicemoss-50caf9f5.eastus.azurecontainerapps.io
+</code></pre></div>
+<p>When the security profile is hardened, the resolution block expands:</p>
+<div class="highlight"><pre><span></span><code>  Security profile: hardened
+    Envoy sidecar: enabled
+    Domain allowlist:
+      • api.anthropic.com
+      • holodeckai.openai.azure.com
+      • &lt;qdrant-cluster&gt;.qdrant.tech
+    Credentials in agent container: none
+    Credentials in envoy sidecar: 3 (CLAUDE_CODE_OAUTH_TOKEN, AZURE_OPENAI_API_KEY, QDRANT_REMOTE_URL)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ holodeck serve agent.yaml
+Loading agent…
+  Permission mode: plan (auto-mapped from `manual`)
+  Disallowed tools (auto): Bash, Write, Edit, WebFetch
+  Max concurrent sessions: 4 (derived from 2048 MiB memory limit @ 400 MiB/session)
+  Max turns per session: 20
+  Default hooks: enabled
+Listening on 0.0.0.0:8080…
+</code></pre></div>
+<h2 id="phase-by-phase-ship-criteria">Phase-by-phase ship criteria<a class="headerlink" href="#phase-by-phase-ship-criteria" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Ship criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P1a — OOM</strong></td>
+<td>Financial-assistant sample handles 3 concurrent AG-UI sessions on default sizing without exit-137; overflow returns 429 with Retry-After; replica trace IDs stay constant. Unit tests for the semaphore + 429 path; integration test against a real ACA deploy.</td>
+</tr>
+<tr>
+<td><strong>P1b — Permissions</strong></td>
+<td>Default-built agents cannot Bash unless declared; loading an agent with legacy <code>acceptAll</code> fails closed unless explicit opt-in; new <code>claude.permissions</code> schema documented in <code>docs/</code>. Unit tests on the decision tree; CI grep-test asserting no code path maps to <code>bypassPermissions</code> except the explicit opt-in.</td>
+</tr>
+<tr>
+<td><strong>P2a — Container</strong></td>
+<td>Generated Dockerfile omits Node.js for agents without Node-needing MCP servers; ACA template emits <code>securityContext</code> and dual probes; ingress defaults to internal. Unit tests on Dockerfile generation + ACA template generation.</td>
+</tr>
+<tr>
+<td><strong>P2b — Hooks</strong></td>
+<td>Default hooks ship enabled; synthetic prompt-injection test case verifies Bash deny + credential redaction in both context and OTel; opt-out emits warning. Integration test against a real AG-UI session.</td>
+</tr>
+<tr>
+<td><strong>P3 — Hardened</strong></td>
+<td>Hardened profile deploys two containers; agent container env has zero credential-bearing vars; calls to non-allowlisted domains rejected by sidecar with structured error. End-to-end test against a real ACA deploy with the hardened profile.</td>
+</tr>
+</tbody>
+</table>
+<p>Each phase merges independently. P1 is one PR. P2a and P2b can be parallel PRs. P3 is a sequence (Envoy generator → ACA deployer changes → backend integration).</p>
+<h2 id="risks-and-mitigations">Risks and mitigations<a class="headerlink" href="#risks-and-mitigations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Existing agents break on the new <code>disallowed_tools</code> defaults</td>
+<td>Auto-derivation emits a warning at load time naming the auto-disallowed tools and pointing at the new schema; sample agents updated as part of P1b</td>
+</tr>
+<tr>
+<td>Operators flip <code>i_understand_this_is_unsafe: true</code> to dodge the migration</td>
+<td>The flag's name signals risk; load-time warning is loud; <code>holodeck serve</code> and <code>deploy run</code> echo the flag's effect in their resolved-config output</td>
+</tr>
+<tr>
+<td><code>floor(cpu_cores × 2)</code> is wrong for some workloads</td>
+<td>Override remains available via <code>claude.max_concurrent_sessions</code>; we surface the resolved value at deploy time so operators can tune</td>
+</tr>
+<tr>
+<td>Readiness probe wedged → ACA replaces replicas in a loop</td>
+<td>Tool init has its own timeout from spec 025; readiness reflects but doesn't change that timeout</td>
+</tr>
+<tr>
+<td>Default hooks block a legitimate command (false positive)</td>
+<td>Opt-out per-agent via <code>disable_default_hooks: true</code>; users-hooks surface still available for finer control</td>
+</tr>
+<tr>
+<td>Default hooks redact a credential the agent genuinely needs in context</td>
+<td>Same as above — opt-out path is explicit</td>
+</tr>
+<tr>
+<td><code>security_profile: hardened</code> rejects a domain the agent needs</td>
+<td>Allowlist is derived from explicit YAML fields; if a tool needs an undeclared domain, the operator declares it; if a domain is not declarable in YAML, the operator opens an issue rather than disabling the proxy</td>
+</tr>
+<tr>
+<td>Envoy sidecar fails to start → replica unhealthy</td>
+<td>Liveness probe on the agent container fails fast; ACA replaces; operator sees normal ACA failure mode</td>
+</tr>
+<tr>
+<td>Phases ship out of order and create inconsistent defaults</td>
+<td>Phase gates: P2 cannot ship without P1; P3 cannot ship without P2a (container hardening is a prerequisite for the sidecar's volume model)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="out-of-scope-for-v1">Out of scope for v1<a class="headerlink" href="#out-of-scope-for-v1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Out-of-scope</th>
+<th>Why deferred</th>
+<th>Path forward</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ephemeral per-session containers (Pattern 1)</td>
+<td>New deployer (Modal / Fly Machines) + per-session billing</td>
+<td>Separate spec; the right pattern for hostile multi-tenant workloads</td>
+</tr>
+<tr>
+<td>gVisor runtime templating</td>
+<td>ACA doesn't support it; self-hosted users can adopt without HoloDeck help</td>
+<td>Docs note in <code>docs/security/</code></td>
+</tr>
+<tr>
+<td>TLS-terminating proxy with CA injection</td>
+<td>Significant cert management; only needed for arbitrary HTTPS service auth</td>
+<td>Follow-up to P3; document the custom-tool pattern for now</td>
+</tr>
+<tr>
+<td>Per-replica memory accountant gating sessions on cgroup pressure</td>
+<td>Better than <code>floor(cpu × 2)</code> but requires reading cgroup pressure</td>
+<td>v2 of P1a; static heuristic is honest enough for v1</td>
+</tr>
+<tr>
+<td>Auto-discovery of required MCP domains</td>
+<td>Hard to do correctly without false positives</td>
+<td>Stays explicit in YAML</td>
+</tr>
+<tr>
+<td>Per-tool credential mapping in default profile</td>
+<td>Half-implementing the credential boundary is worse than not having one</td>
+<td>Operators who need credential isolation opt into P3</td>
+</tr>
+<tr>
+<td>Statistical-anomaly detection on tool call patterns</td>
+<td>Useful but unbounded scope</td>
+<td>Hook surface is the right abstraction; out of v1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="open-questions-resolved-during-design">Open questions resolved during design<a class="headerlink" href="#open-questions-resolved-during-design" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Default replica sizing for non-Claude agents?</strong> No change. SK-backed agents (OpenAI/Azure/Ollama) don't spawn per-session subprocesses and don't have the same memory footprint. The 1 CPU / 2 GiB default applies only when <code>model.provider</code> routes to the Claude backend.</li>
+<li><strong>What about agents that legitimately need Bash?</strong> Declare it in <code>agent.tools</code> like any other tool. The auto-disallow only fires for tools not declared.</li>
+<li><strong>What about <code>manual</code> permission mode in non-serve contexts (e.g. <code>holodeck test run</code>)?</strong> Unchanged. The mapping to <code>plan</code> only fires when running in <code>serve</code> mode where there's no operator at the terminal. <code>holodeck test run</code> and <code>holodeck chat</code> keep SDK <code>default</code> (interactive).</li>
+<li><strong>Do the default hooks count toward the user's <code>claude.hooks</code> slot count?</strong> No. They run as a separate, earlier stage and are not visible in <code>claude.hooks</code> config.</li>
+<li><strong>Where do credentials in P3 actually live?</strong> Azure Container App secrets, mounted only to the sidecar via the ACA <code>volumes</code> mechanism. Not in the image, not in the agent container env, not in the cluster's general secret store.</li>
+<li><strong>What if an agent uses both stdio MCP servers (needing Node) and <code>security_profile: hardened</code>?</strong> Node still installs for stdio MCP servers; the sidecar still proxies HTTPS egress. They are orthogonal axes.</li>
+</ol>
+<h2 id="v1-contract">v1 contract<a class="headerlink" href="#v1-contract" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Five named phases, ship-independent: <strong>P1a (OOM)</strong>, <strong>P1b (permissions)</strong>, <strong>P2a (container)</strong>, <strong>P2b (hooks)</strong>, <strong>P3 (hardened profile)</strong>.</li>
+<li>One new schema field per phase, all gated behind explicit YAML keys.</li>
+<li>No required user YAML changes for P1 and P2; defaults are inferred from existing fields.</li>
+<li>One escape hatch for legacy <code>acceptAll</code> permission mode (<code>i_understand_this_is_unsafe</code>), keyed by a name that signals risk.</li>
+<li>One opt-in for credential boundary (<code>security_profile: hardened</code>), gated behind the multi-week egress-proxy work.</li>
+<li>Resolved limits and security posture echoed at <code>serve</code> and <code>deploy run</code> time so operators can see what's actually in effect.</li>
+<li>All validation errors surfaced together at load time.</li>
+<li>No changes to evaluation runs (<code>holodeck test run</code>) except inheriting P1 permission defaults.</li>
+</ul>
+<h2 id="implementation-surface-modules-to-create-modify">Implementation surface — modules to create / modify<a class="headerlink" href="#implementation-surface-modules-to-create-modify" title="Permanent link">&para;</a></h2>
+<p><strong>New modules:</strong></p>
+<ul>
+<li><code>src/holodeck/lib/backends/claude_hooks.py</code> — bundled default hooks (Bash AST deny, credential redaction).</li>
+<li><code>src/holodeck/deploy/envoy.py</code> — Envoy config generator for the hardened profile.</li>
+</ul>
+<p><strong>Modified modules:</strong></p>
+<ul>
+<li><code>src/holodeck/lib/backends/claude_backend.py</code> — <code>build_options()</code> derives defaults; plumbs default hooks.</li>
+<li><code>src/holodeck/lib/backends/validators.py</code> — <code>_build_permission_mode()</code> decision tree; migration errors.</li>
+<li><code>src/holodeck/lib/backends/otel_bridge.py</code> — credential redaction on span attributes.</li>
+<li><code>src/holodeck/serve/server.py</code> — <code>/ready</code> endpoint; CPU-derived <code>max_concurrent_sessions</code> default.</li>
+<li><code>src/holodeck/serve/protocols/agui.py</code> — semaphore + 429 on overflow.</li>
+<li><code>src/holodeck/deploy/dockerfile.py</code> — conditional Node.js; corpus read-only; tmpfs scratch dir.</li>
+<li><code>src/holodeck/deploy/deployers/azure_containerapps.py</code> — securityContext; dual probes; ingress default; hardened-profile sidecar.</li>
+<li><code>src/holodeck/models/claude_config.py</code> — <code>ClaudePermissionsConfig</code>; <code>disable_default_hooks</code>; <code>i_understand_this_is_unsafe</code>.</li>
+<li><code>src/holodeck/models/deployment.py</code> — <code>security_profile</code>; new Azure defaults.</li>
+<li><code>src/holodeck/cli/commands/deploy.py</code> — echo resolved limits and security posture.</li>
+<li><code>src/holodeck/cli/commands/serve.py</code> — same.</li>
+</ul>
+<p><strong>Tests:</strong></p>
+<ul>
+<li><code>tests/unit/serve/test_session_semaphore.py</code> — overflow → 429 with Retry-After; semaphore correctness.</li>
+<li><code>tests/unit/serve/test_readiness_probe.py</code> — <code>/ready</code> only returns 200 after tool init completes.</li>
+<li><code>tests/unit/lib/backends/test_permissions.py</code> — decision tree; auto-disallow; migration error.</li>
+<li><code>tests/unit/lib/backends/test_default_hooks.py</code> — Bash deny patterns; credential redaction patterns.</li>
+<li><code>tests/unit/lib/backends/test_otel_redaction.py</code> — span attribute redaction.</li>
+<li><code>tests/unit/deploy/test_dockerfile_generation.py</code> — conditional Node.js; corpus permissions; tmpfs paths.</li>
+<li><code>tests/unit/deploy/test_aca_template.py</code> — securityContext; dual probes; ingress default; resolved-config output.</li>
+<li><code>tests/unit/deploy/test_envoy_generator.py</code> — allowlist derivation; sidecar config; credential mounts.</li>
+<li><code>tests/integration/security/test_bash_deny_e2e.py</code> — synthetic prompt-injection test against a live AG-UI endpoint.</li>
+<li><code>tests/integration/security/test_hardened_profile_e2e.py</code> — agent container has no creds; non-allowlisted domain rejected; allowlisted domain works.</li>
+</ul>
+<h2 id="dependencies-to-add">Dependencies to add<a class="headerlink" href="#dependencies-to-add" title="Permanent link">&para;</a></h2>
+<ul>
+<li>No new Python deps.</li>
+<li>New runtime image dep (P3 only): Envoy. Pulled as a separate Container App container image (<code>envoyproxy/envoy:v1.31-latest</code>), not bundled into the agent image.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

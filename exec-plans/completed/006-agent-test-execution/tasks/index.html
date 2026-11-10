@@ -1,0 +1,3487 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/006-agent-test-execution/tasks/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Implementation Tasks: Execute Agent Against Test Cases - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-tasks-execute-agent-against-test-cases" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Tasks: Execute Agent Against Test Cases
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tdd-approach-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD Approach Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TDD Approach Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD Cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-tdd-for-this-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits of TDD for This Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup &amp; Infrastructure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Setup &amp; Infrastructure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Foundational Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t011-t016-data-models-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T011-T016: Data Models (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t025-t028-file-processor-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T025-T028: File Processor (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-1-execute-basic-text-only-test-cases-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 1 - Execute Basic Text-Only Test Cases (P1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: User Story 1 - Execute Basic Text-Only Test Cases (P1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t033-t042-evaluators-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T033-T042: Evaluators (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t043-t050-agent-bridge-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T043-T050: Agent Bridge (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t047-t056-test-executor-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T047-T056: Test Executor (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t057-t060-progress-indicators-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T057-T060: Progress Indicators (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t061-t066-executor-integration-with-callback-pattern-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T061-T066: Executor Integration with Callback Pattern (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t067-t074-cli-command-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T067-T074: CLI Command (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t075-t078-integration-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T075-T078: Integration Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-user-story-2-execute-multimodal-test-cases-with-files-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: User Story 2 - Execute Multimodal Test Cases with Files (P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: User Story 2 - Execute Multimodal Test Cases with Files (P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t079-t088-file-processing-extensions-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T079-T088: File Processing Extensions (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t087-t092-executor-integration-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T087-T092: Executor Integration (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t091-t094-integration-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T091-T094: Integration Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-user-story-3-execute-tests-with-per-test-metric-configuration-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: User Story 3 - Execute Tests with Per-Test Metric Configuration (P3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: User Story 3 - Execute Tests with Per-Test Metric Configuration (P3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t095-t100-per-test-metrics-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T095-T100: Per-Test Metrics (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t101-t104-integration-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T101-T104: Integration Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-user-story-4-display-test-results-with-enhanced-progress-indicators-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: User Story 4 - Display Test Results with Enhanced Progress Indicators (P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: User Story 4 - Display Test Results with Enhanced Progress Indicators (P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t104-t122-enhanced-progress-display-and-spinner-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T104-T122: Enhanced Progress Display and Spinner (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-user-story-5-generate-test-report-files-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: User Story 5 - Generate Test Report Files (P3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: User Story 5 - Generate Test Report Files (P3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t123-t133-report-generation-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T123-T133: Report Generation (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t134-t139-cli-format-detection-report-output-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T134-T139: CLI Format Detection &amp; Report Output (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-polish-cross-cutting-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Polish &amp; Cross-Cutting Concerns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: Polish &amp; Cross-Cutting Concerns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tasks_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t140-t148-error-handling-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T140-T148: Error Handling (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t149-t152-configuration-defaults-test-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T149-T152: Configuration Defaults (Test-First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t153-t164-documentation-quality-assurance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T153-T164: Documentation &amp; Quality Assurance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-execution-opportunities-tdd-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution Opportunities (TDD Context)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel Execution Opportunities (TDD Context)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 (Setup)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 (Foundational)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-us1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 (US1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-us2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4 (US2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-us3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5 (US3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-6-us4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6 (US4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-7-us5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7 (US5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-8-polish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8 (Polish)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests-34-test-files-expected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Tests (34 test files expected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-4-test-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests (4 test files)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-hierarchy-reminder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Hierarchy Reminder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-paths-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Paths Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="implementation-tasks-execute-agent-against-test-cases">Implementation Tasks: Execute Agent Against Test Cases<a class="headerlink" href="#implementation-tasks-execute-agent-against-test-cases" title="Permanent link">&para;</a></h1>
+<p><strong>Branch</strong>: <code>006-agent-test-execution</code>
+<strong>Spec</strong>: <a href="../../../../product-specs/006-agent-test-execution/spec/">spec.md</a>
+<strong>Plan</strong>: <a href="../plan/">plan.md</a></p>
+<h2 id="tdd-approach-overview">TDD Approach Overview<a class="headerlink" href="#tdd-approach-overview" title="Permanent link">&para;</a></h2>
+<p>This task list follows <strong>Test-Driven Development (TDD)</strong> methodology. Each feature is implemented using the Red-Green-Refactor cycle:</p>
+<h3 id="tdd-cycle">TDD Cycle<a class="headerlink" href="#tdd-cycle" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>[TEST] Red</strong>: Write a failing test that defines the expected behavior</li>
+<li><strong>[CODE] Green</strong>: Write the minimal code to make the test pass</li>
+<li><strong>[VERIFY] Refactor</strong>: Run code quality checks (make format, make lint, make type-check)</li>
+<li><strong>[VERIFY] Validate</strong>: Run tests to ensure everything still passes</li>
+</ol>
+<h3 id="task-labels">Task Labels<a class="headerlink" href="#task-labels" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>[TEST]</strong>: Write unit or integration tests (must fail initially)</li>
+<li><strong>[CODE]</strong>: Implement code to make tests pass</li>
+<li><strong>[VERIFY]</strong>: Run automated checks (make test-unit, make format, make lint, etc.)</li>
+</ul>
+<h3 id="benefits-of-tdd-for-this-project">Benefits of TDD for This Project<a class="headerlink" href="#benefits-of-tdd-for-this-project" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Clear Requirements</strong>: Tests document expected behavior before implementation</li>
+<li><strong>Regression Prevention</strong>: Tests catch breaking changes immediately</li>
+<li><strong>Better Design</strong>: Writing tests first encourages modular, testable code</li>
+<li><strong>Confidence</strong>: High test coverage from day one (targeting 80%+)</li>
+<li><strong>Faster Debugging</strong>: Failing tests pinpoint exact issues</li>
+</ul>
+<h3 id="workflow-example">Workflow Example<a class="headerlink" href="#workflow-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Write test (should fail)</span>
+<span class="c1"># Edit tests/unit/models/test_config.py - write test for ExecutionConfig</span>
+
+<span class="c1"># Step 2: Run test (verify it fails - RED)</span>
+make<span class="w"> </span>test-unit
+
+<span class="c1"># Step 3: Implement code (minimal to pass)</span>
+<span class="c1"># Edit src/holodeck/models/config.py - implement ExecutionConfig</span>
+
+<span class="c1"># Step 4: Run test again (should pass - GREEN)</span>
+make<span class="w"> </span>test-unit
+
+<span class="c1"># Step 5: Refactor and verify</span>
+make<span class="w"> </span>format
+make<span class="w"> </span>lint
+make<span class="w"> </span>type-check
+make<span class="w"> </span>test-unit<span class="w">  </span><span class="c1"># Ensure still passing</span>
+</code></pre></div>
+<h2 id="task-summary">Task Summary<a class="headerlink" href="#task-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Total Tasks</strong>: 164 (TDD approach with TEST + CODE + VERIFY tasks)</li>
+<li><strong>Setup Tasks</strong>: 10 (T001-T010)</li>
+<li><strong>Foundational Tasks</strong>: 20 (T011-T030)</li>
+<li><strong>User Story 1 (P1 - Execute Basic Text-Only Tests)</strong>: 49 tasks</li>
+<li>T057-T060: Progress Indicators (4 tasks) ✅ <strong>COMPLETED</strong></li>
+<li>T061-T066: Executor Integration with Callback Pattern (6 NEW tasks)</li>
+<li>T067-T074: CLI Command (8 tasks)</li>
+<li>T075-T078: Integration Testing (4 tasks)</li>
+<li>T043-T056, T031-T042: Evaluators, Agent Bridge, Test Executor (24 tasks) ✅ <strong>COMPLETED</strong></li>
+<li>T104-T122: Enhanced Progress Display &amp; Callback Integration (19 tasks)</li>
+<li><strong>User Story 2 (P2 - Multimodal Files)</strong>: 14 tasks (T079-T094)</li>
+<li><strong>User Story 3 (P3 - Per-Test Metrics)</strong>: 9 tasks (T095-T103)</li>
+<li><strong>User Story 4 (P2 - Progress Display)</strong>: 22 tasks (T104-T122, overlaps with US1)</li>
+<li><strong>User Story 5 (P3 - Report Files)</strong>: 16 tasks (T123-T139)</li>
+<li><strong>Polish &amp; QA Tasks</strong>: 16 tasks (T140-T164)</li>
+</ul>
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<p><strong>MVP = User Story 1 (P1: Execute Basic Text-Only Test Cases)</strong></p>
+<p><strong>TDD Workflow</strong>: For each feature, follow the Red-Green-Refactor cycle:</p>
+<ol>
+<li><strong>Red</strong>: Write failing tests that define expected behavior</li>
+<li><strong>Green</strong>: Write minimal code to make tests pass</li>
+<li><strong>Refactor</strong>: Clean up code while keeping tests green</li>
+<li><strong>Verify</strong>: Run make format, make lint, make type-check</li>
+</ol>
+<p>Each user story is independently testable and deliverable. User stories follow priority order (P1, P2, P3) and dependency constraints.</p>
+<p><strong>Key TDD Principles Applied</strong>:</p>
+<ul>
+<li>Write tests first, code second</li>
+<li>Each [TEST] task followed by corresponding [CODE] task</li>
+<li>Frequent verification with make test-unit and make test-integration</li>
+<li>Code quality checks after each implementation group</li>
+</ul>
+<h2 id="dependency-graph">Dependency Graph<a class="headerlink" href="#dependency-graph" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Phase 1: Setup (T001-T010)
+    ↓
+Phase 2: Foundational (T011-T020) ← [BLOCKS ALL USER STORIES]
+    ↓
+    ├─→ Phase 3: US1 - Basic Text Execution (T021-T036) [P1 - MVP]
+    │       ↓
+    │       ├─→ Phase 4: US2 - Multimodal Files (T037-T043) [P2]
+    │       ├─→ Phase 5: US3 - Per-Test Metrics (T044-T047) [P3]
+    │       └─→ Phase 6: US4 - Progress Indicators (T048-T055) [P2]
+    │
+    └─→ Phase 7: US5 - Report Generation (T056-T062) [P3]
+         ↓
+Phase 8: Polish &amp; QA (T063-T074)
+</code></pre></div>
+<p><strong>Critical Path</strong>: Setup → Foundational → US1 → Polish</p>
+<p><strong>Parallel Opportunities</strong>:</p>
+<ul>
+<li>US2, US3, US4 can start after US1 completes (independent of each other)</li>
+<li>US5 requires only Foundational models (can run parallel to US1)</li>
+</ul>
+<hr />
+<h2 id="phase-1-setup-infrastructure">Phase 1: Setup &amp; Infrastructure<a class="headerlink" href="#phase-1-setup-infrastructure" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Initialize project structure, install dependencies, configure development environment</p>
+<p><strong>TDD Approach</strong>: Set up testing infrastructure before implementation</p>
+<h3 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 Install new dependencies in pyproject.toml (semantic-kernel[azure]&gt;=1.37.0, markitdown[all]&gt;=0.1.0, azure-ai-evaluation&gt;=1.0.0, evaluate&gt;=0.4.0, ~sacrebleu&gt;=2.3.0~, aiofiles&gt;=23.0.0)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T002 Create test fixtures directory structure (tests/fixtures/agents/, tests/fixtures/files/, tests/fixtures/expected_reports/)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T003 Create lib/test_runner/ directory structure with <strong>init</strong>.py (stub files: executor.py, agent_bridge.py, progress.py, reporter.py)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T004 Create lib/evaluators/ directory structure with <strong>init</strong>.py (stub files: base.py, azure_ai.py, nlp_metrics.py)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T005 Create lib/file_processor.py stub module</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 Create cli/commands/test.py stub CLI command</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T007 Register test command in cli/main.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T008 Create models/test_result.py stub file for future models</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T009 Create stub for ExecutionConfig in models/config.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 Run make format &amp;&amp; make lint to verify structure</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-components">Phase 2: Foundational Components<a class="headerlink" href="#phase-2-foundational-components" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Implement shared infrastructure needed by all user stories (blocking prerequisites)</p>
+<p><strong>TDD Approach</strong>: Write tests first for all models and core utilities, then implement to pass tests</p>
+<p><strong>IMPORTANT</strong>: All Phase 2 tasks must complete before ANY user story implementation begins.</p>
+<h3 id="tasks_1">Tasks<a class="headerlink" href="#tasks_1" title="Permanent link">&para;</a></h3>
+<h4 id="t011-t016-data-models-test-first">T011-T016: Data Models (Test-First)<a class="headerlink" href="#t011-t016-data-models-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T011 [TEST] Write unit tests for ExecutionConfig model in tests/unit/models/test_config.py (test field validation: file_timeout 1-300s, llm_timeout 1-600s, download_timeout 1-300s, cache_enabled, cache_dir, verbose, quiet constraints)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T012 [CODE] Implement ExecutionConfig model in src/holodeck/models/config.py to pass T011 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013 [TEST] Write unit tests for ProcessedFileInput model in tests/unit/models/test_test_result.py (test fields: original, markdown_content, metadata, cached_path, processing_time_ms, error)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T014 [CODE] Implement ProcessedFileInput model in src/holodeck/models/test_result.py to pass T013 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T015 [TEST] Write unit tests for MetricResult model in tests/unit/models/test_test_result.py (test fields: metric_name, score, threshold, passed, scale, error, retry_count, evaluation_time_ms, model_used)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T016 [CODE] Implement MetricResult model in src/holodeck/models/test_result.py to pass T015 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 [TEST] Write unit tests for TestResult model in tests/unit/models/test_test_result.py (test fields: test_name, test_input, processed_files, agent_response, tool_calls, expected_tools, tools_matched, metric_results, ground_truth, passed, execution_time_ms, errors, timestamp)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T018 [CODE] Implement TestResult model in src/holodeck/models/test_result.py to pass T017 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T019 [TEST] Write unit tests for ReportSummary model in tests/unit/models/test_test_result.py (test fields: total_tests, passed, failed, pass_rate, total_duration_ms, metrics_evaluated, average_scores)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T020 [CODE] Implement ReportSummary model in src/holodeck/models/test_result.py to pass T019 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T021 [TEST] Write unit tests for TestReport model in tests/unit/models/test_test_result.py (test to_json() and to_file() methods, fields: agent_name, agent_config_path, results, summary, timestamp, holodeck_version, environment)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T022 [CODE] Implement TestReport model in src/holodeck/models/test_result.py to pass T021 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 [TEST] Write unit tests for Agent model update in tests/unit/models/test_agent.py (test execution: ExecutionConfig | None field)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T024 [CODE] Update Agent model in src/holodeck/models/agent.py to pass T023 tests</li>
+</ul>
+<h4 id="t025-t028-file-processor-test-first">T025-T028: File Processor (Test-First)<a class="headerlink" href="#t025-t028-file-processor-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T025 [TEST] Write unit tests for file processor in tests/unit/lib/test_file_processor.py (test markitdown integration for PDF, images, Excel, Word, PowerPoint, CSV, HTML)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T026 [CODE] Implement file processor using markitdown in src/holodeck/lib/file_processor.py to pass T025 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T027 [TEST] Write unit tests for file caching in tests/unit/lib/test_file_processor.py (test .holodeck/cache/ directory creation, hash-based cache keys, cache hit/miss)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T028 [CODE] Implement file caching logic in src/holodeck/lib/file_processor.py to pass T027 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029 [TEST] Write unit tests for remote URL download in tests/unit/lib/test_file_processor.py (test timeout, 3 retries with exponential backoff, error handling)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T030 [CODE] Implement remote URL download with timeout in src/holodeck/lib/file_processor.py to pass T029 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T031 [VERIFY] Run make test-unit to verify all Phase 2 tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T032 [VERIFY] Run make format &amp;&amp; make lint &amp;&amp; make type-check</li>
+</ul>
+<hr />
+<h2 id="phase-3-user-story-1-execute-basic-text-only-test-cases-p1">Phase 3: User Story 1 - Execute Basic Text-Only Test Cases (P1)<a class="headerlink" href="#phase-3-user-story-1-execute-basic-text-only-test-cases-p1" title="Permanent link">&para;</a></h2>
+<p><strong>Story Goal</strong>: Execute text-based test cases against agents and display pass/fail status with metric scores</p>
+<p><strong>TDD Approach</strong>: Write tests for each component before implementation, following Red-Green-Refactor cycle</p>
+<p><strong>Independent Test</strong>: Create agent.yaml with 3 simple text test cases, run <code>holodeck test agent.yaml</code>, verify:</p>
+<ul>
+<li>Sequential execution</li>
+<li>Agent responses captured</li>
+<li>Evaluation metrics calculated</li>
+<li>Pass/fail results displayed</li>
+</ul>
+<p><strong>Dependencies</strong>: Requires Phase 2 (Foundational) completion</p>
+<h3 id="tasks_2">Tasks<a class="headerlink" href="#tasks_2" title="Permanent link">&para;</a></h3>
+<h4 id="t033-t042-evaluators-test-first">T033-T042: Evaluators (Test-First)<a class="headerlink" href="#t033-t042-evaluators-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T033 [TEST] Write unit tests for base evaluator in tests/unit/lib/evaluators/test_base.py (test abstract evaluate() method, timeout handling, retry logic)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T034 [CODE] Implement base evaluator interface in src/holodeck/lib/evaluators/base.py to pass T033 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T035 [TEST] Write unit tests for Azure AI evaluators in tests/unit/lib/evaluators/test_azure_ai.py (test GroundednessEvaluator, RelevanceEvaluator, CoherenceEvaluator, FluencyEvaluator, SimilarityEvaluator with per-metric model config)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T036 [CODE] Implement Azure AI Evaluation SDK integration in src/holodeck/lib/evaluators/azure_ai.py to pass T035 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037 [TEST] Write unit tests for retry logic in tests/unit/lib/evaluators/test_azure_ai.py (test 3 attempts with exponential backoff 2s/4s/8s, LLM API errors, timeouts)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T038 [CODE] Implement metric evaluation retry logic in src/holodeck/lib/evaluators/azure_ai.py to pass T037 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T039 [TEST] Write unit tests for NLP metrics in tests/unit/lib/evaluators/test_nlp_metrics.py (test BLEU, ROUGE, METEOR, F1 using evaluate.load() from Hugging Face)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T040 [CODE] Implement NLP metrics in src/holodeck/lib/evaluators/nlp_metrics.py to pass T039 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T041 [VERIFY] Run make test-unit to verify evaluator tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T042 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t043-t050-agent-bridge-test-first">T043-T050: Agent Bridge (Test-First)<a class="headerlink" href="#t043-t050-agent-bridge-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T043 [TEST] Write unit tests for agent bridge in tests/unit/lib/test_runner/test_agent_bridge.py (test Semantic Kernel integration, Kernel creation, agent config loading, ChatHistory invocation, response capture, tool_calls capture)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T044 [CODE] Implement Semantic Kernel agent bridge in src/holodeck/lib/test_runner/agent_bridge.py to pass T043 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T045 [VERIFY] Run make test-unit to verify agent bridge tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T046 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t047-t056-test-executor-test-first">T047-T056: Test Executor (Test-First)<a class="headerlink" href="#t047-t056-test-executor-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T047 [TEST] Write unit tests for configuration resolution in tests/unit/lib/test_runner/test_executor.py (test CLI &gt; agent.yaml &gt; env &gt; defaults priority, ExecutionConfig merge)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T048 [CODE] Implement configuration resolution in src/holodeck/lib/test_runner/executor.py to pass T047 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T049 [TEST] Write unit tests for tool call validation in tests/unit/lib/test_runner/test_executor.py (test expected_tools matching, TestResult.tool_calls vs TestCaseModel.expected_tools)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T050 [CODE] Implement tool call validation in src/holodeck/lib/test_runner/executor.py to pass T049 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T051 [TEST] Write unit tests for timeout handling in tests/unit/lib/test_runner/test_executor.py (test file: 30s, LLM: 60s, download: 30s defaults using asyncio.timeout or threading.Timer)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T052 [CODE] Implement timeout handling in src/holodeck/lib/test_runner/executor.py to pass T051 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T053 [TEST] Write unit tests for test executor main flow in tests/unit/lib/test_runner/test_executor.py (test load AgentConfig, execute tests sequentially, collect TestResult instances, generate TestReport)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T054 [CODE] Implement test executor in src/holodeck/lib/test_runner/executor.py to pass T053 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T055 [VERIFY] Run make test-unit to verify executor tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T056 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t057-t060-progress-indicators-test-first">T057-T060: Progress Indicators (Test-First)<a class="headerlink" href="#t057-t060-progress-indicators-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T057 [TEST] Write unit tests for progress indicators in tests/unit/lib/test_runner/test_progress.py (test TTY detection with sys.stdout.isatty(), "Test X/Y" display, checkmarks/X marks, CI/CD plain text mode)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T058 [CODE] Implement progress indicators in src/holodeck/lib/test_runner/progress.py to pass T057 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T059 [VERIFY] Run make test-unit to verify progress tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T060 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t061-t066-executor-integration-with-callback-pattern-test-first">T061-T066: Executor Integration with Callback Pattern (Test-First)<a class="headerlink" href="#t061-t066-executor-integration-with-callback-pattern-test-first" title="Permanent link">&para;</a></h4>
+<p><strong>Design Pattern</strong>: Callback-based progress reporting</p>
+<p>The progress indicator integrates with TestExecutor via a callback pattern for clean separation of concerns:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># CLI passes callback to executor</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">progress_callback</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">TestResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">indicator</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">indicator</span><span class="o">.</span><span class="n">get_progress_line</span><span class="p">())</span>
+
+<span class="n">executor</span> <span class="o">=</span> <span class="n">TestExecutor</span><span class="p">(</span>
+    <span class="n">agent_config_path</span><span class="o">=</span><span class="n">config_path</span><span class="p">,</span>
+    <span class="n">progress_callback</span><span class="o">=</span><span class="n">progress_callback</span>
+<span class="p">)</span>
+
+<span class="c1"># Executor calls callback after each test</span>
+<span class="k">for</span> <span class="n">test_case</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_single_test</span><span class="p">(</span><span class="n">test_case</span><span class="p">)</span>
+    <span class="n">test_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_callback</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_callback</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Notify CLI of completion</span>
+</code></pre></div>
+<p><strong>Benefits</strong>:</p>
+<ul>
+<li>✅ Executor stays focused on orchestration (no display logic)</li>
+<li>✅ CLI controls display (quiet, verbose, progress suppression)</li>
+<li>✅ Testable without side effects (mock the callback)</li>
+<li>✅ Flexible for future use cases (webhooks, logging, etc.)</li>
+</ul>
+<p><strong>Tasks</strong>:</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T061 [TEST] Write unit tests for progress callback integration in tests/unit/lib/test_runner/test_executor.py (test callback invocation after each test, callback with None handling, multiple test execution flow)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T062 [CODE] Add callback support to TestExecutor in src/holodeck/lib/test_runner/executor.py (add progress_callback parameter to <strong>init</strong>, call callback after each test in execute_tests, handle None gracefully)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T063 [TEST] Write unit tests for CLI progress display in tests/unit/cli/commands/test_test.py (test ProgressIndicator initialization, callback function execution, progress line printing, final summary display)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T064 [CODE] Integrate ProgressIndicator in CLI command src/holodeck/cli/commands/test.py (create indicator, pass callback to executor, display summary after tests complete, respect --quiet/--verbose flags)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T065 [VERIFY] Run make test-unit to verify executor and CLI integration tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T066 [VERIFY] Run make format &amp;&amp; make lint &amp;&amp; make type-check</li>
+</ul>
+<h4 id="t067-t074-cli-command-test-first">T067-T074: CLI Command (Test-First)<a class="headerlink" href="#t067-t074-cli-command-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T067 [TEST] Write unit tests for CLI command in tests/unit/cli/commands/test_test.py (test argument parsing for AGENT_CONFIG, option handling for --output, --format, --verbose, --quiet, --timeout flags)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T068 [CODE] Implement CLI command in src/holodeck/cli/commands/test.py to pass T067 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T069 [TEST] Write unit tests for exit code logic in tests/unit/cli/commands/test_test.py (test 0=success, 1=test failure, 2=config error, 3=execution error, 4=evaluation error)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T070 [CODE] Implement exit code logic in src/holodeck/cli/commands/test.py to pass T069 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T071 [VERIFY] Run make test-unit to verify CLI tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T072 [VERIFY] Run make format &amp;&amp; make lint</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T073 [TEST] Write unit tests for report generation integration in tests/unit/cli/commands/test_test.py (test --output flag, JSON/Markdown format)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T074 [CODE] Implement report file generation in CLI command</li>
+</ul>
+<h4 id="t075-t078-integration-testing">T075-T078: Integration Testing<a class="headerlink" href="#t075-t078-integration-testing" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T075 [TEST] Create sample test agent.yaml in tests/fixtures/agents/test_agent.yaml with 3 simple text test cases</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T076 [TEST] Write integration test for basic text execution in tests/integration/test_basic_execution.py (verify end-to-end test run with mocked LLM responses)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T077 [VERIFY] Run make test-integration to verify integration tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T078 [VERIFY] Run make test to verify all tests pass</li>
+</ul>
+<hr />
+<h2 id="phase-4-user-story-2-execute-multimodal-test-cases-with-files-p2">Phase 4: User Story 2 - Execute Multimodal Test Cases with Files (P2)<a class="headerlink" href="#phase-4-user-story-2-execute-multimodal-test-cases-with-files-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Story Goal</strong>: Execute test cases with attached files (PDF, images, Office documents) and provide file content to agent</p>
+<p><strong>TDD Approach</strong>: Write tests for file processing features, then implement to pass tests</p>
+<p><strong>Independent Test</strong>: Create test cases with PDF/image/Excel files, run tests, verify:</p>
+<ul>
+<li>Files processed via markitdown</li>
+<li>Content extracted and provided to agent</li>
+<li>Agent responses reference file content</li>
+<li>Tests execute successfully</li>
+</ul>
+<p><strong>Dependencies</strong>: Requires US1 (basic test execution infrastructure)</p>
+<h3 id="tasks_3">Tasks<a class="headerlink" href="#tasks_3" title="Permanent link">&para;</a></h3>
+<h4 id="t079-t088-file-processing-extensions-test-first">T079-T088: File Processing Extensions (Test-First)<a class="headerlink" href="#t079-t088-file-processing-extensions-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T079 [TEST] Write unit tests for page/sheet/range extraction in tests/unit/lib/test_file_processor.py (test FileInput.pages for PDF, FileInput.sheet for Excel, FileInput.range for PowerPoint, preprocessing before markitdown)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T080 [CODE] Implement page/sheet/range extraction in src/holodeck/lib/file_processor.py to pass T079 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T081 [TEST] Write unit tests for file size warnings in tests/unit/lib/test_file_processor.py (test &gt;100MB file warning message, verify processing continues)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T082 [CODE] Implement file size warning logic in src/holodeck/lib/file_processor.py to pass T081 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T083 [TEST] Write unit tests for file processing error handling in tests/unit/lib/test_file_processor.py (test timeout, malformed files, ProcessedFileInput.error population, test continuation)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T084 [CODE] Implement file processing error handling in src/holodeck/lib/file_processor.py to pass T083 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T085 [VERIFY] Run make test-unit to verify file processor tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T086 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t087-t092-executor-integration-test-first">T087-T092: Executor Integration (Test-First)<a class="headerlink" href="#t087-t092-executor-integration-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T087 [TEST] Write unit tests for file processor integration in tests/unit/lib/test_runner/test_executor.py (test process files before agent invocation, verify ProcessedFileInput.markdown_content in agent context)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T088 [CODE] Integrate file processor with test executor in src/holodeck/lib/test_runner/executor.py to pass T087 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T089 [VERIFY] Run make test-unit to verify executor integration tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T090 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t091-t094-integration-testing">T091-T094: Integration Testing<a class="headerlink" href="#t091-t094-integration-testing" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T091 [TEST] Create sample multimodal test files in tests/fixtures/files/ (sample.pdf, sample.jpg, sample.xlsx, sample.docx, sample.pptx with known content)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T092 [TEST] Write integration test for multimodal execution in tests/integration/test_multimodal_execution.py (verify file processing and agent receives markdown content)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T093 [VERIFY] Run make test-integration to verify multimodal tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T094 [VERIFY] Run make test to verify all tests pass</li>
+</ul>
+<hr />
+<h2 id="phase-5-user-story-3-execute-tests-with-per-test-metric-configuration-p3">Phase 5: User Story 3 - Execute Tests with Per-Test Metric Configuration (P3)<a class="headerlink" href="#phase-5-user-story-3-execute-tests-with-per-test-metric-configuration-p3" title="Permanent link">&para;</a></h2>
+<p><strong>Story Goal</strong>: Allow test cases to specify their own evaluation metrics, overriding global defaults</p>
+<p><strong>TDD Approach</strong>: Write tests for metric resolution logic before implementation</p>
+<p><strong>Independent Test</strong>: Create test cases with varying metric configurations, verify:</p>
+<ul>
+<li>Per-test metrics override global metrics</li>
+<li>Tests without metrics use global defaults</li>
+<li>Invalid metric references raise errors</li>
+</ul>
+<p><strong>Dependencies</strong>: Requires US1 (evaluation infrastructure)</p>
+<h3 id="tasks_4">Tasks<a class="headerlink" href="#tasks_4" title="Permanent link">&para;</a></h3>
+<h4 id="t095-t100-per-test-metrics-test-first">T095-T100: Per-Test Metrics (Test-First)<a class="headerlink" href="#t095-t100-per-test-metrics-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T095 [TEST] Write unit tests for per-test metric resolution in tests/unit/lib/test_runner/test_executor.py (test TestCaseModel.evaluations override, test fallback to AgentConfig.evaluations.metrics)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T096 [CODE] Implement per-test metric resolution logic in src/holodeck/lib/test_runner/executor.py to pass T095 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T097 [TEST] Write unit tests for metric validation in tests/unit/lib/test_runner/test_executor.py (test undefined metric raises ConfigError, test valid metrics pass)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T098 [CODE] Implement metric validation in src/holodeck/lib/test_runner/executor.py to pass T097 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T099 [VERIFY] Run make test-unit to verify metric resolution tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T100 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t101-t104-integration-testing">T101-T104: Integration Testing<a class="headerlink" href="#t101-t104-integration-testing" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T101 [TEST] Write integration test for per-test metrics in tests/integration/test_evaluation_metrics.py (verify metric override behavior, test global defaults)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T102 [VERIFY] Run make test-integration to verify metric tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T103 [VERIFY] Run make test to verify all tests pass</li>
+</ul>
+<hr />
+<h2 id="phase-6-user-story-4-display-test-results-with-enhanced-progress-indicators-p2">Phase 6: User Story 4 - Display Test Results with Enhanced Progress Indicators (P2)<a class="headerlink" href="#phase-6-user-story-4-display-test-results-with-enhanced-progress-indicators-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Story Goal</strong>: Show real-time progress with visual indicators during test execution</p>
+<p><strong>TDD Approach</strong>: Write tests for display features before implementation</p>
+<p><strong>Independent Test</strong>: Run 10 test cases, observe console output, verify:</p>
+<ul>
+<li>Progress indicators update in real-time</li>
+<li>Checkmarks/X marks appear for pass/fail</li>
+<li>Final summary displayed</li>
+<li>CI/CD compatibility (no interactive elements in non-TTY)</li>
+</ul>
+<p><strong>Dependencies</strong>: Requires US1 (basic execution)</p>
+<h3 id="tasks_5">Tasks<a class="headerlink" href="#tasks_5" title="Permanent link">&para;</a></h3>
+<h4 id="t104-t122-enhanced-progress-display-and-spinner-test-first">T104-T122: Enhanced Progress Display and Spinner (Test-First)<a class="headerlink" href="#t104-t122-enhanced-progress-display-and-spinner-test-first" title="Permanent link">&para;</a></h4>
+<p><strong>Note</strong>: Core progress indicator (T057-T058) is already implemented. These tasks add optional spinner animation and color enhancements built on top of the callback integration.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T104 [TEST] Write unit tests for optional spinner in tests/unit/lib/test_runner/test_progress.py (test spinner for long-running tests &gt;5s, test spinner char rotation during execution, test disable in non-TTY)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T105 [CODE] Implement optional spinner for long-running tests in src/holodeck/lib/test_runner/progress.py to pass T104 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T106 [TEST] Write unit tests for ANSI color codes in tests/unit/lib/test_runner/test_progress.py (test color output in TTY, test no colors in non-TTY)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T107 [CODE] Add optional ANSI color support to symbols in src/holodeck/lib/test_runner/progress.py to pass T106 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T108 [TEST] Write unit tests for elapsed time display in tests/unit/lib/test_runner/test_progress.py (test elapsed time for long tests, test hide for quick tests)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T109 [CODE] Add elapsed time display to progress.py to pass T108 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T110 [TEST] Write unit tests for progress callback integration in CLI in tests/unit/cli/commands/test_test.py (test callback receives results, test progress display updates)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T111 [CODE] Integrate progress callback in CLI display logic in src/holodeck/cli/commands/test.py to pass T110 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T112 [TEST] Write unit tests for quiet mode suppression in tests/unit/lib/test_runner/test_progress.py (test --quiet flag suppresses progress lines, test summary still shown)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T113 [CODE] Implement quiet mode in CLI to pass T112 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T114 [TEST] Write unit tests for verbose mode in tests/unit/lib/test_runner/test_progress.py (test --verbose flag shows debug info, timing details)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T115 [CODE] Implement verbose mode in CLI to pass T114 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T116 [VERIFY] Run make test-unit to verify progress enhancements pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T117 [VERIFY] Run make format &amp;&amp; make lint &amp;&amp; make type-check</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T118 [TEST] Write integration test for progress display in tests/integration/test_basic_execution.py (verify progress output during live test execution)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T119 [VERIFY] Run make test-integration to verify progress integration tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T120 [VERIFY] Run make test to verify all tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T121 [VERIFY] Verify progress indicator demo script works</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T122 [VERIFY] Update documentation with progress indicator usage examples</li>
+</ul>
+<hr />
+<h2 id="phase-7-user-story-5-generate-test-report-files-p3">Phase 7: User Story 5 - Generate Test Report Files (P3)<a class="headerlink" href="#phase-7-user-story-5-generate-test-report-files-p3" title="Permanent link">&para;</a></h2>
+<p><strong>Story Goal</strong>: Generate detailed test reports in JSON or Markdown format</p>
+<p><strong>TDD Approach</strong>: Write tests for report generation before implementation</p>
+<p><strong>Independent Test</strong>: Run tests with --output flag, verify:</p>
+<ul>
+<li>JSON file created with complete test data</li>
+<li>Markdown file created with human-readable format</li>
+<li>Report structure matches expected schema</li>
+</ul>
+<p><strong>Dependencies</strong>: Requires US1 (test results data structure)</p>
+<h3 id="tasks_6">Tasks<a class="headerlink" href="#tasks_6" title="Permanent link">&para;</a></h3>
+<h4 id="t123-t133-report-generation-test-first">T123-T133: Report Generation (Test-First)<a class="headerlink" href="#t123-t133-report-generation-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T123 [TEST] Create expected report fixtures in tests/fixtures/expected_reports/ (sample_json_report.json, sample_markdown_report.md with known test data)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T124 [TEST] Write unit tests for JSON report generation in tests/unit/lib/test_runner/test_reporter.py (test TestReport.to_json() method, verify structure matches schema)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T125 [CODE] Implement JSON report generation in src/holodeck/lib/test_runner/reporter.py to pass T124 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T126 [TEST] Write unit tests for Markdown report generation in tests/unit/lib/test_runner/test_reporter.py (test TestReport.to_markdown() with formatted tables, summary, test details)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T127 [CODE] Implement Markdown report generation in src/holodeck/lib/test_runner/reporter.py to pass T126 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T128 [TEST] Write unit tests for report file writing in tests/unit/lib/test_runner/test_reporter.py (test TestReport.to_file() method)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T129 [CODE] Implement report file writing logic in src/holodeck/lib/test_runner/reporter.py to pass T128 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T130 [VERIFY] Run make test-unit to verify reporter tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T131 [VERIFY] Run make format &amp;&amp; make lint</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T132 [TEST] Write integration test for report generation in tests/integration/test_report_generation.py (verify JSON and Markdown output match expected format)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T133 [VERIFY] Run make test-integration to verify report generation tests pass</li>
+</ul>
+<h4 id="t134-t139-cli-format-detection-report-output-test-first">T134-T139: CLI Format Detection &amp; Report Output (Test-First)<a class="headerlink" href="#t134-t139-cli-format-detection-report-output-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T134 [TEST] Write unit tests for format auto-detection in tests/unit/cli/commands/test_test.py (test .json vs .md extension detection, test --format flag override)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T135 [CODE] Implement format auto-detection in src/holodeck/cli/commands/test.py to pass T134 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T136 [TEST] Write unit tests for report file output in CLI in tests/unit/cli/commands/test_test.py (test --output flag, verify file creation)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T137 [CODE] Implement report file output in CLI to pass T136 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T138 [VERIFY] Run make test-unit to verify format detection and output tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T139 [VERIFY] Run make test to verify all tests pass</li>
+</ul>
+<hr />
+<h2 id="phase-8-polish-cross-cutting-concerns">Phase 8: Polish &amp; Cross-Cutting Concerns<a class="headerlink" href="#phase-8-polish-cross-cutting-concerns" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Final refinements, error handling, documentation, and production readiness</p>
+<p><strong>TDD Approach</strong>: Write tests for error handling and edge cases, then implement</p>
+<h3 id="tasks_7">Tasks<a class="headerlink" href="#tasks_7" title="Permanent link">&para;</a></h3>
+<h4 id="t140-t148-error-handling-test-first">T140-T148: Error Handling (Test-First)<a class="headerlink" href="#t140-t148-error-handling-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T140 [TEST] Write unit tests for structured error messages in tests/unit/lib/test_runner/test_executor.py (test error format: "ERROR: {summary}\n Cause: {cause}\n Suggestion: {action}")</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T141 [CODE] Implement structured error messages in src/holodeck/lib/test_runner/executor.py to pass T140 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T142 [TEST] Write unit tests for large file warnings in tests/unit/lib/test_file_processor.py (test warning when file &gt;100MB before processing)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T143 [CODE] Implement warning messages for large files in src/holodeck/lib/file_processor.py to pass T142 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T144 [TEST] Write unit tests for timeout error handling in tests/unit/lib/test_runner/test_executor.py (test graceful timeout handling, test error messages)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T145 [CODE] Improve timeout error handling in executor to pass T144 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T146 [VERIFY] Run make test-unit to verify error handling tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T147 [VERIFY] Run make format &amp;&amp; make lint</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T148 [VERIFY] Run make security to verify no security issues</li>
+</ul>
+<h4 id="t149-t152-configuration-defaults-test-first">T149-T152: Configuration Defaults (Test-First)<a class="headerlink" href="#t149-t152-configuration-defaults-test-first" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T149 [TEST] Write unit tests for configuration defaults in tests/unit/config/test_defaults.py (test file_timeout=30, llm_timeout=60, download_timeout=30, cache_dir=".holodeck/cache", cache_enabled=True)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T150 [CODE] Add configuration defaults to src/holodeck/config/defaults.py to pass T149 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T151 [VERIFY] Run make test-unit to verify defaults tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T152 [VERIFY] Run make format &amp;&amp; make lint</li>
+</ul>
+<h4 id="t153-t164-documentation-quality-assurance">T153-T164: Documentation &amp; Quality Assurance<a class="headerlink" href="#t153-t164-documentation-quality-assurance" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T153 Create comprehensive docstrings for all new modules (file_processor.py, executor.py, agent_bridge.py, progress.py, reporter.py, azure_ai.py, nlp_metrics.py)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T154 Update docsite (/docs) with new dependencies and modules (document test execution framework, new lib/ structure, ExecutionConfig model, progress callback pattern)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T155 Update README.md with <code>holodeck test</code> command usage and examples</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T156 Create PROGRESS_INDICATORS.md documentation with callback pattern explanation</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T157 Run make format to format all new code</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T158 Run make lint to check code quality</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T159 Run make type-check to verify type hints</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T160 Run make security to scan for vulnerabilities</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T161 Run make test-coverage to verify 80%+ coverage minimum</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T162 Review coverage report and add missing tests if needed</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T163 Update pyproject.toml with version bump (0.2.0)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T164 Run full CI pipeline: make ci</li>
+</ul>
+<hr />
+<h2 id="parallel-execution-opportunities-tdd-context">Parallel Execution Opportunities (TDD Context)<a class="headerlink" href="#parallel-execution-opportunities-tdd-context" title="Permanent link">&para;</a></h2>
+<p><strong>Note</strong>: In TDD, [TEST] tasks must complete before their corresponding [CODE] tasks, but different test/code pairs can run in parallel.</p>
+<h3 id="phase-1-setup">Phase 1 (Setup)<a class="headerlink" href="#phase-1-setup" title="Permanent link">&para;</a></h3>
+<p><strong>All tasks can run in parallel</strong> - different files being created</p>
+<p><strong>Suggested groups</strong>:</p>
+<ul>
+<li>Group A: T001-T005 (dependencies and directory structure)</li>
+<li>Group B: T006-T009 (CLI and model stubs)</li>
+<li>Group C: T010 (verification)</li>
+</ul>
+<h3 id="phase-2-foundational">Phase 2 (Foundational)<a class="headerlink" href="#phase-2-foundational" title="Permanent link">&para;</a></h3>
+<p><strong>Test/code pairs for different models can run in parallel</strong>:</p>
+<ul>
+<li>Group A [P]: T011-T024 (model test/code pairs, ensure T011→T012, T013→T014, etc.)</li>
+<li>Group B [P]: T025-T030 (file processor test/code pairs, ensure T025→T026, T027→T028, etc.)</li>
+<li>Sequential: T031-T032 (verification after all implementations)</li>
+</ul>
+<p><strong>TDD Workflow</strong>: Write all model tests first (T011, T013, T015, T017, T019, T021, T023), then implement models (T012, T014, T016, T018, T020, T022, T024)</p>
+<h3 id="phase-3-us1">Phase 3 (US1)<a class="headerlink" href="#phase-3-us1" title="Permanent link">&para;</a></h3>
+<p><strong>Test/code pairs for different components can run in parallel</strong>:</p>
+<ul>
+<li>Group A [P]: T033-T042 (evaluator test/code pairs)</li>
+<li>Group B [P]: T043-T046 (agent bridge test/code pairs)</li>
+<li>Group C [P]: T047-T056 (executor test/code pairs)</li>
+<li>Group D [P]: T057-T060 (progress test/code pairs)</li>
+<li>Group E [P]: T061-T066 (CLI test/code pairs)</li>
+<li>Sequential: T067-T070 (integration tests and final verification)</li>
+</ul>
+<p><strong>TDD Workflow</strong>: Within each group, write tests before implementation (e.g., T033→T034, T035→T036)</p>
+<h3 id="phase-4-us2">Phase 4 (US2)<a class="headerlink" href="#phase-4-us2" title="Permanent link">&para;</a></h3>
+<p><strong>Test/code pairs for file processing</strong>:</p>
+<ul>
+<li>Group A [P]: T071-T078 (file processing test/code pairs)</li>
+<li>Group B [P]: T079-T082 (executor integration test/code pairs)</li>
+<li>Sequential: T083-T086 (integration tests and verification)</li>
+</ul>
+<h3 id="phase-5-us3">Phase 5 (US3)<a class="headerlink" href="#phase-5-us3" title="Permanent link">&para;</a></h3>
+<p><strong>Test/code pairs for metric resolution</strong>:</p>
+<ul>
+<li>Group A [P]: T087-T092 (metric resolution test/code pairs)</li>
+<li>Sequential: T093-T095 (integration tests and verification)</li>
+</ul>
+<h3 id="phase-6-us4">Phase 6 (US4)<a class="headerlink" href="#phase-6-us4" title="Permanent link">&para;</a></h3>
+<p><strong>Test/code pairs for progress display</strong>:</p>
+<ul>
+<li>Group A [P]: T096-T111 (all progress feature test/code pairs)</li>
+</ul>
+<p><strong>TDD Workflow</strong>: Write all progress tests first (T096, T098, T100, T102, T104, T106, T108), then implement (T097, T099, T101, T103, T105, T107, T109)</p>
+<h3 id="phase-7-us5">Phase 7 (US5)<a class="headerlink" href="#phase-7-us5" title="Permanent link">&para;</a></h3>
+<p><strong>Test/code pairs for report generation</strong>:</p>
+<ul>
+<li>Group A [P]: T112-T120 (reporter test/code pairs)</li>
+<li>Group B [P]: T121-T124 (CLI format detection test/code pairs)</li>
+<li>Sequential: T125-T127 (integration tests and verification)</li>
+</ul>
+<h3 id="phase-8-polish">Phase 8 (Polish)<a class="headerlink" href="#phase-8-polish" title="Permanent link">&para;</a></h3>
+<p><strong>Test/code pairs for error handling and defaults</strong>:</p>
+<ul>
+<li>Group A [P]: T128-T133 (error handling test/code pairs)</li>
+<li>Group B [P]: T134-T137 (configuration defaults test/code pairs)</li>
+<li>Sequential: T138-T148 (documentation and quality assurance)</li>
+</ul>
+<hr />
+<h2 id="validation-checklist">Validation Checklist<a class="headerlink" href="#validation-checklist" title="Permanent link">&para;</a></h2>
+<p>For each user story phase:</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> Story goal clearly stated</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Independent test criteria defined</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> All required components identified (models, services, CLI, tests)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Dependencies on other stories documented</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Tasks include exact file paths</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Parallel opportunities marked with [P]</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Story labels ([US1], [US2], etc.) applied correctly</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Total task count and breakdown by phase provided</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Exit codes defined (0=success, 1=test failure, 2=config error, 3=execution error, 4=evaluation error)</li>
+</ul>
+<hr />
+<h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="unit-tests-34-test-files-expected">Unit Tests (34 test files expected)<a class="headerlink" href="#unit-tests-34-test-files-expected" title="Permanent link">&para;</a></h3>
+<p><strong>Models</strong>:</p>
+<ul>
+<li>tests/unit/models/test_test_result.py (ProcessedFileInput, MetricResult, TestResult, ReportSummary, TestReport)</li>
+<li>tests/unit/models/test_config.py (ExecutionConfig validation)</li>
+</ul>
+<p><strong>Lib Components</strong>:</p>
+<ul>
+<li>tests/unit/lib/test_file_processor.py (markitdown integration, caching, range extraction)</li>
+<li>tests/unit/lib/test_runner/test_executor.py (config resolution, test execution flow, timeout handling)</li>
+<li>tests/unit/lib/test_runner/test_agent_bridge.py (Semantic Kernel integration)</li>
+<li>tests/unit/lib/test_runner/test_progress.py (TTY detection, output formatting)</li>
+<li>tests/unit/lib/test_runner/test_reporter.py (JSON/Markdown generation)</li>
+<li>tests/unit/lib/evaluators/test_azure_ai.py (Azure AI Evaluation SDK)</li>
+<li>tests/unit/lib/evaluators/test_nlp_metrics.py (BLEU, ROUGE, METEOR, F1)</li>
+</ul>
+<p><strong>CLI</strong>:</p>
+<ul>
+<li>tests/unit/cli/commands/test_test.py (CLI argument parsing, option handling)</li>
+</ul>
+<h3 id="integration-tests-4-test-files">Integration Tests (4 test files)<a class="headerlink" href="#integration-tests-4-test-files" title="Permanent link">&para;</a></h3>
+<ul>
+<li>tests/integration/test_basic_execution.py (US1: end-to-end text test execution)</li>
+<li>tests/integration/test_multimodal_execution.py (US2: file processing and agent context)</li>
+<li>tests/integration/test_evaluation_metrics.py (US3: per-test metric resolution)</li>
+<li>tests/integration/test_report_generation.py (US5: JSON and Markdown output)</li>
+</ul>
+<hr />
+<h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
+<p><strong>From spec.md</strong>:</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> SC-001: Execute 10 test cases in &lt;30s (excluding LLM latency)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-002: 100% test case pass/fail reporting</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-003: 100% accuracy in expected_tools validation</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-004: Support 5+ file types (PDF, image, Excel, Word, PowerPoint)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-005: 100% of test results include all required fields</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-006: Graceful metric failure handling (continue execution)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-007: Real-time progress indicators update per test</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-008: Valid JSON/Markdown reports parseable by standard tools</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-009: Correct exit codes for CI/CD (0=success, 1=failure, 2=config error, 3=execution error, 4=evaluation error)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SC-010: 90% of errors include structured, actionable messages</li>
+</ul>
+<hr />
+<h2 id="configuration-hierarchy-reminder">Configuration Hierarchy Reminder<a class="headerlink" href="#configuration-hierarchy-reminder" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>CLI Flags  &gt;  agent.yaml execution  &gt;  Environment Variables  &gt;  Built-in Defaults
+(highest priority)                                              (lowest priority)
+</code></pre></div>
+<p><strong>Example</strong>:</p>
+<ul>
+<li>Built-in default: <code>file_timeout=30s</code></li>
+<li>Environment variable: <code>HOLODECK_FILE_TIMEOUT=45</code></li>
+<li>agent.yaml: <code>execution.file_timeout: 60</code></li>
+<li>CLI flag: <code>--file-timeout 90</code></li>
+<li><strong>Resolved</strong>: <code>90s</code> (CLI wins)</li>
+</ul>
+<hr />
+<h2 id="file-paths-reference">File Paths Reference<a class="headerlink" href="#file-paths-reference" title="Permanent link">&para;</a></h2>
+<p><strong>New Files (Core)</strong> - Phase 1 &amp; 2:</p>
+<ul>
+<li><code>src/holodeck/models/test_result.py</code> (T002)</li>
+<li><code>src/holodeck/models/config.py</code> (T003, T011)</li>
+<li><code>src/holodeck/lib/file_processor.py</code> (T005, T025-T030)</li>
+<li><code>src/holodeck/lib/test_runner/executor.py</code> (T006, T047-T056, T062)</li>
+<li><code>src/holodeck/lib/test_runner/agent_bridge.py</code> (T006, T043-T045)</li>
+<li><code>src/holodeck/lib/evaluators/base.py</code> (T007, T033-T034)</li>
+<li><code>src/holodeck/lib/evaluators/azure_ai.py</code> (T007, T035-T038)</li>
+<li><code>src/holodeck/lib/evaluators/nlp_metrics.py</code> (T007, T039-T040)</li>
+</ul>
+<p><strong>New Files (Progress &amp; CLI)</strong> - Phase 3A &amp; 3B:</p>
+<ul>
+<li><code>src/holodeck/lib/test_runner/progress.py</code> (T057-T058, T104-T122)</li>
+<li><code>src/holodeck/lib/test_runner/reporter.py</code> (T123-T139)</li>
+<li><code>src/holodeck/cli/commands/test.py</code> (T061-T066 callback integration, T067-T074 CLI, T110-T111 callback display)</li>
+</ul>
+<p><strong>Modified Files</strong>:</p>
+<ul>
+<li><code>pyproject.toml</code> (T001, dependencies)</li>
+<li><code>src/holodeck/models/agent.py</code> (T023-T024 execution field)</li>
+<li><code>src/holodeck/cli/main.py</code> (T007 register test command)</li>
+<li><code>src/holodeck/config/defaults.py</code> (T149-T150)</li>
+<li><code>CLAUDE.md</code> (documentation updates)</li>
+</ul>
+<p><strong>Test Files</strong>:</p>
+<ul>
+<li>34+ test files across unit and integration directories</li>
+</ul>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Semantic Kernel</strong>: Agent execution uses <code>semantic_kernel.agents.Agent</code> with <code>ChatHistory</code> for context</li>
+<li><strong>markitdown</strong>: Unified file processor handles all file types with <code>.convert()</code> method</li>
+<li><strong>Azure AI Evaluation</strong>: Per-metric model configuration for cost optimization (GPT-4o for critical metrics, GPT-4o-mini for general)</li>
+<li><strong>Retry Logic</strong>: 3 attempts with exponential backoff (2s/4s/8s for LLM, 1s/2s/4s for downloads)</li>
+<li><strong>Caching</strong>: Remote files cached in <code>.holodeck/cache/</code> with hash-based keys</li>
+<li><strong>Exit Codes</strong>: 0=success, 1=test failure, 2=config error, 3=execution error, 4=evaluation error</li>
+<li><strong>TTY Detection</strong>: Use <code>sys.stdout.isatty()</code> for progress indicator behavior</li>
+<li><strong>Configuration Merge</strong>: CLI &gt; agent.yaml &gt; env vars &gt; defaults</li>
+<li><strong>Callback Pattern</strong> (T061-T066, T110-T111): Progress display is decoupled from executor via callback function. CLI creates ProgressIndicator, passes callback to TestExecutor, receives TestResult updates after each test. Keeps executor focused on orchestration, allows CLI to handle display modes (quiet/verbose).</li>
+<li><strong>Progress Indicator</strong> (T057-T058): TTY-aware progress display with real-time updates, pass/fail symbols (✓/✗ for TTY, PASS/FAIL for CI/CD), summary statistics, and execution timing. Built-in support for quiet and verbose modes.</li>
+</ul>
+<hr />
+<p><strong>End of Tasks Document</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

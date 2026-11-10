@@ -1,0 +1,2827 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/021-claude-agent-sdk/spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Feature Specification: Native Claude Agent SDK Integration - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#feature-specification-native-claude-agent-sdk-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feature Specification: Native Claude Agent SDK Integration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-note" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Note
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-scenarios-testing-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Scenarios &amp; Testing (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Scenarios &amp; Testing (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-story-1-run-a-claude-native-agent-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 1 - Run a Claude-Native Agent (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-2-vectorstore-and-document-tools-work-with-claude-native-agents-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 2 - Vectorstore and Document Tools Work with Claude-Native Agents (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-3-mcp-tools-work-with-claude-native-agents-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 3 - MCP Tools Work with Claude-Native Agents (Priority: P3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-4-run-evaluations-against-claude-native-agents-priority-p4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 4 - Run Evaluations Against Claude-Native Agents (Priority: P4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-5-streaming-chat-with-claude-native-agents-priority-p5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 5 - Streaming Chat with Claude-Native Agents (Priority: P5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-6-parallel-subagent-execution-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 6 - Parallel Subagent Execution (Priority: P3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-7-file-system-and-execution-access-priority-p4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 7 - File System and Execution Access (Priority: P4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-8-permission-and-safety-governance-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 8 - Permission and Safety Governance (Priority: P3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-9-flexible-authentication-priority-p5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 9 - Flexible Authentication (Priority: P5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-10-structured-output-from-claude-native-agents-priority-p4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 10 - Structured Output from Claude-Native Agents (Priority: P4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstract-execution-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Execution Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structured-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structured Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-loop-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Loop Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reasoning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-system-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File System Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permission Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enterprise-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enterprise Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Success Criteria (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurable-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measurable Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clarifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clarifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-2026-02-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session 2026-02-19
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#out-of-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="feature-specification-native-claude-agent-sdk-integration">Feature Specification: Native Claude Agent SDK Integration<a class="headerlink" href="#feature-specification-native-claude-agent-sdk-integration" title="Permanent link">&para;</a></h1>
+<p><strong>Feature Branch</strong>: <code>021-claude-agent-sdk</code>
+<strong>Created</strong>: 2026-02-19
+<strong>Status</strong>: Shipped
+<strong>Input</strong>: Native integration of the Claude Agent SDK into HoloDeck, bypassing Semantic Kernel, while preserving compatibility with existing vectorstore, hierarchical document, and MCP tools.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>HoloDeck currently uses a third-party agent orchestration framework (Semantic Kernel) as a middleware layer between YAML-configured agents and the underlying AI providers. This feature replaces that middleware for Anthropic-powered agents by routing execution directly through Anthropic's own agent platform. The result is a native, first-class integration that eliminates the translation overhead, provides immediate access to the latest Claude capabilities, and uses Anthropic's built-in tool-calling, memory, and streaming mechanisms — while keeping all of HoloDeck's existing tool configurations (vectorstore search, document retrieval, MCP) working without change.</p>
+<h2 id="architecture-note">Architecture Note<a class="headerlink" href="#architecture-note" title="Permanent link">&para;</a></h2>
+<p><strong>The Claude-native backend operates via a managed subprocess</strong>, not an in-process function call. The Claude Agent SDK spawns a Claude Code process that owns its own agent loop, tool execution, permission enforcement, and streaming output. HoloDeck acts as the orchestrator: it configures the subprocess at startup, forwards tool definitions and capability flags, receives streamed events, and maps outputs back to HoloDeck's evaluation and chat interfaces.</p>
+<p>This subprocess boundary has critical implications:</p>
+<ul>
+<li><strong>Tool registration</strong>: HoloDeck's vectorstore and hierarchical document tools are wrapped using the Claude Agent SDK's <code>@tool</code> decorator and registered at subprocess initialization. When the subprocess calls a tool, the SDK routes the invocation back to HoloDeck's parent process transparently — HoloDeck does not implement any custom IPC server. The tool's <code>search()</code> method executes in the parent process and the result is returned to the subprocess via the SDK's built-in communication layer.</li>
+<li><strong>MCP tools</strong>: The Claude Agent SDK has its own native MCP client. MCP server processes are started by the Claude Code subprocess, not by HoloDeck's SK-based MCP plugin factory. HoloDeck translates MCP tool configuration from <code>agent.yaml</code> into the SDK's MCP server specification format.</li>
+<li><strong>Hooks and callbacks</strong> (<code>can_use_tool</code>, pre/post hooks): These are communicated to the subprocess as configuration at startup, not as live Python callables invoked across the process boundary.</li>
+<li><strong>Permission modes</strong>: Enforced inside the Claude Code subprocess, not in HoloDeck's Python process. HoloDeck passes the configured mode at startup.</li>
+<li><strong>Streaming</strong>: The subprocess emits an async event stream. HoloDeck consumes and forwards this to the terminal interface.</li>
+<li><strong>Embeddings</strong>: The subprocess does not generate embeddings. HoloDeck initializes vectorstore and hierarchical document tool indexes in-process (using the existing SK embedding services) before the subprocess starts, so tools are ready to serve search results when called.</li>
+</ul>
+<h2 id="user-scenarios-testing-mandatory">User Scenarios &amp; Testing <em>(mandatory)</em><a class="headerlink" href="#user-scenarios-testing-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="user-story-1-run-a-claude-native-agent-priority-p1">User Story 1 - Run a Claude-Native Agent (Priority: P1)<a class="headerlink" href="#user-story-1-run-a-claude-native-agent-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A HoloDeck user has an <code>agent.yaml</code> with <code>provider: anthropic</code>. They run <code>holodeck test</code> or <code>holodeck chat</code> and the agent executes through the Claude Agent SDK rather than through the Semantic Kernel abstraction. The experience — YAML syntax, CLI commands, output format — is identical to today.</p>
+<p><strong>Why this priority</strong>: This is the foundational capability. Without a working end-to-end execution path for Claude-native agents, nothing else in this feature can be delivered or tested.</p>
+<p><strong>Independent Test</strong>: Run <code>holodeck chat agent.yaml</code> where <code>agent.yaml</code> specifies <code>provider: anthropic</code>. The chat session starts, accepts input, and returns a coherent response. This alone is a viable, demonstrable MVP.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a valid <code>agent.yaml</code> with <code>provider: anthropic</code> and an Anthropic API key configured, <strong>When</strong> the user runs <code>holodeck chat</code>, <strong>Then</strong> the agent starts a session, accepts user messages, and returns responses without errors.</li>
+<li><strong>Given</strong> the same agent configuration, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> all defined test cases are submitted to the agent and responses are captured for evaluation.</li>
+<li><strong>Given</strong> a user who previously ran the same agent via the SK backend, <strong>When</strong> they switch to the Claude-native backend without changing their YAML, <strong>Then</strong> the agent produces functionally equivalent responses.</li>
+<li><strong>Given</strong> an invalid or missing API key, <strong>When</strong> the user attempts to start the agent, <strong>Then</strong> the system displays a clear, actionable error message indicating the credential issue.</li>
+</ol>
+<hr />
+<h3 id="user-story-2-vectorstore-and-document-tools-work-with-claude-native-agents-priority-p2">User Story 2 - Vectorstore and Document Tools Work with Claude-Native Agents (Priority: P2)<a class="headerlink" href="#user-story-2-vectorstore-and-document-tools-work-with-claude-native-agents-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A user has an agent configured with a vectorstore or hierarchical document tool. When running via the Claude-native backend, the agent can invoke these tools during a conversation or test run, and the results are used in the agent's response — exactly as they would with the SK-based backend.</p>
+<p><strong>Why this priority</strong>: Tools are the primary way HoloDeck agents add domain knowledge. An agent without working tools is a plain chat interface, which defeats HoloDeck's value proposition.</p>
+<p><strong>Independent Test</strong>: Configure an agent with a <code>vectorstore</code> or <code>hierarchical_document</code> tool and run a test case whose answer requires searching that tool. The agent invokes the tool, retrieves relevant results, and incorporates them into its response.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent with a vectorstore tool and a test case requiring knowledge retrieval, <strong>When</strong> the test runs via the Claude-native backend, <strong>Then</strong> the agent invokes the search tool at least once and returns a response that references retrieved content.</li>
+<li><strong>Given</strong> an agent with a hierarchical document tool (semantic, keyword, or hybrid search mode), <strong>When</strong> a question is asked that requires document lookup, <strong>Then</strong> the agent retrieves relevant chunks and incorporates them correctly.</li>
+<li><strong>Given</strong> a tool invocation that returns no results (empty search), <strong>When</strong> the agent processes the empty result, <strong>Then</strong> the agent communicates the lack of results gracefully rather than hallucinating.</li>
+<li><strong>Given</strong> a tool that fails during execution (e.g., corrupted index), <strong>When</strong> the agent attempts to use it, <strong>Then</strong> the agent receives an error notification and responds accordingly without crashing the session.</li>
+</ol>
+<hr />
+<h3 id="user-story-3-mcp-tools-work-with-claude-native-agents-priority-p3">User Story 3 - MCP Tools Work with Claude-Native Agents (Priority: P3)<a class="headerlink" href="#user-story-3-mcp-tools-work-with-claude-native-agents-priority-p3" title="Permanent link">&para;</a></h3>
+<p>A user has an agent with one or more MCP tool entries in their <code>agent.yaml</code>. When running via the Claude-native backend, these MCP-connected tools are available to the agent and can be invoked during conversations or test cases.</p>
+<p><strong>Why this priority</strong>: MCP is the designated integration path for external APIs and services in HoloDeck. It must work with the Claude-native backend to preserve the "no custom API types" design principle.</p>
+<p><strong>Independent Test</strong>: Configure an agent with an MCP tool (e.g., filesystem or a local MCP server). Run a test case that requires that tool. The agent discovers and calls the tool successfully.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent with an MCP (stdio transport) tool configured, <strong>When</strong> the agent is started via the Claude-native backend, <strong>Then</strong> the MCP server process starts and the tool is available for invocation.</li>
+<li><strong>Given</strong> the agent receives a query requiring an MCP tool, <strong>When</strong> it invokes the tool, <strong>Then</strong> the tool returns results and the agent incorporates them into its response.</li>
+<li><strong>Given</strong> an MCP server that is unavailable or fails to start, <strong>When</strong> the agent is initialized, <strong>Then</strong> the user receives a clear error identifying which MCP tool failed and why.</li>
+</ol>
+<hr />
+<h3 id="user-story-4-run-evaluations-against-claude-native-agents-priority-p4">User Story 4 - Run Evaluations Against Claude-Native Agents (Priority: P4)<a class="headerlink" href="#user-story-4-run-evaluations-against-claude-native-agents-priority-p4" title="Permanent link">&para;</a></h3>
+<p>A user runs <code>holodeck test</code> with evaluation metrics configured (NLP, G-Eval, RAG). The test runner executes all test cases against the Claude-native agent and applies all configured metrics to the responses.</p>
+<p><strong>Why this priority</strong>: Evaluation is HoloDeck's core quality gate. If evaluations don't work, users lose the ability to measure and improve agent quality.</p>
+<p><strong>Independent Test</strong>: Define test cases with <code>ground_truth</code> and configure at least one evaluation metric (e.g., BLEU or G-Eval). Run <code>holodeck test</code> against a Claude-native agent. Each test case receives a score for each configured metric, and the report is generated normally.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> test cases with <code>ground_truth</code> values and NLP metrics configured, <strong>When</strong> <code>holodeck test</code> is run against a Claude-native agent, <strong>Then</strong> each test case is scored and the final report is generated in the requested format.</li>
+<li><strong>Given</strong> G-Eval or RAG metrics configured, <strong>When</strong> the test runner evaluates Claude-native agent responses, <strong>Then</strong> the LLM-based evaluation executes and produces scores.</li>
+<li><strong>Given</strong> a test case that the agent fails to answer (e.g., timeout or error), <strong>When</strong> evaluation runs, <strong>Then</strong> the test is marked as failed with a clear reason, without blocking the rest of the test suite.</li>
+</ol>
+<hr />
+<h3 id="user-story-5-streaming-chat-with-claude-native-agents-priority-p5">User Story 5 - Streaming Chat with Claude-Native Agents (Priority: P5)<a class="headerlink" href="#user-story-5-streaming-chat-with-claude-native-agents-priority-p5" title="Permanent link">&para;</a></h3>
+<p>A user runs <code>holodeck chat</code> with a Claude-native agent. The agent's response streams to the terminal in real time — words appearing progressively rather than all at once after a delay.</p>
+<p><strong>Why this priority</strong>: Streaming is a critical quality-of-life feature for interactive chat. Users find non-streaming responses noticeably worse, especially for long answers.</p>
+<p><strong>Note</strong>: The current <code>holodeck chat</code> executor is non-streaming (it returns a complete response after the full turn). Streaming is a net-new capability for HoloDeck's chat interface — it is not currently implemented for any backend. The Claude Agent SDK's subprocess model emits an async event stream natively, making it the natural place to implement streaming for the first time. A prerequisite of this user story is restructuring the chat executor to consume an async event stream rather than a blocking response.</p>
+<p><strong>Independent Test</strong>: Run <code>holodeck chat</code> with a Claude-native agent. Ask a question that produces a multi-sentence response. Observe that text appears token-by-token, not all at once.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a running chat session with a Claude-native agent, <strong>When</strong> the user submits a prompt, <strong>Then</strong> the response begins appearing within 3 seconds and streams progressively to the terminal.</li>
+<li><strong>Given</strong> a streaming response in progress, <strong>When</strong> the response completes, <strong>Then</strong> the chat prompt returns to accept the next input without any delay or error.</li>
+<li><strong>Given</strong> a streaming response that is interrupted (e.g., network issue), <strong>When</strong> the stream terminates early, <strong>Then</strong> whatever was received is displayed and the user is informed the response was incomplete.</li>
+</ol>
+<hr />
+<h3 id="user-story-6-parallel-subagent-execution-priority-p3">User Story 6 - Parallel Subagent Execution (Priority: P3)<a class="headerlink" href="#user-story-6-parallel-subagent-execution-priority-p3" title="Permanent link">&para;</a></h3>
+<p>A user configures an agent that breaks large tasks into parallel subtasks — each handled by an isolated sub-agent with its own context window. Results are consolidated into a single response. This enables HoloDeck agents to tackle complex, multi-step workflows without exhausting a single context window.</p>
+<p><strong>Why this priority</strong>: Subagents unlock a qualitatively different class of task complexity. Without parallelism, Claude-native agents are bounded by single-context limitations that SK agents face too.</p>
+<p><strong>Independent Test</strong>: Configure an agent with a task that explicitly requests parallel research (e.g., "compare three products"). Verify that the agent spawns sub-agents and returns a consolidated answer.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent configured with subagent support, <strong>When</strong> the task requires processing multiple independent workstreams, <strong>Then</strong> the agent spawns isolated sub-agents and consolidates their outputs into the final response.</li>
+<li><strong>Given</strong> a sub-agent that fails mid-task, <strong>When</strong> the parent agent receives the failure, <strong>Then</strong> the parent reports which sub-task failed and continues with the available results.</li>
+</ol>
+<hr />
+<h3 id="user-story-7-file-system-and-execution-access-priority-p4">User Story 7 - File System and Execution Access (Priority: P4)<a class="headerlink" href="#user-story-7-file-system-and-execution-access-priority-p4" title="Permanent link">&para;</a></h3>
+<p>A user configures a Claude-native agent with a working directory and grants it file system and command execution capabilities. The agent can read existing files, write or edit outputs, discover project structure, and run shell commands — all scoped to the configured directory.</p>
+<p><strong>Why this priority</strong>: File system and execution access are what differentiate a Claude Code-powered agent from a plain chat API call. These capabilities enable autonomous code generation, test running, and document authoring workflows.</p>
+<p><strong>Independent Test</strong>: Configure an agent with a working directory and run a task that requires reading a file and writing a modified version. Verify the output file exists with correct content.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent with a working directory configured, <strong>When</strong> the agent reads a file within that directory, <strong>Then</strong> the file contents are returned and available for use in the response.</li>
+<li><strong>Given</strong> an agent with write access, <strong>When</strong> the agent creates or overwrites a file, <strong>Then</strong> the file exists at the expected path with the correct content.</li>
+<li><strong>Given</strong> an agent with bash execution enabled, <strong>When</strong> the agent runs a shell command, <strong>Then</strong> the command executes within the sandbox constraints and its output is available to the agent.</li>
+<li><strong>Given</strong> an agent configured with excluded commands, <strong>When</strong> the agent attempts to run a disallowed command, <strong>Then</strong> execution is blocked and the agent receives a clear permission denial.</li>
+<li><strong>Given</strong> an agent without write access configured, <strong>When</strong> the agent attempts to write a file outside its permitted scope, <strong>Then</strong> the operation is denied without crashing the session.</li>
+</ol>
+<hr />
+<h3 id="user-story-8-permission-and-safety-governance-priority-p3">User Story 8 - Permission and Safety Governance (Priority: P3)<a class="headerlink" href="#user-story-8-permission-and-safety-governance-priority-p3" title="Permanent link">&para;</a></h3>
+<p>A user or team configures the autonomy level of their Claude-native agent via <code>agent.yaml</code>. In <code>manual</code> mode, every agent action requires user approval before execution. In <code>acceptEdits</code> mode, file edits are auto-approved but other actions require approval. In <code>acceptAll</code> mode, the agent operates fully autonomously.</p>
+<p><strong>Why this priority</strong>: Enterprise and regulated environments require human-in-the-loop controls. Permission modes make Claude-native agents safe to deploy in sensitive contexts.</p>
+<p><strong>Independent Test</strong>: Configure an agent in <code>manual</code> mode. Run a task requiring a file write. Verify the agent pauses and prompts for approval before writing.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent configured with <code>permission_mode: manual</code>, <strong>When</strong> the agent attempts any action (file write, bash command, tool call), <strong>Then</strong> the user is prompted to approve or deny before execution proceeds.</li>
+<li><strong>Given</strong> an agent configured with <code>permission_mode: acceptEdits</code>, <strong>When</strong> the agent performs a file edit, <strong>Then</strong> it proceeds without prompting; when it attempts a bash command, <strong>Then</strong> it pauses for approval.</li>
+<li><strong>Given</strong> an agent configured with <code>permission_mode: acceptAll</code>, <strong>When</strong> the agent performs any permitted action, <strong>Then</strong> it proceeds without prompting.</li>
+</ol>
+<hr />
+<h3 id="user-story-9-flexible-authentication-priority-p5">User Story 9 - Flexible Authentication (Priority: P5)<a class="headerlink" href="#user-story-9-flexible-authentication-priority-p5" title="Permanent link">&para;</a></h3>
+<p>A user configures their Claude-native agent's authentication method via <code>agent.yaml</code>. Individual users can authenticate via an Anthropic API key or a Claude Code OAuth token; enterprise teams can route through AWS Bedrock, Google Vertex AI, or Azure AI Foundry using existing cloud credentials. No code changes required — the auth method is selected entirely through YAML.</p>
+<p><strong>Why this priority</strong>: Different users and organisations have different credential models. Enterprise teams often cannot use direct API keys due to security policies. Supporting all common auth paths unlocks HoloDeck adoption across individual developers, teams, and regulated industries.</p>
+<p><strong>Independent Test</strong>: Configure an agent with <code>auth_provider: oauth_token</code> and a valid <code>CLAUDE_CODE_OAUTH_TOKEN</code> in the environment. Run a test case. Verify the agent executes successfully without an Anthropic API key.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent with no <code>auth_provider</code> set (default) and a valid <code>ANTHROPIC_API_KEY</code> in the environment, <strong>When</strong> <code>holodeck chat</code> or <code>holodeck test</code> is run, <strong>Then</strong> the agent authenticates via the API key and responds correctly.</li>
+<li><strong>Given</strong> an agent with <code>auth_provider: api_key</code> and a valid <code>ANTHROPIC_API_KEY</code>, <strong>When</strong> the agent runs, <strong>Then</strong> it authenticates via the API key and responds correctly.</li>
+<li><strong>Given</strong> an agent with <code>auth_provider: oauth_token</code> and a valid <code>CLAUDE_CODE_OAUTH_TOKEN</code> in the environment, <strong>When</strong> <code>holodeck chat</code> or <code>holodeck test</code> is run, <strong>Then</strong> the agent authenticates via the OAuth token without requiring an Anthropic API key.</li>
+<li><strong>Given</strong> an agent with <code>auth_provider: oauth_token</code> but <code>CLAUDE_CODE_OAUTH_TOKEN</code> is absent, <strong>When</strong> the agent starts, <strong>Then</strong> the system displays a clear error message identifying the missing token and directing the user to run <code>claude setup-token</code>.</li>
+<li><strong>Given</strong> an agent with <code>auth_provider: bedrock</code> and valid AWS credentials in the environment, <strong>When</strong> <code>holodeck chat</code> or <code>holodeck test</code> is run, <strong>Then</strong> the agent authenticates via Bedrock and responds correctly.</li>
+<li><strong>Given</strong> an agent with <code>auth_provider: vertex</code> and valid GCP credentials, <strong>When</strong> the agent runs, <strong>Then</strong> it authenticates via Vertex AI and responds correctly.</li>
+<li><strong>Given</strong> an agent with <code>auth_provider: foundry</code> and valid Azure credentials, <strong>When</strong> the agent runs, <strong>Then</strong> it authenticates via Azure AI Foundry and responds correctly.</li>
+<li><strong>Given</strong> any auth provider configured but the required credentials missing or invalid, <strong>When</strong> the agent starts, <strong>Then</strong> the system displays a specific error identifying the missing credential and how to provide it.</li>
+</ol>
+<h3 id="user-story-10-structured-output-from-claude-native-agents-priority-p4">User Story 10 - Structured Output from Claude-Native Agents (Priority: P4)<a class="headerlink" href="#user-story-10-structured-output-from-claude-native-agents-priority-p4" title="Permanent link">&para;</a></h3>
+<p>A user configures a Claude-native agent with a <code>response_format</code> schema in <code>agent.yaml</code>. The agent's response is returned as a validated, typed JSON object matching the schema — not free-form text. This enables downstream code (evaluations, pipelines, integrations) to consume agent output programmatically without parsing.</p>
+<p><strong>Why this priority</strong>: Structured output is critical for agents embedded in automated pipelines where downstream code must consume the response. Free-form text is unusable in those contexts. The Claude Agent SDK supports this natively, so there is no reason to leave it out of scope.</p>
+<p><strong>Independent Test</strong>: Configure an agent with a <code>response_format</code> defining a schema with at least two typed fields. Run a test case. Verify the response is a validated object matching the schema, not a plain text string.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent with <code>response_format</code> defining a JSON schema, <strong>When</strong> the agent completes a turn, <strong>Then</strong> the response is returned as a structured object validated against that schema.</li>
+<li><strong>Given</strong> a structured response is produced, <strong>When</strong> the test runner evaluates it, <strong>Then</strong> NLP and G-Eval metrics operate on the serialised text representation, and the structured object is also preserved in the result for downstream use.</li>
+<li><strong>Given</strong> an agent response that does not conform to the configured schema, <strong>When</strong> the result is returned, <strong>Then</strong> the system surfaces a clear validation error identifying the schema violation rather than silently returning malformed output.</li>
+<li><strong>Given</strong> a <code>response_format</code> schema is configured, <strong>When</strong> the agent runs in streaming mode, <strong>Then</strong> the structured output is emitted as a complete object once the turn finishes, not as partial streaming tokens.</li>
+</ol>
+<hr />
+<h3 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>When the Anthropic API rate limit is hit or a transient error occurs mid-conversation, the system retries up to 3 times with exponential backoff, then surfaces a clear error to the user if all retries fail.</li>
+<li>How does the system behave when a tool invocation exceeds a reasonable time limit?</li>
+<li>What happens when the Claude-native agent produces a tool call for a tool that is not defined in <code>agent.yaml</code>?</li>
+<li>How are multi-turn conversations with tool results handled when the agent calls multiple tools in a single turn?</li>
+<li>What happens when the user configures a model that is not supported by the Claude Agent SDK?</li>
+<li>How does the system handle agents that have both Anthropic and non-Anthropic tool dependencies?</li>
+<li><strong>CLAUDE.md collision</strong>: The Claude Agent SDK subprocess automatically loads <code>CLAUDE.md</code> from the configured working directory. If the user sets <code>working_directory</code> to the HoloDeck project root (or any directory containing a <code>CLAUDE.md</code> not intended for the agent), that file's contents become part of the agent's context. The system MUST warn the user at startup if the working directory's <code>CLAUDE.md</code> appears to be a project-level developer file rather than an agent instruction file. Guidance must direct users to set a more specific working directory or provide instructions via <code>agent.yaml</code>'s <code>instructions</code> field instead.</li>
+<li><strong>Embedding provider absent with vectorstore tools</strong>: If <code>provider: anthropic</code> is set alongside vectorstore or hierarchical document tools but no <code>embedding_provider</code> is configured, the system MUST raise a clear validation error at startup — not a runtime failure mid-search.</li>
+<li><strong>Structured output schema incompatible with SDK</strong>: If the schema provided in <code>response_format</code> cannot be serialised to a valid JSON Schema (e.g. uses unsupported Pydantic field types), the system MUST raise a clear validation error at startup identifying the incompatible field, rather than passing a malformed schema to the subprocess.</li>
+<li><strong>Tool filtering configured on Anthropic agent</strong>: The <code>tool_filtering</code> semantic search capability depends on SK's kernel and is not supported in the Claude-native backend. If <code>tool_filtering</code> is configured alongside <code>provider: anthropic</code>, the system MUST emit a warning and skip tool filtering rather than crashing.</li>
+<li><strong><code>max_turns</code> cap reached mid-task</strong>: When the agent hits the <code>max_turns</code> limit before completing a task, the test case is marked as failed with a reason of "max_turns limit reached" rather than as an execution error. Partial results accumulated before the cap are preserved in the result output.</li>
+<li><strong>OTLP endpoint unreachable</strong>: If the configured OTLP endpoint is unavailable, the agent session continues normally. Telemetry is silently dropped per standard OTel SDK behaviour. HoloDeck MUST NOT fail agent startup or abort a session due to an unreachable observability endpoint.</li>
+<li><strong>Subprocess terminates unexpectedly</strong>: If the Claude Code subprocess exits mid-session due to an OS-level kill (OOM, SIGKILL), an unhandled internal error, or any other unexpected cause, HoloDeck MUST detect the termination, surface a clear "agent session terminated unexpectedly" error to the user, mark any in-progress test case as failed (not as an evaluation failure), and release all associated resources (tool indexes, open handles).</li>
+<li><strong>No credentials found for any auth method</strong>: If <code>auth_provider: api_key</code> (or default) is used but <code>ANTHROPIC_API_KEY</code> is absent, and <code>auth_provider: oauth_token</code> is used but <code>CLAUDE_CODE_OAUTH_TOKEN</code> is absent, the system MUST detect the missing credential at startup and surface a specific, actionable error — not a cryptic subprocess failure after the agent loop starts.</li>
+<li><strong>Node.js not installed</strong>: The Claude Agent SDK requires Node.js as a host runtime. If Node.js is not found on <code>PATH</code> at agent startup, the system MUST surface a clear error identifying Node.js as a missing prerequisite and directing the user to install it, rather than failing with a cryptic subprocess spawn error.</li>
+</ul>
+<h2 id="requirements-mandatory">Requirements <em>(mandatory)</em><a class="headerlink" href="#requirements-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FR-001</strong>: System MUST execute agents configured with <code>provider: anthropic</code> through the Claude native execution path, not through the Semantic Kernel layer.</li>
+<li><strong>FR-001a</strong>: All Claude-native capabilities (bash execution, file system access, extended thinking, web search, subagents, hooks, etc.) MUST be disabled by default and require explicit individual opt-in via <code>agent.yaml</code>. An agent with no capability flags enabled MUST behave as a plain conversational agent.</li>
+<li><strong>FR-002</strong>: Existing <code>agent.yaml</code> files that do not include Claude-native capability fields MUST continue to work without modification when switching to <code>provider: anthropic</code>. All new capability fields introduced by this feature are optional and default to disabled. Users are NOT required to remove or change any existing fields to adopt the Claude-native backend — however, new fields are required to unlock new capabilities.</li>
+<li><strong>FR-002a</strong>: The <code>Agent</code> configuration model MUST be extended to support new optional Claude-native fields (working directory, permission mode, max turns, extended thinking budget, capability flags, hooks, auth provider, etc.). Because the existing model uses strict field validation, any new field MUST be explicitly modelled — unrecognised fields MUST continue to produce a clear validation error rather than silently being ignored.</li>
+<li><strong>FR-003</strong>: System MUST make vectorstore tools (including structured and unstructured modes) available as callable tools within Claude-native agent sessions.</li>
+<li><strong>FR-004</strong>: System MUST make hierarchical document tools (semantic, keyword, and hybrid search modes) available as callable tools within Claude-native agent sessions.</li>
+<li><strong>FR-005</strong>: System MUST support MCP tools (stdio transport) for Claude-native agents, launching and communicating with MCP server processes as configured.</li>
+<li><strong>FR-006</strong>: System MUST preserve full conversation history across turns in Claude-native agent sessions, including tool invocation results. When the context window approaches its limit, the system MUST use the Claude Agent SDK's native compaction capability to compress history automatically, maintaining conversation continuity without data loss or manual truncation.</li>
+<li><strong>FR-007</strong>: System MUST deliver streaming responses from Claude-native agents to the <code>holodeck chat</code> terminal interface.</li>
+<li><strong>FR-008</strong>: System MUST execute all configured evaluation metrics (NLP, G-Eval, RAG) against Claude-native agent responses in the test runner.</li>
+<li><strong>FR-009</strong>: System MUST provide specific, actionable error messages when Claude-native agent execution fails (credential issues, unavailable models, tool failures).</li>
+<li><strong>FR-009a</strong>: System MUST verify Node.js is available on <code>PATH</code> before attempting to start any Claude-native agent session. If Node.js is absent, the system MUST raise a clear startup error identifying Node.js as a required runtime and providing installation guidance. The Claude Agent SDK bundles the <code>claude</code> CLI and does not require it to be separately installed — Node.js is the only host-level prerequisite.</li>
+<li><strong>FR-009b</strong>: System MUST monitor the Claude Code subprocess for unexpected termination during a session. If the subprocess exits with a non-zero code or is killed by the OS, HoloDeck MUST detect the termination promptly, surface a clear user-facing error distinguishing subprocess crash from a normal agent error, mark any in-progress test case as failed with reason "subprocess terminated unexpectedly", and release all associated resources cleanly without leaving dangling processes or open file handles.</li>
+<li><strong>FR-013</strong>: System MUST retry failed Anthropic API calls (rate limit, 5xx, timeout) with exponential backoff for up to 3 attempts before surfacing a clear error to the user. <strong>Note</strong>: If the Claude Agent SDK subprocess handles API-level retries internally, HoloDeck MUST NOT add a second retry layer on top — doing so would produce up to 9 effective attempts (3 × 3) and unpredictable wait times. During implementation, the SDK's built-in retry behaviour MUST be verified; if the SDK already retries, HoloDeck's retry logic for the Claude-native path MUST be limited to session-level failures (e.g., subprocess crash, spawn failure) only. <strong>Note</strong>: The current <code>AgentThreadRun._invoke_with_retry()</code> catches only <code>ConnectionError</code> and <code>TimeoutError</code>. <code>anthropic.RateLimitError</code> (HTTP 429) is not a subclass of either and currently falls into the non-retryable branch, raising immediately. The Claude-native retry implementation MUST explicitly include <code>RateLimitError</code> (and any SDK-equivalent rate limit exception) in its retryable exception set.</li>
+<li><strong>FR-010</strong>: All existing <code>agent.yaml</code> configurations using non-Anthropic providers MUST continue to work without any modification.</li>
+<li><strong>FR-011</strong>: When <code>provider: anthropic</code> is specified in <code>agent.yaml</code>, the system MUST route execution exclusively through the Claude-native backend. The existing Semantic Kernel execution layer MUST NOT be used for Anthropic-provider agents.</li>
+<li><strong>FR-012</strong>: System MUST initialize vectorstore and hierarchical document tool indexes at agent startup, exactly as the existing backend does, ensuring the tools are ready before the first query.</li>
+<li><strong>FR-012a</strong>: Because the Claude Agent SDK does not generate text embeddings, the <code>Agent</code> configuration model MUST be extended with a top-level optional <code>embedding_provider</code> field of type <code>LLMProvider</code> (the same type as the existing <code>model:</code> field). This field configures the provider used exclusively for embedding generation (e.g., OpenAI or Azure OpenAI) independently of the chat <code>provider</code>. When a Claude-native agent uses vectorstore or hierarchical document tools, <code>embedding_provider</code> MUST be configured. If vectorstore tools are present and no <code>embedding_provider</code> is configured, the system MUST raise a clear validation error at startup rather than attempting to use the Anthropic provider for embeddings. <strong>Note</strong>: The current <code>AgentFactory._register_embedding_service()</code> method explicitly raises <code>AgentFactoryError</code> for <code>provider: anthropic</code> — this is the immediate blocker for US-2. When the Claude-native backend is active, this code path MUST be bypassed entirely; embedding service registration MUST use <code>embedding_provider</code> credentials instead of the chat provider credentials.</li>
+</ul>
+<h4 id="abstract-execution-layer">Abstract Execution Layer<a class="headerlink" href="#abstract-execution-layer" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-012b</strong>: HoloDeck MUST define a provider-agnostic execution result interface that both the SK backend and the Claude-native backend implement. This interface captures: the agent's final text response, tool calls made during the turn, tool results, and token usage. All downstream consumers (chat executor, test executor, evaluation pipeline) MUST depend on this interface rather than on SK-specific types (<code>ChatHistory</code>, <code>ChatMessageContent</code>, etc.). This is a prerequisite for the Claude-native backend to integrate with the existing test runner and chat layer without forking those components. <strong>⚠ Prerequisite</strong>: This FR MUST be implemented and verified before any other FR in this feature can be tested end-to-end. All other FRs depend on both backends producing a result that the existing <code>TestExecutor</code> and <code>AgentExecutor</code> can consume without modification.</li>
+</ul>
+<h4 id="structured-output">Structured Output<a class="headerlink" href="#structured-output" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-039</strong>: System MUST support structured output for Claude-native agents via the existing <code>response_format</code> field in <code>agent.yaml</code>. When <code>response_format</code> is configured alongside <code>provider: anthropic</code>, HoloDeck MUST translate the schema into the Claude Agent SDK's <code>output_format</code> parameter (<code>{"type": "json_schema", "schema": &lt;json_schema&gt;}</code>) before spawning the subprocess. <strong>Note</strong>: The existing SK/OpenAI response format wrapper (<code>_wrap_response_format</code>) produces a structurally different format (<code>{"type": "json_schema", "json_schema": {"name": ..., "schema": ..., "strict": true}}</code>) and MUST NOT be reused for the Claude-native path. A separate translation function is required.</li>
+<li><strong>FR-039a</strong>: The structured output returned by the subprocess MUST be validated against the configured schema and surfaced as a typed object in both the chat interface and the test runner result. The serialised text representation of the object MUST also be available so that evaluation metrics (NLP, G-Eval) can operate on it normally.</li>
+<li><strong>FR-039b</strong>: If the agent's response does not conform to the configured schema, the system MUST surface a clear validation error identifying the schema violation. It MUST NOT silently return malformed or unvalidated output.</li>
+</ul>
+<h4 id="agent-loop-controls">Agent Loop Controls<a class="headerlink" href="#agent-loop-controls" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-014</strong>: System MUST support a configurable <code>max_turns</code> limit that caps the number of agent loop iterations, preventing runaway execution and controlling cost.</li>
+<li><strong>FR-015</strong>: System MUST support spawning parallel sub-agents with isolated conversation contexts, consolidating their outputs back to the parent agent.</li>
+</ul>
+<h4 id="reasoning">Reasoning<a class="headerlink" href="#reasoning" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-016</strong>: System MUST support extended thinking (deep reasoning) mode for Claude-native agents, configurable via <code>agent.yaml</code> with a token budget parameter.</li>
+</ul>
+<h4 id="file-system-access">File System Access<a class="headerlink" href="#file-system-access" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-017</strong>: System MUST allow Claude-native agents to read file contents from within the configured working directory.</li>
+<li><strong>FR-018</strong>: System MUST allow Claude-native agents to create and overwrite files within the configured working directory.</li>
+<li><strong>FR-019</strong>: System MUST allow Claude-native agents to perform surgical find-and-replace edits on files without rewriting the entire file.</li>
+<li><strong>FR-020</strong>: System MUST allow Claude-native agents to discover files by glob pattern and search file contents by regular expression.</li>
+</ul>
+<h4 id="command-execution">Command Execution<a class="headerlink" href="#command-execution" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-021</strong>: System MUST allow Claude-native agents to execute shell commands within a configurable sandbox, supporting explicit lists of excluded commands and permitted unsafe commands.</li>
+</ul>
+<h4 id="tool-system">Tool System<a class="headerlink" href="#tool-system" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-023</strong>: HoloDeck MUST internally wrap its existing tool implementations (vectorstore search, hierarchical document search) as Claude Agent SDK-compatible tool definitions using the SDK's <code>@tool</code> decorator/registration mechanism. The SDK manages all subprocess↔parent communication for tool invocation internally — HoloDeck does not build any custom IPC server. This is an internal implementation concern — users do NOT write Python decorators. Users continue to configure tools via <code>agent.yaml</code> exactly as today; HoloDeck generates the tool definitions from that configuration automatically.</li>
+<li><strong>FR-026</strong>: System MUST support an <code>allowed_tools</code> list in <code>agent.yaml</code> specifying which tools the agent is permitted to access. This is communicated to the subprocess at startup.</li>
+</ul>
+<h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-028</strong>: System MUST support setting a working directory for file system operations via <code>agent.yaml</code>, scoping the agent's file access to a specific project path.</li>
+<li><strong>FR-029</strong>: System MUST load agent context and persistent instructions from <code>CLAUDE.md</code> and <code>.claude/</code> project configuration files when present in the working directory.</li>
+<li><strong>FR-030</strong>: System MUST support enabling built-in web search as a configurable capability for Claude-native agents.</li>
+</ul>
+<h4 id="permission-modes">Permission Modes<a class="headerlink" href="#permission-modes" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-031</strong>: System MUST support a <code>permission_mode</code> configuration with three levels:</li>
+<li><code>manual</code> — every agent action requires explicit user approval before execution.</li>
+<li><code>acceptEdits</code> — file edits are auto-approved; all other actions require approval.</li>
+<li><code>acceptAll</code> — all permitted actions proceed without prompting (fully autonomous).</li>
+</ul>
+<h4 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-036</strong>: System MUST support OpenTelemetry observability for Claude-native agents by translating the <code>observability</code> section of <code>agent.yaml</code> into the corresponding Claude Code environment variables (<code>CLAUDE_CODE_ENABLE_TELEMETRY</code>, <code>OTEL_METRICS_EXPORTER</code>, <code>OTEL_LOGS_EXPORTER</code>, <code>OTEL_EXPORTER_OTLP_PROTOCOL</code>, <code>OTEL_EXPORTER_OTLP_ENDPOINT</code>, <code>OTEL_METRIC_EXPORT_INTERVAL</code>, <code>OTEL_LOGS_EXPORT_INTERVAL</code>) before the Claude Code subprocess is spawned. The existing SK-based OTel decorator approach is not used for Anthropic agents.</li>
+<li><strong>FR-037</strong>: The following native telemetry signals MUST be available when observability is enabled: token usage metrics (input/output, by model), API request counts with success/failure status, API latency distributions, active usage time, user prompt events (length; content opt-in), tool result events (tool name, success/fail, execution time, accept/reject decision), bash command events, and MCP tool events (server name, tool name opt-in).</li>
+<li><strong>FR-038</strong>: System MUST support opt-in privacy controls via <code>agent.yaml</code>: logging of full user prompt content (maps to <code>OTEL_LOG_USER_PROMPTS</code>) and logging of MCP server and tool names (maps to <code>OTEL_LOG_TOOL_DETAILS</code>). Both MUST default to off.</li>
+</ul>
+<h4 id="mcp-integration">MCP Integration<a class="headerlink" href="#mcp-integration" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-035</strong>: HoloDeck MUST support two distinct MCP integration paths, selected automatically based on the active backend:</li>
+<li><strong>SK backend path</strong>: MCP tool configurations produce SK <code>MCPStdioPlugin</code> instances registered on the SK Kernel (existing behaviour, unchanged).</li>
+<li><strong>Claude-native backend path</strong>: MCP tool configurations are translated into the Claude Agent SDK's native MCP server specification format, which the Claude Code subprocess uses to launch and communicate with MCP server processes directly. The existing SK MCP plugin factory is NOT used for Anthropic agents.</li>
+<li>Users configure MCP tools identically in <code>agent.yaml</code> regardless of backend. The routing is transparent.</li>
+</ul>
+<h4 id="enterprise-authentication">Enterprise Authentication<a class="headerlink" href="#enterprise-authentication" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-032</strong>: The <code>LLMProvider</code> configuration model MUST be extended with an optional <code>auth_provider</code> field supporting five values:</li>
+<li><code>api_key</code> <em>(default)</em> — authenticates using <code>ANTHROPIC_API_KEY</code> from the environment or <code>.env</code> file. This is the default when <code>auth_provider</code> is not specified.</li>
+<li><code>oauth_token</code> — authenticates using <code>CLAUDE_CODE_OAUTH_TOKEN</code> from the environment or <code>.env</code> file. Intended for users who authenticate via <code>claude setup-token</code> rather than a direct API key.</li>
+<li><code>bedrock</code> — authenticates via AWS Bedrock using standard AWS environment credentials, without requiring <code>ANTHROPIC_API_KEY</code>.</li>
+<li><code>vertex</code> — authenticates via Google Vertex AI using standard GCP environment credentials, without requiring <code>ANTHROPIC_API_KEY</code>.</li>
+<li><code>foundry</code> — authenticates via Azure AI Foundry using standard Azure environment credentials, without requiring <code>ANTHROPIC_API_KEY</code>.</li>
+<li><strong>FR-032a</strong>: When <code>auth_provider: api_key</code> is set (or when <code>auth_provider</code> is absent), the system MUST pass <code>ANTHROPIC_API_KEY</code> into the Claude Code subprocess environment. If the key is missing, the system MUST raise a clear startup error identifying the missing variable and how to set it.</li>
+<li><strong>FR-032b</strong>: When <code>auth_provider: oauth_token</code> is set, the system MUST read <code>CLAUDE_CODE_OAUTH_TOKEN</code> from the environment or <code>.env</code> file and pass it into the Claude Code subprocess environment. If the token is absent, the system MUST raise a clear startup error identifying the missing variable and directing the user to run <code>claude setup-token</code>.</li>
+<li><strong>FR-033</strong>: System MUST support authenticating Claude-native agents via AWS Bedrock using standard AWS environment credentials when <code>auth_provider: bedrock</code> is configured.</li>
+<li><strong>FR-034</strong>: System MUST support authenticating Claude-native agents via Google Vertex AI using standard GCP environment credentials when <code>auth_provider: vertex</code> is configured.</li>
+<li><strong>FR-034a</strong>: System MUST support authenticating Claude-native agents via Azure AI Foundry using standard Azure environment credentials when <code>auth_provider: foundry</code> is configured.</li>
+</ul>
+<h3 id="key-entities">Key Entities<a class="headerlink" href="#key-entities" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Agent Execution Backend</strong>: The runtime responsible for processing user messages, invoking tools, maintaining conversation state, and producing responses. This feature introduces a Claude-native backend as an alternative to the existing one.</li>
+<li><strong>Tool Adapter</strong>: The bridge that exposes HoloDeck's existing tools (vectorstore, hierarchical document) to the Claude-native backend's tool-calling mechanism. It translates tool configurations and result formats between HoloDeck's internal model and what the Claude platform expects.</li>
+<li><strong>MCP Tool Bridge</strong>: The component that connects MCP server processes to the Claude-native backend. It launches, manages, and communicates with MCP servers per the existing MCP tool configuration.</li>
+<li><strong>Execution Context</strong>: The state maintained during an agent session — conversation history, tool results, active tool instances — that must be preserved and accessible across multiple turns.</li>
+</ul>
+<h2 id="success-criteria-mandatory">Success Criteria <em>(mandatory)</em><a class="headerlink" href="#success-criteria-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="measurable-outcomes">Measurable Outcomes<a class="headerlink" href="#measurable-outcomes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SC-001</strong>: 100% of test cases submitted to a Claude-native agent are executed and produce a response (pass or fail), with no unhandled errors that abort the test run.</li>
+<li><strong>SC-002</strong>: Vectorstore and hierarchical document search tools return results when queried by a Claude-native agent, with search accuracy within 10% of the same tool queried by the existing backend on identical inputs.</li>
+<li><strong>SC-003</strong>: MCP tools configured for Claude-native agents are successfully invoked in 100% of valid test scenarios where tool usage is expected.</li>
+<li><strong>SC-004</strong>: Streaming chat responses begin appearing within 3 seconds of a user submitting a message in the <code>holodeck chat</code> interface.</li>
+<li><strong>SC-005</strong>: All evaluation metrics (NLP, G-Eval, RAG) produce a numeric score for 100% of test cases that have a valid response, with no metric silently skipped.</li>
+<li><strong>SC-006</strong>: Zero existing agent YAML configurations (non-Anthropic providers) require modification after this feature is delivered.</li>
+<li><strong>SC-007</strong>: A user familiar with HoloDeck's existing YAML syntax can configure and run a Claude-native agent without consulting documentation beyond the provider selection option.</li>
+<li><strong>SC-008</strong>: An agent configured with <code>max_turns</code> never exceeds that iteration limit, regardless of task complexity.</li>
+<li><strong>SC-009</strong>: File read, write, edit, glob, and grep operations configured in <code>agent.yaml</code> execute correctly in 100% of valid test cases where file access is within the working directory scope.</li>
+<li><strong>SC-010</strong>: Shell commands executed by agents with bash access run within the configured sandbox; 100% of explicitly excluded commands are blocked without crashing the session.</li>
+<li><strong>SC-011</strong>: In <code>manual</code> permission mode, 100% of agent actions trigger an approval prompt before execution — no action proceeds silently.</li>
+<li><strong>SC-012</strong>: An agent configured with any supported auth method (<code>api_key</code>, <code>oauth_token</code>, <code>bedrock</code>, <code>vertex</code>, or <code>foundry</code>) runs a complete test case successfully using the corresponding credentials. For cloud providers (Bedrock, Vertex, Foundry), no Anthropic API key is required.</li>
+<li><strong>SC-013</strong>: A tool configured in <code>agent.yaml</code> is callable by the Claude-native agent and returns correct results in 100% of valid invocations where the tool is correctly configured and the input is within the tool's expected parameters.</li>
+<li><strong>SC-014</strong>: When an <code>allowed_tools</code> list is configured, 100% of tool calls to tools not on the list are blocked by the subprocess without crashing the session.</li>
+<li><strong>SC-015</strong>: When observability is enabled for a Claude-native agent, token usage metrics, API request events, and tool result events are exported to the configured OTLP endpoint within 30 seconds of agent activity, verifiable via the OTLP backend.</li>
+<li><strong>SC-016</strong>: When <code>response_format</code> is configured for a Claude-native agent, 100% of successful agent responses are returned as validated structured objects matching the schema. Evaluation metrics receive a serialised text representation and produce scores normally.</li>
+</ul>
+<h2 id="clarifications">Clarifications<a class="headerlink" href="#clarifications" title="Permanent link">&para;</a></h2>
+<h3 id="session-2026-02-19">Session 2026-02-19<a class="headerlink" href="#session-2026-02-19" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Q: How should the system respond to Anthropic API failures (rate limit, 5xx errors, timeouts) mid-conversation? → A: Retry with exponential backoff (up to 3 attempts), then fail with a clear user-facing error message.</li>
+<li>Q: What is the scope of Semantic Kernel removal — agent loop only, or including embeddings and non-Anthropic providers? → A: SK stays installed. Only the agent conversation loop is replaced for Anthropic providers. SK continues to be used for embeddings (including in Anthropic agents) and for all non-Anthropic providers.</li>
+<li>Q: Which native Claude capabilities should be exposed through HoloDeck's YAML configuration? → A: Full capability set including: async streaming, multi-turn sessions, subagents, permission modes, max turns; extended thinking; file system (read/write/edit/glob/grep); bash execution with sandbox; notebook execution; @tool decorator and in-process MCP server; external MCP servers; tool interception (can_use_tool); allowed_tools allowlist; pre/post hooks; working directory; CLAUDE.md config loading; web search; and enterprise cloud auth (AWS Bedrock, Google Vertex AI, Azure AI Foundry).</li>
+<li>Q: How should long conversation history be managed when context limits are approached? → A: Use the Claude Agent SDK's native compaction capability, which automatically compresses conversation history when the context window fills, preserving continuity without manual truncation or summarization.</li>
+<li>Q: How do new capabilities (bash, file system, extended thinking, web search, etc.) surface in agent.yaml — individually or as bundles? → A: Individual opt-in flags per capability. Each feature must be explicitly enabled in agent.yaml. All capabilities are off by default; agents are minimal and least-privilege unless the user explicitly configures each capability.</li>
+</ul>
+<h2 id="assumptions">Assumptions<a class="headerlink" href="#assumptions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The Claude Agent SDK is stable enough for the use cases in this spec (interactive chat, test execution, tool calling). Known alpha limitations are documented but do not block delivery.</li>
+<li>The Claude Agent SDK bundles the <code>claude</code> CLI as a package dependency — it does not need to be separately installed. However, <strong>Node.js must be present on the host machine</strong> as a runtime prerequisite for the SDK. HoloDeck MUST verify Node.js availability at agent startup and surface a clear error with installation guidance if it is absent.</li>
+<li>Vectorstore and hierarchical document tools continue to use SK-powered embedding services for index generation, even when the agent conversation loop uses the Claude-native backend. The Claude Agent SDK subprocess does not generate embeddings — HoloDeck initializes all tool indexes in-process before the subprocess starts. A top-level <code>embedding_provider: LLMProvider</code> field in <code>agent.yaml</code> configures which provider generates embeddings for Anthropic agents with vectorstore tools (e.g., <code>provider: openai</code>, <code>name: text-embedding-3-small</code>).</li>
+<li>MCP tools using stdio transport are the initial scope. SSE, WebSocket, and HTTP transports remain out of scope for this feature (as they are for the existing backend). For Anthropic agents, the Claude Code subprocess manages MCP server processes directly using its native MCP client — HoloDeck does not use SK's <code>MCPStdioPlugin</code> for these agents.</li>
+<li>Evaluation metrics operate on the agent's final text response, which both backends produce. The evaluation pipeline requires a provider-agnostic execution result interface (FR-012b) to extract responses without depending on SK's <code>ChatHistory</code> type.</li>
+<li>Users will have valid credentials for their chosen auth method configured via environment variable or <code>.env</code> file: <code>ANTHROPIC_API_KEY</code> for direct API access, <code>CLAUDE_CODE_OAUTH_TOKEN</code> for OAuth token auth (obtained via <code>claude setup-token</code>), or standard cloud provider environment credentials for Bedrock, Vertex, or Foundry. HoloDeck validates credential presence at startup, before the subprocess is spawned.</li>
+<li>The Claude Agent SDK's native context compaction handles conversation history management automatically; no custom truncation or summarization logic is required in HoloDeck.</li>
+<li>The existing <code>chat/executor.py</code> non-streaming architecture requires restructuring to consume an async event stream. This is treated as a prerequisite internal to this feature, not a separate feature. The streaming change is implemented as part of US-5 delivery.</li>
+<li>Tool filtering (<code>tool_filtering</code>) is gracefully disabled for <code>provider: anthropic</code> with a user-visible warning, not a silent failure.</li>
+<li>The Claude Code subprocess has built-in OTel support activated entirely via environment variables set before spawn. HoloDeck does not need to instrument the subprocess directly — it only needs to translate <code>agent.yaml</code> observability config into the correct env vars. The SK-based OTel decorators used for non-Anthropic backends do not apply here and are not used.</li>
+</ul>
+<h2 id="out-of-scope">Out of Scope<a class="headerlink" href="#out-of-scope" title="Permanent link">&para;</a></h2>
+<ul>
+<li>SSE, WebSocket, and HTTP MCP transports (not yet supported in the existing backend either).</li>
+<li>Support for non-Anthropic providers (OpenAI, Azure, Ollama) through the Claude-native backend.</li>
+<li>Replacing the existing backend for non-Anthropic providers.</li>
+<li>The <code>holodeck deploy</code> command integration (planned separately in spec 019).</li>
+<li>Changes to evaluation metric logic or scoring algorithms.</li>
+<li>A GUI or web-based approval interface for <code>manual</code> permission mode (terminal prompt only for this spec).</li>
+<li>Removing Semantic Kernel from the project dependency tree (SK remains installed; only the agent conversation loop is replaced for Anthropic providers).</li>
+<li><strong>Semantic tool filtering (<code>tool_filtering</code>) for Claude-native agents</strong>: The <code>tool_filtering</code> capability depends on SK's in-process kernel and is not compatible with the subprocess model. It is silently disabled with a warning for <code>provider: anthropic</code>. A follow-up spec will address tool filtering for the Claude-native backend.</li>
+<li>
+<p><strong>Streaming for non-Anthropic backends</strong>: Streaming is introduced in this feature via the Claude Agent SDK's event stream. Backporting streaming to the SK-based backend (OpenAI, Azure, Ollama) is a separate effort not in scope here.</p>
+</li>
+<li>
+<p><strong><code>can_use_tool</code> callback interception</strong>: Python callables cannot be serialized across the subprocess boundary. Implementing <code>can_use_tool</code> requires an IPC round-trip (subprocess emits permission request → parent evaluates → subprocess receives approve/deny). This is deferred to a follow-up spec.</p>
+</li>
+<li><strong>Pre/post execution hooks (Python callables)</strong>: Same subprocess boundary constraint as <code>can_use_tool</code>. Live Python hook execution within the Claude Code agent loop is not achievable in this model without a defined IPC protocol. Deferred to a follow-up spec.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

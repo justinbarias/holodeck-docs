@@ -315,7 +315,7 @@ def validate_tool_calls(
 
 ### RAGEvaluatorConstructor
 
-Protocol that defines the common constructor signature shared by all RAG evaluator classes (`FaithfulnessEvaluator`, `ContextualRelevancyEvaluator`, etc.). Used as the value type in `RAG_EVALUATOR_MAP`.
+Protocol that defines the common constructor signature shared by all RAG evaluator classes (`FaithfulnessEvaluator`, `ContextualRelevancyEvaluator`, etc.). Used as the return type of `rag_evaluator_class`.
 
 ## `RAGEvaluatorConstructor`
 
@@ -325,11 +325,36 @@ Protocol for RAG evaluator constructors with full type safety.
 
 Defines the common constructor signature for all RAG evaluators. The actual evaluators may have additional parameters with defaults (timeout, retry_config) but this Protocol captures what we use.
 
-### RAG_EVALUATOR_MAP
+### rag_evaluator_class
 
-Module-level dictionary mapping `RAGMetricType` enum members to their evaluator constructor. Eliminates repetitive `if/elif` chains when creating RAG evaluators.
+Returns the evaluator class for a `RAGMetricType`. It imports DeepEval on use, so the test runner loads without the `eval` extra; a missing extra raises `MissingExtraError` with the install command.
 
-## `RAG_EVALUATOR_MAP = {RAGMetricType.FAITHFULNESS: FaithfulnessEvaluator, RAGMetricType.CONTEXTUAL_RELEVANCY: ContextualRelevancyEvaluator, RAGMetricType.CONTEXTUAL_PRECISION: ContextualPrecisionEvaluator, RAGMetricType.CONTEXTUAL_RECALL: ContextualRecallEvaluator, RAGMetricType.ANSWER_RELEVANCY: AnswerRelevancyEvaluator}`
+## `rag_evaluator_class(metric_type)`
+
+Return the DeepEval evaluator class for *metric_type*.
+
+Imported on use: DeepEval is the optional `eval` extra, and the package raises `MissingExtraError` with the install command when it is absent.
+
+Source code in `src/holodeck/lib/test_runner/executor.py`
+
+```
+def rag_evaluator_class(metric_type: RAGMetricType) -> RAGEvaluatorConstructor:
+    """Return the DeepEval evaluator class for *metric_type*.
+
+    Imported on use: DeepEval is the optional ``eval`` extra, and the package
+    raises ``MissingExtraError`` with the install command when it is absent.
+    """
+    from holodeck.lib.evaluators import deepeval
+
+    classes: dict[RAGMetricType, RAGEvaluatorConstructor] = {
+        RAGMetricType.FAITHFULNESS: deepeval.FaithfulnessEvaluator,
+        RAGMetricType.CONTEXTUAL_RELEVANCY: deepeval.ContextualRelevancyEvaluator,
+        RAGMetricType.CONTEXTUAL_PRECISION: deepeval.ContextualPrecisionEvaluator,
+        RAGMetricType.CONTEXTUAL_RECALL: deepeval.ContextualRecallEvaluator,
+        RAGMetricType.ANSWER_RELEVANCY: deepeval.AnswerRelevancyEvaluator,
+    }
+    return classes[metric_type]
+```
 
 ______________________________________________________________________
 

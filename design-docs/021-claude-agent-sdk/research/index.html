@@ -1,0 +1,2767 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/design-docs/021-claude-agent-sdk/research/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Research: Native Claude Agent SDK Integration - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#research-native-claude-agent-sdk-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Research: Native Claude Agent SDK Integration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-sdk-package-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. SDK Package Identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-api-entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. API Entry Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. API Entry Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2a-claudeagentoptions-key-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        §2a — ClaudeAgentOptions Key Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-permission-mode-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Permission Mode Mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-authentication-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Authentication Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tool-registration-for-vectorstorehierarchical-document-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tool Registration for Vectorstore/Hierarchical Document Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mcp-tool-integration-external-mcp-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. MCP Tool Integration (External MCP Servers)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-streaming-message-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Streaming Message Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-retry-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Retry Behaviour
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nodejs-prerequisite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Node.js Prerequisite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-structured-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Structured Output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-embedding-provider-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Embedding Provider Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-backend-abstraction-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Backend Abstraction Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-claudemd-collision-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. CLAUDE.md Collision Risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tool-filtering-disabled-for-claude-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tool Filtering (Disabled for Claude Backend)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-otel-bridge-unsupported-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. OTel Bridge — Unsupported Fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-chat-layer-decoupling-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Chat Layer Decoupling Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="research-native-claude-agent-sdk-integration">Research: Native Claude Agent SDK Integration<a class="headerlink" href="#research-native-claude-agent-sdk-integration" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: 021-claude-agent-sdk
+<strong>Date</strong>: 2026-02-20
+<strong>Status</strong>: Complete — all NEEDS CLARIFICATION resolved</p>
+<hr />
+<h2 id="1-sdk-package-identity">1. SDK Package Identity<a class="headerlink" href="#1-sdk-package-identity" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Use <code>claude-agent-sdk</code> (v0.1.39, released 2026-02-19)</p>
+<p><strong>Rationale</strong>: The package was renamed from the deprecated <code>claude-code-sdk</code>. PyPI canonical name is <code>claude-agent-sdk</code>. Python module import is <code>claude_agent_sdk</code>.</p>
+<p><strong>Installation</strong>:
+<div class="highlight"><pre><span></span><code>uv add claude-agent-sdk
+</code></pre></div></p>
+<p><strong>Requirements</strong>: Python 3.10+, Node.js on PATH (subprocess host runtime).</p>
+<p><strong>Alternatives considered</strong>: <code>claude-code-sdk</code> (deprecated), direct <code>anthropic</code> SDK (no subprocess/tool model).</p>
+<hr />
+<h2 id="2-api-entry-points">2. API Entry Points<a class="headerlink" href="#2-api-entry-points" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Note</strong>: All names in this section were verified against SDK v0.1.39 via the Phase 0 smoke test (<code>scripts/smoke_test_sdk.py</code>). Zero <code>[ASSUMED]</code> markers remain.</p>
+</blockquote>
+<p><strong>Decision</strong>: Use <code>query()</code> for test runs (stateless), <code>ClaudeSDKClient</code> for chat sessions (stateful).</p>
+<p><strong>Rationale</strong>:
+- <code>query()</code> creates a fresh session per call — ideal for isolated test case execution where each invocation must not bleed conversation state from the previous test.
+- <code>ClaudeSDKClient</code> maintains session state across calls via <code>session_id</code> — required for multi-turn interactive chat where the agent must remember prior messages.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Test runs — stateless</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="n">user_input</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="c1"># Chat sessions — stateful</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">ClaudeSDKClient</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">receive_response</span><span class="p">():</span>
+        <span class="o">...</span>
+</code></pre></div>
+<p><strong>Confirmed names (Phase 0 verified — <code>scripts/smoke_test_sdk.py</code>):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Assumed Name</th>
+<th>Confirmed Name</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ClaudeSDKClient</code></td>
+<td><code>ClaudeSDKClient</code></td>
+<td>✓ Confirmed</td>
+</tr>
+<tr>
+<td><code>ClaudeAgentOptions</code></td>
+<td><code>ClaudeAgentOptions</code></td>
+<td>✓ Confirmed. Full field list in §2a below.</td>
+</tr>
+<tr>
+<td><code>PermissionMode</code></td>
+<td><code>PermissionMode</code></td>
+<td>✓ Confirmed. <strong><code>Literal</code> type alias, NOT an Enum class.</strong> Use string literals: <code>"default"</code>, <code>"acceptEdits"</code>, <code>"plan"</code>, <code>"bypassPermissions"</code></td>
+</tr>
+<tr>
+<td><code>create_sdk_mcp_server()</code></td>
+<td><code>create_sdk_mcp_server()</code></td>
+<td>✓ Confirmed. Signature: <code>(name: str, version: str = '1.0.0', tools: list[SdkMcpTool] \| None = None) -&gt; McpSdkServerConfig</code></td>
+</tr>
+<tr>
+<td><code>ResultMessage.structured_output</code></td>
+<td><code>ResultMessage.structured_output</code></td>
+<td>✓ Confirmed. Type: <code>Any</code></td>
+</tr>
+<tr>
+<td><code>@tool(name, description, schema_dict)</code></td>
+<td><code>@tool(name, description, input_schema)</code></td>
+<td><strong>CORRECTED</strong>: third param is <code>input_schema</code>, not <code>schema_dict</code>. Returns <code>SdkMcpTool</code>, not the function.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Multi-turn state (Phase 0 verified):</strong></p>
+<p>Multi-turn state is <strong>OPT-IN</strong> — it is NOT automatic. Each <code>query()</code> call starts a fresh session unless <code>continue_conversation=True</code> is explicitly passed to <code>ClaudeAgentOptions</code>. To resume a specific prior session, additionally pass <code>resume=session_id</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Turn 1 — fresh session</span>
+<span class="n">opts_1</span> <span class="o">=</span> <span class="n">ClaudeAgentOptions</span><span class="p">(</span><span class="n">permission_mode</span><span class="o">=</span><span class="s2">"bypassPermissions"</span><span class="p">,</span> <span class="n">max_turns</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">"What is 2+2?"</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">opts_1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">ResultMessage</span><span class="p">):</span>
+        <span class="n">session_id</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">session_id</span>
+
+<span class="c1"># Turn 2 — continues previous session (OPT-IN via continue_conversation + resume)</span>
+<span class="n">opts_2</span> <span class="o">=</span> <span class="n">ClaudeAgentOptions</span><span class="p">(</span>
+    <span class="n">permission_mode</span><span class="o">=</span><span class="s2">"bypassPermissions"</span><span class="p">,</span>
+    <span class="n">max_turns</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">continue_conversation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Required — state is NOT automatic</span>
+    <span class="n">resume</span><span class="o">=</span><span class="n">session_id</span><span class="p">,</span>           <span class="c1"># Resume specific session by ID</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">"And what is that times 3?"</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">opts_2</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+<p><strong>Phase 8 <code>ClaudeSession</code> implementation implication</strong>: The session wrapper must pass <code>continue_conversation=True</code> and track <code>session_id</code> across turns. Do not assume automatic context carry-over.</p>
+<h3 id="2a-claudeagentoptions-key-fields">§2a — <code>ClaudeAgentOptions</code> Key Fields<a class="headerlink" href="#2a-claudeagentoptions-key-fields" title="Permanent link">&para;</a></h3>
+<p>Full signature verified via smoke test. Key fields for HoloDeck use:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>permission_mode</code></td>
+<td><code>Literal['default','acceptEdits','plan','bypassPermissions'] \| None</code></td>
+<td><code>None</code></td>
+<td>Autonomy level</td>
+</tr>
+<tr>
+<td><code>continue_conversation</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td><strong>Set True for multi-turn</strong></td>
+</tr>
+<tr>
+<td><code>resume</code></td>
+<td><code>str \| None</code></td>
+<td><code>None</code></td>
+<td>Resume by session_id</td>
+</tr>
+<tr>
+<td><code>mcp_servers</code></td>
+<td><code>dict[str, McpStdioServerConfig \| McpSSEServerConfig \| McpHttpServerConfig \| McpSdkServerConfig] \| str \| Path</code></td>
+<td><code>{}</code></td>
+<td>MCP server registrations</td>
+</tr>
+<tr>
+<td><code>allowed_tools</code></td>
+<td><code>list[str]</code></td>
+<td><code>[]</code></td>
+<td>Tool allowlist</td>
+</tr>
+<tr>
+<td><code>system_prompt</code></td>
+<td><code>str \| SystemPromptPreset \| None</code></td>
+<td><code>None</code></td>
+<td>Override system prompt</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td><code>str \| None</code></td>
+<td><code>None</code></td>
+<td>Model override</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td><code>dict[str, str]</code></td>
+<td><code>{}</code></td>
+<td>Subprocess env vars (auth, etc.)</td>
+</tr>
+<tr>
+<td><code>cwd</code></td>
+<td><code>str \| Path \| None</code></td>
+<td><code>None</code></td>
+<td>Working directory</td>
+</tr>
+<tr>
+<td><code>max_turns</code></td>
+<td><code>int \| None</code></td>
+<td><code>None</code></td>
+<td>Turn limit</td>
+</tr>
+<tr>
+<td><code>include_partial_messages</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Enable <code>StreamEvent</code> token deltas</td>
+</tr>
+<tr>
+<td><code>output_format</code></td>
+<td><code>dict[str, Any] \| None</code></td>
+<td><code>None</code></td>
+<td>Structured output schema</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Alternatives considered</strong>: Using <code>ClaudeSDKClient</code> for all modes (adds unnecessary session overhead for tests), using raw <code>anthropic</code> SDK (loses tool-calling, MCP, permission model).</p>
+<hr />
+<h2 id="3-permission-mode-mapping">3. Permission Mode Mapping<a class="headerlink" href="#3-permission-mode-mapping" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Map HoloDeck YAML permission levels to SDK <code>PermissionMode</code> literals as follows:</p>
+<table>
+<thead>
+<tr>
+<th>HoloDeck YAML (<code>permission_mode</code>)</th>
+<th>Claude SDK <code>PermissionMode</code></th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>manual</code></td>
+<td><code>"default"</code></td>
+<td>Standard approval prompts for all actions</td>
+</tr>
+<tr>
+<td><code>acceptEdits</code></td>
+<td><code>"acceptEdits"</code></td>
+<td>Auto-approve file edits; prompt for others</td>
+</tr>
+<tr>
+<td><code>acceptAll</code></td>
+<td><code>"bypassPermissions"</code></td>
+<td>No prompts; fully autonomous</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale</strong>: The SDK's <code>"plan"</code> mode is a preview-only mode not relevant to HoloDeck's autonomy model. <code>"bypassPermissions"</code> is the correct mapping for <code>acceptAll</code> — it skips all permission checks for permitted tools.</p>
+<p><strong>For test runs</strong>: Override to <code>"bypassPermissions"</code> automatically during <code>holodeck test</code> unless <code>permission_mode: manual</code> is explicitly configured. However, when <code>bash.enabled: true</code> or <code>file_system.write: true</code> is configured, bash and file system are force-disabled unless <code>--allow-side-effects</code> is explicitly passed to <code>holodeck test</code>. This prevents unattended side effects in automated test environments. The <code>--allow-side-effects</code> flag is added to the <code>holodeck test</code> CLI command in Phase 9.</p>
+<hr />
+<h2 id="4-authentication-architecture">4. Authentication Architecture<a class="headerlink" href="#4-authentication-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Map <code>auth_provider</code> to environment variables injected into the subprocess environment dict (<code>ClaudeAgentOptions.env</code>).</p>
+<table>
+<thead>
+<tr>
+<th><code>auth_provider</code> value</th>
+<th>Required env vars</th>
+<th>SDK behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api_key</code> (default)</td>
+<td><code>ANTHROPIC_API_KEY</code></td>
+<td>Direct Anthropic API</td>
+</tr>
+<tr>
+<td><code>oauth_token</code></td>
+<td><code>CLAUDE_CODE_OAUTH_TOKEN</code></td>
+<td>Anthropic OAuth</td>
+</tr>
+<tr>
+<td><code>bedrock</code></td>
+<td>AWS credentials (<code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>AWS_REGION</code> etc.)</td>
+<td><code>CLAUDE_CODE_USE_BEDROCK=1</code></td>
+</tr>
+<tr>
+<td><code>vertex</code></td>
+<td>GCP credentials (<code>GOOGLE_APPLICATION_CREDENTIALS</code> etc.)</td>
+<td><code>CLAUDE_CODE_USE_VERTEX=1</code></td>
+</tr>
+<tr>
+<td><code>foundry</code></td>
+<td>Azure credentials (<code>AZURE_TENANT_ID</code> etc.)</td>
+<td><code>CLAUDE_CODE_USE_FOUNDRY=1</code></td>
+</tr>
+</tbody>
+</table>
+<p>HoloDeck validates credential presence before spawning the subprocess. Missing credentials raise a <code>ConfigError</code> with a specific message naming the missing variable.</p>
+<p><strong>Rationale</strong>: All auth is env-var driven — no SDK-level auth objects exist. HoloDeck reads from <code>os.environ</code> + <code>.env</code> files (existing <code>EnvLoader</code> behaviour) and passes the resolved vars into <code>ClaudeAgentOptions.env</code>.</p>
+<hr />
+<h2 id="5-tool-registration-for-vectorstorehierarchical-document-tools">5. Tool Registration for Vectorstore/Hierarchical Document Tools<a class="headerlink" href="#5-tool-registration-for-vectorstorehierarchical-document-tools" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Wrap HoloDeck's tool <code>search()</code> methods using the Claude Agent SDK <code>@tool</code> decorator, bundle them into an in-process MCP server via <code>create_sdk_mcp_server()</code>, and register that server in <code>ClaudeAgentOptions.mcp_servers</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">claude_agent_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">tool</span><span class="p">,</span> <span class="n">create_sdk_mcp_server</span>
+
+<span class="c1"># Factory function required — Python closures capture by reference, not value.</span>
+<span class="c1"># A bare for-loop creates all tool functions sharing the last loop variable.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_search_fn</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">VectorStoreTool</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SdkMcpTool</span><span class="p">:</span>
+    <span class="nd">@tool</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Search </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"query"</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search_fn</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">t</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">"query"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"content"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"text"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">result</span><span class="p">}]}</span>
+    <span class="k">return</span> <span class="n">search_fn</span>
+
+<span class="n">sdk_tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_search_fn</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_search"</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">vectorstore_tools</span><span class="p">]</span>
+
+<span class="n">sdk_server</span> <span class="o">=</span> <span class="n">create_sdk_mcp_server</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"holodeck_tools"</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="n">sdk_tools</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="n">ClaudeAgentOptions</span><span class="p">(</span>
+    <span class="n">mcp_servers</span><span class="o">=</span><span class="p">{</span><span class="s2">"holodeck_tools"</span><span class="p">:</span> <span class="n">sdk_server</span><span class="p">},</span>
+    <span class="n">allowed_tools</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mcp__holodeck_tools__</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_search"</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">vectorstore_tools</span><span class="p">],</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: The SDK's subprocess communicates tool invocations back to the parent process transparently through the SDK's IPC. HoloDeck does not need to implement a custom IPC server. The <code>@tool</code> + <code>create_sdk_mcp_server()</code> pattern is the SDK's canonical in-process tool mechanism.</p>
+<p><strong>Tool name convention</strong>: <code>mcp__&lt;server_name&gt;__&lt;tool_name&gt;</code> — must match entries in <code>allowed_tools</code>.</p>
+<p><strong>Alternatives considered</strong>: Using the SK <code>@kernel_function</code> decorator (incompatible with Claude subprocess); building a custom MCP stdio server process (unnecessary complexity when SDK provides in-process path).</p>
+<hr />
+<h2 id="6-mcp-tool-integration-external-mcp-servers">6. MCP Tool Integration (External MCP Servers)<a class="headerlink" href="#6-mcp-tool-integration-external-mcp-servers" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Translate HoloDeck's <code>MCPTool</code> config (stdio transport) to <code>McpStdioServerConfig</code> dicts for <code>ClaudeAgentOptions.mcp_servers</code>. The SDK subprocess manages MCP server processes directly.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># HoloDeck MCPTool → SDK MCP server config</span>
+<span class="n">mcp_servers</span><span class="p">[</span><span class="s2">"my_mcp"</span><span class="p">]</span> <span class="o">=</span> <span class="n">McpStdioServerConfig</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s2">"stdio"</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="n">mcp_tool</span><span class="o">.</span><span class="n">command</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">mcp_tool</span><span class="o">.</span><span class="n">args</span> <span class="ow">or</span> <span class="p">[],</span>
+    <span class="n">env</span><span class="o">=</span><span class="n">resolve_env</span><span class="p">(</span><span class="n">mcp_tool</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>HoloDeck's existing <code>MCPStdioPlugin</code> (SK) is NOT used for Anthropic-provider agents. The SK MCP plugin factory produces SK plugins for the Kernel — the Claude subprocess has its own native MCP client that accepts the <code>McpStdioServerConfig</code> dict format.</p>
+<p><strong>Routing</strong>: <code>lib/backends/selector.py</code> routes MCP config translation based on backend:
+- SK backend → existing <code>mcp/factory.py</code> → <code>MCPStdioPlugin</code>
+- Claude backend → new <code>mcp_bridge.py</code> → <code>McpStdioServerConfig</code></p>
+<hr />
+<h2 id="7-streaming-message-types">7. Streaming Message Types<a class="headerlink" href="#7-streaming-message-types" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Consume <code>AssistantMessage.content</code> blocks for streaming text output; consume <code>ResultMessage</code> for final token usage and structured output.</p>
+<p>Key message types from the SDK's async iterator:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AssistantMessage</span><span class="p">:</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ContentBlock</span><span class="p">]</span>   <span class="c1"># TextBlock, ToolUseBlock, ThinkingBlock</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResultMessage</span><span class="p">:</span>
+    <span class="n">is_error</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">num_turns</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">total_cost_usd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">usage</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">result</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">structured_output</span><span class="p">:</span> <span class="n">Any</span>       <span class="c1"># Set when output_format configured</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StreamEvent</span><span class="p">:</span>               <span class="c1"># Enabled via include_partial_messages=True</span>
+    <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">event</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>        <span class="c1"># Raw SDK stream event for token-level streaming</span>
+</code></pre></div>
+<p>For streaming chat, use <code>include_partial_messages=True</code> to get <code>StreamEvent</code> messages with partial token deltas.</p>
+<p>For tool call extraction: scan <code>AssistantMessage.content</code> for <code>ToolUseBlock</code> (call) and <code>ToolResultBlock</code> (result).</p>
+<hr />
+<h2 id="8-retry-behaviour">8. Retry Behaviour<a class="headerlink" href="#8-retry-behaviour" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: The Claude Agent SDK subprocess handles API-level retries (rate limit, 5xx, timeout) internally. HoloDeck adds retry logic only at the <strong>session-spawn level</strong> — when the subprocess itself fails to start or crashes unexpectedly.</p>
+<p><strong>Rationale</strong>: FR-013 explicitly warns against double-retry stacking. If the SDK already retries API calls 3 times internally, adding HoloDeck's own 3 retries would produce up to 9 effective attempts.</p>
+<p><strong>Implementation</strong>: Verify SDK retry behaviour in integration tests. If confirmed, HoloDeck's <code>invoke_with_retry</code> for Claude backend covers only:
+- <code>CLINotFoundError</code> — not retryable (raises immediately with guidance)
+- <code>ProcessError</code> on spawn — retryable (up to 3 session-level retries, exponential backoff)
+- <code>RateLimitError</code> from <code>anthropic</code> SDK (if SDK does NOT retry) — retryable</p>
+<hr />
+<h2 id="9-nodejs-prerequisite">9. Node.js Prerequisite<a class="headerlink" href="#9-nodejs-prerequisite" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Check <code>shutil.which("node")</code> at agent startup before spawning subprocess. Raise <code>ConfigError</code> with install instructions if absent.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigError</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_nodejs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">"node"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ConfigError</span><span class="p">(</span>
+            <span class="s2">"Node.js is required by the Claude Agent SDK but was not found on PATH.</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"Install Node.js: https://nodejs.org/en/download/"</span>
+        <span class="p">)</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: The SDK bundles the <code>claude</code> CLI — no separate install needed. But Node.js itself must be present as the runtime host. A missing Node.js produces a cryptic subprocess spawn error without this check.</p>
+<hr />
+<h2 id="10-structured-output">10. Structured Output<a class="headerlink" href="#10-structured-output" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Translate HoloDeck's <code>response_format</code> dict to the SDK's <code>OutputFormat</code> dataclass:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">claude_agent_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">OutputFormat</span>
+
+<span class="n">output_format</span> <span class="o">=</span> <span class="n">OutputFormat</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s2">"json_schema"</span><span class="p">,</span>
+    <span class="n">schema</span><span class="o">=</span><span class="n">agent</span><span class="o">.</span><span class="n">response_format</span><span class="p">,</span>  <span class="c1"># Already a JSON Schema dict</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The existing SK wrapper (<code>_wrap_response_format</code>) produces <code>{"type": "json_schema", "json_schema": {...}, "strict": true}</code> — a different envelope format. This MUST NOT be used for the Claude-native path.</p>
+<p>Structured output is returned in <code>ResultMessage.structured_output</code>. Validation against the configured schema is performed before returning to downstream consumers. The serialised text form (JSON string) is extracted for NLP/G-Eval evaluation metrics.</p>
+<hr />
+<h2 id="11-embedding-provider-architecture">11. Embedding Provider Architecture<a class="headerlink" href="#11-embedding-provider-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Keep SK embedding services for vectorstore and hierarchical document tool index generation, even when the agent conversation loop uses the Claude backend. Add a top-level <code>embedding_provider: LLMProvider</code> field to <code>Agent</code>.</p>
+<p><strong>Rationale</strong>: The Claude SDK subprocess does not generate embeddings. Vectorstore index generation must happen in-process (parent) before the subprocess starts. The existing <code>VectorStoreTool</code> and <code>HierarchicalDocumentTool</code> already use SK embedding services. Adding <code>embedding_provider</code> lets Anthropic-provider agents use, e.g., <code>provider: openai, name: text-embedding-3-small</code> for embeddings independently of the chat provider.</p>
+<p><strong>Validation</strong>: At startup, if <code>provider: anthropic</code> AND any vectorstore/hierarchical-document tool is configured AND <code>embedding_provider</code> is absent → raise <code>ConfigError</code> before any subprocess is spawned.</p>
+<hr />
+<h2 id="12-backend-abstraction-architecture">12. Backend Abstraction Architecture<a class="headerlink" href="#12-backend-abstraction-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Create <code>src/holodeck/lib/backends/</code> package with a clean <code>AgentBackend</code> Protocol and <code>ExecutionResult</code> dataclass. Both SK and Claude-native backends implement this Protocol. All downstream consumers (test runner, chat executor) interact only with the interface.</p>
+<p><strong>Rationale</strong> (from user directive): Decouple HoloDeck's test runner and chat layer from SK-specific types (<code>ChatHistory</code>, <code>ChatMessageContent</code>, <code>FunctionCallContent</code>). This makes the Claude-native backend a first-class peer rather than a bolt-on, and positions HoloDeck to remove SK from the agent loop entirely in the future without touching the test or chat layers.</p>
+<p><strong>Key interface types</strong>:
+- <code>ExecutionResult</code> — provider-agnostic single-turn result
+- <code>AgentSession</code> — stateful multi-turn session (Protocol)
+- <code>AgentBackend</code> — backend factory Protocol</p>
+<p>See <code>contracts/execution-result.md</code> and <code>contracts/agent-backend.md</code> for full specifications.</p>
+<hr />
+<h2 id="13-claudemd-collision-risk">13. CLAUDE.md Collision Risk<a class="headerlink" href="#13-claudemd-collision-risk" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: At startup, warn if <code>working_directory</code> is set AND <code>&lt;working_directory&gt;/CLAUDE.md</code> exists AND its content appears to be a developer/project-level CLAUDE.md (heuristic: contains <code># CLAUDE.md</code> header or <code>CLAUDE.md</code> in first 5 lines).</p>
+<p><strong>Warning message</strong>: Direct users to either (a) use a more specific working directory, or (b) provide agent instructions via <code>agent.yaml</code>'s <code>instructions:</code> field instead.</p>
+<p>This is a startup warning, not an error — the session proceeds unless the user overrides.</p>
+<hr />
+<h2 id="14-tool-filtering-disabled-for-claude-backend">14. Tool Filtering (Disabled for Claude Backend)<a class="headerlink" href="#14-tool-filtering-disabled-for-claude-backend" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: <code>tool_filtering</code> configuration is silently skipped with a user-visible warning when <code>provider: anthropic</code> is set. No error is raised.</p>
+<p><strong>Rationale</strong>: <code>tool_filtering</code> uses SK's in-process kernel for semantic search over tool descriptions — incompatible with the subprocess model. A follow-up spec will address this for the Claude-native backend.</p>
+<p><strong>Warning</strong>: "tool_filtering is not supported for provider: anthropic and will be skipped. Configure allowed_tools instead."</p>
+<hr />
+<h2 id="15-otel-bridge-unsupported-fields">15. OTel Bridge — Unsupported Fields<a class="headerlink" href="#15-otel-bridge-unsupported-fields" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: <code>otel_bridge.py</code> maps supported <code>ObservabilityConfig</code> fields to Claude Code environment variables. Fields that have no equivalent Claude Code env var are silently skipped with named startup warnings.</p>
+<p><strong>Unsupported fields</strong> (emit named warnings, do not raise errors):</p>
+<table>
+<thead>
+<tr>
+<th><code>ObservabilityConfig</code> field</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exporters.azure_monitor</code></td>
+<td>No Claude Code env var equivalent</td>
+</tr>
+<tr>
+<td><code>exporters.prometheus</code></td>
+<td>No Claude Code env var equivalent</td>
+</tr>
+<tr>
+<td><code>traces.redaction_patterns</code></td>
+<td>No Claude Code env var equivalent</td>
+</tr>
+<tr>
+<td><code>traces.sample_rate</code></td>
+<td>No Claude Code env var equivalent</td>
+</tr>
+<tr>
+<td><code>logs.filter_namespaces</code></td>
+<td>No Claude Code env var equivalent</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Warning format</strong>:
+<div class="highlight"><pre><span></span><code>"The following observability settings are not supported by the Claude-native backend
+and will be ignored: {field_list}. Use a non-Anthropic provider or remove these fields."
+</code></pre></div></p>
+<p>This is a named warning, not an error — the session proceeds normally. The listed fields are collected at startup before subprocess spawn and emitted as a single consolidated warning (not one per field).</p>
+<p><strong>Rationale</strong>: Silently ignoring these fields without any warning would create a confusing debugging experience for users who configure observability expecting it to take effect. A named warning makes the limitation explicit without blocking the agent from running.</p>
+<hr />
+<h2 id="16-chat-layer-decoupling-architecture">16. Chat Layer Decoupling Architecture<a class="headerlink" href="#16-chat-layer-decoupling-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Decouple <code>chat/executor.py</code> from <code>AgentFactory</code>/<code>AgentThreadRun</code> using the same
+<code>BackendSelector</code> → <code>AgentBackend</code> → <code>AgentSession</code> pattern applied to the test runner in Phase 9.
+Full cutover (no dual-path with legacy factory).</p>
+<p><strong>Rationale</strong>: The chat executor currently imports <code>AgentFactory</code> and <code>AgentThreadRun</code> directly,
+making <code>holodeck chat</code> impossible for Claude-native agents. The test runner was decoupled in Phase 9
+using a dual-path approach (backend + legacy factory). The chat executor uses a full cutover instead
+because no external consumer injects <code>AgentFactory</code> into it — only the CLI and <code>ChatSessionManager</code>
+call it.</p>
+<p><strong>Key architectural differences from test runner decoupling</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Test Runner (Phase 9)</th>
+<th>Chat Executor (Phase 10)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entry point</td>
+<td><code>AgentBackend.invoke_once()</code></td>
+<td><code>AgentBackend.create_session()</code> → <code>AgentSession.send()</code></td>
+</tr>
+<tr>
+<td>State model</td>
+<td>Stateless (fresh per test)</td>
+<td>Stateful (multi-turn, history preserved)</td>
+</tr>
+<tr>
+<td>Dual-path</td>
+<td>Yes (backend + legacy factory)</td>
+<td>No (full cutover)</td>
+</tr>
+<tr>
+<td>Mode</td>
+<td><code>mode="test"</code></td>
+<td><code>mode="chat"</code></td>
+</tr>
+<tr>
+<td>Streaming</td>
+<td>N/A</td>
+<td><code>AgentSession.send_streaming()</code> (net-new)</td>
+</tr>
+<tr>
+<td>Permission mode</td>
+<td>Forced <code>bypassPermissions</code></td>
+<td>Respects YAML <code>permission_mode</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>History tracking</strong>: The executor maintains a local <code>list[dict]</code> of <code>{role, content}</code> dicts.
+This avoids extending the <code>AgentSession</code> protocol. Both backends handle conversation state
+internally (SK via <code>ChatHistory</code>, Claude via subprocess <code>session_id</code>) — the executor's local
+history is for display/export only.</p>
+<p><strong>Streaming architecture</strong>: <code>AgentSession.send_streaming()</code> is already defined in the protocol
+(<code>backends/base.py</code>). <code>ClaudeSession</code> yields real text chunks from the subprocess event stream.
+<code>SKSession</code> falls back to yielding the complete response as a single chunk. The chat CLI writes
+chunks directly to stdout for progressive display.</p>
+<p><strong>Alternatives considered</strong>: Dual-path approach matching test runner (rejected — unnecessary
+complexity since no external consumer injects <code>AgentFactory</code> into the chat executor).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

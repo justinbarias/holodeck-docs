@@ -1,0 +1,2748 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/001-cli-core-engine/spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Feature Specification: CLI & Core Agent Engine (v0.1) - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#feature-specification-cli-core-agent-engine-v01" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feature Specification: CLI &amp; Core Agent Engine (v0.1)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-scenarios-testing-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Scenarios &amp; Testing (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Scenarios &amp; Testing (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-story-1-define-agent-configuration-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 1 - Define Agent Configuration (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-2-initialize-new-agent-project-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 2 - Initialize New Agent Project (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-25-configure-global-settings-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 2.5 - Configure Global Settings (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-3-execute-agent-against-test-cases-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 3 - Execute Agent Against Test Cases (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-4-interactive-agent-testing-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 4 - Interactive Agent Testing (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-5-deploy-agent-as-local-api-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 5 - Deploy Agent as Local API (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-6-execute-tool-operations-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 6 - Execute Tool Operations (Priority: P1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Story 6 - Execute Tool Operations (Priority: P1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#us-61-vector-search-tool-operations-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US 6.1 - Vector Search Tool Operations (Priority: P1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="US 6.1 - Vector Search Tool Operations (Priority: P1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#us-611-unstructured-data-vectorization-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US 6.1.1 - Unstructured Data Vectorization (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#us-612-structured-data-field-mapping-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US 6.1.2 - Structured Data Field Mapping (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#us-62-custom-function-tool-operations-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US 6.2 - Custom Function Tool Operations (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#us-63-mcp-tool-operations-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US 6.3 - MCP Tool Operations (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#us-64-prompt-based-tool-operations-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US 6.4 - Prompt-Based Tool Operations (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-7-load-system-instructions-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 7 - Load System Instructions (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clarifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clarifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-2025-10-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session 2025-10-19
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Success Criteria (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurable-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measurable Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#out-of-scope-v02" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of Scope (v0.2+)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="feature-specification-cli-core-agent-engine-v01">Feature Specification: CLI &amp; Core Agent Engine (v0.1)<a class="headerlink" href="#feature-specification-cli-core-agent-engine-v01" title="Permanent link">&para;</a></h1>
+<p><strong>Feature Branch</strong>: <code>001-cli-core-engine</code>
+<strong>Created</strong>: 2025-10-19
+<strong>Status</strong>: Shipped (v0.1 foundation; see inventory)
+<strong>Input</strong>: Inferred from VISION.md v0.1 roadmap - CLI commands and core agent execution engine</p>
+<h2 id="user-scenarios-testing-mandatory">User Scenarios &amp; Testing <em>(mandatory)</em><a class="headerlink" href="#user-scenarios-testing-mandatory" title="Permanent link">&para;</a></h2>
+<!--
+  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
+  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
+  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+
+  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
+  Think of each story as a standalone slice of functionality that can be:
+  - Developed independently
+  - Tested independently
+  - Deployed independently
+  - Demonstrated to users independently
+-->
+
+<h3 id="user-story-1-define-agent-configuration-priority-p1">User Story 1 - Define Agent Configuration (Priority: P1)<a class="headerlink" href="#user-story-1-define-agent-configuration-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A developer edits the agent.yaml file to configure their AI agent's behavior: model provider, instructions, tools, and evaluations. The YAML configuration should be intuitive and validate correctness.</p>
+<p><strong>Why this priority</strong>: Core feature required before any agent can run. Enables the no-code vision - users should define agents entirely through YAML.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by editing agent.yaml and running <code>holodeck test</code> to verify configuration is parsed and applied correctly. Validates the YAML schema works as intended.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent.yaml file with model, instructions, and tools defined, <strong>When</strong> HoloDeck parses the configuration, <strong>Then</strong> no validation errors occur and all sections are correctly loaded</li>
+<li><strong>Given</strong> an agent.yaml with missing required fields, <strong>When</strong> HoloDeck attempts to load it, <strong>Then</strong> clear validation error messages indicate what's missing</li>
+<li><strong>Given</strong> an agent.yaml specifying OpenAI as provider with gpt-4o model, <strong>When</strong> the agent executes, <strong>Then</strong> it uses the configured LLM provider and model</li>
+</ol>
+<hr />
+<h3 id="user-story-2-initialize-new-agent-project-priority-p1">User Story 2 - Initialize New Agent Project (Priority: P1)<a class="headerlink" href="#user-story-2-initialize-new-agent-project-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A developer wants to quickly bootstrap a new AI agent project without writing code. They use the CLI to create a project template with all necessary files and directory structure.</p>
+<p><strong>Why this priority</strong>: Foundational experience - users cannot proceed without this. Essential for onboarding and MVP viability.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by running <code>holodeck init &lt;name&gt;</code> and verifying all expected files/directories are created. Delivers immediate value for project setup.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> the user has HoloDeck installed, <strong>When</strong> they run <code>holodeck init customer-support --template conversational</code>, <strong>Then</strong> a new directory is created with agent.yaml, instructions/, data/, tools/, and tests/ folders</li>
+<li><strong>Given</strong> the user initializes a project, <strong>When</strong> they examine the generated agent.yaml, <strong>Then</strong> it contains valid YAML structure with model, instructions, and tools sections ready for customization</li>
+<li><strong>Given</strong> the user runs init without specifying a template, <strong>When</strong> the command completes, <strong>Then</strong> a basic default template is used with sensible defaults</li>
+</ol>
+<hr />
+<h3 id="user-story-25-configure-global-settings-priority-p1">User Story 2.5 - Configure Global Settings (Priority: P1)<a class="headerlink" href="#user-story-25-configure-global-settings-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A developer wants to configure global HoloDeck settings once (API keys, vector store connections, deployment defaults) so they can be reused across multiple agent projects without repeating configuration.</p>
+<p><strong>Why this priority</strong>: Critical for practical multi-project workflows. Developers need centralized credential management before they can use agents across different projects. Essential for MVP user experience.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by creating/updating <code>~/.holodeck/config.yaml</code> and verifying that agent projects can load credentials from global config. Validates configuration precedence works correctly.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a user creates <code>~/.holodeck/config.yaml</code> with provider credentials, <strong>When</strong> they run an agent that references those providers, <strong>Then</strong> the agent successfully uses credentials from global config</li>
+<li><strong>Given</strong> global config specifies vectorstore connections (Redis, Postgres), <strong>When</strong> an agent.yaml tool references a vectorstore, <strong>Then</strong> the agent uses the connection details from global config</li>
+<li><strong>Given</strong> both global config and agent.yaml specify the same provider, <strong>When</strong> the agent initializes, <strong>Then</strong> agent.yaml settings take precedence over global config</li>
+<li><strong>Given</strong> global config specifies environment variables with <code>${VARIABLE_NAME}</code> syntax, <strong>When</strong> the config is loaded, <strong>Then</strong> environment variables are properly substituted</li>
+<li><strong>Given</strong> a developer sets deployment defaults in global config, <strong>When</strong> they run <code>holodeck deploy</code>, <strong>Then</strong> the deployment uses those defaults (unless overridden by CLI flags)</li>
+</ol>
+<hr />
+<h3 id="user-story-3-execute-agent-against-test-cases-priority-p1">User Story 3 - Execute Agent Against Test Cases (Priority: P1)<a class="headerlink" href="#user-story-3-execute-agent-against-test-cases-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A developer runs their agent through predefined test cases to verify behavior. They want to see if the agent produces expected outputs and uses the correct tools, with evaluation metrics applied.</p>
+<p><strong>Why this priority</strong>: Essential for the hypothesis-driven testing promise. Without this, developers can't validate agent behavior before deployment.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by defining test cases and running <code>holodeck test agent.yaml</code>. Validates agents execute correctly and evaluations work.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> test cases with input and ground_truth defined, <strong>When</strong> <code>holodeck test</code> executes, <strong>Then</strong> each test case runs and produces agent responses</li>
+<li><strong>Given</strong> test cases with expected_tools specified, <strong>When</strong> the agent executes, <strong>Then</strong> HoloDeck tracks which tools were called and compares against expected_tools</li>
+<li><strong>Given</strong> evaluations configured in agent.yaml, <strong>When</strong> tests execute, <strong>Then</strong> evaluation metrics (groundedness, relevance, etc.) are calculated and displayed with pass/fail status</li>
+</ol>
+<hr />
+<h3 id="user-story-4-interactive-agent-testing-priority-p2">User Story 4 - Interactive Agent Testing (Priority: P2)<a class="headerlink" href="#user-story-4-interactive-agent-testing-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A developer wants to chat with their agent interactively in the terminal to test behavior in real-time before running formal test cases.</p>
+<p><strong>Why this priority</strong>: Important for developer experience and debugging. Enables rapid iteration and learning but not blocking for MVP.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by running <code>holodeck chat agent.yaml</code> and having a conversation session. Validates real-time agent interaction works.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an initialized agent, <strong>When</strong> the user runs <code>holodeck chat agent.yaml</code>, <strong>Then</strong> an interactive prompt appears accepting user input</li>
+<li><strong>Given</strong> user input in the chat interface, <strong>When</strong> the user sends a message, <strong>Then</strong> the agent processes it and returns a response with visible tool execution</li>
+<li><strong>Given</strong> an active chat session, <strong>When</strong> the user types 'exit', <strong>Then</strong> the session ends gracefully</li>
+</ol>
+<hr />
+<h3 id="user-story-5-deploy-agent-as-local-api-priority-p2">User Story 5 - Deploy Agent as Local API (Priority: P2)<a class="headerlink" href="#user-story-5-deploy-agent-as-local-api-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A developer wants to deploy their tested agent as a running FastAPI server locally to test it as a service with API endpoints.</p>
+<p><strong>Why this priority</strong>: Enables production validation before cloud deployment. Important for workflow but P2 since initial testing can work without it.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by running <code>holodeck deploy agent.yaml --port 8000</code> and hitting the API endpoints with curl/client. Validates local deployment works.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a valid agent.yaml, <strong>When</strong> <code>holodeck deploy agent.yaml --port 8000</code> is executed, <strong>Then</strong> a FastAPI server starts and listens on port 8000</li>
+<li><strong>Given</strong> a running deployed agent, <strong>When</strong> a POST request is sent to <code>/v1/chat</code> with a message, <strong>Then</strong> the agent processes the request and returns a JSON response</li>
+<li><strong>Given</strong> a deployed agent, <strong>When</strong> a request is sent to <code>/health</code>, <strong>Then</strong> the endpoint returns a 200 status indicating the service is healthy</li>
+</ol>
+<hr />
+<h3 id="user-story-6-execute-tool-operations-priority-p1">User Story 6 - Execute Tool Operations (Priority: P1)<a class="headerlink" href="#user-story-6-execute-tool-operations-priority-p1" title="Permanent link">&para;</a></h3>
+<p>The core agent engine executes tool calls during agent reasoning. Tools can be vector search, custom functions, MCP-based integrations, or prompt-based semantic functions.</p>
+<p><strong>Why this priority</strong>: Fundamental to agent functionality. Agents are useless without tool execution capability.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by configuring tools in agent.yaml and running a test case that triggers tool usage. Validates tool execution pipeline works end-to-end.</p>
+<h4 id="us-61-vector-search-tool-operations-priority-p1">US 6.1 - Vector Search Tool Operations (Priority: P1)<a class="headerlink" href="#us-61-vector-search-tool-operations-priority-p1" title="Permanent link">&para;</a></h4>
+<p>A developer defines a vectorstore tool that performs semantic search over grounding data. The agent engine loads data sources (unstructured text or structured data), embeds content, and returns semantically similar results with proper field mapping and metadata handling.</p>
+<h5 id="us-611-unstructured-data-vectorization-priority-p1">US 6.1.1 - Unstructured Data Vectorization (Priority: P1)<a class="headerlink" href="#us-611-unstructured-data-vectorization-priority-p1" title="Permanent link">&para;</a></h5>
+<p>The vectorstore tool supports unstructured text data in multiple formats and creates searchable embeddings from full content.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a tool defined as <code>type: vectorstore</code> with <code>source: data/faqs.md</code> in agent.yaml, <strong>When</strong> the agent calls this tool with a query, <strong>Then</strong> the markdown file content is embedded and semantically similar results are returned</li>
+<li><strong>Given</strong> a vectorstore tool with <code>source: data/docs/</code> pointing to a directory, <strong>When</strong> the agent executes, <strong>Then</strong> all supported text files in the directory are loaded and embedded (supports: .txt, .md, .pdf, .csv, .json)</li>
+<li><strong>Given</strong> a vectorstore tool with unstructured data and embedding_model specified (e.g., <code>text-embedding-3-small</code>), <strong>When</strong> the agent executes, <strong>Then</strong> embeddings are generated using the specified model</li>
+<li><strong>Given</strong> a vectorstore tool searching unstructured data, <strong>When</strong> the agent calls it with a query, <strong>Then</strong> results are ranked by relevance score and returned in order with source file reference</li>
+<li><strong>Given</strong> a vectorstore tool with a configured vector database (e.g., Redis, Postgres), <strong>When</strong> the agent executes, <strong>Then</strong> the data source is ingested using the file_processor and stored in the vector database for search</li>
+</ol>
+<hr />
+<h5 id="us-612-structured-data-field-mapping-priority-p1">US 6.1.2 - Structured Data Field Mapping (Priority: P1)<a class="headerlink" href="#us-612-structured-data-field-mapping-priority-p1" title="Permanent link">&para;</a></h5>
+<p>The vectorstore tool supports structured data (CSV, JSON) with flexible field selection for vectorization and metadata handling.</p>
+<p><strong>CSV Data Configuration</strong>:</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a vectorstore tool with <code>source: data/products.csv</code> and <code>vector_field: description</code>, <strong>When</strong> the agent calls this tool, <strong>Then</strong> only the "description" column content is embedded and searchable</li>
+<li><strong>Given</strong> a CSV with multiple text columns and <code>vector_fields: [description, specs, reviews]</code>, <strong>When</strong> the agent executes, <strong>Then</strong> content from all specified columns is combined and embedded as a single vector per row</li>
+<li><strong>Given</strong> a CSV with <code>vector_field: content</code> and <code>meta_fields: [id, name, category]</code>, <strong>When</strong> the agent searches, <strong>Then</strong> results include both the matched content and metadata fields in the response</li>
+<li><strong>Given</strong> a CSV with no <code>vector_field</code> specified, <strong>When</strong> the agent initializes, <strong>Then</strong> all text-type columns are automatically used for vectorization</li>
+<li><strong>Given</strong> a CSV search result, <strong>When</strong> the agent receives it, <strong>Then</strong> both the vector-matched content and metadata are returned for LLM context</li>
+</ol>
+<hr />
+<p><strong>JSON Data Configuration</strong>:</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a vectorstore tool with <code>source: data/articles.json</code> and <code>vector_field: content</code> (flat structure), <strong>When</strong> the agent calls this tool, <strong>Then</strong> the "content" field from each JSON object is embedded</li>
+<li><strong>Given</strong> a nested JSON structure with <code>record_path: items</code> and <code>vector_field: description</code>, <strong>When</strong> the agent loads the data, <strong>Then</strong> each object in the "items" array is treated as a separate record with its "description" field embedded</li>
+<li><strong>Given</strong> a nested JSON with <code>record_path: data.records</code> (dot notation for nested access), <strong>When</strong> the agent executes, <strong>Then</strong> the tool correctly navigates to nested arrays using path notation</li>
+<li><strong>Given</strong> a nested JSON with <code>record_path: items</code> and <code>record_prefix: record_</code> and <code>meta_prefix: meta_</code>, <strong>When</strong> the agent initializes, <strong>Then</strong> fields from record path are prefixed with "record<em>" and metadata fields are prefixed with "meta</em>" in the output</li>
+<li><strong>Given</strong> a complex JSON with <code>meta</code> specified as <code>[id, category, tags, author]</code>, <strong>When</strong> the agent searches, <strong>Then</strong> these fields are stored as metadata and returned with search results without being vectorized</li>
+<li><strong>Given</strong> a JSON with multiple text fields and no explicit <code>vector_field</code> specified, <strong>When</strong> the agent initializes, <strong>Then</strong> all text-type fields are combined and vectorized per record</li>
+<li><strong>Given</strong> a JSON structure with mixed data types, <strong>When</strong> the tool processes records, <strong>Then</strong> numeric, boolean, and null fields are included in metadata without vectorization</li>
+</ol>
+<hr />
+<p><strong>Generic Structured Data Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a vectorstore tool with <code>source: data/structured_data</code> (auto-detected format: CSV or JSON), <strong>When</strong> the agent executes, <strong>Then</strong> the tool automatically detects and applies appropriate parsing</li>
+<li><strong>Given</strong> a vectorstore tool with explicit <code>chunk_size: 512</code> and <code>chunk_overlap: 128</code>, <strong>When</strong> loading long text fields, <strong>Then</strong> content is split into chunks with specified overlap for better search granularity</li>
+<li><strong>Given</strong> a structured data source with <code>vector_field: [description, summary]</code> and chunking enabled, <strong>When</strong> the agent searches, <strong>Then</strong> it can match against any chunk and return the full record with chunk reference</li>
+<li><strong>Given</strong> a vectorstore tool loading large structured data, <strong>When</strong> multiple records have the same vector embedding, <strong>Then</strong> all matching records are returned with relevance scores</li>
+</ol>
+<hr />
+<p><strong>Unified Search Results</strong>:</p>
+<ol>
+<li><strong>Given</strong> a vectorstore tool returning structured data matches, <strong>When</strong> the agent receives results, <strong>Then</strong> each result contains: matched_content, metadata_fields, source_reference, relevance_score</li>
+<li><strong>Given</strong> a vectorstore tool with both <code>meta_fields</code> and chunking enabled, <strong>When</strong> returning results, <strong>Then</strong> metadata is preserved consistently across all chunks from the same record</li>
+<li><strong>Given</strong> a search query executed on structured data, <strong>When</strong> results are returned, <strong>Then</strong> the agent can reconstruct the original record structure from the response for context</li>
+</ol>
+<hr />
+<h4 id="us-62-custom-function-tool-operations-priority-p1">US 6.2 - Custom Function Tool Operations (Priority: P1)<a class="headerlink" href="#us-62-custom-function-tool-operations-priority-p1" title="Permanent link">&para;</a></h4>
+<p>A developer defines a function tool that points to a Python function in the tools/ directory. The agent engine loads the function, validates parameters, and executes it with proper error handling.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a tool defined as <code>type: function</code> with <code>file: tools/orders.py</code> and <code>function: check_order_status</code> in agent.yaml, <strong>When</strong> the agent calls this tool with parameters (e.g., order_id), <strong>Then</strong> the Python function is loaded and executed</li>
+<li><strong>Given</strong> a function tool with parameters schema defined, <strong>When</strong> the agent calls it, <strong>Then</strong> parameters are validated against the schema before execution</li>
+<li><strong>Given</strong> a function tool that raises an exception during execution, <strong>When</strong> the agent calls it, <strong>Then</strong> the error is caught, logged, and returned to the agent with a clear error message</li>
+<li><strong>Given</strong> a function tool returns a result, <strong>When</strong> the agent receives it, <strong>Then</strong> the result is properly serialized and passed back to the LLM for further reasoning</li>
+</ol>
+<hr />
+<h4 id="us-63-mcp-tool-operations-priority-p1">US 6.3 - MCP Tool Operations (Priority: P1)<a class="headerlink" href="#us-63-mcp-tool-operations-priority-p1" title="Permanent link">&para;</a></h4>
+<p>A developer defines an MCP (Model Context Protocol) tool that integrates with standardized MCP servers. The agent engine establishes connections to MCP servers, sends requests through the standard protocol, and handles responses.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a tool defined as <code>type: mcp</code> with <code>server: @modelcontextprotocol/server-filesystem</code> in agent.yaml, <strong>When</strong> the agent calls this tool, <strong>Then</strong> the MCP server is invoked using the standard Model Context Protocol</li>
+<li><strong>Given</strong> an MCP tool with custom configuration (e.g., allowed_directories, API tokens), <strong>When</strong> the agent executes, <strong>Then</strong> configuration is properly passed to the MCP server</li>
+<li><strong>Given</strong> an MCP server that returns structured data, <strong>When</strong> the agent receives the response, <strong>Then</strong> the response is properly parsed and integrated into agent reasoning</li>
+<li><strong>Given</strong> an MCP server connection that fails, <strong>When</strong> the agent attempts to use the tool, <strong>Then</strong> the error is caught and returned with a clear message about the MCP server unavailability</li>
+</ol>
+<hr />
+<h4 id="us-64-prompt-based-tool-operations-priority-p1">US 6.4 - Prompt-Based Tool Operations (Priority: P1)<a class="headerlink" href="#us-64-prompt-based-tool-operations-priority-p1" title="Permanent link">&para;</a></h4>
+<p>A developer defines a prompt-based tool (semantic function) that uses an LLM to transform input. The agent engine manages the prompt template, substitutes parameters, and returns the LLM result.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a tool defined as <code>type: prompt</code> with an inline template and parameters in agent.yaml, <strong>When</strong> the agent calls this tool with input, <strong>Then</strong> the template is instantiated with the provided parameters and sent to the specified LLM</li>
+<li><strong>Given</strong> a prompt-based tool with <code>file: tools/prompts/extract_entities.md</code>, <strong>When</strong> the agent calls it, <strong>Then</strong> the prompt file is loaded and the template is instantiated with parameters</li>
+<li><strong>Given</strong> a prompt-based tool with model configuration specified, <strong>When</strong> the agent executes, <strong>Then</strong> the tool uses the configured LLM provider and model (not the agent's model unless unspecified)</li>
+<li><strong>Given</strong> a prompt-based tool returns structured output (JSON), <strong>When</strong> the agent receives it, <strong>Then</strong> the output is properly parsed and passed back to the agent for reasoning</li>
+</ol>
+<hr />
+<h3 id="user-story-7-load-system-instructions-priority-p1">User Story 7 - Load System Instructions (Priority: P1)<a class="headerlink" href="#user-story-7-load-system-instructions-priority-p1" title="Permanent link">&para;</a></h3>
+<p>The agent engine loads instructions from a file (typically system-prompt.md) or inline YAML configuration that guides agent behavior.</p>
+<p><strong>Why this priority</strong>: Core to agent behavior - instructions define the agent's role and constraints. Required for any meaningful agent execution.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by specifying instructions in agent.yaml and verifying they're passed to the LLM. Validates instruction loading works.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> instructions specified as <code>file: instructions/system-prompt.md</code> in agent.yaml, <strong>When</strong> the agent initializes, <strong>Then</strong> the file content is loaded and used as system prompt</li>
+<li><strong>Given</strong> instructions specified inline in agent.yaml, <strong>When</strong> the agent initializes, <strong>Then</strong> the inline instruction text is used as system prompt</li>
+<li><strong>Given</strong> an agent with instructions, <strong>When</strong> it makes LLM calls, <strong>Then</strong> the instructions are included in the prompt sent to the model</li>
+</ol>
+<h3 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>What happens when an agent.yaml file contains invalid YAML syntax?</li>
+<li>What happens when a referenced tool file (tools/custom.py) doesn't exist?</li>
+<li>What happens when the LLM provider API key is missing or invalid?</li>
+<li>What happens when the global config file <code>~/.holodeck/config.yaml</code> doesn't exist? (Should gracefully fall back to env vars or agent.yaml credentials)</li>
+<li>What happens when environment variable substitution in global config references an undefined variable?</li>
+<li>What happens when both global config and agent.yaml specify conflicting credentials? (agent.yaml takes precedence)</li>
+<li>What happens when a test case references a tool that's not defined in agent.yaml?</li>
+<li>What happens when an evaluation metric fails to calculate (e.g., LLM call times out)?</li>
+<li>How does the system handle very long agent conversations in chat mode (memory management)?</li>
+<li>What happens when multiple tools are called simultaneously by the agent?</li>
+<li>How are concurrent requests handled in the deployed API?</li>
+<li>When a user exits chat mode and re-runs it, should previous conversations be available? (Clarified: No persistence by default in v0.1 to keep implementation lightweight)</li>
+</ul>
+<h2 id="requirements-mandatory">Requirements <em>(mandatory)</em><a class="headerlink" href="#requirements-mandatory" title="Permanent link">&para;</a></h2>
+<!--
+  ACTION REQUIRED: The content in this section represents placeholders.
+  Fill them out with the right functional requirements.
+-->
+
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<p><strong>CLI &amp; Project Initialization</strong></p>
+<ul>
+<li><strong>FR-001</strong>: System MUST provide <code>holodeck init &lt;project_name&gt;</code> command that creates project directory with agent.yaml, instructions/, tools/, tests/, and data/ folders</li>
+<li><strong>FR-002</strong>: System MUST support multiple project templates (e.g., <code>--template conversational</code>, <code>--template research</code>, <code>--template customer-support</code>) with sensible defaults for each</li>
+<li><strong>FR-003</strong>: System MUST provide <code>holodeck --version</code> command showing the installed HoloDeck version</li>
+</ul>
+<p><strong>Global Configuration</strong></p>
+<ul>
+<li><strong>FR-003a</strong>: System MUST support global configuration file at <code>~/.holodeck/config.yaml</code> for provider credentials, vector store connections, and deployment defaults</li>
+<li><strong>FR-003b</strong>: System MUST support provider configuration for LLM providers (openai, azure_openai, anthropic) with API keys and endpoints</li>
+<li><strong>FR-003c</strong>: System MUST support vectorstore configuration (Redis, Postgres) for vector database connections at the global level</li>
+<li><strong>FR-003d</strong>: System MUST support deployment defaults configuration (default_port, rate_limit, auth settings) in global config</li>
+<li><strong>FR-003e</strong>: System MUST support environment variable substitution in global config using <code>${VARIABLE_NAME}</code> syntax</li>
+<li><strong>FR-003f</strong>: System MUST load provider credentials from global config if not explicitly specified in agent.yaml or environment variables (precedence: agent.yaml &gt; env vars &gt; global config)</li>
+</ul>
+<p><strong>Agent Configuration &amp; Loading</strong></p>
+<ul>
+<li><strong>FR-004</strong>: System MUST parse and validate agent.yaml files against a defined schema with clear error messages for invalid configurations</li>
+<li><strong>FR-005</strong>: System MUST support agent.yaml specifying model provider (openai, azure_openai, anthropic) and model name with configuration options (temperature, max_tokens)</li>
+<li><strong>FR-006</strong>: System MUST load agent instructions from either file path or inline YAML specification</li>
+<li><strong>FR-007</strong>: System MUST support tool definitions as vectorstore, function, or MCP types in agent.yaml</li>
+</ul>
+<p><strong>Agent Execution &amp; Tool System</strong></p>
+<ul>
+<li><strong>FR-008</strong>: System MUST execute agent reasoning loops that process user input, call LLMs with instructions, and invoke tools as needed</li>
+<li><strong>FR-009</strong>: System MUST support vectorstore tools (type: vectorstore) that embed queries and return semantically similar results from unstructured text data (single files, directories, multiple formats: .txt, .md, .pdf)</li>
+<li><strong>FR-009a</strong>: System MUST support vectorstore tools for structured data (CSV, JSON) with field mapping configuration: <code>vector_field</code>, <code>vector_fields</code>, <code>meta_fields</code>, <code>chunk_size</code>, <code>chunk_overlap</code></li>
+<li><strong>FR-009b</strong>: System MUST support JSON data normalization for nested structures using: <code>record_path</code>, <code>record_prefix</code>, <code>meta_prefix</code>, <code>meta</code> array specification (pandas.json_normalize pattern)</li>
+<li><strong>FR-009c</strong>: System MUST automatically detect data format and parse CSV/JSON correctly; for unspecified <code>vector_field</code>, MUST use all text-type columns/fields</li>
+<li><strong>FR-009d</strong>: System MUST preserve and return metadata fields with search results including matched_content, metadata_fields, source_reference, and relevance_score</li>
+<li><strong>FR-014</strong>: System MUST support custom function tools (type: function) loaded from Python files with parameter validation and error handling</li>
+<li><strong>FR-015</strong>: System MUST support MCP tools (type: mcp) that invoke standardized Model Context Protocol servers with proper request/response handling</li>
+<li><strong>FR-016</strong>: System MUST support prompt-based tools (type: prompt) that use LLM templates with parameter substitution and configurable model providers</li>
+<li><strong>FR-017</strong>: System MUST track which tools are invoked during agent execution for validation against expected_tools</li>
+</ul>
+<p><strong>Testing &amp; Evaluation</strong></p>
+<ul>
+<li><strong>FR-018</strong>: System MUST provide <code>holodeck test agent.yaml</code> command that runs all test cases defined in agent.yaml against the agent</li>
+<li><strong>FR-019</strong>: System MUST support test cases with input, expected_tools, and ground_truth fields for validation</li>
+<li><strong>FR-020</strong>: System MUST execute configured evaluation metrics (AI-powered like groundedness/relevance, and NLP-based like F1/BLEU/ROUGE) on test results</li>
+<li><strong>FR-020a</strong>: System MUST handle failed evaluation metrics gracefully; failed metrics show "ERROR" status with logged details; test continues to validate agent reasoning even if metrics can't be calculated</li>
+<li><strong>FR-021</strong>: System MUST compare actual tool usage against expected_tools and report pass/fail for each test case</li>
+<li><strong>FR-022</strong>: System MUST provide clear test output showing which tests passed, which failed, and why (evaluation scores, tool mismatches, metric errors, etc.)</li>
+<li><strong>FR-023</strong>: System MUST support ground_truth comparison when provided to calculate accuracy-based metrics</li>
+</ul>
+<p><strong>Interactive Testing</strong></p>
+<ul>
+<li><strong>FR-024</strong>: System MUST provide <code>holodeck chat agent.yaml</code> command that starts an interactive terminal session with the agent</li>
+<li><strong>FR-025</strong>: System MUST accept user input in chat mode and display agent responses with visible tool execution trace</li>
+<li><strong>FR-026</strong>: System MUST gracefully handle session termination (e.g., 'exit' or Ctrl+C) in chat mode</li>
+<li><strong>FR-026a</strong>: System MUST maintain conversation history in chat mode; v0.1 CLI defaults to in-memory storage of last N messages (configurable, e.g., 20 messages)</li>
+<li><strong>FR-026b</strong>: System MUST support memory strategy configuration for API deployments (in-memory, Redis, database); CLI mode uses in-memory by default</li>
+</ul>
+<p><strong>Local Deployment</strong></p>
+<ul>
+<li><strong>FR-027</strong>: System MUST provide <code>holodeck deploy agent.yaml</code> command that starts a local FastAPI server with the agent</li>
+<li><strong>FR-028</strong>: System MUST support <code>--port</code> option to specify which port the API server runs on (default: 8000)</li>
+<li><strong>FR-029</strong>: System MUST provide <code>/v1/chat</code> POST endpoint accepting JSON with message and optional session_id, returning agent response</li>
+<li><strong>FR-029a</strong>: System MUST isolate session state per session_id; requests to the same session_id are serialized to prevent race conditions</li>
+<li><strong>FR-029b</strong>: System MUST generate and return a session_id in the response if not provided in the request</li>
+<li><strong>FR-030</strong>: System MUST provide <code>/health</code> GET endpoint returning 200 status when service is running</li>
+<li><strong>FR-031</strong>: System MUST include structured JSON logging for all requests/responses in deployed agents with fields: timestamp, request_id, session_id, message_input, tool_calls, response, duration_ms, error</li>
+<li><strong>FR-031a</strong>: System MUST rotate logs daily with 7-day retention by default; log location: <code>~/.holodeck/logs/agent-&lt;name&gt;.log</code></li>
+<li><strong>FR-031b</strong>: System MUST support log configuration in agent.yaml (log_level, rotation_days, retention_days) to override defaults</li>
+</ul>
+<p><strong>Error Handling &amp; Validation</strong></p>
+<ul>
+<li><strong>FR-032</strong>: System MUST provide clear validation error messages when agent.yaml is malformed or missing required fields</li>
+<li><strong>FR-033</strong>: System MUST provide clear error messages when referenced files (instructions, tools, data) don't exist</li>
+<li><strong>FR-034</strong>: System MUST provide clear error messages when LLM API calls fail (auth errors, rate limits, model not found)</li>
+<li><strong>FR-035</strong>: System MUST provide clear error messages when evaluation metrics fail to calculate</li>
+<li><strong>FR-036</strong>: System MUST NOT block agent execution when tool calls fail; failed tools MUST log errors and return empty string context to the agent for continued reasoning</li>
+<li><strong>FR-037</strong>: System MUST support middleware hooks for extensible tool error recovery (e.g., custom retry logic, fallback strategies) without blocking default graceful-degradation behavior</li>
+</ul>
+<h3 id="key-entities">Key Entities<a class="headerlink" href="#key-entities" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Agent</strong>: Represents a single AI agent instance defined by agent.yaml, with model provider, instructions, tools, and evaluation configuration</li>
+<li><strong>Tool</strong>: Represents an agent's capability - can be vectorstore search (type: vectorstore), custom Python function (type: function), MCP integration (type: mcp), or prompt-based semantic function (type: prompt)</li>
+<li><strong>TestCase</strong>: Represents a single test scenario with input, optional ground_truth, expected_tools, and evaluation requirements</li>
+<li><strong>EvaluationMetric</strong>: Represents a metric that measures test result quality (groundedness, relevance, F1, etc.) with configurable threshold</li>
+<li><strong>Project</strong>: Represents the directory structure created by <code>holodeck init</code> containing agent.yaml and supporting files</li>
+<li><strong>SearchResult</strong> (NEW): Represents a vectorstore search result with structured fields: <code>matched_content</code> (string), <code>metadata_dict</code> (dict), <code>source_reference</code> (string), and <code>relevance_score</code> (float). Must be modeled as a concrete type/class in implementation for consistent handling across tool execution pipeline</li>
+</ul>
+<h2 id="clarifications">Clarifications<a class="headerlink" href="#clarifications" title="Permanent link">&para;</a></h2>
+<h3 id="session-2025-10-19">Session 2025-10-19<a class="headerlink" href="#session-2025-10-19" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Q: How should vectorstore search results be structured to support agent reasoning and test assertions? → A: Each result returns {matched_content, metadata_dict, source_reference, relevance_score} as a concrete SearchResult type/class for consistent handling across tool execution pipeline.</li>
+<li>Q: When tools fail (network errors, exceptions, timeouts), should errors block agent execution? → A: Errors should not block execution by default. Failed tool errors are logged, but return an empty string in the context to the agent. Error recovery/retry behavior must be extensible through middleware hooks for custom strategies.</li>
+<li>Q: How should chat mode manage conversation memory and session state? → A: Chat memory strategy is configurable. v0.1 CLI experimentation mode defaults to in-memory (last N messages). For API deployment, strategy becomes configurable via agent.yaml (Redis cache, database, or in-memory).</li>
+<li>Q: How should the API handle concurrent requests and session state isolation? → A: Session isolation via session_id. Each request includes session_id; API maintains separate conversation history per session. Requests to the same session_id are serialized (queued) to prevent race conditions.</li>
+<li>Q: When evaluation metrics fail (LLM timeout, rate limit), should failed metrics fail the entire test? → A: Soft failure: Test continues; failed metrics show "ERROR" status with logged error details. Agent reasoning is validated even if some metrics can't be calculated. Prevents external API issues from breaking feedback loops.</li>
+<li>Q: How should global configuration interact with agent.yaml and environment variables? → A: Three-level precedence: agent.yaml (highest) &gt; environment variables &gt; global config (lowest). If agent.yaml specifies a provider, it overrides global config. If neither agent.yaml nor env vars specify credentials, system loads from global config. Missing global config file is not an error; system gracefully falls back to env vars or agent.yaml settings.</li>
+<li>Q: When agents are deployed as local APIs, how should request/response logging be implemented? → A: Structured JSON logs to file with rotation policy. Logs MUST include: timestamp, request_id, session_id, message_input, tool_calls, response, duration_ms, error (if any). Logs are rotated daily with 7-day retention by default. Format enables easy parsing for monitoring/aggregation and supports future OpenTelemetry integration.</li>
+<li>Q: What should be the default retry behavior when tools fail? → A: No automatic retries by default. Errors are logged and returned as empty string context to the agent for continued reasoning. This aligns with graceful degradation principle and keeps initial implementation simple. Users can define custom retry logic via middleware hooks if needed.</li>
+<li>Q: For chat mode in CLI, should conversation history persist across sessions? → A: No persistence by default. Conversation history resets each session. This keeps v0.1 implementation lightweight, prevents unbounded memory growth, and aligns with CLI as an experimentation/exploration tool. Users can enable persistence via agent.yaml configuration if needed in future versions.</li>
+</ul>
+<h2 id="success-criteria-mandatory">Success Criteria <em>(mandatory)</em><a class="headerlink" href="#success-criteria-mandatory" title="Permanent link">&para;</a></h2>
+<!--
+  ACTION REQUIRED: Define measurable success criteria.
+  These must be technology-agnostic and measurable.
+-->
+
+<h3 id="measurable-outcomes">Measurable Outcomes<a class="headerlink" href="#measurable-outcomes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SC-001</strong>: Developers can initialize a new agent project and have a working agent.yaml in under 30 seconds</li>
+<li><strong>SC-002</strong>: Agent execution against a test case completes in under 5 seconds per test (including LLM calls)</li>
+<li><strong>SC-003</strong>: Developers can define and test agents entirely through YAML without writing any Python code</li>
+<li><strong>SC-004</strong>: Test results clearly show which evaluation metrics passed/failed with specific scores (e.g., "Groundedness: 4.2/5.0 ✓")</li>
+<li><strong>SC-005</strong>: Tool invocation tracking works with 100% accuracy (all called tools are correctly identified and compared against expected_tools)</li>
+<li><strong>SC-006</strong>: Chat mode provides real-time interaction with response time under 3 seconds per message</li>
+<li><strong>SC-007</strong>: Deployed API handles at least 10 concurrent requests without errors</li>
+<li><strong>SC-008</strong>: Error messages are actionable - developer can understand and fix issues without consulting documentation</li>
+<li><strong>SC-009</strong>: All CLI commands (<code>init</code>, <code>test</code>, <code>chat</code>, <code>deploy</code>) are available and functional</li>
+<li><strong>SC-010</strong>: Documentation/help for all CLI commands is accessible via <code>--help</code> or command examples</li>
+</ul>
+<hr />
+<h2 id="assumptions">Assumptions<a class="headerlink" href="#assumptions" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>LLM Provider Setup</strong>: Users have valid API keys for their chosen LLM provider (OpenAI, Azure, etc.) configured in environment variables</li>
+<li><strong>Python Environment</strong>: Users have Python 3.10+ installed with pip/Poetry available</li>
+<li><strong>Local Development Only</strong>: v0.1 deployment is local only; cloud deployment comes in later versions</li>
+<li><strong>Single Agent Focus</strong>: v0.1 focuses on single-agent execution; multi-agent orchestration comes later</li>
+<li><strong>Tool System Scope</strong>: MCP, vectorstore, and function tools are in scope; external API integrations use MCP pattern, not custom API tool type</li>
+<li><strong>Evaluation Models</strong>: AI-powered evaluations use the same LLM provider/model as the agent unless overridden in agent.yaml</li>
+<li><strong>File Paths</strong>: All file references in agent.yaml are relative to the project directory</li>
+<li><strong>Test Case Structure</strong>: Test cases follow the predefined schema with input as required field, others optional</li>
+</ol>
+<hr />
+<h2 id="out-of-scope-v02">Out of Scope (v0.2+)<a class="headerlink" href="#out-of-scope-v02" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Cloud deployment (Azure, AWS, GCP)</li>
+<li>Multi-agent orchestration patterns (sequential, concurrent, handoff, group chat, magentic)</li>
+<li>Web UI for no-code agent creation</li>
+<li>Advanced RAG with chunking strategies and reranking</li>
+<li>Rate limiting and authentication on deployed APIs</li>
+<li>Enterprise features (SSO, audit logs, RBAC)</li>
+<li>Plugin marketplace/registry</li>
+<li>Advanced observability/monitoring (OpenTelemetry integration)</li>
+<li>Multi-file test case inputs (images, PDFs in test cases)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

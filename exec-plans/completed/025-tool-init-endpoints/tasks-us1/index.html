@@ -1,0 +1,2507 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/025-tool-init-endpoints/tasks-us1/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: US1 - Trigger Tool Initialization - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-us1-trigger-tool-initialization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: US1 - Trigger Tool Initialization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup — Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-response-models-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational — Response Models &amp; Data Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-foundational-core-infrastructure-source-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Foundational — Core Infrastructure &amp; Source Resolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Foundational — Core Infrastructure &amp; Source Resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-resolution-t018t026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source Resolution (T018–T026)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-us1-endpoint-server-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: US1 — Endpoint &amp; Server Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-polish-quality-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: Polish — Quality &amp; Validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guiding-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guiding Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-us1-trigger-tool-initialization">Tasks: US1 - Trigger Tool Initialization<a class="headerlink" href="#tasks-us1-trigger-tool-initialization" title="Permanent link">&para;</a></h1>
+<p><strong>Feature Branch</strong>: <code>025-tool-init-endpoints</code>
+<strong>User Story</strong>: US1 (P1) - Trigger Tool Initialization
+<strong>Date</strong>: 2026-03-24
+<strong>Spec</strong>: <a href="../../../../product-specs/025-tool-init-endpoints/spec/">spec.md</a> | <strong>Plan</strong>: <a href="../plan/">plan.md</a> | <strong>Data Model</strong>: <a href="../../../../design-docs/025-tool-init-endpoints/data-model/">data-model.md</a></p>
+<p><strong>User Story</strong>: A HoloDeck user running <code>holodeck serve</code> triggers the initialization (ingestion/indexing) of a vector-store-based tool via <code>POST /tools/{tool-name}/init</code>. The server immediately returns 201 Created with a <code>Location</code> header and response body containing an href to a status resource. Initialization proceeds in the background.</p>
+<p><strong>Acceptance Scenarios</strong>:
+1. POST /tools/{tool-name}/init for vectorstore tool returns 201 Created with Location header and status href.
+2. POST /tools/{tool-name}/init for hierarchical_document tool returns 201 Created.
+3. POST /tools/{tool-name}/init for non-initializable tool type returns 400 Bad Request.
+4. POST /tools/{tool-name}/init for nonexistent tool returns 404 Not Found.</p>
+<p><strong>FR Coverage</strong>: FR-001, FR-002, FR-005, FR-006, FR-007, FR-009, FR-010, FR-011, FR-012, FR-013, FR-014, FR-015, FR-016, FR-017, FR-018, FR-019, FR-020, FR-021</p>
+<hr />
+<h2 id="phase-1-setup-dependencies">Phase 1: Setup — Dependencies<a class="headerlink" href="#phase-1-setup-dependencies" title="Permanent link">&para;</a></h2>
+<p>These tasks add new project dependencies required by the feature. No story label — they are foundational.</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T001 [P] Add <code>httpx&gt;=0.27</code> to the core <code>dependencies</code> list in <code>pyproject.toml</code>. Place it after the existing <code>aiohttp</code> entry. This is the async HTTP client used by <code>HttpResolver</code> for remote source downloads.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T002 [P] Add optional dependency extras for cloud source resolvers in <code>pyproject.toml</code>. Add <code>s3 = ["boto3&gt;=1.42.0"]</code> (reuses the same version constraint as <code>deploy-aws</code>), <code>azure-blob = ["azure-storage-blob&gt;=12.19"]</code>, and <code>all-sources = ["boto3&gt;=1.42.0", "azure-storage-blob&gt;=12.19"]</code> to <code>[project.optional-dependencies]</code>. Place them after the existing <code>deploy-aws</code> entry.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T003 Run <code>uv sync</code> to install the new <code>httpx</code> core dependency into the virtual environment and verify no dependency conflicts.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-response-models-data-types">Phase 2: Foundational — Response Models &amp; Data Types<a class="headerlink" href="#phase-2-foundational-response-models-data-types" title="Permanent link">&para;</a></h2>
+<p>These tasks create the shared data types and response models that all subsequent phases depend on.</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T004 [P] Add <code>InitJobState</code> enum to <code>src/holodeck/serve/models.py</code>. Define <code>class InitJobState(str, Enum)</code> with values: <code>PENDING = "pending"</code>, <code>IN_PROGRESS = "in_progress"</code>, <code>COMPLETED = "completed"</code>, <code>FAILED = "failed"</code>. Place it after the existing <code>ServerState</code> enum.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T005 [P] Add <code>InitJobProgress</code> Pydantic model to <code>src/holodeck/serve/models.py</code>. Fields: <code>documents_processed: int</code>, <code>total_documents: int | None = None</code>. Place it after <code>InitJobState</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T006 [P] Add <code>InitJobResponse</code> Pydantic model to <code>src/holodeck/serve/models.py</code>. Fields: <code>tool_name: str</code>, <code>state: InitJobState</code>, <code>href: str</code>, <code>created_at: datetime</code>, <code>started_at: datetime | None = None</code>, <code>completed_at: datetime | None = None</code>, <code>message: str | None = None</code>, <code>error_detail: str | None = None</code>, <code>progress: InitJobProgress | None = None</code>, <code>force: bool</code>. Import <code>datetime</code> from the <code>datetime</code> module.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T007 [P] Verify existing <code>ProblemDetail</code> model in <code>src/holodeck/serve/models.py</code> matches the RFC 7807 schema required by init endpoints (fields: <code>type: str = "about:blank"</code>, <code>title: str</code>, <code>status: int</code>, <code>detail: str | None</code>, <code>instance: str | None</code>). The model already exists (lines ~220-239). Confirm no changes needed; if any field is missing, add it. All error responses from init endpoints will use this format with <code>application/problem+json</code> content type.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T008 [P] Add <code>ToolInfoResponse</code> and <code>ToolListResponse</code> Pydantic models to <code>src/holodeck/serve/models.py</code>. <code>ToolInfoResponse</code> fields: <code>name: str</code>, <code>type: str</code>, <code>supports_init: bool</code>, <code>init_status: InitJobState | None = None</code>. <code>ToolListResponse</code> fields: <code>tools: list[ToolInfoResponse]</code>, <code>total: int</code>. These are used by US3 but defined now as foundational types.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-3-foundational-core-infrastructure-source-resolution">Phase 3: Foundational — Core Infrastructure &amp; Source Resolution<a class="headerlink" href="#phase-3-foundational-core-infrastructure-source-resolution" title="Permanent link">&para;</a></h2>
+<p>These tasks build the core orchestration, tool initialization, and source resolution infrastructure. Source resolution tasks are included here because T011 (_run_init_job) depends on SourceResolver.</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T009 Add <code>InitJob</code> dataclass to <code>src/holodeck/serve/tool_init_manager.py</code>. Fields: <code>tool_name: str</code>, <code>state: InitJobState</code>, <code>created_at: datetime</code>, <code>started_at: datetime | None = None</code>, <code>completed_at: datetime | None = None</code>, <code>message: str | None = None</code>, <code>error_detail: str | None = None</code>, <code>progress: InitJobProgress | None = None</code>, <code>force: bool = False</code>. Import <code>InitJobState</code> and <code>InitJobProgress</code> from <code>holodeck.serve.models</code>. Use <code>@dataclass</code> (not Pydantic) since this is mutable internal state mutated by background tasks (R4).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T010 Implement <code>ToolInitManager</code> class in <code>src/holodeck/serve/tool_init_manager.py</code> (FR-013). Constructor accepts <code>agent: Agent</code>, <code>max_concurrent: int = 3</code>. Internal state: <code>_jobs: dict[str, InitJob]</code>, <code>_tasks: dict[str, asyncio.Task]</code>, <code>_active_count: int = 0</code>, <code>_shutting_down: bool = False</code>. Implement <code>start_init_job(tool_name: str, force: bool = False) -&gt; InitJob</code> method that: (a) validates tool exists in agent config and supports init (vectorstore or hierarchical_document), (b) checks <code>_shutting_down</code> flag, (c) rejects with 409-semantic if an active job exists for this tool (pending or in_progress), (d) rejects with 429-semantic if <code>_active_count &gt;= max_concurrent</code>, (e) creates an <code>InitJob</code> in <code>pending</code> state, (f) creates an <code>asyncio.Task</code> wrapping <code>_run_init_job()</code>, (g) registers a done callback that decrements <code>_active_count</code> and transitions state. Return distinct exception types for 400/404/409/429 cases so the route handler can map them to HTTP status codes.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T011 Implement <code>_run_init_job()</code> async method on <code>ToolInitManager</code> in <code>src/holodeck/serve/tool_init_manager.py</code>. This method: (a) transitions job state to <code>in_progress</code>, sets <code>started_at</code>, increments <code>_active_count</code>, (b) resolves the tool source via <code>SourceResolver.resolve_context()</code> (context manager for guaranteed cleanup), (c) calls <code>initialize_single_tool()</code> with the agent, tool name, force flag, and a progress callback that updates <code>job.progress</code>, (d) on success, transitions to <code>completed</code>, sets <code>completed_at</code> and summary message, (e) on exception, transitions to <code>failed</code>, sets <code>error_detail</code> via <code>sanitize_error_detail()</code>, (f) on <code>asyncio.CancelledError</code>, transitions to <code>failed</code> with message "Cancelled due to server shutdown". Ensure <code>_active_count</code> is decremented in all code paths (finally block).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T012 Implement <code>get_job(tool_name: str) -&gt; InitJob | None</code> and <code>shutdown()</code> methods on <code>ToolInitManager</code> in <code>src/holodeck/serve/tool_init_manager.py</code> (FR-009). <code>get_job()</code> returns the job for a tool or None. <code>shutdown()</code> sets <code>_shutting_down = True</code>, cancels all in-progress tasks via <code>task.cancel()</code>, awaits them with <code>asyncio.gather(*tasks, return_exceptions=True)</code>, marks interrupted jobs as <code>failed</code>, and cleans up temp directories. Follow the <code>SessionStore.stop_cleanup_task()</code> pattern (R3).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T013 [P] Add <code>initialize_single_tool()</code> function to <code>src/holodeck/lib/tool_initializer.py</code> (R7). Signature: <code>async def initialize_single_tool(agent: Agent, tool_name: str, force_ingest: bool = False, progress_callback: Callable[[int, int | None], None] | None = None, source_override: Path | None = None) -&gt; None</code>. This wrapper: (a) finds the tool config by name from <code>agent.tools</code>, (b) raises <code>ToolInitializerError</code> if not found or not a vectorstore/hierarchical_document type, (c) creates an embedding service via the existing <code>_create_embedding_service()</code> logic, (d) instantiates and initializes the single tool, passing <code>force_ingest</code> and <code>progress_callback</code>. <strong>Source override mechanism</strong>: When <code>source_override</code> is provided, create a shallow copy of the tool config and set <code>copy.source = str(source_override)</code> before constructing the tool instance — do NOT mutate the original agent config. Reuse existing patterns from <code>initialize_tools()</code> but scoped to a single tool.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T014 [P] Add optional <code>progress_callback: Callable[[int, int | None], None] | None = None</code> parameter to <code>VectorStoreTool.initialize()</code> in <code>src/holodeck/tools/vectorstore_tool.py</code>. After each file is processed in the ingestion loop, call <code>progress_callback(processed_count, total_count)</code> if the callback is not None. The <code>total_count</code> is determined from the file discovery step before processing begins. Default is None (no-op, backward compatible).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T015 [P] Add optional <code>progress_callback: Callable[[int, int | None], None] | None = None</code> parameter to <code>HierarchicalDocumentTool.initialize()</code> in <code>src/holodeck/tools/hierarchical_document_tool.py</code>. Same pattern as T014 — call <code>progress_callback(processed_count, total_count)</code> after each document is processed. Default is None (backward compatible).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T016 [P] Add <code>@model_validator(mode="after")</code> named <code>validate_tool_name_uniqueness</code> to the <code>Agent</code> class in <code>src/holodeck/models/agent.py</code> (FR-015, R6). Note: the existing <code>validate_tools()</code> is a <code>@field_validator("tools")</code>, not a model validator — the new validator is a separate <code>@model_validator(mode="after")</code> method. If duplicate tool names are detected across all tool types, raise <code>ValueError</code> with a message listing the duplicates. This runs automatically at config load time for all code paths (CLI, serve, tests). Place it after the existing <code>validate_tools()</code> field validator.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T017 [P] Update source field validation in <code>src/holodeck/models/tool.py</code> to accept remote URIs (FR-016). The <code>source</code> field on <code>VectorstoreTool</code> and <code>HierarchicalDocumentToolConfig</code> must accept <code>s3://</code>, <code>az://</code>, <code>https://</code>, and <code>http://</code> scheme prefixes in addition to local paths. Add a field validator that checks for supported schemes (<code>s3://</code>, <code>az://</code>, <code>https://</code>, <code>http://</code>, <code>file://</code>, or no scheme for local paths) and rejects unsupported schemes with a <code>ValidationError</code>.</p>
+</li>
+</ul>
+<h3 id="source-resolution-t018t026">Source Resolution (T018–T026)<a class="headerlink" href="#source-resolution-t018t026" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T018 Create <code>src/holodeck/lib/source_resolver.py</code> with the <code>ResolvedSource</code> dataclass and <code>SourceResolver</code> class skeleton. <code>ResolvedSource</code> fields: <code>local_path: Path</code>, <code>is_remote: bool</code>, <code>temp_dir: Path | None</code>. <code>SourceResolver</code> exposes: <code>resolve()</code> (static async), <code>resolve_context()</code> (async context manager with guaranteed cleanup), <code>cleanup()</code> (static async), and <code>cleanup_orphans()</code> (static async). Implement <code>_detect_scheme(source: str) -&gt; str</code> helper that returns <code>"local"</code>, <code>"s3"</code>, <code>"az"</code>, <code>"http"</code>, or raises <code>ValueError</code> for unsupported schemes.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T019 Implement <code>LocalResolver</code> in <code>src/holodeck/lib/source_resolver.py</code>. Wraps the existing <code>resolve_source_path()</code> logic from <code>src/holodeck/tools/common.py</code>: absolute paths used directly, relative paths resolved against <code>base_dir</code>. Returns <code>ResolvedSource(local_path=resolved, is_remote=False, temp_dir=None)</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T020 [P] Implement <code>S3Resolver</code> in <code>src/holodeck/lib/source_resolver.py</code> (FR-016, FR-018, FR-019, FR-020). Lazy-imports <code>boto3</code> with a clear error if missing (<code>SourceError("S3 source requires boto3. Install with: pip install holodeck[s3]")</code>). Parses bucket and prefix from <code>s3://bucket/prefix/</code> URI. Lists objects via <code>list_objects_v2</code>, filters by supported extensions, validates total size against <code>max_source_size_bytes</code> (pre-download), validates each key with <code>validate_object_path()</code> for path traversal prevention, downloads to a temp directory preserving relative structure. Retries on transient failures (3 attempts with exponential backoff). Auth failures fail immediately (FR-021).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T021 [P] Implement <code>AzureBlobResolver</code> in <code>src/holodeck/lib/source_resolver.py</code> (FR-016, FR-018, FR-019, FR-020). Lazy-imports <code>azure-storage-blob</code> with a clear error if missing. Parses container and prefix from <code>az://container/prefix/</code> URI. Uses <code>AZURE_STORAGE_CONNECTION_STRING</code> env var or <code>DefaultAzureCredential</code>. Lists blobs via <code>list_blobs(name_starts_with=prefix)</code>, filters by supported extensions, validates total size, validates paths, downloads to temp directory. Same retry and error handling pattern as S3Resolver (FR-021).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T022 [P] Implement <code>HttpResolver</code> in <code>src/holodeck/lib/source_resolver.py</code> (FR-016, FR-020, FR-021). Uses <code>httpx</code> (core dependency) for async downloads. Single file downloads only (no archive extraction). Infers filename from URL path. Reads <code>Content-Length</code> header for pre-download size check; if absent, enforces <code>max_source_size_bytes</code> via streaming byte counter. Supports optional <code>HOLODECK_HTTP_AUTH_HEADER</code> env var for Authorization header. Retries HTTP 5xx and network errors (3 attempts, exponential backoff 1s/2s/4s). HTTP 4xx fails immediately with sanitized error.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T023 Implement <code>sanitize_error_detail()</code> utility function in <code>src/holodeck/lib/source_resolver.py</code>. Redacts: AWS access key IDs (<code>AKIA[A-Z0-9]{16}</code>), Azure connection strings (<code>AccountKey=[^;]+</code>), bearer tokens (<code>Bearer [A-Za-z0-9._\-]+</code>), generic API keys (<code>(api[_-]?key|token|secret|password)\s*[=:]\s*\S+</code>), and absolute temp dir paths (<code>/tmp/holodeck-init-[^/\s]+</code>). Returns the sanitized string. Full unredacted errors are logged server-side at ERROR level.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T024 Implement <code>validate_object_path()</code> utility function in <code>src/holodeck/lib/source_resolver.py</code>. Validates that an S3 object key or Azure blob name does not contain <code>..</code> and that the resolved download path stays within the temp directory (<code>Path.resolve().is_relative_to(temp_dir.resolve())</code>). Returns the validated <code>Path</code> or raises <code>ValueError</code>. Invalid keys are logged and skipped (do not fail the entire init job).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T025 Implement <code>cleanup_orphans()</code> static async method on <code>SourceResolver</code> in <code>src/holodeck/lib/source_resolver.py</code>. Scans <code>tempfile.gettempdir()</code> for directories matching <code>holodeck-init-*</code> prefix older than <code>max_age_hours</code> (default 1 hour). Removes them via <code>asyncio.to_thread(shutil.rmtree, ...)</code>. Returns count of removed directories. Called on server startup.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T026 Update <code>resolve_source_path()</code> in <code>src/holodeck/tools/common.py</code> to delegate to <code>SourceResolver</code> for URI-scheme sources. If the source string starts with <code>s3://</code>, <code>az://</code>, <code>https://</code>, or <code>http://</code>, raise an informational error directing callers to use <code>SourceResolver.resolve_context()</code> instead (since remote resolution requires async context management). Local path resolution continues unchanged.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-4-us1-endpoint-server-integration">Phase 4: US1 — Endpoint &amp; Server Integration<a class="headerlink" href="#phase-4-us1-endpoint-server-integration" title="Permanent link">&para;</a></h2>
+<p>These tasks implement the POST endpoint, route registration, shutdown wiring, and OTel instrumentation.</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T027 [US1] Create <code>src/holodeck/serve/tool_init_routes.py</code> with a FastAPI <code>APIRouter</code> (R8). Define <code>POST /tools/{tool_name}/init</code> route handler that: (a) accepts <code>tool_name</code> path parameter and optional <code>force: bool = False</code> query parameter, (b) calls <code>ToolInitManager.start_init_job(tool_name, force)</code>, (c) on success, returns 201 Created with <code>Location</code> header set to <code>/tools/{tool_name}/init</code> and <code>InitJobResponse</code> body, (d) catches distinct exception types from <code>ToolInitManager</code> and returns <code>ProblemDetail</code> responses: 400 for non-initializable tool type, 404 for nonexistent tool, 409 for already-active job, 429 for concurrency limit reached. All error responses use <code>application/problem+json</code> content type.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T028 [US1] Register the tool init router in <code>src/holodeck/serve/server.py</code>. In <code>AgentServer.create_app()</code>, import the router from <code>tool_init_routes.py</code> and call <code>app.include_router(router)</code> alongside the existing health/ready route registrations (FR-012 — protocol-agnostic, not inside protocol-specific routers). Pass the <code>ToolInitManager</code> instance to the router via <code>app.state.tool_init_manager</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T029 [US1] Create and wire <code>ToolInitManager</code> instance in <code>AgentServer.__init__()</code> at <code>src/holodeck/serve/server.py</code>. Instantiate <code>ToolInitManager(agent=self.agent_config)</code> and store as <code>self._tool_init_manager</code>. Optionally accept <code>max_concurrent_init_jobs: int = 3</code> constructor parameter on <code>AgentServer</code> for configurability.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T030 [US1] Wire <code>ToolInitManager.shutdown()</code> into <code>AgentServer.stop()</code> at <code>src/holodeck/serve/server.py</code> (FR-009, R3). Add <code>await self._tool_init_manager.shutdown()</code> call before the existing session cleanup. Follow the same pattern as <code>await self.sessions.stop_cleanup_task()</code>. Also call <code>await SourceResolver.cleanup_orphans()</code> during server startup in <code>AgentServer.start()</code> to clean up stale temp directories from previous runs.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T031 [US1] Add OTel instrumentation for init job lifecycle in <code>src/holodeck/serve/tool_init_manager.py</code> (FR-014, R5). Import <code>get_tracer</code> from <code>holodeck.lib.observability</code>. Create spans: <code>holodeck.serve.tool_init.start</code> (when job is created), <code>holodeck.serve.tool_init.progress</code> (on progress updates, if frequent enough), <code>holodeck.serve.tool_init.complete</code> (on success), <code>holodeck.serve.tool_init.failed</code> (on failure with <code>StatusCode.ERROR</code>). Add span attributes: <code>tool_init.job.tool_name</code>, <code>tool_init.job.state</code>, <code>tool_init.job.documents_processed</code>, <code>tool_init.job.duration_ms</code>, <code>tool_init.job.force</code>. Use the conditional <code>nullcontext()</code> pattern when observability is disabled.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-5-polish-quality-validation">Phase 5: Polish — Quality &amp; Validation<a class="headerlink" href="#phase-5-polish-quality-validation" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T032 [US1] Run <code>make format &amp;&amp; make lint-fix</code> to ensure all new and modified files pass Black formatting and Ruff linting.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T033 [US1] Run <code>make type-check</code> and fix any MyPy errors in new and modified files. Ensure all public functions have complete type hints and all imports resolve correctly.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T034 [US1] Run <code>make test-unit -n auto</code> to verify no existing tests are broken by the changes. Fix any regressions.</p>
+</li>
+</ul>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Phase 1 (parallel):
+  T001 (httpx dep) | T002 (cloud extras) — independent
+  T003 (uv sync) — depends on T001, T002
+
+Phase 2 (parallel, after Phase 1):
+  T004 (InitJobState) | T005 (InitJobProgress) | T006 (InitJobResponse)
+  | T007 (ProblemDetail) | T008 (ToolInfoResponse/ToolListResponse)
+  — all independent additions to models.py
+
+Phase 3 (core infrastructure + source resolution — merged):
+  Core infrastructure:
+    T009 (InitJob dataclass) — depends on T004, T005
+    T010 (ToolInitManager core) — depends on T009
+    T012 (get_job + shutdown) — depends on T010
+    T013 | T014 | T015 | T016 | T017 — all independent [P], can start immediately
+    T009 + T010 — sequential chain
+
+  Source resolution (T018–T026):
+    T018 (SourceResolver skeleton) — no dependencies
+    T019 (LocalResolver) — depends on T018
+    T020 [P] | T021 [P] | T022 [P] — independent resolvers, parallel after T018
+    T023 | T024 | T025 | T026 — independent utilities, parallel
+
+  Cross-group dependency:
+    T011 (_run_init_job) — depends on T010, T013, T018 (all within Phase 3)
+
+Phase 4 (after Phase 3):
+  T027 (POST endpoint) — depends on T010, T012, T006, T007
+  T028 (route registration) — depends on T027
+  T029 (ToolInitManager wiring) — depends on T010
+  T030 (shutdown + orphan cleanup wiring) — depends on T012, T025, T028, T029
+  T031 (OTel instrumentation) — depends on T010, T011
+
+  T028 + T029 can run in parallel (different sections of server.py)
+  T030 depends on both T028 and T029
+  T031 can run in parallel with T027-T030
+
+Phase 5 (sequential, after all previous):
+  T032 (format + lint) → T033 (type-check) → T034 (test suite)
+</code></pre></div>
+<h2 id="key-files-reference">Key Files Reference<a class="headerlink" href="#key-files-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Action</th>
+<th>Tasks</th>
+<th>FR Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pyproject.toml</code></td>
+<td>MODIFY</td>
+<td>T001, T002</td>
+<td>FR-018</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/models.py</code></td>
+<td>MODIFY</td>
+<td>T004, T005, T006, T007, T008</td>
+<td>FR-002, FR-004, FR-011</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/tool_init_manager.py</code></td>
+<td>NEW</td>
+<td>T009, T010, T011, T012, T031</td>
+<td>FR-001, FR-007, FR-009, FR-013, FR-014</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/tool_init_routes.py</code></td>
+<td>NEW</td>
+<td>T027</td>
+<td>FR-001, FR-002, FR-005, FR-006, FR-007, FR-010, FR-012, FR-013</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/server.py</code></td>
+<td>MODIFY</td>
+<td>T028, T029, T030</td>
+<td>FR-009, FR-012</td>
+</tr>
+<tr>
+<td><code>src/holodeck/lib/tool_initializer.py</code></td>
+<td>MODIFY</td>
+<td>T013</td>
+<td>FR-001, FR-011</td>
+</tr>
+<tr>
+<td><code>src/holodeck/tools/vectorstore_tool.py</code></td>
+<td>MODIFY</td>
+<td>T014</td>
+<td>FR-011</td>
+</tr>
+<tr>
+<td><code>src/holodeck/tools/hierarchical_document_tool.py</code></td>
+<td>MODIFY</td>
+<td>T015</td>
+<td>FR-011</td>
+</tr>
+<tr>
+<td><code>src/holodeck/models/agent.py</code></td>
+<td>MODIFY</td>
+<td>T016</td>
+<td>FR-015</td>
+</tr>
+<tr>
+<td><code>src/holodeck/models/tool.py</code></td>
+<td>MODIFY</td>
+<td>T017</td>
+<td>FR-016</td>
+</tr>
+<tr>
+<td><code>src/holodeck/lib/source_resolver.py</code></td>
+<td>NEW</td>
+<td>T018, T019, T020, T021, T022, T023, T024, T025</td>
+<td>FR-016, FR-017, FR-018, FR-019, FR-020, FR-021</td>
+</tr>
+<tr>
+<td><code>src/holodeck/tools/common.py</code></td>
+<td>MODIFY</td>
+<td>T026</td>
+<td>FR-016</td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="guiding-principles">Guiding Principles<a class="headerlink" href="#guiding-principles" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Bottom-up construction</strong>: Response models and data types first, then orchestration layer, then source resolution, then HTTP endpoint, then server wiring. Each layer is testable in isolation before integration.</p>
+</li>
+<li>
+<p><strong>Backward compatibility</strong>: All changes to existing files are additive. <code>progress_callback=None</code> defaults preserve existing behavior. Source field validation is extended, not replaced. <code>initialize_tools()</code> continues to work unchanged alongside the new <code>initialize_single_tool()</code>.</p>
+</li>
+<li>
+<p><strong>Error responses as contracts</strong>: All error responses use RFC 7807 <code>ProblemDetail</code> format with <code>application/problem+json</code> content type. Error details are sanitized via <code>sanitize_error_detail()</code> — no file paths, API keys, or stack traces in client-facing responses.</p>
+</li>
+<li>
+<p><strong>Concurrency without locks</strong>: The <code>ToolInitManager</code> uses a manual int counter for concurrency limiting (R2). Check-then-increment is atomic in asyncio's single-threaded cooperative model. No <code>await</code> between the check and the mutation.</p>
+</li>
+<li>
+<p><strong>Guaranteed cleanup</strong>: Remote source temp directories are cleaned up via <code>async with SourceResolver.resolve_context()</code> (finally block). Server shutdown cleans up any remaining temp dirs. Orphan recovery on startup handles SIGKILL scenarios.</p>
+</li>
+<li>
+<p><strong>Optional cloud dependencies</strong>: boto3 and azure-storage-blob are optional extras with lazy imports. Missing SDK produces a clear, actionable error message. httpx is a core dependency since it is lightweight and async-native.</p>
+</li>
+<li>
+<p><strong>OTel follows existing patterns</strong>: Span naming uses <code>holodeck.serve.tool_init.*</code> namespace. Attributes use dot-namespaced keys. Conditional <code>nullcontext()</code> when observability is disabled. No new OTel infrastructure — reuses <code>get_tracer(__name__)</code>.</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

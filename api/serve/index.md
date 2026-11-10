@@ -84,13 +84,13 @@ def __init__(
             "Use 127.0.0.1 for local-only access."
         )
 
-    # Claude SDK's anyio task group binds to the task that called
-    # connect(). HTTP requests run in different tasks, so the
-    # executor must release transport after each turn and reconnect
-    # on the next request (session_id preserves conversation state).
-    self._release_transport = (
-        self.agent_config.model.provider == ProviderEnum.ANTHROPIC
-    )
+    # Every backend session lives in a dedicated actor task. HTTP
+    # requests run in different tasks, and both backends bind anyio
+    # state to the task that opened it: the Claude SDK's task group on
+    # ``connect()``, and the OpenAI Agents backend's stdio MCP servers on
+    # ``initialize()``. Without the actor, turn 2 on a thread finds the
+    # transport closed (Claude: reader hang; OpenAI: ClosedResourceError).
+    self._release_transport = True
 
     # Spec 034 P4 changed the binding constraint: the SDK subprocess
     # is now spawned per *turn* (not per session), so memory-bounded
@@ -268,7 +268,7 @@ async def start(self) -> None:
             orphans_removed,
         )
 
-    self._start_time = datetime.now(timezone.utc)
+    self._start_time = datetime.now(UTC)
     self.state = ServerState.RUNNING
 
     # Start automatic session cleanup
@@ -730,7 +730,7 @@ In-memory session storage with TTL-based expiration. Sessions maintain conversat
 
 ### ServerSession
 
-## `ServerSession(agent_executor, session_id=(lambda: str(ULID()))(), created_at=(lambda: datetime.now(timezone.utc))(), last_activity=(lambda: datetime.now(timezone.utc))(), message_count=0)`
+## `ServerSession(agent_executor, session_id=(lambda: str(ULID()))(), created_at=(lambda: datetime.now(UTC))(), last_activity=(lambda: datetime.now(UTC))(), message_count=0)`
 
 Individual conversation session with an agent.
 
@@ -957,7 +957,7 @@ async def delete(self, session_id: str) -> bool:
             session.agent_executor.shutdown(),
             timeout=self._SHUTDOWN_TIMEOUT,
         )
-    except asyncio.TimeoutError:
+    except TimeoutError:
         logger.warning(
             "Executor shutdown timed out for session %s after %.1fs",
             session_id,
@@ -997,7 +997,7 @@ def touch(self, session_id: str) -> None:
     """
     session = self.sessions.get(session_id)
     if session:
-        session.last_activity = datetime.now(timezone.utc)
+        session.last_activity = datetime.now(UTC)
 ```
 
 ### `cleanup_expired()`
@@ -1024,7 +1024,7 @@ async def cleanup_expired(self) -> int:
     Returns:
         Number of sessions removed.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     cutoff = now - timedelta(seconds=self.ttl_seconds)
 
     expired_ids = [
@@ -2715,7 +2715,7 @@ async def handle_request(
                     event = await asyncio.wait_for(tool_queue.get(), timeout=0.1)
                     for agui_evt in _tool_event_to_agui(event, tool_msg_ids):
                         yield encoder.encode(agui_evt)
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     continue
 
             logger.debug(
@@ -2758,9 +2758,11 @@ async def handle_request(
 
     except BackendSessionError as e:
         logger.error("Backend session error: %s", e, exc_info=True)
+        # Sanitised: the raw reason (which may carry subprocess output)
+        # goes to the server log above, not to the client.
         yield encoder.encode(
             create_run_error_event(
-                "Claude Agent SDK subprocess terminated unexpectedly.",
+                "Backend session terminated unexpectedly.",
             )
         )
 

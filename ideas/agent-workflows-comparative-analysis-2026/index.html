@@ -1,0 +1,2689 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/ideas/agent-workflows-comparative-analysis-2026/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Agent Workflow Frameworks in Mid-2026: A Comparative Analysis - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agent-workflow-frameworks-in-mid-2026-a-comparative-analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Agent Workflow Frameworks in Mid-2026: A Comparative Analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-microsoft-agent-framework-two-workflow-models-under-one-brand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Microsoft Agent Framework: two workflow models under one brand
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Microsoft Agent Framework: two workflow models under one brand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-code-first-engine-pregelbsp-typed-message-passing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The code-first engine: Pregel/BSP, typed message passing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-the-declarative-layer-copilot-studio-lineage-not-the-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 The declarative layer: Copilot Studio lineage, not the graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-landscape-who-ships-what-july-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The landscape: who ships what (July 2026)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The landscape: who ships what (July 2026)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-the-incumbents-came-to-the-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 The incumbents came to the agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-the-commentary-landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 The commentary landscape
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verdict-does-the-blogs-thesis-hold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verdict: does the blog's thesis hold?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Verdict: does the blog&#39;s thesis hold?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claim-by-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claim-by-claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-post-undersold-or-got-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the post undersold or got wrong
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-implications-for-holodeck-036-deterministic-spine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Implications for HoloDeck (036-deterministic-spine)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="agent-workflow-frameworks-in-mid-2026-a-comparative-analysis">Agent Workflow Frameworks in Mid-2026: A Comparative Analysis<a class="headerlink" href="#agent-workflow-frameworks-in-mid-2026-a-comparative-analysis" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-07-25
+<strong>Purpose:</strong> Comparative analysis of declarative/workflow capabilities across agent
+frameworks, anchored on <a href="https://learn.microsoft.com/en-us/agent-framework/workflows/declarative?pivots=programming-language-python">Microsoft Agent Framework's declarative workflows</a>
+and the <code>workflows</code> module of <code>microsoft/agent-framework</code> — and a validation pass on
+the thesis of <a href="https://justinbarias.io/blog/agent-workflows-solved-problem-reinvented/"><em>Agent Workflows: A Solved Problem, Reinvented</em></a>
+(justinbarias.io, 2026-04-30).
+<strong>Related:</strong> <code>deterministic-spine.md</code>, <code>docs/product-specs/036-deterministic-spine/</code></p>
+<hr />
+<h2 id="1-microsoft-agent-framework-two-workflow-models-under-one-brand">1. Microsoft Agent Framework: two workflow models under one brand<a class="headerlink" href="#1-microsoft-agent-framework-two-workflow-models-under-one-brand" title="Permanent link">&para;</a></h2>
+<p>The single most important structural fact about MAF workflows is that <strong>"declarative
+workflows" and the code-first workflow engine are two different computational models</strong>
+that happen to share a runtime.</p>
+<h3 id="11-the-code-first-engine-pregelbsp-typed-message-passing">1.1 The code-first engine: Pregel/BSP, typed message passing<a class="headerlink" href="#11-the-code-first-engine-pregelbsp-typed-message-passing" title="Permanent link">&para;</a></h3>
+<p>Source-verified facts (repo <code>microsoft/agent-framework</code>, <code>python/packages/core/agent_framework/_workflows/</code>, as of 2026-07-24):</p>
+<ul>
+<li>The <code>Workflow</code> docstring states it verbatim: <em>"A workflow executes a directed graph
+  of executors connected via edge groups using a <strong>Pregel-like model</strong>, running in
+  supersteps until the graph becomes idle."</em> <code>RunnerImpl</code> (<code>_runner.py</code>) is documented
+  as running "Pregel supersteps."</li>
+<li><strong>Executors</strong> declare capabilities via type annotations on <code>@handler</code> methods;
+  <code>WorkflowContext[OutT, W_OutT]</code> is a generic capability token (send messages, yield
+  outputs). Agents are auto-wrapped (<code>AgentExecutor</code>), and whole workflows compose as
+  executors (<code>WorkflowExecutor</code>).</li>
+<li><strong>Edges</strong> are typed and validated at <code>build()</code>: conditional edges,
+  <code>SwitchCaseEdgeGroup</code> (first-match + default), fan-out (broadcast or
+  <code>selection_func</code>), fan-in (join). Loops are cycles bounded by
+  <code>max_iterations=100</code> supersteps (<code>WorkflowConvergenceException</code> beyond that).</li>
+<li><strong>BSP semantics</strong>: messages produced in superstep <em>N</em> deliver at the start of
+  <em>N+1</em>; shared <code>State</code> commits only at superstep boundaries; the runner docstring
+  concedes "true parallelism is not realized in Python" (asyncio + GIL).</li>
+<li><strong>Checkpointing is superstep-granular</strong>: <code>WorkflowCheckpoint</code> chains snapshots of
+  in-flight messages, shared state, executor states, and pending
+  human-input requests, keyed to a <code>graph_signature_hash</code> — resume refuses if the
+  topology changed. Storage backends: in-memory, file, Cosmos DB.</li>
+<li><strong>Human-in-the-loop</strong> is <code>ctx.request_info()</code> + <code>@response_handler</code> (the
+  <code>RequestInfoExecutor</code> class was removed from Python in Nov 2025; some Learn pages
+  are stale). Responses can be combined with checkpoint restore across process
+  restarts.</li>
+<li><strong>Durability is layered, not native</strong>: crash-safe replay comes from first-party
+  bridges (<code>agent-framework-durabletask</code>, <code>agent-framework-azurefunctions</code>) that run
+  MAF workflows <em>as Durable Task orchestrations</em> — executors mapped to activities,
+  fan-out via <code>task_all</code>/<code>task_any</code>, HITL via external events.</li>
+<li>A second, <strong>experimental "functional" API</strong> (<code>@workflow</code>/<code>@step</code>, added 1.2.0,
+  Apr 2026) lets you write workflows as plain async functions with native Python
+  control flow — an implicit concession that the graph API is heavier than many
+  tasks need.</li>
+</ul>
+<p>Timeline: public preview Oct 1, 2025 (the AutoGen + Semantic Kernel convergence;
+both predecessors in maintenance, SK's Process Framework explicitly discontinued);
+heavy breaking-change churn through Feb 2026; <strong>1.0 GA April 2, 2026</strong>; current
+release 1.12.1 (July 2026).</p>
+<h3 id="12-the-declarative-layer-copilot-studio-lineage-not-the-graph">1.2 The declarative layer: Copilot Studio lineage, not the graph<a class="headerlink" href="#12-the-declarative-layer-copilot-studio-lineage-not-the-graph" title="Permanent link">&para;</a></h3>
+<p>The declarative YAML format (<a href="https://learn.microsoft.com/en-us/agent-framework/workflows/declarative?pivots=programming-language-python">Learn docs</a>,
+doc dated 2026-06-26; <strong>promoted RC → stable July 21, 2026</strong> in core 1.12.0) is <strong>not</strong> a
+serialization of the graph model. It is a <strong>sequential action list</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">actions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SetVariable</span>
+<span class="w">    </span><span class="nt">variable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local.greeting</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hello</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">If</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">=IsBlank(Local.AgentResult)</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GotoAction</span><span class="w">        </span><span class="c1"># jump-to-action-by-id — goto, in 2026</span>
+<span class="w">    </span><span class="nt">actionId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">retry_step</span>
+</code></pre></div>
+<ul>
+<li><strong>Action vocabulary</strong>: <code>SetVariable</code>, <code>If</code>/<code>ConditionGroup</code>, <code>Foreach</code>,
+  <code>BreakLoop</code>/<code>ContinueLoop</code>, <code>GotoAction</code>, <code>SendActivity</code>, <code>InvokeAzureAgent</code>,
+  <code>InvokeFunctionTool</code>, <code>InvokeMcpTool</code>, <code>HttpRequestAction</code>, <code>Question</code>,
+  <code>RequestExternalInput</code>, <code>EndWorkflow</code>/<code>EndConversation</code>. This taxonomy
+  (<code>SendActivity</code>, <code>OnConversationStart</code>, <code>EndDialog</code>, <code>CancelAllDialogs</code>) is
+  unmistakably <strong>Bot Framework Adaptive Dialogs / Copilot Studio topic schema</strong>
+  lineage.</li>
+<li><strong>Expression language: Power Fx</strong> — the Excel-formula language from the Power
+  Platform, via the <code>powerfx</code> Python package. This is why <strong>Python 3.14 is
+  unsupported</strong> ("due to PowerFx compatibility"). Not FEEL, not CEL, not any
+  vendor-neutral standard.</li>
+<li>Under the hood, <code>WorkflowFactory</code> compiles each action into a real <code>Executor</code>
+  node on the Pregel runtime (<code>IfConditionEvaluatorExecutor</code>,
+  <code>ForeachInitExecutor</code>/<code>ForeachNextExecutor</code>, goto resolution with circular-goto
+  validation) — so declarative workflows inherit checkpointing at action
+  boundaries. An authoring layer, not a separate engine.</li>
+<li><strong>Language asymmetry</strong>: the Python declarative docs show no checkpoint/resume
+  surface at all (run-to-completion <code>workflow.run({...})</code>); CheckpointManager,
+  superstep checkpoints, and resume-on-another-machine appear only in the C#
+  pivot. Four conversation actions are C#-only. Python package
+  <code>agent-framework-declarative</code> requires <code>--pre</code> per the current docs.</li>
+<li><strong>Error handling is manual</strong>: the docs' recommended pattern is a
+  <code>Local.hasError</code> flag plus <code>IsBlank()</code> checks after each agent call. No retry,
+  compensation, or timeout semantics in the format.</li>
+<li><strong>Round-trip</strong>: Microsoft Foundry's visual multi-agent Workflows designer
+  (public preview, Ignite Nov 2025) is built on MAF and offers a synchronized
+  visual ⇄ YAML dual view with VS Code export ("minimal changes" — hedged, not
+  lossless). No verified round-trip with Copilot Studio topics.</li>
+</ul>
+<p><strong>Assessment:</strong> Microsoft did not adapt its graph engine for declarative authoring —
+it grafted its low-code dialog format (Adaptive Dialogs + Power Fx) onto the agent
+runtime. The result is two workflow models under one product name: a Pregel graph
+for developers and a Power-Platform-style action list for the low-code audience,
+with <code>GotoAction</code> as the escape hatch where a sequential list can't express a graph.</p>
+<hr />
+<h2 id="2-the-landscape-who-ships-what-july-2026">2. The landscape: who ships what (July 2026)<a class="headerlink" href="#2-the-landscape-who-ships-what-july-2026" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Declarative format</th>
+<th>Execution model</th>
+<th>Expression language</th>
+<th>Durability</th>
+<th>Status (Jul 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MAF (code-first)</strong></td>
+<td>— (code)</td>
+<td>Pregel/BSP typed graph</td>
+<td>none (Python predicates)</td>
+<td>Superstep checkpoints; DurableTask bridge for real durability</td>
+<td>1.0 GA Apr 2026; 1.12.1</td>
+</tr>
+<tr>
+<td><strong>MAF (declarative)</strong></td>
+<td>YAML action list (Adaptive Dialogs lineage)</td>
+<td>Sequential actions + goto, compiled onto Pregel runtime</td>
+<td><strong>Power Fx</strong></td>
+<td>Inherited (C# surfaced; Python not documented)</td>
+<td>Stable Jul 21, 2026</td>
+</tr>
+<tr>
+<td><strong>LangGraph</strong></td>
+<td><strong>None official</strong> — builder/YAML efforts archived Feb 2026; <code>langgraph.json</code> is a deploy manifest</td>
+<td>Checkpointed state-machine graph</td>
+<td>none (Python/TS callables)</td>
+<td>Per-superstep checkpointers (SQLite/Postgres), time travel, <code>interrupt()</code></td>
+<td>1.0 GA Oct 2025; 1.2.9 Jul 2026</td>
+</tr>
+<tr>
+<td><strong>CrewAI</strong></td>
+<td><code>agents.yaml</code>/<code>tasks.yaml</code> (content, not orchestration); Flows code-only</td>
+<td>Crews: role-based; Flows: event-driven (<code>@start</code>/<code>@listen</code>/<code>@router</code>)</td>
+<td>none</td>
+<td><code>@persist</code> → SQLite default; resume by state id</td>
+<td>1.0 GA Oct 2025; 1.15.6 Jul 2026</td>
+</tr>
+<tr>
+<td><strong>Google ADK</strong></td>
+<td>Agent Config YAML (experimental, Gemini-only); Visual Builder emits it</td>
+<td>2.0 (May/Jun 2026): typed <strong>graph engine</strong> w/ dynamic nodes</td>
+<td>none — "programmatic routing" is a stated design stance</td>
+<td>First-party durable pause/resume, cross-runtime (Py↔Go); sessions in DB</td>
+<td>2.0 GA May 2026 (Py), Jun 2026 (Go)</td>
+</tr>
+<tr>
+<td><strong>OpenAI Agents SDK / AgentKit</strong></td>
+<td><strong>Agent Builder deprecated Jun 3, 2026</strong> (shutdown Nov 30, 2026); export = lossy code, no spec</td>
+<td>SDK: LLM loop + handoffs; Builder was node graph</td>
+<td>Builder used <strong>CEL</strong> (dying with it); SDK none</td>
+<td>Session stores only; <strong>durability delegated to Temporal</strong> (GA Mar 23, 2026)</td>
+<td>Builder never left beta; SDK "model-native harness" pivot Apr 2026</td>
+</tr>
+<tr>
+<td><strong>AWS Bedrock Flows</strong></td>
+<td>JSON nodes+connections, visual builder</td>
+<td>Typed DAG, managed</td>
+<td>JsonPath subset + custom 64-char predicates</td>
+<td>Async executions ≤24h (preview) — managed, not replay</td>
+<td>GA Nov 2024; quiet through 2026</td>
+</tr>
+<tr>
+<td><strong>AWS AgentCore</strong></td>
+<td>None — framework-agnostic infra + Harness (API-configured)</td>
+<td>Bring-your-own-framework; microVM sessions ≤8h</td>
+<td>—</td>
+<td>Session persistence, memory service</td>
+<td>GA Oct 2025; classic Bedrock Agents → maintenance, closed to new customers Jul 30, 2026</td>
+</tr>
+<tr>
+<td><strong>AWS Strands</strong></td>
+<td>None (code-first)</td>
+<td>Graph/Swarm/handoff primitives in code</td>
+<td>none</td>
+<td>Via AgentCore pairing</td>
+<td>1.0 Jul 2025</td>
+</tr>
+<tr>
+<td><strong>Temporal</strong></td>
+<td>None — workflows-as-code is the product</td>
+<td>Durable execution (event-sourced replay)</td>
+<td>none (host language)</td>
+<td>The product itself</td>
+<td>OpenAI Agents SDK integration GA <strong>Mar 23, 2026</strong></td>
+</tr>
+<tr>
+<td><strong>Dapr Workflow / Agents</strong></td>
+<td>Components YAML; logic code-only</td>
+<td>Durable execution on <code>durabletask-go</code> + actors</td>
+<td>none</td>
+<td>Event-history replay, 30+ state stores</td>
+<td>Dapr Agents <strong>v1.0 GA Mar 23, 2026</strong> (KubeCon EU)</td>
+</tr>
+<tr>
+<td><strong>Camunda 8 (BPMN/DMN)</strong></td>
+<td>BPMN 2.0 XML + DMN decision tables</td>
+<td>Token-flow engine; agents live inside <strong>ad-hoc sub-processes</strong></td>
+<td><strong>FEEL</strong> (the DMN standard language, used engine-wide)</td>
+<td>Engine-native: incidents, retries, audit, human tasks</td>
+<td>AI Agent connector GA in 8.8 (Oct 2025); MCP server + A2A connectors in 8.9 (Apr 2026)</td>
+</tr>
+<tr>
+<td><strong>Open Workflow Spec</strong> (ex-CNCF Serverless Workflow)</td>
+<td>YAML/JSON DSL 1.0 (Jan 2025)</td>
+<td>Task-based, event-driven</td>
+<td><strong>jq</strong> (mandated default)</td>
+<td>Runtime-dependent</td>
+<td>Still CNCF Sandbox; renamed Nov 2025; MCP + A2A call tasks slated for v1.1; flagship runtime SonataFlow still implements spec 0.8</td>
+</tr>
+<tr>
+<td><strong>n8n</strong></td>
+<td>JSON (nodes + connections), visual editor</td>
+<td>Queue-mode (Redis + Postgres); AI Agent node is <strong>LangChain.js</strong> under the hood</td>
+<td><code>{{ single-line JS }}</code> (Tournament sandbox; two 2026 sandbox-escape CVEs)</td>
+<td>Retry-from-failed-execution, not replay</td>
+<td>$2.5B (Oct 2025) → <strong>$5.2B after SAP stake (May 2026)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Notable cross-cutting facts:</p>
+<ul>
+<li><strong>Expression-language fragmentation is total.</strong> Power Fx (Microsoft), CEL
+  (OpenAI, being sunset), JSONata (AWS Step Functions), jq (Open Workflow Spec),
+  sandboxed JavaScript (n8n), a 64-character custom predicate language (Bedrock
+  Flows), or nothing at all (LangGraph, CrewAI, ADK, Strands, Temporal, Dapr).
+  No agent framework adopted FEEL or any decision-logic standard — the only
+  place FEEL meets agents in production is Camunda, where it was already the
+  engine-wide expression language before the AI Agent connector arrived.</li>
+<li><strong>The word of 2026 is "harness," not "workflow."</strong> OpenAI's April 2026 SDK
+  evolution (model-native harness, sandbox, filesystem/shell tools, AGENTS.md),
+  AWS AgentCore Harness (GA Jun 2026), and MAF's own Agent Harness (Build 2026)
+  all converge on: give the model an environment and primitives, not a graph.</li>
+<li><strong>Durable execution had its coronation.</strong> Temporal's OpenAI Agents SDK
+  integration and Dapr Agents v1.0 went GA <strong>on the same day</strong> (March 23, 2026).
+  Microsoft ships MAF-on-DurableTask bridges. The Diagrid position piece
+  ("checkpoints are not durable execution") argues LangGraph/CrewAI/ADK-style
+  checkpointing falls short for production — vendor-motivated but directionally
+  aligned with the durable-execution camp.</li>
+</ul>
+<h3 id="21-the-incumbents-came-to-the-agents">2.1 The incumbents came to the agents<a class="headerlink" href="#21-the-incumbents-came-to-the-agents" title="Permanent link">&para;</a></h3>
+<p>While agent frameworks were rebuilding workflow machinery, the workflow-engine
+incumbents added agents to their existing standards stack — and their design is
+telling:</p>
+<ul>
+<li><strong>Camunda 8.7 → 8.9 (Apr 2025 → Apr 2026)</strong> made the BPMN 2.0 <strong>ad-hoc
+  sub-process</strong> the "agent decision workspace": the LLM decides which tools to
+  invoke and in what order <em>inside</em> a bounded container, while the engine
+  provides retries, incident handling, audit logging, and human-task routing
+  around it. The AI Agent connector went GA in 8.8 (Oct 2025); 8.9 added an
+  Orchestration Cluster MCP server and A2A connectors. Determinism at the
+  boundary, non-determinism inside a governed region — with FEEL as the
+  expression layer throughout.</li>
+<li><strong>Flowable 2025.1 (Jul 2025)</strong> shipped a first-class Agent Engine alongside
+  its BPMN and CMMN engines, governed with the same tooling.</li>
+<li><strong>Open Workflow Specification</strong> (the renamed CNCF Serverless Workflow) closed
+  spec issues for <strong>MCP and A2A call tasks</strong> (Sep-Oct 2025, targeted at v1.1) —
+  agents as just another protocol a standard workflow can call. Traction remains
+  thin (still Sandbox after six years; reference runtime in alpha).</li>
+</ul>
+<h3 id="22-the-commentary-landscape">2.2 The commentary landscape<a class="headerlink" href="#22-the-commentary-landscape" title="Permanent link">&para;</a></h3>
+<p>The "agents are reinventing workflow engines" debate matured considerably after
+April 2026:</p>
+<ul>
+<li><strong>The durable-execution camp got loud and organized.</strong> Temporal published a
+  direct rebuttal to the "LLMs are non-deterministic, so Temporal doesn't fit"
+  objection (<em>"Of course you can build dynamic AI agents with Temporal"</em>, Nov
+  2025 — citing OpenAI Codex and Replit Agent 3 in production), and Restate,
+  DBOS, and Inngest each published framework-agnostic durable-agent
+  integrations. Every major cloud shipped durable primitives in the same window:
+  AWS Lambda Durable Functions (Dec 2025), Cloudflare Workflows GA, Vercel
+  Workflow DevKit, Azure Durable Task agent updates (Apr 2026).</li>
+<li><strong>The clearest independent statement of the thesis</strong> is <em>"Agent Workflows Are
+  Rediscovering Durable Execution"</em> (Koshy, May 18, 2026): agent systems are
+  "unconsciously reinventing" Windows Workflow Foundation / Step Functions /
+  Temporal lessons; the missing layer is "not another prettier graph — it is
+  definitions, execution records, identity, policy, and replay"; what's needed
+  is "a portable agent workflow definition, plus a durable execution contract."</li>
+<li><strong>Anthropic's position is unchanged since "Building Effective Agents" (Dec
+  2024)</strong>: composable patterns over frameworks, and through mid-2026 it still
+  ships no workflow engine — the Claude Agent SDK is an agent loop with
+  subagents, hooks, and skills as control surfaces, not a DAG runtime.
+  <strong>OpenAI's position collapsed into Anthropic's</strong>: after the Agent Builder
+  deprecation, its stack is code-first SDK + model-native harness + Temporal
+  for durability.</li>
+<li><strong>The counter-current is commercial, not architectural</strong>: n8n (visual
+  workflows with an embedded LangChain.js agent node) more than doubled its
+  valuation to $5.2B (SAP stake, May 2026) — evidence that "visual workflow +
+  agent step" wins the mid-market automation buyer, even as its queue-and-retry
+  execution model is exactly what the durable-execution camp critiques.</li>
+<li><strong>Where the debate settled</strong>: a layering consensus. Durable execution won the
+  reliability argument; model-led control flow won the orchestration argument
+  (nobody serious argues for fully static DAGs anymore); the LLM decides inside
+  a durable, replayable envelope. Camunda's ad-hoc sub-process and Temporal's
+  "deterministic loop, non-deterministic decisions" are two industries
+  independently converging on that same shape.</li>
+</ul>
+<hr />
+<h2 id="3-verdict-does-the-blogs-thesis-hold">3. Verdict: does the blog's thesis hold?<a class="headerlink" href="#3-verdict-does-the-blogs-thesis-hold" title="Permanent link">&para;</a></h2>
+<p>The post made six load-bearing claims. Scored against the mid-2026 evidence:</p>
+<h3 id="claim-by-claim">Claim-by-claim<a class="headerlink" href="#claim-by-claim" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>"Graph dataflow (BSP) is more machinery than typical agent apps need" — HOLDS,
+   with one strong counterexample.</strong> MAF's own trajectory concedes the point twice:
+   the experimental functional API (plain async functions, Apr 2026) exists because
+   the graph API is heavy, and the declarative layer abandons the graph model
+   entirely for a sequential action list. LangChain archived its visual-builder and
+   YAML-spec experiments (Feb 2026) rather than doubling down. OpenAI killed its
+   node-graph builder. The counterexample is <strong>Google ADK 2.0</strong>, which replaced its
+   simple Sequential/Parallel/Loop agents with a full typed graph engine in May-Jun
+   2026 — one major vendor moved <em>toward</em> graph dataflow, not away.</p>
+</li>
+<li>
+<p><strong>"Model labs deliberately don't bundle workflow engines" — STRONGLY CONFIRMED,
+   now with a corpse.</strong> Anthropic still ships no workflow engine (Claude Agent SDK
+   remains loop + primitives). OpenAI went further than abstaining: it shipped a
+   visual workflow builder (Oct 2025), watched it for eight months, <strong>deprecated it
+   June 3, 2026</strong> (shutdown Nov 30, 2026), never GA'd it, and pivoted the Agents SDK
+   to a "model-native harness" (Apr 2026). Its migration doc concedes workflows
+   "with strong determinism at their core may not migrate faithfully." For crash-safe
+   agents, OpenAI's answer is Temporal — exactly the "use a durable execution
+   engine" prescription.</p>
+</li>
+<li>
+<p><strong>"Four distinct orchestration categories; don't conflate them" — HOLDS.</strong> The
+   market sorted itself along precisely these lines: graph dataflow (MAF code-first,
+   LangGraph, ADK 2.0), durable execution (Temporal, Dapr, DurableTask), and the
+   categories didn't merge — they <em>bridged</em> (MAF-on-DurableTask, OpenAI-on-Temporal).</p>
+</li>
+<li>
+<p><strong>"Durable execution is the most important category for agents" — CONFIRMED,
+   and now conventional wisdom.</strong> March 23, 2026: Temporal's OpenAI integration GA
+   and Dapr Agents v1.0 GA on the same day. Microsoft, rather than making its
+   Pregel engine natively durable, runs it <em>as</em> DurableTask orchestrations —
+   vindicating the blog's specific jab that "Microsoft already ships DurableTask."
+   Every major cloud shipped durable primitives within the year (Lambda Durable
+   Functions, Cloudflare Workflows, Vercel Workflow DevKit). In-proc superstep
+   checkpointing is increasingly called out (Diagrid, Restate, DBOS) as
+   not-actually-durable-execution, and the Koshy essay (May 2026) independently
+   restates the blog's core argument almost verbatim: agent systems are
+   "unconsciously reinventing" lessons that WF, Step Functions, and Temporal
+   already learned.</p>
+</li>
+<li>
+<p><strong>"Models increasingly handle their own orchestration" — CONFIRMED AND NOW
+   INDUSTRY DIRECTION.</strong> The 2026 convergence on "harness" products (OpenAI Apr
+   2026, AWS AgentCore Harness Jun 2026, MAF Agent Harness May 2026) is this claim
+   productized: environment + tools + memory, control flow left to the model.</p>
+</li>
+<li>
+<p><strong>"Bounded contexts / message buses are the overlooked architecture" — PARTIALLY
+   VALIDATED.</strong> No framework reoriented around bounded contexts, but A2A's
+   trajectory (Linux Foundation donation Jun 2025, 150+ orgs, production use in year
+   one) shows cross-context agent federation becoming real infrastructure, and
+   Dapr Agents (pub/sub + actors per agent) is architecturally the closest thing to
+   the blog's prescription shipping today.</p>
+</li>
+</ol>
+<h3 id="what-the-post-undersold-or-got-wrong">What the post undersold or got wrong<a class="headerlink" href="#what-the-post-undersold-or-got-wrong" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>The "reinvention" is worse than claimed, in an unexpected direction.</strong> The blog
+  criticized frameworks for rebuilding <em>graph dataflow engines</em>. Microsoft's
+  declarative layer actually rebuilt something older: a <strong>2016-era bot dialog
+  scripting format</strong> (Adaptive Dialogs) with Excel formulas (Power Fx) and <code>goto</code>.
+  The prediction that "XML-based BPM engines feel like overkill" has an ironic
+  coda — the shipped alternative recreates pre-BPM scripting, minus the standards,
+  the tooling, and the error-handling semantics (no retry/compensation/timeout;
+  the documented pattern is a hand-rolled <code>hasError</code> flag).</li>
+<li><strong>ADK 2.0 is genuine counterevidence</strong> to "heavy orchestration frameworks will
+  feel like overkill." Google shipped <em>more</em> graph, <em>more</em> durability (first-party
+  cross-runtime pause/resume), and made it GA. If the blog's trajectory argument is
+  right, ADK 2.0 is the position that ages worst; it deserves acknowledgment as the
+  strongest live counter-bet.</li>
+<li><strong>The lock-in argument gained a sharper form.</strong> Agent Builder's death shows the
+  failure mode isn't just learning-curve waste: OpenAI never exposed a portable
+  declarative representation, so deprecation means lossy one-way code export.
+  Frameworks with published, schema-validated formats (ADK's <code>AgentConfig.json</code>,
+  MAF's YAML) at least leave artifacts behind. Portability of the <em>format</em>
+  matters as much as maturity of the <em>engine</em>.</li>
+<li><strong>The mature-engines prescription found its proof point in Camunda, which the
+  post didn't discuss.</strong> "Use battle-tested orchestration primitives" turned out
+  not to be hypothetical: Camunda demonstrated that a standard BPMN 2.0 element
+  (the ad-hoc sub-process) can host an LLM's dynamic tool loop while the engine
+  supplies retries, incidents, audit, and human tasks — no new workflow model
+  required. That is the blog's argument implemented inside the standards stack.</li>
+<li><strong>The declarative mid-market is bigger than the post allowed.</strong> n8n was filed
+  under "declarative tools (for comparison)," but its $5.2B valuation (May 2026,
+  SAP) says visual-workflow-with-an-agent-step is the commercially dominant form
+  of agent orchestration outside engineering organizations. The thesis holds for
+  engineers building products; the low-code buyer is a different market, and
+  it's the market MAF's declarative layer and Bedrock Flows are actually aimed
+  at.</li>
+</ul>
+<h3 id="overall">Overall<a class="headerlink" href="#overall" title="Permanent link">&para;</a></h3>
+<p><strong>The thesis holds — more strongly than when it was written.</strong> Between April and
+July 2026: OpenAI deprecated its workflow builder and standardized on
+Temporal for durability; LangChain buried its declarative experiments; AWS put
+classic Bedrock Agents into maintenance while Flows went quiet; the durable
+execution camp (Temporal, Dapr, DurableTask) collected the wins; every vendor
+launched a "harness"; and an independent essayist arrived at the same
+"rediscovering durable execution" conclusion. The two data points running
+against the thesis — ADK 2.0's graph engine and MAF declarative going stable —
+are both first-party platform plays tied to visual builders and low-code
+ecosystems (Vertex/Foundry), which is consistent with the blog's observation
+that these engines serve the vendor's platform strategy more than the typical
+agent developer.</p>
+<p>One refinement the evidence suggests: the field didn't split into "frameworks
+vs. mature tools" — it settled into a <strong>layering consensus</strong> the post only
+partially anticipated. The model owns control flow inside a durable, replayable,
+governed envelope; the envelope is supplied by durable-execution engines
+(Temporal, Dapr, DurableTask) or standards-based engines (Camunda), not by the
+agent framework's graph. The graph-dataflow layer specifically is the one whose
+2026 obituaries (Agent Builder, langgraph-builder, Bedrock Flows' stall) keep
+accumulating.</p>
+<hr />
+<h2 id="4-implications-for-holodeck-036-deterministic-spine">4. Implications for HoloDeck (036-deterministic-spine)<a class="headerlink" href="#4-implications-for-holodeck-036-deterministic-spine" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The FEEL/DMN choice is genuinely unoccupied ground among agent frameworks.</strong>
+  No agent framework adopted a standards-based decision language — the field
+  split between proprietary (Power Fx), sunset (CEL in Agent Builder), jq/JS
+  (workflow tools), and nothing (plain Python). The one ecosystem where FEEL
+  meets agents — Camunda — is a heavyweight enterprise BPM platform, not a
+  developer-first agent stack. A DMN-decision-table spine with FEEL is
+  differentiated <em>and</em> standards-portable, which the Agent Builder shutdown
+  shows is not a theoretical concern; and Camunda's success validates FEEL as
+  proven at enterprise scale rather than an academic pick.</li>
+<li><strong>036 sits exactly in the gap the commentary names.</strong> The Koshy essay's
+  "what's missing" list — a portable agent workflow definition plus a durable
+  execution contract, "definitions, execution records, identity, policy, and
+  replay" — reads like the 036 spec's motivation section. The deterministic
+  spine (versioned DMN tables, schema gates, replayable records, named human at
+  the top) is a concrete instance of that missing layer, scoped to decisions
+  rather than general orchestration.</li>
+<li><strong>Keep the spine thin.</strong> The market is validating "deterministic decision
+  logic + model-led leaves," not "workflow engine that owns the agents." The
+  036 framing (LLM never the spine; agents at the edges behind schema gates)
+  aligns with where the harness-era architecture is heading.</li>
+<li><strong>Publish the schema.</strong> ADK's <code>AgentConfig.json</code> pattern (schema-validated,
+  user-owned YAML) survived product churn; Agent Builder's internal-only graph
+  format did not. 036's published JSON schema for decision tables is the right
+  instinct — treat it as a contract, not an implementation detail.</li>
+</ul>
+<hr />
+<p><em>Research method: primary sources (repo source code of <code>microsoft/agent-framework</code>
+at 2026-07-24, Microsoft Learn, official vendor blogs/changelogs/release notes,
+PyPI) gathered July 25, 2026 via parallel research agents; facts are
+source-verified unless framed as assessment. Key sources are linked inline
+throughout.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

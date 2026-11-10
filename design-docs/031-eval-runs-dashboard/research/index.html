@@ -1,0 +1,2553 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/design-docs/031-eval-runs-dashboard/research/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Phase 0 Research: Eval Runs, Prompt Versioning, and Test View Dashboard - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-0-research-eval-runs-prompt-versioning-and-test-view-dashboard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phase 0 Research: Eval Runs, Prompt Versioning, and Test View Dashboard
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#r1-python-frontmatter-prompt-versioning-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R1. python-frontmatter — prompt versioning parser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r2-streamlit-dashboard-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R2. Streamlit — dashboard runtime
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r3-atomic-json-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R3. Atomic JSON writes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r4-slugification-for-resultsslugified-agent-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R4. Slugification for results/&lt;slugified-agent-name&gt;/
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r5-secret-redaction-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R5. Secret redaction policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r6-dashboard-data-loading-skip-on-corrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R6. Dashboard data loading — skip-on-corrupt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r7-streamlit-testing-posture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R7. Streamlit testing posture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r8-tool-callresult-pairing-for-toolinvocation-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R8. Tool call/result pairing for ToolInvocation persistence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r9-token_usage-persistence-on-testresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R9. token_usage persistence on TestResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-key-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of key decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="phase-0-research-eval-runs-prompt-versioning-and-test-view-dashboard">Phase 0 Research: Eval Runs, Prompt Versioning, and Test View Dashboard<a class="headerlink" href="#phase-0-research-eval-runs-prompt-versioning-and-test-view-dashboard" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: 031-eval-runs-dashboard
+<strong>Status</strong>: Complete — no <code>NEEDS CLARIFICATION</code> remains.</p>
+<p>All clarifications in the spec (Clarifications / Session 2026-04-18) have already been resolved by the product owner. This document records the technical research supporting those decisions and the library-level choices required by the plan.</p>
+<hr />
+<h2 id="r1-python-frontmatter-prompt-versioning-parser">R1. <code>python-frontmatter</code> — prompt versioning parser<a class="headerlink" href="#r1-python-frontmatter-prompt-versioning-parser" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Adopt <code>python-frontmatter&gt;=1.1,&lt;2.0</code> as a core dependency.</p>
+<p><strong>Rationale</strong>:
+- MIT licensed, pure Python, minimal surface area, widely adopted by static-site tooling.
+- Its only runtime dep is <code>PyYAML</code>, already present transitively in HoloDeck.
+- It handles the three spec-required cases cleanly:
+  - Frontmatter present → <code>post.metadata</code> is a dict, <code>post.content</code> is the body.
+  - No frontmatter → <code>post.metadata == {}</code>, <code>post.content == full file</code>. <strong>No exception is raised</strong>, satisfying FR-011 and Acceptance Scenario 3 of Story 2.
+  - Malformed YAML inside a <code>---</code> block → raises <code>yaml.YAMLError</code> (subclasses <code>ScannerError</code>/<code>ParserError</code>), which we catch and re-raise as <code>ConfigError</code> per FR-017.
+- Accepts <code>Path</code>, <code>str</code> path, or file-like object via <code>frontmatter.load(...)</code>; accepts a string via <code>frontmatter.loads(...)</code>. The latter is what we use for the <code>instructions.inline</code> case — actually we <em>skip</em> parsing for inline per FR-014 (no <code>---</code> fences expected).</p>
+<p><strong>API usage pattern</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">frontmatter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigError</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="n">frontmatter</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">instructions_path</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">ConfigError</span><span class="p">(</span>
+        <span class="s2">"instructions.file"</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">"Malformed YAML frontmatter in </span><span class="si">{</span><span class="n">instructions_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+<span class="n">body</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">content</span>                 <span class="c1"># stripped of frontmatter block</span>
+<span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">metadata</span> <span class="c1"># {} when no frontmatter</span>
+</code></pre></div>
+<p><strong>Integration point (decided during verification)</strong>: this logic lives in a <strong>new</strong> module <code>src/holodeck/lib/prompt_version.py</code> that exposes <code>resolve_prompt_version(instructions: Instructions, base_dir: Path | None) -&gt; PromptVersion</code>. The existing <code>resolve_instructions()</code> keeps its <code>-&gt; str</code> contract and is <strong>not</strong> modified — its two callers (<code>test_runner/agent_factory.py:1151</code> and <code>lib/backends/claude_backend.py:275</code>) stay untouched. The eval-run writer invokes <code>resolve_prompt_version()</code> separately on the same <code>Instructions</code> object at persist time. This avoids a cross-cutting signature change.</p>
+<p><strong>Alternatives considered</strong>:
+- <strong>Hand-roll <code>---</code> fence parser</strong> — rejected: non-trivial edge cases (escaped fences, BOM, trailing whitespace); the library is tiny and mature.
+- <strong><code>markdown-it-py</code> front-matter plugin</strong> — rejected: pulls in a full markdown tokenizer we don't need.
+- <strong><code>ruamel.yaml</code> with manual fence splitting</strong> — rejected: more code for no gain; <code>python-frontmatter</code> already uses <code>PyYAML</code> under the hood.</p>
+<p><strong>Version auto-derivation (FR-013)</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="n">body_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span class="n">auto_version</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"auto-</span><span class="si">{</span><span class="n">body_hash</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div>
+<p>The full 64-hex-char <code>body_hash</code> is stored on <code>PromptVersion.body_hash</code> so the dashboard can recover deterministic equality across runs even when a manual version is present.</p>
+<hr />
+<h2 id="r2-streamlit-dashboard-runtime">R2. Streamlit — dashboard runtime<a class="headerlink" href="#r2-streamlit-dashboard-runtime" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Adopt <code>streamlit&gt;=1.36,&lt;2.0</code> as an <strong>optional extra</strong> (<code>holodeck[dashboard]</code>). Launch via <code>subprocess.Popen([sys.executable, "-m", "streamlit", "run", app_path, ...])</code>.</p>
+<p><strong>Rationale</strong>:
+- Streamlit ≥1.36 provides the modern multi-page API (<code>st.Page</code>, <code>st.navigation</code>) which is declarative and avoids the legacy <code>pages/</code> directory convention. It also provides <code>st.query_params</code> (stable since 1.30) which FR-028b requires for shareable filter state.
+- Spawning <code>streamlit</code> as a subprocess via the <code>-m streamlit</code> entry point is the officially recommended approach and is what the <code>streamlit</code> console script does internally. It gives:
+  - Correct venv/interpreter resolution (<code>sys.executable</code>).
+  - Clean signal handling — forwarding <code>SIGINT</code> to the child on Ctrl+C terminates the server predictably (Acceptance Scenario 7 of Story 4).
+  - No dependency on Streamlit's private <code>streamlit.web.bootstrap</code> API, which has changed between minor versions.
+- Binding to <code>0.0.0.0</code> is Streamlit's default — no flag needed. Per clarification, network exposure is the user's responsibility; we emit a one-line launch-time warning per FR-020.</p>
+<p><strong>Subprocess pattern</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">signal</span><span class="o">,</span><span class="w"> </span><span class="nn">subprocess</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">app_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">holodeck</span><span class="o">.</span><span class="n">dashboard</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"app.py"</span>
+<span class="n">env</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span>
+       <span class="s2">"HOLODECK_DASHBOARD_RESULTS_DIR"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">results_dir</span><span class="p">),</span>
+       <span class="s2">"HOLODECK_DASHBOARD_AGENT_NAME"</span><span class="p">:</span> <span class="n">agent_name_slug</span><span class="p">}</span>
+<span class="n">argv</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"streamlit"</span><span class="p">,</span> <span class="s2">"run"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">app_path</span><span class="p">),</span>
+        <span class="s2">"--server.headless=true"</span><span class="p">,</span>
+        <span class="s2">"--browser.gatherUsageStats=false"</span><span class="p">]</span>
+<span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">send_signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span><span class="p">:</span>
+        <span class="n">proc</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Configuration passing</strong>: Environment variables (<code>HOLODECK_DASHBOARD_*</code>) are preferred over <code>sys.argv</code> forwarding — they are inherited cleanly by the child and trivially read inside the Streamlit app via <code>os.environ</code>. <code>st.query_params</code> is reserved for user-driven filter state (FR-028b), not bootstrapping.</p>
+<p><strong>Install detection</strong> (FR-022):</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">importlib.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_spec</span>
+<span class="k">if</span> <span class="n">find_spec</span><span class="p">(</span><span class="s2">"streamlit"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
+        <span class="s2">"Dashboard not installed. Install the optional extra:</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"  uv add 'holodeck-ai[dashboard]'   # or: pip install 'holodeck-ai[dashboard]'"</span><span class="p">,</span>
+        <span class="n">err</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">raise</span> <span class="n">click</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<p><code>find_spec</code> does <strong>not</strong> import Streamlit (which is heavy and has side effects), so the hint fires instantly and cleanly.</p>
+<p><strong>Layout primitives used</strong> (no design-system opinions — user is building one separately):</p>
+<table>
+<thead>
+<tr>
+<th>Spec Requirement</th>
+<th>Streamlit Primitive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-page navigation (Summary / Explorer)</td>
+<td><code>st.Page(...)</code> + <code>st.navigation([...])</code></td>
+</tr>
+<tr>
+<td>Sidebar with faceted filters (FR-028a)</td>
+<td><code>st.sidebar</code> + <code>st.date_input</code>, <code>st.multiselect</code>, <code>st.slider</code></td>
+</tr>
+<tr>
+<td>Run table (FR-025)</td>
+<td><code>st.dataframe(df, on_select="rerun")</code> for click-to-drill</td>
+</tr>
+<tr>
+<td>Pass-rate-over-time chart (FR-026)</td>
+<td><code>st.line_chart(df)</code> or <code>st.altair_chart(...)</code> for tooltips</td>
+</tr>
+<tr>
+<td>Per-metric avg trends (FR-027)</td>
+<td><code>st.line_chart(df)</code> per metric type</td>
+</tr>
+<tr>
+<td>Breakdown panels for <code>standard</code>/<code>rag</code>/<code>geval</code> (FR-028)</td>
+<td><code>st.tabs(...)</code> or three <code>st.container()</code> panels</td>
+</tr>
+<tr>
+<td>Chat-style conversation (Explorer)</td>
+<td><code>st.chat_message("user")</code> / <code>st.chat_message("assistant")</code></td>
+</tr>
+<tr>
+<td>Tool calls distinct from chat</td>
+<td><code>st.container(border=True)</code> + <code>st.json(..., expanded=False)</code></td>
+</tr>
+<tr>
+<td>Collapsible large tool results (FR-032)</td>
+<td><code>st.expander("Tool result (N KB)", expanded=False)</code> + <code>st.json</code></td>
+</tr>
+<tr>
+<td>Filter state in URL (FR-028b)</td>
+<td><code>st.query_params.to_dict()</code> / <code>st.query_params.from_dict(...)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Alternatives considered</strong>:
+- <strong>Gradio</strong> — rejected: more opinionated about ML-model demos, weaker multi-page story, no native query-param plumbing.
+- <strong>Plain FastAPI + a single HTML page</strong> — rejected: requires a JS frontend to match filter interactivity; vastly more code for a read-only viewer.
+- <strong>Jupyter Lab / Voilà</strong> — rejected: not a zero-config install for non-notebook users; awkward for a CLI-launched experience.
+- <strong>Invoking <code>streamlit.web.bootstrap.run()</code> in-process</strong> — rejected: private API, unstable across versions, and complicates signal handling (Streamlit uses Tornado's ioloop which competes with Click's signal setup).</p>
+<hr />
+<h2 id="r3-atomic-json-writes">R3. Atomic JSON writes<a class="headerlink" href="#r3-atomic-json-writes" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: <code>tmp + fsync + os.replace</code> pattern on POSIX; <code>os.replace</code> is atomic on both POSIX and Windows.</p>
+<p><strong>Rationale</strong>: Spec FR-009b mandates readers see either the old file or the new file, never a partial one. Python's <code>os.replace</code> provides an atomic rename on the same filesystem. The sequence is:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">tempfile</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">write_atomic</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tmp_fd</span><span class="p">,</span> <span class="n">tmp_name</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">(</span>
+        <span class="n">prefix</span><span class="o">=</span><span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">"."</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">".tmp"</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">fdopen</span><span class="p">(</span><span class="n">tmp_fd</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tmp_name</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>          <span class="c1"># atomic</span>
+    <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">tmp_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span> <span class="k">pass</span>
+        <span class="k">raise</span>
+</code></pre></div>
+<ul>
+<li><code>mkstemp</code> in the same directory ensures <code>os.replace</code> is on the same filesystem (rename within a directory is always same-fs on POSIX).</li>
+<li><code>fsync</code> flushes the page cache to disk before replace — required if the machine crashes mid-write.</li>
+<li>We do <strong>not</strong> fsync the parent directory after replace. This is a deliberate simplification: a post-crash directory listing may briefly omit the new filename, but no reader will ever observe a partial file — which is the spec's stated invariant. Adding parent-directory fsync is a future hardening option, not a v1 requirement.</li>
+</ul>
+<p><strong>Collision handling (FR-008)</strong>: Timestamp uses millisecond precision (<code>2026-04-18T14-22-09.812Z.json</code>); if collision occurs (two runs in the same ms, rare), append a 4-hex random suffix before the extension. Implemented in <code>writer.py</code>.</p>
+<hr />
+<h2 id="r4-slugification-for-resultsslugified-agent-name">R4. Slugification for <code>results/&lt;slugified-agent-name&gt;/</code><a class="headerlink" href="#r4-slugification-for-resultsslugified-agent-name" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Lowercase + alphanumerics + <code>-</code>; non-conforming characters replaced with <code>-</code>; consecutive <code>-</code> collapsed; leading/trailing <code>-</code> stripped. Empty result fails loudly (but spec notes this can't happen since <code>agent.name</code> validation already rejects empty).</p>
+<p><strong>Rationale</strong>: The existing HoloDeck codebase has no single canonical slugifier; this trivial rule avoids adding a dependency (e.g. <code>python-slugify</code>) and matches the spec's "documented rule" (Assumption 9). Collisions across distinct agent names are a known v1 limitation.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">slugify</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^a-z0-9-]+"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"-+"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="n">slug</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"agent.name slugified to empty string: </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">slug</span>
+</code></pre></div>
+<hr />
+<h2 id="r5-secret-redaction-policy">R5. Secret redaction policy<a class="headerlink" href="#r5-secret-redaction-policy" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Two-rule redaction enforced by a single module, <code>lib/eval_run/redactor.py</code>:</p>
+<ol>
+<li><strong>Name allowlist</strong> (centralised as <code>REDACTED_FIELD_NAMES = frozenset({"api_key", "password", "secret"})</code>). Exact-match on the leaf field name.</li>
+<li><strong>Type-driven</strong> (<code>isinstance(value, pydantic.SecretStr)</code> after Pydantic dump, OR discovered by walking model fields via <code>model_fields</code> and checking annotation).</li>
+</ol>
+<p>The redactor operates on the <strong>model instance</strong>, not the serialized JSON, so it can see Pydantic field types. Redacted values become the literal string <code>"***"</code>.</p>
+<p><strong>Migration requirement</strong> (per spec Assumption 4): Before this feature ships, any provider-secret field typed as plain <code>str</code> (e.g. Anthropic <code>auth_token</code>, OAuth tokens, AWS access keys, connection strings) MUST be migrated to <code>SecretStr</code>. The Phase-1 data-model deliverable enumerates the fields that need migration.</p>
+<p><strong>Rationale</strong>: Whitelisting the exact allowlist in one module satisfies FR-005 ("centralised in a single module-level constant for discoverability"). Type-driven redaction is the durable mechanism — future secret fields added with <code>SecretStr</code> are covered automatically without updating the allowlist.</p>
+<hr />
+<h2 id="r6-dashboard-data-loading-skip-on-corrupt">R6. Dashboard data loading — skip-on-corrupt<a class="headerlink" href="#r6-dashboard-data-loading-skip-on-corrupt" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: The dashboard's <code>data_loader.load_all(results_dir)</code> iterates <code>*.json</code>, attempting <code>EvalRun.model_validate_json(path.read_text())</code>. On <code>ValidationError</code>, <code>json.JSONDecodeError</code>, or <code>OSError</code>, the file is skipped with a <code>logging.warning(...)</code> and loading continues (FR-024).</p>
+<p><strong>Rationale</strong>: Defense-in-depth. The atomic-write path (R3) should prevent partial files produced by <code>holodeck test</code>, but files produced by other tooling, manual edits, or interrupted legacy writes must not crash the viewer.</p>
+<hr />
+<h2 id="r7-streamlit-testing-posture">R7. Streamlit testing posture<a class="headerlink" href="#r7-streamlit-testing-posture" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: No unit tests against the Streamlit UI itself. Unit tests cover:
+- <code>dashboard/data_loader.py</code> — pure Python, exercises loading, filtering, aggregation, skip-on-corrupt.
+- <code>dashboard/filters.py</code> — round-trip of filter state ↔ <code>dict</code> (the <code>st.query_params</code> boundary is thin).</p>
+<p>An optional smoke integration test under <code>tests/integration/dashboard/test_app_smoke.py</code> uses <code>streamlit.testing.v1.AppTest</code> if available; it is <code>pytest.importorskip("streamlit")</code>-guarded so the core test suite still runs without the extra installed.</p>
+<p><strong>Rationale</strong>: Streamlit UI tests are fragile and expensive. The data layer carries the correctness-critical logic; the UI is thin glue.</p>
+<hr />
+<h2 id="r8-tool-callresult-pairing-for-toolinvocation-persistence">R8. Tool call/result pairing for <code>ToolInvocation</code> persistence<a class="headerlink" href="#r8-tool-callresult-pairing-for-toolinvocation-persistence" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Pair backend-emitted tool-call records with their result records at executor time, producing a list of <code>ToolInvocation(name, args, result, bytes, duration_ms?, error?)</code> on each <code>TestResult</code>. Pairing strategy differs per backend; both land in a single uniform <code>ToolInvocation</code> shape.</p>
+<p><strong>Background</strong>: <code>ExecutionResult.tool_calls</code> and <code>ExecutionResult.tool_results</code> are two parallel <code>list[dict[str, Any]]</code> fields (<a href="https://github.com/justinbarias/holodeck/blob/main/src/holodeck/lib/backends/base.py">backends/base.py:38–39</a>). Today the executor only extracts tool <strong>names</strong> via <code>extract_tool_names(exec_result.tool_calls)</code> and persists them to <code>TestResult.tool_calls: list[str]</code> — the <code>args</code> and the <code>result</code> payload are discarded. The design dashboard's Explorer view (explorer.js:152–184) cannot render <code>{name, args, result, bytes}</code> panels without this data.</p>
+<p><strong>Pairing semantics</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Call source</th>
+<th>Result source</th>
+<th>Correlation key</th>
+<th>Failure mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Semantic Kernel (<code>sk_backend.py</code>)</td>
+<td><code>FunctionCallContent</code> items on chat history</td>
+<td><code>FunctionResultContent</code> items on chat history</td>
+<td>Positional index in call-order</td>
+<td>If the call raised before returning, <code>tool_results</code> is shorter than <code>tool_calls</code> — pad with <code>ToolInvocation(error="no result received", result=None)</code> preserving call-order.</td>
+</tr>
+<tr>
+<td>Claude Agent SDK (<code>claude_backend.py</code>)</td>
+<td><code>ToolUseBlock</code> in assistant messages</td>
+<td><code>ToolResultBlock</code> in user-role messages</td>
+<td><code>tool_use_id</code> field (guaranteed unique within a turn)</td>
+<td>Unmatched <code>tool_use_id</code> → record with <code>error="no result received"</code>. A result without a prior call is a protocol violation — log WARNING and skip.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Shape contract</strong> (enforced by <code>ToolInvocation</code> validator):</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ToolInvocation</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">extra</span><span class="o">=</span><span class="s2">"forbid"</span><span class="p">)</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">duration_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<p><code>bytes = len(json.dumps(result, default=str))</code> — <code>default=str</code> ensures non-JSON-serialisable values (datetimes, Pydantic models) don't raise during size measurement. The persisted <code>result</code> is coerced to a JSON-safe shape by the writer (<code>json.loads(json.dumps(result, default=str))</code>) before it reaches <code>ToolInvocation</code> — this is lossy for non-serialisable values but matches on-disk semantics.</p>
+<p><strong>Implementation locus</strong>: a new helper <code>pair_tool_calls(exec_result: ExecutionResult, backend_kind: str) -&gt; list[ToolInvocation]</code> in <code>src/holodeck/lib/test_runner/tool_invocation_builder.py</code>. The executor calls it at <a href="https://github.com/justinbarias/holodeck/blob/main/src/holodeck/lib/test_runner/executor.py">executor.py:602–604</a> immediately after <code>exec_result</code> arrives, replacing the current <code>tool_calls = extract_tool_names(...)</code> line with both a names-list (for back-compat) and a <code>tool_invocations</code> list.</p>
+<p><strong>Alternatives considered</strong>:
+- <strong>Dict-merge heuristic</strong> (match by tool name only) — rejected: ambiguous when the same tool is called multiple times in one turn.
+- <strong>Single unified stream of <code>ToolEvent(kind="start"|"end")</code> events from the backend</strong> — already exists as <code>lib/backends/base.py::ToolEvent</code> for streaming, but consumers must materialise a paired list anyway; we'd be pushing complexity into every consumer.</p>
+<hr />
+<h2 id="r9-token_usage-persistence-on-testresult">R9. <code>token_usage</code> persistence on <code>TestResult</code><a class="headerlink" href="#r9-token_usage-persistence-on-testresult" title="Permanent link">&para;</a></h2>
+<p><strong>Decision</strong>: Add <code>TestResult.token_usage: TokenUsage | None = None</code>. Executor copies from <code>exec_result.token_usage</code>. <code>TokenUsage</code> model already exists at <code>src/holodeck/models/token_usage.py</code> and is already carried on <code>ExecutionResult</code> by both backends — the only gap is that the executor drops it on the floor today.</p>
+<p><strong>Rationale</strong>: Required by the Compare view's cost computation. The design handoff (compare.js:31–32) synthesises cost from <code>duration_ms * rate</code> with a hardcoded per-model rate — acceptable for a prototype, not for a real dashboard. Persisting token counts lets the dashboard multiply by a pricing table (also out-of-scope for US1; V1 dashboard may still fall back to the synthetic formula until the pricing table ships). HoloDeck itself never persists a dollar value — the aggregation lives in the viewer.</p>
+<p><strong>Why not in US1 scope before now</strong>: <code>token_usage</code> was already on <code>ExecutionResult</code> but the executor discarded it because no downstream consumer needed it pre-dashboard. Adding it here costs one field + one line in the executor.</p>
+<p><strong>Executor wire-up</strong> (single line at <a href="https://github.com/justinbarias/holodeck/blob/main/src/holodeck/lib/test_runner/executor.py">executor.py:670–684</a> <code>TestResult(...)</code> construction):</p>
+<div class="highlight"><pre><span></span><code><span class="k">return</span> <span class="n">TestResult</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">tool_invocations</span><span class="o">=</span><span class="n">tool_invocations</span><span class="p">,</span>   <span class="c1"># from R8</span>
+    <span class="n">token_usage</span><span class="o">=</span><span class="n">exec_result</span><span class="o">.</span><span class="n">token_usage</span> <span class="k">if</span> <span class="n">exec_result</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>   <span class="c1"># from R9</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="summary-of-key-decisions">Summary of key decisions<a class="headerlink" href="#summary-of-key-decisions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontmatter parser</td>
+<td><code>python-frontmatter&gt;=1.1</code> (core dep)</td>
+</tr>
+<tr>
+<td>Prompt-version resolver</td>
+<td>New <code>lib/prompt_version.py</code> (additive); <code>resolve_instructions</code> unchanged</td>
+</tr>
+<tr>
+<td>Dashboard framework</td>
+<td>Streamlit ≥1.36 (optional <code>dashboard</code> extra)</td>
+</tr>
+<tr>
+<td>Dashboard launch</td>
+<td><code>subprocess.Popen([sys.executable, "-m", "streamlit", "run", ...])</code></td>
+</tr>
+<tr>
+<td>Dashboard config passing</td>
+<td>Env vars <code>HOLODECK_DASHBOARD_*</code></td>
+</tr>
+<tr>
+<td>URL filter state</td>
+<td><code>st.query_params</code></td>
+</tr>
+<tr>
+<td>Install detection</td>
+<td><code>importlib.util.find_spec("streamlit")</code></td>
+</tr>
+<tr>
+<td>Atomic write</td>
+<td><code>mkstemp</code> + <code>fsync</code> + <code>os.replace</code> (no parent-dir fsync in v1)</td>
+</tr>
+<tr>
+<td>Slugifier</td>
+<td>Hand-rolled <code>[a-z0-9-]+</code>; no new dep</td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Name allowlist + <code>SecretStr</code> type-driven; centralised constant</td>
+</tr>
+<tr>
+<td><code>results/</code> root</td>
+<td><code>agent_base_dir/results/&lt;slug&gt;/</code> (matches <code>instructions.file</code> resolution)</td>
+</tr>
+<tr>
+<td>Click shape</td>
+<td><code>holodeck test</code> converts to a group with invoke-without-command default callback; <code>view</code> registered as subcommand</td>
+</tr>
+<tr>
+<td>SecretStr migration</td>
+<td>In-scope for this feature; every callsite updated to <code>.get_secret_value()</code></td>
+</tr>
+<tr>
+<td>Corrupt-file handling</td>
+<td>Log + skip (dashboard)</td>
+</tr>
+<tr>
+<td>UI testing</td>
+<td>Data layer unit-tested; Streamlit UI smoke-tested optionally</td>
+</tr>
+<tr>
+<td>Tool-call persistence shape</td>
+<td><code>ToolInvocation{name, args, result, bytes, duration_ms?, error?}</code> — pairing per R8</td>
+</tr>
+<tr>
+<td>Token usage persistence</td>
+<td><code>TestResult.token_usage: TokenUsage \| None</code> — copied from <code>ExecutionResult</code></td>
+</tr>
+<tr>
+<td>Cost computation</td>
+<td>Dashboard-side from <code>token_usage × pricing_table</code> (HoloDeck persists no dollar value)</td>
+</tr>
+<tr>
+<td>Conversation discriminated union</td>
+<td><strong>Deferred</strong> to a follow-up user story — <code>test_input</code> + <code>agent_response</code> + parallel <code>tool_invocations</code> suffices for US4/US5</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

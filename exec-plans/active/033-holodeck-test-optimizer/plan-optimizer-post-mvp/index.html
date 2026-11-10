@@ -1,0 +1,2861 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/active/033-holodeck-test-optimizer/plan-optimizer-post-mvp/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Implementation Plan: holodeck test optimize — Post-MVP → Spec v1 - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-plan-holodeck-test-optimize-post-mvp-spec-v1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Plan: holodeck test optimize — Post-MVP → Spec v1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verified-integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verified integration points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-a-statistical-rigor-mvp-honest-acceptance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase A — Statistical rigor (MVP → honest acceptance)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase A — Statistical rigor (MVP → honest acceptance)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-a-honest-acceptance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛑 Checkpoint A — honest acceptance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-b-audit-artifacts-spec-complete-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase B — Audit &amp; artifacts (spec-complete outputs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase B — Audit &amp; artifacts (spec-complete outputs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-b-durable-auditable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛑 Checkpoint B — durable &amp; auditable
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-c-resume-resilience-planmd-phase-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase C — Resume &amp; resilience (plan.md Phase 7)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase C — Resume &amp; resilience (plan.md Phase 7)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-c-interruption-resilience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛑 Checkpoint C — interruption resilience
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-d-cli-diagnostics-proposer-fidelity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase D — CLI diagnostics &amp; proposer fidelity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase D — CLI diagnostics &amp; proposer fidelity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-d-spec-complete-cli-proposers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛑 Checkpoint D — spec-complete CLI &amp; proposers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-e-docs-schema-hygiene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase E — Docs, schema, hygiene
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase E — Docs, schema, hygiene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛑 Checkpoint: Complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallelization-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallelization Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks and Mitigations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#out-of-scope-explicit-not-in-this-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of Scope (explicit — not in this plan)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="implementation-plan-holodeck-test-optimize-post-mvp-spec-v1">Implementation Plan: <code>holodeck test optimize</code> — Post-MVP → Spec v1<a class="headerlink" href="#implementation-plan-holodeck-test-optimize-post-mvp-spec-v1" title="Permanent link">&para;</a></h1>
+<p><strong>Spec (authoritative):</strong> <code>2026-05-16-optimizer-for-holodeck-test-design.md</code> (rev. 2026-05-29)
+<strong>Predecessor plans:</strong> <code>plan.md</code> (MVP, shipped), <code>plan-text-proposer.md</code> (iterative textual, shipped),
+<code>plan-optimize-otel.md</code> (observability, shipped)
+<strong>Status:</strong> Draft for review (2026-06-07) — no code written yet.
+<strong>Companion:</strong> this file embeds its own task list (same convention as <code>plan-optimize-otel.md</code>).</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The MVP (<code>plan.md</code> T1–T9), iterative textual refinement (<code>plan-text-proposer.md</code>), and
+observability (<code>plan-optimize-otel.md</code>) all shipped in commit <code>#335</code>. What remains is the
+work that turns the <strong>compounding-coordinate-descent MVP</strong> into the <strong>authoritative spec v1</strong>:
+the statistical-rigor core the MVP explicitly deferred (<code>plan.md:3-10</code>, confirmed with the
+user 2026-05-31), the full audit/artifact set, resume/checkpointing (<code>plan.md</code> Phase 7,
+already specced as T10–T12), the remaining CLI diagnostics, and proposer-fidelity fixes.</p>
+<p>The current acceptance rule is a flat <code>min_delta</code> (<code>loop.py:178</code>) against a single test set
+scored once — the very "magic threshold below the noise floor" the 2026-05-29 rewrite was
+written to eliminate. The spine of this plan is replacing that with <strong>train/holdout +
+<code>repeats</code> + variance-aware acceptance</strong>, then making every trial durable and auditable.</p>
+<p>Few-shot demonstration optimization (the design's headlined <strong>#1 v2 item</strong>) is <strong>out of
+scope</strong> here — it needs its own schema/backend/selector design pass (see "Out of scope").</p>
+<h2 id="architecture-decisions">Architecture Decisions<a class="headerlink" href="#architecture-decisions" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Statistical rigor lands as one coherent slice, not piecemeal.</strong> <code>repeats</code>, train/holdout
+   split, and the variance-aware bar are mutually dependent (the bar needs the spread from
+   <code>repeats</code> measured on <code>train</code>, gated by <code>holdout</code>). They ship together in Phase A behind a
+   single checkpoint, so the loop is never in a half-honest state.</li>
+<li><strong>The audit log is the checkpoint.</strong> Resume replays <code>trials.jsonl</code>; no separate pickle
+   (<code>plan.md:99-102</code>). This forces richer per-trial records (Phase B) to land <em>before</em> resume
+   (Phase C) — Phase B is a hard dependency of Phase C.</li>
+<li><strong><code>TestExecutor</code> stays unchanged.</strong> Train/holdout is <code>agent.model_copy(update={"test_cases":
+   subset})</code> per call (spec §"What's new vs reused"); the scorer gains a <code>mean_loss</code> wrapper for
+   <code>repeats</code>. No runner edits.</li>
+<li><strong>Backward-compatible config.</strong> Every new <code>OptimizerConfig</code> field has a spec default so
+   existing <code>agent.yaml</code> files keep parsing; the <em>behavioural</em> switch from <code>min_delta</code> to the
+   σ-bar is the only intentional break, gated by validation that warns when <code>repeats == 1</code>.</li>
+<li><strong>Deterministic run-id enables resume.</strong> Switch from <code>timestamp + random hex</code>
+   (<code>optimize.py:251-255</code>) to <code>sha256(baseline_yaml + optimizer_config + seed)[:8]</code>
+   (spec §"On-disk layout") so <code>--resume</code> is unambiguous.</li>
+<li><strong>Secrets never leak into artifacts.</strong> Existing <code>overlay_axes</code> on the unsubstituted template
+   (<code>optimize.py:286-297</code>) is preserved for every candidate written; span/CSV/JSONL rules from
+   <code>plan-optimize-otel.md</code> decision 5 carry over.</li>
+</ol>
+<h2 id="verified-integration-points">Verified integration points<a class="headerlink" href="#verified-integration-points" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Config:</strong> <code>OptimizerConfig</code> (<code>src/holodeck/optimizer/config.py</code>) — add fields + a
+  <code>model_validator</code> for the new cross-field constraints.</li>
+<li><strong>Scorer:</strong> <code>score()</code> (<code>src/holodeck/optimizer/scorer.py:16-42</code>) — wrap in <code>mean_loss</code> and
+  accept a <code>cases</code> subset; today it runs <code>agent.test_cases</code> once.</li>
+<li><strong>Loop:</strong> <code>OptimizerLoop._run_phase</code> accept gate (<code>loop.py:178</code>), <code>run()</code> baseline
+  (<code>loop.py:74-79</code>), <code>_record</code> (<code>loop.py:225-229</code>); proposer <code>tell</code> already carries <code>report</code>.</li>
+<li><strong>Loss:</strong> <code>scalarize</code> / <code>_metric_averages</code> (<code>src/holodeck/optimizer/loss.py:26-102</code>) — flat
+  averaging today; needs per-case-then-across + penalties + <code>max_errored_fraction</code>.</li>
+<li><strong>Models:</strong> <code>TrialRecord</code> / <code>OptimizationResult</code> (<code>src/holodeck/optimizer/models.py</code>).</li>
+<li><strong>Output:</strong> <code>write_outputs</code> (<code>src/holodeck/optimizer/output.py:98-115</code>) — 3 artifacts today.</li>
+<li><strong>Numeric proposer:</strong> fresh study per phase already (<code>numeric.py:39-43</code>) but no
+  <code>multivariate</code>/<code>n_startup_trials</code>/<code>n_ei_candidates</code>, no per-phase seed offset.</li>
+<li><strong>Textual proposer:</strong> <code>_critique</code>/<code>_apply_edit</code> (<code>textual.py:241-302</code>) emit a bare <code>gradient</code>
+  string + <code>new_text</code>; no <code>confidence</code> short-circuit; subagents loaded from package dir
+  (<code>textual.py:42-58</code>), not auto-installed/user-editable.</li>
+<li><strong>CLI:</strong> <code>optimize</code> command (<code>src/holodeck/cli/commands/optimize.py</code>) — add flags + 3
+  diagnostic modes.</li>
+<li><strong>Resume task detail:</strong> already specced in <code>plan.md:94-121</code> and <code>tasks.md:176-237</code> (T10–T12).</li>
+<li><strong>Optuna:</strong> currently a <strong>base</strong> dependency (<code>pyproject.toml:57</code>); spec wants it under an
+  <code>[optimizer]</code> extra.</li>
+</ul>
+<hr />
+<h2 id="task-list">Task List<a class="headerlink" href="#task-list" title="Permanent link">&para;</a></h2>
+<h3 id="phase-a-statistical-rigor-mvp-honest-acceptance">Phase A — Statistical rigor (MVP → honest acceptance)<a class="headerlink" href="#phase-a-statistical-rigor-mvp-honest-acceptance" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>A1 — Config surface for rigor + budgets.</strong>
+  Add to <code>OptimizerConfig</code>: <code>train_cases_file</code>, <code>holdout_cases_file</code>, <code>holdout_eval_policy</code>
+  (<code>on_train_improve|every_trial|skip</code>, default <code>on_train_improve</code>), <code>min_holdout_cases</code>
+  (default 5), <code>repeats</code> (default 3), <code>accept_sigma</code> (default 1.0), <code>max_errored_fraction</code>
+  (default 0.25), <code>penalties</code> (<code>cost_per_usd</code>, <code>latency_per_sec</code>, both default 0.0),
+  global <code>budget</code> (<code>max_minutes</code>, <code>max_usd</code>, both optional), and
+  <code>numeric_convergence_eps</code> (default 1e-3). Keep <code>min_delta</code> for the <code>repeats == 1</code>/skip path.
+  <strong>Acceptance:</strong></li>
+<li class="task-list-item"><input type="checkbox" disabled/> All fields parse with spec defaults; an existing MVP <code>agent.yaml</code> (no new keys) still loads.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>model_validator</code> rejects <code>min_holdout_cases &lt; 1</code>, <code>repeats &lt; 1</code>, <code>accept_sigma &lt; 0</code>.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <code>holdout_eval_policy</code> outside the enum → <code>ValidationError</code>.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_config.py -n auto</code>; <code>make type-check</code>.
+  <strong>Dependencies:</strong> None.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/config.py</code>, <code>tests/unit/optimizer/test_config.py</code>.
+  <strong>Scope:</strong> S.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>A2 — Startup validation pass (collect-all-errors).</strong>
+  Implement the spec §"Validation at startup" 11-step pass as a pure function returning a list
+  of errors (raise a single <code>OptimizerError</code> aggregating them). Covers: optimizer block present;
+  train/holdout load + parse + disjoint by <code>test_name</code> + share metric set + holdout ≥
+  <code>min_holdout_cases</code>; loss weights reference configured metrics; <code>repeats</code>/<code>accept_sigma</code>
+  bounds with the <code>repeats == 1</code> warning; per-phase <code>max_trials ≥ 1</code> + numeric-below-warmup
+  warning; each numeric axis <em>applies</em> to the baseline as a sanity check; each textual axis path
+  resolves and <code>max_chars ≥ current length</code>.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Multiple simultaneous misconfigurations are reported together, not one-at-a-time.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Overlapping train/holdout names → error naming the offenders.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> Holdout below floor → error (not warning); <code>repeats == 1</code> → warning, not error.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_validation.py -n auto</code>.
+  <strong>Dependencies:</strong> A1.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/validation.py</code> (new), <code>tests/unit/optimizer/test_validation.py</code>.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>A3 — Train/holdout loading + subset injection.</strong>
+  Load both case files into <code>list[TestCaseModel]</code>; thread <code>train</code>/<code>holdout</code> subsets into the
+  scorer via <code>agent.model_copy(update={"test_cases": subset})</code>. When only <code>test_cases_file</code> is
+  present and no split is configured, error per spec (point at <code>holdout_eval_policy: skip</code>).
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Scorer runs against the train subset by default; holdout subset available on demand.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <code>holdout_eval_policy: skip</code> runs train-only and is flagged for the report.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_scorer.py -n auto</code>.
+  <strong>Dependencies:</strong> A1.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/scorer.py</code>, <code>src/holodeck/cli/commands/optimize.py</code>,
+  <code>tests/unit/optimizer/test_scorer.py</code>.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>A4 — <code>mean_loss</code>: repeats aggregation (mean + std).</strong>
+  Add <code>mean_loss(cand, cases, repeats) -&gt; TrialLoss{mean, std, n, runs}</code> running <code>repeats</code>
+  independent sweeps (<code>force_ingest=False</code> throughout). Carry the spread for the accept bar.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>repeats=3</code> runs the executor 3× and returns <code>pstdev</code> of the per-run losses.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <code>repeats=1</code> returns <code>std=0</code> (degenerate, documented).
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_scorer.py -n auto</code> (stub executor).
+  <strong>Dependencies:</strong> A3.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/scorer.py</code>, <code>src/holodeck/optimizer/models.py</code>
+  (add <code>TrialLoss</code>), <code>tests/unit/optimizer/test_scorer.py</code>.
+  <strong>Scope:</strong> S–M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>A5 — Loss: per-turn/per-case averaging, <code>max_errored_fraction</code>, penalties.</strong>
+  In <code>loss.py</code>: average per-turn metrics within a case then across cases (not flat across all
+  <code>metric_results</code>); mark a metric's trial loss <em>unreliable</em> when its errored fraction exceeds
+  <code>max_errored_fraction</code> (block accept-on-that-basis, logged); add the optional cost/latency
+  penalties (<code>trial_usd</code> summed from per-result <code>token_usage</code> × repeats, mean latency from
+  <code>execution_time_ms</code>).
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> A multi-turn case does not dominate a single-turn case in the aggregate.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> &gt;25% errored runs for a weighted metric marks the trial unreliable.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> Penalties off by default; when set, add to the scalar loss per the spec formula.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_loss.py -n auto</code>.
+  <strong>Dependencies:</strong> A1.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/loss.py</code>, <code>tests/unit/optimizer/test_loss.py</code>.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>A6 — Variance-aware acceptance + holdout gating in the loop.</strong>
+  Replace <code>min_delta</code> accept (<code>loop.py:178</code>) with: always run TRAIN ×<code>repeats</code>; decide holdout
+  per <code>holdout_eval_policy</code>; <code>pooled_std = sqrt(train.std² + best_train.std²)</code>,
+  <code>noise_bar = accept_sigma·pooled_std</code>; accept iff <code>(best_train.mean − train.mean) ≥ noise_bar</code>
+  AND holdout did not regress beyond its own σ. Update bests (mean+std) only on accept; advance
+  baseline (compounding preserved). Fall back to <code>min_delta</code> when <code>repeats == 1</code> <em>and</em> policy
+  <code>skip</code> (no measurable spread).
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> A sub-noise "improvement" is rejected with the spec rationale string.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> A holdout regression beyond its σ blocks an otherwise-accepted train win.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> Baseline still advances on accept; wins still compound across phases.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_loop.py -n auto</code>.
+  <strong>Dependencies:</strong> A4, A5.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/loop.py</code>, <code>tests/unit/optimizer/test_loop.py</code>.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>A7 — Global budgets + numeric convergence stop.</strong>
+  Track cumulative wall-clock and USD; stop the run when <code>max_minutes</code>/<code>max_usd</code> trips
+  (in-flight trial finishes first). Add <code>numeric_convergence_eps</code> as a per-phase numeric stop
+  (TPE expected-improvement below ε). Skip <code>max_usd</code> with a startup warning when a model lacks
+  pricing.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>max_usd</code>/<code>max_minutes</code> end the run between trials; recorded as <code>exit_reason</code>.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Numeric phase stops early when EI &lt; ε; logged distinctly from patience/max_trials.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_loop.py tests/unit/optimizer/test_numeric.py -n auto</code>.
+  <strong>Dependencies:</strong> A6.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/loop.py</code>, <code>src/holodeck/optimizer/proposers/numeric.py</code>,
+  tests.
+  <strong>Scope:</strong> M.</li>
+</ul>
+<h4 id="checkpoint-a-honest-acceptance">🛑 Checkpoint A — honest acceptance<a class="headerlink" href="#checkpoint-a-honest-acceptance" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> Train drives proposals; holdout gates accepts; accept bar is measured, not magic.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> A known-noisy stub agent yields zero false accepts at <code>accept_sigma=1.0</code>.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>make test-unit &amp;&amp; make type-check</code> clean; existing MVP configs still run.</li>
+</ul>
+<hr />
+<h3 id="phase-b-audit-artifacts-spec-complete-outputs">Phase B — Audit &amp; artifacts (spec-complete outputs)<a class="headerlink" href="#phase-b-audit-artifacts-spec-complete-outputs" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>B1 — Richer <code>TrialRecord</code> + <code>OptimizationResult</code>.</strong>
+  Extend <code>TrialRecord</code> to the spec shape: <code>timestamp</code>, <code>cycle</code>, <code>phase</code>, <code>axis_target</code>,
+  <code>baseline_before_path</code>, <code>proposal_source</code> (numeric: params/study_id/marginals; textual:
+  critic+applier blocks), <code>train</code>/<code>holdout</code> blocks (<code>loss</code>, <code>loss_std</code>, <code>loss_runs</code>,
+  <code>report_summary</code>, <code>errored_runs_excluded</code>, <code>duration_sec</code>, <code>trial_usd</code>), <code>decision</code> rationale
+  (noise_bar, improvement_clears_noise, holdout_within_noise, reason), <code>study_state</code>.
+  <strong>Acceptance:</strong></li>
+<li class="task-list-item"><input type="checkbox" disabled/> A trial round-trips to/from the spec JSON example without loss.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> Existing readers of the minimal record are updated; serialization is <code>extra="forbid"</code>-clean.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_models.py -n auto</code>.
+  <strong>Dependencies:</strong> A6 (decision fields exist to record).
+  <strong>Files:</strong> <code>src/holodeck/optimizer/models.py</code>, <code>tests/unit/optimizer/test_models.py</code>.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>B2 — <code>run.json</code> header + deterministic run-id.</strong>
+  Switch run-id to <code>YYYY-MM-DDTHH-MM-SS_&lt;sha256(baseline+config+seed)[:8]&gt;</code>; write immutable
+  <code>run.json</code> (spec §"run.json") on trial 0. Note <code>Date.now()</code>-equivalents are fine in CLI
+  (timestamp from <code>datetime.now</code>), but the <em>hash</em> drives resume identity.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Same <code>(baseline, config, seed)</code> → identical hash suffix; any change → different.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <code>run.json</code> round-trips and carries the config fingerprint + subagent paths.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_output.py -n auto</code>.
+  <strong>Dependencies:</strong> A1.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/output.py</code>, <code>src/holodeck/cli/commands/optimize.py</code>, tests.
+  <strong>Scope:</strong> S–M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>B3 — Per-trial atomic persistence (<code>trials.jsonl</code>).</strong>
+  Append one row after <strong>each</strong> completed trial (and the baseline) via atomic write + fsync,
+  instead of one bulk write at the end (<code>output.py:112</code>). Partial/in-flight trials write nothing.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> After N trials, <code>trials.jsonl</code> has N (+1 baseline) parseable rows.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> A simulated kill mid-trial leaves the file ending on a complete row.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_output.py -n auto</code>.
+  <strong>Dependencies:</strong> B1, B2.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/output.py</code>, <code>src/holodeck/optimizer/loop.py</code>, tests.
+  <strong>Scope:</strong> M. <em>(This is <code>plan.md</code>/<code>tasks.md</code> <strong>T10</strong> — realize it here.)</em></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>B4 — <code>trajectory.csv</code> + versioned candidates/instructions + symlinks.</strong>
+  Write <code>trajectory.csv</code> (spec columns: trial_id…accepted,trial_usd,duration_sec); write
+  <code>candidates/iter-NN.yaml</code> and <code>instructions/system-prompt.iter-NN.md</code> on each accept; maintain
+  <code>best.yaml</code>/<code>best-instructions.md</code> as atomically-replaced symlinks (write tmp + <code>os.replace</code>).
+  Add <code>--keep-best-only</code> pruning at exit.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> CSV row count = trials; empty <code>holdout_mean</code> when holdout not run.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>iter-NN</code> numbering matches <code>trial_id</code>; symlinks point at the current leader.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> Candidates carry <code>${VAR}</code> placeholders (via existing <code>overlay_axes</code>), no resolved secrets.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_output.py -n auto</code>.
+  <strong>Dependencies:</strong> B3.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/output.py</code>, tests.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>B5 — <code>report.md</code> enrichment.</strong>
+  Extend the report (<code>output.py:49-95</code>) with: result summary (incl. <code>repeats</code>/exit reason),
+  ASCII sparkline of train/holdout with phase boundaries, per-phase + per-axis attribution
+  table, per-metric baseline→best, full baseline→best diff (yaml + instructions), key accepted
+  rationales, "How to adopt" <code>cp</code>/<code>sed</code> commands, methodology notes (split sizes,
+  <code>accept_sigma</code>, holdout policy, distributional-overfit + config-level-reproducibility warnings).
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Report renders for a multi-cycle run with both phases and ≥1 accept.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Sparkline marks phase boundaries; attribution sums match accepted Δloss.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_report.py -n auto</code>.
+  <strong>Dependencies:</strong> B1, B4.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/report.py</code> (new) + <code>output.py</code>, <code>tests/unit/optimizer/test_report.py</code>.
+  <strong>Scope:</strong> M.</li>
+</ul>
+<h4 id="checkpoint-b-durable-auditable">🛑 Checkpoint B — durable &amp; auditable<a class="headerlink" href="#checkpoint-b-durable-auditable" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> A run produces the full 6-artifact set + symlinks; <code>trials.jsonl</code> survives a mid-run kill.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>make test-unit &amp;&amp; make lint &amp;&amp; make type-check</code> clean.</li>
+</ul>
+<hr />
+<h3 id="phase-c-resume-resilience-planmd-phase-7">Phase C — Resume &amp; resilience (<code>plan.md</code> Phase 7)<a class="headerlink" href="#phase-c-resume-resilience-planmd-phase-7" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>C1 — <code>--resume</code> replay in <code>OptimizerLoop</code>.</strong>
+  Load <code>trials.jsonl</code> + <code>run.json</code>; re-derive bests by replaying accepted rows in order; rebuild
+  each numeric phase's study from <em>that phase's</em> rows via <code>study.add_trial(params, value)</code>; carry
+  bests (mean+std) forward; replay last 3 rejected textual gradients into the Critic memory;
+  continue from <code>len(trials)+1</code>. Studies reconstructed per phase, never merged.
+  <strong>Acceptance:</strong></li>
+<li class="task-list-item"><input type="checkbox" disabled/> Replaying a captured <code>trials.jsonl</code> reproduces the same <code>best</code>/<code>best_loss</code> decisions.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> A resumed numeric phase's study contains all prior in-phase trials (TPE not reset).</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> No duplicate trial ids; cycle numbering continues correctly.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_resume.py -n auto</code>.
+  <strong>Dependencies:</strong> B3 (per-trial persistence is the checkpoint).
+  <strong>Files:</strong> <code>src/holodeck/optimizer/loop.py</code>, <code>src/holodeck/optimizer/resume.py</code> (new), tests.
+  <strong>Scope:</strong> M–L. <em>(This is <strong>T11</strong>.)</em></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>C2 — CLI <code>--resume</code> + drift guard + signal handling.</strong>
+  Add <code>--resume RUN_ID</code> (auto-detect latest incomplete run when omitted); refuse on
+  <code>baseline_sha256</code> mismatch unless <code>--force</code>; trap Ctrl-C/SIGTERM → let the in-flight trial
+  finish, write <code>report.md</code>, exit code 2 with intact state.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>--resume &lt;id&gt;</code> continues a stopped run to completion.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Mismatched config → non-zero exit with a clear message; <code>--force</code> overrides.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Ctrl-C → exit 2; a subsequent <code>--resume</code> succeeds.
+  <strong>Verification:</strong> <code>pytest tests/unit/cli/test_optimize*.py -n auto</code>; manual SIGINT smoke.
+  <strong>Dependencies:</strong> C1.
+  <strong>Files:</strong> <code>src/holodeck/cli/commands/optimize.py</code>, tests.
+  <strong>Scope:</strong> M. <em>(This is <strong>T12</strong>.)</em></li>
+</ul>
+<h4 id="checkpoint-c-interruption-resilience">🛑 Checkpoint C — interruption resilience<a class="headerlink" href="#checkpoint-c-interruption-resilience" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> Kill a real run mid-trial (SIGINT); <code>--resume</code> continues from the last completed trial with
+  bests + each phase's TPE study intact, reaching the same accept/reject decisions (not bit-exact).</li>
+</ul>
+<hr />
+<h3 id="phase-d-cli-diagnostics-proposer-fidelity">Phase D — CLI diagnostics &amp; proposer fidelity<a class="headerlink" href="#phase-d-cli-diagnostics-proposer-fidelity" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>D1 — New CLI flags + diagnostic modes.</strong>
+  Add <code>--repeats</code>, <code>--accept-sigma</code>, <code>--max-minutes</code>, <code>--max-usd</code> overrides and the three
+  diagnostic modes: <code>--dry-run</code> (validate + print resolved axes/budget/loss, exit 0),
+  <code>--print-baseline</code> (trial 0 only + per-metric breakdown, exit 0), <code>--report-only</code> (regenerate
+  <code>report.md</code> from existing JSONL, no trials). Preserve CLI→YAML→default precedence.
+  <strong>Acceptance:</strong></li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>--help</code> lists every spec flag; <code>--dry-run</code> spends nothing and exits 0.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <code>--report-only</code> rebuilds the report from a captured run dir.
+  <strong>Verification:</strong> <code>pytest tests/unit/cli/test_optimize*.py -n auto</code>.
+  <strong>Dependencies:</strong> A1 (config), B5 (report regen).
+  <strong>Files:</strong> <code>src/holodeck/cli/commands/optimize.py</code>, tests.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>D2 — Critic/Applier structured schema + confidence short-circuit.</strong>
+  Replace the bare <code>gradient</code> string with the spec schema (Critic: <code>failing_pattern</code>,
+  <code>root_cause_hypothesis</code>, <code>suggested_change_direction</code>, <code>confidence</code>, <code>citations</code>, <code>avoid</code>;
+  Applier: <code>edit_type</code>, <code>rationale</code>, <code>new_text</code>, <code>diff_summary</code>). Short-circuit before the
+  Applier + sweep when <code>confidence &lt; min_confidence</code> (default 0.4) — recorded as a cheap skip.
+  Persist both blocks into <code>proposal_source</code> (B1).
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Low-confidence gradient skips the trial without running the Applier or a sweep.</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <code>citations</code>/<code>edit_type</code>/<code>diff_summary</code> land in the trial audit row.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_textual.py -n auto</code>.
+  <strong>Dependencies:</strong> B1.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/proposers/textual.py</code>,
+  <code>src/holodeck/optimizer/agents/{critic,applier}.yaml</code>, tests.
+  <strong>Scope:</strong> M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>D3 — Auto-install user-editable subagents.</strong>
+  On first run, copy <code>critic.yaml</code>/<code>applier.yaml</code> from package data to
+  <code>.holodeck/optimizer/agents/{critic,applier}.yaml</code> if missing; load from there so users can
+  edit without losing changes (never overwrite). Record the resolved paths in <code>run.json</code>.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> Fresh project auto-installs both; an edited local copy is preserved across runs.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_textual.py -n auto</code>.
+  <strong>Dependencies:</strong> D2.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/proposers/textual.py</code>, tests.
+  <strong>Scope:</strong> S.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>D4 — TPE fidelity + <code>[optimizer]</code> extra.</strong>
+  Configure <code>TPESampler(seed=seed+phase_index, n_startup_trials=10, n_ei_candidates=24,
+  multivariate=True)</code>; offset the seed per numeric phase; add the warmup-below-<code>max_trials</code>
+  warning; expose <code>axis_marginals</code>/<code>numeric_study_id</code>/<code>params</code> for the audit row; move <code>optuna</code>
+  to a <code>[optimizer]</code> extra in <code>pyproject.toml</code> (out of base install) with an import guard.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Repeated numeric phases draw different warmup sequences yet stay reproducible.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>optuna</code> not pulled by base install; clear error if the extra is missing.
+  <strong>Verification:</strong> <code>pytest tests/unit/optimizer/test_numeric.py -n auto</code>; clean-env install check.
+  <strong>Dependencies:</strong> A7, B1.
+  <strong>Files:</strong> <code>src/holodeck/optimizer/proposers/numeric.py</code>, <code>pyproject.toml</code>, tests.
+  <strong>Scope:</strong> S–M.</li>
+</ul>
+<h4 id="checkpoint-d-spec-complete-cli-proposers">🛑 Checkpoint D — spec-complete CLI &amp; proposers<a class="headerlink" href="#checkpoint-d-spec-complete-cli-proposers" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> All spec CLI flags + diagnostics present; structured subagents with confidence skip; TPE
+  configured per spec; <code>make ci</code> clean.</li>
+</ul>
+<hr />
+<h3 id="phase-e-docs-schema-hygiene">Phase E — Docs, schema, hygiene<a class="headerlink" href="#phase-e-docs-schema-hygiene" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>E1 — Schema + docs for the new config.</strong>
+  Extend <code>schemas/agent.schema.json</code> for the new <code>evaluations.optimizer</code> fields; update
+  <code>docs/guides/evaluations.md</code> + <code>AGENTS.md</code> with the train/holdout, repeats, acceptance, budget,
+  and resume sections; run <code>python scripts/generate_agent_schema.py --check</code>.
+  <strong>Acceptance:</strong></li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> Schema validates the spec's full reference <code>optimizer:</code> block; drift guard green.
+  <strong>Verification:</strong> <code>make ci</code>.
+  <strong>Dependencies:</strong> A1.
+  <strong>Files:</strong> <code>schemas/agent.schema.json</code>, <code>docs/guides/evaluations.md</code>, <code>AGENTS.md</code>,
+  <code>docs/product-specs/033-holodeck-test-optimizer/optimizer.md</code>.
+  <strong>Scope:</strong> S–M.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>E2 — Refresh stale predecessor docs.</strong>
+  Mark <code>plan-text-proposer.md</code> as shipped (it still says "no code written yet") and tick its
+  task checkboxes in <code>tasks-text-proposer.md</code>; tick the shipped MVP boxes in <code>tasks.md</code> T1–T9;
+  move resume out of <code>plan.md</code> Phase 7 with a pointer to this file (single source of truth).
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> No predecessor plan claims unshipped status for shipped code.
+  <strong>Verification:</strong> doc review.
+  <strong>Dependencies:</strong> None (can run anytime).
+  <strong>Files:</strong> <code>docs/product-specs/033-holodeck-test-optimizer/{plan,tasks,plan-text-proposer,tasks-text-proposer}.md</code>.
+  <strong>Scope:</strong> XS.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>E3 — End-to-end integration test.</strong>
+  Full coordinate-descent loop against a tiny in-process agent + small train/holdout split,
+  <code>repeats=2</code>, mocked Optuna sampler + Critic/Applier; assert a numeric+textual win <strong>compounds</strong>
+  into one candidate and the σ-bar rejects a sub-noise trial.
+  <strong>Acceptance:</strong></p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> E2E green; <code>best_loss ≤ baseline_loss</code>; both phases contribute to the final candidate.
+  <strong>Verification:</strong> <code>pytest tests/integration/optimizer/test_end_to_end.py -n auto</code>.
+  <strong>Dependencies:</strong> A6, B4, C1.
+  <strong>Files:</strong> <code>tests/integration/optimizer/test_end_to_end.py</code>.
+  <strong>Scope:</strong> M.</li>
+</ul>
+<h4 id="checkpoint-complete">🛑 Checkpoint: Complete<a class="headerlink" href="#checkpoint-complete" title="Permanent link">&para;</a></h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> All acceptance criteria met; <code>make ci</code> clean; full spec v1 contract satisfied.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Manual run on <code>sample/financial-assistant/claude</code> writes the 6-artifact set, honest
+  accept decisions, and a resumable run. Human review before merge.</li>
+</ul>
+<hr />
+<h2 id="dependency-graph">Dependency Graph<a class="headerlink" href="#dependency-graph" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>A1 (config) ──┬── A2 (validation)
+              ├── A3 (train/holdout) ── A4 (mean_loss/repeats) ──┐
+              ├── A5 (loss: penalties/errors/per-turn) ──────────┤
+              └──────────────────────────────────────────────── A6 (variance accept)
+                                                                  └── A7 (budgets/convergence)
+A6 ── B1 (rich TrialRecord) ── B3 (atomic jsonl) ── B4 (csv/candidates/symlinks) ── B5 (report)
+A1 ── B2 (run.json/run-id) ───┘                                   │
+B3 ── C1 (resume replay) ── C2 (cli resume/signals)              │
+B1 ── D2 (subagent schema) ── D3 (auto-install)                  │
+A7,B1 ── D4 (TPE fidelity/extra)        A1,B5 ── D1 (cli flags/diagnostics)
+A1 ── E1 (schema/docs)   (E2 anytime)   A6,B4,C1 ── E3 (e2e)
+</code></pre></div>
+<p>Bottom-up order: <strong>A → B → C / D in parallel → E</strong>. Phase B must precede Phase C (the audit
+log is the resume checkpoint). D1–D4 are independent of C and can run in parallel once their
+own deps land.</p>
+<h2 id="parallelization-opportunities">Parallelization Opportunities<a class="headerlink" href="#parallelization-opportunities" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Parallel-safe:</strong> A5 alongside A2/A3 (independent of each other, both need only A1); D2/D3
+  alongside C1/C2 (textual vs resume are independent); E2 anytime.</li>
+<li><strong>Sequential (shared state):</strong> A4→A6→A7 (the accept-gate chain); B1→B3→B4→B5 (artifact
+  pipeline); B3→C1→C2 (resume chain).</li>
+<li><strong>Contract-first:</strong> B1's <code>TrialRecord</code> shape gates B3/B5/C1/D2 — land it before fanning out.</li>
+</ul>
+<h2 id="risks-and-mitigations">Risks and Mitigations<a class="headerlink" href="#risks-and-mitigations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repeats×cycles×phases</code> triples cost vs MVP</td>
+<td>High</td>
+<td><code>max_usd</code>/<code>max_minutes</code> budgets (A7); cost shown ×repeats in progress; <code>repeats</code> lowerable for deterministic agents; confidence short-circuit (D2) skips sweeps.</td>
+</tr>
+<tr>
+<td>Switching <code>min_delta</code>→σ-bar silently changes existing runs' outcomes</td>
+<td>Med</td>
+<td>Validation warns on <code>repeats==1</code>; keep <code>min_delta</code> fallback for the deterministic/skip path; E3 asserts the new gate; document in E1.</td>
+</tr>
+<tr>
+<td>Rich <code>TrialRecord</code> churns many downstream readers</td>
+<td>Med</td>
+<td>Land B1 first as a contract; <code>extra="forbid"</code> catches drift; update output/report/resume together.</td>
+</tr>
+<tr>
+<td>Resume study rebuild diverges from a live run</td>
+<td>High</td>
+<td>Per-phase <code>add_trial</code> from that phase's rows only; C-checkpoint asserts decision-level (not bit-exact) equivalence.</td>
+</tr>
+<tr>
+<td>Optuna moved to extra breaks base imports</td>
+<td>Med</td>
+<td>Import guard with a clear "install holodeck[optimizer]" error; clean-env install check in D4.</td>
+</tr>
+<tr>
+<td>Train/holdout from same distribution hides distributional overfit</td>
+<td>Med (honest limitation)</td>
+<td>Documented in B5 report + E1 docs; not solvable in v1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="out-of-scope-explicit-not-in-this-plan">Out of Scope (explicit — not in this plan)<a class="headerlink" href="#out-of-scope-explicit-not-in-this-plan" title="Permanent link">&para;</a></h2>
+<p>These remain deferred per the authoritative spec (§"Out of scope for v1"):</p>
+<ul>
+<li><strong>Few-shot demonstration optimization</strong> — the design's headlined <strong>#1 v2 item</strong>; needs a
+  first-class <code>demonstrations</code> schema slot, backend prompt injection, and a new <em>selector</em>
+  proposer (its own design pass). <strong>Not</strong> decomposed here.</li>
+<li>Ingestion-time axes (<code>chunking_strategy</code>, <code>max_chunk_tokens</code>, <code>contextual_embeddings</code>,
+  <code>embedding_model</code>) — a separate <code>holodeck test ingest-sweep</code>.</li>
+<li>Parallel trials; K-fold CV; population/evolutionary search; full paired-bootstrap significance
+  testing; co-optimization of multiple textual axes per trial; auto-discovery of axes;
+  cross-run TPE warm-start; live dashboard rendering of optimizer runs.</li>
+</ul>
+<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>min_delta</code> retirement:</strong> keep it permanently as the <code>repeats==1 &amp;&amp; skip</code> fallback, or
+  remove once the σ-bar is proven? (Plan keeps it; flag for reviewer.)</li>
+<li><strong>Run-id timestamp vs pure hash:</strong> spec uses <code>timestamp_&lt;hash&gt;</code>; the timestamp is cosmetic and
+  the hash drives resume — confirm the timestamp stays for human readability.</li>
+<li><strong><code>--report-only</code> vs <code>--report-only --keep-best-only</code> interaction:</strong> confirm report-only never
+  prunes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

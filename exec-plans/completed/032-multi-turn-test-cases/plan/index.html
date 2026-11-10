@@ -1,0 +1,2401 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/032-multi-turn-test-cases/plan/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Implementation Plan: Multi-Turn Test Cases, Per-Turn Assertions, Tool-Arg Matchers, and Programmatic Evaluators - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-plan-multi-turn-test-cases-per-turn-assertions-tool-arg-matchers-and-programmatic-evaluators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Plan: Multi-Turn Test Cases, Per-Turn Assertions, Tool-Arg Matchers, and Programmatic Evaluators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constitution-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constitution Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-this-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation (this feature)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-code-repository-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source Code (repository root)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-0-research-output-researchmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0 — Research (output: research.md)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-design-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 — Design &amp; Contracts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-task-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 — Task Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complexity-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complexity Tracking
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="implementation-plan-multi-turn-test-cases-per-turn-assertions-tool-arg-matchers-and-programmatic-evaluators">Implementation Plan: Multi-Turn Test Cases, Per-Turn Assertions, Tool-Arg Matchers, and Programmatic Evaluators<a class="headerlink" href="#implementation-plan-multi-turn-test-cases-per-turn-assertions-tool-arg-matchers-and-programmatic-evaluators" title="Permanent link">&para;</a></h1>
+<p><strong>Branch</strong>: <code>032-multi-turn-test-cases</code> | <strong>Date</strong>: 2026-04-20 | <strong>Spec</strong>: <a href="../../../../product-specs/032-multi-turn-test-cases/spec/">spec.md</a>
+<strong>Input</strong>: Feature specification from <code>/docs/product-specs/032-multi-turn-test-cases/spec.md</code></p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Extend the HoloDeck test runner so an <code>agent.yaml</code> test case can declare an ordered list of <code>turns</code>, each with its own <code>ground_truth</code>, <code>expected_tools</code> (optionally with per-arg matchers), <code>files</code>, and <code>retrieval_context</code>. Execution routes through <code>AgentBackend.create_session()</code> so turns share stateful conversation context. Each turn is evaluated independently, then rolled up per-metric at the test-case level. Add built-in deterministic evaluators (<code>equality</code>, <code>numeric</code>) on the existing <code>EvaluationMetric</code> shape and a new top-level <code>CodeMetric</code> variant for user-supplied Python graders referenced by import path. Legacy single-turn test cases remain unchanged.</p>
+<p><strong>Reference corpus investigated</strong>: <code>/Users/justinbarias/Documents/Git/python/justinbarias/data/convfinqa_dataset.json</code> (3,037 train + 421 dev ConvFinQA examples). Each example has <code>dialogue.conv_questions</code>, <code>dialogue.conv_answers</code>, <code>dialogue.turn_program</code>, and <code>dialogue.executed_answers</code> lists of equal length. Later turns reference earlier turn results via <code>#N</code> placeholders (e.g. turn 4: <code>subtract(206588, 181001), divide(#0, 181001)</code>). This confirms (a) turns are strictly ordered and stateful, (b) ground truths are scalar answers best graded by <code>numeric</code> or <code>code</code> (not BLEU/ROUGE), (c) tool-arg assertions must accept literal, fuzzy, and regex shapes to handle <code>206588</code> vs <code>206588.0</code> vs <code>"206,588"</code> drift, and (d) program-equivalence grading (turn_program with <code>#N</code> back-refs) must live in a user-supplied <code>code</code> grader — the built-in set stays dataset-agnostic per Assumption A10.</p>
+<h2 id="technical-context">Technical Context<a class="headerlink" href="#technical-context" title="Permanent link">&para;</a></h2>
+<p><strong>Language/Version</strong>: Python 3.10+ (matches existing HoloDeck target; see constitution §Code Quality).
+<strong>Primary Dependencies</strong>: Existing — Pydantic v2, Click, <code>semantic-kernel</code>, <code>claude-agent-sdk</code>, <code>deepeval</code>. No new runtime dependencies; all matchers and evaluators built on Python stdlib (<code>re</code>, <code>difflib</code>, <code>importlib</code>, <code>decimal</code>).
+<strong>Storage</strong>: No new persistence. Test reports continue to land at <code>results/&lt;slugified-agent-name&gt;/&lt;ISO-timestamp&gt;.json</code> (feature 031). <code>TestResult.turns</code> is an additive JSON field.
+<strong>Testing</strong>: pytest with <code>-n auto</code> parallel execution; markers <code>@pytest.mark.unit</code>, <code>@pytest.mark.integration</code>. Integration tests hit both SK (Ollama or OpenAI) and Claude SDK backends per SC-010.
+<strong>Target Platform</strong>: CLI on macOS / Linux (no platform-specific behavior).
+<strong>Project Type</strong>: Single-project Python package (src/holodeck, existing layout).
+<strong>Performance Goals</strong>: Turn-sequential within a test case (conversational state preserved); optional <code>parallel_test_cases</code> (FR-009a) unlocks across-test-case concurrency. No per-turn latency targets beyond the existing <code>llm_timeout</code> per <code>AgentSession.send()</code>.
+<strong>Constraints</strong>:
+- Backwards compatibility: every legacy single-turn test case must continue to run with identical output shape (SC-002).
+- <code>ReportSummary.validate_test_counts</code> continues counting <strong>test cases</strong>, never turns (FR-015).
+- <code>TestResult.token_usage</code> roll-up = element-wise sum across turns (FR-007), preserving the feature 031 cost contract.
+- Dual-backend green: SK (OpenAI/Ollama) + Claude SDK, identical pass/fail on the representative smoke test (SC-010).
+- Code graders run in-process, unsandboxed, resolved at load time (FR-019, FR-022, A9).
+<strong>Scale/Scope</strong>: Designed to handle ConvFinQA-shaped runs: 100+ test cases × 3–5 turns each = 300–500 turns per run (SC-003).</p>
+<h2 id="constitution-check">Constitution Check<a class="headerlink" href="#constitution-check" title="Permanent link">&para;</a></h2>
+<p><em>GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.</em></p>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Compliance</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I. No-Code-First</td>
+<td><strong>Justified exception</strong> (logged in spec §Complexity Tracking) for <code>type: code</code> graders only. All other new surfaces (<code>turns</code>, <code>expected_tools.args</code>, <code>equality</code>, <code>numeric</code>) remain pure YAML.</td>
+<td></td>
+</tr>
+<tr>
+<td>II. MCP for APIs</td>
+<td>N/A — no new external API integrations. Existing MCP tool contract unchanged.</td>
+<td></td>
+</tr>
+<tr>
+<td>III. Test-First + Multimodal</td>
+<td>Per-turn <code>files</code> preserves multimodal support (FR-009). Every new matcher/evaluator/orchestration code path ships with unit tests; integration tests cover dual-backend multi-turn (SC-010). Spec mandates <code>ground_truth</code> or evaluators per turn (aligns with principle).</td>
+<td></td>
+</tr>
+<tr>
+<td>IV. OpenTelemetry-Native</td>
+<td>Each turn is already an <code>AgentSession.send()</code> call which flows through the existing SK/Claude tracing; no new spans required beyond what the backends already emit. Reporter additions are pure data; no new instrumented sites.</td>
+<td></td>
+</tr>
+<tr>
+<td>V. Evaluation Flexibility</td>
+<td>New <code>equality</code> + <code>numeric</code> add deterministic metrics that require <strong>no LLM call</strong> (aligns with principle's "NLP metrics MUST not require LLM calls" extension). Code graders inherit whatever model the user chooses inside their function — HoloDeck imposes no model at the evaluator boundary. Three-level model override (agent / test-case / per-metric) continues to apply unchanged for standard / geval / rag.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Initial gate: PASS</strong> — the single no-code-first exception is pre-justified in spec §Complexity Tracking (scoped to evaluator surface, mitigated by built-in YAML-native <code>equality</code>/<code>numeric</code>, documented trust model). No further gate entries needed.</p>
+<p>Post-design re-check (end of Phase 1): <strong>PASS</strong> — the design keeps the exception surface to exactly one config type (<code>CodeMetric</code>) and one resolution site (load-time import). See §Complexity Tracking at the bottom of this plan.</p>
+<h2 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
+<h3 id="documentation-this-feature">Documentation (this feature)<a class="headerlink" href="#documentation-this-feature" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>docs/product-specs/032-multi-turn-test-cases/
+├── plan.md              # This file
+├── research.md          # Phase 0 output
+├── data-model.md        # Phase 1 output
+├── quickstart.md        # Phase 1 output
+├── contracts/
+│   ├── test-case-schema.md        # YAML schema (turns, expected_tools objects, matchers)
+│   ├── turn-result-schema.md      # TestResult.turns + TurnResult JSON contract
+│   ├── code-grader-contract.md    # Grader callable signature + context + result shape
+│   └── tool-arg-matchers.md       # exact/fuzzy/regex matcher semantics
+├── checklists/
+│   └── requirements.md  # Pre-existing quality checklist
+└── tasks.md             # Phase 2 output
+</code></pre></div>
+<h3 id="source-code-repository-root">Source Code (repository root)<a class="headerlink" href="#source-code-repository-root" title="Permanent link">&para;</a></h3>
+<p>This feature lands inside the existing single-project layout. New files are green; modified files are yellow.</p>
+<div class="highlight"><pre><span></span><code>src/holodeck/
+├── models/
+│   ├── test_case.py          # MODIFY — add Turn, make `input`/`ground_truth`/`expected_tools` mutually exclusive with new `turns` field; add ExpectedTool + ArgMatcher variants
+│   ├── evaluation.py         # MODIFY — allow `metric: equality | numeric` with normalization / tolerance flags; add `CodeMetric` variant to MetricType union
+│   ├── test_result.py        # MODIFY — add TurnResult + optional `turns: list[TurnResult]` on TestResult + roll-up contract; extend `MetricResult.kind` Literal to include `"code"`
+│   ├── token_usage.py        # MODIFY — add `cache_creation_tokens` and `cache_read_tokens` fields; update `total_tokens` validator to include them (cross-cuts feature 031 cost contract — flag in PR)
+│   └── config.py             # MODIFY — ExecutionConfig.parallel_test_cases: int = 1
+├── lib/
+│   ├── evaluators/
+│   │   └── deterministic.py  # NEW — EqualityEvaluator, NumericEvaluator (no LLM)
+│   └── test_runner/
+│       ├── executor.py             # MODIFY — (a) dispatch single-turn vs multi-turn; (b) integrate matchers/evaluators; (c) roll-up per-metric aggregation; (d) optional parallel test-case orchestration; (e) extend `_metric_kind()` return annotation to `Literal["standard","rag","geval","code"]` to match the new `CodeMetric` variant
+│       ├── tool_arg_matcher.py     # NEW — match_arg(actual, expected_matcher) → bool + rationale
+│       ├── code_grader.py          # NEW — import resolver + grader invocation harness with per-turn context dataclass
+│       └── reporter.py             # MODIFY — render turns in markdown; JSON is automatic
+├── cli/
+│   └── commands/
+│       └── test.py            # MODIFY — expose `--parallel-test-cases N`
+├── config/
+│   ├── defaults.py            # MODIFY — add `parallel_test_cases: 1` to `DEFAULT_EXECUTION_CONFIG`
+│   └── loader.py              # MODIFY (small) — plumb parallel_test_cases through the resolve chain
+└── dashboard/                 # P3 — render multi-turn as expandable rows (FR-017, SC-010)
+    ├── explorer_data.py       # MODIFY — detect `TestResult.turns` and surface per-turn rows in the explorer payload
+    └── components/            # MODIFY — add the per-turn disclosure component; single-turn rendering path untouched
+tests/
+├── unit/
+│   └── lib/
+│       ├── test_runner/
+│       │   ├── test_executor_multi_turn.py        # NEW
+│       │   ├── test_tool_arg_matcher.py           # NEW
+│       │   └── test_code_grader.py                # NEW
+│       ├── evaluators/
+│       │   └── test_deterministic.py              # NEW
+│       └── test_testcase_models_multi_turn.py     # NEW
+│   └── models/
+│       └── test_test_result_turn_rollup.py        # NEW
+└── integration/
+    └── test_multi_turn_dual_backend.py            # NEW — SC-010 smoke: SK + Claude
+</code></pre></div>
+<p><strong>Structure Decision</strong>: <strong>Single project</strong> (existing). No new top-level directories. New matcher/evaluator/grader modules slot cleanly under <code>src/holodeck/lib/test_runner/</code> and <code>src/holodeck/lib/evaluators/</code> next to their peers. Modified modules stay within their current packages — no module moves, no breaking import paths.</p>
+<h2 id="phase-0-research-output-researchmd">Phase 0 — Research (output: <code>research.md</code>)<a class="headerlink" href="#phase-0-research-output-researchmd" title="Permanent link">&para;</a></h2>
+<p>Areas researched (details and decisions in <code>research.md</code>):</p>
+<ol>
+<li><strong>ConvFinQA dialogue shape</strong> — confirm turn ordering, ground-truth scalar nature, turn_program back-ref semantics, and the required matcher surface.</li>
+<li><strong>Multi-turn backend API</strong> — verify both <code>SKSession</code> and <code>ClaudeSession</code> implement <code>AgentSession</code> with shared state across <code>send()</code> calls, per-call error recovery, and token accounting per turn.</li>
+<li><strong>Argument matcher design</strong> — selection among <code>difflib</code>, custom normalization, and regex for the three matcher kinds; tolerance model (int/float equivalence, thousands separators, percent suffix).</li>
+<li><strong>Programmatic evaluator surface</strong> — how to make <code>equality</code> and <code>numeric</code> fit on <code>EvaluationMetric.metric</code> without destabilizing the existing discriminator; how <code>CodeMetric</code> slots into the <code>MetricType</code> union without affecting GEval/RAG dispatch.</li>
+<li><strong>Code grader contract</strong> — import-path resolution at config load time, read-only context dataclass, exception → per-turn failure.</li>
+<li><strong>Parallel test-case orchestration</strong> — structured concurrency with <code>asyncio.Semaphore(parallel_test_cases)</code>; independence of sessions; safe interleaving of reporter writes.</li>
+<li><strong>Roll-up semantics</strong> — per-metric average and <code>all(turn_passed)</code> aggregation; skipped turns (no ground_truth) do not contribute to the mean.</li>
+<li><strong>Dashboard rendering (feature 031)</strong> — minimal shape required so the dashboard can expand turns without a new table; contract via <code>TestResult.turns</code> JSON.</li>
+</ol>
+<p><strong>Exit criterion</strong>: zero NEEDS CLARIFICATION markers in this plan. All five spec clarifications (Session 2026-04-20) are already resolved in-spec; research.md records the implementation-level decisions that flow from them.</p>
+<h2 id="phase-1-design-contracts">Phase 1 — Design &amp; Contracts<a class="headerlink" href="#phase-1-design-contracts" title="Permanent link">&para;</a></h2>
+<p><strong>Prerequisites</strong>: research.md complete.</p>
+<ol>
+<li><strong>Data model (<code>data-model.md</code>)</strong> — document the new Pydantic shapes end-to-end:</li>
+<li><code>Turn</code> (input, ground_truth?, expected_tools?, files?, retrieval_context?, evaluations?).</li>
+<li><code>ExpectedTool</code> (name, args?, count?) as a union with bare <code>str</code> for legacy compatibility.</li>
+<li><code>ArgMatcher</code> union: literal | <code>{fuzzy: str}</code> | <code>{regex: str}</code> (regex compiled eagerly at load).</li>
+<li><code>TestCaseModel</code> — add <code>turns: list[Turn] | None</code>, make legacy flat fields + <code>turns</code> mutually exclusive.</li>
+<li><code>EvaluationMetric.metric</code> — document <code>equality</code> | <code>numeric</code> with normalization / tolerance flags.</li>
+<li><code>CodeMetric</code> — new top-level variant, discriminator <code>type: code</code>, carries <code>grader: str</code> (module path:callable); resolved at load time.</li>
+<li><code>TurnResult</code> + <code>TestResult.turns: list[TurnResult] | None</code>.</li>
+<li>
+<p><code>ExecutionConfig.parallel_test_cases: int = 1</code>.</p>
+</li>
+<li>
+<p><strong>Contracts (<code>contracts/</code>)</strong>:</p>
+</li>
+<li><strong><code>test-case-schema.md</code></strong> — YAML grammar for new shapes with validation rules and three exemplar test cases (legacy single-turn untouched; multi-turn with per-turn <code>ground_truth</code>; multi-turn with tool-arg matchers).</li>
+<li><strong><code>turn-result-schema.md</code></strong> — JSON schema for <code>TestResult.turns</code> + roll-up rules for <code>test_input</code>, <code>agent_response</code>, <code>tool_calls</code>, <code>tool_invocations</code>, <code>token_usage</code>, <code>passed</code>, <code>metric_results</code>.</li>
+<li><strong><code>code-grader-contract.md</code></strong> — grader callable signature <code>(ctx: GraderContext) -&gt; GraderResult</code>, <code>GraderContext</code> fields (turn_input, agent_response, ground_truth?, tool_invocations, retrieval_context?, turn_index, test_case_name, turn_config), <code>GraderResult</code> shape (<code>score: float in [0,1] | bool</code>, <code>passed?: bool</code>, <code>reason?: str</code>, <code>details?: dict</code>), and exception semantics.</li>
+<li>
+<p><strong><code>tool-arg-matchers.md</code></strong> — exact matcher normalization (int↔float equivalence, no separator stripping); fuzzy matcher (case-insensitive, whitespace-normalized, numeric-aware with separator stripping and percent suffix handling); regex matcher (anchored full-match via <code>re.fullmatch</code> against <code>str(value)</code>); N-call semantics (default count=1, first-match-wins, order-independent); missing vs extra argument behavior.</p>
+</li>
+<li>
+<p><strong>Quickstart (<code>quickstart.md</code>)</strong> — complete end-to-end ConvFinQA-shaped example: convert one dialogue into an <code>agent.yaml</code> test case, run <code>holodeck test</code>, inspect the per-turn report; shows all three evaluator styles (BLEU for a text turn, <code>numeric</code> for the scalar answer, user-supplied <code>code</code> grader for turn_program equivalence).</p>
+</li>
+<li>
+<p><strong>Documentation update</strong> — document <code>ExecutionConfig.parallel_test_cases</code>, the <code>Turn</code>/<code>TurnResult</code> models, built-in deterministic evaluators, and the code-grader contract in the linked feature documents. Keep the <code>AGENTS.md</code> map current and preserve <code>CLAUDE.md</code> as its single import.</p>
+</li>
+</ol>
+<p><strong>Exit criterion</strong>: data-model.md, contracts/*.md, quickstart.md exist, all functional requirements FR-001…FR-026 mapped to a concrete model / contract / module, and constitution re-check still PASS.</p>
+<h2 id="phase-2-task-breakdown">Phase 2 — Task Breakdown<a class="headerlink" href="#phase-2-task-breakdown" title="Permanent link">&para;</a></h2>
+<p>Follow this order when breaking down the implementation tasks:</p>
+<ol>
+<li><strong>P1 vertical slice</strong> (models + executor multi-turn dispatch + per-turn recording, no arg matchers, no code graders): schema for <code>turns</code>, <code>TurnResult</code>, executor dispatch, reporter prints per-turn, dual-backend smoke passes.</li>
+<li><strong>P1 polish</strong>: per-turn metric evaluation + per-metric roll-up rule + back-compat contract tests for every legacy test in <code>tests/</code>.</li>
+<li><strong>P2 — tool-arg matchers</strong>: <code>ExpectedTool</code> object shape, <code>ArgMatcher</code> union, <code>tool_arg_matcher.py</code>, integration into per-turn tool assertion.</li>
+<li><strong>P2 — programmatic evaluators</strong>: <code>equality</code> + <code>numeric</code> on <code>EvaluationMetric</code>, deterministic evaluators, then <code>CodeMetric</code> + <code>code_grader.py</code>.</li>
+<li><strong>P3 — dashboard + reporter turns rendering</strong> (feature 031 render path). Concretely: update <code>src/holodeck/dashboard/explorer_data.py</code> to detect <code>TestResult.turns</code> and emit per-turn rows; add a disclosure component under <code>src/holodeck/dashboard/components/</code> without altering the single-turn path.</li>
+<li><strong>Concurrency opt-in</strong>: <code>parallel_test_cases</code> orchestration + CLI flag.</li>
+</ol>
+<h2 id="complexity-tracking">Complexity Tracking<a class="headerlink" href="#complexity-tracking" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Fill ONLY if Constitution Check has violations that must be justified</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Violation</th>
+<th>Why Needed</th>
+<th>Simpler Alternative Rejected Because</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type: code</code> grader (breaches Principle I, No-Code-First)</td>
+<td>User-defined graders are the only way to express symbolic / graph-equivalence checks (e.g. ConvFinQA <code>turn_program</code> with <code>#N</code> back-refs) that no NLP / LLM-judge / equality / numeric evaluator can express</td>
+<td>A YAML-embedded expression DSL would reproduce a Turing-adjacent language just to avoid calling Python — net-negative on simplicity. LLM-judge graders add cost and non-determinism on deterministic checks. See spec §Complexity Tracking for the full justification; PR description MUST link to that section per spec requirement.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

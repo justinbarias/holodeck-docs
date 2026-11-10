@@ -41,7 +41,9 @@ def __init__(
     """
     self.base_url = base_url.rstrip("/")
     self.timeout = timeout
-    self._session = requests.Session()
+    self._session = httpx.Client(
+        follow_redirects=True, verify=tls_verify(), auth=netrc_auth()
+    )
 ```
 
 ### `search(query=None, limit=25, cursor=None)`

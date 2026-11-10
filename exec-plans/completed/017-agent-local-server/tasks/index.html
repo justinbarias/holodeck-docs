@@ -1,0 +1,2994 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/017-agent-local-server/tasks/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: Agent Local Server - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-agent-local-server" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: Agent Local Server
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-story-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] [Story] Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-shared-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup (Shared Infrastructure)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-blocking-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational (Blocking Prerequisites)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Foundational (Blocking Prerequisites)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-foundational-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for Foundational (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for Foundational
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-1-start-agent-server-with-ag-ui-protocol-priority-p1-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 1 - Start Agent Server with AG-UI Protocol (Priority: P1) MVP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: User Story 1 - Start Agent Server with AG-UI Protocol (Priority: P1) MVP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-1-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 1 (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ag-ui-multimodal-support-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AG-UI Multimodal Support (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ag-ui-multimodal-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AG-UI Multimodal Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-user-story-2-start-agent-server-with-rest-protocol-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: User Story 2 - Start Agent Server with REST Protocol (Priority: P1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: User Story 2 - Start Agent Server with REST Protocol (Priority: P1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-2-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 2 (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-user-story-3-health-check-and-monitoring-endpoints-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: User Story 3 - Health Check and Monitoring Endpoints (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: User Story 3 - Health Check and Monitoring Endpoints (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-3-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 3 (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-user-story-4-session-management-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: User Story 4 - Session Management (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: User Story 4 - Session Management (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-4-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 4 (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-user-story-5-interactive-server-startup-feedback-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: User Story 5 - Interactive Server Startup Feedback (Priority: P3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: User Story 5 - Interactive Server Startup Feedback (Priority: P3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-5-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 5 (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-edge-cases-and-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Edge Cases and Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: Edge Cases and Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-edge-cases-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for Edge Cases (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-9-polish-cross-cutting-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 9: Polish &amp; Cross-Cutting Concerns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdd-workflow-within-each-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD Workflow Within Each Phase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within-each-user-story-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Within Each User Story (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-example-user-story-2-tests-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Example: User Story 2 Tests (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mvp-first-user-story-1-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVP First (User Story 1 Only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-delivery-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental Delivery (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-team-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Team Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-agent-local-server">Tasks: Agent Local Server<a class="headerlink" href="#tasks-agent-local-server" title="Permanent link">&para;</a></h1>
+<p><strong>Input</strong>: Design documents from <code>/docs/product-specs/017-agent-local-server/</code>
+<strong>Prerequisites</strong>: plan.md, spec.md, research.md, data-model.md, contracts/openapi.yaml, contracts/sse-events.md</p>
+<p><strong>Tests</strong>: TDD approach - write tests FIRST, ensure they FAIL, then implement.</p>
+<p><strong>Organization</strong>: Tasks grouped by user story to enable independent implementation and testing.</p>
+<h2 id="format-id-p-story-description">Format: <code>[ID] [P?] [Story] Description</code><a class="headerlink" href="#format-id-p-story-description" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Can run in parallel (different files, no dependencies)</li>
+<li><strong>[Story]</strong>: Which user story this task belongs to (e.g., US1, US2, US3)</li>
+<li>Include exact file paths in descriptions</li>
+</ul>
+<hr />
+<h2 id="phase-1-setup-shared-infrastructure">Phase 1: Setup (Shared Infrastructure)<a class="headerlink" href="#phase-1-setup-shared-infrastructure" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Project initialization and serve module structure</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 Add FastAPI, Uvicorn, ag-ui-protocol, python-ulid dependencies to pyproject.toml</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T002 Create serve module structure: src/holodeck/serve/<strong>init</strong>.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T003 [P] Create protocols submodule: src/holodeck/serve/protocols/<strong>init</strong>.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T004 [P] Create test directory structure: tests/unit/serve/, tests/integration/serve/, tests/contract/serve/</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-blocking-prerequisites">Phase 2: Foundational (Blocking Prerequisites)<a class="headerlink" href="#phase-2-foundational-blocking-prerequisites" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Core infrastructure that MUST be complete before ANY user story can be implemented</p>
+<p><strong>CRITICAL</strong>: No user story work can begin until this phase is complete</p>
+<h3 id="tests-for-foundational-tdd">Tests for Foundational (TDD)<a class="headerlink" href="#tests-for-foundational-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T005 [P] Unit tests for Pydantic models (ChatRequest, ChatResponse, FileContent validation) in tests/unit/serve/test_models.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 [P] Unit tests for SessionStore (create, get, delete, touch, cleanup_expired) in tests/unit/serve/test_session_store.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T007 [P] Unit tests for ServerSession dataclass in tests/unit/serve/test_session_store.py</li>
+</ul>
+<h3 id="implementation-for-foundational">Implementation for Foundational<a class="headerlink" href="#implementation-for-foundational" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T008 Implement Pydantic models (ProtocolType, FileContent, ChatRequest, ChatResponse, ToolCallInfo, TokenUsage, HealthResponse, ProblemDetail) in src/holodeck/serve/models.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T009 [P] Implement ServerSession dataclass with session_id, agent_executor, timestamps, message_count in src/holodeck/serve/session_store.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 Implement SessionStore class with get, create, delete, touch, cleanup_expired methods in src/holodeck/serve/session_store.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T011 [P] Implement Protocol ABC with abstract methods for request handling in src/holodeck/serve/protocols/base.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T012 [P] Implement logging middleware for request metadata capture in src/holodeck/serve/middleware.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013 [P] Implement error handling middleware with RFC 7807 ProblemDetail responses in src/holodeck/serve/middleware.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T014 Create AgentServer class skeleton with FastAPI app factory in src/holodeck/serve/server.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: Foundation ready - all foundational tests pass - user story implementation can now begin</p>
+<hr />
+<h2 id="phase-3-user-story-1-start-agent-server-with-ag-ui-protocol-priority-p1-mvp">Phase 3: User Story 1 - Start Agent Server with AG-UI Protocol (Priority: P1) MVP<a class="headerlink" href="#phase-3-user-story-1-start-agent-server-with-ag-ui-protocol-priority-p1-mvp" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Developer runs <code>holodeck serve agent.yaml</code> to expose agent via AG-UI protocol on configurable port</p>
+<p><strong>Independent Test</strong>: Start server with AG-UI protocol, connect with AG-UI compatible client, verify agent responds correctly</p>
+<h3 id="tests-for-user-story-1-tdd">Tests for User Story 1 (TDD)<a class="headerlink" href="#tests-for-user-story-1-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T015 [P] [US1] Unit tests for AG-UI event mapping (lifecycle, text message, tool call events) in tests/unit/serve/test_protocols_agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T016 [P] [US1] Unit tests for RunAgentInput to HoloDeck request mapping in tests/unit/serve/test_protocols_agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 [P] [US1] Integration test for AG-UI protocol endpoint in tests/integration/serve/test_server_agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T018 [P] [US1] Integration test for AG-UI streaming response in tests/integration/serve/test_server_agui.py</li>
+</ul>
+<h3 id="implementation-for-user-story-1">Implementation for User Story 1<a class="headerlink" href="#implementation-for-user-story-1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T019 [US1] Implement RunAgentInput to HoloDeck request mapping in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T020 [US1] Implement AG-UI EventEncoder wrapper for streaming responses in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T021 [US1] Implement AG-UI lifecycle events (RunStartedEvent, RunFinishedEvent, RunErrorEvent) in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T022 [US1] Implement AG-UI text message events (TextMessageStartEvent, TextMessageContentEvent, TextMessageEndEvent) in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 [US1] Implement AG-UI tool call events (ToolCallStartEvent, ToolCallArgsEvent, ToolCallEndEvent, ToolCallResultEvent) in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T024 [US1] Implement AGUIProtocol class extending Protocol ABC in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T025 [US1] Integrate AgentExecutor with AG-UI event stream in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T026 [US1] Wire AG-UI protocol endpoints into AgentServer in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T027 [US1] Implement CLI serve command with --port option in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T028 [US1] Add serve command to CLI entry point in src/holodeck/cli/main.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029 [US1] Implement server startup display with agent name, protocol, and URL in src/holodeck/cli/commands/serve.py</li>
+</ul>
+<h3 id="ag-ui-multimodal-support-tdd">AG-UI Multimodal Support (TDD)<a class="headerlink" href="#ag-ui-multimodal-support-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029a [P] [US1] Unit tests for AG-UI BinaryInputContent parsing in tests/unit/serve/test_protocols_agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029b [P] [US1] Unit tests for AG-UI multimodal content to FileInput conversion in tests/unit/serve/test_protocols_agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029c [P] [US1] Integration test for AG-UI with image content in tests/integration/serve/test_server_agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029d [P] [US1] Integration test for AG-UI with PDF/document content in tests/integration/serve/test_server_agui.py</li>
+</ul>
+<h3 id="ag-ui-multimodal-implementation">AG-UI Multimodal Implementation<a class="headerlink" href="#ag-ui-multimodal-implementation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029e [US1] Implement BinaryInputContent parsing from AG-UI message content in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029f [US1] Implement conversion of AG-UI binary content to FileInput for FileProcessor in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029g [US1] Integrate FileProcessor output into agent message context in src/holodeck/serve/protocols/agui.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029h [US1] Handle inline base64, URL references, and file ID references in src/holodeck/serve/protocols/agui.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: At this point, <code>holodeck serve agent.yaml</code> works with AG-UI protocol including multimodal - all US1 tests pass ✅</p>
+<hr />
+<h2 id="phase-4-user-story-2-start-agent-server-with-rest-protocol-priority-p1">Phase 4: User Story 2 - Start Agent Server with REST Protocol (Priority: P1)<a class="headerlink" href="#phase-4-user-story-2-start-agent-server-with-rest-protocol-priority-p1" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Developer runs <code>holodeck serve agent.yaml --protocol rest</code> to expose agent at <code>/agent/{name}/chat</code> endpoints</p>
+<p><strong>Independent Test</strong>: Start server with REST protocol, make POST requests to chat endpoints, verify JSON/SSE responses</p>
+<h3 id="tests-for-user-story-2-tdd">Tests for User Story 2 (TDD)<a class="headerlink" href="#tests-for-user-story-2-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T030 [P] [US2] Contract tests for OpenAPI spec compliance in tests/contract/serve/test_openapi_contract.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T031 [P] [US2] Unit tests for REST protocol handlers in tests/unit/serve/test_protocols_rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T032 [P] [US2] Unit tests for SSE event serialization (stream_start, message_delta, tool_call_*, stream_end, error) in tests/unit/serve/test_protocols_rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T033 [P] [US2] Integration test for synchronous chat endpoint in tests/integration/serve/test_server_rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T034 [P] [US2] Integration test for streaming chat endpoint (SSE) in tests/integration/serve/test_server_rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T035 [P] [US2] Integration test for multimodal file upload (base64 JSON) in tests/integration/serve/test_server_rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T036 [P] [US2] Integration test for multimodal file upload (multipart form-data) in tests/integration/serve/test_server_rest.py</li>
+</ul>
+<h3 id="implementation-for-user-story-2">Implementation for User Story 2<a class="headerlink" href="#implementation-for-user-story-2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037 [US2] Implement RESTProtocol class extending Protocol ABC in src/holodeck/serve/protocols/rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T038 [US2] Implement synchronous chat endpoint handler (/agent/{agent_name}/chat) in src/holodeck/serve/protocols/rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T039 [US2] Implement SSE streaming chat endpoint handler (/agent/{agent_name}/chat/stream) in src/holodeck/serve/protocols/rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T040 [US2] Implement SSE event serialization per sse-events.md contract (stream_start, message_delta, tool_call_*, stream_end, error) in src/holodeck/serve/protocols/rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T041 [US2] Implement keepalive comments for long-running SSE streams in src/holodeck/serve/protocols/rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T042 [US2] Implement multimodal file processing integration with FileProcessor in src/holodeck/serve/protocols/rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T043 [US2] Implement multipart form-data file upload handling in src/holodeck/serve/protocols/rest.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T044 [US2] Wire REST protocol endpoints into AgentServer in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T045 [US2] Add --protocol flag to serve CLI command in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T046 [US2] Enable FastAPI OpenAPI docs at root URL for REST protocol in src/holodeck/serve/server.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: At this point, <code>holodeck serve agent.yaml --protocol rest</code> works - all US2 tests pass ✅</p>
+<hr />
+<h2 id="phase-5-user-story-3-health-check-and-monitoring-endpoints-priority-p2">Phase 5: User Story 3 - Health Check and Monitoring Endpoints (Priority: P2)<a class="headerlink" href="#phase-5-user-story-3-health-check-and-monitoring-endpoints-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Server provides /health, /health/agent, and /ready endpoints for monitoring</p>
+<p><strong>Independent Test</strong>: Start server, request health endpoints, verify status responses</p>
+<h3 id="tests-for-user-story-3-tdd">Tests for User Story 3 (TDD)<a class="headerlink" href="#tests-for-user-story-3-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T047 [P] [US3] Integration test for /health endpoint in tests/integration/serve/test_health_endpoints.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T048 [P] [US3] Integration test for /health/agent endpoint in tests/integration/serve/test_health_endpoints.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T049 [P] [US3] Integration test for /ready endpoint in tests/integration/serve/test_health_endpoints.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T050 [P] [US3] Integration test for health response when agent not ready (503) in tests/integration/serve/test_health_endpoints.py</li>
+</ul>
+<h3 id="implementation-for-user-story-3">Implementation for User Story 3<a class="headerlink" href="#implementation-for-user-story-3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T051 [US3] Implement /health endpoint returning HealthResponse in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T052 [P] [US3] Implement /health/agent endpoint with agent-specific health in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T053 [P] [US3] Implement /ready endpoint for readiness checks in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T054 [US3] Track server uptime and active session count for health responses in src/holodeck/serve/server.py</li>
+</ul>
+<h3 id="documentation-updates">Documentation Updates<a class="headerlink" href="#documentation-updates" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T054a [P] [US3] Create serve command guide at docs/guides/serve.md (usage, protocols, options, examples)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T054b [P] [US3] Add serve API reference at docs/api/serve.md (endpoints, models, events)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T054c [US3] Update README.md to include serve capability in Quick Start section</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T054d [US3] Update README.md Architecture section (remove "(Planned)" from Deployment, add serve details)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T054e [US3] Add serve to docs/index.md navigation and documentation links</li>
+</ul>
+<p><strong>Checkpoint</strong>: Health endpoints working, documentation complete - all US3 tests pass</p>
+<hr />
+<h2 id="phase-6-user-story-4-session-management-priority-p2">Phase 6: User Story 4 - Session Management (Priority: P2)<a class="headerlink" href="#phase-6-user-story-4-session-management-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Server maintains conversation context via session_id across multiple requests with 30-minute TTL</p>
+<p><strong>Independent Test</strong>: Send multiple messages with same session_id, verify context is maintained, verify session expiration</p>
+<h3 id="tests-for-user-story-4-tdd">Tests for User Story 4 (TDD)<a class="headerlink" href="#tests-for-user-story-4-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T055 [P] [US4] Integration test for automatic session creation in tests/integration/serve/test_session_management.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T056 [P] [US4] Integration test for session continuity across requests in tests/integration/serve/test_session_management.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T057 [P] [US4] Integration test for DELETE /sessions/{session_id} endpoint in tests/integration/serve/test_session_management.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T058 [P] [US4] Unit test for TTL cleanup background task in tests/unit/serve/test_session_store.py</li>
+</ul>
+<h3 id="implementation-for-user-story-4">Implementation for User Story 4<a class="headerlink" href="#implementation-for-user-story-4" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T059 [US4] Implement automatic session creation when no session_id provided in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T060 [US4] Implement session lookup and activity touch on each request in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T061 [US4] Implement DELETE /sessions/{session_id} endpoint in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T062 [US4] Implement background asyncio task for TTL cleanup (30-minute expiration) in src/holodeck/serve/session_store.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T063 [US4] Start cleanup task on server startup, stop on shutdown in src/holodeck/serve/server.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: Session management fully functional - all US4 tests pass</p>
+<hr />
+<h2 id="phase-7-user-story-5-interactive-server-startup-feedback-priority-p3">Phase 7: User Story 5 - Interactive Server Startup Feedback (Priority: P3)<a class="headerlink" href="#phase-7-user-story-5-interactive-server-startup-feedback-priority-p3" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Server displays clear startup information and supports --open flag to open browser</p>
+<p><strong>Independent Test</strong>: Start server, verify console output contains URL, endpoints, and agent info</p>
+<h3 id="tests-for-user-story-5-tdd">Tests for User Story 5 (TDD)<a class="headerlink" href="#tests-for-user-story-5-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T064 [P] [US5] Unit test for startup display output formatting in tests/unit/serve/test_cli_serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T065 [P] [US5] Unit test for --cors-origins flag parsing in tests/unit/serve/test_cli_serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T066 [P] [US5] Unit test for --debug flag enabling verbose logging in tests/unit/serve/test_cli_serve.py</li>
+</ul>
+<h3 id="implementation-for-user-story-5">Implementation for User Story 5<a class="headerlink" href="#implementation-for-user-story-5" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T067 [US5] Enhance startup display with available endpoints list in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T068 [P] [US5] Implement --open flag to open browser on startup in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T069 [P] [US5] Implement --cors-origins flag for CORS configuration in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T070 [US5] Implement --debug flag for full request/response logging in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T071 [US5] Add CORS middleware with configurable origins in src/holodeck/serve/middleware.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: Full startup feedback and CLI options complete - all US5 tests pass</p>
+<hr />
+<h2 id="phase-8-edge-cases-and-error-handling">Phase 8: Edge Cases and Error Handling<a class="headerlink" href="#phase-8-edge-cases-and-error-handling" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Handle edge cases from spec.md</p>
+<h3 id="tests-for-edge-cases-tdd">Tests for Edge Cases (TDD)<a class="headerlink" href="#tests-for-edge-cases-tdd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T072 [P] Unit test for invalid configuration rejection in tests/unit/serve/test_cli_serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T073 [P] Unit test for port-in-use error handling in tests/unit/serve/test_cli_serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T074 [P] Integration test for graceful error responses (503 when not ready) in tests/integration/serve/test_error_handling.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T075 [P] Integration test for graceful shutdown with in-flight requests in tests/integration/serve/test_error_handling.py</li>
+</ul>
+<h3 id="implementation-for-edge-cases">Implementation for Edge Cases<a class="headerlink" href="#implementation-for-edge-cases" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T076 Implement configuration validation before server start with clear error messages in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T077 [P] Implement port-in-use detection with helpful error message in src/holodeck/cli/commands/serve.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T078 [P] Implement graceful error responses during agent processing (503 when not ready) in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T079 Implement graceful shutdown on SIGINT/SIGTERM with in-flight request completion in src/holodeck/serve/server.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T080 Implement server state tracking (INITIALIZING, READY, RUNNING, SHUTTING_DOWN, STOPPED) in src/holodeck/serve/server.py</li>
+</ul>
+<hr />
+<h2 id="phase-9-polish-cross-cutting-concerns">Phase 9: Polish &amp; Cross-Cutting Concerns<a class="headerlink" href="#phase-9-polish-cross-cutting-concerns" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Improvements that affect multiple user stories</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T081 Add debug logging with full request/response content in src/holodeck/serve/middleware.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T082 Add structured logging with timestamp, session_id, endpoint, latency in src/holodeck/serve/middleware.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T083 Validate all file size limits (10MB base64, 50MB per file, 100MB total) in src/holodeck/serve/models.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T084 Run quickstart.md validation scenarios manually</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T085 Verify OpenAPI contract matches implementation via contract tests</li>
+</ul>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="phase-dependencies">Phase Dependencies<a class="headerlink" href="#phase-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Setup (Phase 1)</strong>: No dependencies - can start immediately</li>
+<li><strong>Foundational (Phase 2)</strong>: Depends on Setup completion - BLOCKS all user stories</li>
+<li><strong>User Story 1 (Phase 3)</strong>: Depends on Foundational - AG-UI protocol (MVP)</li>
+<li><strong>User Story 2 (Phase 4)</strong>: Depends on Foundational - REST protocol (can run parallel to US1)</li>
+<li><strong>User Story 3 (Phase 5)</strong>: Depends on Foundational - Health endpoints (can run parallel to US1/US2)</li>
+<li><strong>User Story 4 (Phase 6)</strong>: Depends on US1 or US2 completion - Session management</li>
+<li><strong>User Story 5 (Phase 7)</strong>: Depends on US1 or US2 completion - Startup feedback</li>
+<li><strong>Edge Cases (Phase 8)</strong>: Depends on US1-US4 completion</li>
+<li><strong>Polish (Phase 9)</strong>: Depends on all phases complete</li>
+</ul>
+<h3 id="tdd-workflow-within-each-phase">TDD Workflow Within Each Phase<a class="headerlink" href="#tdd-workflow-within-each-phase" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Write all tests for the phase FIRST</li>
+<li>Run tests - verify they FAIL</li>
+<li>Implement code to make tests pass</li>
+<li>Refactor if needed (tests still pass)</li>
+<li>Move to next phase</li>
+</ol>
+<h3 id="user-story-dependencies">User Story Dependencies<a class="headerlink" href="#user-story-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>User Story 1 (P1)</strong>: AG-UI Protocol - No dependencies on other stories, MVP</li>
+<li><strong>User Story 2 (P1)</strong>: REST Protocol - Can run parallel to US1</li>
+<li><strong>User Story 3 (P2)</strong>: Health Endpoints - Can run parallel to US1/US2</li>
+<li><strong>User Story 4 (P2)</strong>: Session Management - Builds on US1/US2 foundation</li>
+<li><strong>User Story 5 (P3)</strong>: Startup Feedback - Enhancement to US1/US2</li>
+</ul>
+<h3 id="within-each-user-story-tdd">Within Each User Story (TDD)<a class="headerlink" href="#within-each-user-story-tdd" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Write tests FIRST - ensure they FAIL</li>
+<li>Models before services</li>
+<li>Services before endpoints</li>
+<li>Core implementation before integration</li>
+<li>All tests pass before story complete</li>
+</ol>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<ul>
+<li>T003, T004 can run in parallel (Setup phase)</li>
+<li>T005, T006, T007 can run in parallel (Foundational tests)</li>
+<li>T009, T011, T012, T013 can run in parallel (Foundational implementation)</li>
+<li>US1, US2, US3 can start in parallel after Foundational phase</li>
+<li>All tests within a user story marked [P] can run in parallel</li>
+<li>T047, T048, T049, T050 can run in parallel (Health tests)</li>
+<li>T055, T056, T057, T058 can run in parallel (Session tests)</li>
+<li>T072, T073, T074, T075 can run in parallel (Edge case tests)</li>
+</ul>
+<hr />
+<h2 id="parallel-example-user-story-2-tests-tdd">Parallel Example: User Story 2 Tests (TDD)<a class="headerlink" href="#parallel-example-user-story-2-tests-tdd" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch ALL tests for User Story 2 together BEFORE implementation:</span>
+Task:<span class="w"> </span><span class="s2">"Contract tests for OpenAPI spec compliance in tests/contract/serve/test_openapi_contract.py"</span>
+Task:<span class="w"> </span><span class="s2">"Unit tests for REST protocol handlers in tests/unit/serve/test_protocols_rest.py"</span>
+Task:<span class="w"> </span><span class="s2">"Unit tests for SSE event serialization in tests/unit/serve/test_protocols_rest.py"</span>
+Task:<span class="w"> </span><span class="s2">"Integration test for synchronous chat endpoint in tests/integration/serve/test_server_rest.py"</span>
+Task:<span class="w"> </span><span class="s2">"Integration test for streaming chat endpoint in tests/integration/serve/test_server_rest.py"</span>
+Task:<span class="w"> </span><span class="s2">"Integration test for multimodal file upload (base64) in tests/integration/serve/test_server_rest.py"</span>
+Task:<span class="w"> </span><span class="s2">"Integration test for multimodal file upload (multipart) in tests/integration/serve/test_server_rest.py"</span>
+
+<span class="c1"># Verify all tests FAIL, then implement...</span>
+</code></pre></div>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="mvp-first-user-story-1-only">MVP First (User Story 1 Only)<a class="headerlink" href="#mvp-first-user-story-1-only" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Phase 1: Setup</li>
+<li>Complete Phase 2: Foundational (tests first, then implementation)</li>
+<li>Complete Phase 3: User Story 1 (tests first, then implementation)</li>
+<li><strong>STOP and VALIDATE</strong>: All tests pass, test with AG-UI compatible client</li>
+<li>Deploy/demo if ready</li>
+</ol>
+<h3 id="incremental-delivery-tdd">Incremental Delivery (TDD)<a class="headerlink" href="#incremental-delivery-tdd" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Setup + Foundational (tests → implementation) → Foundation ready</li>
+<li>Add User Story 1 (tests → implementation) → MVP ready</li>
+<li>Add User Story 2 (tests → implementation) → Dual-protocol support</li>
+<li>Add User Story 3 (tests → implementation) → Production ready</li>
+<li>Add User Story 4 (tests → implementation) → Stateful conversations</li>
+<li>Add User Story 5 (tests → implementation) → Developer experience</li>
+</ol>
+<h3 id="parallel-team-strategy">Parallel Team Strategy<a class="headerlink" href="#parallel-team-strategy" title="Permanent link">&para;</a></h3>
+<p>With multiple developers:</p>
+<ol>
+<li>Team completes Setup + Foundational together (TDD)</li>
+<li>Once Foundational is done:</li>
+<li>Developer A: User Story 1 (tests → implementation)</li>
+<li>Developer B: User Story 2 (tests → implementation)</li>
+<li>Developer C: User Story 3 (tests → implementation)</li>
+<li>Stories complete and integrate independently - all tests pass</li>
+</ol>
+<hr />
+<h2 id="test-summary">Test Summary<a class="headerlink" href="#test-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Test Tasks</th>
+<th>Implementation Tasks</th>
+<th>Doc Tasks</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Foundational</td>
+<td>3</td>
+<td>7</td>
+<td>0</td>
+<td>✅ Complete</td>
+</tr>
+<tr>
+<td>User Story 1 (text)</td>
+<td>4</td>
+<td>11</td>
+<td>0</td>
+<td>✅ Complete</td>
+</tr>
+<tr>
+<td>User Story 1 (multimodal)</td>
+<td>4</td>
+<td>4</td>
+<td>0</td>
+<td>⏳ Pending</td>
+</tr>
+<tr>
+<td>User Story 2</td>
+<td>7</td>
+<td>10</td>
+<td>0</td>
+<td>✅ Complete</td>
+</tr>
+<tr>
+<td>User Story 3</td>
+<td>4</td>
+<td>4</td>
+<td>5</td>
+<td>⏳ Pending</td>
+</tr>
+<tr>
+<td>User Story 4</td>
+<td>4</td>
+<td>5</td>
+<td>0</td>
+<td>⏳ Pending</td>
+</tr>
+<tr>
+<td>User Story 5</td>
+<td>3</td>
+<td>5</td>
+<td>0</td>
+<td>⏳ Pending</td>
+</tr>
+<tr>
+<td>Edge Cases</td>
+<td>4</td>
+<td>5</td>
+<td>0</td>
+<td>⏳ Pending</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>33</strong></td>
+<td><strong>51</strong></td>
+<td><strong>5</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[P] tasks = different files, no dependencies</li>
+<li>[Story] label maps task to specific user story for traceability</li>
+<li><strong>TDD</strong>: Write tests FIRST, verify they FAIL, then implement</li>
+<li>Each user story is independently completable and testable</li>
+<li>Commit after each task or logical group</li>
+<li>Stop at any checkpoint to validate story independently</li>
+<li>All tests must pass before moving to next phase</li>
+<li>File paths follow plan.md structure: <code>src/holodeck/serve/</code>, <code>tests/*/serve/</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

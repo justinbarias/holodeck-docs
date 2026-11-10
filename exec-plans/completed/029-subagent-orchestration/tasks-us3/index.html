@@ -1,0 +1,2501 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/029-subagent-orchestration/tasks-us3/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: Subagent Definitions & Multi-Agent Orchestration — User Story 3 - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-subagent-definitions-multi-agent-orchestration-user-story-3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: Subagent Definitions &amp; Multi-Agent Orchestration — User Story 3
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-story-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] [Story] Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-shared-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup (Shared Infrastructure)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-blocking-prerequisites-shared-with-us1us2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational (Blocking Prerequisites — shared with US1/US2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Foundational (Blocking Prerequisites — shared with US1/US2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundational-tests-write-first-must-fail-before-t004t009" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational tests (write FIRST — must FAIL before T004–T009)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foundational-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-3-define-subagent-with-custom-system-prompt-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 3 — Define Subagent with Custom System Prompt (Priority: P1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: User Story 3 — Define Subagent with Custom System Prompt (Priority: P1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-3-write-first-must-fail-before-t017t020" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 3 ⚠️ WRITE FIRST — must FAIL before T017–T020
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-polish-cross-cutting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Polish &amp; Cross-Cutting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-level-dependencies-within-us3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task-Level Dependencies (within US3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foundational-us3-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational → US3 Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-file-dependencies-a-developer-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-File Dependencies a Developer Should Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-execution-example-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution Example: User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slice-first-us3-only-this-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slice-First (US3 only — this file)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-team-strategy-us3-us1-us2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Team Strategy (US3 + US1 + US2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-subagent-definitions-multi-agent-orchestration-user-story-3">Tasks: Subagent Definitions &amp; Multi-Agent Orchestration — User Story 3<a class="headerlink" href="#tasks-subagent-definitions-multi-agent-orchestration-user-story-3" title="Permanent link">&para;</a></h1>
+<p><strong>Spec</strong>: 029-subagent-orchestration
+<strong>User Story</strong>: US3 — Define Subagent with Custom System Prompt (Priority: P1)
+<strong>Input</strong>: Design documents from <code>/docs/product-specs/029-subagent-orchestration/</code>
+<strong>Prerequisites</strong>: spec.md, plan.md, research.md, data-model.md, contracts/subagent-spec.schema.json, quickstart.md
+<strong>Scope</strong>: This file delivers ONLY US3. The Phase 2 (Foundational) tasks here are the minimum SubagentSpec/ClaudeConfig.agents scaffolding US3 needs to be testable; US1 and US2 reuse them but are out of scope here.</p>
+<p><strong>Tests</strong>: Included. SC-004 explicitly mandates validation-error tests at config-load time; without them, US3's acceptance scenarios cannot be verified.</p>
+<h2 id="format-id-p-story-description">Format: <code>[ID] [P?] [Story] Description</code><a class="headerlink" href="#format-id-p-story-description" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Can run in parallel (different files, no dependencies)</li>
+<li><strong>[Story]</strong>: <code>[US3]</code> only on User Story 3 tasks. Setup / Foundational / Polish carry no story tag.</li>
+<li>All paths absolute from repo root <code>/Users/justinbarias/Documents/Git/python/agentlab/</code>.</li>
+</ul>
+<hr />
+<h2 id="phase-1-setup-shared-infrastructure">Phase 1: Setup (Shared Infrastructure)<a class="headerlink" href="#phase-1-setup-shared-infrastructure" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Confirm the working tree and tooling baseline before any model edits.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T001 Verify branch is <code>feature/029-claude-subagents</code> and working tree is clean; run <code>make install-dev</code> if <code>.venv/</code> is missing so <code>pytest</code>, <code>mypy</code>, <code>ruff</code>, and <code>black</code> are available.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T002 [P] Confirm <code>claude-agent-sdk==0.1.44</code> is installed in <code>.venv/</code> (it provides <code>AgentDefinition</code>); run <code>python -c "from claude_agent_sdk.types import AgentDefinition; print(AgentDefinition)"</code> to fail-fast if missing.</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-blocking-prerequisites-shared-with-us1us2">Phase 2: Foundational (Blocking Prerequisites — shared with US1/US2)<a class="headerlink" href="#phase-2-foundational-blocking-prerequisites-shared-with-us1us2" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Stand up the <code>SubagentSpec</code> model skeleton, the <code>ClaudeConfig.agents</code> field with empty-map normalization, the <code>description</code> validator, and the legacy <code>claude.subagents</code> migration validator so US3's prompt-sourcing rules have a model to attach to AND so SC-005 holds regardless of which story ships first. These tasks are NOT US3-unique — US1 and US2 build on the same scaffolding — and so are tagged as foundational, not <code>[US3]</code>.</p>
+<p><strong>TDD-ordered</strong>: foundational tests (T003a, T003b, T003c) are authored FIRST and verified FAILING before implementation tasks (T004–T009).</p>
+<p><strong>CRITICAL</strong>: No US3 (Phase 3) work can begin until this phase is complete.</p>
+<h3 id="foundational-tests-write-first-must-fail-before-t004t009">Foundational tests (write FIRST — must FAIL before T004–T009)<a class="headerlink" href="#foundational-tests-write-first-must-fail-before-t004t009" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T003a [P] Add <code>test_subagent_description_required_non_empty</code> in <code>tests/unit/models/test_claude_config.py</code> asserting <code>SubagentSpec(description="", prompt="x")</code> and <code>SubagentSpec(description="   ", prompt="x")</code> both raise <code>ValidationError("subagent requires description")</code>. Verify it FAILS today (model not yet added). (FR-004, SC-004)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T003b [P] Add <code>test_legacy_subagents_block_rejected</code> in <code>tests/unit/models/test_claude_config.py</code> asserting <code>ClaudeConfig(**{"subagents": {"enabled": True}})</code> raises <code>ValidationError</code> whose message contains <code>"claude.subagents is no longer supported"</code> and references both <code>claude.agents</code> and <code>execution.parallel_test_cases</code>. Verify it FAILS. <strong>Shared with US1.T002</strong> — first owner wins. (FR-011, SC-005)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T003c [P] Add <code>test_claude_config_agents_empty_map_normalized_to_none</code> in <code>tests/unit/models/test_claude_config.py</code> asserting <code>ClaudeConfig(agents={}).agents is None</code>. Verify it FAILS. <strong>Shared with US1.T003</strong>. (FR-010, research §5)</li>
+</ul>
+<h3 id="foundational-implementation">Foundational implementation<a class="headerlink" href="#foundational-implementation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T004 Delete the existing <code>SubagentConfig</code> model and the <code>ClaudeConfig.subagents</code> field in <code>src/holodeck/models/claude_config.py</code> (lines 63-70 and 115-118 per <code>plan.md</code>). Also remove the <code>SubagentConfig</code> import in <code>tests/unit/models/test_claude_config.py</code> and any test cases that reference it (lines ~158-196, 248-255, and the <code>subagents=...</code> line in <code>test_with_all_fields</code> around line 269). <strong>Shared with US1.T005/T011</strong>.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T005 Add a <code>SubagentSpec(BaseModel)</code> skeleton in <code>src/holodeck/models/claude_config.py</code> with <code>model_config = ConfigDict(extra="forbid")</code> and the five fields per <code>data-model.md</code> §1: <code>description: str</code>, <code>prompt: str | None = None</code>, <code>prompt_file: str | None = None</code>, <code>tools: list[str] | None = None</code>, <code>model: Literal["sonnet", "opus", "haiku", "inherit"] | None = None</code>. No prompt/prompt_file validators yet — those land in Phase 3. <strong>Shared with US1.T006</strong> — first owner wins. (FR-002, FR-008)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T006 Add the <code>description</code> non-empty-after-strip <code>@model_validator(mode="after")</code> on <code>SubagentSpec</code> in <code>src/holodeck/models/claude_config.py</code> that raises <code>ValueError("subagent requires description")</code> when <code>description.strip() == ""</code>. Confirm T003a now PASSES. (FR-004, SC-004)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T007 Add <code>agents: dict[str, SubagentSpec] | None = Field(default=None, ...)</code> to <code>ClaudeConfig</code> in <code>src/holodeck/models/claude_config.py</code> (description per <code>data-model.md</code> §2). Add a <code>@model_validator(mode="after")</code> that normalizes <code>agents == {}</code> → <code>agents = None</code>. Confirm T003c now PASSES. <strong>Shared with US1.T007</strong>. (FR-001, FR-010, research §5)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T008 Add a <code>@model_validator(mode="before")</code> on <code>ClaudeConfig</code> in <code>src/holodeck/models/claude_config.py</code> that detects a legacy <code>subagents</code> key in the input dict and raises <code>ValueError</code> with the exact message from data-model.md §2 rule 2: <code>"claude.subagents is no longer supported; remove this block. Subagent forwarding is gated solely by the presence of claude.agents. To cap HoloDeck-side test concurrency, set execution.parallel_test_cases instead."</code>. The <code>mode="before"</code> runs ahead of <code>extra="forbid"</code> so the targeted error wins. Confirm T003b now PASSES. <strong>Shared with US1.T008</strong>. (FR-011, SC-005)</li>
+</ul>
+<p><strong>Checkpoint</strong>: <code>SubagentSpec</code> exists with <code>description</code> validator, <code>ClaudeConfig.agents</code> exists with empty-map normalization, the legacy <code>subagents</code> block is rejected with the documented friendly error, and all three foundational tests are green. US3 prompt-validation work can now begin.</p>
+<hr />
+<h2 id="phase-3-user-story-3-define-subagent-with-custom-system-prompt-priority-p1">Phase 3: User Story 3 — Define Subagent with Custom System Prompt (Priority: P1)<a class="headerlink" href="#phase-3-user-story-3-define-subagent-with-custom-system-prompt-priority-p1" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Allow users to give each subagent a distinct system prompt, sourced either inline (<code>prompt</code>) or from a file (<code>prompt_file</code>) resolved relative to the agent.yaml directory. Validation errors fire at config-load time.</p>
+<p><strong>Independent Test</strong>: Load three minimal <code>agent.yaml</code> fixtures (inline prompt, prompt_file, neither) through <code>holodeck.config.loader</code>. Verify:
+1. Inline prompt → <code>SubagentSpec.prompt == "You are a financial analyst."</code>, <code>prompt_file is None</code>.
+2. <code>prompt_file: ./prompts/analyst.md</code> → <code>SubagentSpec.prompt</code> contains the file's contents, <code>prompt_file is None</code>.
+3. Neither → <code>ValidationError("subagent requires either prompt or prompt_file")</code> at load time.</p>
+<h3 id="tests-for-user-story-3-write-first-must-fail-before-t017t020">Tests for User Story 3 ⚠️ WRITE FIRST — must FAIL before T017–T020<a class="headerlink" href="#tests-for-user-story-3-write-first-must-fail-before-t017t020" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>All test tasks add cases to <code>tests/unit/models/test_claude_config.py</code> (single file). They share that file, so NOT marked <code>[P]</code>. The fixture-creation task T009 is <code>[P]</code> because it touches a different path.</p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T009 [P] [US3] Create test prompt fixture at <code>tests/unit/models/fixtures/subagent_prompts/analyst.md</code> containing the literal text <code>You are a data analyst. Analyze data only — do not write code.</code> (used by T012 and T015). Confirm parent directories exist; create <code>tests/unit/models/fixtures/</code> and <code>tests/unit/models/fixtures/subagent_prompts/</code> if missing.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T010 [US3] Add <code>test_subagent_inline_prompt_loads</code> to <code>tests/unit/models/test_claude_config.py</code> — constructs a <code>SubagentSpec(description="x", prompt="You are a financial analyst.")</code>, asserts <code>.prompt == "You are a financial analyst."</code> and <code>.prompt_file is None</code>. (US3 acceptance scenario 1; FR-002)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T011 [US3] Add <code>test_subagent_inline_prompt_empty_after_strip_rejected</code> to <code>tests/unit/models/test_claude_config.py</code> — <code>SubagentSpec(description="x", prompt="   ")</code> raises <code>ValidationError</code>. (data-model.md §1 rule "Non-empty after strip"; SC-004)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T012 [US3] Add <code>test_subagent_prompt_file_inlined</code> to <code>tests/unit/models/test_claude_config.py</code> — sets <code>agent_base_dir</code> <code>ContextVar</code> (from <code>src/holodeck/config/context.py</code>) to <code>tests/unit/models/fixtures/subagent_prompts/</code>, constructs <code>SubagentSpec(description="x", prompt_file="./analyst.md")</code>, asserts <code>.prompt</code> matches the fixture's contents and <code>.prompt_file is None</code>. Use <code>agent_base_dir.set(...)</code> with a token and <code>agent_base_dir.reset(token)</code> in a <code>try/finally</code> (mirror the pattern in <code>src/holodeck/config/schema.py:104-106</code>). (US3 acceptance scenario 2; FR-005)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T013 [US3] Add <code>test_subagent_prompt_file_resolves_relative_to_agent_base_dir</code> to <code>tests/unit/models/test_claude_config.py</code> — same as T012 but uses a nested path (<code>subdir/analyst.md</code>) under a temp directory created via <code>tmp_path</code>, and verifies absolute paths are also accepted (path resolution doesn't mangle absolute paths). (FR-005; quickstart §5 row "prompt_file resolves relative")</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T014 [US3] Add <code>test_subagent_prompt_file_not_found_rejected</code> to <code>tests/unit/models/test_claude_config.py</code> — <code>SubagentSpec(description="x", prompt_file="./does-not-exist.md")</code> raises <code>ValidationError</code> whose message contains <code>"prompt_file not found"</code> and the offending path. (Edge case: nonexistent prompt_file; SC-004; quickstart §5)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T015 [US3] Add <code>test_subagent_prompt_and_prompt_file_mutually_exclusive</code> to <code>tests/unit/models/test_claude_config.py</code> — <code>SubagentSpec(description="x", prompt="hi", prompt_file="./analyst.md")</code> raises <code>ValidationError("prompt and prompt_file are mutually exclusive")</code> (exact message per quickstart §5). (FR-006; SC-004)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T016 [US3] Add <code>test_subagent_neither_prompt_nor_prompt_file_rejected</code> to <code>tests/unit/models/test_claude_config.py</code> — <code>SubagentSpec(description="x")</code> raises <code>ValidationError("subagent requires either prompt or prompt_file")</code> (exact message per quickstart §5). (FR-006; US3 acceptance scenario 3; SC-004)</li>
+</ul>
+<blockquote>
+<p>Run <code>pytest tests/unit/models/test_claude_config.py -n auto -v</code> and confirm T010–T016 all FAIL with the expected error shapes before proceeding to implementation.</p>
+</blockquote>
+<h3 id="implementation-for-user-story-3">Implementation for User Story 3<a class="headerlink" href="#implementation-for-user-story-3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>All implementation tasks edit <code>src/holodeck/models/claude_config.py</code>. Single file, sequential.</p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T017 [US3] In <code>src/holodeck/models/claude_config.py</code>, add a <code>@model_validator(mode="after")</code> on <code>SubagentSpec</code> that raises <code>ValueError("prompt and prompt_file are mutually exclusive")</code> when both <code>self.prompt</code> and <code>self.prompt_file</code> are non-<code>None</code> (truthy after the <code>None</code> check; explicit empty strings are caught separately by T018/T019). (FR-006; satisfies T015)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T018 [US3] In the same <code>@model_validator(mode="after")</code> (or a sibling validator in the same file), raise <code>ValueError("subagent requires either prompt or prompt_file")</code> when both are <code>None</code>. Order this check after the mutual-exclusion check so the messages don't conflict. (FR-006; satisfies T016; US3 acceptance scenario 3)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T019 [US3] In <code>src/holodeck/models/claude_config.py</code>, extend the <code>SubagentSpec</code> <code>@model_validator(mode="after")</code> to handle <code>prompt_file</code> resolution. Mirror the canonical pattern at <code>src/holodeck/config/schema.py:101-112</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.config.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">agent_base_dir</span>   <span class="c1"># ContextVar[str | None]</span>
+
+<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prompt_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">base_dir_value</span> <span class="o">=</span> <span class="n">agent_base_dir</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="k">if</span> <span class="n">base_dir_value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir_value</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prompt_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">():</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="n">path</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"prompt_file not found: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prompt_file</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Use <code>model_validator(mode="after")</code> so the assignments stick (Pydantic v2 returns <code>self</code>). Note the ContextVar is <code>ContextVar[str | None]</code> (not <code>Path | None</code>), so coerce only after the None check. (FR-005, FR-006; satisfies T012, T013, T014; data-model.md §1 rule 3; research.md §2)
+- [ ] T020 [US3] In <code>src/holodeck/models/claude_config.py</code>, after <code>prompt_file</code> inlining, add a non-empty-after-strip check on the resulting <code>self.prompt</code>: raise <code>ValueError("subagent prompt must be non-empty")</code> when <code>self.prompt is not None and self.prompt.strip() == ""</code>. This catches both inline empty prompts and prompt_file paths that point at an empty file. (data-model.md §1 invariant "always non-empty after construction"; satisfies T011)</p>
+<blockquote>
+<p>Run <code>pytest tests/unit/models/test_claude_config.py -n auto -v</code> and confirm T010–T016 all PASS.</p>
+</blockquote>
+<p><strong>Checkpoint</strong>: US3 is fully functional and testable independently. A subagent's <code>prompt</code>/<code>prompt_file</code> is correctly sourced and validated at config-load time, with the exact error messages spec'd in <code>quickstart.md</code> §5.</p>
+<hr />
+<h2 id="phase-4-polish-cross-cutting">Phase 4: Polish &amp; Cross-Cutting<a class="headerlink" href="#phase-4-polish-cross-cutting" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T021 Run <code>make format</code> and <code>make lint</code> from the repo root; confirm <code>src/holodeck/models/claude_config.py</code> and <code>tests/unit/models/test_claude_config.py</code> pass Black (88 cols) + Ruff with no warnings.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T022 Run <code>make type-check</code> from the repo root; confirm <code>src/holodeck/models/claude_config.py</code> passes MyPy strict (especially the <code>agent_base_dir.get()</code> fallback path and the <code>Path</code> import).</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T023 [P] Run the full unit test suite — <code>pytest tests/unit/ -n auto -v</code> — to confirm no regressions in adjacent <code>ClaudeConfig</code> tests, in particular that <code>_warn_effort_with_extended_thinking</code> still fires.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T024 Validate <code>quickstart.md</code> §5 row "prompt_file: ./does-not-exist.md" by writing a 5-line ad-hoc YAML fixture and loading it through <code>holodeck.config.loader.load_agent_config()</code> from a Python REPL; confirm the <code>ValidationError</code> matches the documented message verbatim. (SC-004 end-to-end smoke check)</li>
+</ul>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="phase-dependencies">Phase Dependencies<a class="headerlink" href="#phase-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Phase 1 (Setup)</strong>: No dependencies — start immediately.</li>
+<li><strong>Phase 2 (Foundational, TDD)</strong>: Depends on Phase 1. BLOCKS Phase 3. Tests T003a/T003b/T003c authored FIRST and verified FAILING before T004–T008 implementations.</li>
+<li><strong>Phase 3 (US3)</strong>: Depends on Phase 2 completion. Within Phase 3, tests T009–T016 must be written and FAIL before implementation T017–T020.</li>
+<li><strong>Phase 4 (Polish)</strong>: Depends on Phase 3.</li>
+</ul>
+<h3 id="task-level-dependencies-within-us3">Task-Level Dependencies (within US3)<a class="headerlink" href="#task-level-dependencies-within-us3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>T009 (fixture file) → T012, T013, T015 (tests that read the fixture).</li>
+<li>T010–T016 (failing tests) → T017–T020 (implementations that make them pass).</li>
+<li>T017 (mutual-exclusion check) → T018 (at-least-one check; ordered second so the error messages don't collide).</li>
+<li>T018 → T019 (prompt_file resolution; runs only if at least one of prompt/prompt_file is set).</li>
+<li>T019 → T020 (non-empty post-strip check; runs after <code>prompt_file</code> has been inlined into <code>prompt</code>).</li>
+</ul>
+<h3 id="foundational-us3-dependencies">Foundational → US3 Dependencies<a class="headerlink" href="#foundational-us3-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li>T005 (SubagentSpec skeleton) → all of T010–T020.</li>
+<li>T006 (description validator) → T010–T016 (tests construct <code>SubagentSpec(description="x", ...)</code> so the description rule must already permit non-empty strings).</li>
+<li>T004 (delete old <code>SubagentConfig</code>) → T005 (add new model) → T007 (add <code>agents</code> field) → T008 (add legacy migration validator) — strict but safe ordering since they all edit the same file.</li>
+<li>T003a/T003b/T003c (foundational failing tests) → T006/T008/T007 (the implementations that turn each green).</li>
+</ul>
+<h3 id="cross-file-dependencies-a-developer-should-know">Cross-File Dependencies a Developer Should Know<a class="headerlink" href="#cross-file-dependencies-a-developer-should-know" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>src/holodeck/config/context.py</code> defines <code>agent_base_dir: ContextVar[str | None]</code> (line 22 — note <code>str</code>, not <code>Path</code>). T019 imports it and coerces with <code>Path(...)</code> only after the None check; do <strong>not</strong> add a new ContextVar.</li>
+<li><code>src/holodeck/config/loader.py</code> (lines 775-783) sets <code>agent_base_dir</code> for the duration of YAML loading. US3 does NOT modify the loader — the existing wiring is reused.</li>
+<li><code>src/holodeck/config/schema.py</code> (lines 104-106) is the canonical example of <code>agent_base_dir.get()</code> usage with a fallback for the unset case. T019's resolution logic must match that pattern.</li>
+<li><code>src/holodeck/lib/backends/claude_backend.py</code> <code>build_options()</code> is <strong>out of scope for US3</strong> — translation to <code>AgentDefinition</code> belongs to US1. US3 only guarantees that <code>SubagentSpec.prompt</code> is a non-empty string ready for downstream translation.</li>
+<li>T004 deletes <code>SubagentConfig</code>. Existing tests in <code>tests/unit/models/test_claude_config.py</code> (lines 158-196, 248-255 per plan.md) reference it and are removed in the same task. <strong>Shared with US1.T005/T011</strong> — coordinate ownership at PR time.</li>
+</ul>
+<hr />
+<h2 id="parallel-execution-example-user-story-3">Parallel Execution Example: User Story 3<a class="headerlink" href="#parallel-execution-example-user-story-3" title="Permanent link">&para;</a></h2>
+<p>The vast majority of US3 tasks edit one file (<code>tests/unit/models/test_claude_config.py</code> or <code>src/holodeck/models/claude_config.py</code>) and are sequential. Foundational tests T003a/T003b/T003c are <code>[P]</code>. In Phase 3, only T009 is genuinely parallel.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Phase 1 setup — independent commands:</span>
+make<span class="w"> </span>install-dev<span class="w">                                                          </span><span class="c1"># T001</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"from claude_agent_sdk.types import AgentDefinition; print(AgentDefinition)"</span><span class="w">   </span><span class="c1"># T002</span>
+
+<span class="c1"># Phase 3 — only T009 is parallelizable; the test- and impl-edits all share one file:</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>tests/unit/models/fixtures/subagent_prompts<span class="w">                       </span><span class="c1"># T009 setup</span>
+<span class="c1"># (then add the file's contents)</span>
+
+<span class="c1"># After tests T010–T016 are written and confirmed failing, run the full file in parallel:</span>
+pytest<span class="w"> </span>tests/unit/models/test_claude_config.py<span class="w"> </span>-n<span class="w"> </span>auto<span class="w"> </span>-v<span class="w">                  </span><span class="c1"># verify FAIL → implement → verify PASS</span>
+</code></pre></div>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="slice-first-us3-only-this-file">Slice-First (US3 only — this file)<a class="headerlink" href="#slice-first-us3-only-this-file" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Phase 1 (Setup) — environment confirmed.</li>
+<li>Complete Phase 2 (Foundational, TDD) — author T003a/T003b/T003c first (failing); land T004 → T005 → T006 → T007 → T008. Each implementation turns the matching foundational test green. <strong>STOP if there is friction here</strong>: T004's deletion of <code>SubagentConfig</code> will break unrelated tests in <code>test_claude_config.py</code>; the deletion sweeps those legacy cases at the same time, but coordinate with US1 if a parallel branch is open.</li>
+<li>Complete Phase 3 tests (T009–T016) — all FAIL.</li>
+<li>Complete Phase 3 implementation (T017–T020) — all PASS.</li>
+<li>Complete Phase 4 polish — format/lint/type-check/regression suite green.</li>
+<li><strong>STOP and VALIDATE</strong>: Run <code>pytest tests/unit/models/test_claude_config.py -n auto -v -k subagent</code> and confirm all foundational + US3 tests pass. Run <code>make ci</code> and confirm no regressions.</li>
+</ol>
+<h3 id="parallel-team-strategy-us3-us1-us2">Parallel Team Strategy (US3 + US1 + US2)<a class="headerlink" href="#parallel-team-strategy-us3-us1-us2" title="Permanent link">&para;</a></h3>
+<p>Phase 2 is the shared foundation. One developer should land Phases 1+2 alone, then US1, US2, and US3 can split:</p>
+<ul>
+<li>Developer A: US1 (build_options translation, schema, sample agent.yaml).</li>
+<li>Developer B: US2 (tools-list typo warnings, MCP scoping tests).</li>
+<li>Developer C (this file): US3 (prompt validation rules + fixture).</li>
+</ul>
+<p>US3 has no runtime dependency on US1 or US2 once Phase 2 is in place — the model validators it adds are self-contained.</p>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Every task line traces to at least one of: FR-002, FR-004, FR-005, FR-006, US3 acceptance scenario 1/2/3, an edge case in spec.md §"Edge Cases", or SC-004.</li>
+<li><code>[P]</code> is used sparingly and only when the task touches a different file from sibling tasks.</li>
+<li>US3 does <strong>not</strong> touch <code>claude_backend.py</code>, <code>agent.schema.json</code>, or any sample YAML — those changes belong to US1.</li>
+<li>The exact validation error messages in T012, T013, T014 are copied verbatim from <code>quickstart.md</code> §5 so users see the documented strings.</li>
+<li>After Phase 3, <code>SubagentSpec.prompt_file</code> is always <code>None</code> post-construction (data-model.md §"Invariants"). Downstream code (US1's <code>build_options()</code>) can read <code>spec.prompt</code> directly without re-resolving paths.</li>
+<li>Do NOT add a JSON schema fragment in this slice — <code>contracts/subagent-spec.schema.json</code> is applied to <code>schemas/agent.schema.json</code> by US1.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

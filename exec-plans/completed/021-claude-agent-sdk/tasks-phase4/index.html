@@ -1,0 +1,2860 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/021-claude-agent-sdk/tasks-phase4/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: Native Claude Agent SDK Integration — Phase 4: SK Backend Refactor - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-native-claude-agent-sdk-integration-phase-4-sk-backend-refactor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: Native Claude Agent SDK Integration — Phase 4: SK Backend Refactor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-description-doclline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] Description (doc:Lline)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4 Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4a-tests-write-these-first-they-must-fail-before-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4A: Tests (write these first — they MUST fail before implementation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4A: Tests (write these first — they MUST fail before implementation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-sk_backendpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for sk_backend.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-selectorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for selector.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-modelschatpy-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for models/chat.py update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-caller-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for caller updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4b-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4B: Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4B: Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-sk_backendpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core: sk_backend.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-selectorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core: selector.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactor-chat_history_utilspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refactor: chat_history_utils.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-modelschatpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update: models/chat.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-agent_factorypy-thin-facade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update: agent_factory.py (Thin Facade)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-chatexecutorpy-remove-chathistory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update: chat/executor.py (Remove ChatHistory)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-chatsessionpy-remove-chathistory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update: chat/session.py (Remove ChatHistory)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-test_runnerexecutorpy-remove-extract_last_assistant_content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update: test_runner/executor.py (Remove extract_last_assistant_content)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-backends__init__py-exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update: backends/__init__.py exports
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4c-verification-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4C: Verification &amp; Quality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#within-phase-4-tdd-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Within Phase 4: TDD Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-dependencies-strict-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Dependencies (strict order)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuity-from-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continuity from Phase 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-agentexecutionresultresponse-transition-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why AgentExecutionResult.response (transition strategy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-agentfactory-does-not-delegate-to-backendselector-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why AgentFactory does NOT delegate to BackendSelector yet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-chathistory-is-still-present-in-agent_factorypy-and-llm_context_generatorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why ChatHistory is still present in agent_factory.py and llm_context_generator.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chatexecutorpyget_history-return-type-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        chat/executor.py:get_history() return type change
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-quality-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Quality Gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-follows-phase-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Follows Phase 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-native-claude-agent-sdk-integration-phase-4-sk-backend-refactor">Tasks: Native Claude Agent SDK Integration — Phase 4: SK Backend Refactor<a class="headerlink" href="#tasks-native-claude-agent-sdk-integration-phase-4-sk-backend-refactor" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: <code>021-claude-agent-sdk</code>
+<strong>Input</strong>: Design documents from <code>/docs/product-specs/021-claude-agent-sdk/</code>
+<strong>Scope</strong>: Phase 4 only (SK Backend Refactor). Continues from <code>tasks-foundations.md</code> (T023b).
+<strong>Approach</strong>: TDD — test tasks are written and <strong>must fail</strong> before implementation tasks begin
+<strong>References</strong>: Each task includes a document reference <code>(doc:L&lt;line&gt;)</code> pointing to the relevant design decision
+<strong>FRs</strong>: FR-010, FR-011, FR-012b (plan.md:L258-259)</p>
+<hr />
+<h2 id="format-id-p-description-doclline">Format: <code>[ID] [P?] Description (doc:Lline)</code><a class="headerlink" href="#format-id-p-description-doclline" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Task is parallelizable (different files, no unresolved dependencies)</li>
+<li>No <code>[US?]</code> labels: Phase 4 is a foundational refactor prerequisite for all user stories</li>
+<li><strong>TDD rule</strong>: Test tasks MUST precede their implementation tasks</li>
+</ul>
+<hr />
+<h2 id="phase-4-overview">Phase 4 Overview<a class="headerlink" href="#phase-4-overview" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Extract SK-specific code from <code>agent_factory.py</code> into the <code>lib/backends/</code> package. The existing code is not deleted — it is moved and wrapped to implement the <code>AgentBackend</code> Protocol. After Phase 4, no <em>downstream consumer</em> (test runner executor, chat executor, chat session, models) imports <code>ChatHistory</code> or other SK types. Two modules retain internal SK usage until Phase 9: <code>agent_factory.py</code> (legacy execution path) and <code>llm_context_generator.py</code> (LLM prompt construction).</p>
+<p><strong>Files created</strong>:
+- <code>src/holodeck/lib/backends/sk_backend.py</code> (new — core SK backend implementation)
+- <code>src/holodeck/lib/backends/selector.py</code> (new — backend routing by provider)</p>
+<p><strong>Files modified (source)</strong>:
+- <code>src/holodeck/lib/test_runner/agent_factory.py</code> (thin facade preserving public API)
+- <code>src/holodeck/lib/chat_history_utils.py</code> (remove SK-specific function)
+- <code>src/holodeck/models/chat.py</code> (remove <code>ChatHistory</code> type dependency)
+- <code>src/holodeck/chat/executor.py</code> (remove <code>ChatHistory</code> import, use <code>result.response</code>)
+- <code>src/holodeck/chat/session.py</code> (remove <code>ChatHistory</code> import, use <code>list[dict]</code>)
+- <code>src/holodeck/lib/test_runner/executor.py</code> (remove <code>extract_last_assistant_content</code>, use <code>result.response</code>)</p>
+<p><strong>Files modified (tests)</strong>:
+- <code>tests/unit/lib/test_chat_history_utils.py</code> (remove tests for moved function)
+- <code>tests/unit/models/test_chat_models.py</code> (update <code>ChatSession</code> constructions to <code>list[dict]</code>)
+- <code>tests/unit/agent/test_executor.py</code> (add <code>response</code> to mocked <code>AgentExecutionResult</code>)
+- <code>tests/unit/lib/test_runner/test_executor.py</code> (remove stale <code>extract_last_assistant_content</code> import)</p>
+<p><strong>Key invariant</strong>: Existing unit tests MUST pass after documented test updates (T032b, T033b, T035b, T037b). The refactor is behaviour-preserving — production code paths produce identical results through new interfaces.</p>
+<p><strong>Key goal</strong>: After Phase 4, <strong>no downstream consumer</strong> (test runner executor, chat executor, chat session, models) <strong>imports <code>ChatHistory</code> from <code>semantic_kernel</code></strong> (plan.md:L277). <code>agent_factory.py</code> and <code>llm_context_generator.py</code> retain internal SK usage until Phase 9.</p>
+<hr />
+<h2 id="phase-4a-tests-write-these-first-they-must-fail-before-implementation">Phase 4A: Tests (write these first — they MUST fail before implementation)<a class="headerlink" href="#phase-4a-tests-write-these-first-they-must-fail-before-implementation" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>NOTE</strong>: Write ALL test tasks before implementing. Run <code>pytest tests/unit/lib/backends/test_sk_backend.py tests/unit/lib/backends/test_selector.py -n auto</code> to confirm all fail with <code>ImportError</code> or <code>ModuleNotFoundError</code> before starting Phase 4B.</p>
+</blockquote>
+<h3 id="tests-for-sk_backendpy">Tests for <code>sk_backend.py</code><a class="headerlink" href="#tests-for-sk_backendpy" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T024 [P] Write unit tests for <code>_extract_response()</code> private function in <code>tests/unit/lib/backends/test_sk_backend.py</code>: (1) extracts last assistant message content from a <code>ChatHistory</code> with multiple messages; (2) returns empty string for empty <code>ChatHistory</code>; (3) returns empty string for <code>ChatHistory</code> with no assistant messages; (4) returns empty string for <code>ChatHistory</code> where last assistant message has <code>None</code> content. Mock <code>ChatHistory</code> using <code>semantic_kernel.contents.ChatHistory</code> directly in the test (this is the one place outside <code>sk_backend.py</code> where ChatHistory is used — in tests that verify the SK-specific implementation). (plan.md:L276, research.md:L295-306, quickstart.md:L362-366)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T025 [P] Write unit tests for <code>SKBackend</code> implementing <code>AgentBackend</code> Protocol in <code>tests/unit/lib/backends/test_sk_backend.py</code>: (1) <code>SKBackend</code> passes <code>isinstance(backend, AgentBackend)</code> runtime check; (2) <code>initialize()</code> calls <code>_ensure_tools_initialized()</code> on the underlying factory; (3) <code>invoke_once(message)</code> returns <code>ExecutionResult</code> with non-empty <code>response</code> field (mock the underlying SK agent invocation); (4) <code>invoke_once()</code> correctly maps <code>tool_calls</code> from <code>AgentExecutionResult</code> to <code>ExecutionResult.tool_calls</code>; (5) <code>invoke_once()</code> correctly maps <code>tool_results</code> from <code>AgentExecutionResult</code> to <code>ExecutionResult.tool_results</code>; (6) <code>invoke_once()</code> correctly maps <code>TokenUsage</code> from <code>AgentExecutionResult</code> to <code>ExecutionResult.token_usage</code>; (7) <code>invoke_once()</code> populates <code>response</code> via <code>_extract_response()</code> — never returns empty string when ChatHistory has an assistant message; (8) <code>teardown()</code> calls <code>shutdown()</code> on the underlying factory. Use mocks/patches for the SK Kernel, Agent, and ChatHistory — do NOT make real LLM calls. (plan.md:L269-277, data-model.md:L297-338, contracts/execution-result.md:L100-110)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T026 [P] Write unit tests for <code>SKSession</code> implementing <code>AgentSession</code> Protocol in <code>tests/unit/lib/backends/test_sk_backend.py</code>: (1) <code>SKSession</code> passes <code>isinstance(session, AgentSession)</code> runtime check; (2) <code>send(message)</code> returns <code>ExecutionResult</code> with populated <code>response</code>; (3) <code>send(message)</code> preserves conversation state across multiple calls (multi-turn); (4) <code>send_streaming(message)</code> is an async generator that yields the complete response as a single chunk (no-op streaming — plan.md:L274); (5) <code>close()</code> succeeds without error. Mock the underlying <code>AgentThreadRun</code> — do NOT make real LLM calls. (plan.md:L271-275, data-model.md:L260-293, contracts/execution-result.md:L86-96)</p>
+</li>
+</ul>
+<h3 id="tests-for-selectorpy">Tests for <code>selector.py</code><a class="headerlink" href="#tests-for-selectorpy" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T027 [P] Write unit tests for <code>BackendSelector.create()</code> routing logic in <code>tests/unit/lib/backends/test_selector.py</code>: (1) <code>provider=openai</code> returns <code>SKBackend</code> instance; (2) <code>provider=azure_openai</code> returns <code>SKBackend</code> instance; (3) <code>provider=ollama</code> returns <code>SKBackend</code> instance; (4) <code>provider=anthropic</code> raises <code>BackendInitError</code> with message indicating Claude backend is not yet implemented (placeholder until Phase 8); (5) returned backend has <code>initialize()</code> called automatically by <code>create()</code>. Mock the SKBackend constructor to avoid real kernel creation. Create <code>tests/unit/lib/backends/test_selector.py</code> (new file). (plan.md:L448-464, research.md:L295-306)</li>
+</ul>
+<h3 id="tests-for-modelschatpy-update">Tests for <code>models/chat.py</code> update<a class="headerlink" href="#tests-for-modelschatpy-update" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T028 [P] Write unit tests for updated <code>ChatSession.history</code> type in <code>tests/unit/models/test_chat_models.py</code> (existing file — add new test class <code>TestChatSessionHistoryType</code>): (1) <code>ChatSession</code> construction with default <code>history=[]</code> succeeds; (2) <code>ChatSession</code> construction with pre-populated <code>history=[{"role": "user", "content": "hi"}]</code> succeeds; (3) other <code>ChatSession</code> fields (<code>session_id</code>, <code>agent_config</code>, <code>started_at</code>, <code>message_count</code>, <code>state</code>, <code>metadata</code>) are unchanged; (4) <code>ChatSession</code> no longer requires <code>arbitrary_types_allowed</code> in <code>model_config</code> (since <code>list[dict]</code> is a native Pydantic type). Note: these tests will fail initially because <code>ChatSession.history</code> is still typed as <code>ChatHistory</code>. (plan.md:L285-288, data-model.md:L179-198)</li>
+</ul>
+<h3 id="tests-for-caller-updates">Tests for caller updates<a class="headerlink" href="#tests-for-caller-updates" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029 [P] Write unit tests for <code>AgentExecutionResult.response</code> field in <code>tests/unit/lib/test_runner/test_agent_factory.py</code> (existing file — add new test class or functions): (1) <code>AgentExecutionResult</code> accepts a <code>response: str</code> field with default <code>""</code>; (2) when <code>AgentThreadRun.invoke()</code> completes, <code>result.response</code> is populated with the last assistant message content (not empty); (3) backward compat: <code>result.chat_history</code> is still accessible (not removed in Phase 4 — removed in Phase 9). This tests the transition strategy: callers can use <code>result.response</code> immediately and Phase 9 removes <code>chat_history</code>. (plan.md:L276-277, contracts/execution-result.md:L150-156)</li>
+</ul>
+<p><strong>Checkpoint</strong>: All test tasks written. Run <code>pytest tests/unit/lib/backends/test_sk_backend.py tests/unit/lib/backends/test_selector.py -n auto</code> — all MUST fail.</p>
+<hr />
+<h2 id="phase-4b-implementation">Phase 4B: Implementation<a class="headerlink" href="#phase-4b-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="core-sk_backendpy">Core: <code>sk_backend.py</code><a class="headerlink" href="#core-sk_backendpy" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T030 Create <code>src/holodeck/lib/backends/sk_backend.py</code> implementing: (plan.md:L269-277, data-model.md:L297-338, contracts/execution-result.md:L86-128, quickstart.md:L362-378)</li>
+</ul>
+<p><strong>Private function: <code>_extract_response(history: ChatHistory) -&gt; str</code></strong>
+  - Moved from <code>chat_history_utils.py:extract_last_assistant_content()</code>
+  - Searches reversed <code>history.messages</code> for last assistant message
+  - Returns <code>str(content)</code> or empty string if not found
+  - All <code>ChatHistory</code> usage is confined to this module</p>
+<p><strong>Class: <code>SKSession(AgentSession)</code></strong>
+  - <code>__init__(self, thread_run: AgentThreadRun)</code> — wraps existing AgentThreadRun
+  - <code>send(self, message: str) -&gt; ExecutionResult</code> — calls <code>thread_run.invoke(message)</code>, converts <code>AgentExecutionResult</code> to <code>ExecutionResult</code> using <code>_extract_response()</code> for the <code>response</code> field
+  - <code>send_streaming(self, message: str) -&gt; AsyncGenerator[str, None]</code> — calls <code>send()</code> and yields the complete response as a single chunk (no-op streaming per plan.md:L274)
+  - <code>close(self) -&gt; None</code> — no-op (SK thread runs have no explicit cleanup)
+  - Keep all SK imports (<code>ChatHistory</code>, <code>ChatHistoryAgentThread</code>, etc.) internal to this module</p>
+<p><strong>Class: <code>SKBackend(AgentBackend)</code></strong>
+  - <code>__init__(self, agent_config: Agent, execution_config: ExecutionConfig | None, force_ingest: bool, mode: Literal["test", "chat"], max_retries: int = DEFAULT_MAX_RETRIES, retry_delay_seconds: float = DEFAULT_RETRY_DELAY_SECONDS)</code> — stores config only; creates <code>AgentFactory</code> instance synchronously (same as current <code>AgentFactory.__init__()</code>), passing <code>max_retries</code> and <code>retry_delay_seconds</code> through
+  - <code>initialize(self) -&gt; None</code> — calls <code>self._factory._ensure_tools_initialized()</code>
+  - <code>invoke_once(self, message: str, context: list[dict] | None) -&gt; ExecutionResult</code> — creates isolated thread run, invokes, converts result. Response is populated via <code>_extract_response(result.chat_history)</code>. Token usage is mapped from <code>result.token_usage</code>. Tool calls and tool results are passed through.
+  - <code>create_session(self) -&gt; SKSession</code> — creates thread run via factory, wraps in <code>SKSession</code>
+  - <code>teardown(self) -&gt; None</code> — calls <code>self._factory.shutdown()</code></p>
+<h3 id="core-selectorpy">Core: <code>selector.py</code><a class="headerlink" href="#core-selectorpy" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T031 Create <code>src/holodeck/lib/backends/selector.py</code> implementing: (plan.md:L448-464, research.md:L295-306)</li>
+</ul>
+<p><strong>Class: <code>BackendSelector</code></strong>
+  - <code>@staticmethod async def create(agent: Agent, tool_instances: list | None = None, mode: Literal["test", "chat"] = "test", execution_config: ExecutionConfig | None = None, force_ingest: bool = False) -&gt; AgentBackend</code>
+  - If <code>agent.model.provider == ProviderEnum.ANTHROPIC</code> → raise <code>BackendInitError("Claude-native backend not yet implemented. Use a non-Anthropic provider or wait for Phase 8.")</code>
+  - Otherwise → create <code>SKBackend(agent, execution_config, force_ingest, mode)</code>, call <code>await backend.initialize()</code>, return backend
+  - Import <code>SKBackend</code> from <code>holodeck.lib.backends.sk_backend</code>
+  - Import <code>BackendInitError</code> from <code>holodeck.lib.backends.base</code></p>
+<h3 id="refactor-chat_history_utilspy">Refactor: <code>chat_history_utils.py</code><a class="headerlink" href="#refactor-chat_history_utilspy" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T032 Update <code>src/holodeck/lib/chat_history_utils.py</code>: (plan.md:L279-283)</li>
+<li><strong>Remove</strong> <code>extract_last_assistant_content()</code> function entirely — it has been moved to <code>sk_backend.py</code> as <code>_extract_response()</code></li>
+<li><strong>Remove</strong> <code>from semantic_kernel.contents import ChatHistory</code> import — no SK types remain in this module</li>
+<li><strong>Keep</strong> <code>extract_tool_names(tool_calls: list[dict[str, Any]]) -&gt; list[str]</code> — this function is SK-free and used by the test runner</li>
+<li>
+<p>Update module docstring to reflect the remaining function only</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T032b Update <code>tests/unit/lib/test_chat_history_utils.py</code> to reflect the removed function: (plan.md:L279-283)</p>
+</li>
+<li><strong>Remove</strong> the entire <code>TestExtractLastAssistantContent</code> class (7 tests) — the function it tests has been moved to <code>sk_backend.py</code> and is now covered by T024's tests for <code>_extract_response()</code></li>
+<li><strong>Remove</strong> <code>from holodeck.lib.chat_history_utils import extract_last_assistant_content</code> import</li>
+<li><strong>Remove</strong> <code>from semantic_kernel.contents import ChatHistory</code> import (if present)</li>
+<li><strong>Keep</strong> <code>TestExtractToolNames</code> class — <code>extract_tool_names()</code> remains in <code>chat_history_utils.py</code></li>
+<li>Update module docstring to reflect the remaining test class only</li>
+</ul>
+<h3 id="update-modelschatpy">Update: <code>models/chat.py</code><a class="headerlink" href="#update-modelschatpy" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T033 Update <code>src/holodeck/models/chat.py</code>: (plan.md:L285-288, data-model.md:L179-198)</li>
+<li><strong>Change</strong> <code>ChatSession.history: ChatHistory</code> → <code>history: list[dict[str, Any]] = Field(default_factory=list)</code></li>
+<li><strong>Remove</strong> <code>from semantic_kernel.contents import ChatHistory</code> import</li>
+<li><strong>Remove</strong> <code>arbitrary_types_allowed=True</code> from <code>ChatSession.model_config</code> (no longer needed — <code>list[dict]</code> is a native Pydantic type; change to <code>model_config = ConfigDict()</code> or remove the line if no other config is needed)</li>
+<li>Add docstring to <code>history</code> field: <code>"""Conversation history as provider-agnostic dicts. Format: {"role": "user"|"assistant", "content": str}. SK backend serializes ChatHistory internally. Claude backend leaves empty (state in subprocess)."""</code></li>
+<li>
+<p>Verify all other <code>ChatSession</code> fields remain unchanged</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T033b Update <code>tests/unit/models/test_chat_models.py</code> to match the updated <code>ChatSession.history</code> type: (plan.md:L285-288)</p>
+</li>
+<li><strong>Remove</strong> <code>from semantic_kernel.contents import ChatHistory</code> import</li>
+<li><strong>Replace</strong> all <code>ChatSession(history=ChatHistory(), ...)</code> constructions with <code>ChatSession(history=[], ...)</code> (2 occurrences: <code>test_session_started_at_in_future</code> at L60-63 and <code>test_session_defaults</code> at L68)</li>
+<li><strong>Verify</strong> all existing <code>ChatSession</code> assertions still pass with the <code>list[dict]</code> type</li>
+</ul>
+<h3 id="update-agent_factorypy-thin-facade">Update: <code>agent_factory.py</code> (Thin Facade)<a class="headerlink" href="#update-agent_factorypy-thin-facade" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T034 Update <code>src/holodeck/lib/test_runner/agent_factory.py</code>: (plan.md:L290-294, contracts/execution-result.md:L150-156)</li>
+<li><strong>Add</strong> <code>response: str = ""</code> field to <code>AgentExecutionResult</code> dataclass <strong>after</strong> <code>token_usage</code> (last field, with default — all existing positional constructions continue to work). This provides a transition path so callers can use <code>result.response</code> instead of <code>extract_last_assistant_content(result.chat_history)</code></li>
+<li><strong>Update</strong> <code>AgentThreadRun._invoke_agent_impl()</code> to populate <code>response</code> field: after extracting tool calls and before returning, call <code>_extract_response_from_history(self.chat_history)</code> (a new private method on <code>AgentThreadRun</code> that calls the same logic as <code>_extract_response</code> from <code>sk_backend.py</code>) and set <code>response=extracted_content</code> in the returned <code>AgentExecutionResult</code></li>
+<li><strong>Add</strong> private method <code>AgentThreadRun._extract_response_from_history(self, history: ChatHistory) -&gt; str</code> that extracts the last assistant message — identical logic to <code>sk_backend._extract_response()</code>. This avoids importing from sk_backend (which would create a bidirectional dependency). The duplication is intentional and temporary — Phase 9 removes <code>AgentExecutionResult</code> entirely in favour of <code>ExecutionResult</code>.</li>
+<li><strong>Remove</strong> the import of <code>extract_last_assistant_content</code> from <code>chat_history_utils</code> if present (it's not directly imported in agent_factory.py, but verify)</li>
+<li><strong>Preserve</strong> all existing public API: <code>AgentFactory</code>, <code>AgentThreadRun</code>, <code>AgentExecutionResult</code> remain importable</li>
+<li><strong>Preserve</strong> <code>AgentFactory.__init__()</code> synchronous kernel creation (no behaviour change)</li>
+<li><strong>Note</strong>: <code>AgentFactory</code> does NOT delegate to <code>BackendSelector</code> in Phase 4. The delegation is deferred to Phase 9 when <code>TestExecutor</code> switches to using <code>BackendSelector.create()</code> directly. In Phase 4, <code>AgentFactory</code> remains the canonical entry point with its existing implementation, and <code>SKBackend</code> is a parallel implementation of the same logic behind the <code>AgentBackend</code> Protocol.</li>
+</ul>
+<h3 id="update-chatexecutorpy-remove-chathistory">Update: <code>chat/executor.py</code> (Remove ChatHistory)<a class="headerlink" href="#update-chatexecutorpy-remove-chathistory" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T035 Update <code>src/holodeck/chat/executor.py</code> to remove all <code>ChatHistory</code> imports and usage: (plan.md:L277)</li>
+<li><strong>Remove</strong> <code>from semantic_kernel.contents import ChatHistory</code> (L10)</li>
+<li><strong>Remove</strong> <code>from holodeck.lib.chat_history_utils import extract_last_assistant_content</code> (L12)</li>
+<li><strong>Update</strong> <code>execute_turn()</code> (L124): replace <code>content = extract_last_assistant_content(result.chat_history)</code> with <code>content = result.response</code> — uses the new <code>AgentExecutionResult.response</code> field populated by T034</li>
+<li><strong>Update</strong> <code>get_history() -&gt; ChatHistory</code> (L154): change return type to <code>list[dict[str, Any]]</code>. Internally, if <code>self._thread_run</code> exists, serialize its <code>chat_history</code> to <code>list[dict]</code> via a helper: <code>[{"role": m.role.value, "content": str(m.content)} for m in self._thread_run.chat_history.messages]</code> (use <code>.value</code> — SK's <code>AuthorRole</code> is a string enum; <code>str()</code> produces <code>"AuthorRole.ASSISTANT"</code> not <code>"assistant"</code>). If no thread run, return <code>[]</code>. This preserves the <code>get_history()</code> public API while removing the SK type from the return signature.</li>
+<li><strong>Update</strong> <code>clear_history()</code> (L164): no changes needed (already just sets <code>_thread_run = None</code>)</li>
+<li>
+<p><strong>Verify</strong> no other ChatHistory references remain in the file</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T035b Update <code>tests/unit/agent/test_executor.py</code> to match the updated <code>AgentExecutionResult</code> and <code>chat/executor.py</code> changes: (plan.md:L277)</p>
+</li>
+<li><strong>Remove</strong> <code>from semantic_kernel.contents import ChatHistory</code> import (L9)</li>
+<li><strong>Update</strong> all mocked <code>AgentExecutionResult</code> constructions (4+ occurrences) to include <code>response="&lt;expected content&gt;"</code> — e.g., <code>AgentExecutionResult(tool_calls=[], tool_results=[], chat_history=mock_history, response="Hi there!")</code>. Without this, <code>result.response</code> will be <code>""</code> after T035 changes executor to read <code>result.response</code> instead of extracting from <code>chat_history</code></li>
+<li><strong>Update</strong> <code>test_get_history_returns_chat_history</code> (L196): rename to <code>test_get_history_returns_list</code> and update assertions to expect <code>list[dict]</code> return type instead of <code>ChatHistory</code></li>
+<li><strong>Verify</strong> all existing test assertions still pass</li>
+</ul>
+<h3 id="update-chatsessionpy-remove-chathistory">Update: <code>chat/session.py</code> (Remove ChatHistory)<a class="headerlink" href="#update-chatsessionpy-remove-chathistory" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T036 Update <code>src/holodeck/chat/session.py</code> to remove all <code>ChatHistory</code> imports and usage: (plan.md:L277, data-model.md:L179-198)</li>
+<li><strong>Remove</strong> <code>from semantic_kernel.contents import ChatHistory</code> (L8)</li>
+<li><strong>Update</strong> <code>start()</code> (L72): replace <code>history = ChatHistory()</code> with <code>history: list[dict[str, Any]] = []</code> — matches the updated <code>ChatSession.history</code> type from T033</li>
+<li><strong>Update</strong> <code>ChatSession</code> construction (L73-77): pass <code>history=history</code> (which is now <code>[]</code>)</li>
+<li><strong>Verify</strong> no other ChatHistory references remain in the file</li>
+</ul>
+<h3 id="update-test_runnerexecutorpy-remove-extract_last_assistant_content">Update: <code>test_runner/executor.py</code> (Remove <code>extract_last_assistant_content</code>)<a class="headerlink" href="#update-test_runnerexecutorpy-remove-extract_last_assistant_content" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037 Update <code>src/holodeck/lib/test_runner/executor.py</code> to use <code>result.response</code> instead of <code>extract_last_assistant_content</code>: (plan.md:L277)</li>
+<li><strong>Update</strong> import (L32-35): remove <code>extract_last_assistant_content</code> from <code>from holodeck.lib.chat_history_utils import (...)</code>. Keep <code>extract_tool_names</code>.</li>
+<li><strong>Update</strong> <code>_execute_single_test()</code> (L551): replace <code>agent_response = extract_last_assistant_content(result.chat_history)</code> with <code>agent_response = result.response</code> — uses the new <code>AgentExecutionResult.response</code> field from T034</li>
+<li><strong>Verify</strong> no other <code>extract_last_assistant_content</code> or <code>ChatHistory</code> references remain in the file</li>
+<li>
+<p><strong>Note</strong>: <code>extract_tool_names(result.tool_calls)</code> (L552) remains unchanged — <code>extract_tool_names</code> is SK-free and stays in <code>chat_history_utils.py</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T037b Update <code>tests/unit/lib/test_runner/test_executor.py</code> to remove stale <code>extract_last_assistant_content</code> references: (plan.md:L277)</p>
+</li>
+<li><strong>Remove</strong> the local import of <code>extract_last_assistant_content</code> from <code>chat_history_utils</code> at L2297 (inside <code>test_extract_response_text_empty_history</code>)</li>
+<li><strong>Remove or rewrite</strong> the <code>test_extract_response_text_empty_history</code> test — the function it tests no longer exists in <code>chat_history_utils.py</code> (moved to <code>sk_backend.py</code> as <code>_extract_response()</code>, covered by T024)</li>
+<li><strong>Update</strong> any mocked <code>AgentExecutionResult</code> constructions (L261-264) to include <code>response="&lt;expected content&gt;"</code> — without this, <code>result.response</code> will be <code>""</code> after T037 changes executor to read <code>result.response</code></li>
+<li><strong>Verify</strong> no other <code>extract_last_assistant_content</code> or <code>ChatHistory</code> references remain in the test file</li>
+</ul>
+<h3 id="update-backends__init__py-exports">Update: <code>backends/__init__.py</code> exports<a class="headerlink" href="#update-backends__init__py-exports" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T038 Update <code>src/holodeck/lib/backends/__init__.py</code> to export key types for convenient imports: (plan.md:L185)</li>
+<li>Export from <code>base</code>: <code>ExecutionResult</code>, <code>AgentSession</code>, <code>AgentBackend</code>, <code>BackendError</code>, <code>BackendInitError</code>, <code>BackendSessionError</code>, <code>BackendTimeoutError</code></li>
+<li>Export from <code>selector</code>: <code>BackendSelector</code></li>
+<li>Export from <code>sk_backend</code>: <code>SKBackend</code>, <code>SKSession</code></li>
+<li>Use <code>__all__</code> list for explicit public API</li>
+</ul>
+<p><strong>Checkpoint</strong>: All implementation and test-update tasks complete. Run <code>pytest tests/unit/ -n auto</code> — ALL tests MUST pass (existing tests pass after documented updates in T032b, T033b, T035b, T037b). The refactor is behaviour-preserving.</p>
+<hr />
+<h2 id="phase-4c-verification-quality">Phase 4C: Verification &amp; Quality<a class="headerlink" href="#phase-4c-verification-quality" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T039 Run full existing unit test suite: <code>make test-unit</code> — zero regressions. If any test fails, the failure is in the refactor (not the test) and MUST be fixed before proceeding. Pay special attention to: (plan.md:L299)</li>
+<li><code>tests/unit/lib/test_runner/</code> — agent factory tests</li>
+<li><code>tests/unit/models/</code> — chat model tests</li>
+<li>
+<p><code>tests/unit/chat/</code> — chat executor/session tests (if they exist)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T040 Run code quality checks — all MUST pass: (plan.md:L553-560)
+  <div class="highlight"><pre><span></span><code>make<span class="w"> </span>format<span class="w">         </span><span class="c1"># Black + Ruff formatting</span>
+make<span class="w"> </span>lint-fix<span class="w">       </span><span class="c1"># Auto-fix linting issues</span>
+make<span class="w"> </span>type-check<span class="w">     </span><span class="c1"># MyPy strict mode — all new code must pass</span>
+make<span class="w"> </span>security<span class="w">       </span><span class="c1"># Bandit + Safety + detect-secrets</span>
+</code></pre></div></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> T041 <strong>Integration Gate</strong> (plan.md:L303): Before starting Phase 5, run a full <code>holodeck test</code> workflow against a real non-Anthropic agent (e.g., an OpenAI agent with at least one vectorstore tool). All test cases must execute successfully. This prevents asyncio lifecycle regressions from the SK refactor from being buried under Claude backend code in later phases. Document the test command and result in a comment on the PR or in the commit message.</p>
+</li>
+</ul>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="within-phase-4-tdd-order">Within Phase 4: TDD Order<a class="headerlink" href="#within-phase-4-tdd-order" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>1. Write all test tasks (T024–T029) — confirm they FAIL
+2. Implement core modules (T030–T031) — sk_backend.py, selector.py
+3. Refactor existing modules (T032–T037) — chat_history_utils, models/chat, agent_factory, callers
+4. Update existing tests (T032b, T033b, T035b, T037b) — align mocks and imports with refactored code
+5. Update exports (T038)
+6. Verify (T039–T041) — all tests pass, quality checks, integration gate
+</code></pre></div>
+<h3 id="task-dependencies-strict-order">Task Dependencies (strict order)<a class="headerlink" href="#task-dependencies-strict-order" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>T024, T025, T026 ─────┐
+T027 ─────────────────┤ (all test tasks can be written in parallel)
+T028 ─────────────────┤
+T029 ─────────────────┘
+         │
+         ▼ (confirm all tests fail)
+T030 ◄─── sk_backend.py (depends on: T024–T026 tests exist and fail)
+         │
+T031 ◄─── selector.py (depends on: T027 test exists; T030 for SKBackend import)
+         │
+         ├── T032 chat_history_utils.py (depends on: T030 — function moved there)
+         │    └── T032b test_chat_history_utils.py (depends on: T032 — function removed)
+         ├── T033 models/chat.py (depends on: T028 test exists)
+         │    └── T033b test_chat_models.py (depends on: T033 — history type changed)
+         │
+T034 ◄─── agent_factory.py (depends on: T029 test exists; T030 for understanding)
+         │
+         ├── T035 chat/executor.py (depends on: T032, T033, T034 — uses result.response)
+         │    └── T035b test_executor.py [agent] (depends on: T035 — mocks need response field)
+         ├── T036 chat/session.py (depends on: T033 — uses list[dict])
+         └── T037 test_runner/executor.py (depends on: T032, T034 — uses result.response)
+              └── T037b test_executor.py [test_runner] (depends on: T037 — stale import removed)
+              │
+T038 ◄─── __init__.py exports (depends on: T030, T031)
+              │
+T039 ◄─── test suite (depends on: all implementation + test-update tasks)
+T040 ◄─── quality checks (depends on: T039 passing)
+T041 ◄─── integration gate (depends on: T039, T040)
+</code></pre></div>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<p><strong>Test writing</strong> (T024–T029): All six test tasks target different files or distinct test classes — they CAN all be written in parallel:
+- Developer A: <code>test_sk_backend.py</code> (T024, T025, T026 — same file, sequential within)
+- Developer B: <code>test_selector.py</code> (T027)
+- Developer C: <code>test_chat_models.py</code> additions (T028) + <code>test_agent_factory.py</code> additions (T029)</p>
+<p><strong>Implementation</strong> (T030–T038):
+- T030 and T031 are sequential (T031 imports from T030)
+- T032, T033 can run in parallel with T034 (different files)
+- T035, T036, T037 can run in parallel (different files, all depend on T032–T034)
+- T038 can run in parallel with T035–T037</p>
+<p><strong>Test updates</strong> (T032b, T033b, T035b, T037b):
+- T032b depends on T032 (same module's tests)
+- T033b depends on T033 (same model's tests)
+- T035b depends on T035 (same executor's tests)
+- T037b depends on T037 (same executor's tests)
+- T032b∥T033b∥T035b∥T037b can run in parallel (different test files)</p>
+<h3 id="parallel-example">Parallel Example<a class="headerlink" href="#parallel-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Phase 4A — Write all tests in parallel:</span>
+<span class="c1"># Dev A: tests/unit/lib/backends/test_sk_backend.py (T024, T025, T026)</span>
+<span class="c1"># Dev B: tests/unit/lib/backends/test_selector.py (T027)</span>
+<span class="c1"># Dev C: tests/unit/models/test_chat_models.py additions (T028) + test_agent_factory.py (T029)</span>
+
+<span class="c1"># Confirm new backend tests fail:</span>
+pytest<span class="w"> </span>tests/unit/lib/backends/test_sk_backend.py<span class="w"> </span>tests/unit/lib/backends/test_selector.py<span class="w"> </span>-n<span class="w"> </span>auto
+
+<span class="c1"># Phase 4B — Sequential core, then parallel callers, then parallel test updates:</span>
+<span class="c1"># T030 → T031 (sequential — selector imports sk_backend)</span>
+<span class="c1"># T032 + T033 + T034 (parallel — different files)</span>
+<span class="c1"># T035 + T036 + T037 (parallel — different files, all depend on T032–T034)</span>
+<span class="c1"># T032b + T033b + T035b + T037b (parallel — different test files, align with refactored code)</span>
+<span class="c1"># T038 (after T030, T031)</span>
+
+<span class="c1"># Phase 4C — Sequential verification:</span>
+<span class="c1"># T039 → T040 → T041</span>
+</code></pre></div>
+<hr />
+<h2 id="task-summary">Task Summary<a class="headerlink" href="#task-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Tasks</th>
+<th>Tests</th>
+<th>Implementations</th>
+<th>Parallel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 4A (Tests)</td>
+<td>T024–T029</td>
+<td>6</td>
+<td>0</td>
+<td>T024–T029 (across files)</td>
+</tr>
+<tr>
+<td>Phase 4B (Implementation)</td>
+<td>T030–T038</td>
+<td>0</td>
+<td>9</td>
+<td>T032∥T033∥T034, T035∥T036∥T037</td>
+</tr>
+<tr>
+<td>Phase 4B (Test Updates)</td>
+<td>T032b, T033b, T035b, T037b</td>
+<td>4</td>
+<td>0</td>
+<td>T032b∥T033b∥T035b∥T037b</td>
+</tr>
+<tr>
+<td>Phase 4C (Verification)</td>
+<td>T039–T041</td>
+<td>0</td>
+<td>0</td>
+<td>Sequential</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>22 tasks</strong></td>
+<td><strong>10</strong></td>
+<td><strong>9</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="continuity-from-phase-3">Continuity from Phase 3<a class="headerlink" href="#continuity-from-phase-3" title="Permanent link">&para;</a></h2>
+<p>Phase 3 ended with T023b. Phase 4 starts at T024.</p>
+<p><strong>Prerequisites from earlier phases</strong>:
+- <code>src/holodeck/lib/backends/__init__.py</code> exists (T007, Phase 1)
+- <code>tests/unit/lib/backends/__init__.py</code> exists (T007b, Phase 1)
+- <code>src/holodeck/lib/backends/base.py</code> exists with <code>ExecutionResult</code>, <code>AgentSession</code>, <code>AgentBackend</code>, exception hierarchy (T008, Phase 1)
+- <code>src/holodeck/models/claude_config.py</code> exists (T014, Phase 2)
+- <code>src/holodeck/lib/backends/validators.py</code> exists (T023, Phase 3)
+- <code>AgentFactoryError</code> consolidated to <code>lib/errors.py</code> only (T023b, Phase 3)</p>
+<hr />
+<h2 id="design-notes">Design Notes<a class="headerlink" href="#design-notes" title="Permanent link">&para;</a></h2>
+<h3 id="why-agentexecutionresultresponse-transition-strategy">Why <code>AgentExecutionResult.response</code> (transition strategy)<a class="headerlink" href="#why-agentexecutionresultresponse-transition-strategy" title="Permanent link">&para;</a></h3>
+<p>The plan states that <code>SKBackend.invoke_once()</code> MUST populate <code>ExecutionResult.response</code> via <code>_extract_response()</code> (plan.md:L276). However, in Phase 4, callers (<code>test_runner/executor.py</code>, <code>chat/executor.py</code>) still use <code>AgentFactory</code> → <code>AgentThreadRun</code> → <code>AgentExecutionResult</code>. To achieve the "no ChatHistory imports outside sk_backend.py" goal without prematurely switching callers to the new backend interface (that's Phase 9/10), we add a <code>response</code> field to <code>AgentExecutionResult</code> and populate it in <code>AgentThreadRun._invoke_agent_impl()</code>.</p>
+<p>This duplication of response extraction logic is <strong>intentional and temporary</strong>:
+- <code>sk_backend.py:_extract_response()</code> — used by <code>SKBackend.invoke_once()</code> and <code>SKSession.send()</code>
+- <code>agent_factory.py:AgentThreadRun._extract_response_from_history()</code> — used by the legacy path</p>
+<p>Phase 9 removes <code>AgentExecutionResult</code> entirely and switches all callers to <code>ExecutionResult</code> via <code>BackendSelector</code>. The duplication is eliminated at that point.</p>
+<h3 id="why-agentfactory-does-not-delegate-to-backendselector-yet">Why <code>AgentFactory</code> does NOT delegate to <code>BackendSelector</code> yet<a class="headerlink" href="#why-agentfactory-does-not-delegate-to-backendselector-yet" title="Permanent link">&para;</a></h3>
+<p>The plan (plan.md:L290-294) states <code>AgentFactory</code> "internally delegates to <code>BackendSelector.create()</code>." However, <code>BackendSelector</code> is fully wired with <code>ClaudeBackend</code> routing in Phase 8 (plan.md:L448-464). In Phase 4, <code>BackendSelector</code> only supports <code>SKBackend</code> and raises <code>BackendInitError</code> for Anthropic providers.</p>
+<p>Wiring <code>AgentFactory</code> through <code>BackendSelector</code> in Phase 4 would be premature — the <code>TestExecutor</code> and <code>ChatSessionManager</code> still expect <code>AgentFactory</code>'s synchronous init pattern and <code>AgentThreadRun</code>'s <code>invoke()</code> API. The delegation happens in Phase 9 when callers are switched to <code>BackendSelector.create()</code> directly.</p>
+<p>In Phase 4, <code>AgentFactory</code> retains its existing implementation. <code>SKBackend</code> exists as a <strong>parallel implementation</strong> of the same logic behind the <code>AgentBackend</code> Protocol — ready for Phase 9 to wire in.</p>
+<h3 id="why-chathistory-is-still-present-in-agent_factorypy-and-llm_context_generatorpy">Why <code>ChatHistory</code> is still present in <code>agent_factory.py</code> and <code>llm_context_generator.py</code><a class="headerlink" href="#why-chathistory-is-still-present-in-agent_factorypy-and-llm_context_generatorpy" title="Permanent link">&para;</a></h3>
+<p>After Phase 4, two modules outside <code>sk_backend.py</code> still import <code>ChatHistory</code> from <code>semantic_kernel</code>:</p>
+<ol>
+<li><strong><code>agent_factory.py</code></strong>: <code>AgentFactory</code> and <code>AgentThreadRun</code> use <code>ChatHistory</code> internally for the legacy execution path. Phase 9 removes this entirely (it becomes a thin re-export facade).</li>
+<li><strong><code>llm_context_generator.py</code></strong> (L200-203): Uses <code>ChatHistory</code> for LLM prompt construction — unrelated to agent execution. Deferred to Phase 9 for cleanup.</li>
+</ol>
+<p>These are accepted because the important goal — that <strong>no downstream consumer</strong> (test runner executor, chat executor, chat session, models) imports ChatHistory — IS achieved in Phase 4.</p>
+<h3 id="chatexecutorpyget_history-return-type-change"><code>chat/executor.py:get_history()</code> return type change<a class="headerlink" href="#chatexecutorpyget_history-return-type-change" title="Permanent link">&para;</a></h3>
+<p>Phase 10 (plan.md:L510-513) replaces <code>get_history()</code> with two methods: <code>get_message_count()</code> and <code>get_history() -&gt; list[dict]</code>. Phase 4 changes the return type to <code>list[dict[str, Any]]</code> as a prerequisite (removing the ChatHistory return type). The internal serialization (<code>ChatHistory.messages → list[dict]</code>) bridges the gap until Phase 10 implements the full replacement.</p>
+<hr />
+<h2 id="code-quality-gates">Code Quality Gates<a class="headerlink" href="#code-quality-gates" title="Permanent link">&para;</a></h2>
+<p>Run after Phase 4 implementation:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>format<span class="w">         </span><span class="c1"># Black + Ruff formatting</span>
+make<span class="w"> </span>lint-fix<span class="w">       </span><span class="c1"># Auto-fix linting issues</span>
+make<span class="w"> </span>type-check<span class="w">     </span><span class="c1"># MyPy strict mode (all new code must pass)</span>
+make<span class="w"> </span>test-unit<span class="w">      </span><span class="c1"># pytest tests/unit/ -n auto</span>
+make<span class="w"> </span>security<span class="w">       </span><span class="c1"># Bandit + Safety + detect-secrets</span>
+</code></pre></div>
+<hr />
+<h2 id="what-follows-phase-4">What Follows Phase 4<a class="headerlink" href="#what-follows-phase-4" title="Permanent link">&para;</a></h2>
+<p>Phase 4 is the <strong>Integration Gate</strong> before Phases 5–7 can proceed in parallel:</p>
+<div class="highlight"><pre><span></span><code>Phase 4 (SK backend refactor — this file) ← MUST be stable + tested first
+    │
+    ├── Phase 5 (tool adapters)       ─┐
+    ├── Phase 6 (MCP bridge)           ├── parallel after Phase 4 confirmed green
+    └── Phase 7 (OTel bridge)         ─┘
+</code></pre></div>
+<p>Phases 5, 6, and 7 can progress in parallel ONLY after T041 (Integration Gate) passes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

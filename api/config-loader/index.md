@@ -224,6 +224,16 @@ def load_agent_yaml(self, file_path: str, substitute_env: bool = True) -> Agent:
     if agent_dir_abs not in sys.path:
         sys.path.insert(0, agent_dir_abs)
 
+    # Model validators resolve relative paths (subagent ``prompt_file``,
+    # skill ``path``) against ``agent_base_dir``; scope it to this file's
+    # directory for the duration of validation so they never see a stale
+    # value, then restore the caller's value (callers such as
+    # ``load_agent_with_config`` and workflow nodes own the context var
+    # for the run itself).
+    from holodeck.config.context import agent_base_dir
+
+    base_dir_token = agent_base_dir.set(agent_dir_abs)
+
     # Validate against Agent schema
     try:
         agent = Agent(**merged_config)
@@ -235,6 +245,8 @@ def load_agent_yaml(self, file_path: str, substitute_env: bool = True) -> Agent:
             "agent_validation",
             f"Invalid agent configuration in {file_path}:\n{error_text}",
         ) from e
+    finally:
+        agent_base_dir.reset(base_dir_token)
 ```
 
 ### `load_global_config()`
@@ -1657,7 +1669,8 @@ Source code in `src/holodeck/config/manager.py`
 def generate_config_content(config: GlobalConfig) -> str:
     """Generate YAML content for the configuration."""
     config_dict = config.model_dump(exclude_unset=True, mode="json")
-    return yaml.dump(config_dict, default_flow_style=False, sort_keys=False)
+    content: str = yaml.dump(config_dict, default_flow_style=False, sort_keys=False)
+    return content
 ```
 
 ### `write_config(path, content)`

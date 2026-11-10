@@ -30,7 +30,11 @@ and the agent server.
 - [File References](https://docs.useholodeck.ai/guides/file-references/index.md)
 - [Agent Server](https://docs.useholodeck.ai/guides/serve/index.md)
 - [Deployment](https://docs.useholodeck.ai/guides/deployment/index.md)
+- [Decision Tables](https://docs.useholodeck.ai/guides/decision-tables/index.md)
+- [Temporal Integration](https://docs.useholodeck.ai/guides/temporal/index.md)
+- [Temporal Worker](https://docs.useholodeck.ai/guides/temporal-worker/index.md)
 - [Observability](https://docs.useholodeck.ai/guides/observability/index.md)
+- [Upgrading to 0.8](https://docs.useholodeck.ai/guides/upgrading-to-0.8/index.md)
 
 ## API Reference
 

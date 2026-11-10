@@ -1,0 +1,2551 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/031-eval-runs-dashboard/spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Feature Specification: Eval Runs, Prompt Versioning, and Test View Dashboard - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#feature-specification-eval-runs-prompt-versioning-and-test-view-dashboard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feature Specification: Eval Runs, Prompt Versioning, and Test View Dashboard
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clarifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clarifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-2026-04-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session 2026-04-18
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-scenarios-testing-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Scenarios &amp; Testing (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Scenarios &amp; Testing (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-story-1-persist-strongly-typed-evalrun-per-test-invocation-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 1 - Persist Strongly-Typed EvalRun Per Test Invocation (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-2-prompt-versioning-via-frontmatter-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 2 - Prompt Versioning via Frontmatter (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-3-evalrun-captures-full-agent-configuration-snapshot-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 3 - EvalRun Captures Full Agent Configuration Snapshot (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-4-test-view-dashboard-summary-trend-analysis-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 4 - Test View Dashboard: Summary Trend Analysis (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-5-test-view-dashboard-run-explorer-with-per-test-detail-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 5 - Test View Dashboard: Run Explorer with Per-Test Detail (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistence-evalrun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistence (EvalRun)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Versioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#holodeck-test-view-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        holodeck test view Command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-summary-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard - Summary View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-explorer-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard - Explorer View
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-entities-include-if-feature-involves-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Entities (include if feature involves data)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Success Criteria (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurable-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measurable Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="feature-specification-eval-runs-prompt-versioning-and-test-view-dashboard">Feature Specification: Eval Runs, Prompt Versioning, and Test View Dashboard<a class="headerlink" href="#feature-specification-eval-runs-prompt-versioning-and-test-view-dashboard" title="Permanent link">&para;</a></h1>
+<p><strong>Feature Branch</strong>: <code>031-eval-runs-dashboard</code>
+<strong>Spec ID</strong>: 031-eval-runs-dashboard
+<strong>Created</strong>: 2026-04-18
+<strong>Status</strong>: Draft
+<strong>Input</strong>: Extend HoloDeck's evaluation system to (1) persist every <code>holodeck test</code> invocation as a strongly-typed <code>EvalRun</code> JSON document containing both test results and the full agent configuration snapshot, (2) add YAML frontmatter to system prompt files for prompt versioning via the <code>python-frontmatter</code> library, and (3) introduce a new <code>holodeck test view</code> command that launches a Streamlit dashboard for tracking experiment runs over time, summarizing performance by metric type with breakdowns for RAG and G-Eval sub-metrics, and exploring individual test cases (agent config, conversation thread, tool calls/args/results, expected tools, evaluations).</p>
+<h2 id="clarifications">Clarifications<a class="headerlink" href="#clarifications" title="Permanent link">&para;</a></h2>
+<h3 id="session-2026-04-18">Session 2026-04-18<a class="headerlink" href="#session-2026-04-18" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Q: Relationship between <code>EvalRun</code> and existing <code>TestReport</code>? → A: <code>EvalRun</code> wraps <code>TestReport</code> and adds a <code>metadata</code> field containing the full <code>Agent</code> config snapshot plus prompt version info. <code>TestReport</code> is unchanged.</li>
+<li>Q: What defines an "experiment" for grouping in the dashboard? → A: One experiment = one <code>agent.yaml</code> file, identified by <code>agent.name</code>. No new config field required.</li>
+<li>Q: Prompt versioning approach? → A: Use <code>python-frontmatter</code> (MIT) to read optional YAML frontmatter from instruction markdown files. Version derived automatically from a content hash; an optional manual <code>version:</code> key in frontmatter overrides the auto-version.</li>
+<li>Q: Results directory layout? → A: <code>results/&lt;agent-name&gt;/&lt;ISO-timestamp&gt;.json</code> — one JSON file per run, no automatic cleanup or rotation.</li>
+<li>Q: How does the dashboard ship? → A: Optional install extra (<code>uv add holodeck[dashboard]</code>). The <code>holodeck test view</code> command surfaces a friendly install hint when the extra is missing.</li>
+<li>Q: Redaction allowlist scope? → A: Minimal name-based allowlist (<code>api_key</code>, <code>password</code>, <code>secret</code>) combined with type-driven redaction of any Pydantic <code>SecretStr</code> field. Non-matching fields are persisted as-is.</li>
+<li>Q: Dashboard network binding? → A: Bind to <code>0.0.0.0</code> (Streamlit default). Network exposure is the user's responsibility; document that <code>results/</code> data should be considered sensitive and users should firewall the port if running on shared infrastructure.</li>
+<li>Q: Multimodal test-case file capture in snapshot? → A: Path only (as declared in <code>agent.yaml</code>). No hash, no bytes, no extracted text. Reproducibility depends on the user preserving the referenced files.</li>
+<li>Q: Atomic write guarantees for <code>EvalRun</code> files? → A: Write to <code>&lt;path&gt;.tmp</code>, <code>fsync</code>, then <code>os.replace()</code> to the final path. Readers see either the old file or the fully-written new file, never a partial one.</li>
+<li>Q: Dashboard filtering for high run counts? → A: Full faceted filtering on the Summary view: date range, prompt version, model name, pass/fail threshold, and frontmatter tag.</li>
+</ul>
+<h2 id="user-scenarios-testing-mandatory">User Scenarios &amp; Testing <em>(mandatory)</em><a class="headerlink" href="#user-scenarios-testing-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="user-story-1-persist-strongly-typed-evalrun-per-test-invocation-priority-p1">User Story 1 - Persist Strongly-Typed EvalRun Per Test Invocation (Priority: P1)<a class="headerlink" href="#user-story-1-persist-strongly-typed-evalrun-per-test-invocation-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A developer runs <code>holodeck test agent.yaml</code> and expects every invocation to be persisted automatically as a strongly-typed JSON document under <code>results/&lt;agent-name&gt;/&lt;ISO-timestamp&gt;.json</code>, capturing both test outcomes and the exact agent configuration that produced them. This enables historical analysis, reproducibility, and feeds the dashboard in Story 4.</p>
+<p><strong>Why this priority</strong>: Persistence is the foundation for every other story. Without an <code>EvalRun</code> artifact on disk, prompt versioning cannot be tied to outcomes, and the dashboard has nothing to read. This story alone delivers value: users can diff two run files in their editor to spot regressions even before the dashboard exists.</p>
+<p><strong>Independent Test</strong>: Run <code>holodeck test agent.yaml</code> in a project with no prior runs; verify a file appears at <code>results/&lt;agent-name&gt;/&lt;ISO-timestamp&gt;.json</code>; load it back via <code>EvalRun.model_validate_json(...)</code> and confirm the test results, summary, and embedded agent configuration round-trip without loss.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent.yaml with at least one test case, <strong>When</strong> the developer runs <code>holodeck test agent.yaml</code>, <strong>Then</strong> a JSON file is written to <code>results/&lt;agent.name&gt;/&lt;ISO-8601-timestamp&gt;.json</code> containing a serialized <code>EvalRun</code>.</li>
+<li><strong>Given</strong> an <code>EvalRun</code> JSON file on disk, <strong>When</strong> it is loaded back via the <code>EvalRun</code> model, <strong>Then</strong> all fields validate and equal the original run's data (round-trip equivalence).</li>
+<li><strong>Given</strong> an <code>EvalRun</code> is being constructed, <strong>When</strong> the agent configuration includes secrets in environment-substituted fields (e.g., API keys), <strong>Then</strong> the persisted snapshot redacts those fields before writing to disk.</li>
+<li><strong>Given</strong> the <code>results/</code> directory does not exist, <strong>When</strong> the test command runs, <strong>Then</strong> the directory tree is created automatically with appropriate permissions.</li>
+<li><strong>Given</strong> the user passed <code>--output report.md</code>, <strong>When</strong> the test command runs, <strong>Then</strong> the <code>EvalRun</code> JSON is still written to <code>results/</code> in addition to honoring the <code>--output</code> flag (no regression of existing behavior).</li>
+<li><strong>Given</strong> an agent name contains characters unsafe for filesystem paths (e.g., <code>/</code>, spaces), <strong>When</strong> the run is persisted, <strong>Then</strong> the directory name is sanitized predictably (slugified) without collision risk.</li>
+</ol>
+<hr />
+<h3 id="user-story-2-prompt-versioning-via-frontmatter-priority-p1">User Story 2 - Prompt Versioning via Frontmatter (Priority: P1)<a class="headerlink" href="#user-story-2-prompt-versioning-via-frontmatter-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A developer wants every test run to record exactly which prompt version produced the results so they can attribute regressions to prompt changes. They add YAML frontmatter to their instructions markdown file (e.g., <code>instructions.md</code>) with optional metadata (<code>version</code>, <code>author</code>, <code>description</code>, <code>tags</code>). HoloDeck reads the frontmatter, stores it on the <code>EvalRun.metadata.prompt_version</code>, and uses an automatic content-hash version when no manual version is provided.</p>
+<p><strong>Why this priority</strong>: Without prompt versioning, two runs with identical agent configs but different prompt text would appear indistinguishable in the dashboard. This is critical for the experiment-tracking value proposition. P1 because it must land before the dashboard surfaces "version" as a column.</p>
+<p><strong>Independent Test</strong>: Create an <code>instructions.md</code> with a YAML frontmatter block including <code>version: "1.2"</code>; run <code>holodeck test</code>; open the produced <code>EvalRun</code> JSON and verify <code>metadata.prompt_version.version == "1.2"</code>. Then remove the manual version and re-run; verify <code>version</code> is auto-derived from the content hash and stable across reruns when the prompt body is unchanged.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an instructions file with frontmatter <code>version: "1.2"</code>, <strong>When</strong> the agent is loaded, <strong>Then</strong> the <code>EvalRun.metadata.prompt_version.version</code> field equals <code>"1.2"</code>.</li>
+<li><strong>Given</strong> an instructions file with frontmatter but no <code>version</code> key, <strong>When</strong> the agent is loaded, <strong>Then</strong> the <code>version</code> is auto-derived from a deterministic SHA-256 hash of the prompt body (stripped of frontmatter), prefixed with <code>auto-</code> (e.g., <code>auto-3f9a1c</code>).</li>
+<li><strong>Given</strong> an instructions file with no frontmatter at all, <strong>When</strong> the agent is loaded, <strong>Then</strong> the system MUST NOT error; <code>prompt_version.version</code> is set to the auto-hash value, and other fields (<code>author</code>, <code>description</code>, <code>tags</code>) are <code>None</code>/empty.</li>
+<li><strong>Given</strong> the prompt body content is unchanged across two runs, <strong>When</strong> both runs persist <code>EvalRun</code> files, <strong>Then</strong> the auto-derived <code>version</code> is identical between them.</li>
+<li><strong>Given</strong> a user edits one character of the prompt body, <strong>When</strong> the agent is reloaded, <strong>Then</strong> the auto-derived <code>version</code> changes.</li>
+<li><strong>Given</strong> instructions are provided inline (<code>instructions.inline</code>) rather than via file, <strong>When</strong> the agent is loaded, <strong>Then</strong> frontmatter parsing is skipped and the version is auto-derived from the inline content hash.</li>
+<li><strong>Given</strong> the frontmatter contains keys outside the documented schema, <strong>When</strong> the agent is loaded, <strong>Then</strong> unknown keys are preserved in <code>prompt_version.extra</code> for forward compatibility (no validation error).</li>
+</ol>
+<hr />
+<h3 id="user-story-3-evalrun-captures-full-agent-configuration-snapshot-priority-p1">User Story 3 - EvalRun Captures Full Agent Configuration Snapshot (Priority: P1)<a class="headerlink" href="#user-story-3-evalrun-captures-full-agent-configuration-snapshot-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A developer needs every persisted <code>EvalRun</code> to embed a complete, faithful snapshot of the agent configuration that produced the run — model provider, model name, temperature, max_tokens, embedding provider, tools (full configuration), evaluations, claude-specific settings, and the resolved instructions text. This enables exact reproducibility and lets the dashboard display configuration alongside results without consulting the live <code>agent.yaml</code> (which may have changed).</p>
+<p><strong>Why this priority</strong>: P1 because reproducibility is the single most valuable property of stored eval data. A run without the originating config is just a number; a run with the config is a scientific record.</p>
+<p><strong>Independent Test</strong>: Run <code>holodeck test agent.yaml</code>; modify <code>agent.yaml</code> (e.g., change <code>temperature</code> from 0.7 to 0.2); load the previously written <code>EvalRun</code> and verify <code>metadata.agent_config.model.temperature == 0.7</code> (the original, not the current).</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an <code>agent.yaml</code> is loaded and validated into an <code>Agent</code> Pydantic model, <strong>When</strong> a test run executes, <strong>Then</strong> the persisted <code>EvalRun.metadata.agent_config</code> field contains a deep copy of that <code>Agent</code> model serialized to JSON.</li>
+<li><strong>Given</strong> the agent config references environment variables (e.g., <code>${OPENAI_API_KEY}</code>), <strong>When</strong> the snapshot is persisted, <strong>Then</strong> secret-bearing fields (api_key, auth tokens, connection strings) are redacted to <code>"***"</code> while non-secret env-substituted values (model names, endpoints) are preserved as resolved values.</li>
+<li><strong>Given</strong> the agent uses tools (vectorstore, MCP, function), <strong>When</strong> the run is persisted, <strong>Then</strong> every tool's full configuration appears in <code>metadata.agent_config.tools</code> exactly as it was at run time.</li>
+<li><strong>Given</strong> the agent configures Claude SDK options (<code>claude:</code> block with extended_thinking, web_search, subagents, etc.), <strong>When</strong> the run is persisted, <strong>Then</strong> the entire <code>claude</code> configuration is captured under <code>metadata.agent_config.claude</code>.</li>
+<li><strong>Given</strong> the <code>agent.yaml</code> is later modified, <strong>When</strong> an old <code>EvalRun</code> JSON is loaded, <strong>Then</strong> the snapshot reflects the historical state (not the current state on disk).</li>
+<li><strong>Given</strong> an <code>EvalRun</code> JSON file from a prior run, <strong>When</strong> the user wants to reproduce it, <strong>Then</strong> they have enough information in <code>metadata.agent_config</code> to reconstruct the exact agent that ran (modulo redacted secrets and external state like vector store contents).</li>
+</ol>
+<hr />
+<h3 id="user-story-4-test-view-dashboard-summary-trend-analysis-priority-p2">User Story 4 - Test View Dashboard: Summary Trend Analysis (Priority: P2)<a class="headerlink" href="#user-story-4-test-view-dashboard-summary-trend-analysis-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A developer runs <code>holodeck test view</code> (or <code>holodeck test view agent.yaml</code>) and is presented with a Streamlit dashboard in their browser showing a Summary view: all runs for the current experiment (= the agent identified by the supplied <code>agent.yaml</code>), trends over time for pass rate and metric scores, and breakdowns by evaluation type (<code>standard</code>, <code>rag</code>, <code>geval</code>) with further drill-downs for RAG sub-metrics (faithfulness, answer_relevancy, contextual_precision, contextual_recall, contextual_relevancy) and individual G-Eval custom metrics by name.</p>
+<p><strong>Why this priority</strong>: P2 because while the dashboard is the most visible feature, it depends on Stories 1-3 for data. Once persistence is in place, value compounds quickly: developers can spot regressions, validate prompt experiments, and compare model variants visually.</p>
+<p><strong>Independent Test</strong>: With at least 3 prior <code>EvalRun</code> JSON files for the same agent in <code>results/&lt;agent-name&gt;/</code>, run <code>holodeck test view</code>; verify the dashboard launches in a browser, displays a Summary tab listing all 3 runs sorted by timestamp, shows a line chart of pass rate over time, and renders separate breakdown panels for <code>standard</code>, <code>rag</code> (with sub-metric stacks), and <code>geval</code> (with per-custom-name stacks).</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> the user runs <code>holodeck test view</code> in a directory with <code>agent.yaml</code>, <strong>When</strong> the dashboard launches, <strong>Then</strong> it auto-discovers <code>results/&lt;agent.name&gt;/*.json</code>, loads them, and displays a Summary tab.</li>
+<li><strong>Given</strong> the Summary tab is displayed, <strong>When</strong> the user views trend charts, <strong>Then</strong> there is a pass-rate-over-time line chart and per-metric average-score lines, with the x-axis showing run timestamp.</li>
+<li><strong>Given</strong> runs include both RAG and G-Eval evaluations, <strong>When</strong> the Summary view renders, <strong>Then</strong> there are distinct breakdown panels for each evaluation type, with RAG further split by sub-metric and G-Eval split by custom metric <code>name</code>.</li>
+<li><strong>Given</strong> the user has runs for multiple agents in <code>results/</code>, <strong>When</strong> they launch <code>holodeck test view agent.yaml</code>, <strong>Then</strong> only runs for the agent identified by <code>agent.yaml</code>'s <code>name</code> field are shown (other agents excluded).</li>
+<li><strong>Given</strong> no <code>results/&lt;agent-name&gt;/</code> directory exists, <strong>When</strong> the dashboard launches, <strong>Then</strong> an empty-state panel explains "No runs found yet — execute <code>holodeck test</code> to generate one" with no errors.</li>
+<li><strong>Given</strong> the <code>holodeck[dashboard]</code> extra is not installed, <strong>When</strong> the user runs <code>holodeck test view</code>, <strong>Then</strong> the CLI prints an actionable install hint (<code>uv add holodeck[dashboard]</code> or <code>pip install holodeck[dashboard]</code>) and exits non-zero without a Python traceback.</li>
+<li><strong>Given</strong> the user closes the browser tab, <strong>When</strong> they Ctrl+C in the terminal, <strong>Then</strong> the Streamlit subprocess terminates cleanly.</li>
+</ol>
+<hr />
+<h3 id="user-story-5-test-view-dashboard-run-explorer-with-per-test-detail-priority-p2">User Story 5 - Test View Dashboard: Run Explorer with Per-Test Detail (Priority: P2)<a class="headerlink" href="#user-story-5-test-view-dashboard-run-explorer-with-per-test-detail-priority-p2" title="Permanent link">&para;</a></h3>
+<p>From the dashboard, a developer drills into an individual run and then into an individual test case to inspect: the agent configuration that produced it (model, temperature, prompt version, tool list), the full conversation thread (user input, agent response), all tool calls highlighted with name, arguments, and results, the configured expected tools, the test case's evaluations with scores and reasoning, and the ground-truth comparison.</p>
+<p><strong>Why this priority</strong>: P2 because deep inspection is the second-order value after the trend overview. Without it, developers can identify <em>which</em> run regressed but not <em>why</em>. With it, they can read transcripts, review tool args, and form hypotheses without leaving the dashboard.</p>
+<p><strong>Independent Test</strong>: From the Summary tab, click into a single run; verify a list of test cases is shown; click a test case; verify the side panel displays the agent config snapshot, the rendered conversation, every tool call with collapsible JSON for args and results, the expected-tools list with match indicators, and the per-metric evaluation results (score, threshold, pass/fail, reasoning when present).</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> the user clicks a run in the Summary view, <strong>When</strong> the Explorer view opens, <strong>Then</strong> it lists every test case with name, pass/fail badge, and headline metric scores.</li>
+<li><strong>Given</strong> the user clicks a test case in the Explorer, <strong>When</strong> the detail panel renders, <strong>Then</strong> it shows the agent configuration snapshot (model provider/name/temperature, embedding provider, prompt version + frontmatter metadata, tool names).</li>
+<li><strong>Given</strong> the test case has a conversation, <strong>When</strong> the detail panel renders, <strong>Then</strong> the user input and agent response are displayed in a chat-style layout.</li>
+<li><strong>Given</strong> the test case includes tool calls, <strong>When</strong> the detail panel renders, <strong>Then</strong> each tool call is highlighted (visually distinct from chat messages) with the tool name, arguments shown as formatted JSON, and the tool result shown as formatted JSON.</li>
+<li><strong>Given</strong> the test case has <code>expected_tools</code> configured, <strong>When</strong> the detail panel renders, <strong>Then</strong> each expected tool is shown with a check/cross indicating whether it was actually called.</li>
+<li><strong>Given</strong> the test case has <code>metric_results</code>, <strong>When</strong> the detail panel renders, <strong>Then</strong> every metric is shown with name, score, threshold, pass/fail status, and (where present) the LLM reasoning explanation.</li>
+<li><strong>Given</strong> a test case had errors during execution, <strong>When</strong> the detail panel renders, <strong>Then</strong> errors are displayed prominently in an error block with the full message.</li>
+<li><strong>Given</strong> a tool call result is large (e.g., 100KB+ JSON), <strong>When</strong> the detail panel renders, <strong>Then</strong> the result is collapsed by default with an expand option to avoid overwhelming the UI.</li>
+</ol>
+<hr />
+<h3 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>What happens when two <code>holodeck test</code> invocations finish in the same second? → Use ISO-8601 with millisecond precision in the filename to avoid collision; if a collision still occurs, append a short random suffix.</li>
+<li>What happens when <code>agent.name</code> is missing or empty? → Configuration validation already rejects empty names; persistence relies on validated config so this case cannot reach persistence.</li>
+<li>What happens when an instructions file has malformed YAML frontmatter (invalid YAML)? → Surface a clear <code>ConfigError</code> at agent load time pointing to the file and the YAML parse error; do not silently fall through.</li>
+<li>What happens when the dashboard reads a corrupt or partial <code>EvalRun</code> JSON file (e.g., interrupted write)? → Skip the file with a logged warning; the dashboard renders the rest. Does not crash.</li>
+<li>What happens when the <code>EvalRun</code> schema evolves and an older file lacks newly added fields? → Pydantic's optional/default-bearing fields handle additive changes gracefully; the dashboard tolerates missing optional fields.</li>
+<li>What happens when a user has 1000+ runs in <code>results/&lt;agent-name&gt;/</code>? → Dashboard loads in under 5 seconds (P95) and paginates the run list; trend charts aggregate efficiently.</li>
+<li>What happens when redaction encounters a secret-bearing field whose name is unknown to the redactor? → The redactor uses a minimal name-based allowlist (<code>api_key</code>, <code>password</code>, <code>secret</code>) plus type-driven redaction of any <code>SecretStr</code>-typed field. Fields outside both rules are persisted as-is. This relies on Pydantic models correctly typing secret fields as <code>SecretStr</code>; secret fields typed as plain <code>str</code> with non-allowlisted names will leak and must be fixed at the model layer.</li>
+<li>What happens when the <code>instructions.file</code> path is relative? → Resolved against the agent.yaml's directory (existing behavior); frontmatter parsing follows the same resolution.</li>
+</ul>
+<h2 id="requirements-mandatory">Requirements <em>(mandatory)</em><a class="headerlink" href="#requirements-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<h4 id="persistence-evalrun">Persistence (<code>EvalRun</code>)<a class="headerlink" href="#persistence-evalrun" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-001</strong>: System MUST define an <code>EvalRun</code> Pydantic model that wraps the existing <code>TestReport</code> and adds a <code>metadata</code> field of a new <code>EvalRunMetadata</code> type.</li>
+<li><strong>FR-002</strong>: <code>EvalRunMetadata</code> MUST contain (a) a deep snapshot of the validated <code>Agent</code> configuration, (b) a <code>PromptVersion</code> describing the system prompt at run time, and (c) <code>created_at</code> (ISO-8601 timestamp), <code>holodeck_version</code>, <code>cli_args</code> (sanitized command-line invocation), and <code>git_commit</code> (when available).</li>
+<li><strong>FR-003</strong>: System MUST persist an <code>EvalRun</code> JSON file at <code>results/&lt;slugified-agent-name&gt;/&lt;ISO-8601-timestamp&gt;.json</code> for every successful or failed <code>holodeck test</code> invocation that produced at least one test result.</li>
+<li><strong>FR-004</strong>: System MUST create the <code>results/</code> directory tree if it does not exist.</li>
+<li><strong>FR-005</strong>: System MUST redact secret-bearing fields from the embedded agent configuration snapshot before writing to disk using a two-rule policy: (a) name-based allowlist of exactly <code>api_key</code>, <code>password</code>, <code>secret</code>; (b) type-driven redaction of any field declared as Pydantic <code>SecretStr</code> in the agent models. Fields that match neither rule are persisted as-is. The allowlist MUST be centralized in a single module-level constant for discoverability.</li>
+<li><strong>FR-006</strong>: Persistence MUST occur in addition to (not instead of) any existing <code>--output</code> behavior, preserving backward compatibility with the markdown/JSON report flag.</li>
+<li><strong>FR-007</strong>: <code>EvalRun</code> MUST round-trip via <code>model_dump_json()</code> and <code>model_validate_json()</code> without data loss (excluding redacted secrets).</li>
+<li><strong>FR-008</strong>: Filename timestamp MUST use ISO-8601 with millisecond precision (e.g., <code>2026-04-18T14-22-09.812Z.json</code>) using filesystem-safe separators.</li>
+<li><strong>FR-009</strong>: When persistence fails (e.g., permission denied, disk full), the test run MUST still complete and emit its console summary; the persistence error MUST be logged at WARNING level and surfaced in the CLI output but MUST NOT mask the test exit code.</li>
+<li><strong>FR-009a</strong>: For test cases that reference multimodal files via <code>files:</code>, the persisted snapshot MUST record only the declared path, type, and any inline metadata (e.g., <code>sheet</code>, <code>range</code>, <code>pages</code>, <code>description</code>) from <code>agent.yaml</code>. The snapshot MUST NOT embed file bytes, content hashes, or extracted text. Reproducibility of multimodal runs relies on the user preserving the referenced files out-of-band.</li>
+<li><strong>FR-009b</strong>: <code>EvalRun</code> files MUST be written atomically: serialize to a sibling temp file (e.g., <code>&lt;target&gt;.tmp</code>), <code>fsync</code> the file descriptor, then <code>os.replace()</code> the temp file to the final target path. Readers (including the dashboard) MUST only ever observe either the previous complete file or the new complete file, never a partially-written one. The dashboard's skip-on-corruption behavior (FR-024) remains as a defense-in-depth measure for files produced outside this write path.</li>
+</ul>
+<h4 id="prompt-versioning">Prompt Versioning<a class="headerlink" href="#prompt-versioning" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-010</strong>: System MUST add <code>python-frontmatter</code> as a core dependency.</li>
+<li><strong>FR-011</strong>: When loading <code>instructions.file</code>, system MUST parse YAML frontmatter via <code>python-frontmatter</code> and expose the parsed metadata to the agent loader.</li>
+<li><strong>FR-012</strong>: System MUST define a <code>PromptVersion</code> Pydantic model with fields: <code>version: str</code>, <code>author: str | None</code>, <code>description: str | None</code>, <code>tags: list[str]</code>, <code>source: Literal["file", "inline"]</code>, <code>file_path: str | None</code>, <code>body_hash: str</code> (SHA-256 of body), <code>extra: dict[str, Any]</code>.</li>
+<li><strong>FR-013</strong>: When frontmatter contains a <code>version</code> key, system MUST use it verbatim. Otherwise, system MUST set <code>version</code> to <code>"auto-" + first 8 hex chars of SHA-256(body)</code>.</li>
+<li><strong>FR-014</strong>: When <code>instructions.inline</code> is used, frontmatter parsing MUST be skipped and <code>PromptVersion</code> populated with <code>source="inline"</code>, <code>file_path=None</code>, <code>version=auto-hash</code>.</li>
+<li><strong>FR-015</strong>: System MUST NOT alter the prompt body presented to the LLM — frontmatter is metadata only and MUST be stripped before the body reaches the agent.</li>
+<li><strong>FR-016</strong>: Unknown frontmatter keys MUST be preserved under <code>PromptVersion.extra</code> rather than rejected.</li>
+<li><strong>FR-017</strong>: Malformed YAML frontmatter MUST raise a <code>ConfigError</code> at agent load time with file path and parse error context.</li>
+</ul>
+<h4 id="holodeck-test-view-command"><code>holodeck test view</code> Command<a class="headerlink" href="#holodeck-test-view-command" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-018</strong>: System MUST register <code>holodeck test view</code> as a Click subcommand of the existing <code>test</code> command.</li>
+<li><strong>FR-019</strong>: <code>holodeck test view</code> MUST accept an optional <code>agent_config</code> positional argument (default <code>agent.yaml</code>) used to determine the experiment (= <code>agent.name</code>).</li>
+<li><strong>FR-020</strong>: <code>holodeck test view</code> MUST launch a Streamlit application in the user's default browser, serving a dashboard scoped to the resolved experiment. The Streamlit server binds to <code>0.0.0.0</code> (Streamlit default); the CLI MUST print a one-line warning at launch reminding users that <code>results/</code> data may contain sensitive conversations/tool args and that the port should be firewalled on shared infrastructure.</li>
+<li><strong>FR-021</strong>: The dashboard MUST auto-discover and load all <code>EvalRun</code> JSON files under <code>results/&lt;slugified-agent-name&gt;/</code>.</li>
+<li><strong>FR-022</strong>: Streamlit and dashboard-specific dependencies MUST be packaged as an optional install extra named <code>dashboard</code>. The CLI MUST detect the missing extra at command invocation and emit a one-line install hint without a stack trace.</li>
+<li><strong>FR-023</strong>: Dashboard MUST render an empty-state message when no runs exist for the resolved experiment.</li>
+<li><strong>FR-024</strong>: Dashboard MUST handle corrupt or partially-written <code>EvalRun</code> files by skipping them with a logged warning and continuing.</li>
+</ul>
+<h4 id="dashboard-summary-view">Dashboard - Summary View<a class="headerlink" href="#dashboard-summary-view" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-025</strong>: Summary view MUST display a sortable table of all runs for the experiment with columns: timestamp, pass rate, total tests, prompt version, model name.</li>
+<li><strong>FR-026</strong>: Summary view MUST display a pass-rate-over-time line chart, x-axis = run timestamp.</li>
+<li><strong>FR-027</strong>: Summary view MUST display per-metric average-score trend lines.</li>
+<li><strong>FR-028</strong>: Summary view MUST display three breakdown panels — one each for <code>standard</code>, <code>rag</code>, and <code>geval</code> evaluation types — with averages and trends segmented as follows:</li>
+<li><code>standard</code> → by metric name (bleu, rouge, meteor)</li>
+<li><code>rag</code> → by sub-metric (faithfulness, answer_relevancy, contextual_relevancy, contextual_precision, contextual_recall)</li>
+<li><code>geval</code> → by custom metric name (each unique G-Eval <code>name</code> in the data)</li>
+<li><strong>FR-028a</strong>: Summary view MUST provide faceted filtering controls that compose (AND-combined) and apply to both the run table and all trend/breakdown charts:</li>
+<li>Date-range picker (bounded by earliest/latest run timestamp in the current experiment)</li>
+<li>Prompt-version multi-select (populated from distinct <code>metadata.prompt_version.version</code> values)</li>
+<li>Model-name multi-select (populated from distinct <code>metadata.agent_config.model.name</code> values)</li>
+<li>Pass-rate threshold slider (e.g., "show only runs with pass rate ≥ X%")</li>
+<li>Frontmatter-tag multi-select (populated from the union of <code>metadata.prompt_version.tags</code> across runs)</li>
+<li><strong>FR-028b</strong>: Active filters MUST be reflected in the URL query string so filtered views are shareable and survive page reload.</li>
+</ul>
+<h4 id="dashboard-explorer-view">Dashboard - Explorer View<a class="headerlink" href="#dashboard-explorer-view" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>FR-029</strong>: Explorer view MUST be reachable by clicking a run from the Summary view.</li>
+<li><strong>FR-030</strong>: Explorer view MUST list all test cases in the selected run with name, pass/fail badge, and a one-line metric summary.</li>
+<li><strong>FR-031</strong>: Selecting a test case MUST display a detail panel containing:</li>
+<li>Agent config snapshot (provider, model name, temperature, embedding provider, prompt version + frontmatter metadata, tool names)</li>
+<li>Conversation thread (user input + agent response in chat-style layout)</li>
+<li>Tool calls highlighted distinctly with tool name, arguments (formatted JSON), and result (formatted JSON, collapsed when large)</li>
+<li>Expected tools with check/cross match indicators</li>
+<li>Per-metric evaluation results (name, score, threshold, pass/fail, reasoning if present)</li>
+<li>Ground truth (when present)</li>
+<li>Errors (when present)</li>
+<li><strong>FR-032</strong>: Large tool-call results (over 4KB serialized) MUST be collapsed by default with an expand affordance.</li>
+</ul>
+<h3 id="key-entities-include-if-feature-involves-data">Key Entities <em>(include if feature involves data)</em><a class="headerlink" href="#key-entities-include-if-feature-involves-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>EvalRun</strong>: Top-level persisted artifact. Wraps a <code>TestReport</code> and adds <code>metadata: EvalRunMetadata</code>. One JSON file per <code>holodeck test</code> invocation.</li>
+<li><strong>EvalRunMetadata</strong>: Captures the agent configuration snapshot, prompt version, run timestamp, holodeck version, sanitized CLI args, and optional git commit.</li>
+<li><strong>PromptVersion</strong>: Captures system prompt identity at run time — <code>version</code>, <code>author</code>, <code>description</code>, <code>tags</code>, <code>source</code> (file or inline), <code>file_path</code>, <code>body_hash</code>, and a permissive <code>extra</code> dict for forward compatibility with future frontmatter keys.</li>
+<li><strong>Experiment</strong>: An implicit grouping in the dashboard, identified by <code>agent.name</code>. No new entity in the Pydantic model layer; expressed only as a directory naming convention (<code>results/&lt;slugified-agent-name&gt;/</code>).</li>
+<li><strong>Run File</strong>: ISO-8601-timestamped JSON file in <code>results/&lt;slugified-agent-name&gt;/</code>; the on-disk representation of an <code>EvalRun</code>.</li>
+</ul>
+<h2 id="success-criteria-mandatory">Success Criteria <em>(mandatory)</em><a class="headerlink" href="#success-criteria-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="measurable-outcomes">Measurable Outcomes<a class="headerlink" href="#measurable-outcomes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SC-001</strong>: After running <code>holodeck test agent.yaml</code>, a developer can locate the persisted run file at a predictable path within 10 seconds of test completion, without consulting documentation.</li>
+<li><strong>SC-002</strong>: A developer can fully reconstruct the exact agent configuration that produced any historical run by inspecting only the corresponding <code>EvalRun</code> JSON file (modulo redacted secrets and vector store contents).</li>
+<li><strong>SC-003</strong>: Two runs against an identical agent configuration and an identical prompt body produce <code>EvalRun</code> files with the same <code>metadata.prompt_version.version</code> value 100% of the time.</li>
+<li><strong>SC-004</strong>: Editing one character of the prompt body causes the next run's <code>metadata.prompt_version.version</code> to differ from the previous run's value 100% of the time (when no manual <code>version:</code> key is present).</li>
+<li><strong>SC-005</strong>: A user with 50 prior runs for one agent can launch <code>holodeck test view</code>, see the Summary view rendered, and identify the most recent regression in pass rate within 60 seconds of running the command.</li>
+<li><strong>SC-006</strong>: A user can drill from the Summary view into any individual test case detail in three clicks or fewer.</li>
+<li><strong>SC-007</strong>: The <code>holodeck test view</code> command emits a clear, single-line install hint (no Python traceback) when the <code>dashboard</code> extra is not installed.</li>
+<li><strong>SC-008</strong>: Adding <code>EvalRun</code> persistence imposes less than 200ms of overhead per <code>holodeck test</code> invocation regardless of test count (measured: persistence wall time only, excluding test execution).</li>
+<li><strong>SC-009</strong>: Existing <code>--output</code> JSON/markdown report consumers see no breaking changes; outputs remain byte-equivalent to the prior implementation when no other changes are made.</li>
+<li><strong>SC-010</strong>: Dashboard loads runs and renders the Summary view in under 5 seconds (P95) for experiments with up to 1000 runs.</li>
+</ul>
+<h2 id="assumptions">Assumptions<a class="headerlink" href="#assumptions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <code>python-frontmatter</code> library (MIT licensed) is acceptable as a new core dependency. It is mature, has minimal transitive dependencies, and is widely used in static-site generators.</li>
+<li>Streamlit is acceptable as an optional dependency under the <code>dashboard</code> extra. Users who do not want it can omit it without losing any other HoloDeck capability.</li>
+<li>"Experiment" requires no new YAML field — it is implicit in <code>agent.name</code>. If users later need cross-agent experiments or named experiment tags, that is a follow-up spec.</li>
+<li>Redaction combines a minimal name-based allowlist (<code>api_key</code>, <code>password</code>, <code>secret</code>) with type-driven redaction of <code>SecretStr</code> fields defined in the agent Pydantic models. This assumes all provider-specific secret fields (Anthropic <code>auth_token</code>, Azure <code>api_key</code>, OAuth tokens, AWS credentials, connection strings) are already typed as <code>SecretStr</code> in their respective models; any that are not MUST be migrated to <code>SecretStr</code> as part of this feature's implementation. Users who need stricter redaction should treat the entire <code>results/</code> directory as sensitive.</li>
+<li><code>EvalRun</code> files are intended to be checked into version control or shared with teammates after redaction. They are not designed to hold large transcripts or binary attachments — file sizes are expected to remain under 1MB per run for typical configurations. Multimodal test-case <code>files:</code> are captured by path only (no bytes, no hash, no extracted text), so file-size bounds are independent of attachment size.</li>
+<li>Existing <code>TestReport</code> and <code>TestResult</code> models remain unchanged. <code>EvalRun</code> is purely additive.</li>
+<li>The dashboard is read-only. It does not write back to <code>results/</code> or modify agent configurations; users edit <code>agent.yaml</code> and re-run <code>holodeck test</code> to iterate.</li>
+<li>The Streamlit server binds to <code>0.0.0.0</code> by default (Streamlit's native behavior). Network exposure is treated as the user's responsibility — HoloDeck prints a launch-time warning but does not restrict binding or add authentication in v1. Users on shared infrastructure are expected to firewall the port or use SSH tunneling.</li>
+<li>Filesystem path slugification follows a documented rule (lowercase, alphanumerics + hyphens, with non-conforming characters replaced by <code>-</code>); collisions are rare in practice but the system will not silently overwrite — a colliding directory name produced by two different agent names is left as a known limitation for the v1 of this feature.</li>
+<li>The git commit field is a best-effort capture (read from <code>git rev-parse HEAD</code> if a repo exists in CWD); absence is acceptable and not an error.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

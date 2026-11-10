@@ -1,0 +1,3211 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/006-agent-test-execution/contracts/cli-api/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>CLI API Contract: holodeck test - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cli-api-contract-holodeck-test" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CLI API Contract: holodeck test
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executionconfig-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExecutionConfig Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExecutionConfig Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usage-in-agentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage in agent.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Signature
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Signature">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeout-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-resolution-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Resolution Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Resolution Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-cli-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: CLI Override
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-all-from-agentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: All from agent.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-built-in-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Built-in Defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-global-config-fallback-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Global Config Fallback (Future)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit Codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Formats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-output-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard Output (Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quiet-mode-output-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiet Mode Output (CI/CD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verbose-mode-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verbose Mode Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-use-agentyaml-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Use agent.yaml Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-override-with-cli-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Override with CLI Flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-no-execution-config-in-agentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: No Execution Config in agent.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-custom-cache-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Custom Cache Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-model-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Model Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-loader-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Loader Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tty-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TTY Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compatibility
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compatibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operating-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operating Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-agent-config-vs-cli-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Agent Config vs CLI Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cli-api-contract-holodeck-test">CLI API Contract: <code>holodeck test</code><a class="headerlink" href="#cli-api-contract-holodeck-test" title="Permanent link">&para;</a></h1>
+<p><strong>Date</strong>: 2025-11-01
+<strong>Feature</strong>: Execute Agent Against Test Cases
+<strong>Phase</strong>: 1 - Design</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This document defines the command-line interface for the <code>holodeck test</code> command. The CLI follows Click framework patterns and integrates with the existing <code>holodeck</code> CLI structure.</p>
+<p><strong>Key Design Principle</strong>: All CLI options can be configured in agent.yaml via the <code>execution</code> section (<code>ExecutionConfig</code> model). CLI flags override agent.yaml settings, which override global defaults.</p>
+<h2 id="configuration-hierarchy">Configuration Hierarchy<a class="headerlink" href="#configuration-hierarchy" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>CLI Flags  &gt;  agent.yaml execution  &gt;  ~/.holodeck/config.yaml  &gt;  Built-in Defaults
+(highest)                                                          (lowest)
+</code></pre></div>
+<hr />
+<h2 id="executionconfig-model">ExecutionConfig Model<a class="headerlink" href="#executionconfig-model" title="Permanent link">&para;</a></h2>
+<p><strong>Location</strong>: <code>src/holodeck/models/config.py</code> (NEW)</p>
+<p>The <code>ExecutionConfig</code> model defines test execution settings that can be specified in agent.yaml:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ExecutionConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Test execution configuration.</span>
+
+<span class="sd">    Defines timeouts, caching, and output settings for test execution.</span>
+<span class="sd">    All fields are optional - unspecified values use defaults.</span>
+<span class="sd">    """</span>
+
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">extra</span><span class="o">=</span><span class="s2">"forbid"</span><span class="p">)</span>
+
+    <span class="c1"># Timeout settings</span>
+    <span class="n">file_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Timeout for file processing in seconds (1-300)"</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">300</span>
+    <span class="p">)</span>
+    <span class="n">llm_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Timeout for LLM API calls in seconds (1-600)"</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">600</span>
+    <span class="p">)</span>
+    <span class="n">download_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Timeout for remote file downloads in seconds (1-300)"</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">300</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Cache settings</span>
+    <span class="n">cache_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Enable file caching for remote URLs (default: true)"</span>
+    <span class="p">)</span>
+    <span class="n">cache_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Cache directory path (default: .holodeck/cache)"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Output settings</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Enable verbose output (default: false)"</span>
+    <span class="p">)</span>
+    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Suppress progress indicators (default: false)"</span>
+    <span class="p">)</span>
+</code></pre></div>
+<h3 id="usage-in-agentyaml">Usage in agent.yaml<a class="headerlink" href="#usage-in-agentyaml" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Customer Support Agent</span>
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+<span class="nt">instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">instructions/system.md</span>
+<span class="nt">tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="nt">evaluations</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">groundedness</span>
+<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+<span class="nt">test_cases</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Business hours query</span>
+<span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">"What</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">business</span><span class="nv"> </span><span class="s">hours?"</span>
+<span class="w">    </span><span class="nt">ground_truth</span><span class="p">:</span><span class="w"> </span><span class="s">"We're</span><span class="nv"> </span><span class="s">open</span><span class="nv"> </span><span class="s">Monday-Friday</span><span class="nv"> </span><span class="s">9AM-5PM</span><span class="nv"> </span><span class="s">EST"</span>
+
+<span class="c1"># NEW: Execution configuration</span>
+<span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w"> </span><span class="c1"># Allow 60s for large file processing</span>
+<span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span><span class="w"> </span><span class="c1"># Allow 120s for complex LLM calls</span>
+<span class="w">  </span><span class="nt">download_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span><span class="w"> </span><span class="c1"># Allow 45s for remote file downloads</span>
+<span class="w">  </span><span class="nt">cache_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># Enable caching (default)</span>
+<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.cache</span><span class="w"> </span><span class="c1"># Custom cache directory</span>
+<span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Standard output (default)</span>
+</code></pre></div>
+<hr />
+<h2 id="command-signature">Command Signature<a class="headerlink" href="#command-signature" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>AGENT_CONFIG
+</code></pre></div>
+<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
+<p><strong>AGENT_CONFIG</strong> (required)</p>
+<ul>
+<li><strong>Type</strong>: File path</li>
+<li><strong>Description</strong>: Path to agent.yaml configuration file</li>
+<li><strong>Validation</strong>:</li>
+<li>File must exist</li>
+<li>File must be valid YAML</li>
+<li>File must pass schema validation (Agent model with ExecutionConfig)</li>
+<li><strong>Example</strong>: <code>agent.yaml</code>, <code>./configs/customer-support.yaml</code></li>
+</ul>
+<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<p>All CLI options override corresponding <code>execution</code> settings in agent.yaml.</p>
+<h4 id="output-options">Output Options<a class="headerlink" href="#output-options" title="Permanent link">&para;</a></h4>
+<p><strong><code>--output</code>, <code>-o</code> <file_path></strong></p>
+<ul>
+<li><strong>Type</strong>: File path</li>
+<li><strong>Default</strong>: None (results printed to stdout)</li>
+<li><strong>Description</strong>: Save test report to file (format auto-detected from extension)</li>
+<li><strong>Supported Extensions</strong>: <code>.json</code>, <code>.md</code></li>
+<li><strong>Agent Config</strong>: Not configurable (CLI-only option)</li>
+<li><strong>Example</strong>: <code>--output report.json</code>, <code>-o results.md</code></li>
+</ul>
+<p><strong><code>--format</code>, <code>-f</code> <format></strong></p>
+<ul>
+<li><strong>Type</strong>: Choice [<code>json</code>, <code>markdown</code>]</li>
+<li><strong>Default</strong>: Inferred from <code>--output</code> extension, or <code>json</code> if no output file</li>
+<li><strong>Description</strong>: Report format (overrides extension-based detection)</li>
+<li><strong>Agent Config</strong>: Not configurable (CLI-only option)</li>
+<li><strong>Example</strong>: <code>--format markdown</code></li>
+</ul>
+<h4 id="execution-options">Execution Options<a class="headerlink" href="#execution-options" title="Permanent link">&para;</a></h4>
+<p><strong><code>--verbose</code>, <code>-v</code></strong></p>
+<ul>
+<li><strong>Type</strong>: Flag</li>
+<li><strong>Default</strong>: False</li>
+<li><strong>Description</strong>: Enable verbose output with detailed stack traces and debug info</li>
+<li><strong>Agent Config Mapping</strong>: <code>execution.verbose</code></li>
+<li><strong>Override Behavior</strong>: CLI flag overrides agent.yaml setting</li>
+<li><strong>Example</strong>: <code>--verbose</code></li>
+</ul>
+<p><strong><code>--quiet</code>, <code>-q</code></strong></p>
+<ul>
+<li><strong>Type</strong>: Flag</li>
+<li><strong>Default</strong>: False</li>
+<li><strong>Description</strong>: Suppress progress indicators (for CI/CD environments)</li>
+<li><strong>Mutually Exclusive</strong>: Cannot use with <code>--verbose</code></li>
+<li><strong>Agent Config Mapping</strong>: <code>execution.quiet</code></li>
+<li><strong>Override Behavior</strong>: CLI flag overrides agent.yaml setting</li>
+<li><strong>Example</strong>: <code>--quiet</code></li>
+</ul>
+<h4 id="timeout-options">Timeout Options<a class="headerlink" href="#timeout-options" title="Permanent link">&para;</a></h4>
+<p><strong><code>--file-timeout</code> <seconds></strong></p>
+<ul>
+<li><strong>Type</strong>: Integer (1-300)</li>
+<li><strong>Default</strong>: 30</li>
+<li><strong>Description</strong>: Timeout for file processing operations (markitdown) in seconds</li>
+<li><strong>Agent Config Mapping</strong>: <code>execution.file_timeout</code></li>
+<li><strong>Override Behavior</strong>: CLI option overrides agent.yaml value</li>
+<li><strong>Example</strong>: <code>--file-timeout 60</code></li>
+</ul>
+<p><strong><code>--llm-timeout</code> <seconds></strong></p>
+<ul>
+<li><strong>Type</strong>: Integer (1-600)</li>
+<li><strong>Default</strong>: 60</li>
+<li><strong>Description</strong>: Timeout for LLM API calls (agent execution and evaluation) in seconds</li>
+<li><strong>Agent Config Mapping</strong>: <code>execution.llm_timeout</code></li>
+<li><strong>Override Behavior</strong>: CLI option overrides agent.yaml value</li>
+<li><strong>Example</strong>: <code>--llm-timeout 120</code></li>
+</ul>
+<p><strong><code>--download-timeout</code> <seconds></strong></p>
+<ul>
+<li><strong>Type</strong>: Integer (1-300)</li>
+<li><strong>Default</strong>: 30</li>
+<li><strong>Description</strong>: Timeout for remote file downloads in seconds</li>
+<li><strong>Agent Config Mapping</strong>: <code>execution.download_timeout</code></li>
+<li><strong>Override Behavior</strong>: CLI option overrides agent.yaml value</li>
+<li><strong>Example</strong>: <code>--download-timeout 45</code></li>
+</ul>
+<h4 id="filtering-options">Filtering Options<a class="headerlink" href="#filtering-options" title="Permanent link">&para;</a></h4>
+<p><strong><code>--test</code>, <code>-t</code> <test_name></strong></p>
+<ul>
+<li><strong>Type</strong>: String (can be specified multiple times)</li>
+<li><strong>Default</strong>: None (run all tests)</li>
+<li><strong>Description</strong>: Run only tests matching the specified name(s)</li>
+<li><strong>Agent Config</strong>: Not configurable (CLI-only option for ad-hoc filtering)</li>
+<li><strong>Example</strong>: <code>--test "Business hours query" --test "Order status"</code></li>
+</ul>
+<p><strong><code>--filter</code> <pattern></strong></p>
+<ul>
+<li><strong>Type</strong>: String (glob pattern)</li>
+<li><strong>Default</strong>: None (run all tests)</li>
+<li><strong>Description</strong>: Run only tests matching glob pattern</li>
+<li><strong>Agent Config</strong>: Not configurable (CLI-only option for ad-hoc filtering)</li>
+<li><strong>Example</strong>: <code>--filter "customer_*"</code>, <code>--filter "*_error"</code></li>
+</ul>
+<h4 id="cache-options">Cache Options<a class="headerlink" href="#cache-options" title="Permanent link">&para;</a></h4>
+<p><strong><code>--no-cache</code></strong></p>
+<ul>
+<li><strong>Type</strong>: Flag</li>
+<li><strong>Default</strong>: False (caching enabled)</li>
+<li><strong>Description</strong>: Disable file caching for remote URLs (always re-download)</li>
+<li><strong>Agent Config Mapping</strong>: Sets <code>execution.cache_enabled = false</code></li>
+<li><strong>Override Behavior</strong>: CLI flag overrides agent.yaml setting</li>
+<li><strong>Example</strong>: <code>--no-cache</code></li>
+</ul>
+<p><strong><code>--clear-cache</code></strong></p>
+<ul>
+<li><strong>Type</strong>: Flag</li>
+<li><strong>Default</strong>: False</li>
+<li><strong>Description</strong>: Clear file cache before running tests</li>
+<li><strong>Agent Config</strong>: Not configurable (CLI-only action)</li>
+<li><strong>Example</strong>: <code>--clear-cache</code></li>
+</ul>
+<p><strong><code>--cache-dir</code> <directory></strong></p>
+<ul>
+<li><strong>Type</strong>: Directory path</li>
+<li><strong>Default</strong>: <code>.holodeck/cache</code></li>
+<li><strong>Description</strong>: Custom cache directory for remote files</li>
+<li><strong>Agent Config Mapping</strong>: <code>execution.cache_dir</code></li>
+<li><strong>Override Behavior</strong>: CLI option overrides agent.yaml value</li>
+<li><strong>Example</strong>: <code>--cache-dir /tmp/holodeck-cache</code></li>
+</ul>
+<hr />
+<h2 id="configuration-resolution-examples">Configuration Resolution Examples<a class="headerlink" href="#configuration-resolution-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-cli-override">Example 1: CLI Override<a class="headerlink" href="#example-1-cli-override" title="Permanent link">&para;</a></h3>
+<p><strong>agent.yaml</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+</code></pre></div>
+<p><strong>Command</strong>:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml<span class="w"> </span>--llm-timeout<span class="w"> </span><span class="m">120</span>
+</code></pre></div>
+<p><strong>Resolved Configuration</strong>:</p>
+<ul>
+<li><code>file_timeout</code>: 30 (from agent.yaml)</li>
+<li><code>llm_timeout</code>: 120 (CLI override)</li>
+<li><code>download_timeout</code>: 30 (built-in default)</li>
+</ul>
+<hr />
+<h3 id="example-2-all-from-agentyaml">Example 2: All from agent.yaml<a class="headerlink" href="#example-2-all-from-agentyaml" title="Permanent link">&para;</a></h3>
+<p><strong>agent.yaml</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span>
+<span class="w">  </span><span class="nt">download_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span>
+<span class="w">  </span><span class="nt">cache_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p><strong>Command</strong>:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml
+</code></pre></div>
+<p><strong>Resolved Configuration</strong>:</p>
+<ul>
+<li>All settings from agent.yaml</li>
+<li>No CLI overrides</li>
+</ul>
+<hr />
+<h3 id="example-3-built-in-defaults">Example 3: Built-in Defaults<a class="headerlink" href="#example-3-built-in-defaults" title="Permanent link">&para;</a></h3>
+<p><strong>agent.yaml</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># No execution section</span>
+</code></pre></div>
+<p><strong>Command</strong>:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml
+</code></pre></div>
+<p><strong>Resolved Configuration</strong>:</p>
+<ul>
+<li><code>file_timeout</code>: 30 (built-in default)</li>
+<li><code>llm_timeout</code>: 60 (built-in default)</li>
+<li><code>download_timeout</code>: 30 (built-in default)</li>
+<li><code>cache_enabled</code>: true (built-in default)</li>
+<li><code>verbose</code>: false (built-in default)</li>
+</ul>
+<hr />
+<h3 id="example-4-global-config-fallback-future">Example 4: Global Config Fallback (Future)<a class="headerlink" href="#example-4-global-config-fallback-future" title="Permanent link">&para;</a></h3>
+<p><strong>~/.holodeck/config.yaml</strong> (global settings):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
+<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/.holodeck/global-cache</span>
+</code></pre></div>
+<p><strong>agent.yaml</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span>
+</code></pre></div>
+<p><strong>Command</strong>:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml
+</code></pre></div>
+<p><strong>Resolved Configuration</strong>:</p>
+<ul>
+<li><code>file_timeout</code>: 45 (from agent.yaml)</li>
+<li><code>llm_timeout</code>: 90 (from global config)</li>
+<li><code>cache_dir</code>: ~/.holodeck/global-cache (from global config)</li>
+<li><code>download_timeout</code>: 30 (built-in default)</li>
+</ul>
+<hr />
+<h2 id="exit-codes">Exit Codes<a class="headerlink" href="#exit-codes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+<td>All tests passed</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Test Failure</td>
+<td>One or more tests failed (metric threshold not met or tool mismatch)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Configuration Error</td>
+<td>Invalid agent.yaml or configuration validation failed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Execution Error</td>
+<td>Error during test execution (agent failure, timeout, etc.)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Evaluation Error</td>
+<td>All evaluation metrics failed for one or more tests</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="output-formats">Output Formats<a class="headerlink" href="#output-formats" title="Permanent link">&para;</a></h2>
+<h3 id="standard-output-default">Standard Output (Default)<a class="headerlink" href="#standard-output-default" title="Permanent link">&para;</a></h3>
+<p>When no <code>--output</code> is specified, results are printed to stdout with progress indicators:</p>
+<div class="highlight"><pre><span></span><code>🧪 Running HoloDeck Tests...
+
+✅ Test 1/10: What are your business hours? [PASSED] (3.5s)
+   Groundedness: 0.95 / 0.70 ✅
+   Relevance: 0.82 / 0.70 ✅
+
+❌ Test 2/10: Where is my order #12345? [FAILED] (4.2s)
+   Groundedness: 0.65 / 0.70 ❌ (score below threshold)
+   Relevance: 0.88 / 0.70 ✅
+
+...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Summary: 8/10 tests passed (80% pass rate)
+Duration: 45.2s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</code></pre></div>
+<h3 id="quiet-mode-output-cicd">Quiet Mode Output (CI/CD)<a class="headerlink" href="#quiet-mode-output-cicd" title="Permanent link">&para;</a></h3>
+<p>When <code>--quiet</code> is specified or <code>execution.quiet: true</code> in agent.yaml:</p>
+<div class="highlight"><pre><span></span><code>Test 1/10: PASSED (3.5s)
+Test 2/10: FAILED (4.2s)
+...
+Summary: 8/10 passed (80%)
+</code></pre></div>
+<h3 id="verbose-mode-output">Verbose Mode Output<a class="headerlink" href="#verbose-mode-output" title="Permanent link">&para;</a></h3>
+<p>When <code>--verbose</code> is specified or <code>execution.verbose: true</code> in agent.yaml:</p>
+<div class="highlight"><pre><span></span><code>DEBUG: Loading agent config from agent.yaml
+DEBUG: Execution config: file_timeout=30s, llm_timeout=60s, cache_enabled=true
+DEBUG: Found 10 test cases
+DEBUG: Processing file: sample.pdf (1.2 MB)
+DEBUG: markitdown extraction took 1.5s
+...
+✅ Test 1/10: What are your business hours? [PASSED] (3.5s)
+   DEBUG: Agent response: "We're open Monday-Friday 9AM-5PM EST"
+   DEBUG: Tool calls: ['get_hours']
+   DEBUG: Expected tools: ['get_hours'] ✅ matched
+   Groundedness: 0.95 / 0.70 ✅
+     DEBUG: Evaluated with gpt-4o in 1.2s (retry_count=0)
+   Relevance: 0.82 / 0.70 ✅
+     DEBUG: Evaluated with gpt-4o-mini in 0.8s (retry_count=0)
+...
+</code></pre></div>
+<h3 id="json-output">JSON Output<a class="headerlink" href="#json-output" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"agent_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support Agent"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"agent_config_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./agent.yaml"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"execution_config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"file_timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"llm_timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"download_timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"cache_enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"cache_dir"</span><span class="p">:</span><span class="w"> </span><span class="s2">".holodeck/cache"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-errors">Configuration Errors<a class="headerlink" href="#configuration-errors" title="Permanent link">&para;</a></h3>
+<p><strong>Invalid ExecutionConfig</strong>:</p>
+<div class="highlight"><pre><span></span><code>ERROR: Configuration validation failed
+  Cause: execution.file_timeout must be between 1 and 300 (got: 500)
+  File: agent.yaml:25
+  Suggestion: Set file_timeout to a value between 1 and 300 seconds
+</code></pre></div>
+<p><strong>Conflicting Settings</strong>:</p>
+<div class="highlight"><pre><span></span><code>ERROR: Configuration validation failed
+  Cause: execution.verbose and execution.quiet cannot both be true
+  File: agent.yaml:30
+  Suggestion: Choose either verbose or quiet mode, not both
+</code></pre></div>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-use-agentyaml-settings">Example 1: Use agent.yaml Settings<a class="headerlink" href="#example-1-use-agentyaml-settings" title="Permanent link">&para;</a></h3>
+<p>agent.yaml includes execution configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">  </span><span class="nt">llm_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span>
+<span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Run tests with these settings:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml
+</code></pre></div>
+<h3 id="example-2-override-with-cli-flags">Example 2: Override with CLI Flags<a class="headerlink" href="#example-2-override-with-cli-flags" title="Permanent link">&para;</a></h3>
+<p>Override specific settings from agent.yaml:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml<span class="w"> </span>--llm-timeout<span class="w"> </span><span class="m">180</span><span class="w"> </span>--quiet
+</code></pre></div>
+<p>Result: Uses <code>file_timeout: 60</code> from agent.yaml, but overrides <code>llm_timeout</code> to 180 and enables quiet mode (overriding <code>verbose: true</code>)</p>
+<h3 id="example-3-no-execution-config-in-agentyaml">Example 3: No Execution Config in agent.yaml<a class="headerlink" href="#example-3-no-execution-config-in-agentyaml" title="Permanent link">&para;</a></h3>
+<p>agent.yaml has no execution section - use built-in defaults:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml
+</code></pre></div>
+<p>Result: Uses all built-in defaults (file_timeout=30, llm_timeout=60, etc.)</p>
+<h3 id="example-4-custom-cache-directory">Example 4: Custom Cache Directory<a class="headerlink" href="#example-4-custom-cache-directory" title="Permanent link">&para;</a></h3>
+<p>Configure custom cache in agent.yaml:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/my-cache</span>
+</code></pre></div>
+<p>Or override via CLI:</p>
+<div class="highlight"><pre><span></span><code>holodeck<span class="w"> </span><span class="nb">test</span><span class="w"> </span>agent.yaml<span class="w"> </span>--cache-dir<span class="w"> </span>/tmp/my-cache
+</code></pre></div>
+<hr />
+<h2 id="model-integration">Model Integration<a class="headerlink" href="#model-integration" title="Permanent link">&para;</a></h2>
+<h3 id="agent-model-update">Agent Model Update<a class="headerlink" href="#agent-model-update" title="Permanent link">&para;</a></h3>
+<p>The <code>Agent</code> model in <code>src/holodeck/models/agent.py</code> will be updated to include ExecutionConfig:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.models.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExecutionConfig</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Agent configuration entity."""</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">LLMProvider</span>
+    <span class="n">instructions</span><span class="p">:</span> <span class="n">Instructions</span>
+    <span class="n">tools</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">evaluations</span><span class="p">:</span> <span class="n">EvaluationConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">test_cases</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TestCaseModel</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># NEW: Execution configuration</span>
+    <span class="n">execution</span><span class="p">:</span> <span class="n">ExecutionConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Test execution configuration (timeouts, caching, output)"</span>
+    <span class="p">)</span>
+</code></pre></div>
+<h3 id="configuration-loader-integration">Configuration Loader Integration<a class="headerlink" href="#configuration-loader-integration" title="Permanent link">&para;</a></h3>
+<p>The test command will merge configurations in priority order:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_execution_config</span><span class="p">(</span><span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">cli_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Merge execution config from agent.yaml and CLI args.</span>
+
+<span class="sd">    Priority: CLI args &gt; agent.yaml &gt; built-in defaults</span>
+<span class="sd">    """</span>
+    <span class="c1"># Start with built-in defaults</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ExecutionConfig</span><span class="p">(</span>
+        <span class="n">file_timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">llm_timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">download_timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">cache_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">cache_dir</span><span class="o">=</span><span class="s2">".holodeck/cache"</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Apply agent.yaml execution settings</span>
+    <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">execution</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="n">agent</span><span class="o">.</span><span class="n">execution</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="c1"># Apply CLI overrides</span>
+    <span class="n">cli_overrides</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cli_args</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="n">cli_overrides</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">config</span>
+</code></pre></div>
+<hr />
+<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
+<p>The following environment variables can be used as defaults (lowest priority):</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HOLODECK_FILE_TIMEOUT</code></td>
+<td>30</td>
+<td>Default file processing timeout (seconds)</td>
+</tr>
+<tr>
+<td><code>HOLODECK_LLM_TIMEOUT</code></td>
+<td>60</td>
+<td>Default LLM API timeout (seconds)</td>
+</tr>
+<tr>
+<td><code>HOLODECK_DOWNLOAD_TIMEOUT</code></td>
+<td>30</td>
+<td>Default file download timeout (seconds)</td>
+</tr>
+<tr>
+<td><code>HOLODECK_CACHE_DIR</code></td>
+<td><code>.holodeck/cache</code></td>
+<td>Cache directory for remote files</td>
+</tr>
+<tr>
+<td><code>HOLODECK_VERBOSE</code></td>
+<td><code>false</code></td>
+<td>Enable verbose output by default</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Priority</strong>: CLI options &gt; agent.yaml &gt; environment variables &gt; built-in defaults</p>
+<hr />
+<h2 id="tty-detection">TTY Detection<a class="headerlink" href="#tty-detection" title="Permanent link">&para;</a></h2>
+<p>The CLI automatically detects TTY environments and adjusts output:</p>
+<p><strong>TTY (Interactive Terminal)</strong>:</p>
+<ul>
+<li>Progress indicators with spinners</li>
+<li>Colored output (✅ green, ❌ red)</li>
+<li>Real-time status updates</li>
+</ul>
+<p><strong>Non-TTY (CI/CD Pipelines)</strong>:</p>
+<ul>
+<li>Plain text output (no spinners)</li>
+<li>No ANSI color codes</li>
+<li>Line-buffered output for log parsing</li>
+</ul>
+<p>Detection logic:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="n">is_tty</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">&para;</a></h2>
+<h3 id="python-version">Python Version<a class="headerlink" href="#python-version" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Minimum: Python 3.10+</li>
+</ul>
+<h3 id="operating-systems">Operating Systems<a class="headerlink" href="#operating-systems" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Linux (Ubuntu 20.04+, RHEL 8+)</li>
+<li>macOS (11.0+)</li>
+<li>Windows (10+, with WSL recommended)</li>
+</ul>
+<hr />
+<h2 id="summary-agent-config-vs-cli-options">Summary: Agent Config vs CLI Options<a class="headerlink" href="#summary-agent-config-vs-cli-options" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Agent Config Field</th>
+<th>CLI Option</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File processing timeout</td>
+<td><code>execution.file_timeout</code></td>
+<td><code>--file-timeout</code></td>
+<td>30s</td>
+</tr>
+<tr>
+<td>LLM API timeout</td>
+<td><code>execution.llm_timeout</code></td>
+<td><code>--llm-timeout</code></td>
+<td>60s</td>
+</tr>
+<tr>
+<td>Download timeout</td>
+<td><code>execution.download_timeout</code></td>
+<td><code>--download-timeout</code></td>
+<td>30s</td>
+</tr>
+<tr>
+<td>Enable caching</td>
+<td><code>execution.cache_enabled</code></td>
+<td><code>--no-cache</code> (inverts)</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Cache directory</td>
+<td><code>execution.cache_dir</code></td>
+<td><code>--cache-dir</code></td>
+<td>.holodeck/cache</td>
+</tr>
+<tr>
+<td>Verbose output</td>
+<td><code>execution.verbose</code></td>
+<td><code>--verbose</code></td>
+<td>false</td>
+</tr>
+<tr>
+<td>Quiet mode</td>
+<td><code>execution.quiet</code></td>
+<td><code>--quiet</code></td>
+<td>false</td>
+</tr>
+<tr>
+<td>Output file</td>
+<td>N/A</td>
+<td><code>--output</code></td>
+<td>stdout</td>
+</tr>
+<tr>
+<td>Report format</td>
+<td>N/A</td>
+<td><code>--format</code></td>
+<td>json</td>
+</tr>
+<tr>
+<td>Test filter</td>
+<td>N/A</td>
+<td><code>--test</code>, <code>--filter</code></td>
+<td>all tests</td>
+</tr>
+<tr>
+<td>Clear cache</td>
+<td>N/A</td>
+<td><code>--clear-cache</code></td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Principle</strong>: Configuration is declarative in agent.yaml, CLI flags provide runtime overrides.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

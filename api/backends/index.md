@@ -517,6 +517,9 @@ def __init__(self, agent: Agent, base_dir: Path | None = None) -> None:
     self._agent_config = agent
     self._base_dir = base_dir
     self._sdk_agent: Any | None = None
+    # Unique per backend instance: keys this backend's tracing policy in the
+    # process-global router and tags every run's trace metadata (D13).
+    self._tracing_policy_id = f"holodeck-backend-{uuid.uuid4().hex}"
     self._has_structured_output = False
     self._tool_instances: dict[str, Any] = {}
     self._owned_tools: list[Any] = []
@@ -566,6 +569,7 @@ async def create_session(self, *, eager_connect: bool = True) -> AgentSession:
         max_turns=_max_turns(self._agent_config),
         budget_usd=_max_budget_usd(self._agent_config),
         structured_output=self._has_structured_output,
+        tracing_policy_id=self._tracing_policy_id,
     )
 ```
 
@@ -605,9 +609,15 @@ async def initialize(self) -> None:
     # conflicts (all problems surfaced together) before any SDK side effects.
     validate_openai_agents(self._agent_config)
 
-    # Install the OTel-mirroring TracingProcessor once, before any run emits
-    # spans (H1). Gated on the agent's observability/tracing being enabled.
-    _install_tracing_mirror(self._agent_config)
+    # Register this backend's tracing policy (provider upload + OTel mirror)
+    # with the process-global router before any run emits spans
+    # (FR-100–FR-102, D13). Always registered — Azure upload suppression
+    # must hold even with observability disabled.
+    from holodeck.lib.backends.openai_agents_tracing import register_tracing_policy
+
+    register_tracing_policy(
+        self._tracing_policy_id, _tracing_policy_for(self._agent_config)
+    )
 
     base_dir = self._resolve_base_dir()
     disallowed = _disallowed_tool_names(self._agent_config)
@@ -635,12 +645,36 @@ async def initialize(self) -> None:
     output_type = build_output_schema(schema) if schema is not None else None
     self._has_structured_output = output_type is not None
 
+    # FR-060 / FR-070: subagents and skills become handoff targets sharing
+    # the parent's built tool surface (inherit-all or explicit subsets),
+    # output type, and model settings.
+    from holodeck.lib.backends.openai_agents_subagents import (
+        build_handoff_agents,
+        index_parent_tools,
+    )
+
+    agent_cfg = self._agent_config
+    handoffs: list[Any] = build_handoff_agents(
+        agent_cfg,
+        parent_model=model,
+        parent_model_settings=model_settings,
+        surface=index_parent_tools(agent_cfg.tools, tools, mcp_servers),
+        base_dir=base_dir,
+        resolve_model=lambda name: _resolve_subagent_model(agent_cfg, name),
+        resolve_model_settings=lambda name: _build_model_settings(
+            agent_cfg.model.model_copy(update={"name": name}), agent_cfg.openai
+        ),
+        output_type=output_type,
+        disallowed=disallowed,
+    )
+
     self._sdk_agent = SDKAgent(
         name=self._agent_config.name,
         instructions=instructions,
         model=model,
         tools=tools,
         mcp_servers=mcp_servers,
+        handoffs=handoffs,
         model_settings=model_settings,
         output_type=output_type,
     )
@@ -693,14 +727,20 @@ async def invoke_once(
     sdk_agent = self._require_agent()
     from agents import Runner
 
+    from holodeck.lib.backends.openai_agents_tracing import active_tracing_policy
+
     try:
-        result = await Runner.run(
-            sdk_agent,
-            message,
-            max_turns=_max_turns(self._agent_config),
-            run_config=_build_run_config(self._agent_config),
-            hooks=self._invoke_hooks(),
-        )
+        with active_tracing_policy(self._tracing_policy_id):
+            result = await Runner.run(
+                sdk_agent,
+                message,
+                max_turns=_max_turns(self._agent_config),
+                run_config=_build_run_config(
+                    self._agent_config,
+                    tracing_policy_id=self._tracing_policy_id,
+                ),
+                hooks=self._invoke_hooks(),
+            )
     except BackendBudgetExceededError as exc:
         # Surface the budget abort as an error result so the partial response
         # and accumulated cost are preserved (FR-032), not lost to a raise.
@@ -716,11 +756,23 @@ async def invoke_once(
 
 Release backend resources, cleaning up RAG tools and MCP servers.
 
+Also withdraws this backend's tracing policy from the process-global router, so a late trace tagged with its id is dropped rather than routed under a stale policy (D13).
+
 Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
 ```
 async def teardown(self) -> None:
-    """Release backend resources, cleaning up RAG tools and MCP servers."""
+    """Release backend resources, cleaning up RAG tools and MCP servers.
+
+    Also withdraws this backend's tracing policy from the process-global
+    router, so a late trace tagged with its id is dropped rather than
+    routed under a stale policy (D13).
+    """
+    from holodeck.lib.backends.openai_agents_tracing import (
+        unregister_tracing_policy,
+    )
+
+    unregister_tracing_policy(self._tracing_policy_id)
     for tool_inst in self._owned_tools:
         cleanup = getattr(tool_inst, "cleanup", None)
         if callable(cleanup):
@@ -741,7 +793,7 @@ async def teardown(self) -> None:
 
 ### OpenAIAgentsSession
 
-## `OpenAIAgentsSession(sdk_agent, sqlite_session, *, agent_config=None, group_id=None, max_turns=20, budget_usd=None, structured_output=False)`
+## `OpenAIAgentsSession(sdk_agent, sqlite_session, *, agent_config=None, group_id=None, max_turns=20, budget_usd=None, structured_output=False, tracing_policy_id=None)`
 
 Stateful multi-turn session backed by an SDK `SQLiteSession`.
 
@@ -760,6 +812,7 @@ Parameters:
 | `max_turns`         | `int`   | The agent-loop cap passed to Runner.run.                                                              | `20`                                                                                                                                                                        |
 | `budget_usd`        | \`float | None\`                                                                                                | The configured max_budget_usd. When set, a single cost accountant is shared across every turn so the budget covers the whole session; when None no cost hooks are attached. |
 | `structured_output` | `bool`  | Whether the agent has an output schema, so each turn's final_output is parsed into structured_output. | `False`                                                                                                                                                                     |
+| `tracing_policy_id` | \`str   | None\`                                                                                                | The owning backend's registered tracing-policy id, tagged onto every turn's trace (D13); None when the backend registered no policy.                                        |
 
 Source code in `src/holodeck/lib/backends/openai_agents_backend.py`
 
@@ -774,6 +827,7 @@ def __init__(
     max_turns: int = 20,
     budget_usd: float | None = None,
     structured_output: bool = False,
+    tracing_policy_id: str | None = None,
 ) -> None:
     """Bind the session to an SDK agent and its SQLite-backed history.
 
@@ -790,17 +844,32 @@ def __init__(
             the whole session; when ``None`` no cost hooks are attached.
         structured_output: Whether the agent has an output schema, so each
             turn's ``final_output`` is parsed into ``structured_output``.
+        tracing_policy_id: The owning backend's registered tracing-policy
+            id, tagged onto every turn's trace (D13); ``None`` when the
+            backend registered no policy.
     """
     self._sdk_agent = sdk_agent
     self._session = sqlite_session
     self._agent_config = agent_config
     self._group_id = group_id
+    self._tracing_policy_id = tracing_policy_id
     self._max_turns = max_turns
     self._budget_usd = budget_usd
     self._structured_output = structured_output
     # One accountant shared across the session's turns (FR-032).
     self._accountant: Any | None = None
+    # Real-time tool / handoff / thinking events (FR-006), drained by the
+    # chat tools panel and the AG-UI bridge via ``tool_events``. Bounded so
+    # a consumer-less session (``holodeck test``) cannot grow it without
+    # limit; on overflow the newest event is dropped (best-effort UI feed).
+    self._tool_event_queue: asyncio.Queue[ToolEvent] = asyncio.Queue(
+        maxsize=_TOOL_EVENT_QUEUE_MAXSIZE
+    )
 ```
+
+### `tool_events`
+
+Queue of `ToolEvent` records emitted during this session's turns.
 
 ### `close()`
 
@@ -864,23 +933,39 @@ async def send(self, message: str) -> ExecutionResult:
     """
     from agents import Runner
 
+    from holodeck.lib.backends.openai_agents_tracing import active_tracing_policy
+
     try:
-        result = await Runner.run(
-            self._sdk_agent,
-            message,
-            session=self._session,
-            max_turns=self._max_turns,
-            run_config=self._run_config(),
-            hooks=self._hooks(),
-        )
+        with active_tracing_policy(self._tracing_policy_id):
+            result = await Runner.run(
+                self._sdk_agent,
+                message,
+                session=self._session,
+                max_turns=self._max_turns,
+                run_config=self._run_config(),
+                hooks=self._hooks(),
+            )
     except BackendBudgetExceededError as exc:
         return _budget_error_result(exc)
     except Exception as exc:  # noqa: BLE001 - surfaced via ExecutionResult
+        logger.warning(
+            "OpenAI Agents run failed: %s: %s",
+            type(exc).__name__,
+            exc,
+            exc_info=True,
+        )
         return ExecutionResult(
             response="",
             is_error=True,
             error_reason=f"{type(exc).__name__}: {exc}",
         )
+    # Non-streaming runs have no live stream; reconstruct the ordered
+    # tool / handoff events from the completed run's items (FR-006).
+    from holodeck.lib.backends.openai_agents_events import (
+        tool_events_for_run_items,
+    )
+
+    self._publish(tool_events_for_run_items(list(result.new_items)))
     return _to_execution_result(result, structured=self._structured_output)
 ```
 
@@ -922,25 +1007,47 @@ async def send_streaming(self, message: str) -> AsyncGenerator[str, None]:
     from agents import Runner
     from openai.types.responses import ResponseTextDeltaEvent
 
-    result = Runner.run_streamed(
-        self._sdk_agent,
-        message,
-        session=self._session,
-        max_turns=self._max_turns,
-        run_config=self._run_config(),
-        hooks=self._hooks(),
+    from holodeck.lib.backends.openai_agents_events import (
+        HandoffTracker,
+        tool_events_for_stream_event,
     )
+    from holodeck.lib.backends.openai_agents_tracing import active_tracing_policy
+
+    tracker = HandoffTracker()
+    # The streamed run executes on a task created inside this scope, so it
+    # inherits the policy id for spans opened outside HoloDeck's RunConfig.
+    with active_tracing_policy(self._tracing_policy_id):
+        result = Runner.run_streamed(
+            self._sdk_agent,
+            message,
+            session=self._session,
+            max_turns=self._max_turns,
+            run_config=self._run_config(),
+            hooks=self._hooks(),
+        )
     try:
         async for event in result.stream_events():
             if event.type != "raw_response_event":
+                # Tool, handoff, and reasoning items feed the event queue
+                # in SDK order (FR-006); only text deltas are yielded.
+                self._publish(tool_events_for_stream_event(event, tracker))
                 continue
             data = event.data
             if isinstance(data, ResponseTextDeltaEvent) and data.delta:
                 yield data.delta
-    except BackendBudgetExceededError:
+    except BackendBudgetExceededError as exc:
         # The budget tripped mid-stream; the deltas produced so far have
         # already been yielded, so end the stream gracefully (FR-032).
+        # Open tool / handoff entries are closed as errors so the panel
+        # does not show them running forever.
+        self._publish(tracker.close(error=f"{type(exc).__name__}: {exc}"))
         return
+    except BaseException as exc:
+        self._publish(tracker.close(error=f"{type(exc).__name__}: {exc}"))
+        raise
+    # Handoffs stay "active" until the run ends (the target agent keeps
+    # the conversation), so their ``end`` events are emitted here.
+    self._publish(tracker.close())
 ```
 
 ______________________________________________________________________
@@ -1129,7 +1236,7 @@ async def initialize(self) -> None:
         self._initialized = True
 
     except Exception as exc:
-        if not isinstance(exc, BackendInitError):
+        if not isinstance(exc, BackendInitError | UserFixableError):
             raise BackendInitError(
                 f"Claude backend initialization failed: {exc}"
             ) from exc
@@ -1742,7 +1849,7 @@ def build_options(
     )
 
     # Disallowed tools (P1b — spec 034). Auto-disallow risky built-in SDK
-    # tools (Bash, Write, Edit, WebFetch) that the operator has not declared
+    # tools (_RISKY_BUILTIN_TOOLS) that the operator has not declared
     # via the dedicated schema fields or claude.allowed_tools. This is the
     # real fail-closed lever — permission_mode is only a tiebreaker for tools
     # not covered by either list.
@@ -1863,6 +1970,14 @@ def build_options(
         # on the MCP tool's `env` block — see docs/security/prompt-injection-defenses.md
         # §"Operator footgun".
         env_overrides.setdefault("CLAUDE_CODE_MCP_ALLOWLIST_ENV", "1")
+    # Claude Code >=0.2.17x defers MCP tools behind a ToolSearch step, so the
+    # model must search before it can call an agent's declared tools. Models
+    # behind custom endpoints (Ollama, gateways) may never do that, and every
+    # call costs an extra round trip. Send declared tools directly unless the
+    # operator opts back in by exporting ENABLE_TOOL_SEARCH.
+    env_overrides.setdefault(
+        "ENABLE_TOOL_SEARCH", os.environ.get("ENABLE_TOOL_SEARCH", "false")
+    )
     if env_overrides:
         opts_kwargs["env"] = env_overrides
 

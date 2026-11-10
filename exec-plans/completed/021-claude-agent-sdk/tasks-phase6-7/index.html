@@ -1,0 +1,2666 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/021-claude-agent-sdk/tasks-phase6-7/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: Phase 6 (MCP Bridge) & Phase 7 (OTel Bridge) — Claude Agent SDK - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-phase-6-mcp-bridge-phase-7-otel-bridge-claude-agent-sdk" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: Phase 6 (MCP Bridge) &amp; Phase 7 (OTel Bridge) — Claude Agent SDK
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-story-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] [Story] Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-mcp-bridge-us3-mcp-tools-work-with-claude-native-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: MCP Bridge (US3 — MCP Tools Work with Claude-Native Agents)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: MCP Bridge (US3 — MCP Tools Work with Claude-Native Agents)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-phase-6-tdd-write-first-verify-they-fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for Phase 6 (TDD — write first, verify they FAIL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-phase-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for Phase 6
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-otel-bridge-cross-cutting-observability-for-claude-native-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: OTel Bridge (Cross-cutting — Observability for Claude-Native Agents)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: OTel Bridge (Cross-cutting — Observability for Claude-Native Agents)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-phase-7-tdd-write-first-verify-they-fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for Phase 7 (TDD — write first, verify they FAIL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-phase-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for Phase 7
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within-phase-6-mcp-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Within Phase 6 (MCP Bridge)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within-phase-7-otel-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Within Phase 7 (OTel Bridge)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-flow-per-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD Flow (per phase)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Point
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-phase-6-mcp-bridge-phase-7-otel-bridge-claude-agent-sdk">Tasks: Phase 6 (MCP Bridge) &amp; Phase 7 (OTel Bridge) — Claude Agent SDK<a class="headerlink" href="#tasks-phase-6-mcp-bridge-phase-7-otel-bridge-claude-agent-sdk" title="Permanent link">&para;</a></h1>
+<p><strong>Input</strong>: Design documents from <code>/docs/product-specs/021-claude-agent-sdk/</code>
+<strong>Prerequisites</strong>: Phases 1–5 complete (base.py, validators.py, sk_backend.py, selector.py, tool_adapters.py)</p>
+<p><strong>Tests</strong>: TDD approach — write failing tests first, then implement.</p>
+<p><strong>Organization</strong>: Phases 6 and 7 are independent of each other (both depend only on Phase 4). They are organized here as two parallel workstreams.</p>
+<h2 id="format-id-p-story-description">Format: <code>[ID] [P?] [Story] Description</code><a class="headerlink" href="#format-id-p-story-description" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Can run in parallel (different files, no dependencies)</li>
+<li><strong>[Story]</strong>: Which user story this task belongs to (e.g., US3, US4)</li>
+<li>Include exact file paths in descriptions</li>
+</ul>
+<hr />
+<h2 id="phase-6-mcp-bridge-us3-mcp-tools-work-with-claude-native-agents">Phase 6: MCP Bridge (US3 — MCP Tools Work with Claude-Native Agents)<a class="headerlink" href="#phase-6-mcp-bridge-us3-mcp-tools-work-with-claude-native-agents" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Translate HoloDeck <code>MCPTool</code> configs (stdio transport) into Claude SDK <code>McpStdioServerConfig</code> dicts for <code>ClaudeAgentOptions.mcp_servers</code>, so the Claude subprocess can launch and communicate with external MCP servers natively.</p>
+<p><strong>Plan Reference</strong>: <code>plan.md</code> lines 355–373 (Phase 6: MCP Bridge)
+<strong>Spec Reference</strong>: <code>spec.md</code> lines 61–74 (User Story 3), FR-005, FR-035
+<strong>Research Reference</strong>: <code>research.md</code> lines 177–196 (§6 — MCP Tool Integration)
+<strong>Data Model Reference</strong>: <code>data-model.md</code> lines 344–376 (§7 — Entity Relationships, MCP routing)
+<strong>Quickstart Reference</strong>: <code>quickstart.md</code> lines 326–358 (§6 — MCP Tool Bridge)</p>
+<p><strong>Independent Test</strong>: Configure an agent with an MCP tool (stdio transport). Verify <code>build_claude_mcp_configs()</code> produces a valid <code>McpStdioServerConfig</code> dict with resolved env vars, correct command/args, and that non-stdio transports emit a warning and are skipped.</p>
+<h3 id="tests-for-phase-6-tdd-write-first-verify-they-fail">Tests for Phase 6 (TDD — write first, verify they FAIL)<a class="headerlink" href="#tests-for-phase-6-tdd-write-first-verify-they-fail" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 [P] [US3] Write unit tests for <code>build_claude_mcp_configs()</code> happy path (single stdio MCP tool) in <code>tests/unit/lib/backends/test_mcp_bridge.py</code></li>
+<li><strong>Ref</strong>: <code>plan.md:372</code> ("Unit tests for config translation")</li>
+<li>Construct <code>MCPTool(name="my_server", description="test", transport=TransportType.STDIO, command=CommandType.NPX, args=["server"], env={"KEY": "val"})</code>. Note: <code>command</code> is <code>CommandType</code> enum, <code>transport</code> is <code>TransportType</code> enum — use enum constructors, not strings.</li>
+<li>Assert output is a typed <code>McpStdioServerConfig</code> (imported from <code>claude_agent_sdk.types</code>), keyed by <code>tool.name</code>.</li>
+<li>
+<p>Assert output dict value has <code>type="stdio"</code>, <code>command="npx"</code> (string from <code>.value</code>), <code>args=["server"]</code>, <code>env={"KEY": "val"}</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T002 [P] [US3] Write unit tests for <code>build_claude_mcp_configs()</code> with multiple MCP tools in <code>tests/unit/lib/backends/test_mcp_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:372</code>, <code>spec.md:61</code> (US3 — multiple MCP tools)</li>
+<li>Test with 2+ stdio MCP tools → output dict has one entry per tool keyed by <code>tool.name</code>.</li>
+<li>
+<p>Verify no key collisions when tools have unique names.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T003 [P] [US3] Write unit tests for env var resolution in MCP bridge in <code>tests/unit/lib/backends/test_mcp_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:369</code> ("Resolve env vars using existing <code>_resolve_mcp_env()</code> logic"), <code>research.md:188</code></li>
+<li>Test that <code>${VAR}</code> patterns in <code>tool.env</code> values are resolved from the process environment.</li>
+<li>Test that <code>env_file</code> contents are loaded and merged (lower precedence than explicit <code>env</code>).</li>
+<li>
+<p>Test that <code>config</code> dict is passed through as <code>MCP_CONFIG</code> JSON env var.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T004 [P] [US3] Write unit tests for non-stdio transport warning in <code>tests/unit/lib/backends/test_mcp_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:366</code> ("non-stdio tools emit a warning and are skipped"), <code>spec.md:373</code> (Out of Scope — SSE/WebSocket/HTTP)</li>
+<li>Test that an MCP tool with <code>transport=TransportType.SSE</code> emits a warning log and is excluded from the output dict.</li>
+<li>Test that an MCP tool with <code>transport=TransportType.WEBSOCKET</code> is similarly skipped.</li>
+<li>
+<p>Test that a mix of stdio + non-stdio tools returns only the stdio entries.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T005 [P] [US3] Write unit test for empty MCP tool list and <code>command=None</code> edge case in <code>tests/unit/lib/backends/test_mcp_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:362</code> (function signature accepts <code>list[MCPTool]</code>), <code>factory.py:128</code> (default to "npx")</li>
+<li>Test that passing an empty list returns an empty dict (no error).</li>
+<li>Test that an <code>MCPTool</code> with <code>command=None</code> produces <code>"command": "npx"</code> in the output (matching existing <code>factory.py</code> default behavior).</li>
+</ul>
+<h3 id="implementation-for-phase-6">Implementation for Phase 6<a class="headerlink" href="#implementation-for-phase-6" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 [US3] Create <code>src/holodeck/lib/backends/mcp_bridge.py</code> with <code>build_claude_mcp_configs()</code> function</li>
+<li><strong>Ref</strong>: <code>plan.md:359–373</code>, <code>research.md:177–196</code>, <code>quickstart.md:326–358</code></li>
+<li>Import <code>MCPTool</code>, <code>TransportType</code>, <code>CommandType</code> from <code>holodeck.models.tool</code>.</li>
+<li>Import <code>McpStdioServerConfig</code> from <code>claude_agent_sdk.types</code> for typed output.</li>
+<li><strong>Env resolution</strong> (I1 resolution): Do NOT import private <code>_resolve_env_vars()</code> from <code>factory.py</code>. Instead, import <code>substitute_env_vars</code> and <code>load_env_file</code> from <code>holodeck.config.env_loader</code> and write a local <code>_resolve_mcp_env(tool: MCPTool) -&gt; dict[str, str]</code> function that:<ol>
+<li>Loads <code>tool.env_file</code> if present (lower precedence).</li>
+<li>Applies <code>tool.env</code> dict with <code>substitute_env_vars()</code> per value (higher precedence).</li>
+<li>Handles <code>tool.config</code> dict → <code>MCP_CONFIG</code> JSON env var passthrough (matching <code>factory.py:71–72</code>).</li>
+</ol>
+</li>
+<li>Function signature: <code>def build_claude_mcp_configs(mcp_tools: list[MCPTool]) -&gt; dict[str, McpStdioServerConfig]</code></li>
+<li>For each tool with <code>transport == TransportType.STDIO</code>: produce a <code>McpStdioServerConfig</code> with <code>type="stdio"</code>, <code>command=tool.command.value</code> (string extracted from <code>CommandType</code> enum), <code>args=tool.args or []</code>, <code>env=_resolve_mcp_env(tool)</code>.</li>
+<li><strong>Edge case</strong>: If <code>tool.command is None</code>, default to <code>"npx"</code> (matching existing <code>factory.py:128</code> behavior).</li>
+<li>For non-stdio tools: emit <code>logger.warning(...)</code> with transport type and tool name, then skip.</li>
+<li>
+<p>Return the aggregated dict keyed by <code>tool.name</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T007 [US3] Export <code>build_claude_mcp_configs</code> from <code>src/holodeck/lib/backends/__init__.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:97</code> (mcp_bridge.py in backends package)</li>
+<li>
+<p>Add import to <code>__init__.py</code> so ClaudeBackend (Phase 8) can import it cleanly.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T008 [US3] Run Phase 6 tests and verify all pass in <code>tests/unit/lib/backends/test_mcp_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:372</code> ("Test: Unit tests for config translation, env var resolution, and non-stdio warning")</li>
+<li>Run: <code>pytest tests/unit/lib/backends/test_mcp_bridge.py -n auto -v</code></li>
+<li>
+<p>All T001–T005 tests must pass.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T009 [US3] Run code quality checks for Phase 6</p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:553–561</code> (Phase 12 — run after each phase)</li>
+<li>Run: <code>make format &amp;&amp; make lint-fix &amp;&amp; make type-check</code></li>
+<li>Fix any issues in <code>mcp_bridge.py</code> and <code>test_mcp_bridge.py</code>.</li>
+</ul>
+<p><strong>Checkpoint</strong>: <code>build_claude_mcp_configs()</code> is complete, tested, and passing code quality. MCP bridge is ready for integration into ClaudeBackend (Phase 8).</p>
+<hr />
+<h2 id="phase-7-otel-bridge-cross-cutting-observability-for-claude-native-agents">Phase 7: OTel Bridge (Cross-cutting — Observability for Claude-Native Agents)<a class="headerlink" href="#phase-7-otel-bridge-cross-cutting-observability-for-claude-native-agents" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Translate HoloDeck's <code>ObservabilityConfig</code> YAML section into Claude Code subprocess environment variables, so OTel telemetry is enabled when the Claude subprocess starts. Emit named warnings for fields that have no Claude Code equivalent.</p>
+<p><strong>Plan Reference</strong>: <code>plan.md</code> lines 376–407 (Phase 7: OTel Bridge)
+<strong>Spec Reference</strong>: <code>spec.md</code> lines 286–289 (FR-036, FR-037, FR-038)
+<strong>Research Reference</strong>: <code>research.md</code> lines 330–351 (§15 — OTel Bridge Unsupported Fields)
+<strong>Data Model Reference</strong>: <code>data-model.md</code> lines 296–330 (ObservabilityConfig model)
+<strong>Quickstart Reference</strong>: <code>quickstart.md</code> lines 139–188 (§2 — build_options OTel integration)</p>
+<p><strong>Independent Test</strong>: Create an <code>ObservabilityConfig</code> with OTLP enabled and privacy controls. Verify <code>translate_observability()</code> returns the correct env var dict. Verify unsupported fields emit a consolidated warning.</p>
+<h3 id="tests-for-phase-7-tdd-write-first-verify-they-fail">Tests for Phase 7 (TDD — write first, verify they FAIL)<a class="headerlink" href="#tests-for-phase-7-tdd-write-first-verify-they-fail" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 [P] Write unit test for <code>translate_observability()</code> with OTLP exporter enabled in <code>tests/unit/lib/backends/test_otel_bridge.py</code></li>
+<li><strong>Ref</strong>: <code>plan.md:383–391</code> (env var mapping list), <code>spec.md:287</code> (FR-036)</li>
+<li>Test with <code>ObservabilityConfig(enabled=True, exporters=ExportersConfig(otlp=OTLPExporterConfig(enabled=True, endpoint="http://collector:4317", protocol=OTLPProtocol.GRPC)))</code>. Note: <code>protocol</code> is <code>OTLPProtocol</code> enum, not a string.</li>
+<li>
+<p>Assert output contains: <code>CLAUDE_CODE_ENABLE_TELEMETRY=1</code>, <code>OTEL_METRICS_EXPORTER=otlp</code>, <code>OTEL_LOGS_EXPORTER=otlp</code>, <code>OTEL_EXPORTER_OTLP_PROTOCOL=grpc</code>, <code>OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T011 [P] Write unit test for <code>translate_observability()</code> with custom metrics export interval in <code>tests/unit/lib/backends/test_otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:390</code> (<code>OTEL_METRIC_EXPORT_INTERVAL</code>, <code>OTEL_LOGS_EXPORT_INTERVAL</code>)</li>
+<li>Test with <code>ObservabilityConfig(enabled=True, metrics=MetricsConfig(export_interval_ms=10000), exporters=ExportersConfig(otlp=OTLPExporterConfig(enabled=True)))</code>.</li>
+<li>Assert <code>OTEL_METRIC_EXPORT_INTERVAL=10000</code> is in output.</li>
+<li>
+<p>Assert <code>OTEL_LOGS_EXPORT_INTERVAL=10000</code> is also in output (C2 — both share the same interval since <code>LogsConfig</code> has no separate <code>export_interval_ms</code>).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T012 [P] Write unit test for <code>translate_observability()</code> privacy controls (default off) in <code>tests/unit/lib/backends/test_otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:391</code> (<code>OTEL_LOG_USER_PROMPTS</code>, <code>OTEL_LOG_TOOL_DETAILS</code>), <code>spec.md:289</code> (FR-038 — both default to off)</li>
+<li>Test with default <code>ObservabilityConfig(enabled=True)</code> → assert <code>OTEL_LOG_USER_PROMPTS</code> is NOT in output (or is <code>"false"</code>).</li>
+<li>
+<p>Test with <code>traces.capture_content=True</code> → assert <code>OTEL_LOG_USER_PROMPTS=true</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T013 [P] Write unit test for <code>translate_observability()</code> with observability disabled in <code>tests/unit/lib/backends/test_otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:383</code> (env var mapping only when enabled)</li>
+<li>
+<p>Test with <code>ObservabilityConfig(enabled=False)</code> → assert output is an empty dict.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T014 [P] Write unit test for unmapped field warnings in <code>tests/unit/lib/backends/test_otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:393–403</code> (unsupported fields list), <code>research.md:330–351</code> (§15)</li>
+<li>Test with <code>ObservabilityConfig(enabled=True, exporters=ExportersConfig(azure_monitor=AzureMonitorExporterConfig(enabled=True, connection_string="InstrumentationKey=...")))</code>.</li>
+<li>Assert a single consolidated warning is emitted listing <code>azure_monitor</code>.</li>
+<li>Test with <code>prometheus</code> exporter enabled → assert warning includes <code>prometheus</code>.</li>
+<li>Test with <code>traces.redaction_patterns=["secret.*"]</code> → assert warning includes <code>redaction_patterns</code>.</li>
+<li>Test with <code>traces.sample_rate=0.5</code> → assert warning includes <code>sample_rate</code>.</li>
+<li>
+<p>Test with <code>logs.filter_namespaces=["my_ns"]</code> → assert warning includes <code>filter_namespaces</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T015 [P] Write unit test for <code>translate_observability()</code> with HTTP protocol in <code>tests/unit/lib/backends/test_otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:389</code> (<code>OTEL_EXPORTER_OTLP_PROTOCOL</code>)</li>
+<li>Test with <code>OTLPExporterConfig(enabled=True, protocol=OTLPProtocol.HTTP)</code> — use <code>OTLPProtocol</code> enum, not string.</li>
+<li>
+<p>Assert <code>OTEL_EXPORTER_OTLP_PROTOCOL == "http/protobuf"</code> (Claude Code expects <code>"http/protobuf"</code>, not bare <code>"http"</code>).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T016 [P] Write unit test for <code>translate_observability()</code> logs export interval in <code>tests/unit/lib/backends/test_otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:390</code> (<code>OTEL_LOGS_EXPORT_INTERVAL</code>)</li>
+<li>Test that when <code>logs.enabled=True</code> the <code>OTEL_LOGS_EXPORTER=otlp</code> is set when OTLP is configured.</li>
+</ul>
+<h3 id="implementation-for-phase-7">Implementation for Phase 7<a class="headerlink" href="#implementation-for-phase-7" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 Create <code>src/holodeck/lib/backends/otel_bridge.py</code> with <code>translate_observability()</code> function</li>
+<li><strong>Ref</strong>: <code>plan.md:376–407</code>, <code>research.md:330–351</code>, <code>quickstart.md:168–172</code></li>
+<li>Import <code>ObservabilityConfig</code> from <code>holodeck.models.observability</code>.</li>
+<li>Function signature: <code>def translate_observability(config: ObservabilityConfig) -&gt; dict[str, str]</code></li>
+<li>If <code>config.enabled is False</code> → return empty dict.</li>
+<li>Core mapping:<ul>
+<li><code>CLAUDE_CODE_ENABLE_TELEMETRY</code> = <code>"1"</code></li>
+<li><code>OTEL_METRICS_EXPORTER</code> = <code>"otlp"</code> if OTLP exporter is enabled, else <code>"none"</code></li>
+<li><code>OTEL_LOGS_EXPORTER</code> = <code>"otlp"</code> if OTLP exporter is enabled and <code>logs.enabled</code>, else <code>"none"</code></li>
+<li><code>OTEL_EXPORTER_OTLP_PROTOCOL</code> = <code>"grpc"</code> or <code>"http/protobuf"</code> based on <code>exporters.otlp.protocol</code></li>
+<li><code>OTEL_EXPORTER_OTLP_ENDPOINT</code> = <code>exporters.otlp.endpoint</code></li>
+<li><code>OTEL_METRIC_EXPORT_INTERVAL</code> = <code>str(metrics.export_interval_ms)</code></li>
+<li><code>OTEL_LOGS_EXPORT_INTERVAL</code> = <code>str(metrics.export_interval_ms)</code> (reuse same interval)</li>
+</ul>
+</li>
+<li>Privacy controls (FR-038, default off):<ul>
+<li><code>OTEL_LOG_USER_PROMPTS</code> = <code>"true"</code> only if <code>traces.capture_content is True</code></li>
+<li><code>OTEL_LOG_TOOL_DETAILS</code> = <code>"true"</code> only if <code>traces.capture_content is True</code></li>
+<li><strong>Note (I7)</strong>: Both env vars map to the same <code>traces.capture_content</code> field because <code>ObservabilityConfig</code> has no separate tool-detail toggle. This is a deliberate simplification — the Claude subprocess treats them as independent controls, but HoloDeck exposes a single "capture content" toggle.</li>
+</ul>
+</li>
+<li>
+<p><strong>Note (I8)</strong>: <code>OTEL_LOGS_EXPORT_INTERVAL</code> reuses <code>metrics.export_interval_ms</code> because <code>LogsConfig</code> has no separate export interval field. This is intentional per <code>plan.md:390</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T018 Implement unmapped field warning logic in <code>src/holodeck/lib/backends/otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:393–403</code> (unmapped fields), <code>research.md:334–349</code></li>
+<li>Collect a list of unsupported field names that have non-default values:<ul>
+<li><code>exporters.azure_monitor</code> (enabled) → <code>"exporters.azure_monitor"</code></li>
+<li><code>exporters.prometheus</code> (enabled) → <code>"exporters.prometheus"</code></li>
+<li><code>traces.redaction_patterns</code> (non-empty) → <code>"traces.redaction_patterns"</code></li>
+<li><code>traces.sample_rate</code> (not 1.0) → <code>"traces.sample_rate"</code></li>
+<li><code>logs.filter_namespaces</code> (non-default, i.e. <code>!= ["semantic_kernel"]</code>) → <code>"logs.filter_namespaces"</code></li>
+</ul>
+</li>
+<li>
+<p>If any unsupported fields are present, emit a single consolidated <code>logger.warning()</code>:
+    <code>"The following observability settings are not supported by the Claude-native backend and will be ignored: {field_list}. Use a non-Anthropic provider or remove these fields."</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T019 Export <code>translate_observability</code> from <code>src/holodeck/lib/backends/__init__.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:98</code> (otel_bridge.py in backends package)</li>
+<li>
+<p>Add import to <code>__init__.py</code> so ClaudeBackend (Phase 8) can import it cleanly.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T020 Run Phase 7 tests and verify all pass in <code>tests/unit/lib/backends/test_otel_bridge.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:406</code> ("Test: Unit tests for each mapping, default-off privacy controls, and unmapped-field warning emission")</li>
+<li>Run: <code>pytest tests/unit/lib/backends/test_otel_bridge.py -n auto -v</code></li>
+<li>
+<p>All T010–T016 tests must pass.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T021 Run code quality checks for Phase 7</p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:553–561</code> (Phase 12 — run after each phase)</li>
+<li>Run: <code>make format &amp;&amp; make lint-fix &amp;&amp; make type-check</code></li>
+<li>Fix any issues in <code>otel_bridge.py</code> and <code>test_otel_bridge.py</code>.</li>
+</ul>
+<p><strong>Checkpoint</strong>: <code>translate_observability()</code> is complete, tested, and passing code quality. OTel bridge is ready for integration into ClaudeBackend (Phase 8).</p>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="phase-dependencies">Phase Dependencies<a class="headerlink" href="#phase-dependencies" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Phase 4 (SK backend refactor — COMPLETE)
+    │
+    ├── Phase 5 (tool adapters — COMPLETE)
+    ├── Phase 6 (MCP bridge — THIS FILE, T001–T009)     ─┐
+    └── Phase 7 (OTel bridge — THIS FILE, T010–T021)    ─┤── all parallel
+                                                          │
+                                                      Phase 8 (Claude backend — next)
+</code></pre></div>
+<ul>
+<li><strong>Phase 6</strong> and <strong>Phase 7</strong> have NO dependency on each other — they can be implemented in parallel.</li>
+<li>Both depend only on Phase 4 being complete (confirmed green via integration gate).</li>
+<li>Phase 8 (ClaudeBackend) depends on both Phase 6 and Phase 7 being complete.</li>
+</ul>
+<h3 id="within-phase-6-mcp-bridge">Within Phase 6 (MCP Bridge)<a class="headerlink" href="#within-phase-6-mcp-bridge" title="Permanent link">&para;</a></h3>
+<ul>
+<li>T001–T005 (tests): All parallelizable — different test functions, same file.</li>
+<li>T006 (implementation): Depends on T001–T005 existing (TDD — tests written first).</li>
+<li>T007 (export): Depends on T006.</li>
+<li>T008 (test run): Depends on T006, T007.</li>
+<li>T009 (quality): Depends on T008.</li>
+</ul>
+<h3 id="within-phase-7-otel-bridge">Within Phase 7 (OTel Bridge)<a class="headerlink" href="#within-phase-7-otel-bridge" title="Permanent link">&para;</a></h3>
+<ul>
+<li>T010–T016 (tests): All parallelizable — different test functions, same file.</li>
+<li>T017 (core implementation): Depends on T010–T016 existing (TDD — tests written first).</li>
+<li>T018 (warning logic): Depends on T017 (same file, extends the function).</li>
+<li>T019 (export): Depends on T017, T018.</li>
+<li>T020 (test run): Depends on T017, T018, T019.</li>
+<li>T021 (quality): Depends on T020.</li>
+</ul>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Phase 6 and Phase 7 can run entirely in parallel:</span>
+<span class="c1"># Stream A: T001–T009 (MCP Bridge)</span>
+<span class="c1"># Stream B: T010–T021 (OTel Bridge)</span>
+
+<span class="c1"># Within each phase, all test tasks are parallelizable:</span>
+<span class="c1"># Phase 6 tests: T001, T002, T003, T004, T005 (all [P])</span>
+<span class="c1"># Phase 7 tests: T010, T011, T012, T013, T014, T015, T016 (all [P])</span>
+</code></pre></div>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="tdd-flow-per-phase">TDD Flow (per phase)<a class="headerlink" href="#tdd-flow-per-phase" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Write all test files (T001–T005 or T010–T016) — verify they FAIL (no implementation yet)</li>
+<li>Implement the module (T006 or T017+T018)</li>
+<li>Export from <code>__init__.py</code> (T007 or T019)</li>
+<li>Run tests — verify all PASS (T008 or T020)</li>
+<li>Run code quality — fix any issues (T009 or T021)</li>
+</ol>
+<h3 id="parallel-execution">Parallel Execution<a class="headerlink" href="#parallel-execution" title="Permanent link">&para;</a></h3>
+<p>Both phases can be worked on simultaneously by the same or different developers:</p>
+<ol>
+<li><strong>Stream A</strong>: Phase 6 MCP Bridge (T001–T009) — maps to US3 (MCP Tools)</li>
+<li><strong>Stream B</strong>: Phase 7 OTel Bridge (T010–T021) — cross-cutting observability</li>
+</ol>
+<h3 id="integration-point">Integration Point<a class="headerlink" href="#integration-point" title="Permanent link">&para;</a></h3>
+<p>After both phases complete, Phase 8 (ClaudeBackend) will:
+- Call <code>build_claude_mcp_configs()</code> to translate MCP tool configs
+- Call <code>translate_observability()</code> to build OTel env vars
+- Merge both into <code>ClaudeAgentOptions</code> construction</p>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Tasks</th>
+<th>Test Tasks</th>
+<th>Impl Tasks</th>
+<th>User Story</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6 (MCP Bridge)</td>
+<td>T001–T009</td>
+<td>5 (T001–T005)</td>
+<td>4 (T006–T009)</td>
+<td>US3</td>
+</tr>
+<tr>
+<td>7 (OTel Bridge)</td>
+<td>T010–T021</td>
+<td>7 (T010–T016)</td>
+<td>5 (T017–T021)</td>
+<td>Cross-cutting</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>21</strong></td>
+<td><strong>12</strong></td>
+<td><strong>9</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Parallel opportunities</strong>: 12 test tasks can run in parallel (5 + 7). Both phases are fully independent.
+<strong>MVP scope</strong>: Phase 6 alone delivers MCP bridge capability for US3.
+<strong>Format validation</strong>: All 21 tasks follow checklist format (checkbox, ID, labels, file paths).</p>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[P] tasks = different files or different functions in same file, no dependencies</li>
+<li>[US3] label = MCP Tools user story (Phase 6 only)</li>
+<li>Phase 7 tasks have no story label (cross-cutting observability concern)</li>
+<li>Env resolution in Phase 6 imports <code>substitute_env_vars</code> and <code>load_env_file</code> from <code>holodeck.config.env_loader</code> directly (NOT the private <code>_resolve_env_vars()</code> from <code>factory.py</code>)</li>
+<li><code>MCPTool.command</code> is <code>CommandType</code> enum (use <code>.value</code> for string); <code>MCPTool.transport</code> is <code>TransportType</code> enum (compare directly)</li>
+<li><code>OTLPExporterConfig.protocol</code> is <code>OTLPProtocol</code> enum; <code>OTLPProtocol.HTTP</code> maps to <code>"http/protobuf"</code> for Claude Code</li>
+<li><code>LogsConfig</code> has no <code>export_interval_ms</code> — reuse <code>MetricsConfig.export_interval_ms</code> for both <code>OTEL_METRIC_EXPORT_INTERVAL</code> and <code>OTEL_LOGS_EXPORT_INTERVAL</code></li>
+<li><code>logs.filter_namespaces</code> default is <code>["semantic_kernel"]</code> (not <code>[]</code>) — non-default check must compare against this</li>
+<li>Observability model lives at <code>src/holodeck/models/observability.py:296–330</code></li>
+<li>MCPTool model lives at <code>src/holodeck/models/tool.py:428–553</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

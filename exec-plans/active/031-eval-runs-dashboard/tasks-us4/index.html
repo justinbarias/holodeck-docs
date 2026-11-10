@@ -1,0 +1,2777 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Task list — User Story 4: Test View Dashboard - Scaffold + Summary View (Dash framework)">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/active/031-eval-runs-dashboard/tasks-us4/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks — US4: Test View Dashboard — Scaffold + Summary View (Priority: P2) - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-us4-test-view-dashboard-scaffold-summary-view-priority-p2" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks — US4: Test View Dashboard — Scaffold + Summary View (Priority: P2)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#primary-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ Primary Source of Truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-optional-extra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup &amp; Optional Extra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-click-group-conversion-seed-data-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational — Click group conversion + seed data port
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Foundational — Click group conversion + seed data port">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#click-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Click group
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seed-data-port-datajs-datapy-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seed data: port data.js → data.py (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-data-layer-real-seed-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Data layer (real + seed) — TDD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Data layer (real + seed) — TDD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-cli-subprocess-boundary-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: CLI subprocess boundary — TDD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: CLI subprocess boundary — TDD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-first_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-app-scaffold-shell-theme-state-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: App scaffold — shell, theme, state, navigation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-summary-view-plotly-charts-breakdowns-runs-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: Summary view — Plotly charts + breakdowns + runs table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-smoke-component-tree-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: Smoke / component-tree tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-visual-fidelity-chrome-mcp-side-by-side-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Visual fidelity — Chrome MCP side-by-side inspection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: Visual fidelity — Chrome MCP side-by-side inspection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chrome-mcp-verification-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chrome MCP verification tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-scenario-traceability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance Scenario Traceability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-order-scaffold-summary-explorer-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended order (scaffold → Summary → Explorer → Compare)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-team-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel team strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-us4-test-view-dashboard-scaffold-summary-view-priority-p2">Tasks — US4: Test View Dashboard — Scaffold + Summary View (Priority: P2)<a class="headerlink" href="#tasks-us4-test-view-dashboard-scaffold-summary-view-priority-p2" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Framework: Dash (Plotly).</strong> An earlier draft of this list targeted Streamlit; the visual deltas against the handoff were unacceptable. Dash is component-driven (React under the hood), lets us paste the handoff's CSS tokens verbatim into <code>assets/</code>, exposes <code>html.Div</code>/<code>dcc</code> primitives that map 1:1 to the prototype's DOM, and ships <code>dash_table.DataTable</code> with per-cell conditional styling so the runs-table pill+bar cell no longer needs a workaround. Plotly is already a direct dependency so no chart-library churn.</p>
+</blockquote>
+<h2 id="primary-source-of-truth">⭐ Primary Source of Truth<a class="headerlink" href="#primary-source-of-truth" title="Permanent link">&para;</a></h2>
+<p><strong>The design handoff bundle is AUTHORITATIVE for every visual, interaction, data-shape, and copy decision in this task list.</strong> When spec.md and the handoff differ, <strong>the handoff wins</strong>. The handoff is the user-validated experience; spec.md captures functional requirements but does not prescribe visual fidelity.</p>
+<p>Always consult, in this order of precedence:</p>
+<ol>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/">design_handoff_holodeck_eval_dashboard/README.md</a></strong> — design tokens, data model, view layouts. (Ignore any "Streamlit notes" — we're on Dash now.)</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/Evaluation%20Dashboard.html">design_handoff_holodeck_eval_dashboard/Evaluation Dashboard.html</a></strong> — open in a browser; the interactive prototype is the ground-truth reference for every pixel</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/styles.js">design_handoff_holodeck_eval_dashboard/styles.js</a></strong> — exact CSS values (colors, spacings, gradients, shadows). Copied verbatim into <code>assets/holodeck.css</code>.</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/summary.js">design_handoff_holodeck_eval_dashboard/summary.js</a></strong> — Summary view React component source (chart maths, regression detection, filter semantics, KPI layout). Since Dash is React-backed, components map almost 1:1.</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/data.js">design_handoff_holodeck_eval_dashboard/data.js</a></strong> — the canonical seed dataset and data-shape reference</li>
+<li>Our <code>spec.md</code> / <code>plan.md</code> / <code>data-model.md</code> — functional requirements; apply when silent on visuals</li>
+</ol>
+<p><strong>Rule for every implementation task below</strong>: before writing code, open the corresponding handoff file in a viewer. Every code task references the specific handoff line ranges that define its output. Treat those references as <strong>mandatory reading</strong>, not footnotes.</p>
+<hr />
+<p><strong>Feature</strong>: 031-eval-runs-dashboard
+<strong>Spec</strong>: <a href="../../../../product-specs/031-eval-runs-dashboard/spec/">spec.md</a> — User Story 4 (P2)
+<strong>Plan</strong>: <a href="../plan/">plan.md</a>
+<strong>Research</strong>: <a href="../../../../design-docs/031-eval-runs-dashboard/research/">research.md</a> — R2, R6, R7
+<strong>Contract</strong>: <a href="../../../../product-specs/031-eval-runs-dashboard/contracts/cli/">contracts/cli.md</a> — <code>holodeck test view</code> (to be updated from Streamlit → Dash in T342a)</p>
+<p><strong>Goal</strong>: Scaffold the entire Dash dashboard app (shell, design tokens in <code>assets/</code>, client-side stores for state, seed data) AND deliver the first of three views — <strong>Summary</strong>. Summary reproduces the handoff's <code>summary.js</code>: KPI strip, pass-rate-over-time area chart (Plotly, with coral regression dots + dashed prompt-version boundaries), per-metric trend chart (Plotly, <code>standard|rag|geval</code> radio control, threshold line at 0.7), three breakdown panels (Standard / RAG / G-Eval horizontal bars), and a filterable runs table. Explorer and Compare (US5) mount into the same scaffold as additional tab layouts.</p>
+<p><strong>Independent Test</strong>: Run <code>holodeck test view</code> → Dash app serves on <code>http://127.0.0.1:8501/</code> → three tabs visible (<code>Summary</code>, <code>Explorer</code>, <code>Compare</code>) → Summary renders with the <code>data.py</code> seed dataset (24 runs × 12 cases) before any real <code>results/</code> exist → KPI strip, pass-rate chart, metric trend chart, three breakdown panels, and runs table all render with the terminal-green theme. Switching the seed data source to <code>results/&lt;slug&gt;/</code> via env var loads real <code>EvalRun</code> JSON files instead.</p>
+<p><strong>TDD discipline</strong>: UI assembly (Dash layout builders + callback wiring) IS unit-testable because <code>layout()</code> returns a tree of plain Python <code>html.*</code>/<code>dcc.*</code> objects and callbacks are plain functions. Tests assert the component tree shape (children count, className, id) and callback return values. Visual fidelity is still verified against the HTML prototype via Chrome MCP (Phase 8). The DATA layer (<code>data_loader.py</code>, <code>filters.py</code>, <code>seed_data.py</code>, the port of <code>data.js</code>) IS unit-tested — tasks marked "(TDD)" write failing tests first.</p>
+<p><strong>Dependency</strong>: US1 must be merged so the <code>EvalRun</code> Pydantic model exists and can validate both real runs and seed-data instances.</p>
+<hr />
+<h2 id="phase-1-setup-optional-extra">Phase 1: Setup &amp; Optional Extra<a class="headerlink" href="#phase-1-setup-optional-extra" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T301 [US4] Add optional extra <code>dashboard</code> to <code>pyproject.toml</code>: <code>dash&gt;=2.17,&lt;3.0</code>, <code>plotly&gt;=5.20,&lt;6.0</code>, <code>pandas&gt;=2.0</code>. Dash is chosen over Streamlit for pixel-fidelity to the handoff — raw <code>html.Div</code>+<code>className</code> accepts the handoff's CSS tokens verbatim; <code>dash_table.DataTable</code> supports per-cell conditional styling; <code>dcc.Location</code>+<code>dcc.Store</code> give native URL-query and client-side state without <code>st.session_state</code> ceremony. Keep <code>dash[testing]</code> out of the core extra; anyone who wants browser-driven tests adds it separately. Run <code>uv lock</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T302 [US4] Create package tree under <code>src/holodeck/dashboard/</code>: <code>__init__.py</code>, <code>__main__.py</code> (argparse entry; calls <code>app.run</code>), <code>app.py</code> (Dash instance + layout + callback registration), <code>data_loader.py</code>, <code>seed_data.py</code>, <code>filters.py</code>, <code>charts.py</code>, <code>state.py</code> (callback helpers for <code>dcc.Store</code> payloads + URL-param serde), <code>views/__init__.py</code>, <code>views/summary.py</code>, <code>views/explorer.py</code> (US5 placeholder), <code>views/compare.py</code> (US5 placeholder), <code>assets/tokens.css</code> (CSS variables from handoff), <code>assets/holodeck.css</code> (component styles). Module docstring on <code>dashboard/__init__.py</code>: <strong>"Dash dashboard for the eval-runs viewer. Imported ONLY when the <code>dashboard</code> extra is installed. Nothing outside this package may import from here. NOTE: This package is distinct from <code>holodeck.lib.ui/</code> (which contains terminal/CLI rendering utilities — <code>colors.py</code>, <code>spinner.py</code>, <code>terminal.py</code>). The two packages render different surfaces (Dash HTML/React vs. ANSI TTY) and must not cross-import."</strong> Reciprocal note already exists on <code>src/holodeck/lib/ui/__init__.py</code>.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T303 [US4] Add a ruff per-file ignore (or top-level <code># noqa</code>) letting <code>src/holodeck/dashboard/**</code> import <code>dash</code>, <code>plotly</code>, <code>pandas</code> unconditionally — the package itself is guarded upstream by the CLI's <code>find_spec</code> check</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-click-group-conversion-seed-data-port">Phase 2: Foundational — Click group conversion + seed data port<a class="headerlink" href="#phase-2-foundational-click-group-conversion-seed-data-port" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Framework-agnostic — unchanged from prior draft.</strong> The Click group and seed-data port have nothing to do with the UI framework. Listed here for completeness.</p>
+</blockquote>
+<h3 id="click-group">Click group<a class="headerlink" href="#click-group" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T304 [US4] Convert <code>src/holodeck/cli/commands/test.py</code> from a single <code>@click.command()</code> to a <code>@click.group(invoke_without_command=True)</code>, moving today's test logic into the default callback so <code>holodeck test agent.yaml</code> still works identically (plan.md §"Key architecture decisions"). Wire <code>test.add_command(view)</code> to register the subcommand</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T305 [US4] (TDD) <code>tests/unit/cli/test_test_group_preserves_default.py</code>: assert <code>holodeck test agent.yaml</code> exit code and side effects are unchanged; assert <code>holodeck test --help</code> documents the <code>view</code> subcommand</li>
+</ul>
+<h3 id="seed-data-port-datajs-datapy-tdd">Seed data: port <code>data.js</code> → <code>data.py</code> (TDD)<a class="headerlink" href="#seed-data-port-datajs-datapy-tdd" title="Permanent link">&para;</a></h3>
+<p>The design-handoff dataset (24 runs, 7 prompt versions, pass-rate trajectory 0.58→0.93) is the golden fixture for UI development before any real <code>EvalRun</code> files exist. It also doubles as the backing data for pytest-level component-tree smoke tests.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T306 [P] [US4] (TDD) <code>tests/unit/dashboard/test_seed_data.py</code>: <code>build_seed_runs() -&gt; list[EvalRun]</code> returns exactly 24 instances, each passing <code>EvalRun.model_validate</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T307 [P] [US4] (TDD) pass-rate trajectory matches the handoff's <code>trajectory</code> array exactly (<code>[0.58, 0.60, 0.62, 0.55, 0.52, 0.50, 0.63, 0.68, 0.72, 0.74, 0.76, 0.78, 0.80, 0.81, 0.79, 0.83, 0.85, 0.84, 0.88, 0.90, 0.89, 0.92, 0.91, 0.93]</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T308 [P] [US4] (TDD) prompt-version distribution — 7 distinct versions (<code>v1.0, v1.1, v1.2, v1.2.1, v1.3, v1.4, v2.0</code>), each covering ~4 consecutive runs (<code>data.js:54</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T309 [P] [US4] (TDD) model distribution — runs 0..13 use <code>claude-sonnet-4.5</code>; run 14+ alternates <code>gpt-4o</code> on <code>i % 3 == 0</code>, <code>claude-sonnet-4.5</code> otherwise (<code>data.js:55</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T310 [P] [US4] (TDD) every run has 12 test cases; <code>refund_eligible_standard</code> and <code>refund_outside_window</code> carry synthetic conversation payloads matching <code>data.js:161–178</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T311 [P] [US4] (TDD) metric distribution — every case has one <code>geval</code> metric (<code>tone_of_voice|policy_compliance|escalation_appropriateness</code> cycled by case index); every even-indexed case has the five RAG sub-metrics; cases 0–2 also carry three standard metrics (bleu/rouge/meteor). Mirrors <code>data.js:63–98</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T312 [P] [US4] (TDD) determinism — two calls to <code>build_seed_runs()</code> return equal <code>list[EvalRun]</code> (same hashes, timestamps, scores)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T313 [US4] Implement <code>src/holodeck/dashboard/seed_data.py</code> porting <code>data.js</code>:<ul>
+<li><code>_CASE_SEED(i, j)</code> → <code>math.sin((i*7 + j*3))</code> then <code>(sin + 1) / 2</code></li>
+<li><code>_HASH(n)</code> → <code>abs(int(math.sin(n) * 1e8)) % int(1e6)</code> matches <code>caseHash</code> in <code>data.js:155</code></li>
+<li>Hard-code <code>trajectory</code>, <code>promptVersions</code>, <code>models</code>, <code>baseCases</code>, <code>RAG_METRICS</code>, <code>GEVAL_METRICS</code>, <code>STD_METRICS</code> verbatim from the handoff</li>
+<li>Construct <code>EvalRun</code> / <code>EvalRunMetadata</code> / <code>PromptVersion</code> instances using US1/US2 models; attach handoff-only fields (e.g., <code>summary.duration_ms</code>, synthetic <code>git_commit</code>, nested <code>conversation</code> on <code>TestResult</code>) via <code>extra</code> dicts or the parallel <code>SEED_CONVERSATIONS: dict[str, dict]</code> constant</li>
+<li>Expose <code>SEED_CONVERSATIONS</code> mapping case-name → <code>{user, assistant, tool_calls}</code> ported from <code>data.js:160–178</code> (Explorer/US5 consumes this)</li>
+<li>Expose <code>build_seed_runs() -&gt; list[EvalRun]</code> and <code>SEED_AGENT_DISPLAY_NAME = "customer-support"</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T314 [US4] Add a fixture file <code>tests/fixtures/dashboard/seed_runs.json</code> generated once from <code>build_seed_runs()</code> (committed) so component-tree tests in US4/US5 load it from disk without recomputing</li>
+</ul>
+<hr />
+<h2 id="phase-3-data-layer-real-seed-tdd">Phase 3: Data layer (real + seed) — TDD<a class="headerlink" href="#phase-3-data-layer-real-seed-tdd" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Framework-agnostic — unchanged from prior draft.</strong> All aggregations return <code>pandas.DataFrame</code> objects consumed identically by Dash callbacks.</p>
+</blockquote>
+<h3 id="tests-first">Tests first<a class="headerlink" href="#tests-first" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T315 [P] [US4] (TDD) <code>tests/unit/dashboard/test_data_loader.py</code>: <code>load_all(results_dir: Path) -&gt; list[EvalRun]</code> — given a dir with three valid run files, returns 3 instances sorted by <code>report.timestamp</code> ascending</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T316 [P] [US4] (TDD) skip-on-corrupt — given 2 valid + 1 truncated JSON, returns 2 instances and logs ONE <code>WARNING</code> naming the skipped file (FR-024, R6)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T317 [P] [US4] (TDD) schema-violation skip — given a file that parses as JSON but fails <code>EvalRun.model_validate_json</code>, skip with WARNING</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T318 [P] [US4] (TDD) empty dir / missing dir → returns <code>[]</code> without error (FR-023)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T319 [P] [US4] (TDD) <code>load_runs_for_app() -&gt; list[EvalRun]</code> — reads <code>HOLODECK_DASHBOARD_USE_SEED=1</code> → returns <code>build_seed_runs()</code>; otherwise reads <code>HOLODECK_DASHBOARD_RESULTS_DIR</code> → <code>load_all(results_dir)</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T320 [P] [US4] (TDD) <code>to_summary_dataframe(runs) -&gt; pandas.DataFrame</code> schema <code>[id, timestamp, pass_rate, passed, total, duration_ms, prompt_version, model_name, git_commit, tags, pass_rate_tier]</code>, one row per run, sorted newest-first. <code>pass_rate_tier</code> is <code>"pass"|"warn"|"fail"</code> per handoff thresholds (≥0.85/0.65–0.85/&lt;0.65, <code>summary.js:360</code>) — used by <code>DataTable.style_data_conditional</code> to color the pass-rate cell natively (no emoji workaround needed)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T321 [P] [US4] (TDD) <code>to_metric_trend_dataframe(runs, kind) -&gt; DataFrame</code> — wide format (one column per metric name) for Plotly; per-run averages; threshold drawn separately (<code>summary.js::MetricTrendChart</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T322 [P] [US4] (TDD) <code>to_breakdown_dataframe(runs, kind, recent_n=6) -&gt; DataFrame</code> — last N runs; columns <code>[metric_name, avg_score, pass_count, total]</code>; mirrors <code>summary.js::BreakdownPanel</code> rows</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T323 [P] [US4] (TDD) <code>detect_regressions(runs, drop_threshold=0.04) -&gt; list[int]</code> — indices where <code>pass_rate[i] - pass_rate[i-1] &lt; -0.04</code> (coral dots in <code>summary.js:173-175</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T324 [P] [US4] (TDD) <code>detect_version_boundaries(runs) -&gt; list[tuple[int, str]]</code> — index + version at prompt-version change boundaries (dashed lines in <code>summary.js:177-183</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T325 [P] [US4] (TDD) <code>distinct_values(runs, field) -&gt; list[str]</code> populates filter-option lists for <code>prompt_version</code>, <code>model_name</code>, <code>tags</code> (FR-028a)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T326 [P] [US4] (TDD) <code>tests/unit/dashboard/test_filters.py</code>: <code>Filters</code> dataclass with fields <code>date_from, date_to, prompt_versions: list[str], model_names: list[str], min_pass_rate: float, tags: list[str], metric_kind: Literal["standard","rag","geval"]</code>; <code>apply(filters, runs) -&gt; list[EvalRun]</code> AND-combines all non-empty fields</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T327 [P] [US4] (TDD) <code>filters_to_query_params(filters) -&gt; dict[str, str]</code> and <code>filters_from_query_params(dict) -&gt; Filters</code> round-trip with empty defaults (FR-028b, handoff shows <code>?versions=v1.3,v1.4&amp;tags=rag-tuning</code> in <code>summary.js:108</code>)</li>
+</ul>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T328 [US4] Implement <code>src/holodeck/dashboard/data_loader.py</code>: all of the above. <strong>Normalize codebase↔handoff shape drift in one place</strong>:<ul>
+<li><code>ReportSummary.pass_rate</code> is 0–100 in our model (<code>src/holodeck/models/test_result.py:127</code>); handoff expects 0..1 (<code>data.js:45-49</code>, <code>summary.js:171</code>). Divide by 100 when building the summary DataFrame. Document in the module docstring</li>
+<li><code>ReportSummary.total_duration_ms</code> (<code>test_result.py:128</code>) → handoff's <code>summary.duration_ms</code> (<code>data.js:117</code>). Emit both keys; prefer <code>duration_ms</code> downstream</li>
+<li>Add tests: given <code>ReportSummary(pass_rate=87.5, total_duration_ms=19000)</code>, the DataFrame row has <code>pass_rate=0.875</code> and <code>duration_ms=19000</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T329 [US4] Implement <code>src/holodeck/dashboard/filters.py</code>: <code>Filters</code> dataclass + <code>apply</code> + query-param serde. Multi-select fields comma-joined; booleans <code>"1"/"0"</code>. <code>min_pass_rate</code> stored 0..1</li>
+</ul>
+<p><strong>Checkpoint</strong>: <code>python -m pytest tests/unit/dashboard/</code> green; all aggregations produce DataFrames ready for <code>dcc.Graph</code> / <code>dash_table.DataTable</code>, pass_rate on 0..1 scale and duration under <code>duration_ms</code>.</p>
+<hr />
+<h2 id="phase-4-cli-subprocess-boundary-tdd">Phase 4: CLI subprocess boundary — TDD<a class="headerlink" href="#phase-4-cli-subprocess-boundary-tdd" title="Permanent link">&para;</a></h2>
+<h3 id="tests-first_1">Tests first<a class="headerlink" href="#tests-first_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T330 [P] [US4] (TDD) <code>tests/unit/cli/test_view_command.py</code>: with <code>importlib.util.find_spec</code> patched to return <code>None</code> for <code>"dash"</code>, <code>holodeck test view agent.yaml</code> prints the install hint (updated to say <code>dashboard</code> extra installs Dash, not Streamlit) to stderr, exits 2, no traceback (FR-022, SC-007)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T331 [P] [US4] (TDD) with <code>find_spec</code> non-None and <code>subprocess.Popen</code> patched, argv is <code>[sys.executable, "-m", "holodeck.dashboard", "--port", &lt;port&gt;, "--host", "127.0.0.1"]</code>; env contains <code>HOLODECK_DASHBOARD_RESULTS_DIR</code>, <code>HOLODECK_DASHBOARD_AGENT_NAME</code>, <code>HOLODECK_DASHBOARD_AGENT_DISPLAY_NAME</code>, and <code>HOLODECK_DASHBOARD_USE_SEED</code> (absent unless <code>--seed</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T332 [P] [US4] (TDD) <code>--seed</code> flag (dev-only, hidden) sets <code>HOLODECK_DASHBOARD_USE_SEED=1</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T333 [P] [US4] (TDD) network-safety warning printed to stderr before Popen (FR-020). Copy text now says "Dash binds to 127.0.0.1 by default; if you override --host, firewall the port on shared infra."</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T334 [P] [US4] (TDD) results-dir resolves against <code>agent_base_dir</code>, not CWD</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T335 [P] [US4] (TDD) <code>--port 9000</code> forwarded; default 8501 (keep the 8501 default so the URL contract is stable across the Streamlit→Dash migration)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T336 [P] [US4] (TDD) invalid <code>AGENT_CONFIG</code> exits 2 with single-line message, no traceback</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T337 [P] [US4] (TDD) Ctrl+C forwards SIGINT → <code>wait(timeout=5)</code> → <code>kill()</code> on timeout (research R2)</li>
+</ul>
+<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T338 [US4] Create <code>src/holodeck/cli/commands/test_view.py</code>: <code>view</code> Click subcommand, positional <code>agent_config</code> default <code>"agent.yaml"</code>, options <code>--port</code> (default 8501), <code>--host</code> (default <code>127.0.0.1</code>), <code>--no-browser</code>, <code>--seed</code> (hidden)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T339 [US4] Pre-flight: load agent config, resolve <code>agent_base_dir</code>, <code>slug = slugify(agent.name)</code>, <code>results_dir = agent_base_dir / "results" / slug</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T340 [US4] Pre-flight: <code>if find_spec("dash") is None</code> → emit install-hint block → <code>raise click.exceptions.Exit(code=2)</code> — never import dash in the CLI module</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T341 [US4] Build argv + env + Popen + SIGINT forwarding per research R2; emit network warning first</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T342 [US4] Register <code>view</code> in <code>test.py</code> via <code>test.add_command(view)</code> (depends on T304)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T342a [US4] Update <code>docs/product-specs/031-eval-runs-dashboard/contracts/cli.md</code> from Streamlit to Dash: replace the <code>python -m streamlit run ...</code> argv block with <code>python -m holodeck.dashboard --port=&lt;port&gt; --host=127.0.0.1</code>; replace the "binds to 0.0.0.0" warning copy; update the error-taxonomy row (<code>streamlit not installed</code> → <code>dash not installed</code>); replace "Streamlit's own error" with "Dash / werkzeug's own error" for the port-in-use row. Leave invariants and exit codes unchanged</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T342b [US4] Implement <code>src/holodeck/dashboard/__main__.py</code>: argparse with <code>--port</code> (int), <code>--host</code> (str), <code>--debug</code> (flag, default False); imports <code>app</code> from <code>.app</code> and calls <code>app.run(host=args.host, port=args.port, debug=args.debug)</code>. Must not import <code>dash</code> at module top — all imports inside <code>main()</code> so that if someone runs <code>python -m holodeck.dashboard</code> without the extra installed they get a clean <code>ModuleNotFoundError</code> pointing at the <code>dashboard</code> extra</li>
+</ul>
+<hr />
+<h2 id="phase-5-app-scaffold-shell-theme-state-navigation">Phase 5: App scaffold — shell, theme, state, navigation<a class="headerlink" href="#phase-5-app-scaffold-shell-theme-state-navigation" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>All of Phase 5 returns plain Python <code>dash.html.*</code>/<code>dash.dcc.*</code> objects. Layout builder functions are pure and testable; callbacks are plain functions registered via <code>@app.callback</code>.</p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T343 [US4] Populate <code>src/holodeck/dashboard/assets/tokens.css</code> with the handoff's full token set — colors (<code>--hd-bg-body=#050b09</code>, <code>--hd-accent=#7bff5a</code>, <code>--hd-fg=#e8f5ec</code>, fail <code>#ff9d7e</code>, warn <code>#ffcf5a</code>, compare palette <code>[#7bff5a, #5ae0a6, #ffcf5a]</code>), typography (<code>Inter</code> 400/500/600/700, <code>JetBrains Mono</code> 400/500, sizes 10/11/12/13/15/16/18), radii (<code>--radius-sm=6px</code>, <code>-md=10px</code>, <code>-lg=16px</code>, <code>-pill=999px</code>), motion (<code>--dur-quick=140ms</code>, <code>--dur-base=220ms</code>, <code>--ease-standard=cubic-bezier(.2,.7,.3,1)</code>), and the page background radial gradient. Copy <strong>verbatim</strong> from <code>styles.js</code> — no translation needed. Dash auto-loads any CSS file in <code>assets/</code> on startup</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T344 [US4] Populate <code>src/holodeck/dashboard/assets/holodeck.css</code> with component styles lifted from <code>styles.js</code>:<ul>
+<li><code>body { background: ...radial... ; color: var(--hd-fg); font-family: 'Inter', ...; }</code></li>
+<li><code>.hd-eyebrow { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--hd-accent-soft); }</code></li>
+<li><code>.hd-pill-pass { background: rgba(123,255,90,.12); color: var(--hd-accent); padding: 2px 8px; border-radius: var(--radius-pill); }</code> / <code>.hd-pill-warn</code> / <code>.hd-pill-fail</code></li>
+<li><code>.hd-card { background: linear-gradient(rgba(10,17,15,.95), #070c0a 60%); border: 1px solid var(--hd-border); border-radius: var(--radius-lg); padding: 14px 18px; }</code></li>
+<li><code>.hd-kpi-value { font-family: 'JetBrains Mono', ui-monospace; }</code></li>
+<li><code>.hd-chip { ... }</code> / <code>.hd-chip--selected { ... }</code> for filter-rail chips</li>
+<li><code>.hd-tab-bar { display: flex; gap: 8px; }</code> / <code>.hd-tab[aria-selected="true"] { border-bottom: 2px solid var(--hd-accent); }</code></li>
+<li><code>.hd-chat-user</code> / <code>.hd-chat-assistant</code> (Explorer, US5)</li>
+<li><code>.hd-delta-pos</code> / <code>.hd-delta-neg</code> (Compare, US5)</li>
+<li>Override Dash's default white-on-white by setting <code>.dash-table-container .dash-spreadsheet-container { background: var(--hd-card); color: var(--hd-fg); }</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T345 [US4] Create <code>src/holodeck/dashboard/state.py</code>: helpers that operate on <code>dcc.Store</code> payloads (plain JSON-serializable dicts). Functions: <code>default_state() -&gt; dict</code> returns <code>{tab: "summary", filters: {...}, explorer_run_id: None, explorer_case_name: None, compare_queue: [], compare_variant: 1}</code>; <code>push_to_compare_queue(state, run_id) -&gt; dict</code> (3-slot cap, returns new state); <code>remove_from_compare_queue(state, run_id) -&gt; dict</code>; <code>open_in_explorer(state, run_id) -&gt; dict</code> (sets <code>tab="explorer"</code>, <code>explorer_run_id=run_id</code>). All pure — no mutation, easy to unit test. Mirrors README "State" mapping.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T346 [US4] <code>state.py</code>: URL sync — <code>url_search_from_state(state) -&gt; str</code> (returns <code>?versions=...&amp;tags=...</code>) and <code>state_from_url_search(search) -&gt; dict</code> which delegate to <code>filters_from_query_params</code> + the <code>tab</code> query param. Used by the callback that binds <code>dcc.Location.search</code> ↔ <code>dcc.Store</code> state</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T347 [US4] Create <code>src/holodeck/dashboard/app.py</code>:<ol>
+<li><code>app = dash.Dash(__name__, title="HoloDeck · Evaluation Dashboard", update_title=None, suppress_callback_exceptions=True, assets_folder="assets")</code></li>
+<li><code>@functools.lru_cache(maxsize=1)</code> wrapper around <code>data_loader.load_runs_for_app()</code> keyed by env-var tuple so we don't re-parse on every callback. A separate <code>dcc.Interval(id="refresh", interval=60_000)</code> ticks the cache every 60s in real-mode to pick up new runs (FR equivalent of Streamlit's <code>cache_data(ttl=60)</code>)</li>
+<li><code>app.layout = html.Div([dcc.Location(id="url"), dcc.Store(id="app-state", storage_type="memory"), header, tab_bar, html.Div(id="view-container")])</code></li>
+<li>Header: <code>html.Header([html.Span("HoloDeck", className="hd-brand"), html.Span("·"), html.Span(AGENT_DISPLAY_NAME, className="hd-accent"), html.Span(sub_line, className="hd-muted")], className="hd-header")</code></li>
+<li>Tab bar: <code>html.Nav([html.Button("Summary", id="tab-summary", className="hd-tab"), html.Button("Explorer", ...), html.Button("Compare", ...)], className="hd-tab-bar")</code> — plain buttons over <code>dcc.Tabs</code> so we can (a) badge the Compare tab with the queue count and (b) style the active underline via <code>aria-selected</code> without fighting Dash's default tab chrome</li>
+<li>Floating Compare tray (US5) mounts into a <code>html.Div(id="compare-tray")</code> visible when <code>state.compare_queue</code> is non-empty — placeholder in US4</li>
+<li>Main callback: <code>Input("app-state", "data") -&gt; Output("view-container", "children")</code> dispatches to <code>render_summary(state, runs)</code> / <code>render_explorer(state, runs)</code> / <code>render_compare(state, runs)</code> based on <code>state["tab"]</code></li>
+<li>URL-sync callback: bidirectional binding between <code>dcc.Location.search</code> and <code>dcc.Store</code> via <code>callback_context.triggered</code> to avoid loops</li>
+</ol>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T348 [US4] Create <code>src/holodeck/dashboard/views/__init__.py</code> exporting <code>render_summary</code>, <code>render_explorer</code> (stub in US4), <code>render_compare</code> (stub in US4)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T349 [US4] Stub <code>src/holodeck/dashboard/views/explorer.py</code>: <code>render_explorer(state, runs) -&gt; html.Div</code> returning <code>html.Div("Explorer — see US5", className="hd-empty-state")</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T350 [US4] Stub <code>src/holodeck/dashboard/views/compare.py</code>: <code>render_compare(state, runs) -&gt; html.Div</code> returning <code>html.Div("Compare — see US5", className="hd-empty-state")</code></li>
+</ul>
+<hr />
+<h2 id="phase-6-summary-view-plotly-charts-breakdowns-runs-table">Phase 6: Summary view — Plotly charts + breakdowns + runs table<a class="headerlink" href="#phase-6-summary-view-plotly-charts-breakdowns-runs-table" title="Permanent link">&para;</a></h2>
+<p>Visual reference: <code>design_handoff_holodeck_eval_dashboard/summary.js</code> + open <code>Evaluation Dashboard.html</code> and click the <strong>Summary</strong> tab. Target "pixel-adjacent, not pixel-perfect" (README "Fidelity").</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T351 [US4] Create <code>src/holodeck/dashboard/charts.py</code> — pure functions returning <code>plotly.graph_objects.Figure</code>. <strong>Unchanged from the Streamlit plan</strong> — Plotly figures are the same regardless of host framework. Every chart calls <code>_apply_theme(fig)</code> setting <code>plot_bgcolor="#070c0a"</code>, <code>paper_bgcolor="rgba(0,0,0,0)"</code>, <code>font=dict(color="#e8f5ec", family="Inter, system-ui, sans-serif")</code>, <code>xaxis_gridcolor="rgba(28,43,37,.5)"</code>, <code>yaxis_gridcolor="rgba(28,43,37,.5)"</code>, <code>margin=dict(l=40, r=16, t=16, b=28)</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T352 [US4] <code>charts.pass_rate_chart(runs) -&gt; Figure</code>:<ul>
+<li>Filled area: <code>go.Scatter(fill="tozeroy", fillcolor="rgba(123,255,90,.15)")</code></li>
+<li>Main line <code>#7bff5a</code> width 2</li>
+<li>Dots: normal <code>#7bff5a</code> r=3; regression <code>#ff9d7e</code> r=4.5 with <code>#050b09</code> outline (<code>detect_regressions</code>)</li>
+<li>Dashed vertical lines at version boundaries via <code>fig.add_vline(x=boundary_ts, line_dash="dot", line_color="rgba(123,255,90,.18)", annotation_text=version, annotation_position="top")</code></li>
+<li>Y-axis 0–1 with 0.25 tick spacing, <code>%</code> format (<code>summary.js:194–200</code>)</li>
+<li>X-axis datetime with <code>Apr 18</code> style labels</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T353 [US4] <code>charts.metric_trend_chart(runs, kind) -&gt; Figure</code>:<ul>
+<li>One line per metric, palette <code>['#7bff5a','#5ae0a6','#53ff9c','#9bff5f','#a7f0ba','#ffcf5a']</code></li>
+<li><code>fig.add_hline(y=0.7, line_dash="dash", line_color="rgba(255,120,80,.7)", annotation_text="thresh 0.7")</code> (matches <code>summary.js:258</code>)</li>
+<li>Legend right, single-column; Y 0.0–1.0</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T354 [US4] <code>charts.breakdown_bar(df, palette) -&gt; Figure</code>:<ul>
+<li>Horizontal bar, one per metric; solid per-bar color from palette (Plotly doesn't render CSS gradients; single color is acceptable per README "Fidelity")</li>
+<li>Threshold marker at x=0.7 via <code>add_vline(line_dash="dash")</code></li>
+<li><code>height=max(180, 48 * len(df))</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T355 [US4] Create <code>src/holodeck/dashboard/views/summary.py</code>. Top-level: <code>render_summary(state, runs) -&gt; html.Div</code> returning a two-column flex layout — LEFT <code>html.Aside(filter_rail, className="hd-sidebar")</code> at ~18% width, RIGHT <code>html.Main(content_stack, className="hd-main")</code> at ~82% width. Use raw flexbox in CSS (no <code>dbc.Row/Col</code>) so the handoff's token spacings apply cleanly</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T356 [US4] <strong>Filter rail</strong> — reproduce <code>summary.js::FilterRail</code>:<ul>
+<li>Header row <code>html.H3("Filters")</code> + a <code>html.Button("Reset", id="filter-reset", className="hd-link")</code> that clears state via callback</li>
+<li><code>dcc.DatePickerRange(id="filter-date")</code> for date range</li>
+<li><code>dcc.Dropdown(id="filter-versions", multi=True, options=distinct_values(runs, "prompt_version"))</code> — restyle selected items as handoff-green chips via <code>.hd-chip</code> CSS</li>
+<li><code>dcc.Dropdown(id="filter-models", multi=True, ...)</code></li>
+<li><code>dcc.Dropdown(id="filter-tags", multi=True, ...)</code></li>
+<li><code>dcc.Slider(id="filter-min-pass", min=0, max=100, step=1, value=0, marks={0:"0%", 100:"100%"})</code></li>
+<li><code>html.Pre(id="filter-url-preview", className="hd-code")</code> showing current query string + a <code>html.Button("Copy URL", id="filter-copy-url")</code> with a <code>dcc.Clipboard(target_id="filter-url-preview")</code></li>
+<li>Callback: any filter input → updates <code>dcc.Store</code> state → URL-sync callback emits <code>dcc.Location.search</code> (FR-028b)</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T357 [US4] <strong>KPI strip</strong> — reproduce <code>summary.js::KpiStrip</code>. Four cards in a flex row, each a <code>html.Div(className="hd-card hd-kpi")</code>:<ol>
+<li><code>Latest pass rate</code> — big <code>hd-kpi-value</code> number + <code>hd-kpi-delta</code> (▲/▼ vs prior) + inline sparkline via <code>dcc.Graph(figure=_sparkline(last_n), config={"displayModeBar": False, "staticPlot": True}, style={"height": "32px"})</code></li>
+<li><code>Runs (filtered)</code> — count + <code>6 wks</code> caption</li>
+<li><code>Avg G-Eval score</code> — value <code>/ 1.00</code> + sparkline of last 8 G-Eval averages</li>
+<li><code>Median duration</code> — e.g., <code>19.4s</code> + <code>per run</code> caption. <strong>Compute <code>statistics.median(durations_ms)</code></strong>, not the mean. The handoff's reference JS labels the card <code>Median duration</code> but computes an average (<code>summary.js:123, 138</code>: <code>avgDur = ... / runs.length</code>) — that is a bug in the prototype. We honor the LABEL. Document this intentional deviation in <code>visual-baselines/README.md</code> and in the view docstring so Chrome MCP parity checks expect a value difference here</li>
+</ol>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T358 [US4] <strong>Pass-rate panel</strong> — <code>html.Div(className="hd-card")</code> containing:<ul>
+<li><code>html.Div("TRENDS", className="hd-eyebrow")</code></li>
+<li><code>html.H3("Pass rate over time")</code></li>
+<li><code>html.P(f"{len(runs)} runs of {agent} · regressions flagged in coral · dashed lines mark prompt-version boundaries", className="hd-muted")</code></li>
+<li>Inline legend row (green swatch <code>pass rate</code> · coral swatch <code>regression</code>)</li>
+<li><code>dcc.Graph(id="chart-pass-rate", figure=pass_rate_chart(filtered_runs), config={"displayModeBar": False})</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T359 [US4] <strong>Metric trend panel</strong> — <code>html.Div(className="hd-card")</code>:<ul>
+<li>Eyebrow <code>METRIC TRENDS</code> · title <code>Per-metric average scores</code> · subtitle with threshold note</li>
+<li><code>dcc.RadioItems(id="metric-kind", options=[{"label":"RAG","value":"rag"}, {"label":"G-Eval","value":"geval"}, {"label":"Standard","value":"standard"}], value="rag", className="hd-segmented", inline=True)</code> — style as segmented control via <code>.hd-segmented label { ... }</code> CSS</li>
+<li><code>dcc.Graph(id="chart-metric-trend")</code> driven by callback <code>Input("metric-kind","value") -&gt; Output("chart-metric-trend","figure")</code> returning <code>metric_trend_chart(filtered_runs, kind)</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T360 [US4] <strong>Breakdown panels</strong> — <code>html.Div([...three cards...], className="hd-grid-3")</code> with CSS grid <code>grid-template-columns: repeat(3, 1fr); gap: 16px;</code>. Each card: <code>html.Div([eyebrow, title, description, dcc.Graph(figure=breakdown_bar(df, palette))], className="hd-card")</code>:<ul>
+<li><code>BREAKDOWN · STANDARD</code> · "NLP metrics" · palette <code>['#7bff5a','#5ae0a6','#9bff5f']</code> · kind <code>standard</code></li>
+<li><code>BREAKDOWN · RAG</code> · "Retrieval &amp; grounding" · palette full · kind <code>rag</code></li>
+<li><code>BREAKDOWN · G-EVAL</code> · "Custom LLM judges" · palette <code>['#7bff5a','#ffcf5a','#5ae0a6']</code> · kind <code>geval</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T361 [US4] <strong>Runs table</strong> — <code>dash_table.DataTable(id="runs-table", ...)</code>. <strong>Dash DataTable lets us drop the Streamlit pill-string workaround entirely</strong> — use <code>style_data_conditional</code> to render colored pills natively:<ul>
+<li><code>columns=[{"name":"+","id":"queue","presentation":"markdown"}, {"name":"Timestamp","id":"timestamp"}, {"name":"Pass rate","id":"pass_rate_display"}, {"name":"Tests","id":"tests"}, {"name":"Prompt","id":"prompt_version"}, {"name":"Model","id":"model_name"}, {"name":"Duration","id":"duration"}, {"name":"Commit","id":"git_commit"}]</code></li>
+<li><code>style_data_conditional=[{"if":{"filter_query":"{pass_rate_tier} = 'pass'","column_id":"pass_rate_display"},"backgroundColor":"rgba(123,255,90,.12)","color":"var(--hd-accent)"}, ...warn, ...fail]</code> — per-cell tiered pill colors, matching the handoff's in-cell pill. The <code>pass_rate_tier</code> hidden column (T320) drives the conditional</li>
+<li><code>style_header</code> + <code>style_cell</code> lifted from <code>holodeck.css</code> tokens</li>
+<li><code>row_selectable="single"</code>, <code>sort_action="native"</code>, <code>page_size=24</code></li>
+<li><code>+</code> column: markdown cell rendering <code>"☑"</code> if run in compare queue else <code>"☐"</code>; clicking toggles queue membership via callback on <code>active_cell</code></li>
+<li>Row click: <code>Input("runs-table","active_cell") -&gt; Output("app-state","data")</code> calls <code>state.open_in_explorer(state, run_id)</code> (README "Interactions: Run row click → Explorer")</li>
+<li>Above the table: <code>html.Button("Export CSV")</code> + <code>dcc.Download(id="runs-csv")</code> with callback serving <code>summary_df.to_csv()</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T362 [US4] <strong>Empty state</strong> — when <code>filtered_runs == []</code>, <code>render_summary</code> returns <code>html.Div([html.Span("∅"), html.H3("No runs match your filters"), html.P("Clear filters or run holodeck test.")], className="hd-empty-state")</code> centered. Mirrors <code>summary.js:394–403</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T363 [US4] Wire filter changes: each control's value flows into <code>dcc.Store("app-state")</code> via a callback; a second callback binds state ↔ <code>dcc.Location.search</code> so refresh/share works (FR-028b). On app boot, <code>state_from_url_search(location.search)</code> seeds initial state</li>
+</ul>
+<hr />
+<h2 id="phase-7-smoke-component-tree-tests">Phase 7: Smoke / component-tree tests<a class="headerlink" href="#phase-7-smoke-component-tree-tests" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Dash lets us unit-test layout builders directly because they return plain Python objects. No Selenium required for the default suite. The <code>dash[testing]</code> extra (Selenium-driven) is optional and NOT wired into CI.</p>
+</blockquote>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T364 [US4] <code>tests/unit/dashboard/test_summary_layout.py</code>: import <code>render_summary</code>, call with <code>(default_state(), build_seed_runs())</code>, assert the returned tree contains exactly one <code>dash_table.DataTable</code>, exactly three <code>dcc.Graph</code> elements inside the breakdown grid, exactly one <code>dcc.Graph</code> with <code>id="chart-pass-rate"</code>, and exactly four elements with <code>className</code> containing <code>"hd-kpi"</code>. Assert no exceptions raised on empty runs list (the empty-state branch)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T365 [US4] <code>tests/unit/dashboard/test_callbacks.py</code>: callbacks are plain functions decorated with <code>@app.callback</code>. Import them directly (or extract to standalone functions and register in <code>app.py</code>), call them with sample inputs, assert return structures. Cover: filter-change updates state; tab-click updates <code>state["tab"]</code>; runs-table row click produces the expected <code>state["explorer_run_id"]</code>; URL-sync round-trips</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T366 [US4] <code>tests/integration/dashboard/test_app_importable.py</code>: <code>pytest.importorskip("dash")</code>; import <code>holodeck.dashboard.app</code> and assert <code>app.layout</code> is a <code>dash.html.Div</code>. Marks the full Dash app boots without exceptions under seed mode (<code>monkeypatch.setenv("HOLODECK_DASHBOARD_USE_SEED","1")</code> before import). Mark <code>@pytest.mark.slow</code>; register the marker in <code>pyproject.toml</code> if not already present</li>
+</ul>
+<hr />
+<h2 id="phase-8-visual-fidelity-chrome-mcp-side-by-side-inspection">Phase 8: Visual fidelity — Chrome MCP side-by-side inspection<a class="headerlink" href="#phase-8-visual-fidelity-chrome-mcp-side-by-side-inspection" title="Permanent link">&para;</a></h2>
+<p><strong>Why this phase exists</strong>: Component-tree tests verify structure but not pixels. Every task below uses Chrome MCP to drive a real browser, open the HTML prototype and the live Dash app side-by-side, screenshot, and diff. The prototype is ground truth.</p>
+<p><strong>Setup</strong>:
+- Terminal A: <code>holodeck test view --seed</code> (launches Dash on <code>http://127.0.0.1:8501/</code> with seed data)
+- Terminal B: <code>python -m http.server 8000 -d docs/design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard</code> → prototype at <code>http://localhost:8000/Evaluation%20Dashboard.html</code></p>
+<h3 id="chrome-mcp-verification-tasks">Chrome MCP verification tasks<a class="headerlink" href="#chrome-mcp-verification-tasks" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T367 [US4] Open the prototype: <code>mcp__claude-in-chrome__tabs_context_mcp</code> → <code>tabs_create_mcp</code> with <code>url="http://localhost:8000/Evaluation%20Dashboard.html"</code> → wait for load → <code>take_screenshot</code>. Save as <code>docs/design-docs/031-eval-runs-dashboard/visual-baselines/prototype-summary.png</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T368 [US4] Open the Dash app: <code>tabs_create_mcp</code> with <code>url="http://127.0.0.1:8501/?tab=summary"</code> → wait for the main chart (<code>find</code> on <code>#chart-pass-rate</code>) → <code>take_screenshot</code>. Save as <code>docs/design-docs/031-eval-runs-dashboard/visual-baselines/dash-summary-v1.png</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T369 [US4] <strong>KPI strip parity</strong> — <code>get_page_text</code> both tabs, extract the four KPI labels (<code>Latest pass rate</code>, <code>Runs (filtered)</code>, <code>Avg G-Eval score</code>, <code>Median duration</code>). Labels must match exactly; numeric values must match within rounding EXCEPT for <code>Median duration</code> (intentional — median vs prototype's mean; see T357 + <code>visual-baselines/README.md</code>). Any other delta &gt;0.1pp or any missing sparkline is a failing visual bug</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T370 [US4] <strong>Pass-rate chart parity</strong> — screenshot the chart region on both tabs (find DOM element, screenshot by element). Verify:<ul>
+<li>Regression points in coral at the same run indices (<code>detect_regressions</code>, <code>summary.js:173–175</code>)</li>
+<li>Dashed vertical lines at the same prompt-version boundaries (<code>summary.js:177–183</code>)</li>
+<li>Area gradient fades <code>rgba(123,255,90,.35) → transparent</code></li>
+<li>Y-axis 0/25/50/75/100%
+Iterate on T352 if deltas exist</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T371 [US4] <strong>Metric-trend parity</strong> — click each <code>rag</code>/<code>geval</code>/<code>standard</code> radio on both tabs via <code>mcp__claude-in-chrome__click</code>; confirm line count + colors match per kind, 0.7 dashed threshold present. If not, fix T353/T359</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T372 [US4] <strong>Breakdown panels parity</strong> — 3 panels in a row, each with eyebrow + title + description + bars. Hover (<code>mcp__claude-in-chrome__hover</code>) a bar; confirm Plotly tooltip content. If panels stack vertically, the <code>hd-grid-3</code> CSS in T344/T360 needs fixing</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T373 [US4] <strong>Runs table parity</strong> — column order exactly <code>[+] | Timestamp | Pass rate | Tests | Prompt | Model | Duration | Commit</code> (<code>summary.js:345–355</code>). Confirm the pass-rate cell renders a colored pill natively (green/yellow/coral) via <code>style_data_conditional</code> — this is the full fidelity win over the Streamlit draft, which had to fall back to emoji prefixes. Click a row, confirm <code>dcc.Location.search</code> updates and the Explorer tab receives focus with the correct <code>run_id</code> in the URL</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T374 [US4] <strong>Filter rail parity</strong> — left column shows: Date range · Prompt version chips · Model chips · Tag chips · Min pass rate slider · Share URL block. Apply a filter (click a chip via <code>click</code>); watch URL change via <code>javascript_tool</code> running <code>window.location.search</code>. URL MUST encode the filter (FR-028b)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T375 [US4] <strong>Theme parity</strong> — <code>javascript_tool</code> runs <code>getComputedStyle(document.body).backgroundColor</code> on both tabs; values numerically close. Confirm <code>--hd-accent</code> resolves to <code>rgb(123, 255, 90)</code>. If not, iterate on T343–T344 (likely a <code>assets/*.css</code> load-order issue — Dash loads alphabetically, so <code>holodeck.css</code> should depend on <code>tokens.css</code> being first; rename to <code>01-tokens.css</code> / <code>02-holodeck.css</code> if necessary)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T376 [US4] <strong>Console cleanliness</strong> — <code>read_console_messages</code> with <code>pattern: "(error|warning)"</code>. Zero errors; warnings only acceptable if they come from Dash/Plotly internals. Anything from our <code>app.py</code> / view modules must be cleared</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T377 [US4] <strong>Responsive check</strong> — <code>resize_page</code> to 1440×900, 1280×800, 1024×768; screenshot each. Confirm the three breakdown panels collapse gracefully (2+1 or stack on narrow viewports is acceptable as long as nothing clips). With Dash + CSS grid, <code>grid-template-columns</code> media queries in <code>holodeck.css</code> give us control Streamlit didn't</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T378 [US4] <strong>Record a walkthrough</strong> with <code>gif_creator</code> named <code>summary_walkthrough.gif</code>: load Summary → apply a version filter → toggle metric-trend radio → click a table row to jump to Explorer. Commit alongside <code>visual-baselines/</code></li>
+</ul>
+<p><strong>Outputs of Phase 8</strong>: a <code>visual-baselines/</code> directory with prototype and Dash screenshots, a walkthrough GIF, and zero delta between the two on every parity check above. Any delta is a P0 bug against T351–T363.</p>
+<hr />
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li>US1 Phase 2b runtime-shape migrations BLOCK every real-run rendering path in US4. Specifically:</li>
+<li><strong>Migration A — <code>MetricResult.kind</code></strong> (US1 T010a–T010d): required by breakdown panels (T360), metric-trend kind filter (T359), and <code>kind</code>-aware aggregations (T321, T322).</li>
+<li><strong>Migration B — <code>TestResult.tool_invocations</code></strong> (US1 T010e–T010j): not directly consumed by US4 but required by US5.</li>
+<li><strong>Migration C — <code>TestResult.token_usage</code></strong> (US1 T010k–T010m): Compare-view concern in US5.</li>
+<li>The interleaved <code>conversation: list[ConversationTurn]</code> is deferred (US1 Phase 2b note). US4 is unaffected.</li>
+<li>US4 work against the SEED dataset can proceed without any of these; real-run parity cannot.</li>
+<li>T301–T303 must complete first (extra installed, package tree exists).</li>
+<li>T304 blocks T305, T342.</li>
+<li>T306–T313 (seed data) blocks T319, T366.</li>
+<li>T315–T327 (data/filters TDD) blocks T328–T329.</li>
+<li>T330–T337 (CLI TDD) blocks T338–T342b.</li>
+<li>T328 blocks T352–T354, T357–T361 (charts + views consume <code>to_*_dataframe</code>).</li>
+<li>T343–T344 (CSS) blocks T347 (header/layout uses the classes).</li>
+<li>T345–T346 (state) blocks T347, T361 (table row-click navigation).</li>
+<li>T349–T350 stubs unblock US5 (which replaces them).</li>
+<li>T351 blocks T352–T354.</li>
+</ul>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Phase 2 TDD — all independent test files:</span>
+Task:<span class="w"> </span><span class="s2">"tests/unit/dashboard/test_seed_data.py (T306–T312)"</span>
+Task:<span class="w"> </span><span class="s2">"tests/unit/cli/test_test_group_preserves_default.py (T305)"</span>
+
+<span class="c1"># Phase 3 TDD:</span>
+Task:<span class="w"> </span><span class="s2">"tests/unit/dashboard/test_data_loader.py (T315–T325)"</span>
+Task:<span class="w"> </span><span class="s2">"tests/unit/dashboard/test_filters.py (T326, T327)"</span>
+
+<span class="c1"># Phase 4 TDD:</span>
+Task:<span class="w"> </span><span class="s2">"tests/unit/cli/test_view_command.py (T330–T337)"</span>
+
+<span class="c1"># Phase 5 CSS + state in parallel:</span>
+Task:<span class="w"> </span><span class="s2">"assets/tokens.css + holodeck.css (T343, T344)"</span>
+Task:<span class="w"> </span><span class="s2">"state.py (T345, T346)"</span>
+
+<span class="c1"># Phase 6 — charts and view modules:</span>
+Task:<span class="w"> </span><span class="s2">"src/holodeck/dashboard/charts.py (T351–T354)"</span>
+Task:<span class="w"> </span><span class="s2">"src/holodeck/dashboard/views/summary.py (T355–T363)"</span>
+</code></pre></div>
+<hr />
+<h2 id="acceptance-scenario-traceability">Acceptance Scenario Traceability<a class="headerlink" href="#acceptance-scenario-traceability" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>AC</th>
+<th>Covered by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC1 (auto-discovery + Summary tab)</td>
+<td>T315, T319, T347, T355</td>
+</tr>
+<tr>
+<td>AC2 (pass-rate + per-metric trends)</td>
+<td>T320, T321, T352, T353, T358, T359</td>
+</tr>
+<tr>
+<td>AC3 (standard/rag/geval breakdowns)</td>
+<td>T322, T354, T360</td>
+</tr>
+<tr>
+<td>AC4 (per-experiment scoping)</td>
+<td>T339, T334</td>
+</tr>
+<tr>
+<td>AC5 (empty state)</td>
+<td>T318, T362</td>
+</tr>
+<tr>
+<td>AC6 (install hint, no traceback)</td>
+<td>T330, T340</td>
+</tr>
+<tr>
+<td>AC7 (Ctrl+C clean shutdown)</td>
+<td>T337, T341</td>
+</tr>
+<tr>
+<td>FR-028a (faceted filters compose)</td>
+<td>T326, T356</td>
+</tr>
+<tr>
+<td>FR-028b (URL query string)</td>
+<td>T327, T346, T356, T363</td>
+</tr>
+<tr>
+<td><strong>Design handoff Summary KPIs</strong></td>
+<td>T357</td>
+</tr>
+<tr>
+<td><strong>Design handoff pass-rate chart (regression dots, version boundaries)</strong></td>
+<td>T323, T324, T352, T358</td>
+</tr>
+<tr>
+<td><strong>Design handoff per-metric trend with kind toggle + threshold line</strong></td>
+<td>T353, T359</td>
+</tr>
+<tr>
+<td><strong>Design handoff three breakdown panels</strong></td>
+<td>T354, T360</td>
+</tr>
+<tr>
+<td><strong>Design handoff runs table w/ colored pill cells + row-click drilldown</strong></td>
+<td>T361</td>
+</tr>
+<tr>
+<td><strong>Design handoff filter rail</strong></td>
+<td>T356</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="recommended-order-scaffold-summary-explorer-compare">Recommended order (scaffold → Summary → Explorer → Compare)<a class="headerlink" href="#recommended-order-scaffold-summary-explorer-compare" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Setup + Foundational</strong> (T301–T314): install deps, convert CLI to group, port <code>data.js</code> → <code>data.py</code>. Seed dataset lets every UI task iterate without real runs.</li>
+<li><strong>Data layer</strong> (T315–T329): TDD aggregations feeding every chart. Pure Pandas; fast to iterate.</li>
+<li><strong>CLI subprocess boundary</strong> (T330–T342b): TDD with <code>Popen</code> mocked; update <code>contracts/cli.md</code> to reflect Dash; add <code>--seed</code> so <code>holodeck test view --seed</code> works immediately.</li>
+<li><strong>App scaffold</strong> (T343–T350): CSS tokens + state + <code>app.py</code> three-tab shell. Launch with <code>holodeck test view --seed</code>; confirm all three tabs load with terminal-green aesthetic. Explorer and Compare are stubs.</li>
+<li><strong>Summary view</strong> (T351–T363): build each panel with the matching handoff file open. After each panel lands, run the matching Chrome MCP parity task (T369–T377) against the prototype. Fix deltas before the next panel — visual drift compounds.</li>
+<li><strong>Component-tree tests</strong> (T364–T366): structure sanity.</li>
+<li><strong>Visual fidelity sweep</strong> (T367–T378): Chrome MCP side-by-side. Gate-keeping before handoff to US5 — no visual deltas carry over.</li>
+<li>Hand off to US5 (Explorer + Compare) — scaffold stubs already mounted, CSS + state + seed data fully validated.</li>
+</ol>
+<h3 id="parallel-team-strategy">Parallel team strategy<a class="headerlink" href="#parallel-team-strategy" title="Permanent link">&para;</a></h3>
+<p>Three developers can work in parallel after T314:
+- <strong>Dev A</strong>: data layer (T315–T329) + CLI (T330–T342b)
+- <strong>Dev B</strong>: CSS + state + app scaffold (T343–T350)
+- <strong>Dev C</strong>: Plotly charts (T351–T354) — independent pure functions testable with seed data</p>
+<p>Then merge and assemble Summary together (T355–T363).</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

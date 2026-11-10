@@ -1,0 +1,2824 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/035-openai-agents-backend/spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Feature Specification: OpenAI Agents SDK Backend - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#feature-specification-openai-agents-sdk-backend" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feature Specification: OpenAI Agents SDK Backend
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-status-2026-09-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation status — 2026-09-06
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivation-and-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation and architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-scenarios-and-acceptance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User scenarios and acceptance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User scenarios and acceptance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-story-1-configure-a-native-agent-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 1 — Configure a native agent (P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-2-serve-and-deploy-parity-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 2 — Serve and deploy parity (P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-3-tools-hooks-subagents-and-skills-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 3 — Tools, hooks, subagents, and skills (P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-4-sdk-configuration-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 4 — SDK configuration (P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-5-hosted-tools-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 5 — Hosted tools (P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-6-production-hardening-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 6 — Production hardening (P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-7-tracing-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 7 — Tracing (P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-8-sandbox-mode-deferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 8 — Sandbox mode (deferred)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scope-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Success Criteria (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurable-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measurable Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-register-2026-09-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision register — 2026-09-06
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision register — 2026-09-06">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#d01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D01
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d02" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D02
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D03
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d04" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D04
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D05
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D06
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D07
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d08" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D08
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D09
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D11
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D12
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D13
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D14
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D15
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D16
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-and-validation-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation and validation ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="feature-specification-openai-agents-sdk-backend">Feature Specification: OpenAI Agents SDK Backend<a class="headerlink" href="#feature-specification-openai-agents-sdk-backend" title="Permanent link">&para;</a></h1>
+<p><strong>Feature Branch</strong>: <code>035-openai-agents-backend</code>
+<strong>Created</strong>: 2026-05-24
+<strong>Status</strong>: Partially implemented — final requirement contract reconciled 2026-09-06; implementation and acceptance remain open.
+<strong>Author</strong>: justinbarias (with Claude)
+<strong>Input</strong>: OpenAI-native backend with the retained parity of specs 023–030 and in-process adaptations of spec 034.</p>
+<h2 id="implementation-status-2026-09-06">Implementation status — 2026-09-06<a class="headerlink" href="#implementation-status-2026-09-06" title="Permanent link">&para;</a></h2>
+<p>The <a href="../../../exec-plans/active/035-openai-agents-backend/2026-09-06-complete-035/">completion execution plan</a> owns execution order.
+The <a href="../../../exec-plans/active/035-openai-agents-backend/acceptance-matrix/">acceptance matrix</a> is the canonical requirement-by-requirement evidence record.
+The <a href="../../../exec-plans/active/035-openai-agents-backend/reconciliation/">reconciliation report</a> records the audited baseline.
+Requirements below describe the retained contract, not proof that implementation is complete.
+All original FR and SC identifiers remain; deferred criteria retain their proposed behavior and an explicit destination.
+The <a href="#decision-register-2026-09-06">decision register</a> replaces obsolete assumptions throughout the original draft.</p>
+<h2 id="motivation-and-architecture">Motivation and architecture<a class="headerlink" href="#motivation-and-architecture" title="Permanent link">&para;</a></h2>
+<p>OpenAI and Azure agents use the provider-native OpenAI Agents SDK through <code>BackendSelector</code> and the shared backend/session protocols.
+Anthropic and Ollama continue through Claude. The native backend supports Responses tools, SDK sessions, handoffs, guardrails, and tracing.
+No AF/ADK/SK agent backend or explicit backend-selection field is available in the current repository.</p>
+<p>The OpenAI loop runs in-process Python; the Claude SDK uses a subprocess. OpenAI turn capacity therefore counts active turns, while idle session history uses the SDK session abstraction (<code>SQLiteSession</code>).
+Idle sessions do not hold dedicated processes; this is not a claim that Python metadata uses zero memory.
+Images are pure Python unless a configured MCP stdio command requires Node.js.
+Container protections and model-visible credential redaction remain distinct boundaries.
+The deferred sandbox and Envoy proposals require their own threat models; neither is delivered by this feature.</p>
+<h2 id="user-scenarios-and-acceptance">User scenarios and acceptance<a class="headerlink" href="#user-scenarios-and-acceptance" title="Permanent link">&para;</a></h2>
+<h3 id="user-story-1-configure-a-native-agent-p1">User Story 1 — Configure a native agent (P1)<a class="headerlink" href="#user-story-1-configure-a-native-agent-p1" title="Permanent link">&para;</a></h3>
+<p>An operator sets <code>model.provider: openai</code> or <code>azure_openai</code>, configures credentials and a model, and runs <code>holodeck test</code>, <code>chat</code>, or <code>serve</code>.
+<code>BackendSelector</code> chooses OpenAI Agents without a backend override. <code>Runner</code> returns text, tool results, and usage with the configured agent identity.
+Azure uses <code>AsyncOpenAI</code> with its endpoint normalized to <code>/openai/v1</code> and an <code>OpenAIResponsesModel</code>; its result contract matches OpenAI.
+Missing credentials produce an actionable startup error. Provider account/model-access errors preserve the upstream message.
+Explicit AF opt-out from the original US1 scenario 4 is superseded by D01; no replacement backend is promised.</p>
+<h3 id="user-story-2-serve-and-deploy-parity-p1">User Story 2 — Serve and deploy parity (P1)<a class="headerlink" href="#user-story-2-serve-and-deploy-parity-p1" title="Permanent link">&para;</a></h3>
+<p>The same agent serves REST and AG-UI through <code>/awp</code> and builds/runs on Azure Container Apps with startup validation, liveness, readiness, internal ingress, and GenAI telemetry.
+Use tracked representative fixtures, not ignored <code>/sample</code> content, for repeatable tests.
+Verify conditional Node installation, non-root execution, read-only corpus, writable scratch space, startup failure before traffic, and actual local image behavior.
+Authorized cloud acceptance must verify the candidate image and runtime probes; source inspection alone is insufficient.</p>
+<h3 id="user-story-3-tools-hooks-subagents-and-skills-p1">User Story 3 — Tools, hooks, subagents, and skills (P1)<a class="headerlink" href="#user-story-3-tools-hooks-subagents-and-skills-p1" title="Permanent link">&para;</a></h3>
+<p>Provider portability uses an <code>openai:</code> block for this backend's settings and a separate <code>claude:</code> block for Claude.
+Verify asynchronous vectorstore/hierarchical-document initialization and polling, plus MCP stdio/SSE/HTTP transport and environment substitution.
+Three subagents (researcher, analyst, writer) must become handoff targets with inherited or restricted tools and models; AG-UI displays ordered handoff events.
+Inline and SKILL.md skills must produce equivalent restricted targets. <code>SkillTool</code> is new implementation work, not an existing model.
+Observation, rejection, failure, and inert <code>modify</code> behavior follow FR-050; unsupported guardrail targets fail clearly.
+<code>setting_sources</code> remains accepted with a Claude-only warning and no OpenAI ambient discovery.</p>
+<h3 id="user-story-4-sdk-configuration-p2">User Story 4 — SDK configuration (P2)<a class="headerlink" href="#user-story-4-sdk-configuration-p2" title="Permanent link">&para;</a></h3>
+<p><code>openai.effort</code> maps low/medium/high directly and max to xhigh. Reasoning summaries must be requested when reasoning effort is configured; absent summaries leave thinking empty.
+Budget accounting is best-effort using per-request usage and a bundled versioned price table. Unknown model prices warn and disable enforcement for that model.
+Budget exhaustion returns an error with partial response and accumulated cost. Streaming reports errors after any already-emitted text.
+Fallback must exhaust primary retries before one fallback attempt, preserve both attempts in allowed traces, and never duplicate streamed output.
+Tool permission conflicts fail load; merely declaring a disallowed tool causes it to be filtered before construction, not a declaration-conflict error.</p>
+<h3 id="user-story-5-hosted-tools-p2">User Story 5 — Hosted tools (P2)<a class="headerlink" href="#user-story-5-hosted-tools-p2" title="Permanent link">&para;</a></h3>
+<p>Five hosted tools are retained: <code>WebSearchTool</code>, <code>FileSearchTool</code>, <code>CodeInterpreterTool</code>, <code>ImageGenerationTool</code>, and <code>HostedMCPTool</code>.
+A validated <code>type: hosted</code> entry selects the class and constructor parameters. Unknown names or missing required parameters fail with actionable configuration errors.
+File search forwards vector-store IDs and result limits. Code interpreter, image generation, and hosted MCP factories construct the SDK's nested <code>tool_config</code> objects.
+Code interpreter requires the unsafe opt-in. Computer use fails load with a computer-harness/deferred-feature explanation, even with that opt-in.
+Azure accepts hosted configuration; unsupported resource capabilities surface the SDK error with a useful Azure-capability hint. No blanket Azure load-time ban applies.
+Hosted MCP with <code>require_approval: never</code> runs without a local approval loop; automatic rejection follows FR-050.
+Per-factory unit tests and real supported-provider calls must verify tools, citations/grounded results where applicable, and capability-error handling.</p>
+<h3 id="user-story-6-production-hardening-p1">User Story 6 — Production hardening (P1)<a class="headerlink" href="#user-story-6-production-hardening-p1" title="Permanent link">&para;</a></h3>
+<p>Retain spec-034 P1a capacity, P1b code-interpreter safety, P2a container protections, and P2b redaction/managed child-environment controls.
+Verify exact resolved active-turn capacity, overflow/recovery, cancellation cleanup, and sparse activity across many idle sessions without per-session processes.
+A synthetic credential returned by a HoloDeck-built local tool must be replaced before the model sees it and independently redacted in exported OTel attributes.
+Explicit guardrail and subprocess opt-outs warn. They must not alter independent OTel redaction.
+P3 sidecar/egress isolation is deferred (D08). SDK sessions address the subprocess-retention motivation of Claude P4; active-turn and memory behavior still require measurement.</p>
+<h3 id="user-story-7-tracing-p2">User Story 7 — Tracing (P2)<a class="headerlink" href="#user-story-7-tracing-p2" title="Permanent link">&para;</a></h3>
+<p>With OTel enabled, OpenAI agents emit to OTel and the provider dashboard unless provider upload is disabled; Azure emits only to OTel.
+Processor selection must preserve spans while suppressing disallowed uploads. Test disabled observability, repeated initialization, and mixed-provider initialization in both orders.
+<code>capture_content: false</code> explicitly excludes sensitive payloads from SDK traces. OTel redaction applies independently.
+Real deployment evidence must observe the permitted destinations and verify absence of prohibited upload; mocked processor construction alone cannot close SC-011.</p>
+<h3 id="user-story-8-sandbox-mode-deferred">User Story 8 — Sandbox mode (deferred)<a class="headerlink" href="#user-story-8-sandbox-mode-deferred" title="Permanent link">&para;</a></h3>
+<p>Shell/filesystem mode, manifests, local workspace cleanup, Docker/Modal remote clients, resource quotas, missing-runtime/credential preflight, and standard/sandbox redundancy checks remain future design work.
+FR-094–FR-099 and SC-012/SC-013 retain the proposal, with <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a> as its destination.
+A future sandbox design must test provider support, disk exhaustion, shell execution restricted to its workspace, and workspace deletion at session close.
+No <code>agent_mode</code> or <code>sandbox</code> YAML support is claimed by 035 completion.</p>
+<h2 id="edge-cases">Edge cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Missing provider credentials must fail preflight with named configuration/environment remedies; account/model-access failures preserve useful upstream causes.</li>
+<li>Invalid or unknown tool references must produce the existing actionable validation warning/error; do not silently grant unrestricted tools. A nonexistent name in <code>disallowed_tools</code> warns at configuration load.</li>
+<li>A primary non-retryable failure must propagate without fallback; cancellation or stream closure must clean up sessions, MCP resources, and capacity slots.</li>
+<li>Input rejection during handoffs applies to the entry/triage agent, following SDK tripwire semantics. Tool rejection and failure wrappers follow their separately documented local-tool coverage.</li>
+<li>Unsupported WebSocket MCP and prompt tools warn and skip. Unsupported hosted names and unreachable rejection targets fail load; unreachable observation/failure matchers warn.</li>
+<li>Missing sandbox runtimes, disk exhaustion, remote credentials, quotas, and local/remote workspace cleanup belong to the explicitly deferred sandbox design, not hidden 035 implementation requirements.</li>
+</ul>
+<h2 id="scope-boundary">Scope boundary<a class="headerlink" href="#scope-boundary" title="Permanent link">&para;</a></h2>
+<p>In scope: shared backend/session contracts; multimodal and structured results; five HoloDeck tool categories (function, vectorstore, hierarchical-document, MCP, skill); five hosted tools; hook/handoff semantics; serving and deployment; retained hardening and telemetry; LiteLLM inference acceptance; reproducible examples and documentation.</p>
+<p>Deferred scope has owners and exit criteria in the <a href="../../../exec-plans/tech-debt-tracker/">debt tracker</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Excluded capability</th>
+<th>Durable destination</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Final SK vector connectors, chunker, package removal</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-008">H-008</a></td>
+</tr>
+<tr>
+<td>Cross-backend P3 Envoy profile</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-022">H-022</a></td>
+</tr>
+<tr>
+<td>Sandbox mode, local/Docker/Modal runtime</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a></td>
+</tr>
+<tr>
+<td>Computer harness</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-012">H-012</a></td>
+</tr>
+<tr>
+<td>Interactive human approval/resume</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-013">H-013</a></td>
+</tr>
+<tr>
+<td>SDK-built MCP-server guardrails/model-visible redaction</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-014">H-014</a></td>
+</tr>
+<tr>
+<td>Hook <code>modify</code> execution</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-015">H-015</a></td>
+</tr>
+<tr>
+<td>Prompt-tool execution (load warns and skips)</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-016">H-016</a></td>
+</tr>
+<tr>
+<td>Unified cross-backend configuration namespace</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-017">H-017</a></td>
+</tr>
+<tr>
+<td>VoicePipeline and RealtimeAgent</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-018">H-018</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-019">H-019</a></td>
+</tr>
+<tr>
+<td>Ambient skill discovery</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-020">H-020</a></td>
+</tr>
+<tr>
+<td>Per-session containers and arbitrary Python containment</td>
+<td><a href="../../../exec-plans/tech-debt-tracker/#h-021">H-021</a></td>
+</tr>
+</tbody>
+</table>
+<p>Additional SDK knobs remain at SDK defaults: tool-loop policy (<code>tool_use_behavior</code>, <code>reset_tool_choice</code>, <code>tool_choice</code>), extra run/agent output guardrails, handoff-history shaping, and SDK error formatting/not-found policy. These were never required configurable surfaces.
+There is no new deployment target or session/conversation-control YAML surface. Unknown configuration keys must remain invalid; do not add <code>previous_response_id</code> or <code>conversation_id</code> solely to preserve an obsolete draft edge case.</p>
+<h2 id="requirements-mandatory">Requirements <em>(mandatory)</em><a class="headerlink" href="#requirements-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<p><strong>Backend contract (spec 023):</strong></p>
+<ul>
+<li><strong>FR-001</strong>: System MUST expose the <code>openai_agents</code> backend through <code>BackendSelector</code>. Routing uses <code>model.provider</code>; there is no <code>Backend</code> enum or <code>backend:</code> override. <a href="#d01">D01</a>.</li>
+<li><strong>FR-002</strong>: The <code>openai_agents</code> backend MUST implement the <code>AgentBackend</code> protocol exactly: <code>initialize()</code>, <code>invoke_once()</code>, <code>create_session()</code>, <code>teardown()</code>.</li>
+<li><strong>FR-003</strong>: The <code>openai_agents</code> session MUST implement the <code>AgentSession</code> protocol exactly: <code>prepare()</code>, <code>send()</code>, <code>send_streaming()</code>, <code>close()</code>.</li>
+<li><strong>FR-004</strong>: <code>invoke_once()</code> and <code>send()</code> MUST return <code>ExecutionResult</code> objects with all fields populated: <code>response</code>, <code>tool_calls</code>, <code>tool_results</code>, <code>token_usage</code>, <code>structured_output</code>, <code>num_turns</code>, <code>is_error</code>, <code>error_reason</code>, <code>thinking</code> (empty when the model is non-reasoning).</li>
+<li><strong>FR-005</strong>: <code>send_streaming()</code> MUST yield successive text chunks consistent with the SDK's <code>RawResponsesStreamEvent</code>/<code>ResponseTextDeltaEvent</code> shape, surfaced through HoloDeck's existing AG-UI bridge with no protocol-level change.</li>
+<li><strong>FR-006</strong>: System MUST emit <code>ToolEvent</code> records (kind: <code>start</code> / <code>end</code> / <code>error</code> / <code>thinking</code>) consistent with the Claude backend's contract, so the AG-UI panel renders identically. <code>subagent_message</code> and <code>parent_link</code> events MUST be emitted during handoff transitions (mapped from <code>AgentUpdatedStreamEvent</code>).</li>
+<li><strong>FR-007</strong>: <code>openai</code> and <code>azure_openai</code> MUST route to <code>openai_agents</code>; <code>anthropic</code> and <code>ollama</code> MUST route to <code>claude</code>. Unsupported providers MUST fail clearly. AF, ADK, and SK agent backends are not selectable. <a href="#d01">D01</a>.</li>
+</ul>
+<p><strong>Serve &amp; deploy parity (spec 024):</strong></p>
+<ul>
+<li><strong>FR-010</strong>: <code>holodeck serve agent.yaml</code> MUST perform pre-flight credential validation at startup for <code>provider: openai</code> (<code>OPENAI_API_KEY</code>) and <code>provider: azure_openai</code> (<code>AZURE_OPENAI_API_KEY</code> + <code>AZURE_OPENAI_ENDPOINT</code>).</li>
+<li><strong>FR-011</strong>: <code>holodeck deploy build</code> MUST generate a Dockerfile that does <strong>not</strong> install Node.js when the agent uses <code>openai_agents</code> and has no Node-requiring MCP stdio servers. When such an MCP server exists, Node.js MUST be installed (parity with the spec 034 P2a gating logic).</li>
+<li><strong>FR-012</strong>: Container entrypoint MUST validate the prerequisite credential set before starting <code>holodeck serve</code> and exit non-zero with a structured error if missing.</li>
+<li><strong>FR-013</strong>: <code>/health</code> MUST report process liveness. <code>/ready</code> MUST return HTTP 200 only after backend/startup prerequisites and required initializable tools are ready: vectorstore/hierarchical-document initialization is COMPLETED or existing initialized data is verified. Uninitialized, pending, in-progress, failed, or cancelled required initialization MUST return HTTP 503, as must shutdown/draining. With zero initializable tools, readiness follows backend prerequisites; function/MCP tools do not require nonexistent ingestion jobs. Keep the existing endpoint name. <a href="#d10">D10</a>.</li>
+<li><strong>FR-014</strong>: Serve MUST cap concurrent <strong>active turns</strong>, including streaming turns, at the resolved <code>openai.max_concurrent_sessions</code> value. Idle sessions MUST NOT consume turn slots. Overflow returns 429 with <code>Retry-After</code>; success, failure, timeout, cancellation, disconnect, and generator closure MUST release acquired slots. Session history uses the SDK session abstraction without a dedicated process per idle session.</li>
+</ul>
+<p><strong>Tool init endpoints (spec 025):</strong></p>
+<ul>
+<li><strong>FR-020</strong>: All endpoints in spec 025 (<code>POST /tools/{name}/init</code>, <code>GET /tools/{name}/init</code>, <code>GET /tools</code>) MUST work identically against an <code>openai_agents</code> agent. Vectorstore and hierarchical_document tools MUST be initializable; non-init tool types MUST return 400.</li>
+</ul>
+<p><strong>SDK config additions (spec 026, with backend-specific mappings):</strong></p>
+<ul>
+<li><strong>FR-030</strong>: <code>effort: low | medium | high</code> MUST translate to <code>ModelSettings(reasoning=Reasoning(effort=&lt;value&gt;))</code>.</li>
+<li><strong>FR-031</strong>: <code>openai.effort: max</code> MUST map to reasoning effort <code>xhigh</code>, without a clamping warning. <a href="#d04">D04</a>.</li>
+<li><strong>FR-032</strong>: <code>max_budget_usd: &lt;float&gt;</code> MUST be enforced by a HoloDeck-managed <code>RunHooks</code> cost accountant; budget exhaustion raises <code>BackendBudgetExceededError</code> and aborts the run. Backend MUST surface the partial response and accumulated cost in the error payload.</li>
+<li><strong>FR-033</strong>: <code>openai.fallback_model</code> MUST wrap the primary model with a bounded fallback policy for 429/5xx errors. Exhaust configured primary retries before one fallback attempt; do not fallback on non-retryable errors or restart a stream after its first emitted event. Both attempts MUST be visible in permitted traces. The retryable set is fixed in v1. Function/MCP support is required; document hosted-tool limitations when the fallback lacks Responses capabilities. The bounded order is <a href="#d14">D14</a>; Runner-level acceptance is recorded in the matrix.</li>
+<li><strong>FR-034</strong>: <code>disallowed_tools: [&lt;str&gt;, ...]</code> MUST be applied at config-time tool-resolution: named tools are removed from <code>Agent.tools</code> and <code>mcp_servers</code>. If a tool name appears in both <code>allowed_tools</code> and <code>disallowed_tools</code>, config load MUST fail.</li>
+</ul>
+<p><strong>MCP transports (spec 027):</strong></p>
+<ul>
+<li><strong>FR-040</strong>: MCP tools with <code>transport: stdio</code> MUST translate to <code>MCPServerStdio(params={command, args, env})</code>.</li>
+<li><strong>FR-041</strong>: MCP tools with <code>transport: sse</code> MUST translate to <code>MCPServerSse(params={url, headers})</code>. URL and header env-var substitution MUST work (parity with spec 027 FR-005).</li>
+<li><strong>FR-042</strong>: MCP tools with <code>transport: http</code> MUST translate to <code>MCPServerStreamableHttp(params={url, headers})</code> with the same env-var substitution.</li>
+<li><strong>FR-043</strong>: MCP tools with <code>transport: websocket</code> MUST be skipped with the same warning shape spec 027 FR-006 prescribes for the Claude backend.</li>
+<li><strong>FR-044</strong>: MCP tool filtering MUST be supported via <code>create_static_tool_filter(allowed_tool_names=[...])</code> when an MCP tool config declares an <code>allowed_tools</code> subset.</li>
+</ul>
+<p><strong>YAML hooks (spec 028, with semantic mapping):</strong></p>
+<ul>
+<li><strong>FR-050</strong>: <code>openai.hooks</code> MUST support the following event/action contract. <a href="#d05">D05</a>.</li>
+<li><code>PreToolUse</code> and <code>PostToolUse</code> observation (<code>log</code>, <code>notify</code>, <code>script</code>) use local SDK tool-start/tool-end lifecycle events. MCP-server calls are observable, but hosted tools execute server-side and do not emit those local lifecycle events.</li>
+<li><code>PostToolUseFailure</code> uses a HoloDeck adapter exception wrapper: fire the action and return a model-visible error string so the run can continue. SDK-built MCP invokers are outside this wrapper. Warn on unreachable hosted-only matchers and MCP failure matchers.</li>
+<li><code>Stop</code> uses agent/run end; <code>Notification</code> uses LLM start/end; <code>SessionStart</code> fires once at session creation. Hook scripts use the managed child-environment boundary in FR-089.</li>
+<li>Tool-matched <code>reject</code> on HoloDeck-built local tools uses a native tool-input guardrail returning the configured rejection message; skip the call and continue the run without an approval interrupt.</li>
+<li>Input-matched <code>reject</code> uses the entry agent's input guardrail: tripwire aborts the turn and the backend surfaces the configured message. It does not continue the run; document the entry-agent limitation during handoffs.</li>
+<li><code>HostedMCPTool</code> rejection sets matched <code>require_approval</code> entries in the nested MCP tool configuration and an <code>on_approval_request</code> callback that rejects automatically with the configured message. This is not an interactive resume loop.</li>
+<li>A reject targeting SDK-built MCP-server tools or other hosted tools MUST fail load clearly because the required attachment point is unavailable. Interactive approval and MCP guardrail expansion are deferred to <a href="../../../exec-plans/tech-debt-tracker/#h-013">H-013</a> and <a href="../../../exec-plans/tech-debt-tracker/#h-014">H-014</a>.</li>
+<li><code>modify</code> MUST load with an explicit inert-action warning and have no runtime effect; implementation is deferred to <a href="../../../exec-plans/tech-debt-tracker/#h-015">H-015</a>. Observation hooks cannot reject a tool after execution.</li>
+<li><strong>FR-051</strong>: Hook chain ordering MUST match spec 028 FR-010: HoloDeck-internal hooks (tool tracking, credential redaction) run before user-defined hooks; user-defined hooks run in declaration order; the first terminal action (reject) stops evaluation.</li>
+</ul>
+<p><strong>Subagent orchestration (spec 029):</strong></p>
+<ul>
+<li><strong>FR-060</strong>: Each entry in <code>openai.agents</code> MUST become an SDK <code>Agent(name=&lt;key&gt;, instructions=&lt;prompt&gt;, handoff_description=&lt;description&gt;, tools=&lt;resolved&gt;, model=&lt;resolved&gt;)</code> in the parent's <code>handoffs</code>. Support prompt and prompt-file forms. <code>claude.agents</code> remains Claude-only. <a href="#d02">D02</a>.</li>
+<li><strong>FR-061</strong>: When a subagent declares no <code>tools</code>, the parent's full tool list MUST be inherited (parity with spec 029 FR-007).</li>
+<li><strong>FR-062</strong>: When a subagent declares <code>model: inherit</code>, the parent's model MUST be used. When it declares <code>sonnet | opus | haiku</code>, load MUST fail (these are Claude model literals; not portable). For openai-agents, the allowed values are <code>inherit</code> plus any string the SDK accepts as a model identifier.</li>
+<li><strong>FR-063</strong>: <code>RECOMMENDED_PROMPT_PREFIX</code> from <code>agents.extensions.handoff_prompt</code> MUST be auto-prepended to each subagent's <code>instructions</code> unless the YAML declares <code>openai.agents.&lt;name&gt;.skip_recommended_prefix: true</code>.</li>
+</ul>
+<p><strong>Skills (spec 023 SkillTool + spec 030):</strong></p>
+<ul>
+<li><strong>FR-070</strong>: Add a validated <code>SkillTool</code> (<code>type: skill</code>) to <code>ToolUnion</code>; it does not exist at the audited baseline. Inline form (<code>instructions</code>, <code>description</code>, <code>allowed_tools</code>) and a directory containing SKILL.md (body and frontmatter) MUST become equivalent handoff-target Agents. <code>allowed_tools</code> MUST restrict the skill agent to its declared tool scope. <a href="#d02">D02</a>.</li>
+<li><strong>FR-071</strong>: <code>setting_sources</code> (spec 030) MUST be accepted in YAML for cross-backend portability but emit a load-time warning when the resolved backend is <code>openai_agents</code>: "setting_sources is a Claude-only concept; ignored on openai."</li>
+</ul>
+<p><strong>Hardening (spec 034, in-process reframe):</strong></p>
+<ul>
+<li><strong>FR-080 (P1a)</strong>: Retain the supported ACA Consumption default of 1 CPU / 2 GiB. Resolve active-turn capacity from explicit <code>openai.max_concurrent_sessions</code> first, otherwise <code>floor(memory_mib / openai.session_memory_estimate_mib)</code> with a default estimate of 100 MiB. Use a finite cgroup memory limit when available; otherwise use an explicitly labelled assumed 1024-MiB local budget. Do not subtract the Claude process baseline. Derived values below one MUST fail startup with an actionable override/configuration error. Serve and deploy MUST echo budget/source, estimate, override or derivation, and resolved capacity consistently. Default ACA 2048 MiB resolves to 20 turns; local 1024 MiB resolves to 10. <a href="#d11">D11</a>.</li>
+<li><strong>FR-081 (P1a)</strong>: Overflow MUST return 429 with <code>Retry-After</code> and a problem+json body whose <code>type</code> is <code>https://holodeck.dev/errors/session-cap-exceeded</code>. Parity with spec 034 P1a.</li>
+<li><strong>FR-082 (P1a)</strong>: <code>max_turns</code> default MUST be <code>20</code> (SDK default is <code>10</code>; bumped for parity with the Claude backend's spec-034 default).</li>
+<li><strong>FR-083</strong>: <code>CodeInterpreterTool</code> MUST fail configuration load unless <code>openai.i_understand_this_is_unsafe: true</code>, with an actionable safety opt-in error. <code>ComputerTool</code> MUST fail load regardless of opt-in until its harness is delivered under <a href="../../../exec-plans/tech-debt-tracker/#h-012">H-012</a>. <a href="#d06">D06</a>.</li>
+<li><strong>FR-084</strong>: Permission or hosted-tool configuration MUST NOT weaken default credential guardrails, configured rejection rules, or existing approval gates. An unsupported approval gate MUST fail closed with an actionable error, never run the tool without approval. Interactive <code>needs_approval</code>/resume support is deferred to <a href="../../../exec-plans/tech-debt-tracker/#h-013">H-013</a>; it is not the synchronous reject mechanism. <a href="#d05">D05</a>.</li>
+<li><strong>FR-085 (P2a)</strong>: Generated Dockerfile MUST be pure Python by default (no <code>apt-get install nodejs npm</code>). Node.js install is gated only on MCP stdio servers that declare a <code>command</code> requiring it. Corpus dirs root-owned + <code>chmod a-w</code>. EmptyDir volumes for <code>/tmp</code> and <code>/var/holodeck/work</code>.</li>
+<li><strong>FR-086 (P2a)</strong>: Ingress defaults to <code>false</code> (internal). Setting <code>ingress_external: true</code> emits the same loud deploy-time warning as spec 034.</li>
+<li><strong>FR-087</strong>: Default-on tool-output guardrails MUST scrub credential-shaped strings before model consumption for HoloDeck-built function, vectorstore, hierarchical-document, and skill-local tools. Reuse the five spec-034 patterns (Anthropic key, AWS access key, GitHub token, JWT, Bearer header). Clean output passes unchanged; redacted output replaces the model-visible result. Opt-out <code>openai.disable_default_hooks: true</code> MUST warn loudly and MUST NOT disable OTel redaction. SDK-built MCP-server and hosted tools are outside this model-visible boundary; publish that coverage explicitly. Use the shared <code>openai_agents_guardrails.py</code> attachment point rather than an observation hook. <a href="#d05">D05</a>.</li>
+<li><strong>FR-088 (P2b)</strong>: <code>RedactingSpanProcessor</code> from the existing <code>otel_redaction.py</code> module MUST scrub <code>tool.input.*</code>, <code>tool.output.*</code>, <code>gen_ai.*</code> span attributes for <code>openai_agents</code> spans the same way it does for Claude spans. This is backend-agnostic and requires no new code beyond ensuring the OTel processor sees the new backend's spans.</li>
+<li><strong>FR-089</strong>: HoloDeck-managed MCP stdio and function-subprocess paths MUST strip OpenAI/Azure/Anthropic credential variables from child environments by default, including substituted configuration env values. Explicit <code>openai.disable_subprocess_env_scrub: true</code> MUST produce an opt-out warning. Scrubbing MUST use per-child environments without process-global mutation. Arbitrary Python tools that spawn their own children outside managed paths are not contained; expanded isolation is deferred to <a href="../../../exec-plans/tech-debt-tracker/#h-021">H-021</a>. <a href="#d09">D09</a>.</li>
+<li><strong>FR-090 (P3)</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-022">H-022</a>. Future requirement: <code>deployment.security_profile: hardened</code> MUST work identically: Envoy sidecar holds credentials, agent container has none, domain allowlist derived from YAML.</li>
+<li><strong>FR-091 (P3)</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-022">H-022</a>. Future requirement: Allowlist derivation for <code>provider: openai</code> MUST include <code>api.openai.com</code>, the embedding-provider endpoint, and each MCP HTTP/SSE endpoint. For <code>provider: azure_openai</code>, the allowlist MUST additionally include the resolved Azure resource hostname (<code>&lt;resource&gt;.openai.azure.com</code>) extracted from <code>AZURE_OPENAI_ENDPOINT</code>.</li>
+<li><strong>FR-092 (P3)</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-022">H-022</a>. Future requirement: For <code>provider: openai</code>, the agent container MUST be configured with <code>OPENAI_BASE_URL=http://localhost:&lt;envoy-port&gt;</code> and <code>HTTPS_PROXY=http://localhost:&lt;envoy-port&gt;</code>. For <code>provider: azure_openai</code>, <code>AZURE_OPENAI_ENDPOINT</code> MUST be rewritten to the localhost sidecar URL; the original Azure hostname is reachable only from the sidecar.</li>
+<li><strong>FR-093 (P3)</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-022">H-022</a>. Future requirement: The <code>openai_agents</code> backend MUST refuse to start in hardened profile if any credential-bearing env var is set on the agent container (the operator has half-migrated).</li>
+</ul>
+<p><strong>Sandbox agent mode (US8):</strong></p>
+<ul>
+<li><strong>FR-094</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future requirement: System MUST accept <code>openai.agent_mode: standard | sandbox</code> (default <code>standard</code>).</li>
+<li><strong>FR-095</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future requirement: When <code>agent_mode: sandbox</code>, the backend MUST construct <code>SandboxAgent(manifest=Manifest(name=&lt;agent.name&gt;, description=&lt;agent.description&gt;, ...), client=&lt;sandbox_client&gt;)</code> instead of <code>Agent(...)</code>. All other agent fields (instructions, tools, model, handoffs, hooks) MUST be forwarded to the <code>SandboxAgent</code> with the same shape they have on the standard <code>Agent</code>.</li>
+<li><strong>FR-096</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future requirement: When <code>agent_mode: sandbox</code>, the safety gate MUST require <code>openai.i_understand_this_is_unsafe: true</code>. Load without the opt-in fails with the canonical migration error (same shape as FR-083 for <code>CodeInterpreterTool</code> / <code>ComputerTool</code>).</li>
+<li><strong>FR-097</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future requirement: When <code>agent_mode: sandbox</code> AND <code>deployment.security_profile: default</code>, the sandbox client MUST be <code>UnixLocalSandboxClient</code> with the workspace under <code>/var/holodeck/work/sandbox/&lt;session_id&gt;</code> (using the same EmptyDir tmpfs mount as FR-085). Workspace MUST be destroyed on session close.</li>
+<li><strong>FR-098</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future requirement: When <code>agent_mode: sandbox</code> AND <code>deployment.security_profile: hardened</code>, the sandbox client MUST switch to a remote sandbox client selected by <code>openai.sandbox.remote_client: docker | modal</code> (default <code>docker</code>). The remote client's credentials MUST live alongside the other secrets in the Envoy sidecar; the agent container MUST NOT carry them.</li>
+<li><strong>FR-099</strong>: <strong>Deferred proposal</strong>, outside 035 completion; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future requirement: System MUST reject configurations that declare both <code>agent_mode: sandbox</code> and <code>CodeInterpreterTool</code> (or <code>ComputerTool</code>) in <code>tools</code> — the sandbox already provides shell + code execution and the overlap is a configuration error, not a feature.</li>
+</ul>
+<p><strong>Tracing:</strong></p>
+<ul>
+<li><strong>FR-100</strong>: For <code>provider: openai</code>, permitted SDK spans MUST reach the OTel mirror when enabled and the provider exporter unless provider upload is disabled. Select processors before runs emit spans. Do not call <code>set_tracing_disabled(True)</code> to suppress only provider upload: it also starves the mirror. <a href="#d07">D07</a>.</li>
+<li><strong>FR-101</strong>: For <code>provider: azure_openai</code>, SDK processor selection MUST exclude the OpenAI dashboard exporter while preserving enabled OTel emission. Suppression MUST hold with observability disabled, repeated initialization, and mixed-provider agents in either initialization order. Never use <code>set_tracing_disabled(True)</code> as the Azure upload-suppression mechanism. Process-global processor ownership is <a href="#d13">D13</a>. <a href="#d07">D07</a>.</li>
+<li><strong>FR-102</strong>: <code>observability.disable_provider_tracing: bool</code> (default <code>false</code>) MUST suppress provider upload for either provider without disabling otherwise-enabled OTel emission. Every run MUST explicitly derive <code>trace_include_sensitive_data</code> from <code>observability.traces.capture_content</code> (default false), carry the agent workflow name and run context, and include a group/session ID for session runs. SDK environment defaults MUST NOT override capture-disabled behavior. <a href="#d07">D07</a>.</li>
+</ul>
+<p><strong>Validation at startup:</strong></p>
+<ul>
+<li><strong>FR-110</strong>: Validation MUST collect all applicable configuration and credential errors in one pass and surface them together. Preflight MUST be side-effect-free: no SDK trace/key global mutation or agent run.</li>
+<li><strong>FR-111</strong>: Validation MUST run at <code>holodeck serve</code> and <code>holodeck deploy run</code> before accepting traffic or deploying. Echo sizing, capacity and derivation, default guardrails, hosted tools, and tracing destinations. Do not present the deferred hardened profile or sandbox configuration as supported. <a href="#d08">D08</a>.</li>
+</ul>
+<h2 id="success-criteria-mandatory">Success Criteria <em>(mandatory)</em><a class="headerlink" href="#success-criteria-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="measurable-outcomes">Measurable Outcomes<a class="headerlink" href="#measurable-outcomes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SC-001</strong>: Existing OpenAI/Azure agents route through the native backend by provider selection. Function, vectorstore, MCP, hierarchical-document, and the newly added skill category work; the five retained hosted tools are additionally available. No nonexistent <code>backend:</code> override is required. <a href="#d01">D01</a>, <a href="#d06">D06</a>.</li>
+<li><strong>SC-002</strong>: The required regression suite passes and Claude/Ollama behavior and shared result contracts remain intact. Tests may change to reflect recorded specification decisions; do not preserve or invent tests for removed AF/ADK/SK agent backends. <a href="#d01">D01</a>.</li>
+<li><strong>SC-003</strong>: <code>openai_agents</code> meets the shared spec-023 functional contract: single-turn, multi-turn session, streaming, tool calling, multimodal input, and error handling, with Claude regressions covered.</li>
+<li><strong>SC-004</strong>: Configuration validation completes within one second on a stated reproducible fixture/environment. Missing credentials, conflicting permission lists, invalid hosted parameters, computer use, and missing code-interpreter opt-in produce actionable errors. Azure resource capability rejection occurs at runtime, not through a blanket configuration ban. <a href="#d03">D03</a>.</li>
+<li><strong>SC-005</strong>: Operators who do not install the openai-agents extras experience no import-time failures when using other backends (lazy import gate).</li>
+<li><strong>SC-006</strong>: <code>openai_agents</code> results pass all three evaluation metric types (standard NLP, G-Eval, RAG) — no result-shape regressions.</li>
+<li><strong>SC-007</strong>: All five retained HoloDeck tool categories and all five retained hosted tools are covered by per-tool tests and real supported-provider acceptance. Computer use is explicitly rejected at configuration load and deferred under <a href="../../../exec-plans/tech-debt-tracker/#h-012">H-012</a>. <a href="#d06">D06</a>.</li>
+<li><strong>SC-008</strong>: A locally constrained 1-CPU / 1-GiB container MUST sustain ten concurrent in-flight turns without OOM and reject the eleventh with 429 and <code>Retry-After</code>. An authorized ACA deployment using the supported 1-CPU / 2-GiB default MUST sustain its derived twenty turns without OOM and reject the twenty-first identically. Verify recovery and recorded memory under a representative fixture; idle sessions do not consume slots. Calibration failures keep acceptance open and require an explicit contract revision, not an unrecorded capacity reduction. <a href="#d11">D11</a>.</li>
+<li><strong>SC-009</strong>: A synthetic credential-returning HoloDeck-built local tool proves model-visible replacement (<code>[REDACTED:anthropic-key]</code> for the Anthropic pattern), OTel attribute redaction, and capture-disabled trace payload exclusion. SDK-built MCP and server-side hosted outputs are not claimed as model-visible redaction coverage. <a href="#d05">D05</a>.</li>
+<li><strong>SC-010</strong>: <strong>Deferred proposal</strong>, not a 035 completion gate; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-022">H-022</a>. Future acceptance: <code>security_profile: hardened</code> deploys two containers; the agent container env has zero credential-bearing vars; calls to non-allowlisted domains are rejected by Envoy.</li>
+<li><strong>SC-011</strong>: An authorized real deployment proves OpenAI traces reach enabled OTel and the provider dashboard, while Azure reaches enabled OTel only. Provider-upload override suppresses upload independently of OTel. Mixed-provider/repeated-initialization and capture-disabled acceptance must also pass. <a href="#d07">D07</a>.</li>
+<li><strong>SC-012</strong>: <strong>Deferred proposal</strong>, not a 035 completion gate; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future acceptance: An agent declared with <code>agent_mode: sandbox</code> and the safety opt-in successfully executes a shell command (e.g. <code>python -c 'print(1+1)'</code>) inside the sandbox workspace; the same command issued through a <code>standard</code>-mode agent has no shell tool to invoke. Verified by integration test on both <code>provider: openai</code> and <code>provider: azure_openai</code>.</li>
+<li><strong>SC-013</strong>: <strong>Deferred proposal</strong>, not a 035 completion gate; <a href="#d08">D08</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-011">H-011</a>. Future acceptance: Under <code>security_profile: hardened</code> with <code>agent_mode: sandbox</code>, the sandbox client is the configured remote variant (Docker by default); workspace state never lands on the agent container filesystem. Verified by inspecting the deployed Container App spec and the sandbox client's remote handle.</li>
+</ul>
+<p><a id="decision-register"></a></p>
+<h2 id="decision-register-2026-09-06">Decision register — 2026-09-06<a class="headerlink" href="#decision-register-2026-09-06" title="Permanent link">&para;</a></h2>
+<p>These decisions reconcile the original 2026-05-24 proposal against the <a href="../../../exec-plans/active/035-openai-agents-backend/plan-full/#decisions">full plan's approved decisions and SDK review</a>, repository source, and completion scope.
+They supersede old narrative, examples, duplicate ship phases, implementation-file forecasts, and quantitative cost claims that conflicted with the retained contract. They are not implementation evidence.</p>
+<p><a id="d01"></a></p>
+<h3 id="d01">D01<a class="headerlink" href="#d01" title="Permanent link">&para;</a></h3>
+<p><strong>Provider routing replaces the nonexistent backend enumeration and opt-out.</strong> <code>src/holodeck/lib/backends/selector.py</code> routes OpenAI/Azure to OpenAI Agents and Anthropic/Ollama to Claude. No <code>Backend</code> enum, AF backend, ADK backend, or explicit SK agent route exists. FR-001/007 and SC-001/002/003 now describe that contract; original US1 scenario 4 is superseded.</p>
+<p><a id="d02"></a></p>
+<h3 id="d02">D02<a class="headerlink" href="#d02" title="Permanent link">&para;</a></h3>
+<p><strong>The namespace is <code>openai:</code>.</strong> The approved full-plan Decision 1 and <code>models/openai_config.py</code> establish <code>OpenAIConfig</code>, sibling to <code>claude:</code>. Hooks/subagents are not read from <code>claude.*</code>. FR-060/063 and all backend-setting examples follow this name. <code>SkillTool</code> is required new work, correcting the original assumption that it already existed. Shared namespace cleanup remains H-017.</p>
+<p><a id="d03"></a></p>
+<h3 id="d03">D03<a class="headerlink" href="#d03" title="Permanent link">&para;</a></h3>
+<p><strong>Azure uses the v1 Responses client.</strong> <code>openai_agents_backend.py</code> constructs <code>AsyncOpenAI</code> on normalized <code>/openai/v1</code>; the older <code>AsyncAzureOpenAI</code> assumption and blanket Azure hosted-tool block are superseded. US1/US5 and SC-004 instead require runtime capability errors to remain actionable. Hosted SDK parameter shapes are verified against the locked SDK during T4, not inferred from old flat-kwargs examples.</p>
+<p><a id="d04"></a></p>
+<h3 id="d04">D04<a class="headerlink" href="#d04" title="Permanent link">&para;</a></h3>
+<p><strong>Reasoning max maps to xhigh.</strong> The configuration model and backend mapping support this value. FR-031 and US4's warning/clamp behavior are superseded; no clamping warning is required. Reasoning summaries are requested when effort is configured; absent summaries do not prove a failure.</p>
+<p><a id="d05"></a></p>
+<h3 id="d05">D05<a class="headerlink" href="#d05" title="Permanent link">&para;</a></h3>
+<p><strong>Rejection is distinct from interactive approval and observation.</strong> Full-plan Decisions 5/6 replace synchronous <code>needs_approval</code> assumptions with local tool guardrails, input tripwires, and hosted-MCP automatic rejection. FR-050/084/087 and SC-009 retain enforceable boundaries and fail closed on unsupported gates. Model-visible redaction does not cover SDK-built MCP or hosted execution. Ordinary MCP tool lifecycle observation remains available; MCP failure wrapping is unavailable. <code>modify</code> warns and remains inert. H-013/H-014/H-015 own the deferred expansions.</p>
+<p><a id="d06"></a></p>
+<h3 id="d06">D06<a class="headerlink" href="#d06" title="Permanent link">&para;</a></h3>
+<p><strong>Five hosted tools, with computer use deferred.</strong> Full-plan Decision 7 establishes that a live computer harness is required. US5, FR-083, and SC-007 retain web search, file search, code interpreter, image generation, and hosted MCP. H-012 owns computer use. Code interpreter still requires its safety gate and nested SDK configuration.</p>
+<p><a id="d07"></a></p>
+<h3 id="d07">D07<a class="headerlink" href="#d07" title="Permanent link">&para;</a></h3>
+<p><strong>Select exporters without suppressing SDK span generation.</strong> <code>set_tracing_disabled(True)</code> creates no-op traces and would starve OTel; FR-101 and US7's old sequence are superseded. FR-100–102 require provider-aware routing independently of OTel enablement and explicit capture-content policy. The unsafe process-global first-initialization behavior was replaced by the per-backend policy router in <a href="#d13">D13</a>.</p>
+<p><a id="d08"></a></p>
+<h3 id="d08">D08<a class="headerlink" href="#d08" title="Permanent link">&para;</a></h3>
+<p><strong>P3 and sandbox remain explicit exclusions.</strong> Full-plan Decisions 2/3 defer net-new shared Envoy infrastructure and security-sensitive sandbox lifecycle work. FR-090–093/SC-010 go to H-022; FR-094–099/SC-012/013 go to H-011. Their retained MUST wording is future proposal text, not a claim of supported YAML or a current completion gate. P1a/P1b/P2a/P2b remain required. Spec-034 references do not imply shared P3 infrastructure already exists.</p>
+<p><a id="d09"></a></p>
+<h3 id="d09">D09<a class="headerlink" href="#d09" title="Permanent link">&para;</a></h3>
+<p><strong>Child scrubbing has a managed boundary.</strong> FR-089 cannot contain arbitrary Python by promising a subprocess wrapper. It now requires per-child sanitization for all HoloDeck-managed paths, including MCP configured environments, without concurrent process-global mutation. H-021 owns stronger isolation for arbitrary child launches; operators must be told the boundary.</p>
+<p><a id="d10"></a></p>
+<h3 id="d10">D10<a class="headerlink" href="#d10" title="Permanent link">&para;</a></h3>
+<p><strong>Keep <code>/ready</code> and connect it to required tool state.</strong> The route exists in <code>serve/server.py</code> and ACA startup/readiness probes use it. The current lifecycle-only 200 does not establish FR-013. T7 must require successful backend prerequisites and completed or verified existing initialization for required vectorstore/hierarchical-document tools. Pending, failed, cancelled, and uninitialized jobs return 503; agents with no initializable tools use backend readiness. Shutdown also returns 503. <code>/health</code> remains liveness; no endpoint rename is required.</p>
+<p><a id="d11"></a></p>
+<h3 id="d11">D11<a class="headerlink" href="#d11" title="Permanent link">&para;</a></h3>
+<p><strong>Preserve the memory formula and correct the unsupported ACA resource pair.</strong> ACA Consumption requires 2 GiB with 1 CPU; the proposed 1-CPU / 1-GiB ACA default is invalid. Retain the current supported 1-CPU / 2-GiB deployment default, yielding <code>floor(2048 / 100) = 20</code>; retain the original ten-turn no-OOM target as a local 1-CPU / 1-GiB constrained-container regression. SC-008 requires both results. See <a href="https://learn.microsoft.com/en-us/azure/container-apps/containers#vcpu-and-memory-allocation-requirements">Azure Container Apps resource requirements</a>, reviewed 2026-09-06.</p>
+<p>Explicit capacity overrides take precedence. Without a finite cgroup limit, use a labelled assumed 1024-MiB budget and derive ten by default. Do not subtract Claude's 400-MiB subprocess baseline or silently clamp a derived zero to one: a result below one fails startup with an actionable adjustment/override error. Serve/deploy must share the math and echo its inputs. Calibration remains an acceptance gate; changing the estimate or target requires an explicit decision and evidence.</p>
+<p><a id="d12"></a></p>
+<h3 id="d12">D12<a class="headerlink" href="#d12" title="Permanent link">&para;</a></h3>
+<p><strong>Close migration acceptance without claiming final SK removal.</strong> H-008 owns connectors, text splitting, and the SK dependency. LiteLLM dimension/error/span acceptance remains in T2/T10 and H-009. Tracked fixtures, real provider/collector/container evidence, multimodal behavior, evaluation overrides, and clean optional-extra installation remain mandatory completion gates. Prior live-provider deferral in the historical full plan is superseded by T10: missing access is an unresolved blocker, not passing acceptance.</p>
+<p><a id="d13"></a></p>
+<h3 id="d13">D13<a class="headerlink" href="#d13" title="Permanent link">&para;</a></h3>
+<p><strong>HoloDeck owns the SDK's process-global trace-processor list through one router.</strong> The SDK exposes a single processor list per process, so a first-initialization flag cannot express an OpenAI agent that uploads next to an Azure agent that must not. At <code>initialize()</code> each backend registers a per-instance <code>TracingPolicy</code> (<code>upload</code>: OpenAI without <code>disable_provider_tracing</code>; <code>mirror</code>: an OTel mirror when observability tracing is enabled) with <code>register_tracing_policy</code>; the first registration installs one HoloDeck router via <code>set_trace_processors</code>, replacing the SDK default exporter. Every run tags its trace with the backend's policy id in <code>RunConfig.trace_metadata</code> (<code>holodeck.tracing_policy</code>) and executes inside an <code>active_tracing_policy</code> scope. Trace events resolve by the tag, then the scope. Span identity is resolved once at span start (the scope of the run starting it, then its trace) and pinned to the span id until the span ends, so a run nested in a caller-owned or differently tagged outer <code>trace()</code> follows its own backend, and a span finished outside its scope, after its trace ended, or after the bounded trace map evicted its trace never falls back to upload, and a span or trace end whose trace identity is unknown to the router (never seen, or evicted before the span started) is dropped rather than uploaded. Policies are resolved from the registry per event, so <code>teardown()</code>'s <code>unregister_tracing_policy</code> drops further events of that backend immediately (fail closed). Registration is always performed, so Azure suppression holds with observability disabled, across repeated initialization, and for mixed providers in either order. Only traces and spans with no HoloDeck identity at all (non-HoloDeck SDK usage in the same process) keep SDK default behavior; the trace-level record of a caller-owned untagged outer trace also keeps that default. Implemented in <code>lib/backends/openai_agents_tracing.py</code> and covered by <code>test_openai_agents_tracing.py</code> and <code>test_openai_agents_backend.py</code>.</p>
+<p><a id="d14"></a></p>
+<h3 id="d14">D14<a class="headerlink" href="#d14" title="Permanent link">&para;</a></h3>
+<p><strong>Fallback order is primary client retries, then one fallback attempt, with no Runner-level policy repeat.</strong> The wrapper in <code>lib/backends/openai_agents_fallback.py</code> is the Runner's model, so the SDK's runner-managed retries (<code>ModelSettings.retry</code> with a policy) would re-run the whole primary-then-fallback pair per attempt. HoloDeck never sets <code>ModelSettings.retry</code>; the primary's retry budget is the OpenAI client's provider-managed retries (<code>max_retries</code>, default 2, on 429/5xx/connection errors with <code>retry-after</code>), which exhaust inside the primary call before the wrapper makes exactly one fallback attempt and then surfaces the fallback's error unchanged. One SDK compatibility path remains and is documented, not suppressed: on a fallback HTTP 400 <code>conversation_locked</code>, openai-agents 0.17.4 rewinds and re-runs the pair up to three more times (bound: four pairs) before raising; the only opt-out (<code>max_retries=0</code>) would also disable the client retries, so it is not taken. Streams fall back only before the first event, including non-text events such as <code>response.created</code>. Both attempts open their own <code>response</code> span under one trace. Runner-level tests over real <code>OpenAIResponsesModel</code> instances and an in-process HTTP transport are in <code>tests/unit/lib/backends/test_openai_agents_fallback_runner.py</code>; live provider evidence remains T10.</p>
+<p><a id="d15"></a></p>
+<h3 id="d15">D15<a class="headerlink" href="#d15" title="Permanent link">&para;</a></h3>
+<p><strong>LiteLLM inference contracts: dimensions reach the provider, provider errors surface, semantic conventions are not pinned.</strong> The tool initializer builds one shared <code>LiteLLMEmbeddingService</code> per agent (one embedding model, provider-native size) and a dedicated service for every tool that sets <code>embedding_dimensions</code>, so the override is sent to the provider as <code>dimensions</code> rather than only compared against the returned vector length (allow-listed for Azure deployment aliases, whose names carry no model marker); tools with different overrides call the provider with different sizes, and the tool-side length check remains the final guard. <code>LiteLLMEmbeddingService.generate_embeddings</code> is the provider-error boundary: any provider or decoding failure is re-raised as <code>EmbeddingServiceError</code> with the original exception chained, and <code>VectorStoreTool</code> / <code>HierarchicalDocumentTool</code> propagate it instead of substituting placeholder vectors (ingest failures abort tool initialization as <code>ToolInitializerError</code>; query failures surface as the tool error; placeholders remain only when no service is injected). HoloDeck does not set <code>OTEL_SEMCONV_STABILITY_OPT_IN</code>: the documented span shape is LiteLLM's default (<code>litellm_request</code> spans, operation on <code>llm.request.type</code>, provider on <code>gen_ai.system</code>), operators may opt into <code>gen_ai_latest_experimental</code> (<code>embeddings &lt;model&gt;</code> / <code>chat &lt;model&gt;</code>, <code>gen_ai.provider.name</code>), and the model, token-usage, and content attribute names are identical in both shapes so redaction and <code>NO_CONTENT</code> hold either way. <code>RedactingSpanProcessor</code> also scrubs LiteLLM's raw-response attribute, <code>error.*</code> failure attributes, and span-event attributes (the OTel <code>exception</code> event), which LiteLLM writes regardless of content capture. Exporter-level tests over the real LiteLLM entry points are in <code>tests/unit/lib/observability/test_litellm_spans.py</code>; live provider evidence remains T10.</p>
+<p><a id="d16"></a></p>
+<h3 id="d16">D16<a class="headerlink" href="#d16" title="Permanent link">&para;</a></h3>
+<p><strong>Subagents and skills are SDK handoff targets built from the parent's tool surface; handoff events reuse the Claude <code>ToolEvent</code> contract.</strong> <code>openai.agents.&lt;name&gt;</code> (<code>OpenAISubagentSpec</code>: <code>description</code>, <code>prompt</code>/<code>prompt_file</code>, <code>tools</code>, <code>model</code>, <code>skip_recommended_prefix</code>) and <code>type: skill</code> tools (<code>SkillTool</code>, net-new in <code>ToolUnion</code>: inline <code>instructions</code> or a <code>path</code> whose <code>SKILL.md</code> frontmatter supplies <code>name</code>/<code>description</code> and whose body supplies the instructions, plus YAML-only <code>allowed_tools</code>) both become SDK <code>Agent</code> objects on the parent's <code>handoffs</code> (<code>openai_agents_subagents.py</code>). Tool grants are resolved against the parent's <em>built</em> SDK tools and MCP servers, indexed by the config names written under the parent's <code>tools:</code> (the same portable naming <code>disallowed_tools</code> uses), so a disallowed parent tool can never be granted downstream; <code>tools: null</code> inherits every parent tool and server, an explicit list restricts, an empty list grants nothing, and an unknown name fails load as <code>ConfigError</code>. Skills get no tools unless <code>allowed_tools</code> names them, and <code>allowed_tools</code> is cross-validated against the agent's non-skill tools at config load. <code>model: inherit</code> (or omitted) reuses the parent's model object including any fallback wrapper; an explicit identifier is passed through for OpenAI or wrapped as an Azure deployment on the parent endpoint, without a fallback wrapper; <code>sonnet|opus|haiku</code> fail config validation. <code>RECOMMENDED_PROMPT_PREFIX</code> is prepended exactly once to subagent instructions unless <code>skip_recommended_prefix: true</code>; skill instructions are used verbatim so inline and file-based forms produce identical agents. A skill name colliding with an <code>openai.agents</code> key fails load. <code>claude.setting_sources</code> is accepted and, once per backend load, logs <code>setting_sources is a Claude-only concept; ignored on openai.</code> with no ambient discovery (H-020). Every target also receives the parent's <code>output_type</code> (so a run that ends inside a handoff still honours <code>response_format</code>) and the parent's <code>ModelSettings</code> for <code>inherit</code>/skills or settings rebuilt for an explicit model. Two parent tools that would surface under one SDK tool name (vectorstore <code>kb</code> and function <code>kb_search</code>) and two targets that normalise to one <code>transfer_to_</code> tool fail load, so grants and disallow lists are never ambiguous; <code>load_agent_yaml</code> sets <code>agent_base_dir</code> before validation so <code>prompt_file</code> and skill <code>path</code> resolve against the loaded file's directory. Events (<code>openai_agents_events.py</code>): <code>ToolCallItem</code>/<code>HandoffCallItem</code> → <code>start</code> (+<code>parent_link</code> under an active handoff), <code>ToolCallOutputItem</code> → <code>end</code>, <code>HandoffOutputItem</code> makes the handoff the active parent (its <code>end</code> is deferred to run completion so the chat panel keeps nesting the subagent's activity under it), <code>AgentUpdatedStreamEvent</code> after a handoff → <code>subagent_message</code> announcing the active agent (emitted from the handoff output item on the non-streaming path, which has no agent-updated event), subagent <code>MessageOutputItem</code> → <code>subagent_message</code> snapshot, <code>ReasoningItem</code> summaries → <code>thinking</code>; at run end every open handoff gets <code>end</code>, and a run that fails mid-stream closes every open tool call and handoff with <code>error</code>. The session exposes a bounded <code>tool_events</code> queue (1000 entries, newest dropped on overflow), feeding the existing chat panel and AG-UI bridge unchanged; a local tool failure surfaces as an <code>end</code> event carrying the SDK's error text rather than an <code>error</code> event. Handoff calls are also recorded in <code>ExecutionResult.tool_calls</code>/<code>tool_results</code> (<code>handoff:&lt;target&gt;</code>). Bounded fixture evidence drives the real SDK <code>Runner</code> with a scripted model (<code>tests/unit/lib/backends/test_openai_agents_events.py</code>); a live handoff remains T10.</p>
+<h2 id="implementation-and-validation-ownership">Implementation and validation ownership<a class="headerlink" href="#implementation-and-validation-ownership" title="Permanent link">&para;</a></h2>
+<p>Use the <a href="../../../exec-plans/active/035-openai-agents-backend/2026-09-06-complete-035/">completion plan</a> for task dependencies and checks; the <a href="../../../exec-plans/active/035-openai-agents-backend/acceptance-matrix/">matrix</a> owns named evidence and deferral disposition.
+The <a href="../../../exec-plans/active/035-openai-agents-backend/plan-full/">full plan</a> provides detailed adapter designs; its historical claims yield to this reconciled contract.
+Existing implementation lives in <code>src/holodeck/lib/backends/openai_agents_*.py</code>, <code>models/openai_config.py</code>, the shared selector/validators, serve, and deploy modules.
+Subagents, skills, hosted-tool schema/factories, hooks, and guardrails remain implementation work; do not treat forecast filenames as delivered modules.
+Use the pinned <code>openai-agents</code> optional extra and retain lazy imports for other backends. Models must not import SDK modules at import time.
+Schema changes require schema regeneration/checks; Python changes require focused style/type/tests; documentation changes require harness/link validation.
+Final acceptance includes the completion plan's required repository checks and authorized live validation. No cloud deployment is authorized merely by approving this contract.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -62,11 +62,11 @@ def set_embedding_service(self, service: Any) -> None:
 
 ## `DatabaseConfigMixin`
 
-Mixin for database configuration resolution and collection creation.
+Mixin for database configuration resolution and adapter creation.
 
-Provides methods for resolving database configuration from various formats (None, string reference, DatabaseConfig object) and creating vector store collections with automatic fallback to in-memory storage.
+Provides methods for resolving database configuration from various formats (None, string reference, DatabaseConfig object), creating the vector store adapter with automatic fallback to in-memory storage, and closing it.
 
-Required instance attributes (set by subclass **init**): config: Any - tool configuration with .name and .database attributes \_provider: str - stores the resolved provider name \_collection: Any - stores the created collection instance \_embedding_dimensions: int | None - embedding dimensions
+Required instance attributes (set by subclass **init**): config: Any - tool configuration with .name and .database attributes \_provider: str - stores the resolved provider name \_adapter: VectorStoreAdapter | None - the tool's vector store adapter \_embedding_dimensions: int | None - embedding dimensions
 
 ### `_resolve_database_config(database)`
 
@@ -133,6 +133,7 @@ def _resolve_database_config(
 
     if database is not None:
         # DatabaseConfig object - use its settings
+        self._manifest_enabled = database.manifest
         provider = database.provider
         connection_kwargs: dict[str, Any] = {}
         if database.connection_string:
@@ -147,103 +148,6 @@ def _resolve_database_config(
 
     # None - use in-memory
     return "in-memory", {}
-```
-
-### `_create_collection_with_fallback(provider, dimensions, connection_kwargs, record_class=None, definition=None)`
-
-Create a vector store collection with fallback to in-memory.
-
-Attempts to create a collection with the specified provider. If creation fails (e.g., database unreachable), falls back to in-memory storage.
-
-Parameters:
-
-| Name                | Type             | Description                             | Default                                                      |
-| ------------------- | ---------------- | --------------------------------------- | ------------------------------------------------------------ |
-| `provider`          | `str`            | Vector store provider name              | *required*                                                   |
-| `dimensions`        | `int`            | Embedding dimensions for the collection | *required*                                                   |
-| `connection_kwargs` | `dict[str, Any]` | Provider-specific connection parameters | *required*                                                   |
-| `record_class`      | \`type[Any]      | None\`                                  | Optional custom record class for the collection              |
-| `definition`        | \`Any            | None\`                                  | Optional VectorStoreCollectionDefinition for structured data |
-
-Returns:
-
-| Type  | Description                 |
-| ----- | --------------------------- |
-| `Any` | Created collection instance |
-
-Raises:
-
-| Type        | Description                                         |
-| ----------- | --------------------------------------------------- |
-| `Exception` | If in-memory provider also fails (shouldn't happen) |
-
-Source code in `src/holodeck/tools/base_tool.py`
-
-```
-def _create_collection_with_fallback(
-    self,
-    provider: str,
-    dimensions: int,
-    connection_kwargs: dict[str, Any],
-    record_class: type[Any] | None = None,
-    definition: Any | None = None,
-) -> Any:
-    """Create a vector store collection with fallback to in-memory.
-
-    Attempts to create a collection with the specified provider. If creation
-    fails (e.g., database unreachable), falls back to in-memory storage.
-
-    Args:
-        provider: Vector store provider name
-        dimensions: Embedding dimensions for the collection
-        connection_kwargs: Provider-specific connection parameters
-        record_class: Optional custom record class for the collection
-        definition: Optional VectorStoreCollectionDefinition for structured data
-
-    Returns:
-        Created collection instance
-
-    Raises:
-        Exception: If in-memory provider also fails (shouldn't happen)
-    """
-    from holodeck.lib.vector_store import get_collection_factory
-
-    try:
-        factory = get_collection_factory(
-            provider=provider,
-            dimensions=dimensions,
-            record_class=record_class,
-            definition=definition,
-            **connection_kwargs,
-        )
-        collection = factory()
-        logger.info(
-            f"Vector store connected: provider={provider}, "
-            f"dimensions={dimensions}"
-        )
-        self._provider = provider
-        return collection
-
-    except (ImportError, ConnectionError, Exception) as e:
-        # Fall back to in-memory storage for non-in-memory providers
-        if provider != "in-memory":
-            logger.warning(
-                f"Failed to connect to {provider}: {e}. "
-                "Falling back to in-memory storage."
-            )
-            factory = get_collection_factory(
-                provider="in-memory",
-                dimensions=dimensions,
-                record_class=record_class,
-                definition=definition,
-            )
-            collection = factory()
-            logger.info("Using in-memory vector storage (fallback)")
-            self._provider = "in-memory"
-            return collection
-        else:
-            # Don't catch errors for in-memory provider
-            raise
 ```
 
 ______________________________________________________________________
@@ -546,7 +450,7 @@ Provides semantic search over files and directories containing text data or stru
 
 ## `VectorStoreTool(config, base_dir=None, execution_config=None)`
 
-Bases: `EmbeddingServiceMixin`, `DatabaseConfigMixin`
+Bases: `PipelineGuardMixin`, `EmbeddingServiceMixin`, `DatabaseConfigMixin`
 
 Vectorstore tool for semantic search over unstructured data.
 
@@ -629,7 +533,11 @@ def __init__(
 
     # Initialize components (lazy initialization for some)
     chunk_size = config.chunk_size or TextChunker.DEFAULT_CHUNK_SIZE
-    chunk_overlap = config.chunk_overlap or TextChunker.DEFAULT_CHUNK_OVERLAP
+    if config.chunk_overlap is None:
+        # Unset overlap: the default, capped so it stays below small sizes.
+        chunk_overlap = min(TextChunker.DEFAULT_CHUNK_OVERLAP, chunk_size // 4)
+    else:
+        chunk_overlap = config.chunk_overlap
     self._text_chunker = TextChunker(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
@@ -639,9 +547,10 @@ def __init__(
     # Embedding service (initialized lazily by AgentFactory)
     self._embedding_service: Any = None
 
-    # Persistent collection instance for vector store operations
-    self._collection: Any = None
+    # Vector store adapter, owned by the tool until close()
+    self._adapter: VectorStoreAdapter | None = None
     self._provider: str = "in-memory"
+    self._warned_id_coercion: bool = False
 
     # Source context for stable record keys (remote sources)
     self._source_root: Path | None = None
@@ -718,7 +627,7 @@ async def initialize(
 
     # Branch to structured mode if vector_field is configured
     if self._is_structured_mode():
-        await self._initialize_structured(provider_type)
+        await self._initialize_structured(provider_type, force_ingest)
         return
 
     source_path = self._resolve_source_path()
@@ -737,6 +646,7 @@ async def initialize(
 
     # Set up collection instance with provider type before processing files
     self._setup_collection(provider_type)
+    await self._bind_pipeline(self.config.name)
 
     # Discover files
     files = self._discover_files()
@@ -929,7 +839,7 @@ Provides intelligent document search that understands document structure, extrac
 
 ## `HierarchicalDocumentTool(config, base_dir=None, execution_config=None)`
 
-Bases: `EmbeddingServiceMixin`, `DatabaseConfigMixin`
+Bases: `PipelineGuardMixin`, `EmbeddingServiceMixin`, `DatabaseConfigMixin`
 
 Semantic Kernel tool for hierarchical document retrieval.
 
@@ -996,10 +906,9 @@ def __init__(
 
     # Service injection attributes
     self._embedding_service: Any = None
-    self._collection: Any = None
+    self._adapter: VectorStoreAdapter | None = None
     self._provider: str = "in-memory"
     self._embedding_dimensions: int | None = None
-    self._qdrant_indexes_ensured: bool = False
 
     # Lazily constructed FileProcessor (see _get_file_processor)
     self._file_processor: FileProcessor | None = None
@@ -1076,6 +985,7 @@ async def initialize(
 
     # Set up collection with provider type for dimension resolution
     self._setup_collection(provider_type)
+    await self._bind_pipeline(self.config.name)
 
     # Ingest all documents (with incremental check)
     skipped_files = await self._ingest_documents(
@@ -1093,9 +1003,7 @@ async def initialize(
     # Python on every restart is pure waste. For in-memory providers,
     # the collection itself is reseeded by _ingest_documents (nothing
     # is "skipped"), so there's no reload to do.
-    from holodeck.lib.keyword_search import NATIVE_HYBRID_PROVIDERS
-
-    is_native_hybrid = self._provider in NATIVE_HYBRID_PROVIDERS
+    is_native_hybrid = self._uses_native_hybrid()
     needs_corpus_reload = (
         skipped_files > 0 and self._provider != "in-memory" and not is_native_hybrid
     )

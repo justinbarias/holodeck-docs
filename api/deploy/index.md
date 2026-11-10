@@ -18,25 +18,29 @@ This package provides the deployment functionality for HoloDeck agents, includin
 
 Note: ContainerBuilder and BuildResult require the 'docker' optional dependency (pip install holodeck-ai[deploy]). They are lazily imported to avoid ImportError when docker is not installed.
 
-### `generate_dockerfile(agent_name, port, protocol, *, base_image='ghcr.io/justinbarias/holodeck-base:latest', version='0.0.0', source_url='', instruction_files=None, data_directories=None, environment=None, needs_nodejs=False, extras=None)`
+### `generate_dockerfile(agent_name, port, protocol, *, holodeck_version, holodeck_wheel=None, base_image='ghcr.io/justinbarias/holodeck-base:latest', version='0.0.0', source_url='', instruction_files=None, data_directories=None, environment=None, needs_nodejs=False, extras=None)`
 
 Generate a Dockerfile for a HoloDeck agent.
 
+The build context must hold `holodeck-constraints.txt` and `holodeck-overrides.txt` (the pin files shipped with the HoloDeck version being installed) and, for a development build, the wheel named by `holodeck_wheel`.
+
 Parameters:
 
-| Name                | Type             | Description                                                | Default                                            |
-| ------------------- | ---------------- | ---------------------------------------------------------- | -------------------------------------------------- |
-| `agent_name`        | `str`            | Name of the agent for labeling                             | *required*                                         |
-| `port`              | `int`            | Port to expose                                             | *required*                                         |
-| `protocol`          | `str`            | Protocol type (rest, ag-ui, both)                          | *required*                                         |
-| `base_image`        | `str`            | Base Docker image to use                                   | `'ghcr.io/justinbarias/holodeck-base:latest'`      |
-| `version`           | `str`            | Version for OCI label                                      | `'0.0.0'`                                          |
-| `source_url`        | `str`            | Source URL for OCI label                                   | `''`                                               |
-| `instruction_files` | \`list[str]      | None\`                                                     | List of instruction file paths to copy             |
-| `data_directories`  | \`list[str]      | None\`                                                     | List of data directories to copy                   |
-| `environment`       | \`dict[str, str] | None\`                                                     | Environment variables to set                       |
-| `needs_nodejs`      | `bool`           | Whether to install Node.js (required for Claude Agent SDK) | `False`                                            |
-| `extras`            | \`list[str]      | None\`                                                     | holodeck-ai extras to install (e.g., ["chromadb"]) |
+| Name                | Type             | Description                                                | Default                                                                                                                                                        |
+| ------------------- | ---------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `agent_name`        | `str`            | Name of the agent for labeling                             | *required*                                                                                                                                                     |
+| `port`              | `int`            | Port to expose                                             | *required*                                                                                                                                                     |
+| `protocol`          | `str`            | Protocol type (rest, ag-ui, both)                          | *required*                                                                                                                                                     |
+| `holodeck_version`  | `str`            | Exact HoloDeck version the image installs                  | *required*                                                                                                                                                     |
+| `holodeck_wheel`    | \`str            | None\`                                                     | File name of a wheel in the build context. Set for a development version that is not on PyPI; the wheel is installed instead of holodeck-ai==holodeck_version. |
+| `base_image`        | `str`            | Base Docker image to use                                   | `'ghcr.io/justinbarias/holodeck-base:latest'`                                                                                                                  |
+| `version`           | `str`            | Version for OCI label                                      | `'0.0.0'`                                                                                                                                                      |
+| `source_url`        | `str`            | Source URL for OCI label                                   | `''`                                                                                                                                                           |
+| `instruction_files` | \`list[str]      | None\`                                                     | List of instruction file paths to copy                                                                                                                         |
+| `data_directories`  | \`list[str]      | None\`                                                     | List of data directories to copy                                                                                                                               |
+| `environment`       | \`dict[str, str] | None\`                                                     | Environment variables to set                                                                                                                                   |
+| `needs_nodejs`      | `bool`           | Whether to install Node.js (required for Claude Agent SDK) | `False`                                                                                                                                                        |
+| `extras`            | \`list[str]      | None\`                                                     | holodeck-ai extras to install (e.g., ["chromadb"]); rendered sorted and without duplicates                                                                     |
 
 Returns:
 
@@ -44,9 +48,15 @@ Returns:
 | ----- | ---------------------------------------- |
 | `str` | Generated Dockerfile content as a string |
 
+Raises:
+
+| Type         | Description                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| `ValueError` | If the version, wheel name, or an extra name has characters that do not belong in a requirement. |
+
 Example
 
-> > > dockerfile = generate_dockerfile( ... agent_name="my-agent", ... port=8080, ... protocol="rest", ... instruction_files=["instructions.md"], ... ) print(dockerfile[:50])
+> > > dockerfile = generate_dockerfile( ... agent_name="my-agent", ... port=8080, ... protocol="rest", ... holodeck_version="1.2.3", ... instruction_files=["instructions.md"], ... ) print(dockerfile[:50])
 
 #### HoloDeck Agent Container
 
@@ -60,6 +70,8 @@ def generate_dockerfile(
     port: int,
     protocol: str,
     *,
+    holodeck_version: str,
+    holodeck_wheel: str | None = None,
     base_image: str = "ghcr.io/justinbarias/holodeck-base:latest",
     version: str = "0.0.0",
     source_url: str = "",
@@ -71,10 +83,19 @@ def generate_dockerfile(
 ) -> str:
     """Generate a Dockerfile for a HoloDeck agent.
 
+    The build context must hold ``holodeck-constraints.txt`` and
+    ``holodeck-overrides.txt`` (the pin files shipped with the HoloDeck version
+    being installed) and, for a development build, the wheel named by
+    ``holodeck_wheel``.
+
     Args:
         agent_name: Name of the agent for labeling
         port: Port to expose
         protocol: Protocol type (rest, ag-ui, both)
+        holodeck_version: Exact HoloDeck version the image installs
+        holodeck_wheel: File name of a wheel in the build context. Set for a
+            development version that is not on PyPI; the wheel is installed
+            instead of ``holodeck-ai==holodeck_version``.
         base_image: Base Docker image to use
         version: Version for OCI label
         source_url: Source URL for OCI label
@@ -82,26 +103,36 @@ def generate_dockerfile(
         data_directories: List of data directories to copy
         environment: Environment variables to set
         needs_nodejs: Whether to install Node.js (required for Claude Agent SDK)
-        extras: holodeck-ai extras to install (e.g., ["chromadb"])
+        extras: holodeck-ai extras to install (e.g., ["chromadb"]); rendered
+            sorted and without duplicates
 
     Returns:
         Generated Dockerfile content as a string
+
+    Raises:
+        ValueError: If the version, wheel name, or an extra name has characters
+            that do not belong in a requirement.
 
     Example:
         >>> dockerfile = generate_dockerfile(
         ...     agent_name="my-agent",
         ...     port=8080,
         ...     protocol="rest",
+        ...     holodeck_version="1.2.3",
         ...     instruction_files=["instructions.md"],
         ... )
         >>> print(dockerfile[:50])
         # HoloDeck Agent Container
         # Auto-generated Doc...
     """
-    template = Template(HOLODECK_DOCKERFILE_TEMPLATE)
+    extras_list = sorted(set(extras or []))
+    _validate_install(holodeck_version, holodeck_wheel, extras_list)
+
+    # jinja2 types Template.__new__ as returning Any; annotate to keep render() typed.
+    template: Template = Template(HOLODECK_DOCKERFILE_TEMPLATE)
 
     # Generate ISO 8601 timestamp
-    created = datetime.now(timezone.utc).isoformat()
+    created = datetime.now(UTC).isoformat()
 
     return template.render(
         agent_name=agent_name,
@@ -115,7 +146,17 @@ def generate_dockerfile(
         data_directories=data_directories or [],
         environment=environment or {},
         needs_nodejs=needs_nodejs,
-        extras=extras or [],
+        extras=extras_list,
+        holodeck_version=holodeck_version,
+        holodeck_wheel=holodeck_wheel,
+        requirement=_requirement(holodeck_version, holodeck_wheel, extras_list),
+        manifest_header=(
+            f"# holodeck-ai {holodeck_version}; extras: "
+            f"{','.join(extras_list) or 'none'}"
+        ),
+        constraints_file=CONSTRAINTS_CONTEXT_FILE,
+        overrides_file=OVERRIDES_CONTEXT_FILE,
+        manifest_path=MANIFEST_IMAGE_PATH,
     )
 ```
 
@@ -254,7 +295,7 @@ def get_oci_labels(
         >>> labels["org.opencontainers.image.title"]
         'my-agent'
     """
-    created = datetime.now(timezone.utc).isoformat()
+    created = datetime.now(UTC).isoformat()
 
     labels = {
         "org.opencontainers.image.title": agent_name,
@@ -276,25 +317,29 @@ ______________________________________________________________________
 
 Generates Dockerfiles from Jinja2 templates, embedding OCI labels, environment variables, instruction files, and optional Node.js installation for Claude agents.
 
-## `generate_dockerfile(agent_name, port, protocol, *, base_image='ghcr.io/justinbarias/holodeck-base:latest', version='0.0.0', source_url='', instruction_files=None, data_directories=None, environment=None, needs_nodejs=False, extras=None)`
+## `generate_dockerfile(agent_name, port, protocol, *, holodeck_version, holodeck_wheel=None, base_image='ghcr.io/justinbarias/holodeck-base:latest', version='0.0.0', source_url='', instruction_files=None, data_directories=None, environment=None, needs_nodejs=False, extras=None)`
 
 Generate a Dockerfile for a HoloDeck agent.
 
+The build context must hold `holodeck-constraints.txt` and `holodeck-overrides.txt` (the pin files shipped with the HoloDeck version being installed) and, for a development build, the wheel named by `holodeck_wheel`.
+
 Parameters:
 
-| Name                | Type             | Description                                                | Default                                            |
-| ------------------- | ---------------- | ---------------------------------------------------------- | -------------------------------------------------- |
-| `agent_name`        | `str`            | Name of the agent for labeling                             | *required*                                         |
-| `port`              | `int`            | Port to expose                                             | *required*                                         |
-| `protocol`          | `str`            | Protocol type (rest, ag-ui, both)                          | *required*                                         |
-| `base_image`        | `str`            | Base Docker image to use                                   | `'ghcr.io/justinbarias/holodeck-base:latest'`      |
-| `version`           | `str`            | Version for OCI label                                      | `'0.0.0'`                                          |
-| `source_url`        | `str`            | Source URL for OCI label                                   | `''`                                               |
-| `instruction_files` | \`list[str]      | None\`                                                     | List of instruction file paths to copy             |
-| `data_directories`  | \`list[str]      | None\`                                                     | List of data directories to copy                   |
-| `environment`       | \`dict[str, str] | None\`                                                     | Environment variables to set                       |
-| `needs_nodejs`      | `bool`           | Whether to install Node.js (required for Claude Agent SDK) | `False`                                            |
-| `extras`            | \`list[str]      | None\`                                                     | holodeck-ai extras to install (e.g., ["chromadb"]) |
+| Name                | Type             | Description                                                | Default                                                                                                                                                        |
+| ------------------- | ---------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `agent_name`        | `str`            | Name of the agent for labeling                             | *required*                                                                                                                                                     |
+| `port`              | `int`            | Port to expose                                             | *required*                                                                                                                                                     |
+| `protocol`          | `str`            | Protocol type (rest, ag-ui, both)                          | *required*                                                                                                                                                     |
+| `holodeck_version`  | `str`            | Exact HoloDeck version the image installs                  | *required*                                                                                                                                                     |
+| `holodeck_wheel`    | \`str            | None\`                                                     | File name of a wheel in the build context. Set for a development version that is not on PyPI; the wheel is installed instead of holodeck-ai==holodeck_version. |
+| `base_image`        | `str`            | Base Docker image to use                                   | `'ghcr.io/justinbarias/holodeck-base:latest'`                                                                                                                  |
+| `version`           | `str`            | Version for OCI label                                      | `'0.0.0'`                                                                                                                                                      |
+| `source_url`        | `str`            | Source URL for OCI label                                   | `''`                                                                                                                                                           |
+| `instruction_files` | \`list[str]      | None\`                                                     | List of instruction file paths to copy                                                                                                                         |
+| `data_directories`  | \`list[str]      | None\`                                                     | List of data directories to copy                                                                                                                               |
+| `environment`       | \`dict[str, str] | None\`                                                     | Environment variables to set                                                                                                                                   |
+| `needs_nodejs`      | `bool`           | Whether to install Node.js (required for Claude Agent SDK) | `False`                                                                                                                                                        |
+| `extras`            | \`list[str]      | None\`                                                     | holodeck-ai extras to install (e.g., ["chromadb"]); rendered sorted and without duplicates                                                                     |
 
 Returns:
 
@@ -302,9 +347,15 @@ Returns:
 | ----- | ---------------------------------------- |
 | `str` | Generated Dockerfile content as a string |
 
+Raises:
+
+| Type         | Description                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| `ValueError` | If the version, wheel name, or an extra name has characters that do not belong in a requirement. |
+
 Example
 
-> > > dockerfile = generate_dockerfile( ... agent_name="my-agent", ... port=8080, ... protocol="rest", ... instruction_files=["instructions.md"], ... ) print(dockerfile[:50])
+> > > dockerfile = generate_dockerfile( ... agent_name="my-agent", ... port=8080, ... protocol="rest", ... holodeck_version="1.2.3", ... instruction_files=["instructions.md"], ... ) print(dockerfile[:50])
 
 ### HoloDeck Agent Container
 
@@ -318,6 +369,8 @@ def generate_dockerfile(
     port: int,
     protocol: str,
     *,
+    holodeck_version: str,
+    holodeck_wheel: str | None = None,
     base_image: str = "ghcr.io/justinbarias/holodeck-base:latest",
     version: str = "0.0.0",
     source_url: str = "",
@@ -329,10 +382,19 @@ def generate_dockerfile(
 ) -> str:
     """Generate a Dockerfile for a HoloDeck agent.
 
+    The build context must hold ``holodeck-constraints.txt`` and
+    ``holodeck-overrides.txt`` (the pin files shipped with the HoloDeck version
+    being installed) and, for a development build, the wheel named by
+    ``holodeck_wheel``.
+
     Args:
         agent_name: Name of the agent for labeling
         port: Port to expose
         protocol: Protocol type (rest, ag-ui, both)
+        holodeck_version: Exact HoloDeck version the image installs
+        holodeck_wheel: File name of a wheel in the build context. Set for a
+            development version that is not on PyPI; the wheel is installed
+            instead of ``holodeck-ai==holodeck_version``.
         base_image: Base Docker image to use
         version: Version for OCI label
         source_url: Source URL for OCI label
@@ -340,26 +402,36 @@ def generate_dockerfile(
         data_directories: List of data directories to copy
         environment: Environment variables to set
         needs_nodejs: Whether to install Node.js (required for Claude Agent SDK)
-        extras: holodeck-ai extras to install (e.g., ["chromadb"])
+        extras: holodeck-ai extras to install (e.g., ["chromadb"]); rendered
+            sorted and without duplicates
 
     Returns:
         Generated Dockerfile content as a string
+
+    Raises:
+        ValueError: If the version, wheel name, or an extra name has characters
+            that do not belong in a requirement.
 
     Example:
         >>> dockerfile = generate_dockerfile(
         ...     agent_name="my-agent",
         ...     port=8080,
         ...     protocol="rest",
+        ...     holodeck_version="1.2.3",
         ...     instruction_files=["instructions.md"],
         ... )
         >>> print(dockerfile[:50])
         # HoloDeck Agent Container
         # Auto-generated Doc...
     """
-    template = Template(HOLODECK_DOCKERFILE_TEMPLATE)
+    extras_list = sorted(set(extras or []))
+    _validate_install(holodeck_version, holodeck_wheel, extras_list)
+
+    # jinja2 types Template.__new__ as returning Any; annotate to keep render() typed.
+    template: Template = Template(HOLODECK_DOCKERFILE_TEMPLATE)
 
     # Generate ISO 8601 timestamp
-    created = datetime.now(timezone.utc).isoformat()
+    created = datetime.now(UTC).isoformat()
 
     return template.render(
         agent_name=agent_name,
@@ -373,7 +445,247 @@ def generate_dockerfile(
         data_directories=data_directories or [],
         environment=environment or {},
         needs_nodejs=needs_nodejs,
-        extras=extras or [],
+        extras=extras_list,
+        holodeck_version=holodeck_version,
+        holodeck_wheel=holodeck_wheel,
+        requirement=_requirement(holodeck_version, holodeck_wheel, extras_list),
+        manifest_header=(
+            f"# holodeck-ai {holodeck_version}; extras: "
+            f"{','.join(extras_list) or 'none'}"
+        ),
+        constraints_file=CONSTRAINTS_CONTEXT_FILE,
+        overrides_file=OVERRIDES_CONTEXT_FILE,
+        manifest_path=MANIFEST_IMAGE_PATH,
+    )
+```
+
+______________________________________________________________________
+
+## `holodeck.deploy.extras` -- Extras for a serving image
+
+Chooses the `holodeck-ai` extras an agent needs. Provider extras come from the retrieval registry.
+
+## `required_extras(agent, *, temporal_worker=False)`
+
+Return the `holodeck-ai` extras that `agent` needs to serve.
+
+Parameters:
+
+| Name              | Type    | Description                                                                                                                           | Default    |
+| ----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `agent`           | `Agent` | Loaded agent configuration.                                                                                                           | *required* |
+| `temporal_worker` | `bool`  | The image runs holodeck worker (Temporal), which needs the temporal extra. Nothing in an agent file says this, so the caller decides. | `False`    |
+
+Returns:
+
+| Type        | Description                                                           |
+| ----------- | --------------------------------------------------------------------- |
+| `list[str]` | Extra names, sorted and without duplicates. A database that the agent |
+| `list[str]` | names by reference and the loader could not resolve adds nothing.     |
+
+Source code in `src/holodeck/deploy/extras.py`
+
+```
+def required_extras(agent: Agent, *, temporal_worker: bool = False) -> list[str]:
+    """Return the ``holodeck-ai`` extras that ``agent`` needs to serve.
+
+    Args:
+        agent: Loaded agent configuration.
+        temporal_worker: The image runs ``holodeck worker`` (Temporal), which
+            needs the ``temporal`` extra. Nothing in an agent file says this,
+            so the caller decides.
+
+    Returns:
+        Extra names, sorted and without duplicates. A database that the agent
+        names by reference and the loader could not resolve adds nothing.
+    """
+    extras: set[str] = set()
+
+    provider = agent.model.provider
+    if provider in _OPENAI_AGENTS_PROVIDERS:
+        extras.add("openai-agents")
+
+    observability = agent.observability
+    if observability is not None and observability.enabled:
+        if provider in _CLAUDE_BACKEND_PROVIDERS and observability.traces.enabled:
+            extras.add("claude-otel")
+        exporters = observability.exporters
+        if exporters.prometheus and exporters.prometheus.enabled:
+            extras.add("otel-prometheus")
+        if exporters.azure_monitor and exporters.azure_monitor.enabled:
+            extras.add("otel-azmon")
+
+    for tool in agent.tools or []:
+        if not isinstance(tool, VectorstoreTool | HierarchicalDocumentToolConfig):
+            continue
+        if isinstance(tool.database, DatabaseConfig):
+            entry = PROVIDERS.get(tool.database.provider)
+            if entry is not None and entry.extra is not None:
+                extras.add(entry.extra)
+        for scheme, extra in _SOURCE_SCHEME_EXTRAS.items():
+            if tool.source.startswith(scheme):
+                extras.add(extra)
+        if isinstance(tool, HierarchicalDocumentToolConfig):
+            keyword_index = tool.keyword_index
+            if keyword_index is not None and keyword_index.provider == "opensearch":
+                extras.add("opensearch")
+
+    if temporal_worker:
+        extras.add("temporal")
+
+    return sorted(extras)
+```
+
+______________________________________________________________________
+
+## `holodeck.deploy.install` -- Which HoloDeck an image installs
+
+An image installs one exact version: a PyPI release, or a wheel for a development version. The constraints and overrides files come from the package being installed.
+
+## `resolve_install(installed_version, wheel=None, search_dirs=None)`
+
+Choose the HoloDeck an image installs.
+
+Parameters:
+
+| Name                | Type         | Description                      | Default                                                                                                                                      |
+| ------------------- | ------------ | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `installed_version` | `str`        | Version of the running HoloDeck. | *required*                                                                                                                                   |
+| `wheel`             | \`Path       | None\`                           | Wheel passed by the user. It wins over everything else and may be any version.                                                               |
+| `search_dirs`       | \`list[Path] | None\`                           | Where to look for holodeck_ai-<version>-\*.whl when the running version is a development version and no wheel is given (for example ./dist). |
+
+Raises:
+
+| Type              | Description                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------ |
+| `DeploymentError` | A development version has no wheel, or a given wheel is not a usable HoloDeck wheel. |
+
+Source code in `src/holodeck/deploy/install.py`
+
+```
+def resolve_install(
+    installed_version: str,
+    wheel: Path | None = None,
+    search_dirs: list[Path] | None = None,
+) -> HoloDeckInstall:
+    """Choose the HoloDeck an image installs.
+
+    Args:
+        installed_version: Version of the running HoloDeck.
+        wheel: Wheel passed by the user. It wins over everything else and may
+            be any version.
+        search_dirs: Where to look for ``holodeck_ai-<version>-*.whl`` when
+            the running version is a development version and no wheel is
+            given (for example ``./dist``).
+
+    Raises:
+        DeploymentError: A development version has no wheel, or a given wheel
+            is not a usable HoloDeck wheel.
+    """
+    if wheel is not None:
+        if not wheel.is_file():
+            raise DeploymentError(
+                operation="build", message=f"Wheel not found: {wheel}"
+            )
+        return HoloDeckInstall(
+            version=wheel_version(wheel),
+            constraints=wheel_constraints(wheel),
+            overrides=wheel_overrides(wheel),
+            wheel=wheel,
+        )
+
+    if is_published_version(installed_version):
+        return HoloDeckInstall(
+            version=installed_version,
+            constraints=bundled_constraints(),
+            overrides=bundled_overrides(),
+        )
+
+    found = _find_dev_wheel(installed_version, search_dirs or [])
+    if found is not None:
+        return HoloDeckInstall(
+            version=wheel_version(found),
+            constraints=wheel_constraints(found),
+            overrides=wheel_overrides(found),
+            wheel=found,
+        )
+    raise DeploymentError(
+        operation="build",
+        message=(
+            f"HoloDeck {installed_version} is a development version and is not "
+            "on PyPI, so an image cannot install it by version. Build a wheel "
+            "with `uv build --wheel` and pass it with `--wheel dist/<file>.whl`, "
+            "or run `holodeck deploy build` from a released HoloDeck."
+        ),
+    )
+```
+
+______________________________________________________________________
+
+## `holodeck.deploy.manifest` -- Image manifest
+
+The manifest `holodeck deploy build` writes to `.holodeck/builds/<tag>.json`.
+
+## `build_manifest(*, agent, platform, install, extras, base_image, image_reference, image, freeze_text)`
+
+Assemble the manifest of one build.
+
+Raises:
+
+| Type              | Description                                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `DeploymentError` | If the image reported no packages. An install that produced an empty list did not run, so the manifest would lie. |
+
+Source code in `src/holodeck/deploy/manifest.py`
+
+```
+def build_manifest(
+    *,
+    agent: str,
+    platform: str,
+    install: HoloDeckInstall,
+    extras: list[str],
+    base_image: ImageRef,
+    image_reference: str,
+    image: ImageRef,
+    freeze_text: str,
+) -> ImageManifest:
+    """Assemble the manifest of one build.
+
+    Raises:
+        DeploymentError: If the image reported no packages. An install that
+            produced an empty list did not run, so the manifest would lie.
+    """
+    packages = parse_freeze(freeze_text)
+    if not packages:
+        raise DeploymentError(
+            operation="build",
+            message="The image package manifest is empty; the install did not run.",
+        )
+    return ImageManifest(
+        agent=agent,
+        platform=platform,
+        holodeck=HoloDeckRecord(
+            version=install.version,
+            source=install.source,
+            wheel_sha256=(
+                _sha256_file(install.wheel) if install.wheel is not None else None
+            ),
+            extras=sorted(set(extras)),
+            constraints_sha256=sha256_text(install.constraints),
+            overrides_sha256=sha256_text(install.overrides),
+        ),
+        base_image=BaseImageRecord(
+            reference=base_image.reference,
+            digest=base_image.digest,
+            image_id=base_image.image_id,
+        ),
+        image=ImageRecord(
+            reference=image_reference,
+            image_id=image.image_id,
+            digest=image.digest,
+        ),
+        packages=packages,
     )
 ```
 
@@ -492,21 +804,22 @@ def __init__(self) -> None:
         raise DockerNotAvailableError(operation="init") from e
 ```
 
-### `build(build_context, image_name, tag, labels=None, dockerfile='Dockerfile', platform='linux/amd64', **build_kwargs)`
+### `build(build_context, image_name, tag, labels=None, dockerfile='Dockerfile', platform='linux/amd64', pull=True, **build_kwargs)`
 
 Build a container image from the specified context.
 
 Parameters:
 
-| Name             | Type             | Description                                          | Default                      |
-| ---------------- | ---------------- | ---------------------------------------------------- | ---------------------------- |
-| `build_context`  | `str`            | Path to the build context directory                  | *required*                   |
-| `image_name`     | `str`            | Repository/image name for the built image            | *required*                   |
-| `tag`            | `str`            | Tag for the built image                              | *required*                   |
-| `labels`         | \`dict[str, str] | None\`                                               | Optional OCI labels to apply |
-| `dockerfile`     | `str`            | Path to Dockerfile relative to context               | `'Dockerfile'`               |
-| `platform`       | `str`            | Target platform for the image (default: linux/amd64) | `'linux/amd64'`              |
-| `**build_kwargs` | `Any`            | Additional arguments passed to Docker build          | `{}`                         |
+| Name             | Type             | Description                                                                                                                                                        | Default                      |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
+| `build_context`  | `str`            | Path to the build context directory                                                                                                                                | *required*                   |
+| `image_name`     | `str`            | Repository/image name for the built image                                                                                                                          | *required*                   |
+| `tag`            | `str`            | Tag for the built image                                                                                                                                            | *required*                   |
+| `labels`         | \`dict[str, str] | None\`                                                                                                                                                             | Optional OCI labels to apply |
+| `dockerfile`     | `str`            | Path to Dockerfile relative to context                                                                                                                             | `'Dockerfile'`               |
+| `platform`       | `str`            | Target platform for the image (default: linux/amd64)                                                                                                               | `'linux/amd64'`              |
+| `pull`           | `bool`           | Pull the base image first (default). False builds on the base image already in the local daemon, for a base image that was built locally and is not in a registry. | `True`                       |
+| `**build_kwargs` | `Any`            | Additional arguments passed to Docker build                                                                                                                        | `{}`                         |
 
 Returns:
 
@@ -531,6 +844,7 @@ def build(
     labels: dict[str, str] | None = None,
     dockerfile: str = "Dockerfile",
     platform: str = "linux/amd64",
+    pull: bool = True,
     **build_kwargs: Any,
 ) -> BuildResult:
     """Build a container image from the specified context.
@@ -542,6 +856,9 @@ def build(
         labels: Optional OCI labels to apply
         dockerfile: Path to Dockerfile relative to context
         platform: Target platform for the image (default: linux/amd64)
+        pull: Pull the base image first (default). False builds on the
+            base image already in the local daemon, for a base image that
+            was built locally and is not in a registry.
         **build_kwargs: Additional arguments passed to Docker build
 
     Returns:
@@ -567,7 +884,7 @@ def build(
             labels=labels or {},
             rm=True,  # Remove intermediate containers
             platform=platform,
-            pull=True,  # Always pull base image
+            pull=pull,  # Pull the base image unless the caller opts out
             **build_kwargs,
         )
 
@@ -746,7 +1063,7 @@ def get_oci_labels(
         >>> labels["org.opencontainers.image.title"]
         'my-agent'
     """
-    created = datetime.now(timezone.utc).isoformat()
+    created = datetime.now(UTC).isoformat()
 
     labels = {
         "org.opencontainers.image.title": agent_name,
@@ -890,7 +1207,7 @@ def update_deployment_record(
     """Update deployment record for an agent and persist it."""
     state = load_state(state_path)
     existing = state.deployments.get(agent_name)
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     created_at = record.created_at or (existing.created_at if existing else None) or now
     updated_record = record.model_copy(
@@ -1202,6 +1519,7 @@ def __init__(self, config: AzureContainerAppsConfig) -> None:
             ContainerApp,
             ContainerAppProbe,
             ContainerAppProbeHttpGet,
+            ContainerAppProperties,
             ContainerResources,
             EnvironmentVar,
             Ingress,
@@ -1232,6 +1550,9 @@ def __init__(self, config: AzureContainerAppsConfig) -> None:
     self._Configuration: type[Configuration] = Configuration
     self._Container: type[Container] = Container
     self._ContainerApp: type[ContainerApp] = ContainerApp
+    self._ContainerAppProperties: type[ContainerAppProperties] = (
+        ContainerAppProperties
+    )
     self._ContainerAppProbe: type[ContainerAppProbe] = ContainerAppProbe
     self._ContainerAppProbeHttpGet: type[ContainerAppProbeHttpGet] = (
         ContainerAppProbeHttpGet
@@ -1351,14 +1672,24 @@ def deploy(
         external=self._config.ingress_external,
         target_port=port,
         traffic=[self._TrafficWeight(weight=100, latest_revision=True)],
+        # azure-mgmt-appcontainers 5 stopped sending these defaults; send
+        # them explicitly so the request matches what 4.x sent.
+        allow_insecure=False,
+        transport="auto",
     )
-    configuration = self._Configuration(ingress=ingress)
+    configuration = self._Configuration(
+        ingress=ingress, active_revisions_mode="Single"
+    )
 
+    # SDK 5 types these fields under ``properties``; passing them flat
+    # only works through its runtime compatibility shim.
     container_app = self._ContainerApp(
         location=self._config.location,
-        template=template,
-        configuration=configuration,
-        managed_environment_id=self._environment_id,
+        properties=self._ContainerAppProperties(
+            managed_environment_id=self._environment_id,
+            configuration=configuration,
+            template=template,
+        ),
     )
 
     try:
@@ -1399,9 +1730,7 @@ def deploy(
 
     result_service_id = result.id or result.name or service_name
     result_service_name = result.name or service_name
-    result_status = (
-        str(result.provisioning_state) if result.provisioning_state else "UNKNOWN"
-    )
+    result_status = _provisioning_status(result.provisioning_state)
 
     return DeployResult(
         service_id=result_service_id,
@@ -1460,7 +1789,7 @@ def get_status(self, service_id: str) -> StatusResult:
         if fqdn:
             url = f"https://{fqdn}"
 
-    status = str(app.provisioning_state) if app.provisioning_state else "UNKNOWN"
+    status = _provisioning_status(app.provisioning_state)
     return StatusResult(status=status, url=url)
 ```
 

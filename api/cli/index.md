@@ -14,14 +14,14 @@ HoloDeck - Experimentation platform for AI agents.
 
 Commands
 
-init Initialize a new agent project test Run agent test cases chat Interactive chat session with an agent serve Start an HTTP server exposing an agent deploy Build and deploy agent containers
+init Initialize a new agent project test Run agent test cases chat Interactive chat session with an agent serve Start an HTTP server exposing an agent deploy Build and deploy agent containers worker Run a Temporal worker serving agents as activities vectorstore Inspect and migrate retrieval collections
 
 Initialize and manage AI agent projects with YAML configuration.
 
 Source code in `src/holodeck/cli/main.py`
 
 ```
-@click.group(invoke_without_command=True)
+@click.group(cls=LazyGroup, lazy_subcommands=_COMMANDS, invoke_without_command=True)
 @click.version_option(version=__version__, prog_name="holodeck")
 @click.pass_context
 def main(ctx: click.Context) -> None:
@@ -33,6 +33,8 @@ def main(ctx: click.Context) -> None:
         chat    Interactive chat session with an agent
         serve   Start an HTTP server exposing an agent
         deploy  Build and deploy agent containers
+        worker  Run a Temporal worker serving agents as activities
+        vectorstore  Inspect and migrate retrieval collections
 
     Initialize and manage AI agent projects with YAML configuration.
     """
@@ -466,6 +468,13 @@ def init(
             click.echo("  5. Update test_cases in agent.yaml")
             click.echo("  6. Run tests with: holodeck test agent.yaml")
             click.echo()
+            # Every template configures DeepEval metrics (type: geval/rag),
+            # which the base install leaves out (042 T21).
+            click.echo(
+                "The generated evaluations use DeepEval metrics. Install them "
+                "with: pip install 'holodeck-ai[eval]'"
+            )
+            click.echo()
         else:
             # Display error message
             click.secho("Project initialization failed", fg="red", bold=True)
@@ -832,6 +841,9 @@ def optimize(
     )
 
     try:
+        # Optuna is the optional ``optimizer`` extra: fail before any work.
+        require_extra("optuna", "optimizer", OPTIMIZER_FEATURE)
+
         from holodeck.config.loader import load_agent_with_config
 
         agent, _resolved, loader = load_agent_with_config(agent_config)
@@ -895,7 +907,7 @@ def optimize(
                 f"— {status}"
             )
 
-        started_at = datetime.now(timezone.utc)
+        started_at = datetime.now(UTC)
         run_id = started_at.strftime("%Y%m%d-%H%M%S") + "-" + uuid.uuid4().hex[:6]
 
         click.echo(f"Optimizing '{agent.name}' (run {run_id})…", err=json_progress)
@@ -969,6 +981,11 @@ def optimize(
         )
         click.echo(f"Artifacts written to {run_dir}", err=json_progress)
 
+    except MissingExtraError as exc:
+        # Keep the machine-readable fatal event, then let the CLI group print
+        # the install command and exit 2 like every other missing extra.
+        emitter.emit(ErrorEvent(message=str(exc), fatal=True))
+        raise
     except OptimizerError as exc:
         emitter.emit(ErrorEvent(message=str(exc), fatal=True))
         click.echo(f"Error: {exc}", err=True)
@@ -1143,6 +1160,9 @@ def chat(
         logger.info("Chat session ended normally")
         sys.exit(0)
 
+    except UserFixableError:
+        # A missing extra or retired provider: the CLI group prints it.
+        raise
     except ConfigError as e:
         logger.error(f"Configuration error: {e}", exc_info=True)
         click.secho("Error: Failed to load agent configuration", fg="red", err=True)
@@ -1258,6 +1278,8 @@ async def _run_chat_session(
         try:
             logger.debug("Starting chat session")
             await session_manager.start()
+        except UserFixableError:
+            raise  # the CLI group prints it: one line, exit 2
         except Exception as e:
             logger.error(f"Failed to start session: {e}", exc_info=True)
             raise AgentInitializationError(agent.name, str(e)) from e
@@ -1333,7 +1355,7 @@ async def _run_chat_session(
                             if drain_task is not None:
                                 try:
                                     await asyncio.wait_for(drain_task, timeout=0.25)
-                                except asyncio.TimeoutError:
+                                except TimeoutError:
                                     drain_task.cancel()
                                     with contextlib.suppress(asyncio.CancelledError):
                                         await drain_task
@@ -1624,13 +1646,13 @@ def deploy(ctx: click.Context) -> None:
         click.echo(ctx.get_help())
 ```
 
-## `build(agent_config, tag, no_cache, dry_run, verbose, quiet)`
+## `build(agent_config, tag, no_cache, wheel, base_image, no_pull, dry_run, verbose, quiet)`
 
 Build a container image for the agent.
 
 AGENT_CONFIG is the path to the agent.yaml configuration file.
 
-Generates a Dockerfile from the agent configuration and builds a container image using Docker.
+Generates a Dockerfile from the agent configuration and builds a container image using Docker. The image installs exactly this HoloDeck version with the extras the agent needs, constrained to that release's lock file. A manifest of the image is written to .holodeck/builds/.json.
 
 Example:
 
@@ -1640,6 +1662,8 @@ holodeck deploy build
 holodeck deploy build agent.yaml --tag v1.0.0
 
 holodeck deploy build --dry-run
+
+holodeck deploy build --wheel dist/holodeck_ai-0.7.2.dev64-py3-none-any.whl
 ```
 
 Source code in `src/holodeck/cli/commands/deploy.py`
@@ -1664,6 +1688,29 @@ Source code in `src/holodeck/cli/commands/deploy.py`
     help="Build without using cache",
 )
 @click.option(
+    "--wheel",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    default=None,
+    help=(
+        "HoloDeck wheel to install instead of the PyPI release. Needed when "
+        "this HoloDeck is a development version (build one with `uv build --wheel`)"
+    ),
+)
+@click.option(
+    "--base-image",
+    type=str,
+    default=None,
+    help=(
+        f"Base image (default: {DEFAULT_BASE_REPOSITORY}:<version> for a release, "
+        ":latest for a development build)"
+    ),
+)
+@click.option(
+    "--no-pull",
+    is_flag=True,
+    help="Use the base image already in the local Docker daemon; do not pull it",
+)
+@click.option(
     "--dry-run",
     is_flag=True,
     help="Show what would be done without executing",
@@ -1684,6 +1731,9 @@ def build(
     agent_config: str,
     tag: str | None,
     no_cache: bool,
+    wheel: Path | None,
+    base_image: str | None,
+    no_pull: bool,
     dry_run: bool,
     verbose: bool,
     quiet: bool,
@@ -1693,7 +1743,10 @@ def build(
     AGENT_CONFIG is the path to the agent.yaml configuration file.
 
     Generates a Dockerfile from the agent configuration and builds
-    a container image using Docker.
+    a container image using Docker. The image installs exactly this HoloDeck
+    version with the extras the agent needs, constrained to that release's
+    lock file. A manifest of the image is written to
+    .holodeck/builds/<tag>.json.
 
     Example:
 
@@ -1702,6 +1755,8 @@ def build(
         holodeck deploy build agent.yaml --tag v1.0.0
 
         holodeck deploy build --dry-run
+
+        holodeck deploy build --wheel dist/holodeck_ai-0.7.2.dev64-py3-none-any.whl
     """
     # Setup logging based on verbosity
     if not quiet:
@@ -1733,6 +1788,11 @@ def build(
             )
         deployment_config = agent.deployment
 
+        # Decide which HoloDeck the image installs. A development version
+        # without a wheel fails here, before any Docker work.
+        install = _resolve_holodeck_install(wheel)
+        image_base = base_image or default_base_image(install)
+
         # Determine tag
         if tag:
             # Custom tag from CLI overrides config
@@ -1760,6 +1820,8 @@ def build(
             click.echo(f"  Platform:  {deployment_config.platform}")
             click.echo(f"  Protocol:  {deployment_config.protocol.value}")
             click.echo(f"  Port:      {deployment_config.port}")
+            click.echo(f"  HoloDeck:  {install.version} ({install.source})")
+            click.echo(f"  Base:      {image_base}")
             click.echo()
 
         if dry_run:
@@ -1774,6 +1836,8 @@ def build(
                 image_tag,
                 test_cases_file=_read_raw_test_cases_file(agent_path),
                 base_dir=agent_dir,
+                install=install,
+                base_image=image_base,
             )
             click.echo()
             click.secho("Generated Dockerfile:", bold=True)
@@ -1789,7 +1853,12 @@ def build(
             click.echo("Preparing build context...")
 
         build_dir = _prepare_build_context(
-            agent, deployment_config, agent_dir, image_tag
+            agent,
+            deployment_config,
+            agent_dir,
+            image_tag,
+            install=install,
+            base_image=image_base,
         )
 
         try:
@@ -1822,7 +1891,19 @@ def build(
                 tag=image_tag,
                 labels=labels,
                 platform=deployment_config.platform,
+                pull=not no_pull,
                 **build_kwargs,
+            )
+
+            manifest_file = _record_image_manifest(
+                builder,
+                result,
+                agent_name=agent_name,
+                platform=deployment_config.platform,
+                install=install,
+                extras=required_extras(agent),
+                base_image=image_base,
+                agent_dir=agent_dir,
             )
 
             # Display build logs if verbose
@@ -1834,7 +1915,7 @@ def build(
                 click.echo()
 
             # Success message
-            _display_build_success(result, quiet)
+            _display_build_success(result, quiet, manifest_file)
 
         finally:
             # Cleanup build context
@@ -2155,7 +2236,7 @@ def handle_deployment_errors() -> Generator[None, None, None]:
         sys.exit(3)
 ```
 
-## `_generate_dockerfile_content(agent, deployment_config, version, test_cases_file=None, base_dir=None)`
+## `_generate_dockerfile_content(agent, deployment_config, version, test_cases_file=None, base_dir=None, *, install=None, base_image=None)`
 
 Generate Dockerfile content for the agent.
 
@@ -2168,6 +2249,8 @@ Parameters:
 | `version`           | `str`              | Version/tag for OCI labels       | *required*                                                                                              |
 | `test_cases_file`   | \`str              | None\`                           | Optional raw test_cases_file path from agent YAML.                                                      |
 | `base_dir`          | \`Path             | None\`                           | Agent directory; when provided, credential-shaped files in the COPY surface are flagged with a warning. |
+| `install`           | \`HoloDeckInstall  | None\`                           | HoloDeck the image installs. Defaults to the running version.                                           |
+| `base_image`        | \`str              | None\`                           | Base image reference. Defaults to the HoloDeck base image for install.                                  |
 
 Returns:
 
@@ -2184,6 +2267,9 @@ def _generate_dockerfile_content(
     version: str,
     test_cases_file: str | None = None,
     base_dir: Path | None = None,
+    *,
+    install: HoloDeckInstall | None = None,
+    base_image: str | None = None,
 ) -> str:
     """Generate Dockerfile content for the agent.
 
@@ -2194,12 +2280,14 @@ def _generate_dockerfile_content(
         test_cases_file: Optional raw test_cases_file path from agent YAML.
         base_dir: Agent directory; when provided, credential-shaped files in
             the COPY surface are flagged with a warning.
+        install: HoloDeck the image installs. Defaults to the running version.
+        base_image: Base image reference. Defaults to the HoloDeck base image
+            for ``install``.
 
     Returns:
         Generated Dockerfile content
     """
     from holodeck.deploy.dockerfile import generate_dockerfile
-    from holodeck.models.llm import ProviderEnum
     from holodeck.models.tool import (
         FunctionTool,
         HierarchicalDocumentToolConfig,
@@ -2256,25 +2344,7 @@ def _generate_dockerfile_content(
     # Node.js is only needed if an MCP tool spawns a Node interpreter.
     needs_nodejs = _agent_needs_nodejs(agent)
 
-    # Detect required extras from agent config. Vector-store provider names
-    # match the optional-dependency group names in pyproject.toml 1:1.
-    vectorstore_extras = {"chromadb", "qdrant", "pinecone", "postgres"}
-    extras: list[str] = []
-    for tool in agent.tools or []:
-        if isinstance(tool, VectorstoreTool | HierarchicalDocumentToolConfig):
-            provider = (
-                getattr(tool.database, "provider", None) if tool.database else None
-            )
-            if provider in vectorstore_extras:
-                extras.append(provider)
-            if tool.source:
-                if tool.source.startswith("az://"):
-                    extras.append("azure-blob")
-                elif tool.source.startswith("s3://"):
-                    extras.append("s3")
-    if agent.model.provider == ProviderEnum.ANTHROPIC:
-        extras.append("claude-otel")
-    extras = sorted(set(extras))
+    install = install or _resolve_holodeck_install(None)
 
     return generate_dockerfile(
         agent_name=agent.name,
@@ -2285,22 +2355,27 @@ def _generate_dockerfile_content(
         data_directories=data_directories if data_directories else None,
         environment=deployment_config.environment or None,
         needs_nodejs=needs_nodejs,
-        extras=extras if extras else None,
+        extras=required_extras(agent),
+        holodeck_version=install.version,
+        holodeck_wheel=install.wheel.name if install.wheel is not None else None,
+        base_image=base_image or default_base_image(install),
     )
 ```
 
-## `_prepare_build_context(agent, deployment_config, agent_dir, version)`
+## `_prepare_build_context(agent, deployment_config, agent_dir, version, *, install=None, base_image=None)`
 
 Prepare build context directory with all required files.
 
 Parameters:
 
-| Name                | Type               | Description                      | Default    |
-| ------------------- | ------------------ | -------------------------------- | ---------- |
-| `agent`             | `Agent`            | Loaded Agent configuration model | *required* |
-| `deployment_config` | `DeploymentConfig` | Deployment configuration         | *required* |
-| `agent_dir`         | `Path`             | Directory containing agent.yaml  | *required* |
-| `version`           | `str`              | Version for Dockerfile labels    | *required* |
+| Name                | Type               | Description                      | Default                                                                |
+| ------------------- | ------------------ | -------------------------------- | ---------------------------------------------------------------------- |
+| `agent`             | `Agent`            | Loaded Agent configuration model | *required*                                                             |
+| `deployment_config` | `DeploymentConfig` | Deployment configuration         | *required*                                                             |
+| `agent_dir`         | `Path`             | Directory containing agent.yaml  | *required*                                                             |
+| `version`           | `str`              | Version for Dockerfile labels    | *required*                                                             |
+| `install`           | \`HoloDeckInstall  | None\`                           | HoloDeck the image installs. Defaults to the running version.          |
+| `base_image`        | \`str              | None\`                           | Base image reference. Defaults to the HoloDeck base image for install. |
 
 Returns:
 
@@ -2316,6 +2391,9 @@ def _prepare_build_context(
     deployment_config: DeploymentConfig,
     agent_dir: Path,
     version: str,
+    *,
+    install: HoloDeckInstall | None = None,
+    base_image: str | None = None,
 ) -> Path:
     """Prepare build context directory with all required files.
 
@@ -2324,15 +2402,24 @@ def _prepare_build_context(
         deployment_config: Deployment configuration
         agent_dir: Directory containing agent.yaml
         version: Version for Dockerfile labels
+        install: HoloDeck the image installs. Defaults to the running version.
+        base_image: Base image reference. Defaults to the HoloDeck base image
+            for ``install``.
 
     Returns:
         Path to temporary build context directory
     """
+    from holodeck.deploy.dockerfile import (
+        CONSTRAINTS_CONTEXT_FILE,
+        OVERRIDES_CONTEXT_FILE,
+    )
     from holodeck.models.tool import (
         FunctionTool,
         HierarchicalDocumentToolConfig,
         VectorstoreTool,
     )
+
+    install = install or _resolve_holodeck_install(None)
 
     # Create temporary build directory
     build_dir = Path(tempfile.mkdtemp(prefix="holodeck-build-"))
@@ -2345,8 +2432,17 @@ def _prepare_build_context(
         version,
         test_cases_file=test_cases_file,
         base_dir=agent_dir,
+        install=install,
+        base_image=base_image,
     )
     (build_dir / "Dockerfile").write_text(dockerfile_content)
+
+    # The pins of the HoloDeck being installed, and its wheel when it is not on
+    # PyPI. The Dockerfile copies them from the context root.
+    (build_dir / CONSTRAINTS_CONTEXT_FILE).write_text(install.constraints)
+    (build_dir / OVERRIDES_CONTEXT_FILE).write_text(install.overrides)
+    if install.wheel is not None:
+        shutil.copy2(install.wheel, build_dir / install.wheel.name)
 
     # Copy agent.yaml
     shutil.copy2(agent_dir / "agent.yaml", build_dir / "agent.yaml")
@@ -2403,26 +2499,30 @@ exec holodeck serve /app/agent.yaml \\
     return build_dir
 ```
 
-## `_display_build_success(result, quiet)`
+## `_display_build_success(result, quiet, manifest_file=None)`
 
 Display build success message.
 
 Parameters:
 
-| Name     | Type          | Description                       | Default    |
-| -------- | ------------- | --------------------------------- | ---------- |
-| `result` | `BuildResult` | Build result with image details   | *required* |
-| `quiet`  | `bool`        | If True, only show minimal output | *required* |
+| Name            | Type          | Description                       | Default                                         |
+| --------------- | ------------- | --------------------------------- | ----------------------------------------------- |
+| `result`        | `BuildResult` | Build result with image details   | *required*                                      |
+| `quiet`         | `bool`        | If True, only show minimal output | *required*                                      |
+| `manifest_file` | \`Path        | None\`                            | Where the image manifest was written, if it was |
 
 Source code in `src/holodeck/cli/commands/deploy.py`
 
 ```
-def _display_build_success(result: BuildResult, quiet: bool) -> None:
+def _display_build_success(
+    result: BuildResult, quiet: bool, manifest_file: Path | None = None
+) -> None:
     """Display build success message.
 
     Args:
         result: Build result with image details
         quiet: If True, only show minimal output
+        manifest_file: Where the image manifest was written, if it was
     """
     if quiet:
         click.echo(result.full_name)
@@ -2435,6 +2535,8 @@ def _display_build_success(result: BuildResult, quiet: bool) -> None:
     click.echo()
     click.echo(f"  Image:    {result.full_name}")
     click.echo(f"  ID:       {result.image_id[:19]}...")
+    if manifest_file is not None:
+        click.echo(f"  Manifest: {manifest_file}")
     click.echo()
     click.secho("  Next steps:", bold=True)
     click.echo(f"    Run locally:  docker run -p 8080:8080 {result.full_name}")
@@ -3711,6 +3813,9 @@ def serve(
             )
         )
 
+    except UserFixableError:
+        # A missing extra or retired provider: the CLI group prints it.
+        raise
     except ConfigError as e:
         logger.error(f"Configuration error: {e}", exc_info=True)
         click.secho("Error: Failed to load agent configuration", fg="red", err=True)
@@ -3887,6 +3992,118 @@ def _display_startup_info(
     click.secho("=" * 60, fg="cyan")
     click.echo()
 ```
+
+### Vectorstore Command
+
+Inspect, migrate, roll back and prune the collections of `vectorstore` and `hierarchical_document` tools. See [Pipeline fingerprint and migration](https://docs.useholodeck.ai/guides/vector-stores/#pipeline-fingerprint-and-migration).
+
+## `vectorstore()`
+
+Inspect and migrate vector store collections of retrieval tools.
+
+A collection records the pipeline (embedding model, parser, chunker and their settings) that wrote it. When the pipeline changes, HoloDeck refuses writes to the old collection; these commands rebuild it.
+
+Source code in `src/holodeck/cli/commands/vectorstore.py`
+
+```
+@click.group(name="vectorstore")
+def vectorstore() -> None:
+    """Inspect and migrate vector store collections of retrieval tools.
+
+    A collection records the pipeline (embedding model, parser, chunker and
+    their settings) that wrote it. When the pipeline changes, HoloDeck
+    refuses writes to the old collection; these commands rebuild it.
+    """
+```
+
+## `vectorstore_migration`
+
+Inspect, migrate, roll back and prune retrieval collections (FR-023, AC-08).
+
+`holodeck vectorstore` calls these functions. Each one builds the tools the agent configuration describes, so the pipeline fingerprint is computed by the same code that ingests.
+
+- `inspect_tool` is strictly read-only: it downloads nothing, creates no file, directory, collection or manifest entry, and calls no model. It parses and splits local sources to count chunks; a remote source is reported as not estimated.
+- `migrate_tool` works on a logical collection. `--tool` selects it, and every retrieval tool of the agent bound to the same logical collection is rebuilt with it (they must share one fingerprint). It lists every source before it embeds, re-ingests them into a new physical collection `<logical>__<fingerprint[:8]>`, verifies every source and the total count, checks that the old collection holds no source the migration did not rebuild, then points the logical name at the new collection in one manifest write. The old collection is kept for rollback. An interrupted migration resumes: completed sources are not embedded again.
+- `rollback_tool` points the logical name back at the kept collection.
+- `prune_tool` deletes the kept collection. Nothing else deletes one.
+
+`migrate`, `rollback` and `prune` hold the manifest lock of the logical collection while they run and read the collection entry again under it, so two of them never act on one collection at once.
+
+### `LOCK_REFRESH = 10 * 60`
+
+Seconds between refreshes of the lock while a command runs.
+
+### `LOCK_TTL = 2 * 60 * 60`
+
+Seconds after which a lifecycle lock that was not refreshed is stale.
+
+### `InspectReport(tool, tool_type, provider, logical_collection, physical_collection, exists, record_count, manifest_supported, manifest_state, stored_fingerprint, current_fingerprint, differences, compatible, needs_reembedding, source_files, chunks, estimated_tokens, previous_collection='', migration_target='', remote_sources=list(), estimate_note=ESTIMATE_NOTE)`
+
+What `holodeck vectorstore inspect` found for one tool.
+
+#### `to_dict()`
+
+Return the report as JSON-ready data.
+
+### `MigrationError`
+
+Bases: `HoloDeckError`
+
+A vector store command cannot run as asked.
+
+### `MigrationPlan(logical_collection, provider, tools)`
+
+The logical collection a migration rebuilds and the tools bound to it.
+
+### `MigrationResult(tool, logical_collection, previous_collection, active_collection, record_count, sources, embedded_sources, skipped=False, message='', tools=list(), dropped_sources=list())`
+
+Outcome of `migrate_tool`.
+
+### `SwitchResult(tool, logical_collection, active_collection, previous_collection, deleted_collection='', deleted_sources=0)`
+
+Outcome of `rollback_tool` and `prune_tool`.
+
+### `inspect_tool(agent, tool_config, *, base_dir=None, execution_config=None)`
+
+Report collection identity, compatibility and migration work. Read-only.
+
+Downloads nothing, writes no file, creates no collection or manifest entry and calls no model.
+
+### `migrate_tool(agent, tool_config, *, base_dir=None, execution_config=None, restart=False, drop_unlisted_sources=False)`
+
+Rebuild the logical collection of `tool_config` and switch to it.
+
+Every retrieval tool of the agent bound to the same logical collection is rebuilt with it.
+
+Raises:
+
+| Type             | Description                                                                                                                                                                                                                                                                     |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MigrationError` | No manifest, the tools do not share one pipeline, another command holds the lock, another migration is in progress, a kept collection must be pruned first, a source was not ingested, verification failed, or the old collection holds sources the migration does not rebuild. |
+
+### `plan_migration(agent, tool_config, *, base_dir=None, execution_config=None)`
+
+Return the logical collection a migration of `tool_config` rebuilds and every tool of the agent bound to it. Read-only.
+
+### `prune_tool(agent, tool_config, *, base_dir=None, execution_config=None)`
+
+Delete the kept previous collection and its manifest source entries.
+
+The manifest first stops naming the kept collection (it is marked `pending_delete`); only then is the collection deleted, so a rollback can never point at a collection that is being deleted. An interrupted prune finishes on the next run.
+
+### `retrieval_tools(agent, name=None)`
+
+Return the agent's vectorstore and hierarchical-document tool configs.
+
+Raises:
+
+| Type             | Description                                |
+| ---------------- | ------------------------------------------ |
+| `MigrationError` | name is given and names no retrieval tool. |
+
+### `rollback_tool(agent, tool_config, *, base_dir=None, execution_config=None)`
+
+Point the logical name back at the kept previous collection.
 
 ______________________________________________________________________
 
@@ -4914,6 +5131,12 @@ holodeck mcp remove filesystem
 # Configuration management
 holodeck config init -g
 holodeck config init -p
+
+# Vector store collections
+holodeck vectorstore inspect agent.yaml --json
+holodeck vectorstore migrate agent.yaml --tool knowledge_base --yes
+holodeck vectorstore rollback agent.yaml --tool knowledge_base --yes
+holodeck vectorstore prune agent.yaml --tool knowledge_base --yes
 ```
 
 ## Related Documentation

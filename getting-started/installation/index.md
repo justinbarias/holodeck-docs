@@ -4,7 +4,7 @@ Get HoloDeck installed and ready to build AI agents.
 
 ## Prerequisites
 
-- **Python 3.10+** (check with `python --version`)
+- **Python 3.11+** (check with `python --version`)
 - **uv** - The fast Python package installer
 - **Node.js 18+** (required for Claude Agent SDK backend) — check with `node --version`
 
@@ -36,7 +36,7 @@ uv --version
 Install HoloDeck as a global tool using uv:
 
 ```
-uv tool install holodeck-ai@latest --prerelease allow --python 3.10
+uv tool install holodeck-ai@latest --prerelease allow --python 3.11
 ```
 
 This installs the `holodeck` command-line tool globally, available from any directory.
@@ -47,16 +47,56 @@ This installs the `holodeck` command-line tool globally, available from any dire
 - **OpenAI Agents backend** — `provider: openai` and `azure_openai`. Shipped as an **optional extra** so non-OpenAI installs stay lean (the SDK is imported only when this backend runs). Install it with the `openai-agents` extra:
 
 ```
-uv tool install "holodeck-ai[openai-agents]@latest" --prerelease allow --python 3.10
+uv tool install "holodeck-ai[openai-agents]@latest" --prerelease allow --python 3.11
 ```
 
 Extras compose — e.g. the OpenAI backend plus a Qdrant vector store for RAG:
 
 ```
-uv tool install "holodeck-ai[openai-agents,qdrant]@latest" --prerelease allow --python 3.10
+uv tool install "holodeck-ai[openai-agents,qdrant]@latest" --prerelease allow --python 3.11
 ```
 
 > **Without the extra**, an `openai` / `azure_openai` agent fails at startup with a missing-dependency error pointing you here.
+
+### Install profiles
+
+The base install has what every user needs to build, chat with, serve and test an agent on the Claude backend. Features with heavy or rarely used dependencies are extras. Add only the extras you use; they compose (`holodeck-ai[openai-agents,eval,qdrant]`).
+
+| Install                                                                                 | Enables                                                                                                                                                                | Key packages                                                                   |
+| --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `holodeck-ai` (base)                                                                    | CLI, config, Claude backend, MCP, `serve`, `chat`, `test run` with code, equality and numeric metrics, document ingestion, in-memory BM25 keyword index, OpenTelemetry | `claude-agent-sdk`, `pydantic`, `fastapi`, `markitdown`, `litellm`, `tiktoken` |
+| `[eval]`                                                                                | DeepEval metrics (`type: geval`, `type: rag`)                                                                                                                          | `deepeval`, `anthropic`, `ollama`                                              |
+| `[nlp]`                                                                                 | NLP overlap metrics (`bleu`, `rouge`, `meteor`)                                                                                                                        | `sacrebleu`, `rouge-score`, `nltk`                                             |
+| `[optimizer]`                                                                           | `holodeck test optimize`                                                                                                                                               | `optuna`                                                                       |
+| `[opensearch]`                                                                          | OpenSearch keyword index (`keyword_index.provider: opensearch`)                                                                                                        | `opensearch-py`                                                                |
+| `[openai-agents]`                                                                       | OpenAI Agents backend (`openai`, `azure_openai`)                                                                                                                       | `openai-agents`, `openai`                                                      |
+| `[dashboard]`                                                                           | `holodeck test view`                                                                                                                                                   | `dash`, `plotly`                                                               |
+| `[temporal]`                                                                            | `holodeck worker`                                                                                                                                                      | `temporalio`                                                                   |
+| `[qdrant]`, `[postgres]`, `[chromadb]`, … `[vectorstores]`                              | Vector store providers                                                                                                                                                 | one client each; `vectorstores` has all                                        |
+| `[otel-prometheus]`, `[otel-azmon]`, `[otel-all]`, `[claude-otel]`                      | Extra telemetry exporters and instrumentation                                                                                                                          |                                                                                |
+| `[deploy]`, `[deploy-azure]`, … `[deploy-all]`, `[s3]`, `[azure-blob]`, `[all-sources]` | `holodeck deploy` and cloud sources                                                                                                                                    | `docker`, cloud SDKs                                                           |
+| `[all]`                                                                                 | Every extra above                                                                                                                                                      |                                                                                |
+
+When a command needs an extra that is not installed, it stops before any agent or model call and prints the install command, for example:
+
+```
+Error: DeepEval metrics needs the 'eval' extra, which is not installed. Install it with: pip install 'holodeck-ai[eval]'
+```
+
+Commands that do not use the feature still run.
+
+#### Upgrading from an earlier release
+
+Before this release, the base install also contained DeepEval, the NLP metric libraries, Optuna, opensearch-py, MkDocs Material and Twine.
+
+| You ran                                                       | Now run                                                                 |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `pip install holodeck-ai` and use DeepEval or NLP metrics     | `pip install "holodeck-ai[eval,nlp]"`                                   |
+| `pip install holodeck-ai` and use `holodeck test optimize`    | `pip install "holodeck-ai[optimizer]"` (add `eval,nlp` for its metrics) |
+| `pip install holodeck-ai` and use an OpenSearch keyword index | `pip install "holodeck-ai[opensearch]"`                                 |
+| `pip install holodeck-ai` and want everything as before       | `pip install "holodeck-ai[all]"`                                        |
+
+With `uv tool`, use the same extras: `uv tool install "holodeck-ai[eval,nlp]@latest" --prerelease allow --python 3.11`.
 
 ### Install with Vector Store Providers (Optional)
 
@@ -64,13 +104,13 @@ If you plan to use semantic search with vector databases, install with extras:
 
 ```
 # Individual providers
-uv tool install "holodeck-ai[postgres]@latest" --prerelease allow --python 3.10
-uv tool install "holodeck-ai[qdrant]@latest" --prerelease allow --python 3.10
-uv tool install "holodeck-ai[pinecone]@latest" --prerelease allow --python 3.10
-uv tool install "holodeck-ai[chromadb]@latest" --prerelease allow --python 3.10
+uv tool install "holodeck-ai[postgres]@latest" --prerelease allow --python 3.11
+uv tool install "holodeck-ai[qdrant]@latest" --prerelease allow --python 3.11
+uv tool install "holodeck-ai[pinecone]@latest" --prerelease allow --python 3.11
+uv tool install "holodeck-ai[chromadb]@latest" --prerelease allow --python 3.11
 
 # Or install all vector store providers at once
-uv tool install "holodeck-ai[vectorstores]@latest" --prerelease allow --python 3.10
+uv tool install "holodeck-ai[vectorstores]@latest" --prerelease allow --python 3.11
 ```
 
 ## Verify Installation
@@ -219,7 +259,7 @@ uv tool upgrade holodeck-ai
 To reinstall with a specific version:
 
 ```
-uv tool install holodeck-ai@0.3.0 --prerelease allow --python 3.10 --force
+uv tool install holodeck-ai@0.3.0 --prerelease allow --python 3.11 --force
 ```
 
 ## Uninstalling
@@ -232,7 +272,7 @@ uv tool uninstall holodeck-ai
 
 ## Troubleshooting
 
-### "Python 3.10+ required"
+### "Python 3.11+ required"
 
 Check your Python version and upgrade if needed:
 
@@ -240,10 +280,10 @@ Check your Python version and upgrade if needed:
 python --version
 
 # macOS (Homebrew)
-brew install python@3.10
+brew install python@3.11
 
 # Ubuntu/Debian
-sudo apt-get install python3.10
+sudo apt-get install python3.11
 
 # Windows: Download from python.org
 ```
@@ -254,7 +294,7 @@ The CLI isn't in your PATH. Try:
 
 ```
 # Reinstall HoloDeck
-uv tool install holodeck-ai@latest --prerelease allow --python 3.10 --force
+uv tool install holodeck-ai@latest --prerelease allow --python 3.11 --force
 
 # Ensure uv tools are in PATH
 # Add to your shell profile (~/.bashrc, ~/.zshrc, etc.):

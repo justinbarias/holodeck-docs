@@ -1,0 +1,3150 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/active/034-production-hardening/2026-05-19-spec-034-p4-hybrid-sessions-plan/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Spec 034 P4 — Hybrid Sessions Implementation Plan - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spec-034-p4-hybrid-sessions-implementation-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spec 034 P4 — Hybrid Sessions Implementation Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-add-streaming-prompt-envelope-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 1: Add streaming-prompt envelope helper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-add-_sdk_session_id-_send_lock-fields-to-claudesession" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 2: Add _sdk_session_id + _send_lock fields to ClaudeSession
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-re-implement-claudesessionsend-on-top-of-queryresume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 3: Re-implement ClaudeSession.send() on top of query(resume=)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-4-re-implement-claudesessionsend_streaming-on-top-of-queryresume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 4: Re-implement ClaudeSession.send_streaming() on top of query(resume=)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-5-close-deletes-the-on-disk-jsonl-transcript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 5: close() deletes the on-disk JSONL transcript
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-6-strip-the-dead-persistent-client-machinery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 6: Strip the dead persistent-client machinery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-7-add-unit-test-for-the-lock-concurrent-sends-serialise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 7: Add unit test for the lock — concurrent sends serialise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-8-quality-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 8: Quality gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-9-end-to-end-deploy-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 9: End-to-end deploy validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-follow-ups-do-not-include-in-this-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known follow-ups (do NOT include in this PR)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="spec-034-p4-hybrid-sessions-implementation-plan">Spec 034 P4 — Hybrid Sessions Implementation Plan<a class="headerlink" href="#spec-034-p4-hybrid-sessions-implementation-plan" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
+</blockquote>
+<p><strong>Goal:</strong> Replace <code>ClaudeSession</code>'s persistent <code>ClaudeSDKClient</code> with per-turn top-level <code>query()</code> calls using <code>ClaudeAgentOptions.resume=&lt;session_id&gt;</code>, so idle sessions cost ~0 resident memory and the <code>SessionStore</code> cap correctly applies to concurrent active turns instead of open threads.</p>
+<p><strong>Architecture:</strong> Keep <code>ClaudeSession</code>'s public protocol stable (<code>send</code>, <code>send_streaming</code>, <code>prepare</code>, <code>close</code> — all callers downstream of <code>_TaskBoundSession</code> and the AG-UI / REST bridges are unchanged). Swap the internals from "one persistent connected <code>ClaudeSDKClient</code> per session" to "one fresh <code>query()</code> invocation per turn, replaying conversation state from the on-disk JSONL transcript via <code>resume=session_id</code>". Capture <code>session_id</code> from <code>ResultMessage</code> on turn 1 and feed it back into <code>options.resume</code> on turn 2+. Use streaming-mode prompts (<code>AsyncIterable[dict]</code>) to keep stdin open for SDK MCP tool callbacks — string-mode <code>query()</code> calls <code>end_input()</code> and deadlocks. On <code>close()</code>, delete the on-disk transcript at <code>~/.claude/projects/&lt;encoded-cwd&gt;/&lt;session-id&gt;.jsonl</code>.</p>
+<p><strong>Tech Stack:</strong>
+- <code>claude-agent-sdk==0.1.44</code> — <code>query()</code>, <code>ClaudeAgentOptions.resume</code>
+- pytest with <code>pytest-asyncio</code>, <code>unittest.mock.{AsyncMock, MagicMock, patch}</code>
+- Pydantic v2 (config models)
+- Python 3.10+ (<code>dataclasses.replace</code>, <code>asyncio.Lock</code>)</p>
+<p><strong>Branch:</strong> <code>feature/034-p4-hybrid-sessions</code> off <code>feature/034-p1-stability-permissions</code> (or off <code>main</code> if P1 has merged by the time work starts).</p>
+<p><strong>Pre-flight (run from repo root):</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+git<span class="w"> </span>checkout<span class="w"> </span>feature/034-p1-stability-permissions
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>feature/034-p1-stability-permissions
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/034-p4-hybrid-sessions
+</code></pre></div></p>
+<hr />
+<h2 id="task-1-add-streaming-prompt-envelope-helper">Task 1: Add streaming-prompt envelope helper<a class="headerlink" href="#task-1-add-streaming-prompt-envelope-helper" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> Top-level <code>query()</code> accepts two prompt shapes — <code>str</code> (one-shot, calls <code>end_input()</code> after writing) or <code>AsyncIterable[dict]</code> (streaming, keeps stdin open via a background <code>stream_input</code> task). P4 turns need streaming-mode because the agent will invoke SDK MCP tools, and the SDK's reverse control channel (tool callbacks) needs stdin to stay open. Spike v1 surfaced this — string-mode crashes with <code>ProcessTransport is not ready for writing</code> mid-turn.</p>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/lib/backends/claude_backend.py</code> (add helper near the existing <code>_wrap_prompt</code> at line 81)
+- Test: <code>tests/unit/lib/backends/test_claude_backend.py</code> (add <code>TestStreamingUserEnvelope</code> class)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Ensure test-module imports cover P4 tasks</strong></li>
+</ul>
+<p><code>asyncio</code> and <code>pathlib.Path</code> are referenced by tests added in later tasks (Tasks 2, 5, 7) but are not currently imported in <code>tests/unit/lib/backends/test_claude_backend.py</code>. Add them once now so every subsequent task can rely on them.</p>
+<p>Edit the import block at the top of <code>tests/unit/lib/backends/test_claude_backend.py</code>. After the <code>import json</code> line (around line 13), insert:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+</code></pre></div>
+<p>(<code>patch</code> is already imported from <code>unittest.mock</code> — no change needed there.)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Write the failing test</strong></li>
+</ul>
+<p>Append to <code>tests/unit/lib/backends/test_claude_backend.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Streaming-mode envelope (spec 034 P4)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestStreamingUserEnvelope</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The envelope wraps a string into the AsyncIterable[dict] shape that</span>
+<span class="sd">    ``query()`` needs in streaming mode. String-mode prompts cause query()</span>
+<span class="sd">    to call end_input() after writing, deadlocking SDK MCP tool callbacks.</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_yields_single_user_message</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.backends.claude_backend</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+            <span class="n">_streaming_user_envelope</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">msgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">async</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">_streaming_user_envelope</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)]</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">msgs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">msgs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">msg</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"user"</span>
+        <span class="k">assert</span> <span class="n">msg</span><span class="p">[</span><span class="s2">"session_id"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span>
+        <span class="k">assert</span> <span class="n">msg</span><span class="p">[</span><span class="s2">"message"</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"hello"</span><span class="p">}</span>
+        <span class="k">assert</span> <span class="n">msg</span><span class="p">[</span><span class="s2">"parent_tool_use_id"</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Run test to verify it fails</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestStreamingUserEnvelope<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: <code>ImportError: cannot import name '_streaming_user_envelope' from 'holodeck.lib.backends.claude_backend'</code>.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Add the helper</strong></li>
+</ul>
+<p>Edit <code>src/holodeck/lib/backends/claude_backend.py</code>. After the existing <code>_wrap_prompt</code> function (ends around line 99), add:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_streaming_user_envelope</span><span class="p">(</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Wrap a user message in the streaming-mode envelope ``query()`` expects.</span>
+
+<span class="sd">    ``query()`` accepts either a ``str`` prompt or an ``AsyncIterable[dict]``.</span>
+<span class="sd">    The ``str`` form writes the message and immediately closes stdin via</span>
+<span class="sd">    ``end_input()``, which deadlocks any subsequent SDK-MCP tool callback</span>
+<span class="sd">    (control-channel writes fail with ``ProcessTransport is not ready for</span>
+<span class="sd">    writing``). Streaming mode keeps stdin open via the SDK's background</span>
+<span class="sd">    ``stream_input`` task, so tool callbacks can write responses back.</span>
+
+<span class="sd">    See spec 034 P4 spike v1 (2026-05-19) for the surfacing.</span>
+<span class="sd">    """</span>
+    <span class="k">yield</span> <span class="p">{</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span>
+        <span class="s2">"session_id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">message</span><span class="p">},</span>
+        <span class="s2">"parent_tool_use_id"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 5: Run test to verify it passes</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestStreamingUserEnvelope<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 1 passed.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 6: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/holodeck/lib/backends/claude_backend.py<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat(spec-034 P4): add streaming-mode prompt envelope helper"</span>
+</code></pre></div>
+<hr />
+<h2 id="task-2-add-_sdk_session_id-_send_lock-fields-to-claudesession">Task 2: Add <code>_sdk_session_id</code> + <code>_send_lock</code> fields to <code>ClaudeSession</code><a class="headerlink" href="#task-2-add-_sdk_session_id-_send_lock-fields-to-claudesession" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> Under P4, conversation state lives in <code>session_id</code> (a string captured from <code>ResultMessage</code>) rather than in a long-lived subprocess. The lock serializes concurrent <code>send()</code> calls on the same session — two simultaneous turns with the same <code>resume=</code> would race writing to the same JSONL transcript.</p>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/lib/backends/claude_backend.py:687-696</code> (the <code>ClaudeSession.__init__</code>)
+- Test: <code>tests/unit/lib/backends/test_claude_backend.py</code> (extend existing <code>TestClaudeSessionEnsureClient</code> neighborhood)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Write the failing test</strong></li>
+</ul>
+<p>Append to <code>tests/unit/lib/backends/test_claude_backend.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestClaudeSessionP4Fields</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""P4 session model: session_id captures CLI-assigned id on turn 1,</span>
+<span class="sd">    feeds it into ``options.resume`` on turn 2+. Lock serialises concurrent</span>
+<span class="sd">    sends to prevent transcript-write races.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_init_sets_p4_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">_send_lock</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Lock</span><span class="p">)</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Run test to verify it fails</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionP4Fields<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: <code>AttributeError: 'ClaudeSession' object has no attribute '_sdk_session_id'</code>.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Add the fields</strong></li>
+</ul>
+<p>Edit <code>src/holodeck/lib/backends/claude_backend.py</code>. Modify <code>ClaudeSession.__init__</code> (around line 687):</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ClaudeAgentOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Initialize session with base options.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        options: Base options (immutable reference for the session lifetime).</span>
+<span class="sd">    """</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_base_options</span> <span class="o">=</span> <span class="n">options</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">:</span> <span class="n">ClaudeSDKClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">[</span><span class="n">ToolEvent</span><span class="p">]</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+    <span class="c1"># spec 034 P4 — hybrid-session state.</span>
+    <span class="c1"># CLI-assigned conversation id; captured from ResultMessage on turn 1</span>
+    <span class="c1"># and fed into ``options.resume`` on turn 2+ so each fresh subprocess</span>
+    <span class="c1"># rehydrates the JSONL transcript at</span>
+    <span class="c1"># ``~/.claude/projects/&lt;encoded-cwd&gt;/&lt;sdk_session_id&gt;.jsonl``.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Serialises concurrent send() / send_streaming() on the same session.</span>
+    <span class="c1"># Two concurrent turns with the same resume= would race the transcript.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_send_lock</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Lock</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Run test to verify it passes</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionP4Fields<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 1 passed.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 5: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/holodeck/lib/backends/claude_backend.py<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat(spec-034 P4): add _sdk_session_id and _send_lock to ClaudeSession"</span>
+</code></pre></div>
+<hr />
+<h2 id="task-3-re-implement-claudesessionsend-on-top-of-queryresume">Task 3: Re-implement <code>ClaudeSession.send()</code> on top of <code>query(resume=)</code><a class="headerlink" href="#task-3-re-implement-claudesessionsend-on-top-of-queryresume" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> This is the core P4 swap. Replace the <code>_ensure_client() + client.query() + client.receive_response()</code> flow with <code>query(prompt=streaming_envelope, options=replace(opts, resume=sdk_session_id))</code> + async-iter drain. Spike v2 (2026-05-19) confirmed this preserves conversation context across turns including tool-use/tool-result blocks. The ExecutionResult fields downstream (response, tool_calls, tool_results, token_usage, structured_output, num_turns) are populated from the same SDK message types.</p>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/lib/backends/claude_backend.py:759-864</code> (the <code>send()</code> method body)
+- Test: <code>tests/unit/lib/backends/test_claude_backend.py</code> — rewrite the existing <code>TestClaudeSessionSend</code> class to mock <code>query</code> instead of <code>ClaudeSDKClient</code></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Write the failing test (multi-turn resume= propagation)</strong></li>
+</ul>
+<p>Add a new test class to <code>tests/unit/lib/backends/test_claude_backend.py</code> (delete the existing <code>TestClaudeSessionSend</code> class and replace it with the below — the multi-turn test is the load-bearing one):</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestClaudeSessionSend</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""ClaudeSession.send() under spec 034 P4 (hybrid sessions).</span>
+
+<span class="sd">    send() calls top-level claude_agent_sdk.query() with a streaming-mode</span>
+<span class="sd">    prompt envelope and ``options.resume = self._sdk_session_id``. session_id</span>
+<span class="sd">    is captured from ResultMessage on turn 1.</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_send_returns_execution_result</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">assistant</span> <span class="o">=</span> <span class="n">_make_assistant_message</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">_make_text_block</span><span class="p">(</span><span class="s2">"Hello "</span><span class="p">),</span> <span class="n">_make_text_block</span><span class="p">(</span><span class="s2">"world!"</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="n">result_msg</span> <span class="o">=</span> <span class="n">_make_result_message</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="s2">"sdk-sess-001"</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_query</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">assistant</span><span class="p">,</span> <span class="n">result_msg</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">m</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend.query"</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">fake_query</span>
+        <span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"Hi"</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">ExecutionResult</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="s2">"Hello world!"</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">token_usage</span><span class="o">.</span><span class="n">prompt_tokens</span> <span class="o">==</span> <span class="mi">10</span>
+        <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">==</span> <span class="s2">"sdk-sess-001"</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_send_enriches_tool_results_with_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Regression: tool_results must carry tool name (call_id → name lookup)."""</span>
+        <span class="n">tool_use</span> <span class="o">=</span> <span class="n">_make_tool_use_block</span><span class="p">(</span>
+            <span class="n">tool_id</span><span class="o">=</span><span class="s2">"call_abc"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"mcp__holodeck_tools__legislation_search_search"</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">=</span><span class="p">{</span><span class="s2">"query"</span><span class="p">:</span> <span class="s2">"sec3"</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">assistant</span> <span class="o">=</span> <span class="n">_make_assistant_message</span><span class="p">([</span><span class="n">_make_text_block</span><span class="p">(</span><span class="s2">"ok"</span><span class="p">),</span> <span class="n">tool_use</span><span class="p">])</span>
+
+        <span class="n">tool_result_block</span> <span class="o">=</span> <span class="n">_make_tool_result_block</span><span class="p">(</span><span class="s2">"call_abc"</span><span class="p">,</span> <span class="s2">"chunk text"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">user_msg</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">user_msg</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="p">[</span><span class="n">tool_result_block</span><span class="p">]</span>
+        <span class="n">user_msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">"UserMessage"</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_query</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">assistant</span><span class="p">,</span> <span class="n">user_msg</span><span class="p">,</span> <span class="n">_make_result_message</span><span class="p">()):</span>
+                <span class="k">yield</span> <span class="n">m</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend.query"</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">fake_query</span>
+        <span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"search"</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span>
+            <span class="s2">"mcp__holodeck_tools__legislation_search_search"</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">tool_results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span>
+            <span class="s2">"mcp__holodeck_tools__legislation_search_search"</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">tool_results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"call_id"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"call_abc"</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_send_propagates_session_id_into_resume_on_turn_2</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Turn 1 captures session_id from ResultMessage; turn 2's query() call</span>
+<span class="sd">        must pass that id back as ``options.resume`` so the SDK rehydrates the</span>
+<span class="sd">        on-disk transcript.</span>
+<span class="sd">        """</span>
+        <span class="n">captured_options</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_query</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+            <span class="n">captured_options</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">_make_assistant_message</span><span class="p">()</span>
+            <span class="k">yield</span> <span class="n">_make_result_message</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="s2">"sdk-sess-XYZ"</span><span class="p">)</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend.query"</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">fake_query</span>
+        <span class="p">):</span>
+            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"Turn 1"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"Turn 2"</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">captured_options</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="c1"># Turn 1: no prior session_id, resume must be None.</span>
+        <span class="k">assert</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">captured_options</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"resume"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="c1"># Turn 2: must carry the captured session_id from turn 1.</span>
+        <span class="k">assert</span> <span class="n">captured_options</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">resume</span> <span class="o">==</span> <span class="s2">"sdk-sess-XYZ"</span>
+        <span class="c1"># Session is the same across turns.</span>
+        <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">==</span> <span class="s2">"sdk-sess-XYZ"</span>
+        <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">==</span> <span class="mi">2</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_send_uses_streaming_mode_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""The prompt passed to query() must be an AsyncIterable, not a str —</span>
+<span class="sd">        string-mode closes stdin and deadlocks SDK MCP tool callbacks (spec</span>
+<span class="sd">        034 P4 spike v1).</span>
+<span class="sd">        """</span>
+        <span class="n">captured_prompts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_query</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+            <span class="n">captured_prompts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+            <span class="c1"># Drain the prompt iterable so the test sees what was sent.</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">prompt</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">yield</span> <span class="n">_make_result_message</span><span class="p">()</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend.query"</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">fake_query</span>
+        <span class="p">):</span>
+            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"Hi"</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">captured_prompts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="c1"># Must be an async iterable, not a str.</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">captured_prompts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">captured_prompts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"__aiter__"</span><span class="p">)</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Run tests to verify they fail</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionSend<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 4 failures. The existing implementation calls <code>client.query()</code> not the top-level <code>query()</code>, and never sets <code>_sdk_session_id</code>.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Re-implement <code>send()</code></strong></li>
+</ul>
+<p>Edit <code>src/holodeck/lib/backends/claude_backend.py</code>. Replace the entire body of <code>ClaudeSession.send()</code> (currently lines 759-864) with:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecutionResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Send a message and collect the full response.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        message: User message text.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ``ExecutionResult`` with the agent's response.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        BackendSessionError: On subprocess or SDK error.</span>
+<span class="sd">    """</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_lock</span><span class="p">:</span>
+        <span class="n">turn_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">"[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: entering, resume=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">turn_no</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_with_hooks</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
+
+                <span class="n">options</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                    <span class="n">options</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span>
+                <span class="p">)</span>
+
+            <span class="n">text_parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">tool_calls</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">tool_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">token_usage</span> <span class="o">=</span> <span class="n">TokenUsage</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+            <span class="n">num_turns</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">structured_output</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">msg_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span>
+                <span class="n">prompt</span><span class="o">=</span><span class="n">_streaming_user_envelope</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span>
+            <span class="p">):</span>
+                <span class="n">msg_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">"[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: msg #</span><span class="si">%d</span><span class="s2"> type=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">turn_no</span><span class="p">,</span>
+                    <span class="n">msg_count</span><span class="p">,</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
+                <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span> <span class="o">=</span> <span class="n">_process_message</span><span class="p">(</span>
+                    <span class="n">msg</span><span class="p">,</span> <span class="n">text_parts</span><span class="p">,</span> <span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"ResultMessage"</span><span class="p">:</span>
+                    <span class="n">rm</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+                    <span class="n">usage</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">usage</span> <span class="ow">or</span> <span class="p">{}</span>
+                    <span class="n">prompt_tokens</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"input_tokens"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">completion</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"output_tokens"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">token_usage</span> <span class="o">=</span> <span class="n">TokenUsage</span><span class="p">(</span>
+                        <span class="n">prompt_tokens</span><span class="o">=</span><span class="n">prompt_tokens</span><span class="p">,</span>
+                        <span class="n">completion_tokens</span><span class="o">=</span><span class="n">completion</span><span class="p">,</span>
+                        <span class="n">total_tokens</span><span class="o">=</span><span class="n">prompt_tokens</span> <span class="o">+</span> <span class="n">completion</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">num_turns</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">num_turns</span>
+                    <span class="n">structured_output</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">structured_output</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">captured</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="s2">"session_id"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">captured</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">captured</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="n">captured</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">"[trace] ClaudeSession.send turn=</span><span class="si">%d</span><span class="s2">: exited, "</span>
+                <span class="s2">"msg_count=</span><span class="si">%d</span><span class="s2">, num_turns=</span><span class="si">%d</span><span class="s2">, sdk_session_id=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+                <span class="n">turn_no</span><span class="p">,</span>
+                <span class="n">msg_count</span><span class="p">,</span>
+                <span class="n">num_turns</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="n">_enrich_tool_results</span><span class="p">(</span><span class="n">tool_calls</span><span class="p">,</span> <span class="n">tool_results</span><span class="p">)</span>
+
+            <span class="n">response_text</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_parts</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">structured_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">response_text</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">structured_output</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">ExecutionResult</span><span class="p">(</span>
+                <span class="n">response</span><span class="o">=</span><span class="n">response_text</span><span class="p">,</span>
+                <span class="n">tool_calls</span><span class="o">=</span><span class="n">tool_calls</span><span class="p">,</span>
+                <span class="n">tool_results</span><span class="o">=</span><span class="n">tool_results</span><span class="p">,</span>
+                <span class="n">token_usage</span><span class="o">=</span><span class="n">token_usage</span><span class="p">,</span>
+                <span class="n">structured_output</span><span class="o">=</span><span class="n">structured_output</span><span class="p">,</span>
+                <span class="n">num_turns</span><span class="o">=</span><span class="n">num_turns</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">ProcessError</span><span class="p">,</span> <span class="n">CLIConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BackendSessionError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"subprocess terminated unexpectedly: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+</code></pre></div>
+<p>Then add <code>query</code> to the top-level SDK import (the module already imports <code>ClaudeAgentOptions, ClaudeSDKClient</code> around line 19-25). Modify that import block:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">claude_agent_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ClaudeAgentOptions</span><span class="p">,</span>
+    <span class="n">ClaudeSDKClient</span><span class="p">,</span>
+    <span class="n">HookMatcher</span><span class="p">,</span>
+    <span class="n">query</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Run the rewritten send() tests</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionSend<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 4 passed.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 5: Run the full claude_backend test module to surface regressions</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py<span class="w"> </span>-n<span class="w"> </span>auto<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: many passes, plus some failures in <code>TestClaudeSessionStreaming</code>, <code>TestClaudeSessionEnsureClient</code>, <code>TestClaudeSessionClose</code>, <code>TestClaudeBackendLazyInit::test_session_prepare_invokes_connect</code>. Those are intentional — Tasks 4-6 will fix them. Capture the failing test names; if any test outside that list fails, stop and investigate before continuing.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 6: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/holodeck/lib/backends/claude_backend.py<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat(spec-034 P4): ClaudeSession.send() uses query(resume=)"</span>
+</code></pre></div>
+<hr />
+<h2 id="task-4-re-implement-claudesessionsend_streaming-on-top-of-queryresume">Task 4: Re-implement <code>ClaudeSession.send_streaming()</code> on top of <code>query(resume=)</code><a class="headerlink" href="#task-4-re-implement-claudesessionsend_streaming-on-top-of-queryresume" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> Same architectural swap as Task 3 but for the AG-UI hot path. <code>send_streaming()</code> is what the AG-UI bridge calls per turn. Yields text chunks progressively as <code>AssistantMessage</code> frames arrive; captures <code>session_id</code> from <code>ResultMessage</code> on turn 1.</p>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/lib/backends/claude_backend.py:866-893</code> (the <code>send_streaming()</code> method body)
+- Test: <code>tests/unit/lib/backends/test_claude_backend.py</code> — rewrite the existing <code>TestClaudeSessionStreaming</code> class</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Write the failing tests</strong></li>
+</ul>
+<p>Replace the existing <code>TestClaudeSessionStreaming</code> class with:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestClaudeSessionStreaming</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""ClaudeSession.send_streaming() under spec 034 P4."""</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_send_streaming_yields_chunks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">chunk1</span> <span class="o">=</span> <span class="n">_make_assistant_message</span><span class="p">([</span><span class="n">_make_text_block</span><span class="p">(</span><span class="s2">"Hello "</span><span class="p">)])</span>
+        <span class="n">chunk2</span> <span class="o">=</span> <span class="n">_make_assistant_message</span><span class="p">([</span><span class="n">_make_text_block</span><span class="p">(</span><span class="s2">"world!"</span><span class="p">)])</span>
+        <span class="n">result_msg</span> <span class="o">=</span> <span class="n">_make_result_message</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="s2">"sdk-stream-001"</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_query</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">chunk1</span><span class="p">,</span> <span class="n">chunk2</span><span class="p">,</span> <span class="n">result_msg</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">m</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend.query"</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">fake_query</span>
+        <span class="p">):</span>
+            <span class="n">chunks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">send_streaming</span><span class="p">(</span><span class="s2">"Hi"</span><span class="p">):</span>
+                <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">chunks</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Hello "</span><span class="p">,</span> <span class="s2">"world!"</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">==</span> <span class="s2">"sdk-stream-001"</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_send_streaming_propagates_session_id_on_turn_2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">captured_options</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_query</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+            <span class="n">captured_options</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">_make_assistant_message</span><span class="p">([</span><span class="n">_make_text_block</span><span class="p">(</span><span class="s2">"ok"</span><span class="p">)])</span>
+            <span class="k">yield</span> <span class="n">_make_result_message</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="s2">"sdk-stream-XYZ"</span><span class="p">)</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend.query"</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">fake_query</span>
+        <span class="p">):</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">send_streaming</span><span class="p">(</span><span class="s2">"Turn 1"</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">send_streaming</span><span class="p">(</span><span class="s2">"Turn 2"</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+        <span class="k">assert</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">captured_options</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"resume"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">captured_options</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">resume</span> <span class="o">==</span> <span class="s2">"sdk-stream-XYZ"</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Run tests to verify they fail</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionStreaming<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 2 failures (current impl still calls <code>client.query</code>).</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Re-implement <code>send_streaming()</code></strong></li>
+</ul>
+<p>Edit <code>src/holodeck/lib/backends/claude_backend.py</code>. Replace the entire body of <code>send_streaming()</code> (currently lines 866-893):</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_streaming</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Send a message and yield text chunks progressively.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        message: User message text.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        Text chunks as they arrive from the SDK.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        BackendSessionError: On subprocess or SDK error.</span>
+<span class="sd">    """</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_lock</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_with_hooks</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
+
+            <span class="n">options</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">options</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span>
+            <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span>
+                <span class="n">prompt</span><span class="o">=</span><span class="n">_streaming_user_envelope</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span>
+            <span class="p">):</span>
+                <span class="n">_maybe_emit_subagent_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tool_event_queue</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"AssistantMessage"</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"TextBlock"</span> <span class="ow">and</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                            <span class="k">yield</span> <span class="n">block</span><span class="o">.</span><span class="n">text</span>
+                <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"ResultMessage"</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_turn_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">captured</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="s2">"session_id"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">captured</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">captured</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="n">captured</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">ProcessError</span><span class="p">,</span> <span class="n">CLIConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BackendSessionError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"subprocess terminated unexpectedly: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Run the streaming tests</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionStreaming<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 2 passed.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 5: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/holodeck/lib/backends/claude_backend.py<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat(spec-034 P4): ClaudeSession.send_streaming() uses query(resume=)"</span>
+</code></pre></div>
+<hr />
+<h2 id="task-5-close-deletes-the-on-disk-jsonl-transcript">Task 5: <code>close()</code> deletes the on-disk JSONL transcript<a class="headerlink" href="#task-5-close-deletes-the-on-disk-jsonl-transcript" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> Without cleanup, every ever-opened session leaves a JSONL file at <code>~/.claude/projects/&lt;encoded-cwd&gt;/&lt;session_id&gt;.jsonl</code> forever. For a long-lived deployment that's effectively a memory leak on disk. On <code>close()</code>, delete the transcript whose name matches <code>self._sdk_session_id</code>. The path-encoding rule used by the Claude CLI is to replace <code>/</code> with <code>-</code> in the absolute cwd.</p>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/lib/backends/claude_backend.py:895-917</code> (<code>release_transport</code>, <code>close</code>)
+- Test: <code>tests/unit/lib/backends/test_claude_backend.py</code> — rewrite <code>TestClaudeSessionClose</code></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Write the failing test</strong></li>
+</ul>
+<p>Replace the existing <code>TestClaudeSessionClose</code> class with:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">unit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestClaudeSessionClose</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""ClaudeSession.close() under spec 034 P4 — transcript cleanup."""</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_close_deletes_transcript_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmp_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""close() deletes ``~/.claude/projects/&lt;encoded-cwd&gt;/&lt;id&gt;.jsonl``."""</span>
+        <span class="c1"># Stand up a fake projects dir; point the helper at it.</span>
+        <span class="n">cwd_encoded</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">"fake-cwd"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span>
+        <span class="n">transcript</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">"projects"</span> <span class="o">/</span> <span class="n">cwd_encoded</span> <span class="o">/</span> <span class="s2">"sess-001.jsonl"</span>
+        <span class="n">transcript</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">transcript</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s1">'{"type":"user"}</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="s2">"sess-001"</span>
+
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend._transcript_path"</span><span class="p">,</span>
+            <span class="n">return_value</span><span class="o">=</span><span class="n">transcript</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">transcript</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_close_is_safe_when_transcript_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""No-op when the transcript file doesn't exist (race / never-spawned)."""</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="s2">"never-spawned"</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+            <span class="s2">"holodeck.lib.backends.claude_backend._transcript_path"</span><span class="p">,</span>
+            <span class="n">return_value</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">"/nonexistent/path.jsonl"</span><span class="p">),</span>
+        <span class="p">):</span>
+            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># must not raise</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_close_no_session_id_is_noop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Sessions that never sent a turn have no transcript to delete."""</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+        <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># must not raise</span>
+        <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_implements_agent_session_protocol</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""ClaudeSession still satisfies the AgentSession protocol."""</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">()),</span> <span class="n">AgentSession</span>
+        <span class="p">)</span>
+</code></pre></div>
+<p>Also add <code>from pathlib import Path</code> and <code>from unittest.mock import patch</code> to the test imports if not already present.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Run tests to verify they fail</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionClose<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 3 failures (helper <code>_transcript_path</code> doesn't exist yet; current <code>close()</code> calls <code>client.disconnect()</code> and won't unset <code>_sdk_session_id</code>). The protocol-conformance test should already pass.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Add <code>_transcript_path</code> helper + rewrite <code>close()</code></strong></li>
+</ul>
+<p>Edit <code>src/holodeck/lib/backends/claude_backend.py</code>. Add this helper near the other module-level helpers (e.g., just before <code>class ClaudeSession</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_transcript_path</span><span class="p">(</span><span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return the on-disk JSONL transcript path for a session_id.</span>
+
+<span class="sd">    The Claude CLI writes per-session transcripts to</span>
+<span class="sd">    ``~/.claude/projects/&lt;encoded-cwd&gt;/&lt;session_id&gt;.jsonl`` where</span>
+<span class="sd">    ``encoded-cwd`` is the absolute cwd with ``/`` replaced by ``-``.</span>
+<span class="sd">    """</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">cwd</span> <span class="k">if</span> <span class="n">cwd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">".claude"</span> <span class="o">/</span> <span class="s2">"projects"</span> <span class="o">/</span> <span class="n">encoded</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">session_id</span><span class="si">}</span><span class="s2">.jsonl"</span>
+</code></pre></div>
+<p>Add <code>from pathlib import Path</code> to the module-level imports if not already there.</p>
+<p>Replace the body of <code>release_transport()</code> and <code>close()</code> (currently lines 895-917) with:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">release_transport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""No-op under spec 034 P4.</span>
+
+<span class="sd">    Retained for backwards compatibility with the chat executor's</span>
+<span class="sd">    ``_TaskBoundSession``. Under the hybrid-session model each turn's</span>
+<span class="sd">    subprocess is created and torn down inside ``query()``; there is no</span>
+<span class="sd">    persistent transport to release between turns.</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Delete the on-disk JSONL transcript and clear session state.</span>
+
+<span class="sd">    Under spec 034 P4 the session has no persistent subprocess to</span>
+<span class="sd">    disconnect. Conversation state lives on disk at</span>
+<span class="sd">    ``~/.claude/projects/&lt;encoded-cwd&gt;/&lt;sdk_session_id&gt;.jsonl``. Closing</span>
+<span class="sd">    the session permanently discards that transcript so the next</span>
+<span class="sd">    open of the same threadId starts fresh.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_transcript_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">"Failed to delete transcript </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">exc</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sdk_session_id</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Run the close tests</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionClose<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: 4 passed.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 5: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/holodeck/lib/backends/claude_backend.py<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat(spec-034 P4): ClaudeSession.close() deletes JSONL transcript"</span>
+</code></pre></div>
+<hr />
+<h2 id="task-6-strip-the-dead-persistent-client-machinery">Task 6: Strip the dead persistent-client machinery<a class="headerlink" href="#task-6-strip-the-dead-persistent-client-machinery" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> Under P4 nothing reads <code>self._client</code>, nothing calls <code>_ensure_client()</code>, nothing benefits from <code>_patch_hooks_for_context_propagation</code>, and <code>_DEFAULT_SESSION_ID</code> is no longer relevant. Leaving them in place would mislead future readers ("does the session use a persistent client or per-turn query?"). Delete the dead code.</p>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/lib/backends/claude_backend.py</code> — delete <code>_DEFAULT_SESSION_ID</code> (around line 69-79), <code>_patch_hooks_for_context_propagation</code> (around line 485-540), <code>_ensure_client</code> method (around line 739-757), <code>_client</code> field, <code>claude_agent_sdk</code> module-level import (used only inside <code>_ensure_client</code>)
+- Modify: <code>ClaudeSession.prepare()</code> body becomes a no-op (kept as a shim — <code>_TaskBoundSession</code> calls it).
+- Test: delete <code>TestClaudeSessionEnsureClient</code> class entirely. Modify <code>TestClaudeBackendLazyInit::test_session_prepare_invokes_connect</code> to assert <code>prepare()</code> is a no-op (no connect to invoke).</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Delete the dead code in source</strong></li>
+</ul>
+<p>Edit <code>src/holodeck/lib/backends/claude_backend.py</code>:</p>
+<ol>
+<li>Remove the <code>_DEFAULT_SESSION_ID</code> constant block (around lines 69-79).</li>
+<li>Remove <code>_patch_hooks_for_context_propagation</code> function entirely.</li>
+<li>Remove <code>_ensure_client()</code> method from <code>ClaudeSession</code>.</li>
+<li>Remove <code>self._client: ClaudeSDKClient | None = None</code> from <code>__init__</code>.</li>
+<li>Replace <code>ClaudeSession.prepare()</code> body with:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""No-op under spec 034 P4.</span>
+
+<span class="sd">    Retained for backwards compatibility with the chat executor's</span>
+<span class="sd">    ``_TaskBoundSession``. Under the hybrid-session model the SDK's</span>
+<span class="sd">    anyio task group is created inside each ``query()`` call frame,</span>
+<span class="sd">    so there is no task-binding to do up front.</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+<ol class="task-list">
+<li>Remove <code>import claude_agent_sdk</code> at the top of the file (it was only used inside <code>_ensure_client</code>). Leave <code>from claude_agent_sdk import ...</code> (used by Task 3).</li>
+<li>
+<p>Remove <code>ClaudeSDKClient</code> from the <code>from claude_agent_sdk import (...)</code> block — it is no longer referenced.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled/> <strong>Step 2: Delete the obsolete test classes</strong></p>
+</li>
+</ol>
+<p>In <code>tests/unit/lib/backends/test_claude_backend.py</code>:</p>
+<ol>
+<li>Delete the entire <code>TestClaudeSessionEnsureClient</code> class (around line 2101).</li>
+<li>Modify <code>TestClaudeBackendLazyInit::test_session_prepare_invokes_connect</code>. Find it (around line 1448) and replace its body with:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_session_prepare_is_noop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""spec 034 P4: ClaudeSession.prepare() no longer connects a client —</span>
+<span class="sd">    each query() call manages its own transport. prepare() must succeed</span>
+<span class="sd">    without raising so existing _TaskBoundSession callers stay working.</span>
+<span class="sd">    """</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">())</span>
+    <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>  <span class="c1"># must not raise</span>
+    <span class="c1"># No client to assert against; just confirm field is gone.</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="s2">"_client"</span><span class="p">)</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Run the full claude_backend test module</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py<span class="w"> </span>-n<span class="w"> </span>auto<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: all green. If anything fails outside the test classes you modified, stop and inspect — it is likely a test that was reaching into a deleted attribute.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Run the full unit suite to catch fan-out regressions</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit<span class="w"> </span>-n<span class="w"> </span>auto<span class="w"> </span>-q
+</code></pre></div>
+<p>Expected: all green. Watch for failures in <code>tests/unit/serve/</code> (the AG-UI bridge tests use real <code>ClaudeSession</code> instances via the bridge — they may patch removed attributes).</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 5: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/holodeck/lib/backends/claude_backend.py<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"refactor(spec-034 P4): drop dead persistent-client machinery"</span>
+</code></pre></div>
+<hr />
+<h2 id="task-7-add-unit-test-for-the-lock-concurrent-sends-serialise">Task 7: Add unit test for the lock — concurrent sends serialise<a class="headerlink" href="#task-7-add-unit-test-for-the-lock-concurrent-sends-serialise" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> Two concurrent <code>send()</code> calls on the same session with the same <code>resume=</code> would each spawn a fresh subprocess reading and appending the same JSONL transcript. The <code>_send_lock</code> added in Task 2 serialises them. Add an explicit test so the next person who tries to "optimise" by removing the lock breaks a test instead of production.</p>
+<p><strong>Files:</strong>
+- Test: <code>tests/unit/lib/backends/test_claude_backend.py</code> — extend <code>TestClaudeSessionP4Fields</code> from Task 2</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Write the failing test</strong></li>
+</ul>
+<p>Append to <code>TestClaudeSessionP4Fields</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_concurrent_sends_serialise</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Two concurrent send() calls must not invoke query() in parallel.</span>
+<span class="sd">    The lock prevents transcript-write races under the resume= model.</span>
+<span class="sd">    """</span>
+    <span class="n">in_flight</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">max_concurrent</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_query</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="k">nonlocal</span> <span class="n">in_flight</span><span class="p">,</span> <span class="n">max_concurrent</span>
+        <span class="n">in_flight</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">max_concurrent</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_concurrent</span><span class="p">,</span> <span class="n">in_flight</span><span class="p">)</span>
+        <span class="c1"># Yield control so the second send() has a chance to enter.</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">_make_assistant_message</span><span class="p">()</span>
+        <span class="k">yield</span> <span class="n">_make_result_message</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="s2">"sess-conc"</span><span class="p">)</span>
+        <span class="n">in_flight</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="n">session</span> <span class="o">=</span> <span class="n">ClaudeSession</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">ClaudeAgentOptions</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">patch</span><span class="p">(</span>
+        <span class="s2">"holodeck.lib.backends.claude_backend.query"</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">fake_query</span>
+    <span class="p">):</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span> <span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"b"</span><span class="p">))</span>
+
+    <span class="k">assert</span> <span class="n">max_concurrent</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span>
+        <span class="s2">"expected lock to serialise concurrent sends, "</span>
+        <span class="sa">f</span><span class="s2">"got max_concurrent=</span><span class="si">{</span><span class="n">max_concurrent</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">)</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Run it</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py::TestClaudeSessionP4Fields::test_concurrent_sends_serialise<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected: PASS (the lock was added in Task 2 and used in Tasks 3-4). If it fails, the lock is not being acquired — go inspect <code>send()</code> / <code>send_streaming()</code>.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>tests/unit/lib/backends/test_claude_backend.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"test(spec-034 P4): cover send-lock serialisation under concurrency"</span>
+</code></pre></div>
+<hr />
+<h2 id="task-8-quality-gates">Task 8: Quality gates<a class="headerlink" href="#task-8-quality-gates" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> Before deploy validation, lock in the static-analysis story so the deploy iteration loop doesn't surface formatting / typing surprises.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Format + lint</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>format<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>lint
+</code></pre></div>
+<p>Expected: both pass. If lint fails, fix the report.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Type-check</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>.mypy_cache<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>type-check
+</code></pre></div>
+<p>Expected: no new errors compared to baseline (pre-existing errors in <code>keyword_search.py</code>, <code>vector_store.py</code>, <code>hierarchical_document_tool.py</code>, <code>serve/server.py</code>, etc. are unrelated to P4 and may stay). If the diff between this run and <code>git stash &amp;&amp; make type-check</code> shows new errors in <code>claude_backend.py</code>, fix them.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Security scan</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>security
+</code></pre></div>
+<p>Expected: no high-severity findings introduced by P4.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Commit any auto-fixes from format/lint</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+<span class="c1"># If anything changed under src/ or tests/:</span>
+git<span class="w"> </span>add<span class="w"> </span>-p<span class="w">  </span><span class="c1"># interactive review</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"chore(spec-034 P4): formatting + lint cleanup"</span>
+</code></pre></div>
+<p>If nothing changed, skip this step.</p>
+<hr />
+<h2 id="task-9-end-to-end-deploy-validation">Task 9: End-to-end deploy validation<a class="headerlink" href="#task-9-end-to-end-deploy-validation" title="Permanent link">&para;</a></h2>
+<p><strong>Why:</strong> The unit tests cover the session-model swap, but the real binary risks (AG-UI stream-shape compat, OTel context propagation, subprocess spawn jitter under concurrent load) only surface in a live deployment. Run the deploy validation loop from <code>CLAUDE.md</code> against <code>sample/financial-assistant/claude</code>.</p>
+<p><strong>This task must be approved by the human operator before running</strong> (it builds a docker image, pushes to GHCR, rolls a live ACA revision). Do not run automatically.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 1: Get approval</strong></li>
+</ul>
+<p>Ask: "Ready to run the end-to-end deploy validation loop for P4 on <code>sample/financial-assistant/claude</code>? It will rebuild the base image with the working-tree wheel, push, and roll a new ACA revision."</p>
+<p>Block until the operator confirms.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 2: Run the validation loop</strong></li>
+</ul>
+<p>Follow the exact sequence in <code>CLAUDE.md</code> under "End-to-End Deploy Validation Loop":</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Local wheel</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>dist<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>build<span class="w"> </span>--wheel
+
+<span class="c1"># 2. Local base image</span>
+docker<span class="w"> </span>buildx<span class="w"> </span>build<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span>--no-cache<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>docker/Dockerfile.local<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-t<span class="w"> </span>ghcr.io/justinbarias/holodeck-base:latest<span class="w"> </span>--load<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--entrypoint<span class="w"> </span>python<span class="w"> </span>ghcr.io/justinbarias/holodeck-base:latest<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-c<span class="w"> </span><span class="s2">"import holodeck; print(holodeck.__version__)"</span>
+
+<span class="c1"># 3. Flip pull=True → pull=False in src/holodeck/deploy/builder.py (will revert</span>
+<span class="c1">#    in step 7).</span>
+
+<span class="c1"># 4. Agent image</span>
+<span class="nb">cd</span><span class="w"> </span>sample/financial-assistant/claude
+holodeck<span class="w"> </span>deploy<span class="w"> </span>build
+docker<span class="w"> </span>push<span class="w"> </span>ghcr.io/justinbarias/holodeck-financial-assistant:&lt;tag&gt;
+
+<span class="c1"># 5. ACA deploy</span>
+holodeck<span class="w"> </span>deploy<span class="w"> </span>run
+
+<span class="c1"># 6. Health + smoke</span>
+<span class="nv">URL</span><span class="o">=</span>https://financial-assistant.nicemoss-50caf9f5.eastus.azurecontainerapps.io
+<span class="k">until</span><span class="w"> </span>curl<span class="w"> </span>-sf<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">"</span><span class="nv">$URL</span><span class="s2">/health"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"</span><span class="nv">$URL</span><span class="s2">/awp"</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">'content-type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span><span class="s1">'{"threadId":"p4-smoke","runId":"r1","state":{},"messages":[{"id":"m1","role":"user","content":"What were ALXN'</span><span class="se">\'</span><span class="s1">'s 2007 rental payments?"}],"tools":[],"context":[],"forwardedProps":{}}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-time<span class="w"> </span><span class="m">180</span>
+
+<span class="c1"># 7. Revert builder.py pull=False → pull=True.</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 3: Verify AG-UI stream shape</strong></li>
+</ul>
+<p>The smoke curl must return a 200 with a coherent answer referencing ALXN/2007. If the stream looks malformed (events out of order, missing TEXT_MESSAGE_CHUNK, missing RUN_FINISHED), capture the raw response and stop — the SDK-message-to-AG-UI translation layer has a P4-specific bug that needs fixing.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 4: Multi-turn AG-UI verification</strong></li>
+</ul>
+<p>Re-use the same <code>threadId</code> (<code>p4-smoke</code>) and send a follow-up:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"</span><span class="nv">$URL</span><span class="s2">/awp"</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">'content-type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span><span class="s1">'{"threadId":"p4-smoke","runId":"r2","state":{},"messages":[{"id":"m1","role":"user","content":"What were ALXN'</span><span class="se">\'</span><span class="s1">'s 2007 rental payments?"},{"id":"m2","role":"assistant","content":"&lt;answer-from-r1&gt;"},{"id":"m3","role":"user","content":"And the prior year?"}],"tools":[],"context":[],"forwardedProps":{}}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-time<span class="w"> </span><span class="m">180</span>
+</code></pre></div>
+<p>The response must reference ALXN/2007 (the anchor from turn 1) — if it says "which company?" or asks for clarification, <code>resume=</code> is not actually being propagated into the bridge. Spike v2 proved the SDK side works; this would mean the AG-UI bridge is dropping the session id between turns.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 5: Concurrent-burst validation (regression of P1 OOM scenario)</strong></li>
+</ul>
+<p>In one shell:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>tid<span class="w"> </span><span class="k">in</span><span class="w"> </span>p4-burst-<span class="o">{</span><span class="m">1</span>..5<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"</span><span class="nv">$URL</span><span class="s2">/awp"</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">'content-type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-d<span class="w"> </span><span class="s2">"{\"threadId\":\"</span><span class="nv">$tid</span><span class="s2">\",\"runId\":\"r1\",\"state\":{},\"messages\":[{\"id\":\"m1\",\"role\":\"user\",\"content\":\"What were ALXN's 2007 rental payments?\"}],\"tools\":[],\"context\":[],\"forwardedProps\":{}}"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--max-time<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-o<span class="w"> </span>/tmp/p4-burst-<span class="nv">$tid</span>.out<span class="w"> </span>-w<span class="w"> </span><span class="s2">"%{http_code} t=%{time_total}s\n"</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="k">done</span>
+<span class="nb">wait</span>
+</code></pre></div>
+<p>Expect: all five return 200 within ~60s. Under P1 with a 2 GiB replica + cap=4, the 5th burst returned 429. Under P4 with idle sessions costing ~0 memory, the cap should not bind here. If anything returns 429 or 5xx, capture container memory at the time of the burst and add to the spec.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 6: Capture observations</strong></li>
+</ul>
+<p>Record in <code>docs/product-specs/034-production-hardening/2026-05-18-production-hardening-for-claude-agents.md</code> under the Phase 4 section:
+- Per-turn AG-UI latency vs P1 baseline
+- Whether OTel traces propagated (eyeball one trace in Aspire / Azure Monitor)
+- Whether the 5-concurrent burst succeeded
+- Replica memory at concurrent-burst peak</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 7: Commit the spec update</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/product-specs/034-production-hardening/2026-05-18-production-hardening-for-claude-agents.md
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"docs(spec-034): P4 end-to-end deploy validation results"</span>
+</code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Step 8: Open PR</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature/034-p4-hybrid-sessions
+gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--title<span class="w"> </span><span class="s2">"feat(spec-034): P4 hybrid sessions (subprocess pooling via query+resume)"</span><span class="w"> </span>--body<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s">## Summary</span>
+<span class="s">- Swap `ClaudeSession`'s persistent `ClaudeSDKClient` for per-turn `query(resume=session_id)` calls.</span>
+<span class="s">- Idle sessions now cost ~0 resident memory; the `SessionStore` cap correctly applies to concurrent active turns.</span>
+<span class="s">- Streaming-mode prompts (AsyncIterable envelope) are mandatory — string mode closes stdin and deadlocks SDK MCP tool callbacks (spike v1 surfaced this).</span>
+<span class="s">- `close()` deletes the on-disk JSONL transcript; per-session `asyncio.Lock` serialises concurrent sends to prevent transcript-write races.</span>
+<span class="s">- Spike data and design recorded in `docs/product-specs/034-production-hardening/2026-05-18-production-hardening-for-claude-agents.md` Phase 4.</span>
+
+<span class="s">## Test plan</span>
+<span class="s">- [x] Unit: `TestClaudeSessionSend`, `TestClaudeSessionStreaming`, `TestClaudeSessionClose`, `TestClaudeSessionP4Fields`, `TestStreamingUserEnvelope`.</span>
+<span class="s">- [x] Lint + type + security gates green.</span>
+<span class="s">- [x] End-to-end deploy validation on `sample/financial-assistant/claude` (single-turn smoke, multi-turn resume, 5-concurrent burst).</span>
+<span class="s">- [x] AG-UI stream shape preserved across the bridge.</span>
+
+<span class="s">## Closes</span>
+<span class="s">Phase 4 of spec 034 (hybrid sessions / subprocess pooling).</span>
+<span class="s">EOF</span>
+<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<hr />
+<h2 id="known-follow-ups-do-not-include-in-this-pr">Known follow-ups (do NOT include in this PR)<a class="headerlink" href="#known-follow-ups-do-not-include-in-this-pr" title="Permanent link">&para;</a></h2>
+<p>These were surfaced during spike v2 and remain open. Add as TODOs against spec 034 P4 but do not implement in this PR (scope discipline):</p>
+<ol>
+<li><strong>Transcript size budget.</strong> Long-running sessions accumulate every tool-use/tool-result block in the JSONL; 50 turns × 5 retrievals × 8 KiB ≈ 2 MiB transcript that gets re-read every turn. Add a <code>claude.max_transcript_bytes</code> knob + rolling-summary fallback before exposing P4 to chat UIs with multi-hour sessions.</li>
+<li><strong>Idle-session TTL.</strong> <code>ServerSession</code> objects in <code>SessionStore</code> still pin a Python object per threadId forever; the on-disk transcript also lives forever between turns. Add a TTL (e.g. 1 hour idle) that calls <code>ClaudeSession.close()</code> and removes the entry from <code>SessionStore</code>.</li>
+<li><strong>OTel context propagation.</strong> The <code>_patch_hooks_for_context_propagation</code> workaround targeted a persistent <code>ClaudeSDKClient</code> that no longer exists under P4. Verify the OTel instrumentor still wires invocation context through top-level <code>query()</code> — if not, file a follow-up to either patch <code>claude_agent_sdk.query</code> or set the ContextVar before the call in <code>send()</code> / <code>send_streaming()</code>.</li>
+<li><strong>Drop <code>_TaskBoundSession</code>.</strong> Under P4 it's a no-op wrapper (the persistent-transport-task-binding problem it solved no longer exists). Removing it simplifies <code>chat/executor.py</code> and <code>serve/server.py</code>. Separate PR.</li>
+<li><strong>Repurpose <code>SessionStore</code> cap from "open sessions" to "concurrent active turns".</strong> Today it counts threadIds; under P4 the OOM constraint is concurrent active turns, not idle threads. Until this lands, the cap is still binding but for the wrong reason (it'll reject a 6th threadId even if all 5 prior threads are idle).</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

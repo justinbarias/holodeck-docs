@@ -1,0 +1,2546 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tasks for User Story 6 — Sample agent: Financial Assistant backed by ConvFinQA (P3)">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/032-multi-turn-test-cases/tasks-us6/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: User Story 6 — Sample Agent: Financial Assistant on ConvFinQA (P3) - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-user-story-6-sample-agent-financial-assistant-on-convfinqa-p3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: User Story 6 — Sample Agent: Financial Assistant on ConvFinQA (P3)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#phase-0-functiontool-runtime-support-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: FunctionTool runtime support — [COMPLETE]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-05-model-prerequisite-pre-us6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0.5: Model prerequisite (pre-US6)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-scaffold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup + scaffold
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-converter-utility-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Converter utility (TDD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Converter utility (TDD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-function-tools-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Function tools (TDD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Function tools (TDD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-first_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-optional-code-grader-stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Optional code grader stub
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: Optional code grader stub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-first_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-agent-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: Agent configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-readme-quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: README + quickstart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-end-to-end-smoke-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: End-to-end smoke + integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-polish-repo-level-visibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Polish + repo-level visibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#independent-test-criteria-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Independent test criteria (recap)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-on-constitution-out-of-scope-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes on constitution + out-of-scope alignment
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-user-story-6-sample-agent-financial-assistant-on-convfinqa-p3">Tasks: User Story 6 — Sample Agent: Financial Assistant on ConvFinQA (P3)<a class="headerlink" href="#tasks-user-story-6-sample-agent-financial-assistant-on-convfinqa-p3" title="Permanent link">&para;</a></h1>
+<p><strong>Input</strong>: <code>/docs/product-specs/032-multi-turn-test-cases/</code> — spec.md (US6), quickstart.md (ConvFinQA example), contracts/test-case-schema.md, contracts/code-grader-contract.md. Source dataset: <code>/Users/justinbarias/Documents/Git/python/justinbarias/data/convfinqa_dataset.json</code> (21 MB, <code>{"train": [...], "dev": [...]}</code> shape — verified).
+<strong>Approach</strong>: TDD where meaningful (converter utility, function tools, grader stub); example-driven authoring for the agent configuration + README.</p>
+<p><strong>Story Goal</strong>: Ship <code>sample/financial-assistant/claude/</code> that demonstrates multi-turn test cases end-to-end on a real benchmark. User can <code>cd sample/financial-assistant/claude &amp;&amp; holodeck test</code> from a fresh checkout and see 10 multi-turn ConvFinQA-shaped cases execute with per-turn reports, per-turn tool assertions (fuzzy arg matchers), deterministic <code>numeric</code> scoring, and one illustrative <code>type: code</code> grader.</p>
+<p><strong>Independent Test</strong>: From a fresh checkout with <code>ANTHROPIC_API_KEY</code> set: <code>cd sample/financial-assistant/claude &amp;&amp; holodeck test</code>. Expect 10 test cases, 30–50 turns total, all complete, per-turn breakdown in the markdown report, exit code reflects pass/fail honestly. Setup-to-first-run ≤ 15 minutes following <code>README.md</code> (SC-001 on real data).</p>
+<p><strong>Depends on</strong>: US1 (multi-turn execution), US2 (per-turn assertions), US3 (arg matchers — fuzzy matchers on <code>subtract</code>/<code>divide</code> args), US4 (<code>numeric</code> built-in + <code>type: code</code> grader). US5 is independent but complements (the sample's runs are dashboard fodder).</p>
+<p><strong>Not in scope</strong>: Committing the full 21 MB <code>convfinqa_dataset.json</code> — only a curated 10-example subset lands under <code>data/</code>. The converter utility regenerates the subset from the upstream dataset path.</p>
+<hr />
+<h2 id="phase-0-functiontool-runtime-support-complete">Phase 0: FunctionTool runtime support — <strong>[COMPLETE]</strong><a class="headerlink" href="#phase-0-functiontool-runtime-support-complete" title="Permanent link">&para;</a></h2>
+<p>Shipped in commit <code>16d0d44 feat(tools): FunctionTool runtime on SK + Claude backends</code>. Verified present in tree:</p>
+<ul>
+<li><code>src/holodeck/lib/function_tool_loader.py</code> — <code>load_function_tool(tool, base_dir)</code> callable resolver.</li>
+<li><code>src/holodeck/lib/backends/tool_adapters.py</code> — <code>FunctionToolAdapter</code> + dispatch branch in <code>create_tool_adapters</code> (lines 178–204, 297–299).</li>
+<li><code>src/holodeck/lib/test_runner/agent_factory.py</code> — SK-side <code>FunctionTool</code> dispatch (lines 1013–1054).</li>
+<li><code>tests/fixtures/agents/tools/orders.py</code> — fixture stub present; <code>tests/fixtures/agents/valid_agent.yaml</code> loads cleanly.</li>
+</ul>
+<p>US6 consumes this runtime as-is; no further Phase 0 work is required.</p>
+<hr />
+<h2 id="phase-05-model-prerequisite-pre-us6">Phase 0.5: Model prerequisite (pre-US6)<a class="headerlink" href="#phase-05-model-prerequisite-pre-us6" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T000 [US6] Add a <code>turn_config: dict[str, Any] | None = None</code> field to <code>Turn</code> in <code>src/holodeck/models/test_case.py</code> (currently <code>ConfigDict(extra="forbid")</code> with no such field — verified at line 345). Thread it through <code>turn.model_dump(mode="python")</code> so the existing <code>executor.py:1372</code> call surfaces it to <code>build_grader_context</code> unchanged. Data-model.md and <code>contracts/code-grader-contract.md</code> §3.1 both reference <code>ctx.turn_config</code> as the channel for grader-specific per-turn keys (e.g., <code>turn_program</code>) — this task makes that channel real. Add unit test covering <code>Turn(**{"input": "x", "turn_config": {"turn_program": "subtract(a,b)"}})</code> round-trip + a test that an unknown top-level key still fails forbid.</li>
+</ul>
+<hr />
+<h2 id="phase-1-setup-scaffold">Phase 1: Setup + scaffold<a class="headerlink" href="#phase-1-setup-scaffold" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 Read spec US6 + quickstart.md §1–§6. Confirm US1 + US2 foundational tasks are merged (multi-turn execution exists end-to-end); US3/US4 ideally merged (arg matchers + <code>numeric</code> + <code>code</code> evaluator) — sample can scaffold in parallel with US3/US4 but the full demo needs both landed. Phase 0 (FunctionTool runtime) is already merged (<code>16d0d44</code>).</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001a [US6] Verify-only gate before starting Phase 5: confirm (a) <code>ExecutionConfig.parallel_test_cases</code> is a defined field on <code>src/holodeck/models/config.py</code> (currently line 73) and (b) <code>Turn.turn_config: dict[str, Any] | None</code> exists after T000. If either is missing or was renamed, pause Phase 5 and reconcile before <code>agent.yaml</code> / grader wiring drifts.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T002 Create directory structure under the repo root, mirroring the existing multi-backend sample layout (<code>sample/legal-assistant/claude/...</code>, <code>sample/content-moderation/claude/...</code>):
+  <div class="highlight"><pre><span></span><code>sample/financial-assistant/
+└── claude/
+    ├── agent.yaml
+    ├── .env.example
+    ├── README.md
+    ├── instructions/
+    │   └── system-prompt.md
+    ├── data/
+    │   └── convfinqa_subset.yaml        # created by T007; referenced via test_cases_file
+    ├── tools/
+    │   └── financial_tools.py
+    ├── graders/
+    │   ├── __init__.py
+    │   └── turn_program_equivalence.py
+    └── scripts/
+        └── convert_convfinqa.py
+</code></pre></div>
+  Add the directory without modifying root <code>pyproject.toml</code> — sample agents follow the existing convention (see <code>sample/research/</code>, <code>sample/support/</code>). Ollama / OpenAI variants may be added later as siblings under <code>sample/financial-assistant/</code> (e.g., <code>sample/financial-assistant/ollama/</code>) without restructuring.</li>
+</ul>
+<p><strong>Note on grader import path</strong>: The sample dir name <code>financial-assistant</code> contains a hyphen and cannot appear in a dotted Python module path. The grader reference used throughout Phase 4/5 is therefore <code>graders.turn_program_equivalence:turn_program_equivalence</code> — i.e., resolved relative to the agent-yaml directory (<code>sample/financial-assistant/claude/</code>), which <code>holodeck test</code> adds to <code>sys.path</code> at invocation. T022 verifies this resolution works; if it does not, raise the gap as a HoloDeck grader-resolver improvement rather than work around it by renaming the sample. Do <strong>not</strong> write <code>sample.financial_assistant.graders...</code>.</p>
+<hr />
+<h2 id="phase-2-converter-utility-tdd">Phase 2: Converter utility (TDD)<a class="headerlink" href="#phase-2-converter-utility-tdd" title="Permanent link">&para;</a></h2>
+<h3 id="tests-first">Tests first<a class="headerlink" href="#tests-first" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T003 [P] [US6] Write <code>tests/unit/sample/test_convert_convfinqa.py::test_converts_single_dialogue_to_multi_turn_shape</code> — given a fixture ConvFinQA record (<code>id</code>, <code>doc</code>, <code>dialogue</code> with <code>conv_questions</code>, <code>conv_answers</code>, <code>turn_program</code>, <code>executed_answers</code>), the converter emits a dict matching <code>TestCaseModel</code> multi-turn shape: <code>name=&lt;id&gt;</code>, <code>turns=[{input, ground_truth, turn_config: {turn_program}}]</code> with <code>len(turns) == len(conv_questions)</code>.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T004 [P] [US6] Add <code>test_convert_convfinqa.py::test_preserves_turn_program_via_turn_config</code> — <code>turn_program</code> (e.g., <code>"subtract(206588, 181001)"</code>) is attached on each turn as <code>turn_config.turn_program</code> so the code grader can read it via <code>ctx.turn_config["turn_program"]</code> (per contracts/code-grader-contract.md §3.1).</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T005 [P] [US6] Add <code>test_convert_convfinqa.py::test_handles_turn_program_with_backrefs</code> — ConvFinQA's later turns use <code>#N</code> back-refs (e.g., <code>"subtract(206588, 181001), divide(#0, 181001)"</code>). Converter preserves the raw string faithfully; does not try to resolve <code>#N</code> (that's the grader's job).</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 [P] [US6] Add <code>test_convert_convfinqa.py::test_output_validates_against_testcase_model</code> — converter output, when loaded through <code>TestCaseModel(**data)</code>, validates without error (guards against schema drift).</li>
+</ul>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T007 [US6] Write <code>sample/financial-assistant/claude/scripts/convert_convfinqa.py</code>:
+  <div class="highlight"><pre><span></span><code>Usage: python scripts/convert_convfinqa.py \
+         --source /path/to/convfinqa_dataset.json \
+         --split dev \
+         --n 10 \
+         --out data/convfinqa_subset.yaml
+</code></pre></div></li>
+<li>Reads <code>{"train": [...], "dev": [...]}</code>; picks first N examples from <code>--split</code>.</li>
+<li>Emits <code>data/convfinqa_subset.yaml</code> in <strong>HoloDeck's native test_cases format</strong> — a YAML list of <code>{name, turns}</code> entries that the external <code>test_cases_file:</code> loader (commit <code>5f0c84a feat(loader): support external test_cases_file reference in agent.yaml</code>) parses directly. No custom YAML directives (no <code>!include</code>).</li>
+<li>Each turn: <code>{input: conv_questions[i], ground_truth: str(executed_answers[i]), turn_config: {turn_program: turn_program[i]}}</code>. The <code>turn_program</code> lands under <code>turn_config</code> so the code grader can read it via <code>ctx.turn_config["turn_program"]</code> per contracts/code-grader-contract.md §3.1. Relies on T000 having landed the <code>Turn.turn_config</code> field.</li>
+<li>Uses PyYAML (already a HoloDeck runtime dep) plus stdlib.</li>
+<li>Emits a one-line summary: <code>"Converted N dialogues → &lt;path&gt;"</code>.</li>
+<li>Rerunnable — overwrites <code>--out</code> on each run. <code>agent.yaml</code> itself is never modified; the <code>test_cases_file:</code> pointer reaches the generated file.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T008 [US6] Run the converter once against the upstream dataset to produce <code>sample/financial-assistant/claude/data/convfinqa_subset.yaml</code>. Commit the artifact; expect ≤ 150 KB at N=10 (budget allowance for full SEC document tables in each dialogue's <code>doc</code>). No changes to <code>agent.yaml</code> here — the pointer is wired in T017.</li>
+</ul>
+<hr />
+<h2 id="phase-3-function-tools-tdd">Phase 3: Function tools (TDD)<a class="headerlink" href="#phase-3-function-tools-tdd" title="Permanent link">&para;</a></h2>
+<h3 id="tests-first_1">Tests first<a class="headerlink" href="#tests-first_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T009 [P] [US6] Write <code>tests/unit/sample/test_financial_tools.py::test_subtract_basic</code> — <code>subtract(a=206588, b=181001) == 25587</code>; also tests negative result, float args, and <code>subtract(a=1.0, b=1) == 0.0</code> (int/float parity).</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 [P] [US6] Add <code>test_financial_tools.py::test_divide_basic_and_zero_guard</code> — <code>divide(a=25587, b=181001) ≈ 0.14136</code> (abs tol 1e-5); <code>divide(a=1, b=0)</code> raises <code>ZeroDivisionError</code> (or returns a documented sentinel — pick one and document in the tool docstring).</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T011 [P] [US6] Add <code>test_financial_tools.py::test_lookup_returns_scalar</code> — <code>lookup(document, description)</code> where <code>document</code> is the ConvFinQA <code>doc</code> structure (with <code>pre_text</code>, <code>post_text</code>, <code>table</code>), returns the numeric scalar matching <code>description</code>. Exact implementation of <code>lookup</code> can be "find by description in the table" — verify for a fixture row.</li>
+</ul>
+<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T012 [US6] Write <code>sample/financial-assistant/claude/tools/financial_tools.py</code> with three pure-Python functions:
+  <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">subtract</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">divide</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">lookup</span><span class="p">(</span><span class="n">document</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+  <code>lookup</code> implementation: case-insensitive substring search across <code>document["table"]</code> row/column headers; returns the first matching numeric cell. Docstrings required for all three (HoloDeck <code>type: function</code> tools auto-use the docstring as the tool description).</li>
+</ul>
+<hr />
+<h2 id="phase-4-optional-code-grader-stub">Phase 4: Optional code grader stub<a class="headerlink" href="#phase-4-optional-code-grader-stub" title="Permanent link">&para;</a></h2>
+<h3 id="tests-first_2">Tests first<a class="headerlink" href="#tests-first_2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013 [P] [US6] Write <code>tests/unit/sample/test_turn_program_equivalence.py::test_matching_program_passes</code> — import <code>ToolInvocation</code> from <code>holodeck.models.test_result</code> and <code>GraderContext, GraderResult</code> from <code>holodeck.lib.test_runner.code_grader</code>. Given <code>ctx.turn_config["turn_program"] = "subtract(206588, 181001)"</code> and <code>ctx.tool_invocations = (ToolInvocation(name="subtract", args={"a":206588, "b":181001}, ...),)</code> (note: tuple, per frozen-dataclass contract §3.1), the grader returns <code>GraderResult(score=1.0, passed=True)</code>.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013a [P] [US6] Add <code>test_turn_program_equivalence.py::test_diverging_program_fails</code> — same <code>turn_program</code> but agent called <code>divide</code> instead; grader returns <code>GraderResult(score=0.0, passed=False)</code> with a reason string.</li>
+</ul>
+<h3 id="implementation_2">Implementation<a class="headerlink" href="#implementation_2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T014 [US6] Write <code>sample/financial-assistant/claude/graders/turn_program_equivalence.py</code>:
+  <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.lib.test_runner.code_grader</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraderContext</span><span class="p">,</span> <span class="n">GraderResult</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">turn_program_equivalence</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">GraderContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GraderResult</span><span class="p">:</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">turn_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"turn_program"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="c1"># Minimal prototype: compare op names; detailed DAG walk with #N</span>
+    <span class="c1"># backref substitution is left as an exercise (linked in README).</span>
+    <span class="o">...</span>
+</code></pre></div>
+  Keep the implementation minimal — this is an illustration of the grader interface, not a production program-equivalence checker. README points users to quickstart.md §5 for a fuller treatment.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T015 [US6] Add <code>sample/financial-assistant/claude/graders/__init__.py</code> (empty). The grader reference format used in <code>agent.yaml</code> is <code>"graders.turn_program_equivalence:turn_program_equivalence"</code> — resolved relative to the agent-yaml directory (<code>sample/financial-assistant/claude/</code>), which HoloDeck's test runner adds to <code>sys.path</code> at invocation. No <code>sample.financial_assistant.</code> prefix is used (the hyphen in <code>financial-assistant</code> precludes dotted imports). T022 verifies a misspelled grader path surfaces as a load-time <code>ConfigError</code> (FR-025); if the relative resolution does not work out of the box, raise it as a HoloDeck grader-resolver improvement rather than renaming the sample directory.</li>
+</ul>
+<hr />
+<h2 id="phase-5-agent-configuration">Phase 5: Agent configuration<a class="headerlink" href="#phase-5-agent-configuration" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T016 [US6] Write <code>sample/financial-assistant/claude/instructions/system-prompt.md</code> — financial-analyst persona (≤ 300 words): "You are a financial analyst. Use <code>lookup</code>, <code>subtract</code>, <code>divide</code> to answer numeric questions about an SEC filing. Return plain numbers (no commas, no percent signs unless explicitly asked). Treat each user turn as a follow-up to the previous exchanges; resolve anaphoric references like 'what about in 2008?' using prior context." Mirror the tone of <code>sample/research/instructions/system-prompt.md</code>.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 [US6] Write <code>sample/financial-assistant/claude/agent.yaml</code> using <strong>Claude Agent SDK as the default backend</strong> (HoloDeck first-class per CLAUDE.md) and the real <code>FunctionTool</code> schema (<code>{name, description, type: function, file, function}</code> — verified against <code>src/holodeck/models/tool.py:422-457</code> and <code>tests/fixtures/agents/valid_agent.yaml:22-27</code>):
+  <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">financial-assistant</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"ConvFinQA-driven</span><span class="nv"> </span><span class="s">financial</span><span class="nv"> </span><span class="s">analyst</span><span class="nv"> </span><span class="s">demonstrating</span><span class="nv"> </span><span class="s">multi-turn</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">cases"</span>
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-6</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">  </span><span class="nt">auth_provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_key</span>
+<span class="nt">instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">instructions/system-prompt.md</span>
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lookup</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Look</span><span class="nv"> </span><span class="s">up</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">scalar</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">SEC</span><span class="nv"> </span><span class="s">document</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">description</span><span class="nv"> </span><span class="s">(e.g.,</span><span class="nv"> </span><span class="s">'2009</span><span class="nv"> </span><span class="s">net</span><span class="nv"> </span><span class="s">cash</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">operating</span><span class="nv"> </span><span class="s">activities')."</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/financial_tools.py</span>
+<span class="w">    </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lookup</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">subtract</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Compute</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">b</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">two</span><span class="nv"> </span><span class="s">numeric</span><span class="nv"> </span><span class="s">operands."</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/financial_tools.py</span>
+<span class="w">    </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">subtract</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">divide</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Compute</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">/</span><span class="nv"> </span><span class="s">b</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">two</span><span class="nv"> </span><span class="s">numeric</span><span class="nv"> </span><span class="s">operands.</span><span class="nv"> </span><span class="s">Raises</span><span class="nv"> </span><span class="s">ZeroDivisionError</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">b</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">zero."</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tools/financial_tools.py</span>
+<span class="w">    </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">divide</span>
+<span class="nt">evaluations</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">      </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numeric</span>
+<span class="w">      </span><span class="nt">absolute_tolerance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">      </span><span class="nt">accept_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">accept_thousands_separators</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">execution</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parallel_test_cases</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="nt">test_cases_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/convfinqa_subset.yaml</span>
+</code></pre></div>
+  Test cases are loaded from an external YAML file via the <code>test_cases_file:</code> pointer (commit <code>5f0c84a feat(loader): support external test_cases_file reference in agent.yaml</code>) — no inline block, no sentinel comments, no converter injection mode. Backend-switch instructions live in <code>README.md</code> (T020) rather than inline comments: users can flip <code>model.provider</code> to <code>openai</code> or <code>ollama</code> and set the matching env var.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T018 [US6] Enrich <strong>at least two</strong> test cases inside <code>data/convfinqa_subset.yaml</code> with:</li>
+<li><code>expected_tools</code> using <code>{name, args: {a: {fuzzy: "..."}, b: {fuzzy: "..."}}}</code> object form (exercises US3 matchers on real ConvFinQA numeric values).</li>
+<li>An <code>evaluations</code> block adding <code>{type: code, grader: "graders.turn_program_equivalence:turn_program_equivalence"}</code> on one turn that has a <code>turn_program</code> (exercises US4 code grader). Note: relative (no <code>sample.</code> prefix) per T015.
+  These augmentations happen via a second pass over <code>convfinqa_subset.yaml</code> — extend the converter T007 with an <code>--augment</code> mode OR edit the two cases by hand after conversion and commit.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T019 [US6] Write <code>sample/financial-assistant/claude/.env.example</code> with stubs for:
+  <div class="highlight"><pre><span></span><code># Default backend: Claude Agent SDK (Anthropic) — required for first run
+ANTHROPIC_API_KEY=
+
+# Optional alternate backends — set these and switch `model.provider` in agent.yaml
+# OPENAI_API_KEY=
+# OLLAMA_BASE_URL=http://localhost:11434
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="phase-6-readme-quickstart">Phase 6: README + quickstart<a class="headerlink" href="#phase-6-readme-quickstart" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T020 [US6] Write <code>sample/financial-assistant/claude/README.md</code> (target ≤ 350 words — SC-001 time budget):</li>
+<li>Prereqs: HoloDeck installed (<code>pip install -e .</code> from repo root) and an <code>ANTHROPIC_API_KEY</code> with access to <code>claude-sonnet-4-6</code>.</li>
+<li>Step 1: <code>cp .env.example .env</code> and fill in <code>ANTHROPIC_API_KEY</code>.</li>
+<li>Step 2: <code>cd sample/financial-assistant/claude &amp;&amp; holodeck test</code> — <code>agent.yaml</code> loads test cases from <code>data/convfinqa_subset.yaml</code> via <code>test_cases_file:</code>. Expect per-turn output like quickstart §3.</li>
+<li>Step 3 (optional regen): <code>python scripts/convert_convfinqa.py --source &lt;path-to-convfinqa_dataset.json&gt; --split dev --n 10 --out data/convfinqa_subset.yaml</code> to refresh the subset. <code>agent.yaml</code> is untouched.</li>
+<li>Step 4 (optional backend swap): switch <code>model.provider</code> to <code>openai</code> (set <code>OPENAI_API_KEY</code>) or <code>ollama</code> (set <code>OLLAMA_BASE_URL</code>; pull a capable local model). Dual-backend coverage is the counterpart to SC-010 on real data.</li>
+<li>Troubleshooting table: <code>ANTHROPIC_API_KEY</code> missing, grader import error, dataset path typo, <code>test_cases_file:</code> points at a missing YAML (re-run the converter).</li>
+<li>Cross-reference <code>docs/product-specs/032-multi-turn-test-cases/quickstart.md</code> for the full feature tutorial.</li>
+</ul>
+<hr />
+<h2 id="phase-7-end-to-end-smoke-integration">Phase 7: End-to-end smoke + integration<a class="headerlink" href="#phase-7-end-to-end-smoke-integration" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T021 [P] [US6] Add <code>tests/integration/test_sample_financial_assistant.py::test_sample_loads_and_runs_on_stubbed_backend</code> — loads <code>sample/financial-assistant/claude/agent.yaml</code>, stubs the backend with scripted responses matching ground truths, runs <code>test_runner.execute</code>, asserts: (a) 10 <code>TestResult</code> objects produced; (b) each has <code>turns</code> populated with <code>len(turns) &gt;= 3</code>; (c) per-turn <code>metric_results</code> includes <code>numeric</code>; (d) at least one turn carries <code>arg_match_details</code> from the augmented test cases (T018); (e) at least one turn carries a <code>code</code>-kind <code>MetricResult</code> from the grader.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T022 [US6] Add <code>tests/integration/test_sample_financial_assistant.py::test_sample_loads_via_testcase_model</code> — simple config-validation smoke: <code>ConfigLoader().load("sample/financial-assistant/claude/agent.yaml")</code> succeeds; <code>Agent(**config)</code> validates; the external <code>test_cases_file: data/convfinqa_subset.yaml</code> is resolved and populates <code>agent.test_cases</code>. Add a negative case that corrupts the <code>graders.turn_program_equivalence:turn_program_equivalence</code> reference (e.g., typo the callable name) and asserts a <code>ConfigError</code> naming the turn and the bad path (FR-025). Catches YAML drift AND grader-path drift without invoking a backend.</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 [P] [US6] (Optional) Add gated dual-backend tests in <code>test_sample_financial_assistant.py</code>: <code>::test_sample_runs_on_anthropic</code> under <code>@pytest.mark.skipif(not os.getenv("ANTHROPIC_API_KEY"))</code> (the default path — smokes the committed <code>model.provider: anthropic</code>), and <code>::test_sample_runs_on_ollama</code> under <code>HOLODECK_IT_OLLAMA</code> / <code>::test_sample_runs_on_openai</code> under <code>HOLODECK_IT_OPENAI</code> for the opt-in SK-backend variants. Runs the real sample against the real backend; asserts non-zero-length responses per turn. Counterpart to SC-010 on a real dataset.</li>
+</ul>
+<hr />
+<h2 id="phase-8-polish-repo-level-visibility">Phase 8: Polish + repo-level visibility<a class="headerlink" href="#phase-8-polish-repo-level-visibility" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T024 [US6] Run <code>make format &amp;&amp; make lint &amp;&amp; make type-check &amp;&amp; pytest tests/unit/sample -n auto &amp;&amp; pytest tests/integration/test_sample_financial_assistant.py -n auto</code>. All green.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T025 [P] [US6] Manual end-to-end validation: fresh terminal, <code>cd sample/financial-assistant/claude &amp;&amp; holodeck test</code>. Confirm ≤ 15-minute clock time from a clean checkout to first green run (walk through <code>README.md</code> as a first-time user would).</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T026 [P] [US6] If a top-level <code>docs/samples.md</code> or <code>README.md</code> index exists, add a one-line entry pointing to <code>sample/financial-assistant/claude/</code>. Do NOT create new doc files if none exists (project rule).</li>
+</ul>
+<hr />
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Phase 0 (FunctionTool runtime) is already merged</strong> (<code>16d0d44</code>). No US6-internal Phase 0 work remains.</li>
+<li><strong>Phase 0.5 (T000 — <code>Turn.turn_config</code> field) must land before Phase 5</strong> — T007's converter output and T018's code-grader wiring both pass <code>turn_program</code> through <code>turn_config</code>.</li>
+<li>Phase 1 → Phase 2 (converter) → Phase 3 (tools) → Phase 4 (grader) can land in parallel with Phases 2–3.</li>
+<li>Phase 5 (<code>agent.yaml</code>) depends on Phases 2, 3, 4 (it references their outputs), AND on T001a's verify-gate passing (ensures <code>parallel_test_cases</code> + <code>Turn.turn_config</code> are real before we bake references to them).</li>
+<li>Phase 6 (README) can draft in parallel; final version depends on Phase 5.</li>
+<li>Phase 7 (integration) depends on Phases 2–5.</li>
+<li>Phase 8 is sequenced last.</li>
+</ul>
+<p>Within Phase 2: T003–T006 parallel; T007–T008 serial.
+Within Phase 3: T009–T011 parallel; T012 serial.
+Within Phase 4: T013–T013a parallel; T014–T015 serial.
+Within Phase 7: T021–T023 parallel.</p>
+<h2 id="independent-test-criteria-recap">Independent test criteria (recap)<a class="headerlink" href="#independent-test-criteria-recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Sample runs end-to-end in ≤ 15 minutes from a fresh checkout (SC-001 on real data — T025).</li>
+<li>Converter produces a subset that validates against <code>TestCaseModel</code> multi-turn (T006).</li>
+<li>All US3 arg-matcher surfaces exercised on at least one real turn (T018, T021).</li>
+<li>All US4 evaluator surfaces (<code>numeric</code> + <code>code</code>) exercised (T018, T021).</li>
+<li>Grader import failures surface at config-load time (T019 + FR-025 behavior — verified indirectly by T022 catching a misspelled grader path).</li>
+</ul>
+<h2 id="notes-on-constitution-out-of-scope-alignment">Notes on constitution + out-of-scope alignment<a class="headerlink" href="#notes-on-constitution-out-of-scope-alignment" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FunctionTool runtime landed ahead of US6</strong> (commit <code>16d0d44</code>). The loader, Claude adapter, and SK dispatch are already in tree; US6 consumes them as-is. No core-package expansion is in scope for this story.</li>
+<li><strong>Claude Agent SDK is the committed default backend</strong> for this sample (consistent with CLAUDE.md "Claude Code First-Class Citizen" design principle). Ollama and OpenAI remain opt-in via <code>model.provider</code> swap + matching env var. <code>ANTHROPIC_API_KEY</code> is the only credential required for first run.</li>
+<li>The converter lives in <code>sample/financial-assistant/claude/scripts/</code> — <strong>user-land</strong>, not in the core HoloDeck package. Consistent with Assumption A10 ("No dataset-specific built-ins") and the updated §Out of Scope bullet (user-land sample-side converters are allowed; the core package stays dataset-agnostic).</li>
+<li>The <code>type: code</code> grader stub is illustrative. It operates on <code>ctx.turn_config["turn_program"]</code> per the documented grader-context shape; no core HoloDeck changes are needed beyond what US4 ships.</li>
+<li>Constitution Principle I (No-Code-First) — the sample's <code>agent.yaml</code> is pure YAML. The three function tools and one code grader are Python code in user-land files, invoked via import paths — consistent with how the canonical fixture (<code>tests/fixtures/agents/valid_agent.yaml</code>) and docs examples (<code>docs/examples/with_tools.yaml</code>) already document function tools, and with the scoped exception for <code>type: code</code> graders logged in spec §Complexity Tracking.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

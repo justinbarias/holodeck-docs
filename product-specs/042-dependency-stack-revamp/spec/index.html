@@ -1,0 +1,2696 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/042-dependency-stack-revamp/spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>SPEC: HoloDeck Dependency Stack Revamp - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spec-holodeck-dependency-stack-revamp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SPEC: HoloDeck Dependency Stack Revamp
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Objective
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Objective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working assumptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-scope-and-current-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Scope and current evidence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Scope and current evidence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#included" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Included
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excluded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Excluded
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-proposed-stack-and-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Proposed stack and ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Functional requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Functional requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inventory-packaging-and-supply-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory, packaging, and supply chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-and-inference-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime and inference boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieval-and-provider-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrieval and provider contracts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parsing-chunking-and-stored-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parsing, chunking, and stored data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-observability-and-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation, observability, and hosting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-installation-profiles-and-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Installation profiles and compatibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Acceptance criteria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-verification-commands-and-source-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Verification commands and source ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-relationship-to-other-work-and-release-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Relationship to other work and release gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-constitution-check-and-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Constitution check and boundaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-draft-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Draft validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="spec-holodeck-dependency-stack-revamp">SPEC: HoloDeck Dependency Stack Revamp<a class="headerlink" href="#spec-holodeck-dependency-stack-revamp" title="Permanent link">&para;</a></h1>
+<p><strong>Status:</strong> Implemented 2026-11-10; live evidence open. All open decisions in section 9 are decided. The <a href="../../../exec-plans/active/042-dependency-stack-revamp/2026-11-10-remove-semantic-kernel/">execution plan</a> records the acceptance evidence and the items that keep it open. The requirements below are unchanged.
+<strong>Date:</strong> 2026-09-06. <strong>Revised:</strong> 2026-11-10 at <code>00d1ed4</code>: retrieval direction changed from LlamaIndex to HoloDeck-owned native adapters after the second <a href="../../../design-docs/042-dependency-stack-revamp/selection-evidence/">selection evidence</a> round.
+<strong>Code baseline:</strong> <code>3e59e1d</code> on <code>feat/035-t2-litellm-acceptance</code>; working tree clean at audit start.
+<strong>Owners:</strong> Backend, retrieval, packaging, evaluation, and observability maintainers for their respective boundaries.
+<strong>Related:</strong> <a href="../../035-openai-agents-backend/spec/">035</a>, <a href="../../040-holodeck-temporal/spec/">040</a>, <a href="../../041-temporal-file-inputs/spec/">041</a>, <a href="../../../exec-plans/tech-debt-tracker/#h-008">H-008</a>.</p>
+<h2 id="1-objective">1. Objective<a class="headerlink" href="#1-objective" title="Permanent link">&para;</a></h2>
+<p>Revamp the dependencies that define HoloDeck's agent hosting stack. Establish clear ownership for agent execution, inference, retrieval, parsing, evaluation, serving, deployment, and telemetry. Remove Semantic Kernel completely and replace its storage connectors with HoloDeck-owned adapters on each store's native client. No retrieval framework replaces SK.</p>
+<p>The target users are agent authors, operators building deployment images, and maintainers upgrading provider integrations. Agent authors retain declarative YAML. Operators install the features they use. Maintainers work through typed HoloDeck contracts instead of framework objects spread through the runtime.</p>
+<p>Success is an SK-free, reproducible installation with preserved agent behavior, stored-data compatibility, and verified provider capabilities. A smaller dependency count alone does not establish success.</p>
+<h3 id="working-assumptions">Working assumptions<a class="headerlink" href="#working-assumptions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Native Claude Agent SDK and OpenAI Agents SDK remain the execution foundations. OpenAI/Azure use OpenAI Agents; Anthropic/Ollama use Claude through <code>BackendSelector</code>.</li>
+<li>LiteLLM remains the embedding and contextual-generation inference service established by 035. Claude-specific context generation remains supported.</li>
+<li>Retrieval uses HoloDeck-owned adapters on native store clients behind one typed interface. No retrieval framework (LlamaIndex, LangChain, Haystack, Microsoft Agent Framework) is adopted. The second evidence round found that no framework meets the operation contract and that each lags the store clients. Microsoft Agent Framework vector stores are revisited when they leave experimental status; the HoloDeck interface keeps that option open.</li>
+<li>DeepEval remains the existing evaluation framework. Replacing DeepEval or its evaluators is outside this revamp.</li>
+<li>Remove all Microsoft AI evaluation libraries and the deprecated Azure AI evaluation paths. This retirement is explicitly in scope; DeepEval owns LLM-based evaluation.</li>
+<li>Existing YAML, result artifacts, deployment behavior, and persisted collections must have an explicit compatibility path.</li>
+<li>This request produces a product spec and inventory. Version selection, an implementation plan, dependency edits, and data migration follow review of this draft.</li>
+</ul>
+<h2 id="2-scope-and-current-evidence">2. Scope and current evidence<a class="headerlink" href="#2-scope-and-current-evidence" title="Permanent link">&para;</a></h2>
+<p>The <a href="../dependency-inventory/">dependency inventory</a> is the canonical package-by-package audit. It separates runtime requirements, optional integrations, development/build tooling, security constraints, and important transitive dependencies. The <a href="../../../design-docs/042-dependency-stack-revamp/selection-evidence/">selection evidence</a> records external sources and connector gaps.</p>
+<p>The current package mixes hosting dependencies with document conversion, three evaluation families, optimizer dependencies, documentation building, and package publishing. Several security floors are deliberately direct requirements. Removing a source import does not establish that those constraints are redundant.</p>
+<p>SK remains in vector record definitions, eleven collection connectors, text splitting, telemetry configuration, and tests. HoloDeck already implements native filtered reads for five stores and substantial Qdrant behavior outside SK. The eleven configured provider names do not establish eleven fully working implementations of every retrieval operation.</p>
+<h3 id="included">Included<a class="headerlink" href="#included" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Disposition of every direct dependency, extra, dependency group, build requirement, override, and security constraint.</li>
+<li>Complete SK removal from executable source, tests, fixtures, installation metadata, and the resolved dependency graph.</li>
+<li>HoloDeck retrieval contracts, native provider adapters, a HoloDeck-owned plain text splitter, and parser dependency selection.</li>
+<li>Feature-based installation, import isolation, Docker/worker packaging, and migration documentation.</li>
+<li>Evaluation, optimization, transport, and telemetry dependency rationalization while preserving their product contracts.</li>
+<li>Complete Microsoft AI evaluation dependency removal and retirement of legacy Azure AI metrics, with explicit configuration migration to DeepEval.</li>
+</ul>
+<h3 id="excluded">Excluded<a class="headerlink" href="#excluded" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Replacing native agent SDKs with another agent framework.</li>
+<li>Adopting a retrieval or orchestration framework to replace SK storage or text splitting.</li>
+<li>Replacing DeepEval with another evaluation framework.</li>
+<li>Replacing Temporal with another workflow engine, or moving I/O into deterministic workflow execution.</li>
+<li>Requiring hosted parsing, a new SaaS account, or paid services for existing local capabilities.</li>
+<li>Dropping providers, file formats, metrics, or security floors merely to make dependency resolution easier.</li>
+<li>Implementing unfinished 035 hosted tools, hooks, or serving features through this migration.</li>
+</ul>
+<p>The explicitly requested retirement of Microsoft AI evaluation and legacy Azure AI metrics is an exception to metric preservation. Retained deterministic/NLP metrics, code graders, and saved-result readers remain supported. Azure OpenAI hosting, authentication, storage, and deployment dependencies remain governed by their own usage; their Microsoft provenance alone is not a reason for removal.</p>
+<h2 id="3-proposed-stack-and-ownership">3. Proposed stack and ownership<a class="headerlink" href="#3-proposed-stack-and-ownership" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Target owner</th>
+<th>Dependency direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YAML/configuration and shared results</td>
+<td>HoloDeck Pydantic models, PyYAML, schema validation</td>
+<td>SDK types converted at adapters; no vendor types in public YAML/results</td>
+</tr>
+<tr>
+<td>Agent execution</td>
+<td>Native Claude and OpenAI agent SDKs</td>
+<td>Consumers continue through <code>BackendSelector</code> and backend protocols</td>
+</tr>
+<tr>
+<td>Embedding/context inference</td>
+<td>Existing LiteLLM service; retained Claude context path</td>
+<td>Adapters receive computed embeddings; no adapter calls a model</td>
+</tr>
+<tr>
+<td>Storage/retrieval integrations</td>
+<td>HoloDeck adapters, one per store, on the store's native client</td>
+<td>HoloDeck-owned interface defines records, filters, queries, results and capabilities</td>
+</tr>
+<tr>
+<td>Provider-specific capabilities</td>
+<td>The same adapter</td>
+<td>Native hybrid, indexes and pagination stay inside the adapter; Qdrant behavior remains available without SK</td>
+</tr>
+<tr>
+<td>Document conversion</td>
+<td>Existing <code>FileProcessor</code> contract on MarkItDown and pypdf</td>
+<td>Replace <code>markitdown[all]</code> with the format extras in use; prove extraction parity</td>
+</tr>
+<tr>
+<td>Chunking/hierarchical semantics</td>
+<td>HoloDeck structured chunker plus a HoloDeck plain splitter on tiktoken</td>
+<td>Retain domain-specific structure; replace SK splitting without a new package</td>
+</tr>
+<tr>
+<td>Serving and streaming</td>
+<td>FastAPI, Uvicorn, AG-UI, MCP</td>
+<td>Preserve existing HTTP, lifecycle, and tool-event contracts</td>
+</tr>
+<tr>
+<td>Telemetry</td>
+<td>OpenTelemetry and HoloDeck redaction/routing</td>
+<td>Adapt retrieval events without duplicate inference spans</td>
+</tr>
+<tr>
+<td>Evaluation and optimization</td>
+<td>DeepEval, existing metric contracts, and Optuna</td>
+<td>Retain DeepEval; optional feature installation must preserve evaluation behavior</td>
+</tr>
+<tr>
+<td>Durable execution and deployment</td>
+<td>Temporal and existing deployers</td>
+<td>Optional packages; no new deployment target inferred from an extra</td>
+</tr>
+</tbody>
+</table>
+<p>Each adapter depends only on its store's client package, installed through that store's extra. The base install carries no store client. Build order follows evidence of use: qdrant, postgres, chromadb and in-memory first, then pinecone, weaviate, azure-ai-search and azure-cosmos-nosql. Whether faiss, sql-server and azure-cosmos-mongo stay is an open decision in section 9.</p>
+<p>Owning adapters is a maintenance cost. It is accepted because client versions, Python support and security floors then no longer wait on a framework release. Retained dependencies and exceptions require explicit rationale in the inventory.</p>
+<h2 id="4-functional-requirements">4. Functional requirements<a class="headerlink" href="#4-functional-requirements" title="Permanent link">&para;</a></h2>
+<h3 id="inventory-packaging-and-supply-chain">Inventory, packaging, and supply chain<a class="headerlink" href="#inventory-packaging-and-supply-chain" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FR-001:</strong> Every declared dependency has a current usage/constraint, proposed disposition, owner, and verification gate. Classify it as retain, replace/consolidate, relocate to an optional feature/tooling group, remove after proof, or unresolved with an owner and exit criterion.</li>
+<li><strong>FR-002:</strong> Produce before/after resolved graphs for each supported installation profile. Trace direct imports to declared distributions, including dependencies currently obtained through SK. Report packages still reachable through other paths after SK removal.</li>
+<li><strong>FR-003:</strong> Remove <code>semantic-kernel</code> from all supported installation profiles and their lock resolution after replacing runtime and test consumers. Historical documentation may name SK; executable imports, dynamic connector strings, and test helpers must not require it. Close H-008 only with this evidence.</li>
+<li><strong>FR-004:</strong> Separate documentation/release tooling from production installation. Make heavyweight evaluation, optimizer, parser, search-service, cloud, and dashboard packages feature-scoped where contracts permit. Retain security requirements even when their scope moves.</li>
+<li><strong>FR-005:</strong> Preserve existing extra names through aliases or documented migration. Define exact new profile names and a release compatibility policy before editing package metadata. A missing optional feature yields an actionable install command when selected; unrelated commands and backends must still import and start.</li>
+<li><strong>FR-006:</strong> Preserve Python 3.11 support (the declared minimum since the 2026-11 upgrades) and publish a tested Python/platform matrix. Resolve any new upper bound, binary-wheel limitation, or driver conflict explicitly. Do not silently narrow the existing <code>requires-python</code> promise.</li>
+<li><strong>FR-007:</strong> Reconcile all security constraints, license obligations, overrides, and prerelease policy against the new graph. Removing SK is not evidence that shared transitive constraints are obsolete. Existing exceptions must be re-reviewed when newly selected packages introduce new affected code paths.</li>
+<li><strong>FR-008:</strong> Measure installed distributions, installed bytes, clean import/startup time, and built-image size for identical old/new profiles and environments. Record regressions and their causes; do not claim consolidation reduces footprint without measurements. Documentation/release and unselected feature packages must be absent from the lean hosting profile unless a documented runtime dependency requires them.</li>
+</ul>
+<h3 id="runtime-and-inference-boundaries">Runtime and inference boundaries<a class="headerlink" href="#runtime-and-inference-boundaries" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FR-009:</strong> Preserve provider routing, single/multi-turn execution, streaming, multimodal inputs, structured output, tools, budget/fallback behavior, and backend cleanup. SDK changes must preserve the shared result and event contracts.</li>
+<li><strong>FR-010:</strong> Keep retrieval model inference behind existing HoloDeck services. Preserve dimensions, model overrides, errors, retries, truncation, concurrency, Azure endpoints, and OpenAI/Azure/Ollama embedding support. No adapter may introduce a default model, embedding call, credential requirement, or remote service.</li>
+<li><strong>FR-011:</strong> Use per-agent configuration and explicit dependencies. Do not mutate process-global settings, shared clients, or process-global telemetry to select an agent's embedding model or storage configuration. Concurrent agents with different providers/dimensions must remain isolated.</li>
+<li><strong>FR-012:</strong> Restrict native client objects and vendor filter/record types to their adapters. Define concrete HoloDeck record, query, result, capability, and error types. New boundaries must not use <code>Any</code> or <code>getattr</code> to bypass known contracts.</li>
+</ul>
+<h3 id="retrieval-and-provider-contracts">Retrieval and provider contracts<a class="headerlink" href="#retrieval-and-provider-contracts" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FR-013:</strong> Cover collection inspection/creation, upsert, get/delete by ID, exact metadata filtering, paginated enumeration without vectors, source replacement, vector/lexical/hybrid search, and client lifecycle. Capabilities must be explicit per provider and operation.</li>
+<li><strong>FR-014:</strong> Assess all eleven existing provider names using the matrix in the selection evidence. Preserve working operations. Resolve current unsupported combinations through an implementation or a precise capability-validation error before ingestion; do not silently turn failures into successful empty results, skipped deletion, or repeated ingestion. Provider retirement requires an explicit product decision and migration path.</li>
+<li><strong>FR-015:</strong> Preserve plain, structured, and hierarchical record families: IDs, configurable dimensions, vector names, cosine semantics, dynamic metadata types, provenance, source keys, and hierarchical relationships. Convert scores into a documented HoloDeck convention; raw distance and similarity values must not be confused.</li>
+<li><strong>FR-016:</strong> Preserve incremental ingestion for local mtime and remote content-hash sources. Replacing a source must remove stale chunks, including when its chunk count shrinks. Interrupted ingestion must be recoverable. Cold restart must support persisted retrieval without reembedding unchanged sources, including rebuilding fallback lexical indexes where required.</li>
+<li><strong>FR-017:</strong> Preserve Qdrant UUIDv5 IDs, the <code>embedding</code> vector name, payload layout, index configuration, filtered pagination, and reusable async-client ownership. Consolidate existing native code into the adapter instead of rebuilding it around SK objects.</li>
+<li><strong>FR-018:</strong> Preserve Qdrant dense-plus-full-text retrieval: weighted <code>searchable_text</code>, <code>MatchText</code> token matching, OR filters, candidate pool <code>max(4 * top_k, 20)</code>, RRF fusion, and punctuation-only fallback. Dense-plus-sparse hybrid is a different retrieval policy; enabling it requires a declared schema/index migration and quality comparison. It must not silently replace the current path.</li>
+<li><strong>FR-019:</strong> Each adapter implements the FR-013 operations through supported public client APIs and declares its capabilities. Vendor-private attribute access must not leak into tools. Each store's client is an optional dependency with an actionable missing-install error (FR-005). No SK-backed adapter and no retrieval-framework dependency may remain at final cutover.</li>
+<li><strong>FR-020:</strong> Keep async execution responsive. Audit actual connector methods rather than trusting an <code>async</code> method name. Use native async calls or bounded offloading for synchronous parsing/storage, with cancellation, backpressure, timeouts, and deterministic client closure.</li>
+</ul>
+<h3 id="parsing-chunking-and-stored-data">Parsing, chunking, and stored data<a class="headerlink" href="#parsing-chunking-and-stored-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FR-021:</strong> Preserve <code>FileProcessor</code> behavior for PDF, Word, PowerPoint, Excel, CSV, text, images, URLs, caching, and extraction options. Readers must preserve selected pages, sheet/range behavior, headings, provenance, and multimodal routing. Keep MarkItDown and pypdf behind the boundary. Replace the <code>all</code> extra with the format extras in use, and declare directly imported parser packages explicitly.</li>
+<li><strong>FR-022:</strong> Replace SK's text splitter with a HoloDeck-owned splitter that counts tokens with tiktoken, and retain HoloDeck's structured/hierarchical chunker. SK counts tokens as characters divided by four, so boundaries will change. The current plain splitter ignores accepted overlap/separator settings; the replacement must implement their declared behavior or reject unsupported combinations explicitly. Any changed chunk boundaries require a new pipeline fingerprint and controlled reindexing, not mixed old/new chunks.</li>
+<li><strong>FR-023:</strong> Fingerprint embedding model/dimensions, parser/splitter policy, record layout, vector names, and retrieval mode. Detect incompatible existing collections before writes. Produce a migration dry run reporting collection identity, record counts, compatibility, reembedding need, and estimated work/cost assumptions. Migration must be resumable, verified, and reversible via retained source collections/snapshots. Never silently recreate a collection.</li>
+<li><strong>FR-024:</strong> Preserve hierarchy, section IDs, ancestry, definitions, cross references, contextual content, token budgets, and source attribution. Existing JSON-encoded relationship fields require decoding compatibility or an explicit migration. New ingestion must not rely on old SK decorators or dynamic record-class mutation.</li>
+</ul>
+<h3 id="evaluation-observability-and-hosting">Evaluation, observability, and hosting<a class="headerlink" href="#evaluation-observability-and-hosting" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FR-025:</strong> Retain DeepEval and all existing DeepEval evaluators; do not replace them with another framework. Audit retained evaluation packaging and inference/telemetry dependencies across DeepEval, Hugging Face Evaluate, and direct NLP libraries. Optional packaging must preserve DeepEval availability in the evaluation and compatibility profiles, inputs, scores, scales, thresholds, explanations, model overrides, and errors. Any consolidation of retained metric libraries requires a metric-by-metric compatibility mapping; NLP evaluation remains free of LLM calls. Microsoft AI evaluation and legacy metrics follow the removal requirements in FR-030–031.</li>
+<li><strong>FR-026:</strong> Preserve optimizer scoring, candidate artifacts, and deterministic FEEL/schema gates. Optuna and <code>bkflow-feel</code> are not replaced solely for vendor consolidation. Preserve exact pins that encode verified correctness until equivalent verification supports a change.</li>
+<li><strong>FR-027:</strong> Preserve OpenTelemetry GenAI events, cost/token accounting, provider-upload policy, content-capture opt-out, and redaction. Add retrieval spans without duplicating embedding/model spans. Remove SK-specific instrumentation only after its retained responsibilities have owners. No new telemetry destination or upload is enabled implicitly.</li>
+<li><strong>FR-028:</strong> Verify chat, test, REST/AG-UI serve, tool-init, Docker/ACA packaging, and Temporal activities under their selected profiles. Preserve readiness/capacity contracts owned by 035; measurements after dependency changes must expose memory regressions. Parsing, retrieval, and LLM imports/I/O must not enter the Temporal deterministic surface.</li>
+<li><strong>FR-029:</strong> Include non-Python prerequisites in installation and supply-chain evidence: Node.js, SDK executables, uv, image/system packages, and selected MCP launchers. Base/agent/worker images must install the intended HoloDeck candidate and reviewed feature dependency graph. Record image digest, package manifest, system/runtime versions, and build inputs. Generated extras installation must not silently upgrade the candidate or resolve an unaudited prerelease graph; review NodeSource and uv bootstrap provenance. Missing prerequisites must produce actionable startup errors.</li>
+<li><strong>FR-030:</strong> Remove all Microsoft AI evaluation libraries from direct requirements, optional extras, compatibility profiles, and resolved dependency graphs, including <code>azure-ai-evaluation</code>. Inventory any additional Microsoft evaluation packages discovered transitively and remove the paths that introduce them. Delete <code>lib/evaluators/azure_ai.py</code>, its exports, factory/executor branches, SDK configuration conversion, and associated mocks/fixtures and implementation tests. Remove dependencies and security constraints used solely by this retired stack only after checking reverse dependencies; retain shared packages and security floors needed elsewhere. No optional legacy evaluation installation or fallback may reintroduce the removed stack.</li>
+<li><strong>FR-031:</strong> Retire the legacy Azure AI metric configuration and execution surface. Remove accepted legacy names such as <code>groundedness</code>, <code>relevance</code>, <code>coherence</code>, and <code>fluency</code>; account for the <code>similarity</code> adapter and documented <code>safety</code> path even where current schema support differs. Update models, generated schemas, templates, examples, guides, and tests together. Rejected old YAML must give an actionable migration error before agent execution or model calls. Map groundedness to DeepEval faithfulness, relevance to answer relevancy, and other legacy criteria to reviewed G-Eval configurations. Document input, score, threshold, and criteria changes; do not assume score equivalence or silently translate configurations. Preserve historical result readability without importing or executing removed evaluators. Deterministic/NLP metrics and code graders remain supported.</li>
+</ul>
+<h2 id="5-installation-profiles-and-compatibility">5. Installation profiles and compatibility<a class="headerlink" href="#5-installation-profiles-and-compatibility" title="Permanent link">&para;</a></h2>
+<p>These are proposed capability boundaries, not existing extra names or runnable installation commands. The implementation plan must map them to package metadata and documented upgrade instructions.</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Required capabilities</th>
+<th>Must not require simply to start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base hosting</td>
+<td>Configuration, CLI, current default Claude backend, MCP, serving, OTel</td>
+<td>SK, docs/release tools, evaluators, optimizer, dashboard, cloud SDKs</td>
+</tr>
+<tr>
+<td>OpenAI hosting</td>
+<td>Base plus OpenAI Agents; OpenAI/Azure routing</td>
+<td>Retrieval/parsing or evaluation unless selected</td>
+</tr>
+<tr>
+<td>Retrieval</td>
+<td>HoloDeck adapter and native client for the selected store, LiteLLM inference where used, required parser/chunker</td>
+<td>Every store driver, a retrieval framework, or a hosted account</td>
+</tr>
+<tr>
+<td>Evaluation / optimization</td>
+<td>Retained DeepEval and selected existing metric families; optimizer as separately selected capability</td>
+<td>Unselected providers or dashboard</td>
+</tr>
+<tr>
+<td>Worker / deployment / sources</td>
+<td>Temporal, Docker/cloud/source packages as selected</td>
+<td>Unimplemented AWS/GCP deployment merely because extras exist</td>
+</tr>
+<tr>
+<td>Development / docs / release</td>
+<td>Test/style/security tools, site build, package publication</td>
+<td>Inclusion in production wheel requirements</td>
+</tr>
+</tbody>
+</table>
+<p>Any base-install capability removed by this split is a packaging compatibility change. Release notes must give old-to-new commands and a compatibility aggregate extra for retained functionality where needed. That aggregate must contain neither SK nor Microsoft AI evaluation libraries and must not restore retired legacy metrics. CLI help and configuration inspection must not eagerly import every optional feature.</p>
+<h2 id="6-acceptance-criteria">6. Acceptance criteria<a class="headerlink" href="#6-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Observable acceptance</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC-01</td>
+<td>Every declared requirement/group/constraint is accounted for; candidate lock graphs and direct-import declarations match all supported profiles.</td>
+<td>Packaging</td>
+</tr>
+<tr>
+<td>AC-02</td>
+<td>Clean wheel installs for base, OpenAI, each store, evaluation, worker, deploy, and compatibility aggregate resolve without SK; import/run checks pass with SK unavailable. Source and executable test scan has no SK requirement.</td>
+<td>Packaging/backend</td>
+</tr>
+<tr>
+<td>AC-03</td>
+<td>Claude/Ollama and OpenAI/Azure backend regressions pass across chat, test, streaming, serve, and Temporal consumers. Live provider evidence is recorded separately from mocks/skips.</td>
+<td>Backend</td>
+</tr>
+<tr>
+<td>AC-04</td>
+<td>Each of eleven stores has a completed operation matrix with tested support or actionable early rejection. Existing working behavior is preserved; no provider is silently removed.</td>
+<td>Retrieval</td>
+</tr>
+<tr>
+<td>AC-05</td>
+<td>Qdrant golden fixtures retain IDs/payloads, lexical edge cases, dense/full-text ranking, source attribution, filtered pagination, and client lifecycle. Both old and newly created collections pass.</td>
+<td>Retrieval</td>
+</tr>
+<tr>
+<td>AC-06</td>
+<td>Source replacement, shrinking files, failures/retry, cold restart, and concurrent agent isolation pass. Unsupported operations cannot masquerade as successful empty retrieval.</td>
+<td>Retrieval</td>
+</tr>
+<tr>
+<td>AC-07</td>
+<td>Parser fixtures retain page/sheet/range and multimodal semantics. Splitter boundary changes have versioned fingerprints and explicit migration tests.</td>
+<td>Retrieval/backend</td>
+</tr>
+<tr>
+<td>AC-08</td>
+<td>Migration dry run is read-only; interrupted migration resumes; verified rollback restores the old collection. Compatible collections need no reembedding.</td>
+<td>Retrieval/deployment</td>
+</tr>
+<tr>
+<td>AC-09</td>
+<td>Evaluation and compatibility installs include DeepEval and run all existing DeepEval evaluators through the DeepEval implementation. All retained metrics preserve result contracts/model overrides and thresholds on fixed fixtures; NLP metrics issue no model calls. Optimizer and Temporal replay/determinism checks pass.</td>
+<td>Evaluation/workflow</td>
+</tr>
+<tr>
+<td>AC-10</td>
+<td>In-memory exporter and authorized collector checks prove span routing, no duplicate inference spans, redaction, capture-disabled behavior, and no new default uploads.</td>
+<td>Observability</td>
+</tr>
+<tr>
+<td>AC-11</td>
+<td>Security/license and Python/platform resolution checks pass with reviewed exceptions; non-Python prerequisites and missing-runtime errors are verified. Base/agent/worker images resolve the intended candidate and reviewed extras, with digests and Python/system manifests recorded. Unselected features are absent or have documented unavoidable transitive ownership. Footprint/startup/RSS results compare identical profiles.</td>
+<td>Packaging/security</td>
+</tr>
+<tr>
+<td>AC-12</td>
+<td>YAML/templates, schema, installation guides, provider capability docs, Docker manifests, architecture and dependency inventory agree; H-008 closes only after AC-01–11.</td>
+<td>Documentation/backend</td>
+</tr>
+<tr>
+<td>AC-13</td>
+<td>All supported installation graphs exclude Microsoft AI evaluation libraries, including <code>azure-ai-evaluation</code>; imports and retained evaluations pass with those libraries unavailable. Executable source and test scans find no retired SDK imports, adapters, or dispatch paths. Regression tests prove legacy metric YAML fails with migration guidance before agent/model calls; documented DeepEval replacements run through DeepEval, and historical result fixtures remain readable. Deterministic/NLP metrics and code graders still pass.</td>
+<td>Evaluation/packaging</td>
+</tr>
+</tbody>
+</table>
+<p>Golden retrieval fixtures must cover definitions, headings, section identifiers, contextual text, negative/no-result and punctuation queries. Freeze expected IDs/order or justified relevance thresholds before adapting connectors. Record ranking changes; a successful API call does not establish retrieval quality.</p>
+<h2 id="7-verification-commands-and-source-ownership">7. Verification commands and source ownership<a class="headerlink" href="#7-verification-commands-and-source-ownership" title="Permanent link">&para;</a></h2>
+<p>Implementation stays in the existing backend, tool, file-processing, telemetry, serve, and Temporal areas shown in <a href="https://github.com/justinbarias/holodeck/blob/main/ARCHITECTURE.md">Architecture</a>. A proposed <code>src/holodeck/lib/retrieval/</code> package may own contracts/adapters; it is not present or required by this draft. Tests belong in the corresponding unit, integration, and installed-package suites. Fixtures must be tracked, not sourced from ignored <code>sample/</code> directories.</p>
+<p>Use Pydantic for serializable public models and typed protocols at internal boundaries. Follow <a href="../../../contributing/">Contributing</a> and existing naming, Black/Ruff, and MyPy conventions. For example, the proposed boundary shape is:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">StoredDocument</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentReader</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StoredDocument</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+<p>This illustrates style, not the complete record schema or a mandate to add these exact classes.</p>
+<p>Existing focused checks for retrieval changes:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/unit/lib/test_vector_store.py<span class="w"> </span>tests/contract/retrieval<span class="w"> </span>tests/unit/lib/test_keyword_search.py<span class="w"> </span>tests/unit/lib/test_text_chunker.py<span class="w"> </span>tests/unit/lib/test_structured_chunker.py<span class="w"> </span>tests/unit/tools/test_hierarchical_document_tool.py<span class="w"> </span>-n<span class="w"> </span>auto<span class="w"> </span>-q
+uv<span class="w"> </span>run<span class="w"> </span>black<span class="w"> </span>--check<span class="w"> </span>src/holodeck<span class="w"> </span>tests
+uv<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>src/holodeck<span class="w"> </span>tests
+uv<span class="w"> </span>run<span class="w"> </span>mypy<span class="w"> </span>src/holodeck
+make<span class="w"> </span>schema-check
+make<span class="w"> </span>harness-check
+uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
+</code></pre></div>
+<p>Run focused style/type checks on changed Python files during implementation; the broad forms above are final-integration checks. Run <code>make schema</code> if configuration models change. Preserve repository CI and security checks, plus <code>uv run pytest -n auto --cov --cov-branch --cov-report=xml</code> on the final candidate. Add installed-wheel/profile and migration tests; <code>uv run</code> from a fully populated developer environment is insufficient evidence of optional-dependency isolation.</p>
+<p>Live databases, cloud deployment, data migration, and provider calls require the authorization rules in <a href="../../../RELIABILITY/">Reliability</a>. Missing credentials remain unresolved acceptance, not passed tests.</p>
+<h2 id="8-relationship-to-other-work-and-release-gates">8. Relationship to other work and release gates<a class="headerlink" href="#8-relationship-to-other-work-and-release-gates" title="Permanent link">&para;</a></h2>
+<p>This spec provides the dedicated replacement scope requested by H-008. It does not reopen 035's requirement checklist or claim that 035 T2 removes SK storage. Coordinate shared edits after the relevant 035 inference/tracing contracts stabilize. Final 042 acceptance must rerun affected 035 consumer tests against the assembled candidate, regardless of earlier passes.</p>
+<p>Implementation planning follows review of this product contract. The expected release gates are: baseline/profile inventory; connector and version selection; typed boundary plus Qdrant parity; remaining provider/parser/package migration; installed-package and stored-data acceptance; SK removal and documentation closure. These are gates, not a second task checklist.</p>
+<p>Do not wait for every unrelated 035 feature to audit dependencies. Do not bypass unresolved 035 live evidence by citing this spec. Spec 041 must reuse the retained file-processing boundary and explicitly account for any parser/package change.</p>
+<h2 id="9-decisions">9. Decisions<a class="headerlink" href="#9-decisions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Outcome (2026-11-10)</th>
+<th>Where recorded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Native client versions</td>
+<td>Decided: one client per kept store, locked by <code>uv.lock</code> (for example <code>pinecone</code> 10, <code>weaviate-client</code> 4.24, <code>azure-cosmos</code> 4.17)</td>
+<td><a href="../dependency-inventory/#state-after-implementation-2026-11-10">Dependency inventory</a></td>
+</tr>
+<tr>
+<td>Qdrant adapter</td>
+<td>Decided: the existing native code is consolidated into the adapter; layout and ranking proven equal to the SK path</td>
+<td>Plan, T5</td>
+</tr>
+<tr>
+<td>Provider scope</td>
+<td>Decided: eight native adapters. <code>faiss</code>, <code>sql-server</code> and <code>azure-cosmos-mongo</code> are retired with a config-time migration error (the maintainer confirmed <code>sql-server</code> explicitly)</td>
+<td>Plan, T9 and "Open questions"</td>
+</tr>
+<tr>
+<td>Parsing and plain chunking</td>
+<td>Decided: MarkItDown with <code>[pdf,docx,pptx,xlsx]</code>; an in-house tiktoken splitter; fingerprint and <code>holodeck vectorstore migrate</code> for reindexing</td>
+<td>Plan, T14, T15, T20</td>
+</tr>
+<tr>
+<td>Evaluation migration and packaging</td>
+<td>Decided: DeepEval retained; Microsoft and legacy evaluation removed; ROUGE and METEOR called directly</td>
+<td>Plan, T18, T19</td>
+</tr>
+<tr>
+<td>Profile names and release compatibility</td>
+<td>Decided: extras <code>eval</code>, <code>nlp</code>, <code>optimizer</code>, <code>opensearch</code> and the aggregate <code>all</code>; missing-extra error with the install command</td>
+<td>Plan, T21, and the <a href="../../../guides/upgrading-to-0.8/">upgrade guide</a></td>
+</tr>
+<tr>
+<td>Performance and ranking gates</td>
+<td>Decided: fixed fixtures (T0) and the measured old-against-new table</td>
+<td><a href="../../../exec-plans/active/042-dependency-stack-revamp/baseline-measurements/#result-after-spec-042">Baseline measurements</a></td>
+</tr>
+</tbody>
+</table>
+<p>These are bounded validation decisions, not permission to leave SK dependencies behind in a release declared complete.</p>
+<h2 id="10-constitution-check-and-boundaries">10. Constitution check and boundaries<a class="headerlink" href="#10-constitution-check-and-boundaries" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>No-code-first:</strong> Keep agent YAML and public models; no user-authored retrieval pipeline required.</li>
+<li><strong>MCP:</strong> External API tools remain MCP. Native database clients implement the existing internal retrieval service boundary, not a new API-tool category.</li>
+<li><strong>Multimodal tests:</strong> Preserve file/image paths and tracked test fixtures across backends.</li>
+<li><strong>OTel-native:</strong> Keep existing instrumentation, provider routing, and redaction ownership.</li>
+<li><strong>Evaluation flexibility:</strong> Preserve global/run/metric overrides and deterministic NLP metrics.</li>
+<li><strong>Decoupled engines:</strong> Retrieval consolidation must not couple deployment/evaluation to an agent SDK or a retrieval framework.</li>
+</ul>
+<p>Always preserve working data and unrelated changes, validate models, and verify changed contracts. Resolve dependency additions in the reviewed implementation plan. Obtain explicit authorization for destructive migration, live targets, provider retirement, or public compatibility changes beyond that plan. Never commit credentials, silently discard collections, or weaken failing acceptance tests. No constitution exception is requested.</p>
+<h2 id="11-draft-validation">11. Draft validation<a class="headerlink" href="#11-draft-validation" title="Permanent link">&para;</a></h2>
+<p>Source and manifest inspection plus upstream documentation/package-metadata research establish this draft. No candidate dependency has been installed or benchmarked; no live provider, database, or migration acceptance is claimed.</p>
+<p>Draft checks passed after the evaluation scope updates: <code>make harness-check</code>, <code>uv run mkdocs build --strict</code>, and <code>git diff --check</code>. Requirement structure checks cover 31 functional requirements and 13 acceptance criteria. The initial inventory audit accounted for all 50 core dependencies, 21 optional dependency groups, development/build requirements, and security constraints, with 35 local links and anchors checked. Independent dependency and retrieval-contract reviews informed the draft, including the non-Python runtime and reproducible deployment-image requirements.</p>
+<p>The 2026-11-10 revision changed the retrieval direction only. It followed a second inventory and market scan recorded in the selection evidence. No candidate was installed or run against a live store. <code>make harness-check</code> and <code>uv run mkdocs build --strict</code> passed after the revision.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

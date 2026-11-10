@@ -1,0 +1,3519 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/020-structured-document-tool/tasks/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: HierarchicalDocumentTool - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-hierarchicaldocumenttool" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: HierarchicalDocumentTool
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-story-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] [Story] Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-shared-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup (Shared Infrastructure)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-blocking-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational (Blocking Prerequisites)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Foundational (Blocking Prerequisites)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydantic-configuration-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pydantic Configuration Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-store-record-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector Store Record Class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-data-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime Data Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-1-semantic-search-across-documents-priority-p1-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 1 - Semantic Search Across Documents (Priority: P1) MVP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: User Story 1 - Semantic Search Across Documents (Priority: P1) MVP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-structuredchunker-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: StructuredChunker Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-llm-context-generator-anthropic-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: LLM Context Generator (Anthropic Approach)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-context-generation-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Context Generation Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-dense-index-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Dense Index Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-search-result-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Search Result Formatting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-user-story-2-exact-match-and-keyword-search-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: User Story 2 - Exact Match and Keyword Search (Priority: P1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: User Story 2 - Exact Match and Keyword Search (Priority: P1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-keyword-search-module-tiered-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Keyword Search Module (Tiered Strategy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-exact-match-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Exact Match Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-hybrid-search-executor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Hybrid Search Executor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-tool-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Tool Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-user-story-3-structure-aware-document-ingestion-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: User Story 3 - Structure-Aware Document Ingestion (Priority: P1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: User Story 3 - Structure-Aware Document Ingestion (Priority: P1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-enhanced-structure-parsing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Enhanced Structure Parsing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-markitdown-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Markitdown Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-parent-chain-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Parent Chain Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-user-story-4-hybrid-search-with-result-fusion-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: User Story 4 - Hybrid Search with Result Fusion (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: User Story 4 - Hybrid Search with Result Fusion (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-rrf-fusion-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: RRF Fusion Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-hybrid-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Hybrid Orchestration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-user-story-5-contextual-embeddings-for-improved-retrieval-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: User Story 5 - Contextual Embeddings for Improved Retrieval (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: User Story 5 - Contextual Embeddings for Improved Retrieval (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-context-application-to-bm25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Context Application to BM25
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-configurable-context-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Configurable Context Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-user-story-6-yaml-configuration-priority-p2-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: User Story 6 - YAML Configuration (Priority: P2) ✅ COMPLETE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: User Story 6 - YAML Configuration (Priority: P2) ✅ COMPLETE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-tool-factory-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Tool Factory Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-configuration-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Configuration Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-9-user-story-7-definition-and-cross-reference-extraction-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 9: User Story 7 - Definition and Cross-Reference Extraction (Priority: P3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 9: User Story 7 - Definition and Cross-Reference Extraction (Priority: P3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-definition-extractor-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Definition Extractor Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-cross-reference-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Cross-Reference Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-definition-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Definition Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-10-user-story-8-optional-reranking-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 10: User Story 8 - Optional Reranking (Priority: P3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 10: User Story 8 - Optional Reranking (Priority: P3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-reranker-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation: Reranker Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-11-tool_filter-refactoring-technical-debt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 11: tool_filter Refactoring (Technical Debt)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 11: tool_filter Refactoring (Technical Debt)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-write-tests-first_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD: Write Tests First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-12-integration-tests-cross-cutting-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 12: Integration Tests &amp; Cross-Cutting Concerns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 12: Integration Tests &amp; Cross-Cutting Concerns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdd-workflow-within-each-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD Workflow Within Each Phase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel Opportunities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 (Setup)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 (Foundation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-us1-tdd-then-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 (US1) - TDD then Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-12-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 12 (Integration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-first-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD-First Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mvp-first-user-stories-1-3-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVP First (User Stories 1-3 Only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental Delivery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-hierarchicaldocumenttool">Tasks: HierarchicalDocumentTool<a class="headerlink" href="#tasks-hierarchicaldocumenttool" title="Permanent link">&para;</a></h1>
+<p><strong>Input</strong>: Design documents from <code>/docs/product-specs/020-structured-document-tool/</code>
+<strong>Prerequisites</strong>: plan.md (required), spec.md (required), research.md, data-model.md, contracts/</p>
+<p><strong>Organization</strong>: Tasks are grouped by user story to enable independent implementation and testing of each story.</p>
+<p><strong>Methodology</strong>: TDD (Test-Driven Development) - Unit tests are written BEFORE implementation code in each phase.</p>
+<h2 id="format-id-p-story-description">Format: <code>[ID] [P?] [Story] Description</code><a class="headerlink" href="#format-id-p-story-description" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Can run in parallel (different files, no dependencies)</li>
+<li><strong>[Story]</strong>: Which user story this task belongs to (e.g., US1, US2, US3)</li>
+<li><strong>[TDD]</strong>: Test task that must be completed before implementation</li>
+<li>Include exact file paths in descriptions</li>
+</ul>
+<hr />
+<h2 id="phase-1-setup-shared-infrastructure">Phase 1: Setup (Shared Infrastructure)<a class="headerlink" href="#phase-1-setup-shared-infrastructure" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Project initialization, dependency installation, and base structure</p>
+<p><strong>References</strong>:</p>
+<ul class="task-list">
+<li>plan.md:18-25 (Technical Context - Python 3.10+, dependencies)</li>
+<li>plan.md:189-239 (Project Structure)</li>
+<li>plan.md:887-895 (Dependencies to Add - opensearch-py + rank-bm25)</li>
+<li>
+<p>research.md:487-494 (Technology Stack Summary)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T001 Add <code>rank-bm25 = "^0.2.2"</code> to pyproject.toml dependencies per plan.md:887-895</p>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001a Add <code>opensearch-py</code> dependency to pyproject.toml for production sparse index endpoint support</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T002 [P] Create directory structure: <code>src/holodeck/lib/structured_chunker.py</code>, <code>keyword_search.py</code>, <code>hybrid_search.py</code>, <code>definition_extractor.py</code>, <code>llm_context_generator.py</code> per plan.md:216-221</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T003 [P] Create directory structure: <code>src/holodeck/tools/hierarchical_document_tool.py</code> per plan.md:212</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T004 [P] Create test fixtures directory: <code>tests/fixtures/hierarchical_documents/</code> with sample files per plan.md:236-239</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T005 [P] Create sample_legislation.md fixture with definitions section and cross-references</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 [P] Create sample_technical_doc.md fixture with nested headings (H1-H4)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T007 [P] Create sample_flat_text.txt fixture without structure for fallback testing</li>
+</ul>
+<p><strong>Checkpoint</strong>: Project structure created, dependencies installed, test fixtures ready</p>
+<hr />
+<h2 id="phase-2-foundational-blocking-prerequisites">Phase 2: Foundational (Blocking Prerequisites)<a class="headerlink" href="#phase-2-foundational-blocking-prerequisites" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Core infrastructure that MUST be complete before ANY user story can be implemented</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>plan.md:749-772 (HierarchicalDocumentChunk Record Class)</li>
+<li>data-model.md:101-312 (Pydantic Configuration Models)</li>
+<li>data-model.md:420-502 (Vector Store Record Schema)</li>
+<li>research.md:311-357 (Document Record Model Pattern)</li>
+</ul>
+<p><strong>CRITICAL</strong>: No user story work can begin until this phase is complete</p>
+<h3 id="pydantic-configuration-models">Pydantic Configuration Models<a class="headerlink" href="#pydantic-configuration-models" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T008 Create <code>SearchMode</code> enum (semantic, keyword, exact, hybrid) in src/holodeck/models/tool.py per data-model.md:113-119</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T009 [P] Create <code>ChunkingStrategy</code> enum (structure, token) in src/holodeck/models/tool.py per data-model.md:121-125</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 [P] Create <code>ChunkType</code> enum (content, definition, requirement, reference, header) in src/holodeck/lib/structured_chunker.py per data-model.md:323-330</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T011 Create <code>HierarchicalDocumentToolConfig</code> model in src/holodeck/models/tool.py with all fields per data-model.md:127-312 and contracts/hierarchical_document_tool_config.yaml:8-58</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T012 Add <code>HierarchicalDocumentToolConfig</code> to <code>ToolUnion</code> discriminated union in src/holodeck/models/tool.py</li>
+</ul>
+<h3 id="vector-store-record-class">Vector Store Record Class<a class="headerlink" href="#vector-store-record-class" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013 Create <code>create_hierarchical_document_record_class()</code> factory function in src/holodeck/lib/vector_store.py per data-model.md:434-502 and research.md:334-357</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T014 Ensure record class has <code>is_full_text_indexed=True</code> on <code>content</code> field for native hybrid search per plan.md:477-479</li>
+</ul>
+<h3 id="runtime-data-classes">Runtime Data Classes<a class="headerlink" href="#runtime-data-classes" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T015 [P] Create <code>DocumentChunk</code> dataclass in src/holodeck/lib/structured_chunker.py per data-model.md:332-369</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T016 [P] Create <code>DefinitionEntry</code> dataclass in src/holodeck/lib/definition_extractor.py per data-model.md:372-383</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 [P] Create <code>SearchResult</code> dataclass in src/holodeck/lib/hybrid_search.py per data-model.md:385-416</li>
+</ul>
+<p><strong>Checkpoint</strong>: Foundation ready - all configuration models and data classes available for user story implementation</p>
+<hr />
+<h2 id="phase-3-user-story-1-semantic-search-across-documents-priority-p1-mvp">Phase 3: User Story 1 - Semantic Search Across Documents (Priority: P1) MVP<a class="headerlink" href="#phase-3-user-story-1-semantic-search-across-documents-priority-p1-mvp" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Enable natural language queries that find conceptually related content regardless of exact wording</p>
+<p><strong>Independent Test</strong>: Ingest sample_technical_doc.md, query "What are the reporting requirements?", verify relevant sections returned with source citations</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:20-33 (User Story 1 - Semantic Search)</li>
+<li>plan.md:64-167 (Preprocessing Pipeline)</li>
+<li>plan.md:330-442 (LLM-Based Contextual Embedding)</li>
+<li>research.md:8-105 (LLM-Based Contextual Embeddings)</li>
+<li>data-model.md:506-583 (Document Lifecycle)</li>
+</ul>
+<h3 id="tdd-write-tests-first">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T018 [TDD][US1] Create tests/unit/lib/test_structured_chunker.py with test cases per plan.md:227:</li>
+<li>Test <code>_extract_headings()</code> extracts H1-H6 with correct levels</li>
+<li>Test <code>_split_by_headings()</code> preserves parent_chain</li>
+<li>Test <code>_split_section()</code> respects max_tokens boundary</li>
+<li>Test <code>parse()</code> returns correct DocumentChunk list</li>
+<li>Test token counting fallback when tiktoken unavailable</li>
+<li>
+<p>Test flat text fallback (no headings)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T019 [TDD][US1] Create tests/unit/lib/test_llm_context_generator.py with test cases:</p>
+</li>
+<li>Test <code>CONTEXT_PROMPT_TEMPLATE</code> format</li>
+<li>Test <code>generate_context()</code> returns context string</li>
+<li>Test <code>contextualize_chunk()</code> prepends context correctly</li>
+<li>Test <code>contextualize_batch()</code> respects concurrency limit</li>
+<li>Test exponential backoff on LLM failures</li>
+<li>Test fallback to no-context on final retry failure</li>
+<li>
+<p>Test adaptive concurrency reduction on rate limits</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T020 [TDD][US1] Create tests/unit/tools/test_hierarchical_document_tool.py skeleton with test cases per plan.md:232:</p>
+</li>
+<li>Test tool initialization from config</li>
+<li>Test <code>_ingest_documents()</code> orchestration</li>
+<li>Test <code>search()</code> semantic mode returns results with scores</li>
+<li>Test <code>SearchResult.format()</code> includes source attribution</li>
+<li>Test confidence indication when no matches found</li>
+</ul>
+<h3 id="implementation-structuredchunker-module">Implementation: StructuredChunker Module<a class="headerlink" href="#implementation-structuredchunker-module" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T021 [US1] Create <code>StructuredChunker</code> class in src/holodeck/lib/structured_chunker.py per plan.md:82-101 and research.md:369-411</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T022 [US1] Implement <code>_extract_headings()</code> method using regex <code>^(#{1,6})\s+(.+)$</code> per research.md:369-373 and research.md:407-410</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 [US1] Implement <code>_split_by_headings()</code> to create sections with parent_chain metadata per plan.md:264-267</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T024 [US1] Implement <code>_split_section()</code> for sentences boundary splitting when exceeding max_tokens per plan.md:99-101</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T025 [US1] Implement <code>parse()</code> method returning <code>list[DocumentChunk]</code> with parent_chain, section_id per research.md:384-405</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T026 [US1] Add token counting via tiktoken (or fallback to word count / 0.75) per plan.md:95-96</li>
+</ul>
+<h3 id="implementation-llm-context-generator-anthropic-approach">Implementation: LLM Context Generator (Anthropic Approach)<a class="headerlink" href="#implementation-llm-context-generator-anthropic-approach" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T027 [US1] Create <code>LLMContextGenerator</code> class in src/holodeck/lib/llm_context_generator.py per plan.md:356-418</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T028 [US1] Implement <code>CONTEXT_PROMPT_TEMPLATE</code> constant per plan.md:343-351 and research.md:17-27</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029 [US1] Implement <code>generate_context()</code> async method for single chunk per plan.md:368-384</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T030 [US1] Implement <code>contextualize_chunk()</code> returning <code>"{context}\n\n{chunk.content}"</code> per plan.md:385-393</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T031 [US1] Implement <code>contextualize_batch()</code> with semaphore for concurrency control (default 10) per plan.md:394-418 and research.md:52-55</li>
+</ul>
+<h3 id="implementation-context-generation-error-handling">Implementation: Context Generation Error Handling<a class="headerlink" href="#implementation-context-generation-error-handling" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T032 [US1] Implement exponential backoff retry for LLM failures (3 attempts: 1s, 2s, 4s delays) per spec.md:163-166</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T033 [US1] Implement fallback to no-context on final retry failure (use original chunk content) per spec.md:165-166</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T034 [US1] Implement adaptive concurrency reduction on rate limit errors (halve on 429, respect Retry-After) per spec.md:167-170</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T035 [US1] Implement document truncation when exceeding LLM context window (prioritize beginning/end) per spec.md:171-174</li>
+</ul>
+<h3 id="implementation-dense-index-integration">Implementation: Dense Index Integration<a class="headerlink" href="#implementation-dense-index-integration" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T036 [US1] Create <code>HierarchicalDocumentTool</code> class skeleton in src/holodeck/tools/hierarchical_document_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037 [US1] Implement <code>_ingest_documents()</code> method orchestrating: convert → parse → contextualize → embed → store per plan.md:64-167</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T038 [US1] Implement <code>_embed_chunks()</code> using existing embedding patterns from src/holodeck/lib/vector_store.py per plan.md:129-135</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T039 [US1] Implement <code>_store_chunks()</code> using Semantic Kernel vector store collection per research.md:311-357</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T040 [US1] Implement <code>search()</code> method for semantic-only mode per spec.md:28-33</li>
+</ul>
+<h3 id="implementation-search-result-formatting">Implementation: Search Result Formatting<a class="headerlink" href="#implementation-search-result-formatting" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T041 [US1] Implement <code>SearchResult.format()</code> method with source attribution per data-model.md:400-415 and spec.md:30-31</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T042 [US1] Add confidence indication when no matches found per spec.md:32-33</li>
+</ul>
+<p><strong>Checkpoint</strong>: Semantic search working - can ingest documents and query with natural language. All US1 unit tests pass.</p>
+<hr />
+<h2 id="phase-4-user-story-2-exact-match-and-keyword-search-priority-p1">Phase 4: User Story 2 - Exact Match and Keyword Search (Priority: P1)<a class="headerlink" href="#phase-4-user-story-2-exact-match-and-keyword-search-priority-p1" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Enable precise searches for exact phrases, section numbers, and specific terminology</p>
+<p><strong>Independent Test</strong>: Ingest sample_legislation.md with "Section 203(a)(1)", query that exact section, verify it returns as top result</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:36-49 (User Story 2 - Exact Match and Keyword Search)</li>
+<li>plan.md:449-614 (Tiered Keyword Search Strategy)</li>
+<li>research.md:108-234 (Keyword Search Strategy - Tiered)</li>
+<li>plan.md:299-326 (Keyword Index Strategy - Tiered)</li>
+<li>OpenSearch Python client docs: https://opensearch.org/docs/latest/clients/python-low-level/</li>
+</ul>
+<p><strong>Phase 4 Decision Update</strong>:
+- For providers without native hybrid search, production fallback SHOULD use an OpenSearch endpoint (<code>keyword_index.provider=opensearch</code>); in-memory BM25 remains an optional local/dev fallback.</p>
+<h3 id="tdd-write-tests-first_1">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T043 [TDD][US2] Create tests/unit/lib/test_keyword_search.py with test cases per plan.md:228:</li>
+<li>Test <code>KeywordSearchStrategy</code> enum values</li>
+<li>Test <code>get_keyword_search_strategy()</code> returns correct strategy per provider</li>
+<li>Test <code>NATIVE_HYBRID_PROVIDERS</code> contains expected providers</li>
+<li>Test <code>FALLBACK_BM25_PROVIDERS</code> contains expected providers (6 providers, NOT azure-cosmos-mongo)</li>
+<li>Test <code>BM25FallbackProvider.build()</code> indexes documents using contextualized_content</li>
+<li>Test <code>BM25FallbackProvider.search()</code> returns ranked results</li>
+<li>Test <code>_tokenize()</code> handles edge cases (empty, special chars)</li>
+<li>Test <code>HybridSearchExecutor</code> routing to correct strategy</li>
+<li>Test exact section ID query returns as TOP result (SC-002 validation)</li>
+<li>Test native hybrid search via <code>collection.hybrid_search()</code> mock</li>
+<li>Test graceful degradation when BM25 build fails</li>
+<li>Test OpenSearch keyword provider config validation (endpoint/index/auth)</li>
+<li>Test OpenSearch keyword search call and result mapping</li>
+<li>Test fallback to semantic-only when OpenSearch is unavailable</li>
+</ul>
+<h3 id="implementation-keyword-search-module-tiered-strategy">Implementation: Keyword Search Module (Tiered Strategy)<a class="headerlink" href="#implementation-keyword-search-module-tiered-strategy" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T044 [US2] Create <code>KeywordSearchStrategy</code> enum (NATIVE_HYBRID, FALLBACK_BM25) in src/holodeck/lib/keyword_search.py per plan.md:485-491</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T045 [US2] Define <code>NATIVE_HYBRID_PROVIDERS</code> set (azure-ai-search, weaviate, qdrant, mongodb, azure-cosmos-nosql) per plan.md:495-501 and research.md:113-119</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T046 [US2] Define <code>FALLBACK_BM25_PROVIDERS</code> set (postgres, pinecone, chromadb, faiss, in-memory, sql-server) per plan.md:503-511 and research.md:120-124 (NOTE: azure-cosmos-mongo excluded - does NOT support hybrid search)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T047 [US2] Implement <code>get_keyword_search_strategy()</code> factory function per plan.md:514-518</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T048 [US2] Create <code>BM25FallbackProvider</code> class using rank_bm25.BM25Okapi per plan.md:588-614 and research.md:137-166</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T049 [US2] Implement <code>BM25FallbackProvider.build()</code> from (doc_id, contextualized_text) tuples per plan.md:597-602</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T049a [US2] Ensure BM25FallbackProvider.build() uses chunk.contextualized_content (not raw content) per plan.md:170-171</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T050 [US2] Implement <code>BM25FallbackProvider.search()</code> returning (doc_id, score) tuples per plan.md:604-609</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T051 [US2] Implement <code>_tokenize()</code> using regex <code>[a-zA-Z0-9]+</code> lowercase per plan.md:611-613</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T051a [US2] Add <code>KeywordIndexProvider</code> config model to src/holodeck/models/tool.py with providers <code>in-memory</code> and <code>opensearch</code> (vectorstore-style configuration)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T051b [US2] Add <code>keyword_index</code> field to <code>HierarchicalDocumentToolConfig</code> in src/holodeck/models/tool.py with validation for provider-specific required fields</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T051c [US2] Create <code>OpenSearchKeywordProvider</code> in src/holodeck/lib/keyword_search.py using <code>opensearch-py</code> endpoint/index API</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T051d [US2] Refactor <code>BM25FallbackProvider</code> to explicit in-memory provider (<code>InMemoryBM25KeywordProvider</code>) while preserving rank_bm25 fallback for local/dev</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T051e [US2] Implement provider router in <code>HybridSearchExecutor</code> to select keyword fallback backend from config (<code>in-memory</code> vs <code>opensearch</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T051f [US2] Add OpenTelemetry spans and graceful degradation for OpenSearch keyword search failures (fallback to semantic-only)</li>
+</ul>
+<h3 id="implementation-exact-match-index">Implementation: Exact Match Index<a class="headerlink" href="#implementation-exact-match-index" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T052 [US2] Create exact match index (dict[str, list[str]]) mapping section_id → chunk_ids in src/holodeck/lib/hybrid_search.py per data-model.md:66-69</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T053 [US2] Implement section ID pattern detection regex for queries (e.g., "Section 203(a)", "§4.2") per research.md:434-438</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T054 [US2] Implement exact phrase detection for quoted strings per spec.md:47</li>
+</ul>
+<h3 id="implementation-hybrid-search-executor">Implementation: Hybrid Search Executor<a class="headerlink" href="#implementation-hybrid-search-executor" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T055 [US2] Create <code>HybridSearchExecutor</code> class in src/holodeck/lib/keyword_search.py per plan.md:520-586</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T056 [US2] Implement <code>_native_hybrid_search()</code> using SK <code>collection.hybrid_search()</code> per plan.md:543-562 and research.md:173-216</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T057 [US2] Implement <code>_fallback_hybrid_search()</code> running vector + BM25 separately per plan.md:563-586</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T057a [US2] Add OpenTelemetry spans for BM25FallbackProvider.search() with query and result_count attributes per Constitution Principle IV</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T057b [US2] Add OpenTelemetry spans for HybridSearchExecutor.search() with search_mode and provider attributes per Constitution Principle IV</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T057c [US2] Implement exact match boosting to ensure top-result position per spec SC-002 (exact matches get score boost before RRF)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T057d [US2] Implement graceful degradation when BM25 build fails (log warning, fall back to semantic-only)</li>
+</ul>
+<h3 id="implementation-tool-integration">Implementation: Tool Integration<a class="headerlink" href="#implementation-tool-integration" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T058 [US2] Update <code>HierarchicalDocumentTool._ingest_documents()</code> to build keyword index for fallback providers per plan.md:161-164</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T059 [US2] Update <code>HierarchicalDocumentTool.search()</code> to support keyword and exact modes per spec.md:46-49</li>
+</ul>
+<p><strong>Checkpoint</strong>: Exact match and keyword search working - can find precise section references and technical terms. All US2 unit tests pass.</p>
+<hr />
+<h2 id="phase-5-user-story-3-structure-aware-document-ingestion-priority-p1">Phase 5: User Story 3 - Structure-Aware Document Ingestion (Priority: P1)<a class="headerlink" href="#phase-5-user-story-3-structure-aware-document-ingestion-priority-p1" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Preserve hierarchical structure during ingestion so search results include context about document location</p>
+<p><strong>Independent Test</strong>: Ingest sample_legislation.md, retrieve a chunk from "Title I &gt; Chapter 2 &gt; Section 203", verify parent_chain is accurate</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:52-65 (User Story 3 - Structure-Aware Document Ingestion)</li>
+<li>plan.md:82-101 (Stage 2: Structure Parsing)</li>
+<li>plan.md:262-268 (StructuredChunker in Architecture)</li>
+<li>data-model.md:506-583 (Document Lifecycle)</li>
+</ul>
+<h3 id="tdd-write-tests-first_2">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T060 [TDD][US3] Add test cases to tests/unit/lib/test_structured_chunker.py for structure enhancements:</li>
+<li>Test normalized section_id generation (e.g., "sec_1_2_3")</li>
+<li>Test heading level tracking (1-6 for H1-H6, 0 for body)</li>
+<li>Test chunk_type classification from heading keywords</li>
+<li>Test parent_chain JSON serialization/deserialization</li>
+</ul>
+<h3 id="implementation-enhanced-structure-parsing">Implementation: Enhanced Structure Parsing<a class="headerlink" href="#implementation-enhanced-structure-parsing" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T061 [US3] Enhance <code>StructuredChunker</code> to generate normalized section_id from heading text (e.g., "sec_1_2_3") per data-model.md:36-37</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T062 [US3] Implement heading level tracking (1-6 for H1-H6, 0 for body content) per data-model.md:39</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T063 [US3] Implement chunk_type classification based on heading keywords and content patterns per data-model.md:37-38</li>
+</ul>
+<h3 id="implementation-markitdown-integration">Implementation: Markitdown Integration<a class="headerlink" href="#implementation-markitdown-integration" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T064 [US3] Integrate with existing markitdown for PDF/Word/HTML → Markdown conversion per plan.md:73-79</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T065 [US3] Ensure heading levels from converted documents map correctly to hierarchical depth per spec.md:63</li>
+</ul>
+<h3 id="implementation-parent-chain-metadata">Implementation: Parent Chain Metadata<a class="headerlink" href="#implementation-parent-chain-metadata" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T066 [US3] Store parent_chain as JSON string in vector store record per data-model.md:479</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T067 [US3] Include parent_chain in SearchResult for display per data-model.md:95</li>
+</ul>
+<p><strong>Checkpoint</strong>: Structure-aware ingestion working - chunks retain full hierarchical context. All US3 unit tests pass.</p>
+<hr />
+<h2 id="phase-6-user-story-4-hybrid-search-with-result-fusion-priority-p2">Phase 6: User Story 4 - Hybrid Search with Result Fusion (Priority: P2)<a class="headerlink" href="#phase-6-user-story-4-hybrid-search-with-result-fusion-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Combine semantic, keyword, and exact match searches with RRF fusion for optimal retrieval</p>
+<p><strong>Independent Test</strong>: Query with mixed intent ("reporting requirements in Section 403"), verify results come from multiple modalities with sensible ranking</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:68-82 (User Story 4 - Hybrid Search with Result Fusion)</li>
+<li>plan.md:624-648 (Reciprocal Rank Fusion)</li>
+<li>research.md:236-308 (RRF Algorithm)</li>
+<li>data-model.md:625-664 (Search Flow)</li>
+</ul>
+<h3 id="tdd-write-tests-first_3">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T068 [TDD][US4] Create tests/unit/lib/test_hybrid_search.py with test cases per plan.md:229:</li>
+<li>Test <code>reciprocal_rank_fusion()</code> basic merge of two lists</li>
+<li>Test RRF with k=60 produces expected scores</li>
+<li>Test weighted RRF with custom weights</li>
+<li>Test handling of imbalanced result sets</li>
+<li>Test empty result list handling</li>
+<li>Test exact match index lookup</li>
+<li>Test fusion of native hybrid with exact match results</li>
+</ul>
+<h3 id="implementation-rrf-fusion-module">Implementation: RRF Fusion Module<a class="headerlink" href="#implementation-rrf-fusion-module" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T069 [US4] Create <code>reciprocal_rank_fusion()</code> function in src/holodeck/lib/hybrid_search.py per plan.md:626-648 and research.md:262-292</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T070 [US4] Implement weighted RRF with configurable k parameter (default 60) per research.md:251-259</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T071 [US4] Handle imbalanced result sets (many keyword results, few semantic) per spec.md:154-155</li>
+</ul>
+<h3 id="implementation-hybrid-orchestration">Implementation: Hybrid Orchestration<a class="headerlink" href="#implementation-hybrid-orchestration" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T072 [US4] Update <code>HierarchicalDocumentTool.search()</code> to run all three search modalities in parallel per data-model.md:636-641</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T073 [US4] Implement fusion of native hybrid results with exact match results via app-level RRF per research.md:240-244</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T074 [US4] Apply configurable weights (semantic_weight, keyword_weight, exact_weight) per spec.md:79 and data-model.md:187-205</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T075 [US4] Ensure strong matches are not diluted by weak cross-modality matches per spec.md:81</li>
+</ul>
+<p><strong>Checkpoint</strong>: Hybrid search working - results combine all modalities with intelligent fusion. All US4 unit tests pass.</p>
+<hr />
+<h2 id="phase-7-user-story-5-contextual-embeddings-for-improved-retrieval-priority-p2">Phase 7: User Story 5 - Contextual Embeddings for Improved Retrieval (Priority: P2)<a class="headerlink" href="#phase-7-user-story-5-contextual-embeddings-for-improved-retrieval-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Prepend LLM-generated structural context before embedding for better semantic understanding</p>
+<p><strong>Independent Test</strong>: Compare retrieval accuracy with and without contextual embeddings on same query set</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:84-97 (User Story 5 - Contextual Embeddings)</li>
+<li>plan.md:330-442 (LLM-Based Contextual Embedding)</li>
+<li>research.md:8-105 (LLM-Based Contextual Embeddings with Preprocessing Pipeline)</li>
+<li>quickstart.md:149-178 (Preprocessing Pipeline explanation)</li>
+</ul>
+<h3 id="tdd-write-tests-first_4">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_4" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T076 [TDD][US5] Add test cases to tests/unit/lib/test_llm_context_generator.py for configuration:</li>
+<li>Test contextual_embeddings toggle (on/off)</li>
+<li>Test context_model override</li>
+<li>Test document truncation for large documents</li>
+</ul>
+<h3 id="implementation-context-application-to-bm25">Implementation: Context Application to BM25<a class="headerlink" href="#implementation-context-application-to-bm25" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T077 [US5] ~~Ensure BM25 index uses contextualized_content (not raw content)~~ <strong>MOVED to Phase 4 as T049a</strong> - BM25 contextualized_content requirement is co-located with BM25 implementation</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T078 [US5] Store both original <code>content</code> and <code>contextualized_content</code> in vector store record per research.md:54-55</li>
+</ul>
+<h3 id="implementation-configurable-context-generation">Implementation: Configurable Context Generation<a class="headerlink" href="#implementation-configurable-context-generation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T079 [US5] Make contextual_embeddings configurable (default: true) per data-model.md:231-235 and spec.md:96</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T080 [US5] Support context_model override in configuration per data-model.md:236-243 and contracts/hierarchical_document_tool_config.yaml:41-46</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T081 [US5] Handle large documents that exceed LLM context limits (truncate document, preserve chunk) per quickstart.md:236</li>
+</ul>
+<p><strong>Checkpoint</strong>: Contextual embeddings configurable and improving retrieval per Anthropic research (49% better). All US5 unit tests pass.</p>
+<hr />
+<h2 id="phase-8-user-story-6-yaml-configuration-priority-p2-complete">Phase 8: User Story 6 - YAML Configuration (Priority: P2) ✅ COMPLETE<a class="headerlink" href="#phase-8-user-story-6-yaml-configuration-priority-p2-complete" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Full YAML-based configuration without requiring code</p>
+<p><strong>Independent Test</strong>: Create agent.yaml with HierarchicalDocumentTool, run holodeck chat, verify all configuration options respected</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:100-113 (User Story 6 - YAML Configuration)</li>
+<li>contracts/hierarchical_document_tool_config.yaml (Full configuration contract)</li>
+<li>data-model.md:127-312 (HierarchicalDocumentToolConfig model)</li>
+<li>quickstart.md:14-36 (Quick Start configuration)</li>
+</ul>
+<h3 id="tdd-write-tests-first_5">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_5" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T082 [TDD][US6] Add test cases to tests/unit/tools/test_hierarchical_document_tool.py for configuration:</li>
+<li>Test tool factory registration for <code>hierarchical_document</code> type</li>
+<li>Test tool instantiation from HierarchicalDocumentToolConfig</li>
+<li>Test Pydantic validation errors for invalid config</li>
+<li>Test weight validation warning (sum != 1.0)</li>
+<li>Test defer_loading behavior</li>
+<li>Test database configuration parsing</li>
+</ul>
+<h3 id="implementation-tool-factory-integration">Implementation: Tool Factory Integration<a class="headerlink" href="#implementation-tool-factory-integration" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T083 [US6] Register <code>hierarchical_document</code> tool type in tool factory (src/holodeck/lib/test_runner/agent_factory.py or equivalent) per spec.md:111</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T084 [US6] Implement tool instantiation from HierarchicalDocumentToolConfig per plan.md:59-60</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T085 [US6] Validate configuration on load with Pydantic validators per data-model.md:284-311</li>
+</ul>
+<h3 id="implementation-configuration-features">Implementation: Configuration Features<a class="headerlink" href="#implementation-configuration-features" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T086 [US6] Support database configuration for persistence per contracts/hierarchical_document_tool_config.yaml:108-111 (field exists, full persistence is future enhancement)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T087 [US6] Support defer_loading option per data-model.md:279-282 (field exists and used by ToolFilterManager)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T088 [US6] Implement weight validation (warn if sum != 1.0) per data-model.md:291-302</li>
+</ul>
+<p><strong>Checkpoint</strong>: Tool fully configurable via YAML - no code required. All US6 unit tests pass.</p>
+<hr />
+<h2 id="phase-9-user-story-7-definition-and-cross-reference-extraction-priority-p3">Phase 9: User Story 7 - Definition and Cross-Reference Extraction (Priority: P3)<a class="headerlink" href="#phase-9-user-story-7-definition-and-cross-reference-extraction-priority-p3" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Auto-extract definitions and cross-references for enhanced document understanding</p>
+<p><strong>Independent Test</strong>: Ingest sample_legislation.md with definitions section, query containing a defined term, verify definition included in response context</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:116-129 (User Story 7 - Definition and Cross-Reference Extraction)</li>
+<li>plan.md:651-747 (Definition Detection and Persistence)</li>
+<li>research.md:415-460 (Definition Detection Patterns)</li>
+<li>data-model.md:47-59 (DefinitionEntry entity)</li>
+</ul>
+<h3 id="tdd-write-tests-first_6">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_6" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T089 [TDD][US7] Create tests/unit/lib/test_definition_extractor.py with test cases per plan.md:230:</li>
+<li>Test <code>SECTION_KEYWORDS</code> contains expected keywords</li>
+<li>Test <code>is_definitions_section()</code> for various headings</li>
+<li>Test <code>DEFINITION_PATTERNS</code> match expected formats:<ul>
+<li><code>"X" means Y</code></li>
+<li><code>X: Y</code> at paragraph start</li>
+<li><code>X - Y</code> with capitalized term</li>
+</ul>
+</li>
+<li>Test <code>extract_definitions()</code> returns DefinitionEntry list</li>
+<li>Test <code>_normalize()</code> produces correct lookup keys</li>
+<li>Test <code>XREF_PATTERNS</code> match section references</li>
+<li>Test <code>rebuild_definitions_index()</code> from stored chunks</li>
+</ul>
+<h3 id="implementation-definition-extractor-module">Implementation: Definition Extractor Module<a class="headerlink" href="#implementation-definition-extractor-module" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T090 [US7] Create <code>DefinitionExtractor</code> class in src/holodeck/lib/definition_extractor.py per plan.md:669-717</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T091 [US7] Define <code>SECTION_KEYWORDS</code> set ("definitions", "glossary", "terms", "interpretation", "defined terms") per plan.md:672</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T092 [US7] Implement <code>is_definitions_section()</code> checking heading keywords per plan.md:683-685</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T093 [US7] Implement <code>DEFINITION_PATTERNS</code> regex list per plan.md:675-681 and research.md:426-431:</li>
+<li><code>"X" means/shall mean Y</code></li>
+<li><code>X: Y</code> (at paragraph start)</li>
+<li><code>X - Y</code> (capitalized term with dash)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T094 [US7] Implement <code>extract_definitions()</code> returning list[DefinitionEntry] per plan.md:686-712</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T095 [US7] Implement <code>_normalize()</code> for term lookup (lowercase, spaces → underscores) per plan.md:714-716</li>
+</ul>
+<h3 id="implementation-cross-reference-detection">Implementation: Cross-Reference Detection<a class="headerlink" href="#implementation-cross-reference-detection" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T096 [US7] Implement <code>XREF_PATTERNS</code> regex list per research.md:434-438:</li>
+<li>Section number patterns (e.g., "Section 203", "§4.2")</li>
+<li>Natural language patterns ("see X", "as defined in", "pursuant to")</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T097 [US7] Extract cross_references during chunking and store in chunk metadata per data-model.md:38</li>
+</ul>
+<h3 id="implementation-definition-persistence">Implementation: Definition Persistence<a class="headerlink" href="#implementation-definition-persistence" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T098 [US7] Store <code>defined_term</code> and <code>defined_term_normalized</code> on definition chunks per data-model.md:41-44 and research.md:446-459</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T099 [US7] Implement <code>rebuild_definitions_index()</code> from stored chunks on startup per plan.md:723-746</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T100 [US7] Include relevant definitions in SearchResult.definitions_context per data-model.md:97-98</li>
+</ul>
+<p><strong>Checkpoint</strong>: Definitions automatically extracted and surfaced in search results. All US7 unit tests pass.</p>
+<hr />
+<h2 id="phase-10-user-story-8-optional-reranking-priority-p3">Phase 10: User Story 8 - Optional Reranking (Priority: P3)<a class="headerlink" href="#phase-10-user-story-8-optional-reranking-priority-p3" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Allow optional reranking pass to improve result quality for precision-focused use cases</p>
+<p><strong>Independent Test</strong>: Run same query with and without reranking, verify ordering improves with reranking enabled</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>spec.md:132-145 (User Story 8 - Optional Reranking)</li>
+<li>data-model.md:265-272 (Reranking configuration fields)</li>
+<li>data-model.md:650-654 (Reranking in Search Flow)</li>
+</ul>
+<h3 id="tdd-write-tests-first_7">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_7" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T101 [TDD][US8] Add test cases to tests/unit/tools/test_hierarchical_document_tool.py for reranking:</li>
+<li>Test reranking step added after RRF fusion</li>
+<li>Test reranker_model configuration validation</li>
+<li>Test bypass when reranking disabled</li>
+</ul>
+<h3 id="implementation-reranker-integration">Implementation: Reranker Integration<a class="headerlink" href="#implementation-reranker-integration" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T102 [US8] Add reranking step after RRF fusion in search flow per data-model.md:650-654</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T103 [US8] Support <code>reranker_model</code> configuration (e.g., "cross-encoder/ms-marco-MiniLM-L-6-v2") per contracts/hierarchical_document_tool_config.yaml:138</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T104 [US8] Validate reranker_model required when enable_reranking=True per data-model.md:304-311</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T105 [US8] Implement bypass when reranking disabled per spec.md:142-143</li>
+</ul>
+<p><strong>Checkpoint</strong>: Reranking optionally available for high-precision use cases. All US8 unit tests pass.</p>
+<hr />
+<h2 id="phase-11-tool_filter-refactoring-technical-debt">Phase 11: tool_filter Refactoring (Technical Debt)<a class="headerlink" href="#phase-11-tool_filter-refactoring-technical-debt" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Unify BM25 implementation across codebase using shared modules</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>plan.md:800-885 (Refactoring: Unify tool_filter with Shared Modules)</li>
+<li>plan.md:870-885 (Migration Tasks)</li>
+</ul>
+<h3 id="tdd-write-tests-first_8">TDD: Write Tests First<a class="headerlink" href="#tdd-write-tests-first_8" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T106 [TDD] Add test cases to existing tool_filter tests verifying equivalent behavior with shared modules per plan.md:884</li>
+</ul>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T107 Refactor src/holodeck/lib/tool_filter/index.py to use <code>BM25FallbackProvider</code> from keyword_search.py per plan.md:837-846</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T108 Refactor src/holodeck/lib/tool_filter/index.py to use <code>reciprocal_rank_fusion()</code> from hybrid_search.py per plan.md:848-859</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T109 Remove deprecated manual BM25 methods (lines 207-428) from tool_filter/index.py per plan.md:810-824</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T110 Remove inline RRF implementation (lines 430-501) from tool_filter/index.py per plan.md:810-824</li>
+</ul>
+<p><strong>Checkpoint</strong>: BM25 and RRF unified across HierarchicalDocumentTool and tool_filter. All refactored tests pass.</p>
+<hr />
+<h2 id="phase-12-integration-tests-cross-cutting-concerns">Phase 12: Integration Tests &amp; Cross-Cutting Concerns<a class="headerlink" href="#phase-12-integration-tests-cross-cutting-concerns" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: End-to-end validation and final polish</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li>plan.md:897-903 (Test Strategy)</li>
+<li>spec.md:216-228 (Success Criteria)</li>
+<li>quickstart.md:240-246 (Testing Your Configuration)</li>
+</ul>
+<h3 id="integration-tests">Integration Tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T111 Create tests/integration/tools/test_hierarchical_document_integration.py per plan.md:234</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T112 Test full ingestion → search flow with sample_legislation.md fixture</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T113 Test with persistent storage (postgres) if configured</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T114 Verify RRF improves over semantic-only (SC-003: 20% improvement) per spec.md:223 and plan.md:902</li>
+</ul>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T115 [P] Add HierarchicalDocumentTool to CLI help/docs</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T116 [P] Add inline code documentation per Google Python Style Guide</li>
+</ul>
+<h3 id="performance-validation">Performance Validation<a class="headerlink" href="#performance-validation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T117 Verify ingestion &lt;30 seconds per 100 pages (SC-004) per spec.md:224</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T118 Verify search &lt;2 seconds for up to 10,000 chunks (SC-005) per spec.md:225</li>
+</ul>
+<p><strong>Checkpoint</strong>: Feature complete with integration tests, documentation, and performance validation</p>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="phase-dependencies">Phase Dependencies<a class="headerlink" href="#phase-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Setup (Phase 1)</strong>: No dependencies - can start immediately</li>
+<li><strong>Foundational (Phase 2)</strong>: Depends on Setup completion - BLOCKS all user stories</li>
+<li><strong>User Story 1-3 (Phase 3-5)</strong>: All P1 priority, can run in sequence or parallel after Phase 2</li>
+<li><strong>User Story 4-6 (Phase 6-8)</strong>: P2 priority, depend on P1 stories being complete</li>
+<li><strong>User Story 7-8 (Phase 9-10)</strong>: P3 priority, depend on P2 stories being complete</li>
+<li><strong>tool_filter Refactor (Phase 11)</strong>: Can run anytime after Phase 4 (when keyword_search.py and hybrid_search.py exist)</li>
+<li><strong>Integration &amp; Polish (Phase 12)</strong>: Depends on all user stories being complete</li>
+</ul>
+<h3 id="tdd-workflow-within-each-phase">TDD Workflow Within Each Phase<a class="headerlink" href="#tdd-workflow-within-each-phase" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>1. Write failing tests [TDD] tasks
+2. Run tests - verify they fail
+3. Implement code to make tests pass
+4. Refactor while keeping tests green
+5. Checkpoint: All tests pass
+</code></pre></div>
+<h3 id="user-story-dependencies">User Story Dependencies<a class="headerlink" href="#user-story-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>User Story 1 (Semantic Search)</strong>: Foundation for all other stories</li>
+<li><strong>User Story 2 (Keyword/Exact)</strong>: Builds on US1 infrastructure</li>
+<li><strong>User Story 3 (Structure-Aware)</strong>: Enhances US1 with better metadata</li>
+<li><strong>User Story 4 (Hybrid Fusion)</strong>: Combines US1 + US2 capabilities</li>
+<li><strong>User Story 5 (Contextual Embeddings)</strong>: Enhances US1's embedding quality</li>
+<li><strong>User Story 6 (YAML Config)</strong>: Exposes all prior features via configuration</li>
+<li><strong>User Story 7 (Definitions)</strong>: Advanced feature on top of US1-3</li>
+<li><strong>User Story 8 (Reranking)</strong>: Advanced feature on top of US4</li>
+</ul>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<h4 id="phase-1-setup">Phase 1 (Setup)<a class="headerlink" href="#phase-1-setup" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>T002, T003, T004 can run in parallel (different directories)
+T005, T006, T007 can run in parallel (different fixture files)
+</code></pre></div>
+<h4 id="phase-2-foundation">Phase 2 (Foundation)<a class="headerlink" href="#phase-2-foundation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>T008, T009, T010 can run in parallel (different enums)
+T015, T016, T017 can run in parallel (different dataclasses)
+</code></pre></div>
+<h4 id="phase-3-us1-tdd-then-implementation">Phase 3 (US1) - TDD then Implementation<a class="headerlink" href="#phase-3-us1-tdd-then-implementation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>TDD: T018, T019, T020 can run in parallel (different test files)
+Implementation: Sequential within each module
+</code></pre></div>
+<h4 id="phase-12-integration">Phase 12 (Integration)<a class="headerlink" href="#phase-12-integration" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>T115, T116 can run in parallel (different documentation areas)
+</code></pre></div>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="tdd-first-approach">TDD-First Approach<a class="headerlink" href="#tdd-first-approach" title="Permanent link">&para;</a></h3>
+<p>Each phase follows the Red-Green-Refactor cycle:</p>
+<ol>
+<li><strong>Red</strong>: Write tests first (all [TDD] tasks)</li>
+<li><strong>Green</strong>: Implement code to pass tests</li>
+<li><strong>Refactor</strong>: Clean up while maintaining passing tests</li>
+</ol>
+<h3 id="mvp-first-user-stories-1-3-only">MVP First (User Stories 1-3 Only)<a class="headerlink" href="#mvp-first-user-stories-1-3-only" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Phase 1: Setup</li>
+<li>Complete Phase 2: Foundational</li>
+<li>Complete Phase 3: User Story 1 (Semantic Search) - TDD first</li>
+<li>Complete Phase 4: User Story 2 (Keyword/Exact Match) - TDD first</li>
+<li>Complete Phase 5: User Story 3 (Structure-Aware Ingestion) - TDD first</li>
+<li><strong>STOP and VALIDATE</strong>: All P1 unit tests pass, integration test passes</li>
+<li>Deploy/demo if ready</li>
+</ol>
+<h3 id="incremental-delivery">Incremental Delivery<a class="headerlink" href="#incremental-delivery" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Setup + Foundational → Foundation ready</li>
+<li>Add US1 → Semantic search working (MVP!)</li>
+<li>Add US2 → Exact match and keyword working</li>
+<li>Add US3 → Full structure awareness</li>
+<li>Add US4 → Hybrid fusion (major quality improvement)</li>
+<li>Add US5-6 → Production-ready configuration</li>
+<li>Add US7-8 → Advanced features</li>
+</ol>
+<h3 id="key-milestones">Key Milestones<a class="headerlink" href="#key-milestones" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Tasks Complete</th>
+<th>Capability</th>
+<th>Tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Foundation</td>
+<td>T001-T017</td>
+<td>Models and infrastructure ready</td>
+<td>N/A (no behavior)</td>
+</tr>
+<tr>
+<td>Semantic MVP</td>
+<td>T018-T042</td>
+<td>Natural language search works</td>
+<td>US1 unit tests pass</td>
+</tr>
+<tr>
+<td>Full P1</td>
+<td>T043-T067</td>
+<td>All search modes work</td>
+<td>US1-3 unit tests pass</td>
+</tr>
+<tr>
+<td>Production</td>
+<td>T068-T088</td>
+<td>Hybrid fusion + YAML config</td>
+<td>US1-6 unit tests pass</td>
+</tr>
+<tr>
+<td>Advanced</td>
+<td>T089-T105</td>
+<td>Definitions + reranking</td>
+<td>US1-8 unit tests pass</td>
+</tr>
+<tr>
+<td>Complete</td>
+<td>T106-T118</td>
+<td>All features + integration tests</td>
+<td>All tests pass</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: Total task count is 125</p>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[TDD]</strong> tasks = Write tests BEFORE implementation</li>
+<li><strong>[P]</strong> tasks = Different files, no dependencies (can run in parallel)</li>
+<li><strong>[Story]</strong> label maps task to specific user story for traceability</li>
+<li>Each user story follows: Write Tests → Implement → Verify → Checkpoint</li>
+<li>Commit after each task or logical group</li>
+<li>Stop at any checkpoint to validate story independently</li>
+<li>Reference lines in spec documents when implementing for context</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

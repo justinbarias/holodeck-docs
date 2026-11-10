@@ -76,6 +76,7 @@ def __init__(
     self.on_execution_complete = on_execution_complete
     self._use_task_bound_session = release_transport_after_turn
     self._llm_timeout = float(llm_timeout) if llm_timeout else None
+    self._init_lock = asyncio.Lock()
 
     logger.info(f"AgentExecutor initialized for agent: {agent_config.name}")
 ```
@@ -173,6 +174,19 @@ async def execute_turn(self, message: str) -> AgentResponse:
         # Extract content from execution result
         content = result.response
 
+        # Backends report runtime failures as ``is_error`` results rather
+        # than raising (so multi-turn test runs can record them). A turn
+        # with no content is a failed turn for chat/serve callers; a
+        # partial response (budget cap, FR-032) is returned with the
+        # reason logged so the caller still sees what the model produced.
+        if result.is_error:
+            reason = result.error_reason or "unknown backend error"
+            if not content:
+                raise BackendSessionError(f"Agent turn failed: {reason}")
+            logger.warning(
+                "Agent turn ended with error after partial response: %s", reason
+            )
+
         # Convert tool calls to ToolExecution models
         tool_executions = self._convert_tool_calls(result.tool_calls)
 
@@ -207,7 +221,7 @@ async def execute_turn(self, message: str) -> AgentResponse:
     except BackendInitError as e:
         logger.error(f"Agent execution failed: {e}", exc_info=True)
         raise RuntimeError(f"Agent execution failed: {e}") from e
-    except asyncio.TimeoutError:
+    except TimeoutError:
         # llm_timeout exceeded — let the caller distinguish timeout
         # from crash instead of wrapping it as a generic RuntimeError.
         logger.warning(
@@ -311,7 +325,7 @@ async def execute_turn_streaming(self, message: str) -> AsyncGenerator[str, None
                 yield chunk
         except asyncio.CancelledError:
             if timed_out:
-                raise asyncio.TimeoutError(
+                raise TimeoutError(
                     f"streaming response exceeded llm_timeout="
                     f"{self._llm_timeout}s"
                 ) from None
@@ -368,6 +382,9 @@ async def shutdown(self) -> None:
     try:
         logger.debug("AgentExecutor shutting down")
         if self._session is not None:
+            # A task-bound actor tears the backend down inside its own
+            # task (see ``_TaskBoundSession.close``) and clears
+            # ``self._backend``; the plain path tears down here.
             await self._session.close()
             self._session = None
         if self._backend is not None:

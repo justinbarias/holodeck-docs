@@ -1,0 +1,3042 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/active/034-production-hardening/2026-05-24-spec-034-p3-credential-boundary-plan/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Spec 034 Phase 3 — Credential Boundary Plan - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spec-034-phase-3-credential-boundary-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spec 034 Phase 3 — Credential Boundary Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-check-what-p3-actually-closes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverage check — what P3 actually closes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credential-surface-concrete-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential surface — concrete inventory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Credential surface — concrete inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llm-provider-credentials-read-in-srcholodecklibbackendsvalidatorspy146-234" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM-provider credentials (read in src/holodeck/lib/backends/validators.py:146-234)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding-provider-credentials-read-by-semantic-kernel-agentfactory-injected-via-set_embedding_service-on-vectorstore-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding-provider credentials (read by Semantic Kernel AgentFactory, injected via set_embedding_service on vectorstore tools)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-store-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector-store credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-server-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP-server credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otel-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OTEL credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-add-securityprofile-enum-and-security_profile-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 1: Add SecurityProfile enum and security_profile field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-spike-verify-base-url-override-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 2: Spike — verify base-URL override paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-implement-build_envoy_bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 3: Implement build_envoy_bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-lua-credential-injector-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 4: Lua credential-injector filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-5-vector-store-embedding-provider-compatibility-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 5: Vector-store / embedding-provider compatibility audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-6-deployer-aca-secrets-volumesecret-mounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 6: Deployer — ACA Secrets + Volume(SECRET) mounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-7-build-the-sidecar-container-and-wire-it-through" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 7: Build the sidecar Container and wire it through
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-8-backend-boot-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 8: Backend boot guard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-9-wire-the-deploy-command-end-to-end-under-security_profile-hardened" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 9: Wire the deploy command end-to-end under security_profile: hardened
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-10-serve-command-surfaces-hardened-profile-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 10: serve command surfaces hardened-profile state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-11-sample-agent-for-the-integration-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 11: Sample agent for the integration test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-12-docs-docssecurityhardened-profilemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 12: Docs — docs/security/hardened-profile.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-13-integration-test-live-aca-deploy-under-hardened-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 13: Integration test — live ACA deploy under hardened profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-14-changelog-spec-034-status-table-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 14: CHANGELOG + spec 034 status table update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-15-documented-gaps-docssecurityhardened-profilemdknown-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 15: Documented gaps — docs/security/hardened-profile.md#known-limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-16-follow-up-spec-stub-for-cloud-sdk-auth-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 16: Follow-up spec stub for cloud-SDK auth providers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks and mitigations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions-resolved-before-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open questions resolved before implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1 contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="spec-034-phase-3-credential-boundary-plan">Spec 034 Phase 3 — Credential Boundary Plan<a class="headerlink" href="#spec-034-phase-3-credential-boundary-plan" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
+</blockquote>
+<p><strong>Goal:</strong> Land spec 034 Phase 3 — move LLM-provider credentials, embedding-provider credentials, and tool-bound credentials out of the agent container's process environment and behind an Envoy sidecar that holds them, enforces a domain allowlist derived from <code>agent.yaml</code>, and terminates the credential injection step on the sidecar side. Gated behind opt-in <code>deployment.security_profile: hardened</code>.</p>
+<p><strong>Architecture summary:</strong> One new top-level field (<code>deployment.security_profile</code>). One new generator module (<code>envoy.py</code>) that emits an Envoy <code>bootstrap.yaml</code>. One deployer extension (Azure Container Apps two-container revision with ACA Secrets mounted only to the sidecar). One backend guard (<code>ANTHROPIC_BASE_URL</code> required when running under hardened profile; agent fails-closed if any credential-bearing env var is observed inside its own process). No changes to the YAML hook surface, no changes to the SDK, no changes to vector-store or embedding tool implementations beyond their env-var read points.</p>
+<p><strong>Tech stack:</strong> Python 3.10+, Pydantic v2, <code>azure.mgmt.appcontainers</code> models (Secret, ContainerAppSecret, Volume(SECRET), VolumeMount, ManagedServiceIdentity), <code>envoyproxy/envoy:v1.31-latest</code> (sidecar image), pytest <code>-n auto</code>.</p>
+<p><strong>Phase split:</strong> P3 ships as <strong>one sequential PR train</strong>, not parallel sub-phases. The Envoy generator must be in place before the ACA deployer can reference it; the deployer must be in place before the backend can require <code>ANTHROPIC_BASE_URL</code>; the backend guard must be in place before the credential-leak test can pass. P3 is smaller in surface area than P2 but deeper in invariants — every task is load-bearing for the next.</p>
+<hr />
+<h2 id="coverage-check-what-p3-actually-closes">Coverage check — what P3 actually closes<a class="headerlink" href="#coverage-check-what-p3-actually-closes" title="Permanent link">&para;</a></h2>
+<p>Cross-referenced against <a href="https://code.claude.com/docs/en/agent-sdk/secure-deployment">Anthropic secure-deployment doc</a> §"Proxy pattern" and §"Credential injection":</p>
+<table>
+<thead>
+<tr>
+<th>Anthropic recommendation</th>
+<th>P3 task</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Credentials not in agent container env</td>
+<td>Task 6, Task 9 (deployer moves creds to sidecar-only secret) + Task 10 (backend boot guard)</td>
+</tr>
+<tr>
+<td><code>ANTHROPIC_BASE_URL</code> → localhost proxy</td>
+<td>Task 7 (deployer sets agent env) + Task 8 (backend requires it under hardened profile)</td>
+</tr>
+<tr>
+<td>Domain allowlist on egress</td>
+<td>Task 3, Task 4 (Envoy <code>route_config</code> derived from agent.yaml)</td>
+</tr>
+<tr>
+<td><code>credential_injector</code> HTTP filter for adding <code>Authorization</code> headers</td>
+<td>Task 4 (Envoy Lua filter injects per-route headers)</td>
+</tr>
+<tr>
+<td>Sidecar holds credentials, agent has none</td>
+<td>Task 6 (ACA Secret mounted only to sidecar volume, not agent)</td>
+</tr>
+<tr>
+<td>TLS-terminating proxy for arbitrary HTTPS</td>
+<td><strong>Out of v1</strong> — documented in Task 15; current scope is the Anthropic API endpoint + the embedding-provider endpoint + declared HTTP-MCP servers (the three endpoints HoloDeck routes today)</td>
+</tr>
+<tr>
+<td>Custom-tool pattern for non-Anthropic creds</td>
+<td>Already supported via existing MCP surface; documented in Task 15</td>
+</tr>
+<tr>
+<td>Block non-allowlisted domains</td>
+<td>Task 4 (route catch-all → 403 with structured <code>application/problem+json</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gaps the plan does not close (documented in Task 15):</strong></p>
+<ol>
+<li><strong>AWS Bedrock / GCP Vertex / Anthropic Foundry credential routing.</strong> SigV4 (AWS) and GCP-auth (Vertex) sign requests with credentials baked into the AWS/GCP SDK client <em>before</em> the HTTP layer. A localhost proxy that just forwards the request would either need to (a) re-sign with its own credentials, or (b) be paired with cloud-native workload identity (IRSA/Workload Identity/Azure Managed Identity) so the agent's SDK pulls credentials from the metadata service inside the sidecar's lane. ACA does not run on EKS/GKE, so options (a) and (b) both require new work. <strong>P3 v1 rejects <code>security_profile: hardened</code> for <code>auth_provider in {bedrock, vertex, foundry}</code> with a clear error pointing at the follow-up spec.</strong> Direct Anthropic API (<code>api_key</code>, <code>oauth_token</code>, <code>custom</code>) is fully supported.</li>
+<li><strong>TLS interception for arbitrary HTTPS.</strong> Envoy can terminate TLS only with a CA cert injected into the agent's trust store; we don't ship that in v1. Means: HTTPS-MCP servers with bearer-token auth in headers go through opaque tunnels — the sidecar enforces the destination domain but cannot inject the bearer token. Operators who need credential injection for non-Anthropic HTTPS endpoints use the custom-tool pattern.</li>
+<li><strong>Per-tool credential mapping in the default profile.</strong> Default profile keeps env-var model. Operators who need credential isolation opt into <code>hardened</code>.</li>
+</ol>
+<p>These omissions are stated by spec 034 §"What we are deliberately <em>not</em> doing in v1" — P3 enforces the scope; it does not narrow or widen it.</p>
+<hr />
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────────┐
+│ Azure Container App revision (security_profile: hardened)            │
+│                                                                       │
+│  ┌─────────────────────┐                ┌──────────────────────────┐ │
+│  │ agent container      │                │ envoy sidecar            │ │
+│  │  • holodeck serve    │  HTTP/local    │  • bootstrap.yaml        │ │
+│  │  • no creds in env   │ ──host loop──► │    (config map mount)    │ │
+│  │  • ANTHROPIC_BASE_URL│ http://        │  • Secrets mounted ONLY  │ │
+│  │    = http://         │ localhost:7000 │    here                  │ │
+│  │    localhost:7000    │                │  • Lua filter injects    │ │
+│  │  • HOLODECK_         │                │    `Authorization`       │ │
+│  │    HARDENED=1        │                │  • Domain allowlist      │ │
+│  │  • probes /health    │                │    → upstream            │ │
+│  │    /ready as before  │                │  • Everything else:      │ │
+│  └─────────────────────┘                │    403 + problem+json    │ │
+│                                          └────────────┬─────────────┘ │
+│                                                       │               │
+│  ┌────────────────────────────────────────────────────┘               │
+│  │ ACA volumes:                                                       │
+│  │   • envoy-config (config-map style, plaintext bootstrap.yaml)      │
+│  │   • envoy-secrets (Secret-mounted: creds.env, file mode 0400)      │
+│  │   mounted ONLY on the envoy container, NOT the agent container     │
+│  └────────────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────────────┘
+                                  │
+                                  ▼ (egress)
+                        api.anthropic.com  ← Authorization header injected
+                        &lt;embed&gt;.openai.azure.com  ← api-key header injected
+                        &lt;mcp-http-server&gt;.example  ← TLS pass-through, no inject
+                        (everything else: rejected at Envoy)
+</code></pre></div>
+<p><strong>Credential flow (api_key path, end-to-end):</strong></p>
+<ol>
+<li>Operator sets <code>ANTHROPIC_API_KEY</code> and <code>AZURE_OPENAI_API_KEY</code> on the host running <code>holodeck deploy run</code>.</li>
+<li>Deployer reads them once, creates ACA <code>Secrets</code> (<code>anthropic-api-key</code>, <code>azure-openai-api-key</code>), discards in-memory.</li>
+<li>Deployer creates ACA <code>Volume(storage_type=SECRET)</code> named <code>envoy-secrets</code>, projecting the secret values as files under <code>/var/run/secrets/envoy/</code>.</li>
+<li>Deployer mounts <code>envoy-secrets</code> <strong>only</strong> on the envoy container.</li>
+<li>Deployer mounts the Envoy bootstrap (with the allowlist baked in) as a <code>Volume(storage_type=SECRET)</code> projecting <code>bootstrap.yaml</code> (kept in a secret so the operator can rotate without rebuilding the image).</li>
+<li>Deployer sets <code>ANTHROPIC_BASE_URL=http://localhost:7000</code> and <code>HOLODECK_HARDENED=1</code> on the agent container. <strong>No credential env vars on the agent container.</strong></li>
+<li>On startup, the agent's <code>claude_backend.py</code> reads <code>HOLODECK_HARDENED=1</code> and asserts: (a) <code>ANTHROPIC_BASE_URL</code> is set, (b) no <code>ANTHROPIC_API_KEY</code> / <code>CLAUDE_CODE_OAUTH_TOKEN</code> / <code>AWS_*</code> / <code>AZURE_OPENAI_API_KEY</code> / <code>QDRANT_API_KEY</code> is present in <code>os.environ</code>. Failure on either → fail closed.</li>
+<li>Agent issues a request to <code>http://localhost:7000/v1/messages</code>.</li>
+<li>Envoy matches the path against the route table, matches the upstream <code>api.anthropic.com</code>, runs the credential-injector Lua filter which reads <code>/var/run/secrets/envoy/anthropic_api_key</code> and adds <code>x-api-key: &lt;value&gt;</code>.</li>
+<li>Envoy forwards the request to <code>api.anthropic.com</code> over plain TLS.</li>
+</ol>
+<p><strong>Why the bootstrap is in a secret, not a config-map style mount.</strong> ACA does not expose Kubernetes <code>ConfigMap</code>. The only file-projection primitive ACA offers is a <code>Volume(storage_type=SECRET)</code> projecting <code>ContainerAppSecret</code> values. Treating the bootstrap as a secret is a minor abuse — the bootstrap isn't sensitive — but it gives us atomic file projection without rebuilding the sidecar image on every allowlist edit. Acceptable; the alternative is baking the bootstrap into a per-agent envoy image, which is much heavier.</p>
+<hr />
+<h2 id="credential-surface-concrete-inventory">Credential surface — concrete inventory<a class="headerlink" href="#credential-surface-concrete-inventory" title="Permanent link">&para;</a></h2>
+<p>Before the task list, the full set of credentials P3 must displace.</p>
+<h3 id="llm-provider-credentials-read-in-srcholodecklibbackendsvalidatorspy146-234">LLM-provider credentials (read in <code>src/holodeck/lib/backends/validators.py:146-234</code>)<a class="headerlink" href="#llm-provider-credentials-read-in-srcholodecklibbackendsvalidatorspy146-234" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>auth_provider</th>
+<th>Env vars on the SDK subprocess today</th>
+<th>Endpoint hit</th>
+<th>P3 disposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api_key</code></td>
+<td><code>ANTHROPIC_API_KEY</code></td>
+<td><code>api.anthropic.com</code></td>
+<td>Moved to sidecar. Envoy injects <code>x-api-key</code>.</td>
+</tr>
+<tr>
+<td><code>oauth_token</code></td>
+<td><code>CLAUDE_CODE_OAUTH_TOKEN</code></td>
+<td>claude.ai backend (<code>api.anthropic.com</code>)</td>
+<td>Moved to sidecar. Envoy injects <code>authorization: Bearer …</code> (header name confirmed by SDK source — Task 2 verification step).</td>
+</tr>
+<tr>
+<td><code>custom</code></td>
+<td><code>ANTHROPIC_AUTH_TOKEN</code> + <code>ANTHROPIC_BASE_URL</code></td>
+<td>Operator-supplied</td>
+<td>Token moved to sidecar; <code>ANTHROPIC_BASE_URL</code> re-pointed at localhost. Sidecar's upstream is the operator's original endpoint, derived from <code>agent.model.endpoint</code>.</td>
+</tr>
+<tr>
+<td><code>bedrock</code></td>
+<td><code>CLAUDE_CODE_USE_BEDROCK=1</code>, <code>AWS_REGION</code> (+ AWS access key/secret from outside HoloDeck)</td>
+<td><code>bedrock-runtime.&lt;region&gt;.amazonaws.com</code></td>
+<td><strong>Rejected by hardened profile in v1.</strong> SigV4 signing happens inside the AWS SDK client; not transparently proxiable. Task 8 emits a load-time error.</td>
+</tr>
+<tr>
+<td><code>vertex</code></td>
+<td><code>CLAUDE_CODE_USE_VERTEX=1</code>, <code>CLOUD_ML_REGION</code>, <code>ANTHROPIC_VERTEX_PROJECT_ID</code> (+ ADC credentials)</td>
+<td><code>&lt;region&gt;.aiplatform.googleapis.com</code></td>
+<td><strong>Rejected by hardened profile in v1.</strong> Same reason. Task 8 emits a load-time error.</td>
+</tr>
+<tr>
+<td><code>foundry</code></td>
+<td><code>CLAUDE_CODE_USE_FOUNDRY=1</code>, <code>ANTHROPIC_FOUNDRY_RESOURCE</code> or <code>ANTHROPIC_FOUNDRY_BASE_URL</code></td>
+<td>Operator-supplied Foundry endpoint</td>
+<td><strong>Rejected by hardened profile in v1.</strong> Foundry credential context is opaque. Task 8 emits a load-time error.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="embedding-provider-credentials-read-by-semantic-kernel-agentfactory-injected-via-set_embedding_service-on-vectorstore-tools">Embedding-provider credentials (read by Semantic Kernel <code>AgentFactory</code>, injected via <code>set_embedding_service</code> on vectorstore tools)<a class="headerlink" href="#embedding-provider-credentials-read-by-semantic-kernel-agentfactory-injected-via-set_embedding_service-on-vectorstore-tools" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Env vars on the serve process today</th>
+<th>Endpoint hit</th>
+<th>P3 disposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openai</code> (embeddings)</td>
+<td><code>OPENAI_API_KEY</code></td>
+<td><code>api.openai.com/v1/embeddings</code></td>
+<td>Moved to sidecar. Envoy injects <code>authorization: Bearer …</code>. Upstream domain added to allowlist.</td>
+</tr>
+<tr>
+<td><code>azure_openai</code> (embeddings)</td>
+<td><code>AZURE_OPENAI_API_KEY</code> + endpoint from agent.yaml</td>
+<td><code>&lt;resource&gt;.openai.azure.com/openai/...</code></td>
+<td>Moved to sidecar. Envoy injects <code>api-key: …</code>. Upstream domain (<code>&lt;resource&gt;.openai.azure.com</code>) derived from <code>agent.embedding_provider.endpoint</code> and added to allowlist.</td>
+</tr>
+</tbody>
+</table>
+<p>Embedding tool implementations read these via the SK service, which makes the same HTTP call we need to intercept. The intercept happens at the SK service's base URL — we set the SK service's base URL to <code>http://localhost:7000</code> and let Envoy route by <code>:authority</code> / path. <strong>Concrete code path to investigate in Task 5:</strong> how the SK service base URL is configured at construction time. If the SK service does not respect a base-URL override, fall back to setting <code>OPENAI_BASE_URL</code> / <code>AZURE_OPENAI_ENDPOINT</code> env vars (Task 5 spike).</p>
+<h3 id="vector-store-credentials">Vector-store credentials<a class="headerlink" href="#vector-store-credentials" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Where credentials live today</th>
+<th>P3 disposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qdrant Cloud</td>
+<td><code>connection_string</code> field on <code>agent.tools[*].database</code> (SecretStr in YAML) — embedded URL with API key</td>
+<td>Sidecar terminates; Envoy injects <code>api-key</code> header on <code>https://&lt;cluster&gt;.qdrant.tech</code>. Connection string is <em>parsed</em> in <code>_resolve_database_config()</code> (base_tool.py:83) but the parsed URL+key are then handed to the Qdrant client which makes the actual HTTPS call. <strong>Task 5 spike</strong>: confirm Qdrant Python client supports a base-URL override that points at localhost; if not, document Qdrant as out-of-scope for hardened-profile v1.</td>
+</tr>
+<tr>
+<td>Pinecone</td>
+<td><code>api_key</code> in connection params</td>
+<td>Same risk as Qdrant — client may not respect a generic proxy. <strong>Task 5 spike.</strong></td>
+</tr>
+<tr>
+<td>PostgreSQL (pgvector)</td>
+<td><code>postgresql://user:pass@host/db</code></td>
+<td>Out of scope. P3 is HTTP-only; pgvector uses the postgres protocol. Document in Task 15.</td>
+</tr>
+<tr>
+<td>Azure AI Search</td>
+<td><code>connection_string</code> with admin key</td>
+<td>Sidecar terminates; Envoy injects <code>api-key</code> header. Same SDK-override question as Qdrant — Task 5 spike.</td>
+</tr>
+<tr>
+<td>ChromaDB</td>
+<td><code>connection_string</code> (HTTP URL) or <code>persist_directory</code> (local)</td>
+<td>Local: no creds, no proxy needed. Remote HTTP: Task 5 spike.</td>
+</tr>
+<tr>
+<td>In-memory</td>
+<td>None</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>OpenSearch</td>
+<td><code>connection_string</code> w/ user:pass</td>
+<td>Same shape as pgvector if not HTTP; if HTTP, same shape as Qdrant. Task 5 spike.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>v1 ground rule:</strong> P3 supports vector-store backends only where (a) the wire protocol is HTTPS and (b) the Python client lets us override the base URL. Backends that fail either test are explicitly rejected in <code>hardened</code> mode with a load-time error pointing the operator at the default profile or at the custom-tool pattern. Spec 034 §"What … does <em>not</em> fix" already permits this scope.</p>
+<h3 id="mcp-server-credentials">MCP-server credentials<a class="headerlink" href="#mcp-server-credentials" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Transport</th>
+<th>How creds reach today</th>
+<th>P3 disposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stdio</code> (the only one HoloDeck routes today — see <code>mcp_bridge.py:51-95</code>)</td>
+<td><code>tool.env</code> + <code>tool.env_file</code>, passed to subprocess via <code>McpStdioServerConfig.env</code></td>
+<td><strong>Unchanged.</strong> Stdio MCPs run inside the agent container; their HTTPS egress (e.g. a Brave Search MCP calling <code>api.search.brave.com</code>) goes through the agent's HTTP stack. To route them through the sidecar: Task 7 sets <code>HTTPS_PROXY=http://localhost:7000</code> on the agent container, so any well-behaved Python/Node MCP that respects proxy env vars uses Envoy. The MCP's own API keys still live in its declared env (no way to move them to the sidecar without per-MCP custom filters). <strong>This is documented as a known boundary in Task 15:</strong> the SDK subprocess (Claude Code CLI) and its stdio MCP children inherit the agent's env, so their creds are inside the agent's blast radius. The sidecar protects the <em>destination</em> of their egress but not their per-MCP API keys.</td>
+</tr>
+<tr>
+<td><code>http</code> / <code>sse</code> MCP</td>
+<td><code>headers</code> dict on the tool config (already in agent.yaml). Today <code>build_claude_mcp_configs</code> logs a warning and skips them.</td>
+<td>Out of scope in P3. Document.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="otel-credentials">OTEL credentials<a class="headerlink" href="#otel-credentials" title="Permanent link">&para;</a></h3>
+<p><code>OTEL_EXPORTER_OTLP_ENDPOINT</code> is typically internal (Aspire dashboard, OTLP collector inside the same cluster) and not a credential. Optional <code>OTEL_EXPORTER_OTLP_HEADERS</code> could carry an auth token; P3 leaves it on the agent container — it's a telemetry path, not an LLM credential path, and routing it through Envoy adds a moving part with no clear win. Documented in Task 15.</p>
+<hr />
+<h2 id="file-map">File map<a class="headerlink" href="#file-map" title="Permanent link">&para;</a></h2>
+<p><strong>New files:</strong></p>
+<ul>
+<li><code>src/holodeck/deploy/envoy.py</code> — <code>build_envoy_bootstrap(agent: Agent) -&gt; str</code> that returns a YAML string. Pure function; no I/O. Tested without a real Envoy.</li>
+<li><code>src/holodeck/deploy/sidecar.py</code> — <code>build_sidecar_container(agent: Agent, envoy_secret_name: str, creds_secret_name: str)</code> returning an ACA <code>Container</code> model. Pulled out of the deployer so the deployer stays focused on orchestration.</li>
+<li><code>tests/unit/deploy/test_envoy_generator.py</code></li>
+<li><code>tests/unit/deploy/test_aca_hardened_profile.py</code></li>
+<li><code>tests/unit/lib/backends/test_hardened_boot_guard.py</code></li>
+<li><code>tests/integration/security/test_hardened_profile_e2e.py</code> (live-ACA, mark <code>@pytest.mark.slow</code>)</li>
+<li><code>docs/security/hardened-profile.md</code> (operator-facing)</li>
+<li><code>sample/financial-assistant/claude/agent.hardened.yaml</code> (a copy of the existing sample with <code>security_profile: hardened</code>, used by the integration test)</li>
+</ul>
+<p><strong>Modified files:</strong></p>
+<ul>
+<li><code>src/holodeck/models/deployment.py</code> — add <code>SecurityProfile</code> enum (<code>DEFAULT</code>, <code>HARDENED</code>); add <code>security_profile: SecurityProfile = DEFAULT</code> on <code>DeploymentConfig</code>.</li>
+<li><code>src/holodeck/lib/backends/validators.py</code> — add <code>validate_hardened_profile_compatibility(agent)</code>: raise <code>ConfigError</code> if <code>security_profile: hardened</code> and <code>auth_provider in {bedrock, vertex, foundry}</code>; raise if vector-store backend not in <code>_HARDENED_SUPPORTED_BACKENDS</code>; raise if any required allowlist endpoint missing.</li>
+<li><code>src/holodeck/lib/backends/claude_backend.py</code> — <code>_apply_hardened_boot_guard()</code> called at the top of <code>build_options()</code> when <code>HOLODECK_HARDENED=1</code>: assert no credential env vars in <code>os.environ</code>; assert <code>ANTHROPIC_BASE_URL</code> is set; assert <code>ANTHROPIC_BASE_URL</code> points at localhost.</li>
+<li><code>src/holodeck/deploy/deployers/azure_containerapps.py</code> — accept a new <code>sidecars: list[Container] | None</code> and <code>secrets: list[Secret] | None</code> kwarg; when set, emit two containers + the secret-mounted volumes.</li>
+<li><code>src/holodeck/deploy/builder.py</code> (or the equivalent in <code>cli/commands/deploy.py</code>) — when <code>security_profile: hardened</code>, build the sidecar container + secrets list and pass them through.</li>
+<li><code>src/holodeck/cli/commands/deploy.py</code> and <code>serve.py</code> — echo the hardened-profile resolution block per spec 034 §"CLI surface".</li>
+<li><code>schemas/agent.schema.json</code> — regenerate via Pydantic dump to surface the new <code>security_profile</code> field.</li>
+</ul>
+<hr />
+<h2 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">&para;</a></h2>
+<h3 id="task-1-add-securityprofile-enum-and-security_profile-field">Task 1: Add <code>SecurityProfile</code> enum and <code>security_profile</code> field<a class="headerlink" href="#task-1-add-securityprofile-enum-and-security_profile-field" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/models/deployment.py</code>
+- Test: <code>tests/unit/models/test_deployment.py</code> (append; add the file if it doesn't exist)
+- Modify: <code>schemas/agent.schema.json</code> (regenerate after the model change)</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] <code>SecurityProfile</code> enum with values <code>DEFAULT</code> and <code>HARDENED</code> is exported from <code>holodeck.models.deployment</code>.
+- [ ] <code>DeploymentConfig.security_profile: SecurityProfile = SecurityProfile.DEFAULT</code> round-trips through YAML.
+- [ ] Schema regenerated; <code>security_profile</code> appears under <code>deployment</code> with description and enum constraint.</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/unit/models/test_deployment.py -n auto -v</code> passes (round-trip + default + invalid-value).
+- [ ] <code>python -c "from holodeck.models.deployment import SecurityProfile; print(SecurityProfile.HARDENED)"</code> prints <code>SecurityProfile.HARDENED</code>.
+- [ ] <code>git diff schemas/agent.schema.json</code> shows only the additive <code>security_profile</code> block.</p>
+<p><strong>Dependencies:</strong> None.
+<strong>Estimated scope:</strong> S — one model file + one test file.</p>
+<hr />
+<h3 id="task-2-spike-verify-base-url-override-paths">Task 2: Spike — verify base-URL override paths<a class="headerlink" href="#task-2-spike-verify-base-url-override-paths" title="Permanent link">&para;</a></h3>
+<p>This task does <strong>not</strong> write production code. It produces a 1–2 page memo (<code>docs/product-specs/034-production-hardening/2026-05-24-spec-034-p3-baseurl-spike.md</code>) that confirms or rejects three assumptions the rest of the plan depends on.</p>
+<p><strong>Questions to answer (with code references, not opinions):</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Anthropic API via <code>ANTHROPIC_BASE_URL</code>.</strong> Does the <code>claude-agent-sdk</code> (and the underlying Claude Code CLI) actually route through <code>ANTHROPIC_BASE_URL</code> for both <code>api_key</code> and <code>oauth_token</code> auth, including for the OAuth refresh flow? Cite the SDK source or the upstream CLI source. If OAuth refresh hits a hard-coded URL, that's a P3 blocker for <code>oauth_token</code> — document.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Anthropic auth header.</strong> For <code>oauth_token</code>, confirm the header name the SDK actually sends (<code>authorization: Bearer …</code> vs. something OAuth-specific). The Envoy Lua filter has to know what header to inject; getting this wrong silently fails closed.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>OpenAI / Azure OpenAI base-URL overrides.</strong> Does the Semantic Kernel <code>OpenAITextEmbedding</code> accept a constructor arg (or env var) that we can use to redirect to <code>http://localhost:7000</code>? Same for <code>AzureTextEmbedding</code>. Cite the SK constructor signatures and whether HoloDeck currently exposes them.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>Qdrant / Azure AI Search clients.</strong> Do their Python clients accept a base-URL override that survives the <code>connection_string</code> parser? If not, can we override <code>connection_string</code> at deploy time to point at <code>https://localhost:7000</code> with SNI-rewriting? (Probably no — SNI to localhost won't match the upstream cert.) The honest answer here is likely: vector stores stay outside the sidecar in v1, and we document that.</li>
+</ul>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Memo committed under <code>docs/product-specs/034-production-hardening/</code>.
+- [ ] Each question has a yes/no answer with a file:line citation.
+- [ ] For every "no" answer, the memo lists which provider/backend it removes from hardened-profile v1.</p>
+<p><strong>Verification:</strong> Human review of the memo — this is a research task, not an implementable contract.</p>
+<p><strong>Dependencies:</strong> None (can run in parallel with Task 1).
+<strong>Estimated scope:</strong> M — investigation across two SDKs and 2–3 vector-store clients. Budget 1–2 days.</p>
+<hr />
+<h3 id="task-3-implement-build_envoy_bootstrap">Task 3: Implement <code>build_envoy_bootstrap</code><a class="headerlink" href="#task-3-implement-build_envoy_bootstrap" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>src/holodeck/deploy/envoy.py</code>
+- Create: <code>tests/unit/deploy/test_envoy_generator.py</code></p>
+<p><strong>Design:</strong>
+- [ ] <code>build_envoy_bootstrap(agent: Agent) -&gt; str</code> returns the full <code>bootstrap.yaml</code> content as a string. Pure function. No I/O.
+- [ ] Listener on <code>0.0.0.0:7000</code>, HTTP/1.1 + HTTP/2.
+- [ ] One <code>route_config</code> per allowlisted upstream domain. Each route matches by <code>:authority</code> header (so requests with <code>Host: api.anthropic.com</code> route to the anthropic upstream; everything else falls through to the catch-all <code>direct_response</code> with status 403 and an <code>application/problem+json</code> body matching spec 034 §"Backpressure 429" shape).
+- [ ] Per-route <code>http_filters</code> chain: one Lua filter that reads <code>/var/run/secrets/envoy/&lt;credname&gt;</code> synchronously at filter init (Envoy hot-restarts pick up new secret values; this is fine) and adds the appropriate header. Header name per route (anthropic → <code>x-api-key</code>, openai → <code>authorization: Bearer</code>, azure openai → <code>api-key</code>).
+- [ ] Upstream clusters declared with <code>transport_socket</code> of type <code>tls</code> so Envoy terminates the TLS upstream-side with the system trust store.
+- [ ] Access log to stdout with the route name, response code, and response_time so an operator can <code>kubectl logs</code> (or ACA <code>az containerapp logs show</code>) and see what got allowed/denied.</p>
+<p><strong>Allowlist derivation (this is the load-bearing logic):</strong>
+- [ ] <code>api.anthropic.com</code> is always present when <code>agent.model.provider == anthropic</code> and <code>auth_provider in {api_key, oauth_token}</code>.
+- [ ] When <code>auth_provider == custom</code>, the upstream is the host of <code>agent.model.endpoint</code>.
+- [ ] When the agent has any tool with <code>embedding_provider</code> set, the embedding provider's endpoint host is added.
+- [ ] When the agent has any vectorstore/hierarchical_document tool with a <code>connection_string</code> whose scheme is <code>https</code>, the connection_string's host is added (Task 5 may downgrade this).
+- [ ] No other domains are added.</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Given the financial-assistant sample's agent.yaml, <code>build_envoy_bootstrap</code> returns a YAML that includes upstream clusters for <code>api.anthropic.com</code> and the configured <code>&lt;resource&gt;.openai.azure.com</code> and the Qdrant cluster, in that order, and nothing else.
+- [ ] Catch-all returns <code>403</code> with a problem+json body whose <code>type</code> matches <code>https://holodeck.dev/errors/egress-denied</code>.
+- [ ] Generated YAML parses cleanly with PyYAML's safe loader.
+- [ ] Generated YAML is byte-stable across calls (deterministic ordering of clusters → reproducible builds).</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/unit/deploy/test_envoy_generator.py -n auto -v</code> covers: api_key path, oauth_token path, custom path, embedding-only agent, no-tool agent, agent with multiple vectorstores.
+- [ ] <code>echo "$(holodeck-internal: dump-envoy-config sample/financial-assistant/claude)" | docker run --rm -i envoyproxy/envoy:v1.31-latest envoy --mode validate -c -</code> returns exit 0 (config validates against real Envoy). <strong>Bash helper script lives in <code>scripts/validate_envoy.sh</code></strong>; not a CLI command.</p>
+<p><strong>Dependencies:</strong> Task 1 (<code>security_profile</code> field), Task 2 (auth-header confirmation).
+<strong>Estimated scope:</strong> M — single module, one test file. The bulk of the cost is in getting the Envoy YAML right; allow 1–2 days plus the spike feedback.</p>
+<hr />
+<h3 id="task-4-lua-credential-injector-filter">Task 4: Lua credential-injector filter<a class="headerlink" href="#task-4-lua-credential-injector-filter" title="Permanent link">&para;</a></h3>
+<p>Subtask of Task 3, called out separately because it's the source of subtle bugs.</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Lua filter reads <code>/var/run/secrets/envoy/&lt;credname&gt;</code> <em>once</em> on filter init (not per request) and caches in <code>envoy.streamInfo</code>-adjacent state.
+- [ ] If the file is missing or empty, the filter responds with <code>500</code> + <code>application/problem+json</code> body. The agent sees the failure as an upstream error; it does <strong>not</strong> fall back to direct upstream.
+- [ ] The injected header replaces (not appends to) any header of the same name from the agent, so a compromised agent can't override the auth header with its own.
+- [ ] The filter strips <code>Authorization</code> / <code>x-api-key</code> / <code>api-key</code> from the request before injection, regardless of upstream — defense against a leak from the agent.</p>
+<p><strong>Verification:</strong>
+- [ ] Unit test the Lua via Envoy's test scaffold (<code>docker run --rm envoyproxy/envoy:v1.31-latest envoy --mode validate</code>) for the bootstrap, then a runtime test in Task 13.
+- [ ] Test that a request with a forged <code>x-api-key</code> header from the agent is stripped before reaching upstream (visible in access log: stripped count = 1).</p>
+<p><strong>Dependencies:</strong> Task 3 (same file).
+<strong>Estimated scope:</strong> S — small Lua snippet, three test cases.</p>
+<hr />
+<h3 id="task-5-vector-store-embedding-provider-compatibility-audit">Task 5: Vector-store / embedding-provider compatibility audit<a class="headerlink" href="#task-5-vector-store-embedding-provider-compatibility-audit" title="Permanent link">&para;</a></h3>
+<p>Concrete output of the Task 2 spike for the vector-store and embedding-provider axes specifically. May land as a single PR with Task 2 — split here for tracking.</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Maintain <code>_HARDENED_SUPPORTED_BACKENDS: frozenset[str]</code> constant on <code>holodeck.lib.backends.validators</code> listing the vector-store backend keys that work under hardened profile in v1.
+- [ ] Maintain <code>_HARDENED_SUPPORTED_EMBED_PROVIDERS: frozenset[ProviderEnum]</code> listing the embedding providers that work.
+- [ ] For each <em>unsupported</em> combination, <code>validate_hardened_profile_compatibility</code> emits a <code>ConfigError</code> whose <code>detail</code> field names the backend/provider and points at <code>docs/security/hardened-profile.md#supported-backends</code>.</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/unit/lib/backends/test_hardened_validator.py -n auto -v</code> covers each supported and unsupported combo.</p>
+<p><strong>Dependencies:</strong> Task 2.
+<strong>Estimated scope:</strong> S — one constant, one validator.</p>
+<hr />
+<h3 id="task-6-deployer-aca-secrets-volumesecret-mounts">Task 6: Deployer — ACA Secrets + <code>Volume(SECRET)</code> mounts<a class="headerlink" href="#task-6-deployer-aca-secrets-volumesecret-mounts" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/deploy/deployers/azure_containerapps.py</code>
+- Test: <code>tests/unit/deploy/test_aca_hardened_profile.py</code></p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] <code>deploy()</code> accepts new kwargs: <code>secrets: list[ContainerAppSecret] | None</code>, <code>sidecar_containers: list[Container] | None</code>, <code>agent_volume_mounts: list[VolumeMount] | None</code>, <code>sidecar_volume_mounts: list[VolumeMount] | None</code>, <code>extra_volumes: list[Volume] | None</code>. All default to <code>None</code>. When <code>None</code>, behavior is byte-identical to today.
+- [ ] When <code>secrets</code> is non-None, the <code>Configuration</code> includes a <code>secrets=[…]</code> block.
+- [ ] When <code>sidecar_containers</code> is non-None, the <code>Template.containers</code> includes them after the agent container.
+- [ ] When <code>extra_volumes</code> is non-None, they're appended to the existing <code>tmp</code> / <code>sdk-scratch</code> volumes.
+- [ ] Critical invariant: the agent container's <code>volume_mounts</code> do <strong>not</strong> include any volume whose source is a secret. Asserted by the unit test.
+- [ ] Echoes the new resolution block (per spec 034 CLI surface) when <code>sidecar_containers</code> is non-None — secrets named, allowlist hosts listed.</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/unit/deploy/test_aca_hardened_profile.py -n auto -v</code> covers: secret-on-sidecar-only, two-container template, allowlist echo.
+- [ ] The unit test inspects the in-memory <code>ContainerApp</code> model object — no Azure SDK calls, no <code>vcrpy</code>.</p>
+<p><strong>Dependencies:</strong> Task 1.
+<strong>Estimated scope:</strong> M — deployer is a thick file; the change is additive but the test surface is wide.</p>
+<hr />
+<h3 id="task-7-build-the-sidecar-container-and-wire-it-through">Task 7: Build the sidecar <code>Container</code> and wire it through<a class="headerlink" href="#task-7-build-the-sidecar-container-and-wire-it-through" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>src/holodeck/deploy/sidecar.py</code>
+- Modify: <code>src/holodeck/deploy/builder.py</code> (or <code>cli/commands/deploy.py</code> — find where it constructs the deployer call)
+- Test: <code>tests/unit/deploy/test_sidecar.py</code></p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] <code>build_sidecar(agent, env_credentials)</code> returns <code>(Container, list[ContainerAppSecret], list[Volume], list[VolumeMount], list[VolumeMount])</code> where the tuple is <code>(sidecar_container, secrets, volumes, sidecar_mounts, agent_mounts_to_add)</code>.
+- [ ] The sidecar container image is <code>envoyproxy/envoy:v1.31-latest</code>, command <code>["envoy", "-c", "/etc/envoy/bootstrap.yaml"]</code>, no env vars besides <code>ENVOY_UID=1000</code>.
+- [ ] The Envoy bootstrap is projected as a secret (per the architecture note above) at <code>/etc/envoy/bootstrap.yaml</code>.
+- [ ] Each credential is projected at <code>/var/run/secrets/envoy/&lt;credname&gt;</code> with file mode 0400.
+- [ ] On the agent container side, set: <code>ANTHROPIC_BASE_URL=http://localhost:7000</code>, <code>HTTPS_PROXY=http://localhost:7000</code>, <code>HOLODECK_HARDENED=1</code>. <strong>Remove</strong> any of <code>{ANTHROPIC_API_KEY, CLAUDE_CODE_OAUTH_TOKEN, AWS_*, AZURE_OPENAI_API_KEY, OPENAI_API_KEY, QDRANT_API_KEY, ANTHROPIC_AUTH_TOKEN}</code> from the agent's env-var list before passing to the deployer.
+- [ ] The builder reads credential env vars from the operator's host environment (the same surface <code>holodeck deploy run</code> reads today) and constructs the secret list. <strong>Once the secret list is built, the local copies are zeroed in <code>env_credentials</code> and not retained in process memory longer than necessary</strong> — best-effort, not a guarantee against a debugger.</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/unit/deploy/test_sidecar.py -n auto -v</code> covers: financial-assistant agent yields exactly three secrets (anthropic, azure-openai-embed, qdrant-key), agent container env contains <code>HOLODECK_HARDENED=1</code> and no credential env vars, sidecar container contains exactly two <code>VolumeMount</code>s (<code>envoy-config</code>, <code>envoy-secrets</code>).</p>
+<p><strong>Dependencies:</strong> Task 3, Task 6.
+<strong>Estimated scope:</strong> M — moderate composition logic, lots of small assertions.</p>
+<hr />
+<h3 id="task-8-backend-boot-guard">Task 8: Backend boot guard<a class="headerlink" href="#task-8-backend-boot-guard" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/lib/backends/claude_backend.py</code>
+- Modify: <code>src/holodeck/lib/backends/validators.py</code> (<code>validate_hardened_profile_compatibility</code>)
+- Test: <code>tests/unit/lib/backends/test_hardened_boot_guard.py</code></p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] New <code>_apply_hardened_boot_guard(agent)</code> called at the top of <code>build_options()</code>. When <code>os.environ.get("HOLODECK_HARDENED") == "1"</code>:
+  - [ ] Assert <code>ANTHROPIC_BASE_URL</code> is set and starts with <code>http://localhost:</code> or <code>http://127.0.0.1:</code>. Raise <code>ConfigError("hardened_profile", ...)</code> if not.
+  - [ ] Assert no key in <code>os.environ</code> matches the credential-bearing patterns <code>{ANTHROPIC_API_KEY, CLAUDE_CODE_OAUTH_TOKEN, ANTHROPIC_AUTH_TOKEN, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AZURE_OPENAI_API_KEY, OPENAI_API_KEY, QDRANT_API_KEY, GOOGLE_API_KEY, GEMINI_API_KEY}</code>. Raise <code>ConfigError("hardened_profile", ...)</code> listing the leaked var names. <strong>Be careful to name them by class, not echo the value.</strong>
+  - [ ] Set <code>_HOLODECK_HARDENED_OK=1</code> on <code>options.env</code> so downstream logging knows the agent is running under hardened profile.
+- [ ] <code>validate_hardened_profile_compatibility(agent)</code> called from agent load. Raises <code>ConfigError</code> when <code>auth_provider in {bedrock, vertex, foundry}</code> and <code>security_profile == hardened</code>. Same shape as the existing migration error for <code>acceptAll</code>.
+- [ ] <code>ANTHROPIC_BASE_URL</code> injection in <code>build_options()</code> is reconciled: when <code>auth_provider == custom</code> AND <code>security_profile == hardened</code>, the env var is set by Task 7's deployer, not by <code>build_options()</code>. <code>build_options()</code> no longer rewrites it under hardened profile.</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/unit/lib/backends/test_hardened_boot_guard.py -n auto -v</code> covers: pass-through when <code>HOLODECK_HARDENED=0</code>, fail-closed on missing <code>ANTHROPIC_BASE_URL</code>, fail-closed on each credential pattern, success on a clean hardened env.
+- [ ] <code>pytest tests/unit/lib/backends/test_hardened_validator.py -n auto -v</code> covers: each cloud auth provider raises under hardened, <code>api_key</code>/<code>oauth_token</code>/<code>custom</code> pass.</p>
+<p><strong>Dependencies:</strong> Task 1, Task 5.
+<strong>Estimated scope:</strong> S — small but invariant-heavy.</p>
+<hr />
+<h3 id="task-9-wire-the-deploy-command-end-to-end-under-security_profile-hardened">Task 9: Wire the deploy command end-to-end under <code>security_profile: hardened</code><a class="headerlink" href="#task-9-wire-the-deploy-command-end-to-end-under-security_profile-hardened" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/cli/commands/deploy.py</code></p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] <code>holodeck deploy run path/to/agent</code> reads <code>deployment.security_profile</code>. When <code>hardened</code>:
+  - [ ] Calls <code>validate_hardened_profile_compatibility(agent)</code> and surfaces errors.
+  - [ ] Calls <code>build_envoy_bootstrap(agent)</code> and <code>build_sidecar(agent, env_credentials)</code>.
+  - [ ] Calls deployer.deploy(..., secrets=…, sidecar_containers=…, extra_volumes=…, sidecar_volume_mounts=…) with the assembled fixtures.
+  - [ ] Echoes the hardened-profile resolution block per spec 034 §"CLI surface".
+- [ ] When <code>default</code> (or unset), the path is byte-identical to today.</p>
+<p><strong>Verification:</strong>
+- [ ] Unit-level: <code>pytest tests/unit/cli/test_deploy_hardened.py -n auto -v</code> mocks the deployer and asserts that the right call shape is produced.
+- [ ] Manual: <code>holodeck deploy run sample/financial-assistant/claude --dry-run</code> (if <code>--dry-run</code> exists; add it if it doesn't) prints the resolution block correctly. Otherwise skip; integration test (Task 13) is the runtime check.</p>
+<p><strong>Dependencies:</strong> Task 6, Task 7, Task 8.
+<strong>Estimated scope:</strong> S — glue.</p>
+<hr />
+<h3 id="task-10-serve-command-surfaces-hardened-profile-state">Task 10: <code>serve</code> command surfaces hardened-profile state<a class="headerlink" href="#task-10-serve-command-surfaces-hardened-profile-state" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>src/holodeck/cli/commands/serve.py</code></p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] At startup, when <code>os.environ.get("HOLODECK_HARDENED") == "1"</code>, the serve banner adds: <code>Security profile: hardened</code>, <code>Envoy base URL: &lt;ANTHROPIC_BASE_URL&gt;</code>.
+- [ ] When not set, no change.</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/unit/serve/test_banner.py -n auto -v</code> covers both branches (use existing banner test if present; otherwise add).</p>
+<p><strong>Dependencies:</strong> Task 8.
+<strong>Estimated scope:</strong> XS — one if-block.</p>
+<hr />
+<h3 id="task-11-sample-agent-for-the-integration-test">Task 11: Sample agent for the integration test<a class="headerlink" href="#task-11-sample-agent-for-the-integration-test" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>sample/financial-assistant/claude/agent.hardened.yaml</code> (copy of <code>agent.yaml</code> with <code>deployment.security_profile: hardened</code>)</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] The sample loads cleanly under <code>holodeck</code> config validation when the credential env vars are present.
+- [ ] The sample's allowlist (derived by the Envoy generator) is exactly: <code>api.anthropic.com</code>, <code>&lt;resource&gt;.openai.azure.com</code>, <code>&lt;qdrant-cluster&gt;.qdrant.tech</code>. Not a fourth host.</p>
+<p><strong>Verification:</strong>
+- [ ] <code>holodeck test load sample/financial-assistant/claude/agent.hardened.yaml</code> (if a load-only CLI exists; otherwise add via <code>--validate-only</code> flag on <code>deploy run</code>).
+- [ ] <code>pytest tests/unit/deploy/test_envoy_generator.py::test_financial_assistant_hardened_allowlist -n auto -v</code>.</p>
+<p><strong>Dependencies:</strong> Task 3.
+<strong>Estimated scope:</strong> XS.</p>
+<hr />
+<h3 id="task-12-docs-docssecurityhardened-profilemd">Task 12: Docs — <code>docs/security/hardened-profile.md</code><a class="headerlink" href="#task-12-docs-docssecurityhardened-profilemd" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>docs/security/hardened-profile.md</code></p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Operator-facing. Covers: when to use it, what it does, what it doesn't (links to spec 034), supported auth providers, supported vector-store backends, the <code>bedrock</code>/<code>vertex</code>/<code>foundry</code> exclusion and the follow-up spec link (Task 16), the egress-denied error and how to fix it (add the host to a tool config or open a feature request).
+- [ ] One worked example (the financial-assistant sample with <code>security_profile: hardened</code>).
+- [ ] Cross-links to <code>docs/security/permissions.md</code> (P1b) and <code>docs/security/container-hardening.md</code> (P2a).</p>
+<p><strong>Verification:</strong>
+- [ ] Human review.</p>
+<p><strong>Dependencies:</strong> Tasks 3, 7, 8, 11.
+<strong>Estimated scope:</strong> S.</p>
+<hr />
+<h3 id="task-13-integration-test-live-aca-deploy-under-hardened-profile">Task 13: Integration test — live ACA deploy under hardened profile<a class="headerlink" href="#task-13-integration-test-live-aca-deploy-under-hardened-profile" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>tests/integration/security/test_hardened_profile_e2e.py</code></p>
+<p>This is the smoke test that exercises the full machinery against a real ACA. Marked <code>@pytest.mark.slow</code> and <code>@pytest.mark.integration</code>; not part of <code>make test</code> by default. Run it via the manual deploy validation loop in <code>CLAUDE.md</code>.</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Test deploys <code>sample/financial-assistant/claude/agent.hardened.yaml</code> to a known ACA environment.
+- [ ] After <code>/ready</code> returns 200, the test:
+  1. Hits the AG-UI endpoint with a known-good ConvFinQA query and confirms a 200 with sensible content.
+  2. Uses <code>az containerapp exec</code> (or equivalent) to <code>printenv</code> inside the agent container and asserts none of the credential env vars are present.
+  3. Sends a request through the AG-UI surface that would trigger a (hypothetical) tool call to a non-allowlisted domain (e.g. by injecting via a malicious prompt). Confirms the request is rejected by Envoy with a 403 + problem+json body.
+  4. Confirms the agent's response stream surfaces the upstream 403 cleanly (not a crash).</p>
+<p><strong>Verification:</strong>
+- [ ] <code>pytest tests/integration/security/test_hardened_profile_e2e.py -m slow -n auto</code> against a deployed ACA passes.</p>
+<p><strong>Dependencies:</strong> All P3 tasks.
+<strong>Estimated scope:</strong> L — full E2E. The setup cost is real; budget half a sprint for the first green run.</p>
+<hr />
+<h3 id="task-14-changelog-spec-034-status-table-update">Task 14: CHANGELOG + spec 034 status table update<a class="headerlink" href="#task-14-changelog-spec-034-status-table-update" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/product-specs/034-production-hardening/2026-05-18-production-hardening-for-claude-agents.md</code> (status table)
+- Modify: top-level CHANGELOG (if one exists; otherwise skip)</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Status tracker for P3 changes from <code>⏳ not started</code> to <code>✅ shipped</code> with the branch/PR reference.
+- [ ] One sentence summarizing what landed and what was deferred (bedrock/vertex/foundry — link to Task 16).</p>
+<p><strong>Verification:</strong> Human review.
+<strong>Dependencies:</strong> Task 13 green.
+<strong>Estimated scope:</strong> XS.</p>
+<hr />
+<h3 id="task-15-documented-gaps-docssecurityhardened-profilemdknown-limitations">Task 15: Documented gaps — <code>docs/security/hardened-profile.md#known-limitations</code><a class="headerlink" href="#task-15-documented-gaps-docssecurityhardened-profilemdknown-limitations" title="Permanent link">&para;</a></h3>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Bedrock / Vertex / Foundry exclusion + the SigV4/GCP-auth reason in one paragraph each. Link to Task 16 follow-up.
+- [ ] TLS interception out of scope (no CA injection in v1).
+- [ ] Stdio MCP credentials remain in the agent container.
+- [ ] HTTP/SSE MCPs not routed (existing limitation, not new).
+- [ ] OTLP path stays direct.
+- [ ] pgvector and any non-HTTP vector store: out of scope.</p>
+<p><strong>Verification:</strong> Human review.
+<strong>Dependencies:</strong> Task 12.
+<strong>Estimated scope:</strong> XS (lives inside Task 12's doc; called out for tracking).</p>
+<hr />
+<h3 id="task-16-follow-up-spec-stub-for-cloud-sdk-auth-providers">Task 16: Follow-up spec stub for cloud-SDK auth providers<a class="headerlink" href="#task-16-follow-up-spec-stub-for-cloud-sdk-auth-providers" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>docs/product-specs/034-production-hardening/2026-05-24-spec-034-p3-followup-cloud-auth.md</code> (one-page stub)</p>
+<p><strong>Acceptance criteria:</strong>
+- [ ] Names the problem: SigV4 and GCP-auth don't proxy transparently.
+- [ ] Names three candidate paths: (a) sidecar re-signs requests using its own AWS/GCP credentials (requires the agent's SDK to talk plain HTTP+JSON to the sidecar, which means a new transport mode in <code>claude-agent-sdk</code> — coordinate with upstream); (b) cloud-native workload identity (IRSA on EKS, Workload Identity on GKE, Azure Managed Identity on AKS — none apply to ACA); (c) require operators to use the custom-tool pattern for non-Anthropic Anthropic-routed access.
+- [ ] Calls out that ACA-specific deployments cannot use option (b), so options (a) and (c) are the realistic ones for HoloDeck's primary deployer.</p>
+<p><strong>Verification:</strong> Human review. The stub is not implementable; it is the index entry so the work doesn't get lost.
+<strong>Dependencies:</strong> None.
+<strong>Estimated scope:</strong> XS.</p>
+<hr />
+<h2 id="checkpoint-structure">Checkpoint structure<a class="headerlink" href="#checkpoint-structure" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Tasks 1, 2          (parallel)        → SPIKE GATE
+Tasks 3, 5           (parallel after 1, 2) → ENVOY + VALIDATOR GATE
+Tasks 4, 6           (parallel after 3)    → SIDECAR/DEPLOYER GATE
+Tasks 7, 8           (after 4 + 6)         → INTEGRATION GATE
+Tasks 9, 10, 11      (parallel after 7+8)  → CLI/SAMPLE GATE
+Task 12, 15          (after 11)            → DOCS GATE
+Task 13              (after 12)            → E2E GATE (slow)
+Tasks 14, 16         (after 13)            → CLOSE
+</code></pre></div>
+<p>Checkpoints (run between phases):</p>
+<ul>
+<li><strong>After Task 2 (SPIKE GATE):</strong> Open questions resolved or scope narrowed. If the spike reveals <code>oauth_token</code> can't be proxied, drop it from v1 and update Task 5's supported-providers set before any production code lands.</li>
+<li><strong>After Tasks 3+5 (ENVOY GATE):</strong> Pure-function generator unit-tests green; validator rejects all unsupported combos. No deployer changes yet — the whole P3 design is provable against unit tests at this point.</li>
+<li><strong>After Tasks 6+7 (DEPLOYER GATE):</strong> Deployer unit tests green; the financial-assistant sample produces a believable two-container <code>ContainerApp</code> model object. Manual eyeball of the YAML the deployer would emit.</li>
+<li><strong>After Task 8 (INTEGRATION GATE):</strong> Backend fails closed locally with <code>HOLODECK_HARDENED=1</code> and one credential env var present. This is the proof that the boot guard works before the deployer ever runs.</li>
+<li><strong>After Tasks 9–11 (CLI GATE):</strong> <code>holodeck deploy run</code> produces correct CLI output. Resolution block matches the spec.</li>
+<li><strong>After Task 13 (E2E GATE):</strong> Live ACA deploy passes the three smoke checks. <strong>This is the only point at which P3 is mergeable.</strong></li>
+</ul>
+<hr />
+<h2 id="risks-and-mitigations">Risks and mitigations<a class="headerlink" href="#risks-and-mitigations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task 2 spike discovers <code>oauth_token</code> can't route through <code>ANTHROPIC_BASE_URL</code> for refresh</td>
+<td>Drop <code>oauth_token</code> from hardened-profile v1; document in Task 15; revisit when SDK adds proxy support</td>
+</tr>
+<tr>
+<td>Task 2 spike discovers no vector-store client supports a base-URL override</td>
+<td>Vector-store creds remain on the agent container; Envoy enforces destination domain via <code>HTTPS_PROXY</code>; document</td>
+</tr>
+<tr>
+<td>Envoy bootstrap drift across <code>v1.31</code> minor versions</td>
+<td>Pin <code>envoyproxy/envoy:v1.31.x</code> to a specific patch; revalidate when bumping</td>
+</tr>
+<tr>
+<td>ACA Secrets propagation lag (creates → not yet projected when sidecar starts)</td>
+<td>Sidecar's Lua filter reads on first request, not init; if file missing, returns 500 (visible failure, not silent) — and we already have ACA's normal revision-readiness gating</td>
+</tr>
+<tr>
+<td>The agent loops on the 403 from Envoy, racking up tokens</td>
+<td>Already mitigated by <code>max_turns</code> default (P1a) at 20; document the failure mode in Task 12</td>
+</tr>
+<tr>
+<td>An operator's host env happens to have a stray <code>OPENAI_API_KEY</code> that the deployer reads and stuffs into ACA Secrets unintentionally</td>
+<td>Task 7 only reads env vars that match credential patterns <em>and</em> that the agent.yaml's tool/embedding/auth config actually declares a need for. Unread vars are never copied.</td>
+</tr>
+<tr>
+<td>Lua filter caches a credential file at filter init; subsequent secret rotation requires Envoy hot-restart</td>
+<td>Document. ACA revision update triggers a fresh container, which re-inits the filter, which picks up the new secret. This is the supported rotation path.</td>
+</tr>
+<tr>
+<td>Agent code path bypasses <code>ANTHROPIC_BASE_URL</code> (e.g. a tool that directly imports <code>anthropic</code> client without honoring the env var)</td>
+<td>Task 8's boot guard makes this loud: any direct call without going through the SDK fails because the agent has no credentials. The 403 from Envoy is a secondary safety net.</td>
+</tr>
+<tr>
+<td><code>HTTPS_PROXY=http://localhost:7000</code> breaks stdio MCP servers that don't honor proxy env vars (e.g. a Node MCP using a non-proxy-aware fetch lib)</td>
+<td>Document. Operator opts that MCP out of the sidecar by setting a <code>NO_PROXY</code> entry on the agent container — but then the MCP's egress is direct from the container. Acceptable trade-off; the sidecar protects the <em>LLM credential boundary</em>, not every outbound packet.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="open-questions-resolved-before-implementation">Open questions resolved before implementation<a class="headerlink" href="#open-questions-resolved-before-implementation" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Should the bootstrap be in a secret or a config-map style mount?</strong> Decided: secret. ACA does not expose ConfigMap; this is the only file-projection primitive available.</li>
+<li><strong>Should P3 ship on GCP Cloud Run and AWS App Runner deployers too?</strong> No — v1 is ACA only. The other deployers have their own credential-mount surfaces (Cloud Run Secret Manager, App Runner secrets) and would each be their own task train. Documented as follow-ups in Task 16.</li>
+<li><strong>Should the agent container's <code>HOLODECK_HARDENED</code> env var be a name an attacker could spoof to bypass checks?</strong> No — the env var only gates <em>additional</em> checks; the absence of credentials in the agent's env is the real invariant. An attacker who unsets <code>HOLODECK_HARDENED</code> doesn't gain credentials they don't already have.</li>
+<li><strong>Should we ship a deny-by-default DNS resolver in the sidecar?</strong> No — Envoy's allowlist by <code>:authority</code> is sufficient. Adding a CoreDNS sidecar would couple two infrastructure concerns; out of scope.</li>
+<li><strong>Where do credentials in P3 actually live?</strong> Azure Container App Secrets, mounted via <code>Volume(storage_type=SECRET)</code> only to the sidecar. Not in the image, not in the agent container env, not in any other Azure secret store.</li>
+</ol>
+<hr />
+<h2 id="v1-contract">v1 contract<a class="headerlink" href="#v1-contract" title="Permanent link">&para;</a></h2>
+<ul>
+<li>One new schema field: <code>deployment.security_profile: default | hardened</code>.</li>
+<li>Default profile: zero behavior change.</li>
+<li>Hardened profile: ACA only, auth providers <code>api_key</code> and <code>oauth_token</code> (and <code>custom</code> when the operator's endpoint is plain Anthropic-shaped), vector stores limited to HTTPS-overridable backends.</li>
+<li>Credentials in the agent container under hardened profile: zero. Asserted at boot.</li>
+<li>Allowlist derived from <code>agent.yaml</code>. No silent fallback. Non-allowlisted egress: 403.</li>
+<li>Sidecar holds credentials; agent fails closed if it sees any.</li>
+<li>Bedrock / Vertex / Foundry deferred to follow-up spec; rejected with a clear error.</li>
+<li>TLS interception, pgvector, HTTP/SSE MCP routing, GCP/AWS deployers: documented as out of v1.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

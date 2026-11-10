@@ -1,0 +1,2747 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/012-deepeval-metrics/tasks/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: DeepEval Metrics Integration - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-deepeval-metrics-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: DeepEval Metrics Integration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-story-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] [Story] Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-shared-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup (Shared Infrastructure) ✅
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-blocking-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational (Blocking Prerequisites) ✅
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-1-multi-provider-support-priority-p1-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 1 - Multi-Provider Support (Priority: P1) 🎯 MVP ✅
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: User Story 1 - Multi-Provider Support (Priority: P1) 🎯 MVP ✅">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testexecutor-integration-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestExecutor Integration for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-user-story-2-custom-evaluation-criteria-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: User Story 2 - Custom Evaluation Criteria (Priority: P1) ✅
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: User Story 2 - Custom Evaluation Criteria (Priority: P1) ✅">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-user-story-3-rag-pipeline-evaluation-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: User Story 3 - RAG Pipeline Evaluation (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: User Story 3 - RAG Pipeline Evaluation (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testexecutor-integration-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestExecutor Integration for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-user-story-4-azure-ai-provider-validation-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: User Story 4 - Azure AI Provider Validation (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: User Story 4 - Azure AI Provider Validation (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-user-story-5-answer-relevancy-evaluation-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: User Story 5 - Answer Relevancy Evaluation (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: User Story 5 - Answer Relevancy Evaluation (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-user-story-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for User Story 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testexecutor-integration-for-user-story-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestExecutor Integration for User Story 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-polish-cross-cutting-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Polish &amp; Cross-Cutting Concerns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within-each-user-story" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Within Each User Story
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-example-user-story-3-rag-evaluators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Example: User Story 3 (RAG Evaluators)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mvp-first-user-stories-1-2-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVP First (User Stories 1 + 2 Only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental Delivery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-team-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Team Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-deepeval-metrics-integration">Tasks: DeepEval Metrics Integration<a class="headerlink" href="#tasks-deepeval-metrics-integration" title="Permanent link">&para;</a></h1>
+<p><strong>Input</strong>: Design documents from <code>/docs/product-specs/012-deepeval-metrics/</code>
+<strong>Prerequisites</strong>: plan.md, spec.md, research.md, data-model.md, contracts/</p>
+<p><strong>Tests</strong>: Unit tests included as this is a library feature requiring thorough validation.</p>
+<p><strong>Organization</strong>: Tasks grouped by user story to enable independent implementation and testing.</p>
+<h2 id="format-id-p-story-description">Format: <code>[ID] [P?] [Story] Description</code><a class="headerlink" href="#format-id-p-story-description" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Can run in parallel (different files, no dependencies)</li>
+<li><strong>[Story]</strong>: Which user story this task belongs to (e.g., US1, US2, US3)</li>
+<li>Include exact file paths in descriptions</li>
+</ul>
+<hr />
+<h2 id="phase-1-setup-shared-infrastructure">Phase 1: Setup (Shared Infrastructure) ✅<a class="headerlink" href="#phase-1-setup-shared-infrastructure" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Add DeepEval dependency and create module structure</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 Add <code>deepeval&gt;=0.21.0,&lt;1.0.0</code> to dependencies in pyproject.toml</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T002 [P] Create deepeval evaluators module directory at src/holodeck/lib/evaluators/deepeval/</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T003 [P] Create src/holodeck/lib/evaluators/deepeval/<strong>init</strong>.py with module exports</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T004 [P] Create tests/unit/lib/evaluators/deepeval/ directory structure</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-blocking-prerequisites">Phase 2: Foundational (Blocking Prerequisites) ✅<a class="headerlink" href="#phase-2-foundational-blocking-prerequisites" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Core infrastructure that MUST be complete before ANY user story can be implemented</p>
+<p><strong>⚠️ CRITICAL</strong>: No user story work can begin until this phase is complete</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T005 Implement ProviderNotSupportedError in src/holodeck/lib/evaluators/deepeval/errors.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 Implement DeepEvalError in src/holodeck/lib/evaluators/deepeval/errors.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T007 Implement DeepEvalModelConfig with provider validation in src/holodeck/lib/evaluators/deepeval/config.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T008 Implement to_deepeval_model() method using native DeepEval classes (GPTModel, AzureOpenAIModel, AnthropicModel, OllamaModel) in src/holodeck/lib/evaluators/deepeval/config.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T009 Implement DeepEvalBaseEvaluator with _build_test_case and _evaluate_impl in src/holodeck/lib/evaluators/deepeval/base.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 [P] Create unit tests for DeepEvalModelConfig in tests/unit/lib/evaluators/deepeval/test_config.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T011 [P] Create unit tests for DeepEvalBaseEvaluator in tests/unit/lib/evaluators/deepeval/test_base.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: Foundation ready - user story implementation can now begin ✅</p>
+<hr />
+<h2 id="phase-3-user-story-1-multi-provider-support-priority-p1-mvp">Phase 3: User Story 1 - Multi-Provider Support (Priority: P1) 🎯 MVP ✅<a class="headerlink" href="#phase-3-user-story-1-multi-provider-support-priority-p1-mvp" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Enable evaluation using OpenAI, Anthropic, or Ollama as judge models</p>
+<p><strong>Independent Test</strong>: Configure OpenAI provider and run G-Eval evaluation on sample response</p>
+<h3 id="tests-for-user-story-1">Tests for User Story 1<a class="headerlink" href="#tests-for-user-story-1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T012 [P] [US1] Create unit tests for GEvalEvaluator in tests/unit/lib/evaluators/deepeval/test_geval.py</li>
+</ul>
+<h3 id="implementation-for-user-story-1">Implementation for User Story 1<a class="headerlink" href="#implementation-for-user-story-1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013 [US1] Implement GEvalEvaluator with criteria and evaluation_steps support in src/holodeck/lib/evaluators/deepeval/geval.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T014 [US1] Add _create_metric() method wrapping DeepEval's GEval in src/holodeck/lib/evaluators/deepeval/geval.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T015 [US1] Add _extract_result() method normalizing score to 0-1 in src/holodeck/lib/evaluators/deepeval/geval.py (Note: handled by base class)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T016 [US1] Add logging for evaluation scores and reasoning using HoloDeck logger in src/holodeck/lib/evaluators/deepeval/base.py (Note: already in base class)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 [US1] Update src/holodeck/lib/evaluators/deepeval/<strong>init</strong>.py to export GEvalEvaluator</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T018 [US1] Update src/holodeck/lib/evaluators/<strong>init</strong>.py to include deepeval module exports</li>
+</ul>
+<h3 id="testexecutor-integration-for-user-story-1">TestExecutor Integration for User Story 1<a class="headerlink" href="#testexecutor-integration-for-user-story-1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T049 [US1] Create GEvalMetric model (discriminated union) with criteria, evaluation_steps, strict_mode, evaluation_params fields in src/holodeck/models/evaluation.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T050 [US1] Update EvaluationConfig.metrics to accept Union[EvaluationMetric, GEvalMetric] with discriminator on type field in src/holodeck/models/evaluation.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T051 [P] [US1] Create unit tests for GEvalMetric model validation in tests/unit/models/test_evaluation_deepeval.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T052 [US1] Add DeepEval imports (GEvalEvaluator, DeepEvalModelConfig) to src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T053 [US1] Add _build_deepeval_config() helper method to convert LLMProvider to DeepEvalModelConfig in src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T054 [US1] Extend _create_evaluators() to handle GEvalMetric instances in src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T055 [P] [US1] Create unit tests for TestExecutor GEval integration in tests/unit/lib/test_runner/test_executor_deepeval.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: User Story 1 complete - can evaluate with any LLM provider using G-Eval ✅</p>
+<hr />
+<h2 id="phase-4-user-story-2-custom-evaluation-criteria-priority-p1">Phase 4: User Story 2 - Custom Evaluation Criteria (Priority: P1) ✅<a class="headerlink" href="#phase-4-user-story-2-custom-evaluation-criteria-priority-p1" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Define custom evaluation criteria in natural language</p>
+<p><strong>Independent Test</strong>: Create custom G-Eval metric with "professionalism" criteria and evaluate informal response</p>
+<h3 id="tests-for-user-story-2">Tests for User Story 2<a class="headerlink" href="#tests-for-user-story-2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T019 [P] [US2] Create unit tests for custom criteria with threshold validation in tests/unit/lib/evaluators/deepeval/test_geval.py</li>
+</ul>
+<h3 id="implementation-for-user-story-2">Implementation for User Story 2<a class="headerlink" href="#implementation-for-user-story-2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T020 [US2] Add evaluation_params support (input, actual_output, expected_output, context, retrieval_context) in src/holodeck/lib/evaluators/deepeval/geval.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T021 [US2] Add strict_mode support for binary scoring in src/holodeck/lib/evaluators/deepeval/geval.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T022 [US2] Add threshold configuration with pass/fail logic in src/holodeck/lib/evaluators/deepeval/geval.py (Note: inherited from base)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 [US2] Add auto-generation of evaluation_steps when not provided in src/holodeck/lib/evaluators/deepeval/geval.py (Note: delegated to DeepEval)</li>
+</ul>
+<p><strong>Checkpoint</strong>: User Story 2 complete - custom criteria evaluation working ✅</p>
+<hr />
+<h2 id="phase-5-user-story-3-rag-pipeline-evaluation-priority-p2">Phase 5: User Story 3 - RAG Pipeline Evaluation (Priority: P2)<a class="headerlink" href="#phase-5-user-story-3-rag-pipeline-evaluation-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Evaluate retrieval quality and response faithfulness separately</p>
+<p><strong>Independent Test</strong>: Provide retrieval_context and run Faithfulness + ContextualRelevancy metrics</p>
+<h3 id="tests-for-user-story-3">Tests for User Story 3<a class="headerlink" href="#tests-for-user-story-3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T024 [P] [US3] Create unit tests for FaithfulnessEvaluator in tests/unit/lib/evaluators/deepeval/test_faithfulness.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T025 [P] [US3] Create unit tests for ContextualRelevancyEvaluator in tests/unit/lib/evaluators/deepeval/test_contextual_relevancy.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T026 [P] [US3] Create unit tests for ContextualPrecisionEvaluator in tests/unit/lib/evaluators/deepeval/test_contextual_precision.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T027 [P] [US3] Create unit tests for ContextualRecallEvaluator in tests/unit/lib/evaluators/deepeval/test_contextual_recall.py</li>
+</ul>
+<h3 id="implementation-for-user-story-3">Implementation for User Story 3<a class="headerlink" href="#implementation-for-user-story-3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T028 [P] [US3] Implement FaithfulnessEvaluator wrapping DeepEval's FaithfulnessMetric in src/holodeck/lib/evaluators/deepeval/faithfulness.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T029 [P] [US3] Implement ContextualRelevancyEvaluator in src/holodeck/lib/evaluators/deepeval/contextual_relevancy.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T030 [P] [US3] Implement ContextualPrecisionEvaluator in src/holodeck/lib/evaluators/deepeval/contextual_precision.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T031 [P] [US3] Implement ContextualRecallEvaluator in src/holodeck/lib/evaluators/deepeval/contextual_recall.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T032 [US3] Add retrieval_context validation (required for RAG metrics) in src/holodeck/lib/evaluators/deepeval/base.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T033 [US3] Update src/holodeck/lib/evaluators/deepeval/<strong>init</strong>.py to export all RAG evaluators</li>
+</ul>
+<h3 id="testexecutor-integration-for-user-story-3">TestExecutor Integration for User Story 3<a class="headerlink" href="#testexecutor-integration-for-user-story-3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T056 [US3] Add retrieval_context field to TestCaseModel for RAG metrics in src/holodeck/models/test_case.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T057 [US3] Create RAGMetric model (discriminated union) for faithfulness, contextual_relevancy, contextual_precision, contextual_recall in src/holodeck/models/evaluation.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T058 [US3] Update EvaluationConfig.metrics Union to include RAGMetric in src/holodeck/models/evaluation.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T059 [P] [US3] Create unit tests for RAGMetric model validation in tests/unit/models/test_evaluation_deepeval.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T060 [US3] Add RAG evaluator imports (FaithfulnessEvaluator, ContextualRelevancyEvaluator, etc.) to src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T061 [US3] Extend _create_evaluators() to handle RAGMetric instances in src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T062 [US3] Update _run_evaluations() to pass retrieval_context for RAG metrics when available in src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T063 [P] [US3] Create unit tests for TestExecutor RAG metrics integration in tests/unit/lib/test_runner/test_executor_rag_metrics.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: User Story 3 complete - RAG evaluation suite working</p>
+<hr />
+<h2 id="phase-6-user-story-4-azure-ai-provider-validation-priority-p2">Phase 6: User Story 4 - Azure AI Provider Validation (Priority: P2)<a class="headerlink" href="#phase-6-user-story-4-azure-ai-provider-validation-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Fail early with clear error when non-Azure provider configured for Azure AI evaluator</p>
+<p><strong>Independent Test</strong>: Configure AzureAIEvaluator with OpenAI provider, verify ProviderNotSupportedError raised</p>
+<h3 id="tests-for-user-story-4">Tests for User Story 4<a class="headerlink" href="#tests-for-user-story-4" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T034 [P] [US4] Create unit tests for Azure AI provider validation in tests/unit/lib/evaluators/test_azure_ai_validation.py</li>
+</ul>
+<h3 id="implementation-for-user-story-4">Implementation for User Story 4<a class="headerlink" href="#implementation-for-user-story-4" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T035 [US4] Add _validate_provider() method to AzureAIEvaluator in src/holodeck/lib/evaluators/azure_ai.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T036 [US4] Call _validate_provider() in AzureAIEvaluator.<strong>init</strong>() in src/holodeck/lib/evaluators/azure_ai.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T037 [US4] Import ProviderNotSupportedError from deepeval.errors in src/holodeck/lib/evaluators/azure_ai.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T038 [US4] Update src/holodeck/lib/evaluators/<strong>init</strong>.py to export ProviderNotSupportedError</li>
+</ul>
+<p><strong>Checkpoint</strong>: User Story 4 complete - Azure AI evaluator fails early on misconfiguration</p>
+<hr />
+<h2 id="phase-7-user-story-5-answer-relevancy-evaluation-priority-p2">Phase 7: User Story 5 - Answer Relevancy Evaluation (Priority: P2)<a class="headerlink" href="#phase-7-user-story-5-answer-relevancy-evaluation-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Evaluate response relevance to user queries</p>
+<p><strong>Independent Test</strong>: Provide query-response pair, verify relevancy score returned</p>
+<h3 id="tests-for-user-story-5">Tests for User Story 5<a class="headerlink" href="#tests-for-user-story-5" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T039 [P] [US5] Create unit tests for AnswerRelevancyEvaluator in tests/unit/lib/evaluators/deepeval/test_answer_relevancy.py</li>
+</ul>
+<h3 id="implementation-for-user-story-5">Implementation for User Story 5<a class="headerlink" href="#implementation-for-user-story-5" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T040 [US5] Implement AnswerRelevancyEvaluator wrapping DeepEval's AnswerRelevancyMetric in src/holodeck/lib/evaluators/deepeval/answer_relevancy.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T041 [US5] Add include_reason parameter support in src/holodeck/lib/evaluators/deepeval/answer_relevancy.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T042 [US5] Update src/holodeck/lib/evaluators/deepeval/<strong>init</strong>.py to export AnswerRelevancyEvaluator</li>
+</ul>
+<h3 id="testexecutor-integration-for-user-story-5">TestExecutor Integration for User Story 5<a class="headerlink" href="#testexecutor-integration-for-user-story-5" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T064 [US5] Create AnswerRelevancyMetric model (discriminated union) with include_reason field in src/holodeck/models/evaluation.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T065 [US5] Update EvaluationConfig.metrics Union to include AnswerRelevancyMetric in src/holodeck/models/evaluation.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T066 [P] [US5] Create unit tests for AnswerRelevancyMetric model validation in tests/unit/models/test_evaluation_deepeval.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T067 [US5] Add AnswerRelevancyEvaluator import to src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T068 [US5] Extend _create_evaluators() to handle AnswerRelevancyMetric instances in src/holodeck/lib/test_runner/executor.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T069 [P] [US5] Create unit tests for TestExecutor AnswerRelevancy integration in tests/unit/lib/test_runner/test_executor_answer_relevancy.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: User Story 5 complete - answer relevancy evaluation working</p>
+<hr />
+<h2 id="phase-8-polish-cross-cutting-concerns">Phase 8: Polish &amp; Cross-Cutting Concerns<a class="headerlink" href="#phase-8-polish-cross-cutting-concerns" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Improvements that affect multiple user stories</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T043 [P] Run make format &amp;&amp; make lint-fix to ensure code quality</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T044 [P] Run make type-check to verify MyPy strict mode compliance</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T045 [P] Run make test to verify all unit tests pass</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T046 Create integration test with real Ollama in tests/integration/lib/evaluators/test_deepeval_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T047 [P] Run make security to verify Bandit/Safety compliance</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T048 Validate quickstart.md examples work with implemented code</li>
+</ul>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="phase-dependencies">Phase Dependencies<a class="headerlink" href="#phase-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Setup (Phase 1)</strong>: No dependencies - can start immediately</li>
+<li><strong>Foundational (Phase 2)</strong>: Depends on Setup - BLOCKS all user stories</li>
+<li><strong>User Stories (Phases 3-7)</strong>: All depend on Foundational (Phase 2) completion</li>
+<li>US1 + US2 can proceed in parallel (P1 priority, both use GEval)</li>
+<li>US3, US4, US5 can proceed in parallel after US1 (different evaluators)</li>
+<li><strong>Polish (Phase 8)</strong>: Depends on all user stories being complete</li>
+</ul>
+<h3 id="user-story-dependencies">User Story Dependencies<a class="headerlink" href="#user-story-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>User Story 1 (P1)</strong>: Can start after Foundational - No dependencies on other stories</li>
+<li><strong>User Story 2 (P1)</strong>: Can start after US1 (extends GEvalEvaluator)</li>
+<li><strong>User Story 3 (P2)</strong>: Can start after Foundational - Independent RAG evaluators</li>
+<li><strong>User Story 4 (P2)</strong>: Can start after Foundational - Modifies existing Azure AI code</li>
+<li><strong>User Story 5 (P2)</strong>: Can start after Foundational - Independent evaluator</li>
+</ul>
+<h3 id="within-each-user-story">Within Each User Story<a class="headerlink" href="#within-each-user-story" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tests SHOULD be written first (TDD approach)</li>
+<li>Base evaluator methods before specific evaluator classes</li>
+<li>Core implementation before exports/integration</li>
+<li>Story complete before Polish phase</li>
+</ul>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All Setup tasks marked [P] can run in parallel</li>
+<li>T010, T011 (Foundational tests) can run in parallel</li>
+<li>All RAG evaluator tests (T024-T027) can run in parallel</li>
+<li>All RAG evaluator implementations (T028-T031) can run in parallel</li>
+<li>All Polish tasks marked [P] can run in parallel</li>
+</ul>
+<hr />
+<h2 id="parallel-example-user-story-3-rag-evaluators">Parallel Example: User Story 3 (RAG Evaluators)<a class="headerlink" href="#parallel-example-user-story-3-rag-evaluators" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch all RAG metric tests in parallel:</span>
+T024:<span class="w"> </span><span class="s2">"Create unit tests for FaithfulnessEvaluator in tests/unit/lib/evaluators/deepeval/test_faithfulness.py"</span>
+T025:<span class="w"> </span><span class="s2">"Create unit tests for ContextualRelevancyEvaluator in tests/unit/lib/evaluators/deepeval/test_contextual_relevancy.py"</span>
+T026:<span class="w"> </span><span class="s2">"Create unit tests for ContextualPrecisionEvaluator in tests/unit/lib/evaluators/deepeval/test_contextual_precision.py"</span>
+T027:<span class="w"> </span><span class="s2">"Create unit tests for ContextualRecallEvaluator in tests/unit/lib/evaluators/deepeval/test_contextual_recall.py"</span>
+
+<span class="c1"># Launch all RAG metric implementations in parallel:</span>
+T028:<span class="w"> </span><span class="s2">"Implement FaithfulnessEvaluator in src/holodeck/lib/evaluators/deepeval/faithfulness.py"</span>
+T029:<span class="w"> </span><span class="s2">"Implement ContextualRelevancyEvaluator in src/holodeck/lib/evaluators/deepeval/contextual_relevancy.py"</span>
+T030:<span class="w"> </span><span class="s2">"Implement ContextualPrecisionEvaluator in src/holodeck/lib/evaluators/deepeval/contextual_precision.py"</span>
+T031:<span class="w"> </span><span class="s2">"Implement ContextualRecallEvaluator in src/holodeck/lib/evaluators/deepeval/contextual_recall.py"</span>
+</code></pre></div>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="mvp-first-user-stories-1-2-only">MVP First (User Stories 1 + 2 Only)<a class="headerlink" href="#mvp-first-user-stories-1-2-only" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Phase 1: Setup</li>
+<li>Complete Phase 2: Foundational (CRITICAL - blocks all stories)</li>
+<li>Complete Phase 3: User Story 1 (Multi-Provider + G-Eval)</li>
+<li>Complete Phase 4: User Story 2 (Custom Criteria)</li>
+<li><strong>STOP and VALIDATE</strong>: Test G-Eval with custom criteria independently</li>
+<li>Deploy/demo if ready - this is a usable MVP</li>
+</ol>
+<h3 id="incremental-delivery">Incremental Delivery<a class="headerlink" href="#incremental-delivery" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Setup + Foundational → Foundation ready</li>
+<li>Add User Story 1 + 2 → Test G-Eval independently → <strong>MVP!</strong></li>
+<li>Add User Story 3 → Test RAG metrics independently</li>
+<li>Add User Story 4 → Test Azure AI validation independently</li>
+<li>Add User Story 5 → Test AnswerRelevancy independently</li>
+<li>Each story adds value without breaking previous stories</li>
+</ol>
+<h3 id="parallel-team-strategy">Parallel Team Strategy<a class="headerlink" href="#parallel-team-strategy" title="Permanent link">&para;</a></h3>
+<p>With multiple developers:</p>
+<ol>
+<li>Team completes Setup + Foundational together</li>
+<li>Once Foundational is done:</li>
+<li>Developer A: User Story 1 + 2 (G-Eval)</li>
+<li>Developer B: User Story 3 (RAG metrics)</li>
+<li>Developer C: User Story 4 (Azure validation) + User Story 5 (Answer Relevancy)</li>
+<li>Stories complete and integrate independently</li>
+</ol>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[P] tasks = different files, no dependencies</li>
+<li>[Story] label maps task to specific user story for traceability</li>
+<li>Each user story should be independently completable and testable</li>
+<li>Uses DeepEval's native model classes (GPTModel, AzureOpenAIModel, AnthropicModel, OllamaModel)</li>
+<li>Default model is Ollama with gpt-oss:20b per clarification session</li>
+<li>Commit after each task or logical group</li>
+<li>Stop at any checkpoint to validate story independently</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -37,18 +37,17 @@ Result: PASS
 
 ## How it works
 
-You attach `metrics` under `evaluations` and a list of `test_cases` (each with an `input` and optional `ground_truth`). When you run `holodeck test run agent.yaml`, HoloDeck invokes the agent on each test input, records its response and tool calls, then runs every enabled metric. Metrics fall into four families: **deterministic / NLP** (`type: standard` — no LLM, scores token overlap or compares numbers/strings), **DeepEval** (`type: geval` and `type: rag` — LLM-as-a-judge), **code graders** (`type: code` — your Python callable with full tool-call access), and **legacy Azure AI** metrics (deprecated). A metric **passes** when its score meets its `threshold`; a test case passes when all its metrics pass. The evaluation LLM (for `geval`/`rag`) is provider-agnostic — configure it via a `model:` block (see [Evaluation model configuration](#evaluation-model-configuration)).
+You attach `metrics` under `evaluations` and a list of `test_cases` (each with an `input` and optional `ground_truth`). When you run `holodeck test run agent.yaml`, HoloDeck invokes the agent on each test input, records its response and tool calls, then runs every enabled metric. Metrics fall into four families: **deterministic / NLP** (`type: standard` — no LLM, scores token overlap or compares numbers/strings), **DeepEval** (`type: geval` and `type: rag` — LLM-as-a-judge), and **code graders** (`type: code` — your Python callable with full tool-call access). The Azure AI metrics were removed; see [Removed Azure AI metrics](#removed-azure-ai-metrics). A metric **passes** when its score meets its `threshold`; a test case passes when all its metrics pass. The evaluation LLM (for `geval`/`rag`) is provider-agnostic — configure it via a `model:` block (see [Evaluation model configuration](#evaluation-model-configuration)).
 
 ## Choosing a metric
 
-| Family              | `type`                                             | LLM needed? | Use for                                                     |
-| ------------------- | -------------------------------------------------- | ----------- | ----------------------------------------------------------- |
-| Deterministic       | `standard` (`equality`, `numeric`)                 | No          | Exact strings, numbers, slot-filling, classification labels |
-| NLP overlap         | `standard` (`f1_score`, `bleu`, `rouge`, `meteor`) | No          | Token / n-gram similarity to a reference                    |
-| DeepEval GEval      | `geval`                                            | Yes         | Custom natural-language quality criteria                    |
-| DeepEval RAG        | `rag`                                              | Yes         | Hallucination / retrieval quality in RAG pipelines          |
-| Code grader         | `code`                                             | No          | Tool-call assertions, domain logic over tool results        |
-| Legacy (deprecated) | `standard` (`groundedness`, etc.)                  | Yes         | Migrate to `geval`/`rag` instead                            |
+| Family         | `type`                                             | LLM needed? | Use for                                                     |
+| -------------- | -------------------------------------------------- | ----------- | ----------------------------------------------------------- |
+| Deterministic  | `standard` (`equality`, `numeric`)                 | No          | Exact strings, numbers, slot-filling, classification labels |
+| NLP overlap    | `standard` (`f1_score`, `bleu`, `rouge`, `meteor`) | No          | Token / n-gram similarity to a reference                    |
+| DeepEval GEval | `geval`                                            | Yes         | Custom natural-language quality criteria                    |
+| DeepEval RAG   | `rag`                                              | Yes         | Hallucination / retrieval quality in RAG pipelines          |
+| Code grader    | `code`                                             | No          | Tool-call assertions, domain logic over tool results        |
 
 ______________________________________________________________________
 
@@ -103,6 +102,8 @@ Strict string equality with optional normalization. Score is `1.0` on match, `0.
 
 Token / n-gram overlap against `ground_truth`. All score `0.0`–`1.0` (higher is better).
 
+`bleu`, `rouge` and `meteor` need the `nlp` extra: `pip install "holodeck-ai[nlp]"`. Without it, `holodeck test` stops before running any test case and prints that command.
+
 | `metric`   | Measures                                | Use for                              |
 | ---------- | --------------------------------------- | ------------------------------------ |
 | `f1_score` | Token-level precision/recall balance    | Exact word matching matters          |
@@ -116,9 +117,19 @@ Token / n-gram overlap against `ground_truth`. All score `0.0`–`1.0` (higher i
   threshold: 0.8
 ```
 
+`meteor` reads NLTK language data and never downloads it during a run. Install it once on every machine that runs `holodeck test` (a CI runner, for example):
+
+```
+python -m nltk.downloader wordnet punkt_tab omw-1.4
+```
+
+If the data is missing, the metric fails with an error that names the missing resource and this command. Deployed agent images serve agents and do not run evaluations, so they do not include the data.
+
 ______________________________________________________________________
 
 ## DeepEval metrics (`type: geval`, `type: rag`)
+
+These metrics need the `eval` extra: `pip install "holodeck-ai[eval]"`. Without it, `holodeck test` stops before running any test case and prints that command.
 
 DeepEval provides LLM-as-a-judge evaluation. It works with any configured provider (Ollama for free local eval, or OpenAI / Anthropic / Azure OpenAI). Set `temperature: 0.0` for deterministic scoring.
 
@@ -397,25 +408,29 @@ These fields apply to most metric types:
 
 ______________________________________________________________________
 
-## Legacy AI metrics (deprecated)
+## Removed Azure AI metrics
 
-Deprecated
+HoloDeck 0.8.0 removes the Azure AI evaluation metrics and the `azure-ai-evaluation` package. An `agent.yaml` that names one of these metrics fails when the configuration loads, before any agent or model call. The error names the replacement.
 
-Azure AI-based metrics (`groundedness`, `relevance`, `coherence`, `safety`) are deprecated and will be removed in a future version. They remain supported for backwards compatibility only.
-
-| Legacy metric  | Migrate to                                   |
-| -------------- | -------------------------------------------- |
-| `groundedness` | `type: rag`, `metric_type: faithfulness`     |
-| `relevance`    | `type: rag`, `metric_type: answer_relevancy` |
-| `coherence`    | `type: geval` with custom `criteria`         |
-| `safety`       | `type: geval` with safety `criteria`         |
+| Removed metric | Use instead (DeepEval)                                                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `groundedness` | `type: rag`, `metric_type: faithfulness`                                                                                                                |
+| `relevance`    | `type: rag`, `metric_type: answer_relevancy`                                                                                                            |
+| `coherence`    | `type: geval` with criteria such as "Is the response logically organised and consistent?"                                                               |
+| `fluency`      | `type: geval` with criteria such as "Is the response grammatical and easy to read?"                                                                     |
+| `similarity`   | `type: geval` with `evaluation_params: [actual_output, expected_output]` and criteria such as "Does the response mean the same as the expected output?" |
+| `safety`       | `type: geval` with criteria that describe the content the response must not contain                                                                     |
 
 ```
-# Before (deprecated)            # After
+# Before (removed)               # After
 - type: standard                 - type: rag
   metric: groundedness             metric_type: faithfulness
   threshold: 0.8                   threshold: 0.8
 ```
+
+The replacements are different judges with different prompts and inputs, so scores are not equivalent. Run the suite again and set new thresholds. `faithfulness` needs retrieval context (a retrieval tool or `retrieval_context` on the test case). HoloDeck does not translate old configuration automatically.
+
+Stored runs that used the removed metrics still open in `holodeck test view`. Their metric names and scores show as they were recorded.
 
 ______________________________________________________________________
 

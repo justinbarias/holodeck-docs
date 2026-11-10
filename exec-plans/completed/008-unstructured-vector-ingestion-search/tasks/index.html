@@ -1,0 +1,2766 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/008-unstructured-vector-ingestion-search/tasks/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: Unstructured Vector Ingestion and Search - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-unstructured-vector-ingestion-and-search" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: Unstructured Vector Ingestion and Search
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-story-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] [Story] Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Conventions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-shared-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup (Shared Infrastructure)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-blocking-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational (Blocking Prerequisites)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-1-semantic-search-over-unstructured-data-priority-p1-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 1 - Semantic Search Over Unstructured Data (Priority: P1) 🎯 MVP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: User Story 1 - Semantic Search Over Unstructured Data (Priority: P1) 🎯 MVP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Tests for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-integration-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Integration for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-for-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests for User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-user-story-2-custom-embedding-model-configuration-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: User Story 2 - Custom Embedding Model Configuration (Priority: P2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: User Story 2 - Custom Embedding Model Configuration (Priority: P2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests-for-user-story-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Tests for User Story 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-for-user-story-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests for User Story 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-user-story-3-vector-database-persistence-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: User Story 3 - Vector Database Persistence (Priority: P3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: User Story 3 - Vector Database Persistence (Priority: P3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Tests for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-for-user-story-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests for User Story 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-polish-cross-cutting-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: Polish &amp; Cross-Cutting Concerns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within-each-user-story" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Within Each User Story
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-example-user-story-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Example: User Story 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mvp-first-user-story-1-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVP First (User Story 1 Only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental Delivery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-team-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Team Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-unstructured-vector-ingestion-and-search">Tasks: Unstructured Vector Ingestion and Search<a class="headerlink" href="#tasks-unstructured-vector-ingestion-and-search" title="Permanent link">&para;</a></h1>
+<p><strong>Input</strong>: Design documents from <code>/docs/product-specs/008-unstructured-vector-ingestion-search/</code>
+<strong>Prerequisites</strong>: plan.md, spec.md, research.md, data-model.md, contracts/</p>
+<p><strong>Tests</strong>: Tests are NOT explicitly requested in the feature specification. Test tasks are included for validation but can be removed if not desired.</p>
+<p><strong>Organization</strong>: Tasks are grouped by user story to enable independent implementation and testing of each story.</p>
+<h2 id="format-id-p-story-description">Format: <code>[ID] [P?] [Story] Description</code><a class="headerlink" href="#format-id-p-story-description" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Can run in parallel (different files, no dependencies)</li>
+<li><strong>[Story]</strong>: Which user story this task belongs to (e.g., US1, US2, US3)</li>
+<li>Include exact file paths in descriptions</li>
+</ul>
+<h2 id="path-conventions">Path Conventions<a class="headerlink" href="#path-conventions" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Single project</strong>: <code>src/holodeck/</code>, <code>tests/</code> at repository root</li>
+<li>Existing project structure is extended</li>
+</ul>
+<hr />
+<h2 id="phase-1-setup-shared-infrastructure">Phase 1: Setup (Shared Infrastructure)<a class="headerlink" href="#phase-1-setup-shared-infrastructure" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Add dependencies and prepare infrastructure for vectorstore tools</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 Add Semantic Kernel dependency to pyproject.toml (vector stores, text chunking, embeddings)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T002 [P] Add redis-py async dependency to pyproject.toml for Redis vector store support</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T003 [P] Update pyproject.toml with tiktoken dependency for token-based text chunking</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T004 Install all new dependencies via poetry and verify no conflicts</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-blocking-prerequisites">Phase 2: Foundational (Blocking Prerequisites)<a class="headerlink" href="#phase-2-foundational-blocking-prerequisites" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Core abstractions and utilities that ALL user stories depend on</p>
+<p><strong>⚠️ CRITICAL</strong>: No user story work can begin until this phase is complete</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T005 [P] Extend VectorStoreConfig model in src/holodeck/models/tool.py with all configuration fields (source, embedding_model, database, top_k, min_similarity_score)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 [P] Add DatabaseConfig model in src/holodeck/models/tool.py for Vector store (redis, postgres, pinecone, chroma, faiss) connection configuration (provider, connection_string, index_name, vector_algorithm, distance_metric)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T007 [P] Create DocumentRecord dataclass in src/holodeck/lib/vector_store.py with Semantic Kernel annotations (VectorStoreRecordKeyField, VectorStoreRecordDataField, VectorStoreRecordVectorField)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T008 [P] Create SourceFile dataclass in src/holodeck/lib/file_processor.py (path, content, mtime, size_bytes, file_type, chunks)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T009 [P] Create QueryResult dataclass in src/holodeck/lib/vector_store.py (content, score, source_path, chunk_index, metadata)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 Implement VectorStore abstraction class in src/holodeck/lib/vector_store.py with methods: upsert, get, delete, search, delete_by_source (depends on T007, T009)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T011 Implement Redis backend initialization in VectorStore using RedisStore from Semantic Kernel in src/holodeck/lib/vector_store.py (depends on T010)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T012 Implement in-memory backend initialization in VectorStore using VolatileVectorStore from Semantic Kernel in src/holodeck/lib/vector_store.py (depends on T010)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013 [P] Create TextChunker wrapper class in src/holodeck/lib/text_chunker.py using RecursiveCharacterTextSplitter from Semantic Kernel with token-based chunking (512 tokens, 50 overlap)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T014 Implement configuration resolution logic for database config (tool-specific → project config → user config → in-memory) in src/holodeck/config/loader.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T015 [P] Update ConfigValidator in src/holodeck/config/validator.py to validate VectorStoreConfig fields (type, source, top_k range, min_similarity_score range, database config)</li>
+</ul>
+<p><strong>Checkpoint</strong>: Foundation ready - user story implementation can now begin in parallel</p>
+<hr />
+<h2 id="phase-3-user-story-1-semantic-search-over-unstructured-data-priority-p1-mvp">Phase 3: User Story 1 - Semantic Search Over Unstructured Data (Priority: P1) 🎯 MVP<a class="headerlink" href="#phase-3-user-story-1-semantic-search-over-unstructured-data-priority-p1-mvp" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Enable agents to perform semantic search over single files or directories with automatic ingestion, embedding generation, and relevance-ranked results</p>
+<p><strong>Independent Test</strong>: Configure a vectorstore tool pointing to either a single markdown file or a directory of mixed file types, run queries, and verify semantically relevant results are returned with source references</p>
+<h3 id="unit-tests-for-user-story-1">Unit Tests for User Story 1<a class="headerlink" href="#unit-tests-for-user-story-1" title="Permanent link">&para;</a></h3>
+<p><strong>NOTE: Write these tests FIRST, ensure they FAIL before implementation</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T016 [P] [US1] Unit test for VectorStoreTool initialization with valid config in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 [P] [US1] Unit test for VectorStoreTool initialization with missing source path in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T018 [P] [US1] Unit test for VectorStoreTool file discovery (single file) in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T019 [P] [US1] Unit test for VectorStoreTool file discovery (directory with nested subdirectories) in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T020 [P] [US1] Unit test for VectorStoreTool search result formatting in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T021 [P] [US1] Unit test for text chunking with markdown content in tests/unit/test_text_chunker.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T022 [P] [US1] Unit test for VectorStore upsert and get operations in tests/unit/test_vector_store.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 [P] [US1] Unit test for VectorStore search with top_k filtering in tests/unit/test_vector_store.py</li>
+</ul>
+<h3 id="implementation-for-user-story-1">Implementation for User Story 1<a class="headerlink" href="#implementation-for-user-story-1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T024 [P] [US1] Create VectorStoreTool class skeleton in src/holodeck/tools/vectorstore_tool.py with <strong>init</strong>, initialize, and search methods (depends on T005)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T025 [US1] Implement VectorStoreTool.<strong>init</strong> to accept VectorStoreConfig and initialize instance variables in src/holodeck/tools/vectorstore_tool.py (depends on T024, T010, T013)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T026 [US1] Implement file/directory discovery logic in VectorStoreTool._discover_files method in src/holodeck/tools/vectorstore_tool.py supporting recursive traversal (depends on T025)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T027 [US1] Implement file filtering by supported extensions (.txt, .md, .pdf, .csv, .json) in VectorStoreTool._discover_files in src/holodeck/tools/vectorstore_tool.py (depends on T026)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T028 [US1] Implement VectorStoreTool._process_file method to convert file to markdown using existing FileProcessor in src/holodeck/tools/vectorstore_tool.py (depends on T025, T008)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029 [US1] Implement text chunking in VectorStoreTool._process_file using TextChunker in src/holodeck/tools/vectorstore_tool.py (depends on T028, T013)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T030 [US1] Implement batch embedding generation in VectorStoreTool._embed_chunks method using Semantic Kernel TextEmbedding service in src/holodeck/tools/vectorstore_tool.py (depends on T025)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T031 [US1] Implement DocumentRecord creation and storage in VectorStoreTool._store_chunks method in src/holodeck/tools/vectorstore_tool.py (depends on T029, T030, T010)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T032 [US1] Implement VectorStoreTool.initialize method to orchestrate file discovery, processing, and storage in src/holodeck/tools/vectorstore_tool.py (depends on T026, T027, T031)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T033 [US1] Implement VectorStoreTool.search method to generate query embedding and execute vector search in src/holodeck/tools/vectorstore_tool.py (depends on T032, T010)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T034 [US1] Implement search result formatting in VectorStoreTool._format_results method in src/holodeck/tools/vectorstore_tool.py (depends on T033, T009)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T035 [US1] Add error handling for FileNotFoundError when source path doesn't exist in VectorStoreTool.initialize in src/holodeck/tools/vectorstore_tool.py (depends on T032)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T036 [US1] Add warning logs for skipped files (unsupported types, empty files, processing errors) in VectorStoreTool._process_file in src/holodeck/tools/vectorstore_tool.py (depends on T028)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037 [US1] Implement top_k result limiting in VectorStoreTool.search in src/holodeck/tools/vectorstore_tool.py (depends on T033)</li>
+</ul>
+<h3 id="agent-integration-for-user-story-1">Agent Integration for User Story 1<a class="headerlink" href="#agent-integration-for-user-story-1" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Integrate VectorStoreTool with AgentFactory so agents can use vectorstore tools during execution</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037a [US1] Add TextEmbedding service registration method to AgentFactory in src/holodeck/lib/test_runner/agent_factory.py (OpenAI/Azure text-embedding-3-small) following Semantic Kernel pattern (depends on T024)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037b [US1] Create KernelFunction for VectorStoreTool.search using kernel.add_function() in AgentFactory (NOT decorator) in src/holodeck/lib/test_runner/agent_factory.py (depends on T033)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037c [US1] Add _register_vectorstore_tools method to AgentFactory to discover vectorstore tools from agent config, initialize them, and register search functions via kernel.add_function() in src/holodeck/lib/test_runner/agent_factory.py (depends on T037a, T037b)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037d [US1] Update AgentFactory._create_kernel to call embedding service registration when vectorstore tools are configured in src/holodeck/lib/test_runner/agent_factory.py (depends on T037a)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037e [US1] Update AgentFactory._create_agent to call _register_vectorstore_tools before agent creation in src/holodeck/lib/test_runner/agent_factory.py (depends on T037c)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037f [P] [US1] Unit test for AgentFactory embedding service registration in tests/unit/test_agent_factory.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037g [P] [US1] Unit test for VectorStoreTool kernel function registration via add_function in tests/unit/test_agent_factory.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037h [P] [US1] Unit test for AgentFactory vectorstore tool discovery and initialization in tests/unit/test_agent_factory.py</li>
+</ul>
+<h3 id="integration-tests-for-user-story-1">Integration Tests for User Story 1<a class="headerlink" href="#integration-tests-for-user-story-1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T038 [P] [US1] Integration test for end-to-end ingestion and search with single markdown file in tests/integration/test_vectorstore_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T039 [P] [US1] Integration test for end-to-end ingestion and search with directory of mixed file types in tests/integration/test_vectorstore_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T040 [P] [US1] Integration test for nested subdirectory traversal in tests/integration/test_vectorstore_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T041 [P] [US1] Integration test for search result ordering by relevance score in tests/integration/test_vectorstore_integration.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: At this point, User Story 1 should be fully functional and testable independently - agents can perform semantic search over files and directories</p>
+<hr />
+<h2 id="phase-4-user-story-2-custom-embedding-model-configuration-priority-p2">Phase 4: User Story 2 - Custom Embedding Model Configuration (Priority: P2)<a class="headerlink" href="#phase-4-user-story-2-custom-embedding-model-configuration-priority-p2" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Allow developers to specify custom embedding models for optimization (domain-specific embeddings, cost, performance)</p>
+<p><strong>Independent Test</strong>: Configure embedding_model parameter in vectorstore tool, verify embeddings are generated using the specified model, compare against default model behavior</p>
+<h3 id="unit-tests-for-user-story-2">Unit Tests for User Story 2<a class="headerlink" href="#unit-tests-for-user-story-2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T042 [P] [US2] Unit test for embedding model parameter parsing from config in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T043 [P] [US2] Unit test for default embedding model selection based on LLM provider in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T044 [P] [US2] Unit test for custom embedding model initialization in tests/unit/test_vectorstore_tool.py</li>
+</ul>
+<h3 id="implementation-for-user-story-2">Implementation for User Story 2<a class="headerlink" href="#implementation-for-user-story-2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T045 [P] [US2] Implement embedding model resolution logic in VectorStoreTool.<strong>init</strong> (custom model vs provider default) in src/holodeck/tools/vectorstore_tool.py (depends on T025)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T046 [US2] Implement TextEmbedding service initialization with configurable model in VectorStoreTool.<strong>init</strong> in src/holodeck/tools/vectorstore_tool.py (depends on T045)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T047 [US2] Add provider-specific default embedding model mapping (OpenAI → text-embedding-3-small, Azure → text-embedding-ada-002) in src/holodeck/tools/vectorstore_tool.py (depends on T046)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T048 [US2] Add validation for embedding model availability based on configured LLM provider in src/holodeck/config/validator.py (depends on T015)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T049 [US2] Update embedding dimension detection to match configured model in DocumentRecord creation in src/holodeck/tools/vectorstore_tool.py (depends on T031, T046)</li>
+</ul>
+<h3 id="integration-tests-for-user-story-2">Integration Tests for User Story 2<a class="headerlink" href="#integration-tests-for-user-story-2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T050 [P] [US2] Integration test for custom embedding model usage (text-embedding-3-large) in tests/integration/test_vectorstore_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T051 [P] [US2] Integration test for default embedding model when no explicit model specified in tests/integration/test_vectorstore_integration.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: At this point, User Stories 1 AND 2 should both work independently - custom embedding models are supported</p>
+<hr />
+<h2 id="phase-5-user-story-3-vector-database-persistence-priority-p3">Phase 5: User Story 3 - Vector Database Persistence (Priority: P3)<a class="headerlink" href="#phase-5-user-story-3-vector-database-persistence-priority-p3" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Enable persistent vector storage using Redis for production deployments with large knowledge bases and multi-session persistence</p>
+<p><strong>Independent Test</strong>: Configure Redis vector database connection, ingest test data, verify data persists across agent restarts, measure search performance with large datasets</p>
+<h3 id="unit-tests-for-user-story-3">Unit Tests for User Story 3<a class="headerlink" href="#unit-tests-for-user-story-3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T052 [P] [US3] Unit test for file modification timestamp tracking in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T053 [P] [US3] Unit test for mtime comparison logic (needs re-ingestion vs up-to-date) in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T054 [P] [US3] Unit test for --force-ingest flag bypassing mtime checks in tests/unit/test_vectorstore_tool.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T055 [P] [US3] Unit test for Redis connection fallback to in-memory on connection failure in tests/unit/test_vector_store.py</li>
+</ul>
+<h3 id="implementation-for-user-story-3">Implementation for User Story 3<a class="headerlink" href="#implementation-for-user-story-3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T056 [P] [US3] Implement file modification time tracking in VectorStoreTool._process_file (store mtime in DocumentRecord) in src/holodeck/tools/vectorstore_tool.py (depends on T028, T007)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T057 [US3] Implement VectorStoreTool._needs_reingest method to compare file mtime with stored DocumentRecord mtime in src/holodeck/tools/vectorstore_tool.py (depends on T056)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T058 [US3] Integrate mtime checking into VectorStoreTool._ingest_source to skip unchanged files in src/holodeck/tools/vectorstore_tool.py (depends on T057, T032)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T059 [US3] Implement force_ingest parameter support in VectorStoreTool.initialize to bypass mtime checks in src/holodeck/tools/vectorstore_tool.py (depends on T058)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T060 [US3] Implement VectorStore.delete_by_source method to remove old records when file is modified in src/holodeck/lib/vector_store.py (depends on T010, T058)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T061 [US3] Add Redis connection error handling with fallback to in-memory storage in VectorStore.<strong>init</strong> in src/holodeck/lib/vector_store.py (depends on T011, T012)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T062 [US3] Add --force-ingest flag to holodeck chat command in src/holodeck/cli/commands/chat.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T063 [US3] Add --force-ingest flag to holodeck test command in src/holodeck/cli/commands/test.py</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T064 [US3] Pass --force-ingest flag to VectorStoreTool.initialize in agent execution flow in src/holodeck/cli/commands/chat.py (depends on T062, T059)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T065 [US3] Pass --force-ingest flag to VectorStoreTool.initialize in test execution flow in src/holodeck/cli/commands/test.py (depends on T063, T059)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T066 [US3] Add logging for Redis connection success/failure and in-memory fallback in VectorStore.<strong>init</strong> in src/holodeck/lib/vector_store.py (depends on T061)</li>
+</ul>
+<h3 id="integration-tests-for-user-story-3">Integration Tests for User Story 3<a class="headerlink" href="#integration-tests-for-user-story-3" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T067 [P] [US3] Integration test for Redis vector store persistence across agent restarts in tests/integration/test_vectorstore_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T068 [P] [US3] Integration test for automatic re-ingestion when source file modified in tests/integration/test_vectorstore_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T069 [P] [US3] Integration test for --force-ingest flag forcing full re-ingestion in tests/integration/test_vectorstore_integration.py</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T070 [P] [US3] Integration test for Redis connection failure fallback to in-memory in tests/integration/test_vectorstore_integration.py</li>
+</ul>
+<p><strong>Checkpoint</strong>: All user stories should now be independently functional - Redis persistence and modification tracking complete</p>
+<hr />
+<h2 id="phase-6-polish-cross-cutting-concerns">Phase 6: Polish &amp; Cross-Cutting Concerns<a class="headerlink" href="#phase-6-polish-cross-cutting-concerns" title="Permanent link">&para;</a></h2>
+<p><strong>Purpose</strong>: Improvements that affect multiple user stories</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T071 [P] Add min_similarity_score filtering in VectorStoreTool.search in src/holodeck/tools/vectorstore_tool.py (depends on T033)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T072 [P] Add comprehensive docstrings to VectorStoreTool class and methods in src/holodeck/tools/vectorstore_tool.py following Google Python Style Guide (depends on T037, T049, T066)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T073 [P] Add comprehensive docstrings to VectorStore class and methods in src/holodeck/lib/vector_store.py following Google Python Style Guide (depends on T060, T066)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T074 [P] Add comprehensive docstrings to TextChunker class in src/holodeck/lib/text_chunker.py following Google Python Style Guide (depends on T013)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T075 [P] Add type hints to all VectorStoreTool methods in src/holodeck/tools/vectorstore_tool.py (depends on T072)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T076 [P] Add type hints to all VectorStore methods in src/holodeck/lib/vector_store.py (depends on T073)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T077 [P] Add type hints to all TextChunker methods in src/holodeck/lib/text_chunker.py (depends on T074)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T078 Run make format to format all new code with Black and Ruff</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T079 Run make lint to check code quality with Ruff and Bandit (depends on T078)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T080 Run make type-check to verify MyPy type checking passes (depends on T075, T076, T077)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T081 Run make test-coverage to verify 80% minimum test coverage (depends on T041, T051, T070)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T082 [P] Update quickstart.md with any corrections based on implementation in docs/product-specs/008-unstructured-vector-ingestion-search/quickstart.md</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T083 [P] Add edge case handling for empty query string in VectorStoreTool.search in src/holodeck/tools/vectorstore_tool.py (depends on T033)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T084 [P] Add edge case handling for no results found in VectorStoreTool._format_results in src/holodeck/tools/vectorstore_tool.py (depends on T034)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T085 Run make security to check for security vulnerabilities with Bandit and Safety (depends on T079)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T086 Validate quickstart.md examples work end-to-end (depends on T082)</li>
+</ul>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="phase-dependencies">Phase Dependencies<a class="headerlink" href="#phase-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Setup (Phase 1)</strong>: No dependencies - can start immediately</li>
+<li><strong>Foundational (Phase 2)</strong>: Depends on Setup completion (T001-T004) - BLOCKS all user stories</li>
+<li><strong>User Stories (Phase 3-5)</strong>: All depend on Foundational phase completion (T005-T015)</li>
+<li>User stories can then proceed in parallel (if staffed)</li>
+<li>Or sequentially in priority order (P1 → P2 → P3)</li>
+<li><strong>Polish (Phase 6)</strong>: Depends on all desired user stories being complete</li>
+</ul>
+<h3 id="user-story-dependencies">User Story Dependencies<a class="headerlink" href="#user-story-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>User Story 1 (P1)</strong>: Can start after Foundational (Phase 2) - No dependencies on other stories</li>
+<li><strong>User Story 2 (P2)</strong>: Can start after Foundational (Phase 2) - Extends US1 but independently testable (depends on T025, T031)</li>
+<li><strong>User Story 3 (P3)</strong>: Can start after Foundational (Phase 2) - Extends US1 but independently testable (depends on T028, T032, T033)</li>
+</ul>
+<h3 id="within-each-user-story">Within Each User Story<a class="headerlink" href="#within-each-user-story" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tests MUST be written and FAIL before implementation</li>
+<li>Data models before tool implementation</li>
+<li>Core functionality before edge case handling</li>
+<li>Implementation before integration tests</li>
+<li>Story complete before moving to next priority</li>
+</ul>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<p><strong>Phase 1 (Setup)</strong>:</p>
+<ul>
+<li>T002, T003 can run in parallel</li>
+</ul>
+<p><strong>Phase 2 (Foundational)</strong>:</p>
+<ul>
+<li>T005, T006, T007, T008, T009, T013, T015 can all run in parallel (different files, no dependencies)</li>
+</ul>
+<p><strong>User Story 1</strong>:</p>
+<ul>
+<li>All unit tests (T016-T023) can run in parallel</li>
+<li>T024 and T025 must complete before parallel work begins</li>
+<li>T028, T030 can run in parallel after T025</li>
+<li>Agent integration: T037a-T037e must complete sequentially (depends on T033)</li>
+<li>Agent integration unit tests (T037f, T037g, T037h) can run in parallel</li>
+<li>All integration tests (T038-T041) can run in parallel after implementation and agent integration</li>
+</ul>
+<p><strong>User Story 2</strong>:</p>
+<ul>
+<li>All unit tests (T042-T044) can run in parallel</li>
+<li>T045 and T046 must complete before T047 and T049</li>
+<li>All integration tests (T050-T051) can run in parallel after implementation</li>
+</ul>
+<p><strong>User Story 3</strong>:</p>
+<ul>
+<li>All unit tests (T052-T055) can run in parallel</li>
+<li>T056 and T057 must complete before parallel work begins</li>
+<li>T062, T063, T066 can run in parallel</li>
+<li>All integration tests (T067-T070) can run in parallel after implementation</li>
+</ul>
+<p><strong>Phase 6 (Polish)</strong>:</p>
+<ul>
+<li>T071, T072, T073, T074, T075, T076, T077, T082, T083, T084 can all run in parallel</li>
+</ul>
+<hr />
+<h2 id="parallel-example-user-story-1">Parallel Example: User Story 1<a class="headerlink" href="#parallel-example-user-story-1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch all unit tests for User Story 1 together:</span>
+Task<span class="w"> </span>T016:<span class="w"> </span><span class="s2">"Unit test for VectorStoreTool initialization with valid config"</span>
+Task<span class="w"> </span>T017:<span class="w"> </span><span class="s2">"Unit test for VectorStoreTool initialization with missing source path"</span>
+Task<span class="w"> </span>T018:<span class="w"> </span><span class="s2">"Unit test for VectorStoreTool file discovery (single file)"</span>
+Task<span class="w"> </span>T019:<span class="w"> </span><span class="s2">"Unit test for VectorStoreTool file discovery (directory with nested subdirectories)"</span>
+Task<span class="w"> </span>T020:<span class="w"> </span><span class="s2">"Unit test for VectorStoreTool search result formatting"</span>
+Task<span class="w"> </span>T021:<span class="w"> </span><span class="s2">"Unit test for text chunking with markdown content"</span>
+Task<span class="w"> </span>T022:<span class="w"> </span><span class="s2">"Unit test for VectorStore upsert and get operations"</span>
+Task<span class="w"> </span>T023:<span class="w"> </span><span class="s2">"Unit test for VectorStore search with top_k filtering"</span>
+
+<span class="c1"># Launch foundational abstractions together (after Phase 2):</span>
+Task<span class="w"> </span>T007:<span class="w"> </span><span class="s2">"Create DocumentRecord dataclass"</span>
+Task<span class="w"> </span>T008:<span class="w"> </span><span class="s2">"Create SourceFile dataclass"</span>
+Task<span class="w"> </span>T009:<span class="w"> </span><span class="s2">"Create QueryResult dataclass"</span>
+Task<span class="w"> </span>T013:<span class="w"> </span><span class="s2">"Create TextChunker wrapper class"</span>
+</code></pre></div>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="mvp-first-user-story-1-only">MVP First (User Story 1 Only)<a class="headerlink" href="#mvp-first-user-story-1-only" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Phase 1: Setup (T001-T004)</li>
+<li>Complete Phase 2: Foundational (T005-T015) - CRITICAL</li>
+<li>Complete Phase 3: User Story 1 (T016-T041)</li>
+<li><strong>STOP and VALIDATE</strong>: Test semantic search over single files and directories</li>
+<li>Deploy/demo basic vectorstore functionality</li>
+</ol>
+<p><strong>Deliverable</strong>: Agents can perform semantic search over documentation files with in-memory storage</p>
+<h3 id="incremental-delivery">Incremental Delivery<a class="headerlink" href="#incremental-delivery" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Setup + Foundational → Foundation ready (T001-T015)</li>
+<li>Add User Story 1 → Test independently → Deploy/Demo (T016-T041) - <strong>MVP!</strong></li>
+<li>Add User Story 2 → Test independently → Deploy/Demo (T042-T051) - Custom embedding models</li>
+<li>Add User Story 3 → Test independently → Deploy/Demo (T052-T070) - Redis persistence</li>
+<li>Polish → Run validation (T071-T086)</li>
+</ol>
+<p>Each story adds value without breaking previous stories.</p>
+<h3 id="parallel-team-strategy">Parallel Team Strategy<a class="headerlink" href="#parallel-team-strategy" title="Permanent link">&para;</a></h3>
+<p>With multiple developers:</p>
+<ol>
+<li>Team completes Setup + Foundational together (T001-T015)</li>
+<li>Once Foundational is done:</li>
+<li>Developer A: User Story 1 (T016-T041 + T037a-T037h agent integration)</li>
+<li>Developer B: User Story 2 (T042-T051) - Can start in parallel</li>
+<li>Developer C: User Story 3 (T052-T070) - Can start in parallel</li>
+<li>Stories complete and integrate independently</li>
+</ol>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p><strong>Total Tasks</strong>: 94 tasks</p>
+<ul>
+<li><strong>Phase 1 (Setup)</strong>: 4 tasks</li>
+<li><strong>Phase 2 (Foundational)</strong>: 11 tasks (BLOCKS all user stories)</li>
+<li><strong>Phase 3 (User Story 1)</strong>: 34 tasks (8 unit tests + 14 implementation + 8 agent integration + 4 integration tests)</li>
+<li><strong>Phase 4 (User Story 2)</strong>: 10 tasks (3 unit tests + 5 implementation + 2 integration tests)</li>
+<li><strong>Phase 5 (User Story 3)</strong>: 19 tasks (4 unit tests + 11 implementation + 4 integration tests)</li>
+<li><strong>Phase 6 (Polish)</strong>: 16 tasks</li>
+</ul>
+<p><strong>Parallel Opportunities</strong>: 41 tasks marked with [P] can run in parallel within their phases</p>
+<p><strong>MVP Scope</strong>: Phases 1-3 (T001-T041 + T037a-T037h) - 49 tasks for basic semantic search functionality with agent integration</p>
+<p><strong>Independent Test Criteria</strong>:</p>
+<ul>
+<li><strong>US1</strong>: Configure vectorstore with file/directory, run queries, verify relevant results with source attribution</li>
+<li><strong>US2</strong>: Configure custom embedding model, verify model is used, compare results to default</li>
+<li><strong>US3</strong>: Configure Redis, verify persistence across restarts, test modification tracking with --force-ingest</li>
+</ul>
+<p><strong>Suggested Implementation Order</strong>: P1 (US1) → P2 (US2) → P3 (US3) → Polish</p>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[P] tasks = different files, no dependencies within phase</li>
+<li>[Story] label maps task to specific user story for traceability</li>
+<li>Each user story should be independently completable and testable</li>
+<li>Verify tests fail before implementing (TDD approach)</li>
+<li>Run code quality commands (format, lint, type-check) after each phase</li>
+<li>Commit after each task or logical group</li>
+<li>Stop at any checkpoint to validate story independently</li>
+<li>Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3346 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/004-init-agent-project/tasks/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Implementation Tasks: Initialize New Agent Project - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-tasks-initialize-new-agent-project" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Tasks: Initialize New Agent Project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-stories-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Stories Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-summary-tdd-driven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Summary (TDD-Driven)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup &amp; Infrastructure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: Setup &amp; Infrastructure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tdd-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDD Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-core-initialization-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Core Initialization Engine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Core Initialization Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests-first-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-logic-implementation-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Logic Implementation (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-1-create-basic-agent-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 1 - Create Basic Agent Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: User Story 1 - Create Basic Agent Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-first-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-creation-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Creation (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-implementation-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI Implementation (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-user-story-2-select-project-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: User Story 2 - Select Project Templates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: User Story 2 - Select Project Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-first-tdd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-development-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Development (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-management-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Management (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-user-story-3-generate-sample-files-and-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: User Story 3 - Generate Sample Files and Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: User Story 3 - Generate Sample Files and Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-first-tdd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-files-templates-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Files &amp; Templates (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-manifest-updates-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Manifest Updates (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-user-story-4-validate-project-structure-tdd-driven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: User Story 4 - Validate Project Structure - TDD-driven
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 6: User Story 4 - Validate Project Structure - TDD-driven">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validation-tests-first-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-implementation-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation Implementation (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-user-story-5-specify-project-metadata-tdd-driven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: User Story 5 - Specify Project Metadata - TDD-driven
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 7: User Story 5 - Specify Project Metadata - TDD-driven">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metadata-tests-first-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metadata Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-implementation-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metadata Implementation (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-polish-cross-cutting-concerns-tdd-driven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Polish &amp; Cross-Cutting Concerns - TDD-driven
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: Polish &amp; Cross-Cutting Concerns - TDD-driven">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edge-case-error-scenario-tests-first-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Case &amp; Error Scenario Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-case-error-handling-implementation-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Case &amp; Error Handling Implementation (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-tests-first-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tests First (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimization-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-tests-help-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Tests &amp; Help (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-implementation-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Implementation (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-assurance-tests-checks-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Assurance Tests &amp; Checks (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-assurance-implementation-verification-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Assurance Implementation &amp; Verification (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-release-verification-tests-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Release Verification Tests (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-release-verification-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Release Verification (TDD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-dependencies-parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Dependencies &amp; Parallel Execution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task Dependencies &amp; Parallel Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-execution-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-team-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Team Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Metrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-strategy-tdd-driven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Strategy (TDD-Driven)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Strategy (TDD-Driven)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests-first-foundation-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Tests First (Foundation Layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-first-feature-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests First (Feature Layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-tests-user-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Tests (User Experience)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definition-of-done-for-each-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of Done (for each task)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-for-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes for Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="implementation-tasks-initialize-new-agent-project">Implementation Tasks: Initialize New Agent Project<a class="headerlink" href="#implementation-tasks-initialize-new-agent-project" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: Initialize New Agent Project (004-init-agent-project)
+<strong>Branch</strong>: <code>004-init-agent-project</code>
+<strong>Created</strong>: 2025-10-22
+<strong>Spec</strong>: <a href="../../../../product-specs/004-init-agent-project/spec/">spec.md</a> | <strong>Plan</strong>: <a href="../plan/">plan.md</a></p>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This document breaks down the feature into independently testable phases using <strong>Test-Driven Development (TDD)</strong> approach. Each phase follows this pattern: write tests first, then implement to pass tests. Each user story can be implemented and tested in isolation.</p>
+<p><strong>Estimated effort with TDD</strong>: 55-70 development hours (1.5 weeks full-time for single developer). TDD adds ~20-30% overhead for test writing, but significantly reduces debugging and integration issues.</p>
+<p><strong>Key Principle</strong>: Tests are written and passing BEFORE implementation code is written. This ensures tests are independent of implementation details and capture true behavioral requirements.</p>
+<h3 id="user-stories-summary">User Stories Summary<a class="headerlink" href="#user-stories-summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Story</th>
+<th>Priority</th>
+<th>Title</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US1</td>
+<td>P1</td>
+<td>Create Basic Agent Project</td>
+<td>High</td>
+</tr>
+<tr>
+<td>US2</td>
+<td>P1</td>
+<td>Select Project Templates</td>
+<td>High</td>
+</tr>
+<tr>
+<td>US3</td>
+<td>P1</td>
+<td>Generate Sample Files and Examples</td>
+<td>High</td>
+</tr>
+<tr>
+<td>US4</td>
+<td>P1</td>
+<td>Validate Project Structure</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>US5</td>
+<td>P2</td>
+<td>Specify Project Metadata</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h3 id="task-summary-tdd-driven">Task Summary (TDD-Driven)<a class="headerlink" href="#task-summary-tdd-driven" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>User Stories</th>
+<th>Task Range</th>
+<th>Count</th>
+<th>Focus</th>
+<th>Est. Hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Setup</td>
+<td>T001-T011</td>
+<td>11</td>
+<td>Infrastructure, tests first</td>
+<td>5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Core Engine</td>
+<td>T012-T026</td>
+<td>15</td>
+<td>Unit tests (T012-T017), then implementation</td>
+<td>12</td>
+</tr>
+<tr>
+<td>3</td>
+<td>US1: Basic Creation</td>
+<td>T027-T039</td>
+<td>13</td>
+<td>Integration tests first (T027-T031), then templates + CLI</td>
+<td>10</td>
+</tr>
+<tr>
+<td>4</td>
+<td>US2: Templates</td>
+<td>T040-T055</td>
+<td>16</td>
+<td>Integration tests first (T040-T044), then 2 templates + management</td>
+<td>10</td>
+</tr>
+<tr>
+<td>5</td>
+<td>US3: Examples</td>
+<td>T056-T072</td>
+<td>17</td>
+<td>Integration tests first (T056-T060), then 9 example files</td>
+<td>8</td>
+</tr>
+<tr>
+<td>6</td>
+<td>US4: Validation</td>
+<td>T073-T083</td>
+<td>11</td>
+<td>Validation tests first (T073-T077), then error handling</td>
+<td>6</td>
+</tr>
+<tr>
+<td>7</td>
+<td>US5: Metadata</td>
+<td>T084-T093</td>
+<td>10</td>
+<td>Metadata tests first (T084-T087), then CLI + templates</td>
+<td>5</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Polish &amp; QA</td>
+<td>T094-T139</td>
+<td>46</td>
+<td>Edge cases, performance, docs, QA (all TDD)</td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>All</strong></td>
+<td><strong>T001-T139</strong></td>
+<td><strong>139</strong></td>
+<td><strong>Complete feature, production-ready</strong></td>
+<td><strong>66 hours</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>TDD Note</strong>: All 139 tasks follow test-first approach. Tests are written and passing BEFORE implementation. This ensures high code quality and low integration issues at the cost of ~20-30% additional development time.</p>
+<h3 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h3>
+<p><strong>MVP Scope (Phase 1-3)</strong>: US1 + US4 (basic project creation with validation)
+- Smallest viable feature: create project directory with agent.yaml
+- Time: 1-2 weeks (with TDD)
+- Enables users to bootstrap projects and verify structure
+- Tasks: T001-T039 (39 tasks including tests)</p>
+<p><strong>Phase 2 (US2 + Templates)</strong>: Add template system with 3 templates
+- Adds template selection and manifest system
+- Time: 2-3 weeks (with TDD)
+- Major UX improvement, enables use case customization
+- Tasks: T040-T055 (16 tasks including integration tests)</p>
+<p><strong>Phase 3 (US3 + Examples)</strong>: Generate example files
+- Adds instructional content and sample configurations
+- Time: 1-2 weeks (with TDD)
+- Critical for self-serve learning
+- Tasks: T056-T072 (17 tasks including integration tests)</p>
+<p><strong>Phase 4 (US5 + Polish)</strong>: Metadata support + production readiness
+- Adds optional metadata fields, validation, quality assurance
+- Time: 1-2 weeks (with TDD)
+- Polish feature with comprehensive testing and documentation
+- Tasks: T084-T139 (56 tasks including QA, performance, documentation tests)</p>
+<hr />
+<h2 id="phase-1-setup-infrastructure">Phase 1: Setup &amp; Infrastructure<a class="headerlink" href="#phase-1-setup-infrastructure" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Establish project structure, dependencies, and core utilities</p>
+<h3 id="tdd-approach">TDD Approach<a class="headerlink" href="#tdd-approach" title="Permanent link">&para;</a></h3>
+<p>All implementation is test-first. Each task includes:
+1. Test definition (what behavior we expect)
+2. Test implementation (write failing test)
+3. Implementation (make test pass)</p>
+<h3 id="core-tasks">Core Tasks<a class="headerlink" href="#core-tasks" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 Create Python package structure in <code>src/holodeck/</code> with <code>__init__.py</code> files and CLI entry point</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T002 [P] Add Click, Pyyaml, Jinja2 dependencies to <code>pyproject.toml</code> with version pins</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T003 [P] Write test for Click CLI group functionality in <code>tests/unit/test_cli_setup.py</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T004 [P] Implement Click CLI group in <code>src/holodeck/cli/__init__.py</code> and register init command (test-driven from T003)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T005 Write tests for exception classes in <code>tests/unit/test_exceptions.py</code> (ValidationError, InitError, TemplateError)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T006 Implement base error/exception classes in <code>src/holodeck/lib/exceptions.py</code> (test-driven from T005)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T007 [P] Write tests for Pydantic models in <code>tests/unit/test_models.py</code>: ProjectInitInput, ProjectInitResult, TemplateManifest</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T008 [P] Implement Pydantic models in <code>src/holodeck/models/project_config.py</code> and <code>src/holodeck/models/template_manifest.py</code> (test-driven from T007)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T009 Setup pytest test structure with conftest.py in <code>tests/conftest.py</code> with markers (@pytest.mark.unit, @pytest.mark.integration)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T010 [P] Create <code>.gitignore</code> template in <code>src/holodeck/templates/_static/.gitignore</code> for all projects</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T011 Create test fixtures directory <code>tests/fixtures/</code> and <code>tests/fixtures/conftest.py</code> with temp project helpers</li>
+</ul>
+<p><strong>Acceptance Criteria</strong>:
+- ✓ All imports work without errors
+- ✓ Click CLI responds to <code>--help</code>
+- ✓ Pydantic models validate without errors
+- ✓ Test runner (pytest) executes successfully with 100% of setup tests passing
+- ✓ No linting/type-checking errors (ruff, mypy)</p>
+<hr />
+<h2 id="phase-2-core-initialization-engine">Phase 2: Core Initialization Engine<a class="headerlink" href="#phase-2-core-initialization-engine" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Implement project creation logic and validation framework (blocking prerequisite for all user stories) - TDD-driven</p>
+<h3 id="unit-tests-first-tdd">Unit Tests First (TDD)<a class="headerlink" href="#unit-tests-first-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T012 Write unit tests for <code>ProjectInitializer.validate_inputs()</code> in <code>tests/unit/test_project_init.py</code> covering: valid names, invalid names (special chars, leading digits), missing template, directory permissions check</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T013 Write unit tests for <code>ProjectInitializer.load_template()</code> in <code>tests/unit/test_project_init.py</code> covering: valid manifest, missing manifest, malformed YAML</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T014 [P] Write unit tests for <code>ProjectInitializer.initialize()</code> in <code>tests/unit/test_project_init.py</code> covering: successful creation, directory exists (no --force), partial cleanup on error</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T015 Write unit tests for <code>TemplateRenderer.render_template()</code> in <code>tests/unit/test_template_engine.py</code> covering: valid Jinja2 templates, template variable substitution, missing variables</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T016 [P] Write unit tests for <code>TemplateRenderer.validate_agent_config()</code> in <code>tests/unit/test_template_engine.py</code> covering: valid YAML, invalid YAML, schema validation pass/fail</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 Write unit tests for error handling in <code>tests/unit/test_template_engine.py</code> covering: rendering failures, validation failures, clear error messages</li>
+</ul>
+<h3 id="core-logic-implementation-tdd">Core Logic Implementation (TDD)<a class="headerlink" href="#core-logic-implementation-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T018 Implement <code>ProjectInitializer</code> class in <code>src/holodeck/cli/utils/project_init.py</code> with methods: <code>validate_inputs()</code>, <code>load_template()</code>, <code>initialize()</code> to pass T012-T014 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T019 Implement <code>ProjectInitializer.validate_inputs()</code>: name pattern validation, template existence check, directory permissions check (test-driven from T012)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T020 [P] Implement <code>ProjectInitializer.load_template()</code>: load TemplateManifest from YAML, validate manifest schema (test-driven from T013)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T021 Implement <code>ProjectInitializer.initialize()</code>: directory creation, file writing, all-or-nothing cleanup semantics (test-driven from T014)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T022 [P] Create <code>TemplateRenderer</code> class in <code>src/holodeck/lib/template_engine.py</code> with methods: <code>render_template()</code>, <code>validate_agent_config()</code>, <code>render_and_validate()</code> (test-driven from T015-T017)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 Implement Jinja2 environment setup with restricted filters for safety in <code>TemplateRenderer.__init__()</code> (test-driven from T015)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T024 [P] Implement <code>validate_agent_config()</code> method that validates rendered YAML against AgentConfig schema (test-driven from T016)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T025 Implement error handling for template rendering failures with clear messages (test-driven from T017)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T026 [P] Ensure <code>AgentConfig</code> model is available: import from core models package or create in <code>src/holodeck/models/agent_config.py</code></li>
+</ul>
+<p><strong>Acceptance Criteria</strong>:
+- ✓ All unit tests pass (T012-T017)
+- ✓ <code>ProjectInitializer</code> creates directories with correct structure
+- ✓ Input validation rejects invalid names, templates, permissions
+- ✓ TemplateRenderer renders Jinja2 without errors
+- ✓ AgentConfig validation passes for valid YAML, fails for invalid
+- ✓ All-or-nothing cleanup on failure (no partial directories)
+- ✓ Clear error messages for all failure modes
+- ✓ 80%+ unit test coverage for core logic</p>
+<hr />
+<h2 id="phase-3-user-story-1-create-basic-agent-project">Phase 3: User Story 1 - Create Basic Agent Project<a class="headerlink" href="#phase-3-user-story-1-create-basic-agent-project" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Developers can run <code>holodeck init &lt;name&gt;</code> and get a working project structure - TDD-driven</p>
+<h3 id="integration-tests-first-tdd">Integration Tests First (TDD)<a class="headerlink" href="#integration-tests-first-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T027 [US1] Write integration test for basic project creation in <code>tests/integration/test_init_basic.py</code>: verify <code>holodeck init test-project</code> creates directory, agent.yaml, and all folders</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T028 [US1] Write integration test for default template selection in <code>tests/integration/test_init_basic.py</code>: verify conversational is default when --template omitted</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T029 [US1] [P] Write integration test for overwrite behavior in <code>tests/integration/test_init_basic.py</code>: prompt user when dir exists, accept --force flag</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T030 [US1] Write integration test for success message in <code>tests/integration/test_init_basic.py</code>: verify output shows location and next steps</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T031 [US1] Write integration test for Ctrl+C handling in <code>tests/integration/test_init_basic.py</code>: verify cleanup on interrupt</li>
+</ul>
+<h3 id="template-creation-tdd">Template Creation (TDD)<a class="headerlink" href="#template-creation-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T032 [US1] Create default <code>conversational</code> template directory structure in <code>src/holodeck/templates/conversational/</code> (with tests from T027-T031)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T033 [US1] Create <code>conversational/manifest.yaml</code> with template metadata, variables, and file list in <code>src/holodeck/templates/conversational/manifest.yaml</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T034 [US1] Create <code>conversational/agent.yaml.j2</code> Jinja2 template with default model (OpenAI), instructions placeholder, and tools section in <code>src/holodeck/templates/conversational/agent.yaml.j2</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T035 [US1] Create <code>conversational/instructions/system-prompt.md.j2</code> with sample conversational system prompt in <code>src/holodeck/templates/conversational/instructions/system-prompt.md.j2</code></li>
+</ul>
+<h3 id="cli-implementation-tdd">CLI Implementation (TDD)<a class="headerlink" href="#cli-implementation-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T036 [US1] Implement Click command in <code>src/holodeck/cli/commands/init.py</code> with arguments (project_name) and options (--template, --description, --author, --force) to pass T027-T031 tests</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T037 [US1] [P] Implement command handler that calls <code>ProjectInitializer.initialize()</code> and formats result messages in <code>src/holodeck/cli/commands/init.py</code> (test-driven from T030)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T038 [US1] Implement overwrite prompt when directory exists (unless --force) in <code>src/holodeck/cli/commands/init.py</code> (test-driven from T029)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T039 [US1] Handle Ctrl+C gracefully with cleanup in <code>src/holodeck/cli/commands/init.py</code> (test-driven from T031)</li>
+</ul>
+<p><strong>Acceptance Criteria (US1)</strong>:
+- ✓ All integration tests pass (T027-T031)
+- ✓ <code>holodeck init my-project</code> creates directory with all required folders
+- ✓ Generated agent.yaml is valid YAML and parses without errors
+- ✓ Default template is conversational
+- ✓ Project structure matches spec requirements (agent.yaml, instructions/, tools/, data/, tests/)
+- ✓ Success message displays project location and next steps
+- ✓ Overwrite behavior works correctly (prompt and --force)
+- ✓ &lt; 30 seconds initialization time</p>
+<hr />
+<h2 id="phase-4-user-story-2-select-project-templates">Phase 4: User Story 2 - Select Project Templates<a class="headerlink" href="#phase-4-user-story-2-select-project-templates" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Developers can choose from 3 domain-specific templates (conversational, research, customer-support) - TDD-driven</p>
+<h3 id="integration-tests-first-tdd_1">Integration Tests First (TDD)<a class="headerlink" href="#integration-tests-first-tdd_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T040 [US2] Write integration test for research template in <code>tests/integration/test_init_templates.py</code>: verify <code>holodeck init &lt;name&gt; --template research</code> creates research project</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T041 [US2] Write integration test for customer-support template in <code>tests/integration/test_init_templates.py</code>: verify <code>holodeck init &lt;name&gt; --template customer-support</code> creates support project</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T042 [US2] [P] Write test for invalid template selection error handling in <code>tests/integration/test_init_templates.py</code>: show list of templates on error</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T043 [US2] Write test that all 3 templates produce valid agent.yaml files in <code>tests/integration/test_init_templates.py</code>: schema validation</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T044 [US2] Write test for template-specific instructions in <code>tests/integration/test_init_templates.py</code>: research has vector search, support has functions</li>
+</ul>
+<h3 id="template-development-tdd">Template Development (TDD)<a class="headerlink" href="#template-development-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T045 [US2] Create <code>research</code> template directory in <code>src/holodeck/templates/research/</code> (driven by T040)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T046 [US2] Create <code>research/manifest.yaml</code> with research-focused variables and defaults in <code>src/holodeck/templates/research/manifest.yaml</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T047 [US2] Create <code>research/agent.yaml.j2</code> with research instructions and vector search tool example in <code>src/holodeck/templates/research/agent.yaml.j2</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T048 [US2] Create <code>research/instructions/system-prompt.md.j2</code> with research analysis system prompt in <code>src/holodeck/templates/research/instructions/system-prompt.md.j2</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T049 [US2] [P] Create <code>customer-support</code> template directory in <code>src/holodeck/templates/customer-support/</code> (driven by T041)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T050 [US2] Create <code>customer-support/manifest.yaml</code> with customer-support variables and defaults in <code>src/holodeck/templates/customer-support/manifest.yaml</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T051 [US2] Create <code>customer-support/agent.yaml.j2</code> with support instructions and function tool examples in <code>src/holodeck/templates/customer-support/agent.yaml.j2</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T052 [US2] Create <code>customer-support/instructions/system-prompt.md.j2</code> with support agent system prompt in <code>src/holodeck/templates/customer-support/instructions/system-prompt.md.j2</code></li>
+</ul>
+<h3 id="template-management-tdd">Template Management (TDD)<a class="headerlink" href="#template-management-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T053 [US2] [P] Create template discovery function in <code>src/holodeck/lib/template_engine.py</code> that lists available templates (driven by T042)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T054 [US2] Update <code>ProjectInitializer.load_template()</code> to validate template choice against available templates in <code>src/holodeck/cli/utils/project_init.py</code> (driven by T042)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T055 [US2] Update help text and error messages to list available templates in <code>src/holodeck/cli/commands/init.py</code> (driven by T042)</li>
+</ul>
+<p><strong>Acceptance Criteria (US2)</strong>:
+- ✓ All integration tests pass (T040-T044)
+- ✓ <code>holodeck init &lt;name&gt; --template research</code> creates research project
+- ✓ <code>holodeck init &lt;name&gt; --template customer-support</code> creates support project
+- ✓ Each template has appropriate default instructions
+- ✓ Template selection is case-insensitive (friendly error for typos)
+- ✓ Unknown template shows list of available templates
+- ✓ All 3 templates generate valid agent.yaml per AgentConfig schema</p>
+<hr />
+<h2 id="phase-5-user-story-3-generate-sample-files-and-examples">Phase 5: User Story 3 - Generate Sample Files and Examples<a class="headerlink" href="#phase-5-user-story-3-generate-sample-files-and-examples" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Generated projects include working example files for learning and reference - TDD-driven</p>
+<h3 id="integration-tests-first-tdd_2">Integration Tests First (TDD)<a class="headerlink" href="#integration-tests-first-tdd_2" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T056 [US3] [P] Write test that all template files are generated in <code>tests/integration/test_init_examples.py</code>: verify instructions, tools/README, data, tests folders</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T057 [US3] Write test that example test cases YAML is valid in <code>tests/integration/test_init_examples.py</code>: 2-3 valid examples per template</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T058 [US3] Write test that instructions are present and non-empty in <code>tests/integration/test_init_examples.py</code>: template-specific content</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T059 [US3] Write test that data files are present with proper formatting in <code>tests/integration/test_init_examples.py</code>: CSV, JSON, Markdown valid</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T060 [US3] Write test for learning experience: examples discoverable and understandable in <code>tests/integration/test_init_examples.py</code></li>
+</ul>
+<h3 id="example-files-templates-tdd">Example Files &amp; Templates (TDD)<a class="headerlink" href="#example-files-templates-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T061 [US3] Create <code>conversational/instructions/system-prompt.md.j2</code> with detailed conversational agent instructions in <code>src/holodeck/templates/conversational/instructions/system-prompt.md.j2</code> (test-driven from T058)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T062 [US3] Create <code>conversational/tools/README.md.j2</code> with instructions for adding custom functions in <code>src/holodeck/templates/conversational/tools/README.md.j2</code> (test-driven from T056)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T063 [US3] Create <code>conversational/data/faqs.md</code> with sample FAQ data for vector search in <code>src/holodeck/templates/conversational/data/faqs.md</code> (test-driven from T059)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T064 [US3] Update <code>conversational/agent.yaml.j2</code> to include 2-3 sample test cases in <code>test_cases</code> field in <code>src/holodeck/templates/conversational/agent.yaml.j2</code> (test-driven from T057)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T065 [US3] [P] Create <code>research/tools/README.md.j2</code> in <code>src/holodeck/templates/research/tools/README.md.j2</code> (test-driven from T056)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T066 [US3] Create <code>research/data/papers_index.json</code> with sample research papers index in <code>src/holodeck/templates/research/data/papers_index.json</code> (test-driven from T059)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T067 [US3] Update <code>research/agent.yaml.j2</code> to include research-focused test cases in <code>test_cases</code> field in <code>src/holodeck/templates/research/agent.yaml.j2</code> (test-driven from T057)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T068 [US3] Create <code>customer-support/tools/README.md.j2</code> in <code>src/holodeck/templates/customer-support/tools/README.md.j2</code> (test-driven from T056)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T069 [US3] Create <code>customer-support/data/sample_issues.csv</code> with sample customer issues in <code>src/holodeck/templates/customer-support/data/sample_issues.csv</code> (test-driven from T059)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T070 [US3] Update <code>customer-support/agent.yaml.j2</code> to include support ticket test cases in <code>test_cases</code> field in <code>src/holodeck/templates/customer-support/agent.yaml.j2</code> (test-driven from T057)</li>
+</ul>
+<h3 id="template-manifest-updates-tdd">Template Manifest Updates (TDD)<a class="headerlink" href="#template-manifest-updates-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T071 [US3] Update all template manifests to include file list with template/static flags in manifest.yaml files (test-driven from T056)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T072 [US3] Ensure all <code>.j2</code> files have proper variable substitution for project_name, description, etc. (test-driven from T056)</li>
+</ul>
+<p><strong>Acceptance Criteria (US3)</strong>:
+- ✓ All integration tests pass (T056-T060)
+- ✓ All template files (instructions, tools/README, data, tests) are generated
+- ✓ Example test cases follow HoloDeck test case schema
+- ✓ Instructions are specific to template type (conversational/research/support)
+- ✓ Data files are present and properly formatted (CSV/JSON/Markdown)
+- ✓ Users can learn from generated examples without external docs
+- ✓ All generated files validate against their respective schemas</p>
+<hr />
+<h2 id="phase-6-user-story-4-validate-project-structure-tdd-driven">Phase 6: User Story 4 - Validate Project Structure - TDD-driven<a class="headerlink" href="#phase-6-user-story-4-validate-project-structure-tdd-driven" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Initialization provides clear feedback on success/failure with helpful error messages</p>
+<h3 id="validation-tests-first-tdd">Validation Tests First (TDD)<a class="headerlink" href="#validation-tests-first-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T073 [US4] [P] Write test for valid project structure verification in <code>tests/integration/test_init_validation.py</code>: all directories and files exist</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T074 [US4] Write test for agent.yaml YAML syntax validation rejection in <code>tests/integration/test_init_validation.py</code>: invalid YAML shows errors with line numbers</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T075 [US4] Write test for AgentConfig schema validation with invalid YAML rejection in <code>tests/integration/test_init_validation.py</code>: missing required fields caught</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T076 [US4] Write test for error message clarity and actionability in <code>tests/integration/test_init_validation.py</code>: helpful next steps provided</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T077 [US4] Write test for partial cleanup on failure in <code>tests/integration/test_init_validation.py</code>: partial directories removed after error</li>
+</ul>
+<h3 id="validation-implementation-tdd">Validation Implementation (TDD)<a class="headerlink" href="#validation-implementation-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T078 [US4] Implement directory validation in <code>ProjectInitializer.initialize()</code> in <code>src/holodeck/cli/utils/project_init.py</code> (test-driven from T073)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T079 [US4] Implement YAML syntax validation for agent.yaml before write in <code>TemplateRenderer.validate_agent_config()</code> in <code>src/holodeck/lib/template_engine.py</code> (test-driven from T074)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T080 [US4] Implement AgentConfig schema validation after YAML parse in <code>TemplateRenderer.validate_agent_config()</code> in <code>src/holodeck/lib/template_engine.py</code> (test-driven from T075)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T081 [US4] Create detailed error messages for validation failures (schema errors with line numbers) in <code>src/holodeck/lib/exceptions.py</code> (test-driven from T076)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T082 [US4] Implement success message showing all created files and paths in <code>src/holodeck/cli/commands/init.py</code> (test-driven from T073)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T083 [US4] Implement failure cleanup (remove partial directories) in <code>ProjectInitializer.initialize()</code> in <code>src/holodeck/cli/utils/project_init.py</code> (test-driven from T077)</li>
+</ul>
+<p><strong>Acceptance Criteria (US4)</strong>:
+- ✓ All required directories are created
+- ✓ Generated agent.yaml is syntactically valid YAML
+- ✓ Generated agent.yaml validates against AgentConfig schema
+- ✓ Success message shows project location and next steps
+- ✓ Error messages are clear, actionable, and include line numbers for YAML errors
+- ✓ No partial projects left on disk after failures
+- ✓ Validation happens before file write (no invalid projects created)</p>
+<hr />
+<h2 id="phase-7-user-story-5-specify-project-metadata-tdd-driven">Phase 7: User Story 5 - Specify Project Metadata - TDD-driven<a class="headerlink" href="#phase-7-user-story-5-specify-project-metadata-tdd-driven" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Developers can provide optional metadata (description, author) during initialization</p>
+<h3 id="metadata-tests-first-tdd">Metadata Tests First (TDD)<a class="headerlink" href="#metadata-tests-first-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T084 [US5] [P] Write test for --description flag in generated agent.yaml in <code>tests/integration/test_init_metadata.py</code>: metadata persisted correctly</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T085 [US5] Write test for --author flag in generated agent.yaml in <code>tests/integration/test_init_metadata.py</code>: author field populated</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T086 [US5] Write test for metadata with special characters and escaping in <code>tests/integration/test_init_metadata.py</code>: quotes, newlines handled safely</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T087 [US5] Write test for missing metadata defaults (placeholder text) in <code>tests/integration/test_init_metadata.py</code>: sensible defaults provided</li>
+</ul>
+<h3 id="metadata-implementation-tdd">Metadata Implementation (TDD)<a class="headerlink" href="#metadata-implementation-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T088 [US5] Update <code>ProjectInitInput</code> model to include optional description and author fields in <code>src/holodeck/models/project_config.py</code> (test-driven from T084-T085)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T089 [US5] Update <code>ProjectInitializer.validate_inputs()</code> to validate metadata fields (max length, valid characters) in <code>src/holodeck/cli/utils/project_init.py</code> (test-driven from T086)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T090 [US5] Update CLI command to accept --description and --author flags in <code>src/holodeck/cli/commands/init.py</code> (test-driven from T084-T085)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T091 [US5] Pass metadata to template renderer in <code>ProjectInitializer.initialize()</code> in <code>src/holodeck/cli/utils/project_init.py</code> (test-driven from T084-T085)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T092 [US5] Update all template manifests to include description and author variables in manifest.yaml files (test-driven from T087)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T093 [US5] Update all <code>agent.yaml.j2</code> templates to include description and author fields in agent.yaml.j2 files (test-driven from T084-T085)</li>
+</ul>
+<p><strong>Acceptance Criteria (US5)</strong>:
+- ✓ <code>holodeck init &lt;name&gt; --description "text"</code> stores description in agent.yaml
+- ✓ <code>holodeck init &lt;name&gt; --author "name"</code> stores author in agent.yaml
+- ✓ Metadata is preserved in agent.yaml structure
+- ✓ Missing metadata shows placeholder text (e.g., "TODO: Add description")
+- ✓ Metadata validation prevents invalid characters
+- ✓ Metadata appears in generated agent.yaml</p>
+<hr />
+<h2 id="phase-8-polish-cross-cutting-concerns-tdd-driven">Phase 8: Polish &amp; Cross-Cutting Concerns - TDD-driven<a class="headerlink" href="#phase-8-polish-cross-cutting-concerns-tdd-driven" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Production-ready feature with comprehensive testing, documentation, and quality assurance</p>
+<h3 id="edge-case-error-scenario-tests-first-tdd">Edge Case &amp; Error Scenario Tests First (TDD)<a class="headerlink" href="#edge-case-error-scenario-tests-first-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T094 [P] Write tests for special characters in project name in <code>tests/integration/test_init_edge_cases.py</code>: should fail gracefully with clear message</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T095 Write tests for very long project names in <code>tests/integration/test_init_edge_cases.py</code>: should truncate or reject</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T096 [P] Write tests for read-only filesystem in <code>tests/integration/test_init_edge_cases.py</code>: permission error shown</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T097 Write tests for disk full scenario in <code>tests/integration/test_init_edge_cases.py</code>: cleanup on failure</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T098 [P] Write tests for corrupted template manifest in <code>tests/integration/test_init_edge_cases.py</code>: helpful error message</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T099 Write tests for rapid consecutive init commands in <code>tests/integration/test_init_edge_cases.py</code>: no race conditions</li>
+</ul>
+<h3 id="edge-case-error-handling-implementation-tdd">Edge Case &amp; Error Handling Implementation (TDD)<a class="headerlink" href="#edge-case-error-handling-implementation-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T100 Implement handling for special characters in project name (test-driven from T094)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T101 Implement handling for very long project names (test-driven from T095)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T102 Implement handling for read-only filesystem (test-driven from T096)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T103 Implement handling for disk full scenario (test-driven from T097)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T104 Implement handling for corrupted template manifest (test-driven from T098)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T105 Implement race condition protection (test-driven from T099)</li>
+</ul>
+<h3 id="performance-tests-first-tdd">Performance Tests First (TDD)<a class="headerlink" href="#performance-tests-first-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T106 [P] Write test for initialization time &lt; 30 seconds per SC-001 in <code>tests/integration/test_init_performance.py</code>: profile and verify</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T107 Write test for template rendering &lt; 5 seconds per file in <code>tests/integration/test_init_performance.py</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T108 Write test for file I/O &lt; 5 seconds total in <code>tests/integration/test_init_performance.py</code></li>
+</ul>
+<h3 id="performance-optimization-tdd">Performance Optimization (TDD)<a class="headerlink" href="#performance-optimization-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T109 Optimize template rendering if test T107 fails (test-driven from T107)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T110 Optimize file I/O if test T108 fails (test-driven from T108)</li>
+</ul>
+<h3 id="documentation-tests-help-tdd">Documentation Tests &amp; Help (TDD)<a class="headerlink" href="#documentation-tests-help-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T111 [P] Write test for CLI help text completeness in <code>tests/unit/test_cli_help.py</code>: examples present and clear</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T112 Write test for version flag: <code>holodeck init --version</code> in <code>tests/unit/test_cli_help.py</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T113 Write test that README.md documents <code>holodeck init</code> command in <code>tests/unit/test_documentation.py</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T114 Write test for QUICKSTART.md accuracy in <code>tests/unit/test_documentation.py</code>: all examples work</li>
+</ul>
+<h3 id="documentation-implementation-tdd">Documentation Implementation (TDD)<a class="headerlink" href="#documentation-implementation-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T115 Update CLI help text with examples in <code>src/holodeck/cli/commands/init.py</code> (test-driven from T111)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T116 Add version flag support: <code>holodeck --version</code> in <code>src/holodeck/cli/__init__.py</code> (test-driven from T112)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T117 Update README.md with <code>holodeck init</code> command documentation (test-driven from T113)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T118 Create QUICKSTART.md in repo root with user-facing getting started guide (test-driven from T114)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T118a Update <code>docs/guides/agent-configuration.md</code> to document author field and metadata</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T118b Update <code>docs/getting-started/quickstart.md</code> with --description and --author examples</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T118c Update <code>docs/api/models.md</code> to reflect new Agent.author field</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T118d Ensure all <code>src/holodeck/models/__init__.py</code> exports latest models (Agent with author field)</li>
+</ul>
+<h3 id="quality-assurance-tests-checks-tdd">Quality Assurance Tests &amp; Checks (TDD)<a class="headerlink" href="#quality-assurance-tests-checks-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T119 [P] Write test that verifies 80%+ code coverage in <code>tests/unit/test_coverage.py</code>: coverage report generated</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T120 Write test to verify all linting passes in <code>tests/unit/test_linting.py</code>: runs <code>make lint</code> successfully</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T121 Write test to verify all type checking passes in <code>tests/unit/test_typing.py</code>: runs <code>make type-check</code> successfully</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T122 Write test to verify all security checks pass in <code>tests/unit/test_security.py</code>: runs <code>make security</code> successfully</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T123 [P] Write test to verify formatting compliance in <code>tests/unit/test_formatting.py</code>: runs <code>make format-check</code> successfully</li>
+</ul>
+<h3 id="quality-assurance-implementation-verification-tdd">Quality Assurance Implementation &amp; Verification (TDD)<a class="headerlink" href="#quality-assurance-implementation-verification-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T124 Run full test suite and verify 80%+ coverage (test-driven from T119): <code>pytest tests/ --cov</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T125 Run linting checks and fix violations (test-driven from T120): <code>make lint-fix</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T126 Run type checking for strict compliance (test-driven from T121): <code>make type-check</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T127 Run security checks and verify no issues (test-driven from T122): <code>make security</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T128 [P] Run formatting and ensure compliance (test-driven from T123): <code>make format</code></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T129 Run integration tests end-to-end with fresh environment</li>
+</ul>
+<h3 id="pre-release-verification-tests-tdd">Pre-Release Verification Tests (TDD)<a class="headerlink" href="#pre-release-verification-tests-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T130 [P] Write test verifying all user story acceptance criteria met in <code>tests/integration/test_acceptance_criteria.py</code>: US1-US5 all pass</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T131 Write test that all templates generate valid projects in <code>tests/integration/test_template_validation.py</code>: each template creates usable project</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T132 Write test that generated projects work with <code>holodeck test</code> command in <code>tests/integration/test_generated_project_usability.py</code></li>
+</ul>
+<h3 id="pre-release-verification-tdd">Pre-Release Verification (TDD)<a class="headerlink" href="#pre-release-verification-tdd" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T133 Verify all user story acceptance criteria are met (test-driven from T130)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T134 Create test project with each template (test-driven from T131)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T135 [P] Verify generated projects are usable with <code>holodeck test</code> (test-driven from T132)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T136 Verify error messages are user-friendly (manual user testing)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T137 Update CHANGELOG.md with feature description and CLI usage</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T138 Verify documentation is complete and links work</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> T139 Run <code>make ci</code> locally and verify all checks pass</li>
+</ul>
+<p><strong>Acceptance Criteria (Phase 8)</strong>:
+- ✓ 80%+ test coverage across all modules
+- ✓ All linting, type-checking, and security checks pass
+- ✓ &lt; 30 seconds initialization time
+- ✓ No unhandled exceptions (all errors caught and user-friendly)
+- ✓ Documentation complete and examples working
+- ✓ Ready for <code>pip install</code> and public use</p>
+<hr />
+<h2 id="task-dependencies-parallel-execution">Task Dependencies &amp; Parallel Execution<a class="headerlink" href="#task-dependencies-parallel-execution" title="Permanent link">&para;</a></h2>
+<h3 id="dependency-graph">Dependency Graph<a class="headerlink" href="#dependency-graph" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Phase 1 (Setup &amp; Infrastructure)
+  ├─ T001-T011: TDD setup (tests first)
+  └─ Blocks: All subsequent phases
+
+Phase 2 (Core Engine)
+  ├─ T012-T017: Unit tests first [P]
+  ├─ T018-T026: Implementation (test-driven)
+  └─ Blocks: All user story phases
+
+Phase 3 (US1): Basic Creation
+  ├─ T027-T031: Integration tests first [P]
+  ├─ T032-T035: Template creation (test-driven)
+  ├─ T036-T039: CLI implementation (test-driven)
+  └─ No blocks (independent from US2-5)
+
+Phase 4 (US2): Templates
+  ├─ T040-T044: Integration tests first [P]
+  ├─ T045-T052: Template development (test-driven)
+  ├─ T053-T055: Template management (test-driven)
+  └─ Depends on: US1 complete
+
+Phase 5 (US3): Examples
+  ├─ T056-T060: Integration tests first [P]
+  ├─ T061-T072: Example files (test-driven)
+  └─ Depends on: US2 complete
+
+Phase 6 (US4): Validation
+  ├─ T073-T077: Validation tests first [P]
+  ├─ T078-T083: Implementation (test-driven)
+  └─ Depends on: Phase 2 complete
+
+Phase 7 (US5): Metadata
+  ├─ T084-T087: Metadata tests first [P]
+  ├─ T088-T093: Implementation (test-driven)
+  └─ Depends on: US1 complete
+
+Phase 8 (Polish)
+  ├─ T094-T099: Edge case tests first [P]
+  ├─ T100-T105: Edge case handling (test-driven)
+  ├─ T106-T108: Performance tests first
+  ├─ T109-T110: Performance optimization (test-driven)
+  ├─ T111-T114: Documentation tests first [P]
+  ├─ T115-T118: Documentation implementation (test-driven)
+  ├─ T119-T123: QA tests first [P]
+  ├─ T124-T129: QA verification (test-driven)
+  ├─ T130-T132: Acceptance tests first [P]
+  ├─ T133-T139: Pre-release verification (test-driven)
+  └─ Depends on: US1-US5 complete
+</code></pre></div>
+<h3 id="parallel-execution-opportunities">Parallel Execution Opportunities<a class="headerlink" href="#parallel-execution-opportunities" title="Permanent link">&para;</a></h3>
+<p><strong>Setup Phase (T001-T011)</strong>:
+- T002, T004, T006, T008, T010 can run in parallel (different files)
+- Sequential: T001 → then others
+- Estimated parallel time: ~2 days instead of 3 days</p>
+<p><strong>Core Engine (T012-T026)</strong>:
+- Unit tests T012-T017 first (5 days)
+- Then T018-T026 implementation runs after tests pass
+- 2 developers: one on ProjectInitializer tests (T012-T017), one on TemplateRenderer tests (T012-T017)
+- Estimated parallel time: ~7 days instead of 10 days</p>
+<p><strong>Templates (T040-T055)</strong>:
+- Integration tests T040-T044 first (parallel execution)
+- Template development T045-T052 can start after tests define requirements
+- Research and customer-support templates T045-T052 can be done in parallel
+- 2 developers: one on research, one on support (conversational baseline)
+- Estimated parallel time: ~5 days instead of 7 days</p>
+<p><strong>Examples (T056-T072)</strong>:
+- Integration tests T056-T060 first
+- Example file creation T061-T072 for all 3 templates in parallel
+- Tests can run in parallel
+- Estimated parallel time: ~4 days instead of 5 days</p>
+<p><strong>Validation &amp; Metadata (T073-T093)</strong>:
+- Validation tests T073-T077 and metadata tests T084-T087 can run in parallel
+- Implementation T078-T083 and T088-T093 can proceed in parallel
+- 2 developers: one on validation, one on metadata
+- Estimated parallel time: ~4 days instead of 5 days</p>
+<p><strong>Polish &amp; QA (T094-T139)</strong>:
+- Test-first approach: all test suites can be written in parallel (T094-T132)
+- Implementation and QA can proceed in parallel (T100-T105, T109-T110, T115-T129)
+- 2-3 developers: edge cases, performance, documentation, QA
+- Estimated parallel time: ~6 days instead of 10 days</p>
+<h3 id="recommended-team-structure">Recommended Team Structure<a class="headerlink" href="#recommended-team-structure" title="Permanent link">&para;</a></h3>
+<p><strong>Solo Developer</strong> (55-70 hours with TDD):
+1. Do Phase 1 (Setup) - 5 hours
+2. Do Phase 2 (Core Engine - tests first) - 12 hours
+3. Do Phase 3 (US1 Basic - tests first) - 10 hours
+4. Do Phase 4 (US2 Templates - tests first) - 10 hours
+5. Do Phase 5 (US3 Examples - tests first) - 8 hours
+6. Do Phase 6 (US4 Validation - tests first) - 6 hours
+7. Do Phase 7 (US5 Metadata - tests first) - 5 hours
+8. Do Phase 8 (Polish - tests first) - 10 hours
+Total: 66 hours (1.5 weeks full-time)</p>
+<p><strong>TDD Note</strong>: Test-first approach adds ~20-30% overhead (writing tests before implementation), but significantly reduces debugging and integration issues. The investment in tests pays off in code quality and maintainability.</p>
+<p><strong>2 Developers</strong> (parallel, 30-35 hours each with TDD):
+- Dev 1: Phase 1, Phase 2 tests (ProjectInitializer T012-T017), US1 (T027-T039), US2 (T040-T055), Phase 8 tests/docs
+- Dev 2: Phase 2 tests (TemplateRenderer T012-T017), US3 (T056-T072), US4 (T073-T083), US5 (T084-T093), Phase 8 QA/verification
+- Coordinate on Phase 1 setup and Phase 2 test definitions
+- Estimated: 2.5-3 weeks</p>
+<hr />
+<h2 id="success-metrics">Success Metrics<a class="headerlink" href="#success-metrics" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>SC-001</strong>: Projects initialize in &lt; 30 seconds ✓ (verify with T101-T103)</li>
+<li><strong>SC-002</strong>: Generated agent.yaml validates with 0 errors ✓ (verify with T070-T072)</li>
+<li><strong>SC-003</strong>: All template files present and formatted ✓ (verify with T060-T063)</li>
+<li><strong>SC-004</strong>: 80%+ first-time user success ✓ (verify with user testing)</li>
+<li><strong>SC-005</strong>: Customization learnable in &lt; 2 minutes ✓ (verify with example files)</li>
+<li><strong>SC-006</strong>: Test cases validate perfectly ✓ (verify with T060-T063)</li>
+<li><strong>SC-007</strong>: Can run <code>holodeck test</code> immediately ✓ (verify with T083)</li>
+</ul>
+<hr />
+<h2 id="testing-strategy-tdd-driven">Testing Strategy (TDD-Driven)<a class="headerlink" href="#testing-strategy-tdd-driven" title="Permanent link">&para;</a></h2>
+<h3 id="unit-tests-first-foundation-layer">Unit Tests First (Foundation Layer)<a class="headerlink" href="#unit-tests-first-foundation-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Phase 1 setup tests</strong>: T003, T005, T007 (before implementation)</li>
+<li><strong>Phase 2 core tests</strong>: T012-T017 (ProjectInitializer, TemplateRenderer logic before implementation)</li>
+<li><strong>Phase 8 quality tests</strong>: T119-T123 (coverage, linting, typing, security, formatting before QA)</li>
+<li>Coverage target: 80%+ (verified with T119)</li>
+<li>Run: <code>pytest tests/unit/ -v</code></li>
+</ul>
+<h3 id="integration-tests-first-feature-layer">Integration Tests First (Feature Layer)<a class="headerlink" href="#integration-tests-first-feature-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Phase 3 (US1)</strong>: T027-T031 (basic creation tests before template/CLI implementation)</li>
+<li><strong>Phase 4 (US2)</strong>: T040-T044 (template selection tests before template development)</li>
+<li><strong>Phase 5 (US3)</strong>: T056-T060 (example file tests before example creation)</li>
+<li><strong>Phase 6 (US4)</strong>: T073-T077 (validation tests before implementation)</li>
+<li><strong>Phase 7 (US5)</strong>: T084-T087 (metadata tests before implementation)</li>
+<li><strong>Phase 8 edge cases</strong>: T094-T099 (error scenario tests before handling)</li>
+<li><strong>Phase 8 performance</strong>: T106-T108 (performance tests before optimization)</li>
+<li><strong>Phase 8 documentation</strong>: T111-T114 (documentation tests before writing docs)</li>
+<li><strong>Phase 8 acceptance</strong>: T130-T132 (acceptance criteria tests before verification)</li>
+<li>Coverage target: 100% of user stories</li>
+<li>Run: <code>pytest tests/integration/ -v</code></li>
+</ul>
+<h3 id="manual-tests-user-experience">Manual Tests (User Experience)<a class="headerlink" href="#manual-tests-user-experience" title="Permanent link">&para;</a></h3>
+<ul>
+<li>T136: Verify error messages are user-friendly with actual users</li>
+<li>Run: <code>holodeck init &lt;name&gt;</code> with various inputs</li>
+<li>Verify: Clear error messages, helpful next steps</li>
+</ul>
+<hr />
+<h2 id="definition-of-done-for-each-task">Definition of Done (for each task)<a class="headerlink" href="#definition-of-done-for-each-task" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> Code written and compiles/runs without errors</li>
+<li class="task-list-item"><input type="checkbox" disabled/> All tests pass (unit + integration)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Linting passes (ruff)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Type checking passes (mypy --strict)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Security checks pass (bandit)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Code review approved</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Acceptance criteria met</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Documentation updated</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Commit message follows convention</li>
+</ul>
+<hr />
+<h2 id="notes-for-implementation">Notes for Implementation<a class="headerlink" href="#notes-for-implementation" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>AgentConfig Model</strong>: If not available in core package, create in <code>src/holodeck/models/agent_config.py</code> based on spec</li>
+<li><strong>Template Variables</strong>: Keep manifest.yaml <code>variables</code> whitelist to avoid Jinja2 injection risks</li>
+<li><strong>All-or-Nothing Semantics</strong>: Use try/except in <code>ProjectInitializer.initialize()</code> to cleanup on any error</li>
+<li><strong>Template Validation</strong>: Call <code>AgentConfig.model_validate()</code> immediately after Jinja2 render for YAML files</li>
+<li><strong>User Messaging</strong>: Use color output (green ✓, red ✗) for success/failure (via Click)</li>
+<li><strong>Concurrency</strong>: Don't worry about concurrent init in same directory for v0.1 (assume single-user)</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

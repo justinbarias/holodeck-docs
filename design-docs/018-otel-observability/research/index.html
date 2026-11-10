@@ -1,0 +1,3353 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/design-docs/018-otel-observability/research/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Research: OpenTelemetry Observability with Semantic Conventions - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#research-opentelemetry-observability-with-semantic-conventions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Research: OpenTelemetry Observability with Semantic Conventions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#research-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Research Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-semantic-kernel-opentelemetry-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Semantic Kernel OpenTelemetry Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Semantic Kernel OpenTelemetry Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-leverage-semantic-kernels-native-instrumentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Leverage Semantic Kernel's Native Instrumentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-findings-from-semantic-kernel-telemetry-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Findings from Semantic Kernel Telemetry Demo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Findings from Semantic Kernel Telemetry Demo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#telemetry-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telemetry Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-pattern-provider-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Pattern: Provider Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-otlp-exporter-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. OTLP Exporter Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. OTLP Exporter Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-support-both-grpc-and-httpprotobuf-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Support Both gRPC and HTTP/Protobuf Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-prometheus-exporter-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Prometheus Exporter Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Prometheus Exporter Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-use-prometheusmetricreader-with-http-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Use PrometheusMetricReader with HTTP Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-packages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-azure-monitor-exporter-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Azure Monitor Exporter Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Azure Monitor Exporter Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-use-azure-monitor-opentelemetry-exporter-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Use azure-monitor-opentelemetry-exporter Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-packages_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-genai-semantic-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. GenAI Semantic Conventions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. GenAI Semantic Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-follow-opentelemetry-genai-semantic-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Follow OpenTelemetry GenAI Semantic Conventions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditionally-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditionally Required
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-sensitive-opt-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional (Sensitive - Opt-In)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#span-naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Span Naming Convention
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-provider-initialization-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Provider Initialization Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Provider Initialization Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-initialize-in-order-logging-tracing-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Initialize in Order - Logging, Tracing, Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-batch-processing-and-buffer-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Batch Processing and Buffer Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Batch Processing and Buffer Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-use-batchspanprocessor-with-configurable-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Use BatchSpanProcessor with Configurable Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-limit-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Limit Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-sensitive-data-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Sensitive Data Handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Sensitive Data Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-opt-in-content-capture-with-redaction-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Opt-In Content Capture with Redaction Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-multiple-exporter-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Multiple Exporter Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Multiple Exporter Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-configure-exporters-as-list-all-receive-same-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Configure Exporters as List, All Receive Same Telemetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-console-exporter-as-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Console Exporter as Default
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Console Exporter as Default">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-use-console-exporter-when-no-exporters-configured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Use Console Exporter When No Exporters Configured
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-double-logging-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Double Logging Prevention
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Double Logging Prevention">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-suppress-default-logger-when-otel-console-exporter-active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Suppress Default Logger When OTel Console Exporter Active
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-pattern_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#behavior-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Behavior Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-yaml-configuration-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. YAML Configuration Schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. YAML Configuration Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-nested-structure-under-observability-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision: Nested Structure Under observability Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="research-opentelemetry-observability-with-semantic-conventions">Research: OpenTelemetry Observability with Semantic Conventions<a class="headerlink" href="#research-opentelemetry-observability-with-semantic-conventions" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: 018-otel-observability
+<strong>Date</strong>: 2026-01-04
+<strong>Status</strong>: Complete</p>
+<h2 id="research-summary">Research Summary<a class="headerlink" href="#research-summary" title="Permanent link">&para;</a></h2>
+<p>This document consolidates research findings for implementing OpenTelemetry observability in HoloDeck, leveraging Semantic Kernel's native instrumentation.</p>
+<hr />
+<h2 id="1-semantic-kernel-opentelemetry-integration">1. Semantic Kernel OpenTelemetry Integration<a class="headerlink" href="#1-semantic-kernel-opentelemetry-integration" title="Permanent link">&para;</a></h2>
+<h3 id="decision-leverage-semantic-kernels-native-instrumentation">Decision: Leverage Semantic Kernel's Native Instrumentation<a class="headerlink" href="#decision-leverage-semantic-kernels-native-instrumentation" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Semantic Kernel Python SDK already generates comprehensive telemetry (traces, metrics, logs) for function execution and model invocation. No need to implement custom instrumentation.</p>
+<p><strong>Alternatives Considered</strong>:
+- Custom instrumentation from scratch: Rejected - duplicates existing capability
+- Third-party instrumentation library: Rejected - SK's native support is comprehensive</p>
+<h3 id="key-findings-from-semantic-kernel-telemetry-demo">Key Findings from Semantic Kernel Telemetry Demo<a class="headerlink" href="#key-findings-from-semantic-kernel-telemetry-demo" title="Permanent link">&para;</a></h3>
+<p><strong>Source</strong>: <a href="https://github.com/microsoft/semantic-kernel/tree/dc7c1c048488a8b611b5382d0d7efe05608a9fa0/python/samples/demos/telemetry">microsoft/semantic-kernel/python/samples/demos/telemetry</a></p>
+<h4 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS</code></td>
+<td>Enable GenAI diagnostics spans</td>
+</tr>
+<tr>
+<td><code>SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS_SENSITIVE</code></td>
+<td>Enable prompt/completion capture</td>
+</tr>
+</tbody>
+</table>
+<h4 id="telemetry-scenarios">Telemetry Scenarios<a class="headerlink" href="#telemetry-scenarios" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>AI Service</strong>: Direct model calls generate spans with operation metadata</li>
+<li><strong>Kernel Functions</strong>: Wrapped functions create parent spans containing model invocation spans</li>
+<li><strong>Auto Function Invocation</strong>: Loop iteration spans encompass nested function calls</li>
+</ol>
+<h4 id="code-pattern-provider-setup">Code Pattern: Provider Setup<a class="headerlink" href="#code-pattern-provider-setup" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.resources</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.semconv.resource</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResourceAttributes</span>
+
+<span class="c1"># Shared resource for all providers</span>
+<span class="n">resource</span> <span class="o">=</span> <span class="n">Resource</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+    <span class="n">ResourceAttributes</span><span class="o">.</span><span class="n">SERVICE_NAME</span><span class="p">:</span> <span class="s2">"holodeck-agent"</span>
+<span class="p">})</span>
+</code></pre></div>
+<hr />
+<h2 id="2-otlp-exporter-configuration">2. OTLP Exporter Configuration<a class="headerlink" href="#2-otlp-exporter-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="decision-support-both-grpc-and-httpprotobuf-protocols">Decision: Support Both gRPC and HTTP/Protobuf Protocols<a class="headerlink" href="#decision-support-both-grpc-and-httpprotobuf-protocols" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: gRPC is default (port 4317), HTTP/protobuf (port 4318) needed for environments where gRPC is blocked.</p>
+<p><strong>Alternatives Considered</strong>:
+- gRPC only: Rejected - limits deployment flexibility
+- HTTP/JSON: Rejected - less efficient than protobuf</p>
+<h3 id="implementation-pattern">Implementation Pattern<a class="headerlink" href="#implementation-pattern" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.exporter.otlp.proto.grpc.trace_exporter</span><span class="w"> </span><span class="kn">import</span> <span class="n">OTLPSpanExporter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.exporter.otlp.proto.grpc.metric_exporter</span><span class="w"> </span><span class="kn">import</span> <span class="n">OTLPMetricExporter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.exporter.otlp.proto.grpc._log_exporter</span><span class="w"> </span><span class="kn">import</span> <span class="n">OTLPLogExporter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.trace.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">BatchSpanProcessor</span>
+
+<span class="c1"># gRPC endpoint (default)</span>
+<span class="n">exporter</span> <span class="o">=</span> <span class="n">OTLPSpanExporter</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">"http://localhost:4317"</span><span class="p">)</span>
+<span class="n">tracer_provider</span><span class="o">.</span><span class="n">add_span_processor</span><span class="p">(</span><span class="n">BatchSpanProcessor</span><span class="p">(</span><span class="n">exporter</span><span class="p">))</span>
+
+<span class="c1"># HTTP endpoint alternative</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.exporter.otlp.proto.http.trace_exporter</span><span class="w"> </span><span class="kn">import</span> <span class="n">OTLPSpanExporter</span> <span class="k">as</span> <span class="n">HTTPSpanExporter</span>
+<span class="n">http_exporter</span> <span class="o">=</span> <span class="n">HTTPSpanExporter</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">"http://localhost:4318/v1/traces"</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="required-packages">Required Packages<a class="headerlink" href="#required-packages" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>opentelemetry-sdk&gt;=1.20.0
+opentelemetry-exporter-otlp-proto-grpc&gt;=1.20.0
+opentelemetry-exporter-otlp-proto-http&gt;=1.20.0  # For HTTP protocol option
+</code></pre></div>
+<hr />
+<h2 id="3-prometheus-exporter-configuration">3. Prometheus Exporter Configuration<a class="headerlink" href="#3-prometheus-exporter-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="decision-use-prometheusmetricreader-with-http-server">Decision: Use PrometheusMetricReader with HTTP Server<a class="headerlink" href="#decision-use-prometheusmetricreader-with-http-server" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Standard pattern for Prometheus scraping; metrics exposed on configurable port.</p>
+<p><strong>Alternatives Considered</strong>:
+- Push gateway: Rejected - Prometheus is pull-based by design
+- OTLP-to-Prometheus bridge: Rejected - adds unnecessary complexity</p>
+<h3 id="implementation-pattern_1">Implementation Pattern<a class="headerlink" href="#implementation-pattern_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_http_server</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.exporter.prometheus</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrometheusMetricReader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">MeterProvider</span>
+
+<span class="c1"># Start HTTP server for Prometheus scraping</span>
+<span class="n">start_http_server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">8889</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="s2">"0.0.0.0"</span><span class="p">)</span>
+
+<span class="c1"># Configure metric reader</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">PrometheusMetricReader</span><span class="p">()</span>
+<span class="n">meter_provider</span> <span class="o">=</span> <span class="n">MeterProvider</span><span class="p">(</span><span class="n">metric_readers</span><span class="o">=</span><span class="p">[</span><span class="n">reader</span><span class="p">],</span> <span class="n">resource</span><span class="o">=</span><span class="n">resource</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="required-packages_1">Required Packages<a class="headerlink" href="#required-packages_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>opentelemetry-exporter-prometheus&gt;=0.60b1
+prometheus-client&gt;=0.17.0
+</code></pre></div>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>No multiprocessing support</strong>: Prometheus exporter doesn't work in multiprocessing environments</li>
+<li><strong>Metrics only</strong>: Prometheus is metrics-focused; traces require separate OTLP exporter</li>
+</ul>
+<h3 id="environment-variables_1">Environment Variables<a class="headerlink" href="#environment-variables_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OTEL_EXPORTER_PROMETHEUS_HOST</code></td>
+<td>localhost</td>
+<td>Server binding address</td>
+</tr>
+<tr>
+<td><code>OTEL_EXPORTER_PROMETHEUS_PORT</code></td>
+<td>9464</td>
+<td>Server binding port</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-azure-monitor-exporter-configuration">4. Azure Monitor Exporter Configuration<a class="headerlink" href="#4-azure-monitor-exporter-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="decision-use-azure-monitor-opentelemetry-exporter-package">Decision: Use azure-monitor-opentelemetry-exporter Package<a class="headerlink" href="#decision-use-azure-monitor-opentelemetry-exporter-package" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Official Microsoft package with full trace/metric/log support for Application Insights.</p>
+<p><strong>Alternatives Considered</strong>:
+- OpenCensus Azure exporter: Rejected - deprecated in favor of OpenTelemetry
+- OTLP to Azure: Rejected - direct exporter is simpler</p>
+<h3 id="implementation-pattern_2">Implementation Pattern<a class="headerlink" href="#implementation-pattern_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">azure.monitor.opentelemetry.exporter</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AzureMonitorTraceExporter</span><span class="p">,</span>
+    <span class="n">AzureMonitorMetricExporter</span><span class="p">,</span>
+    <span class="n">AzureMonitorLogExporter</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Connection string from environment</span>
+<span class="n">connection_string</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"APPLICATIONINSIGHTS_CONNECTION_STRING"</span><span class="p">)</span>
+
+<span class="c1"># Trace exporter</span>
+<span class="n">trace_exporter</span> <span class="o">=</span> <span class="n">AzureMonitorTraceExporter</span><span class="p">(</span><span class="n">connection_string</span><span class="o">=</span><span class="n">connection_string</span><span class="p">)</span>
+<span class="n">tracer_provider</span><span class="o">.</span><span class="n">add_span_processor</span><span class="p">(</span><span class="n">BatchSpanProcessor</span><span class="p">(</span><span class="n">trace_exporter</span><span class="p">))</span>
+
+<span class="c1"># Metric exporter</span>
+<span class="n">metric_exporter</span> <span class="o">=</span> <span class="n">AzureMonitorMetricExporter</span><span class="p">(</span><span class="n">connection_string</span><span class="o">=</span><span class="n">connection_string</span><span class="p">)</span>
+<span class="n">metric_reader</span> <span class="o">=</span> <span class="n">PeriodicExportingMetricReader</span><span class="p">(</span><span class="n">metric_exporter</span><span class="p">)</span>
+
+<span class="c1"># Log exporter (experimental)</span>
+<span class="n">log_exporter</span> <span class="o">=</span> <span class="n">AzureMonitorLogExporter</span><span class="p">(</span><span class="n">connection_string</span><span class="o">=</span><span class="n">connection_string</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="required-packages_2">Required Packages<a class="headerlink" href="#required-packages_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>azure-monitor-opentelemetry-exporter&gt;=1.0.0b24
+</code></pre></div>
+<h3 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>connection_string</code></td>
+<td>Application Insights connection string</td>
+</tr>
+<tr>
+<td><code>disable_offline_storage</code></td>
+<td>Disable retry file storage (default: False)</td>
+</tr>
+<tr>
+<td><code>storage_directory</code></td>
+<td>Custom directory for retry files</td>
+</tr>
+<tr>
+<td><code>credential</code></td>
+<td>Azure AD token credential</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-genai-semantic-conventions">5. GenAI Semantic Conventions<a class="headerlink" href="#5-genai-semantic-conventions" title="Permanent link">&para;</a></h2>
+<h3 id="decision-follow-opentelemetry-genai-semantic-conventions">Decision: Follow OpenTelemetry GenAI Semantic Conventions<a class="headerlink" href="#decision-follow-opentelemetry-genai-semantic-conventions" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Industry standard ensures compatibility with observability tools that understand GenAI telemetry.</p>
+<p><strong>Alternatives Considered</strong>:
+- Custom attribute naming: Rejected - breaks tool compatibility
+- LangSmith conventions: Rejected - proprietary, not open standard</p>
+<h3 id="core-attributes">Core Attributes<a class="headerlink" href="#core-attributes" title="Permanent link">&para;</a></h3>
+<h4 id="required-attributes">Required Attributes<a class="headerlink" href="#required-attributes" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gen_ai.operation.name</code></td>
+<td>Operation type</td>
+<td><code>chat</code>, <code>embeddings</code>, <code>text_completion</code></td>
+</tr>
+<tr>
+<td><code>gen_ai.system</code></td>
+<td>Provider identifier</td>
+<td><code>openai</code>, <code>anthropic</code>, <code>azure_openai</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="conditionally-required">Conditionally Required<a class="headerlink" href="#conditionally-required" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Condition</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gen_ai.request.model</code></td>
+<td>When available</td>
+<td>Model name requested</td>
+</tr>
+<tr>
+<td><code>error.type</code></td>
+<td>On failure</td>
+<td>Error classification</td>
+</tr>
+</tbody>
+</table>
+<h4 id="recommended-attributes">Recommended Attributes<a class="headerlink" href="#recommended-attributes" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gen_ai.request.max_tokens</code></td>
+<td>Max tokens requested</td>
+</tr>
+<tr>
+<td><code>gen_ai.request.temperature</code></td>
+<td>Sampling temperature</td>
+</tr>
+<tr>
+<td><code>gen_ai.request.top_p</code></td>
+<td>Nucleus sampling parameter</td>
+</tr>
+<tr>
+<td><code>gen_ai.usage.input_tokens</code></td>
+<td>Prompt tokens consumed</td>
+</tr>
+<tr>
+<td><code>gen_ai.usage.output_tokens</code></td>
+<td>Completion tokens generated</td>
+</tr>
+<tr>
+<td><code>gen_ai.response.id</code></td>
+<td>Unique completion ID</td>
+</tr>
+<tr>
+<td><code>gen_ai.response.model</code></td>
+<td>Actual model used</td>
+</tr>
+<tr>
+<td><code>gen_ai.response.finish_reasons</code></td>
+<td>Why generation stopped</td>
+</tr>
+</tbody>
+</table>
+<h4 id="optional-sensitive-opt-in">Optional (Sensitive - Opt-In)<a class="headerlink" href="#optional-sensitive-opt-in" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gen_ai.prompt.0.role</code></td>
+<td>Message role (system/user/assistant)</td>
+</tr>
+<tr>
+<td><code>gen_ai.prompt.0.content</code></td>
+<td>Message content</td>
+</tr>
+<tr>
+<td><code>gen_ai.completion.0.role</code></td>
+<td>Response role</td>
+</tr>
+<tr>
+<td><code>gen_ai.completion.0.content</code></td>
+<td>Response content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="span-naming-convention">Span Naming Convention<a class="headerlink" href="#span-naming-convention" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>{gen_ai.operation.name} {gen_ai.request.model}
+</code></pre></div>
+<p>Examples:
+- <code>chat gpt-4o</code>
+- <code>embeddings text-embedding-3-small</code>
+- <code>execute_tool search_knowledge_base</code></p>
+<hr />
+<h2 id="6-provider-initialization-order">6. Provider Initialization Order<a class="headerlink" href="#6-provider-initialization-order" title="Permanent link">&para;</a></h2>
+<h3 id="decision-initialize-in-order-logging-tracing-metrics">Decision: Initialize in Order - Logging, Tracing, Metrics<a class="headerlink" href="#decision-initialize-in-order-logging-tracing-metrics" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Logging must be first per OpenTelemetry Python documentation to capture all events.</p>
+<h3 id="implementation-pattern_3">Implementation Pattern<a class="headerlink" href="#implementation-pattern_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize_observability</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ObservabilityConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Initialize all telemetry providers in correct order."""</span>
+    <span class="n">resource</span> <span class="o">=</span> <span class="n">create_resource</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># 1. Logging (must be first)</span>
+    <span class="n">set_up_logging</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">resource</span><span class="p">)</span>
+
+    <span class="c1"># 2. Tracing</span>
+    <span class="n">set_up_tracing</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">resource</span><span class="p">)</span>
+
+    <span class="c1"># 3. Metrics</span>
+    <span class="n">set_up_metrics</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">resource</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="7-batch-processing-and-buffer-configuration">7. Batch Processing and Buffer Configuration<a class="headerlink" href="#7-batch-processing-and-buffer-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="decision-use-batchspanprocessor-with-configurable-limits">Decision: Use BatchSpanProcessor with Configurable Limits<a class="headerlink" href="#decision-use-batchspanprocessor-with-configurable-limits" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Batch processing reduces overhead; bounded buffer prevents memory exhaustion per clarification session.</p>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>HoloDeck Setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_queue_size</code></td>
+<td>2048</td>
+<td>2048 spans</td>
+</tr>
+<tr>
+<td><code>max_export_batch_size</code></td>
+<td>512</td>
+<td>512 spans</td>
+</tr>
+<tr>
+<td><code>export_timeout_millis</code></td>
+<td>30000</td>
+<td>30000ms</td>
+</tr>
+<tr>
+<td><code>schedule_delay_millis</code></td>
+<td>5000</td>
+<td>5000ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="memory-limit-implementation">Memory Limit Implementation<a class="headerlink" href="#memory-limit-implementation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.trace.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">BatchSpanProcessor</span>
+
+<span class="n">processor</span> <span class="o">=</span> <span class="n">BatchSpanProcessor</span><span class="p">(</span>
+    <span class="n">exporter</span><span class="p">,</span>
+    <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>  <span class="c1"># ~5MB estimated</span>
+    <span class="n">max_export_batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="8-sensitive-data-handling">8. Sensitive Data Handling<a class="headerlink" href="#8-sensitive-data-handling" title="Permanent link">&para;</a></h2>
+<h3 id="decision-opt-in-content-capture-with-redaction-support">Decision: Opt-In Content Capture with Redaction Support<a class="headerlink" href="#decision-opt-in-content-capture-with-redaction-support" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Privacy by default; users explicitly enable content capture for debugging.</p>
+<h3 id="implementation-pattern_4">Implementation Pattern<a class="headerlink" href="#implementation-pattern_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="c1"># Enable via environment variable (Semantic Kernel pattern)</span>
+<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">traces</span><span class="o">.</span><span class="n">capture_content</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS_SENSITIVE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"true"</span>
+
+<span class="c1"># Redaction processor</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RedactingSpanProcessor</span><span class="p">(</span><span class="n">SpanProcessor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patterns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">ReadableSpan</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"gen_ai.prompt.0.content"</span><span class="p">,</span> <span class="s2">"gen_ai.completion.0.content"</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">span</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"[REDACTED]"</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="c1"># Note: Span attributes are immutable; need custom approach</span>
+</code></pre></div>
+<hr />
+<h2 id="9-multiple-exporter-support">9. Multiple Exporter Support<a class="headerlink" href="#9-multiple-exporter-support" title="Permanent link">&para;</a></h2>
+<h3 id="decision-configure-exporters-as-list-all-receive-same-telemetry">Decision: Configure Exporters as List, All Receive Same Telemetry<a class="headerlink" href="#decision-configure-exporters-as-list-all-receive-same-telemetry" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Users may need both local debugging (OTLP) and production monitoring (Azure Monitor).</p>
+<h3 id="implementation-pattern_5">Implementation Pattern<a class="headerlink" href="#implementation-pattern_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">configure_exporters</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ObservabilityConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">SpanExporter</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Configure all enabled exporters."""</span>
+    <span class="n">exporters</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">otlp</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">otlp</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="n">exporters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_otlp_exporter</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">otlp</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">azure_monitor</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">azure_monitor</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="n">exporters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_azure_monitor_exporter</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">azure_monitor</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">exporters</span>
+
+<span class="c1"># Add all exporters to provider</span>
+<span class="k">for</span> <span class="n">exporter</span> <span class="ow">in</span> <span class="n">exporters</span><span class="p">:</span>
+    <span class="n">tracer_provider</span><span class="o">.</span><span class="n">add_span_processor</span><span class="p">(</span><span class="n">BatchSpanProcessor</span><span class="p">(</span><span class="n">exporter</span><span class="p">))</span>
+</code></pre></div>
+<hr />
+<h2 id="10-console-exporter-as-default">10. Console Exporter as Default<a class="headerlink" href="#10-console-exporter-as-default" title="Permanent link">&para;</a></h2>
+<h3 id="decision-use-console-exporter-when-no-exporters-configured">Decision: Use Console Exporter When No Exporters Configured<a class="headerlink" href="#decision-use-console-exporter-when-no-exporters-configured" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Provides immediate feedback for development without requiring external infrastructure. Follows Semantic Kernel's pattern.</p>
+<p><strong>Alternatives Considered</strong>:
+- Warning only (no output): Rejected - poor developer experience
+- Require explicit exporter: Rejected - increases setup friction</p>
+<h3 id="implementation-pattern_6">Implementation Pattern<a class="headerlink" href="#implementation-pattern_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.trace.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConsoleSpanExporter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.metrics.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConsoleMetricExporter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk._logs.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConsoleLogExporter</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">configure_exporters</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ObservabilityConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">SpanExporter</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Configure exporters, defaulting to console if none specified."""</span>
+    <span class="n">exporters</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">otlp</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">otlp</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="n">exporters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_otlp_exporter</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">otlp</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">prometheus</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">prometheus</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="c1"># Prometheus handled separately (metric reader, not exporter)</span>
+        <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">azure_monitor</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">azure_monitor</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="n">exporters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_azure_monitor_exporter</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">azure_monitor</span><span class="p">))</span>
+
+    <span class="c1"># Default to console if no exporters configured</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exporters</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">prometheus</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">prometheus</span><span class="o">.</span><span class="n">enabled</span><span class="p">):</span>
+        <span class="n">exporters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ConsoleSpanExporter</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">exporters</span>
+</code></pre></div>
+<hr />
+<h2 id="11-double-logging-prevention">11. Double Logging Prevention<a class="headerlink" href="#11-double-logging-prevention" title="Permanent link">&para;</a></h2>
+<h3 id="decision-suppress-default-logger-when-otel-console-exporter-active">Decision: Suppress Default Logger When OTel Console Exporter Active<a class="headerlink" href="#decision-suppress-default-logger-when-otel-console-exporter-active" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Prevents duplicate log entries when both HoloDeck's default logger and OpenTelemetry's console exporter write to stdout.</p>
+<p><strong>Alternatives Considered</strong>:
+- Let users handle it: Rejected - confusing default behavior
+- Always use OTel logging: Rejected - may break existing non-observability users</p>
+<h3 id="implementation-pattern_7">Implementation Pattern<a class="headerlink" href="#implementation-pattern_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">configure_logging</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ObservabilityConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Configure logging, preventing duplicates with console exporter."""</span>
+    <span class="n">holodeck_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"holodeck"</span><span class="p">)</span>
+
+    <span class="c1"># Check if console exporter will be used</span>
+    <span class="n">using_console_exporter</span> <span class="o">=</span> <span class="n">is_console_exporter_active</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">using_console_exporter</span><span class="p">:</span>
+        <span class="c1"># Remove default console handlers to prevent double logging</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">holodeck_logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">[:]:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">stream</span> <span class="ow">in</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">):</span>
+                    <span class="n">holodeck_logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+    <span class="c1"># Set up OTel logging handler</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">logs</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="n">otel_handler</span> <span class="o">=</span> <span class="n">LoggingHandler</span><span class="p">()</span>
+        <span class="n">otel_handler</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="s2">"holodeck"</span><span class="p">))</span>
+        <span class="n">otel_handler</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="s2">"semantic_kernel"</span><span class="p">))</span>
+        <span class="n">holodeck_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">otel_handler</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_console_exporter_active</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ObservabilityConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Check if console exporter will be used (explicitly or as default)."""</span>
+    <span class="n">has_explicit_exporter</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">otlp</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">otlp</span><span class="o">.</span><span class="n">enabled</span><span class="p">,</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">prometheus</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">prometheus</span><span class="o">.</span><span class="n">enabled</span><span class="p">,</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">azure_monitor</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">exporters</span><span class="o">.</span><span class="n">azure_monitor</span><span class="o">.</span><span class="n">enabled</span><span class="p">,</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="n">has_explicit_exporter</span>
+</code></pre></div>
+<h3 id="behavior-matrix">Behavior Matrix<a class="headerlink" href="#behavior-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Default Logger</th>
+<th>OTel Console</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No observability</td>
+<td>Active</td>
+<td>N/A</td>
+<td>Normal HoloDeck logging</td>
+</tr>
+<tr>
+<td>Observability + OTLP</td>
+<td>Active</td>
+<td>Inactive</td>
+<td>Normal logging + OTel to OTLP</td>
+</tr>
+<tr>
+<td>Observability + no exporter</td>
+<td>Suppressed</td>
+<td>Active</td>
+<td>OTel console only</td>
+</tr>
+<tr>
+<td>Observability + console explicit</td>
+<td>Suppressed</td>
+<td>Active</td>
+<td>OTel console only</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-yaml-configuration-schema">12. YAML Configuration Schema<a class="headerlink" href="#12-yaml-configuration-schema" title="Permanent link">&para;</a></h2>
+<h3 id="decision-nested-structure-under-observability-key">Decision: Nested Structure Under <code>observability</code> Key<a class="headerlink" href="#decision-nested-structure-under-observability-key" title="Permanent link">&para;</a></h3>
+<p><strong>Rationale</strong>: Consistent with HoloDeck's YAML-first approach; clear hierarchy for exporters.</p>
+<h3 id="example-configuration">Example Configuration<a class="headerlink" href="#example-configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">observability</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">service_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-agent</span>
+
+<span class="w">  </span><span class="nt">traces</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">sample_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">capture_content</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">redaction_patterns</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'\b\d{3}-\d{2}-\d{4}\b'</span><span class="w">  </span><span class="c1"># SSN</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'</span><span class="w">  </span><span class="c1"># Email</span>
+
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">export_interval_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span>
+
+<span class="w">  </span><span class="nt">logs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
+<span class="w">    </span><span class="nt">include_trace_context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="nt">exporters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">otlp</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:4317</span>
+<span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grpc</span><span class="w">  </span><span class="c1"># or http</span>
+<span class="w">      </span><span class="nt">headers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">api-key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OTEL_API_KEY}</span>
+
+<span class="w">    </span><span class="nt">prometheus</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8889</span>
+<span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span>
+
+<span class="w">    </span><span class="nt">azure_monitor</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">connection_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${APPLICATIONINSIGHTS_CONNECTION_STRING}</span>
+</code></pre></div>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="https://github.com/microsoft/semantic-kernel/tree/dc7c1c048488a8b611b5382d0d7efe05608a9fa0/python/samples/demos/telemetry">Semantic Kernel Telemetry Demo</a></li>
+<li><a href="https://learn.microsoft.com/en-us/semantic-kernel/concepts/enterprise-readiness/observability/telemetry-with-aspire-dashboard?tabs=Powershell&amp;pivots=programming-language-python">Microsoft Learn: Telemetry with Aspire Dashboard</a></li>
+<li><a href="https://opentelemetry.io/docs/concepts/semantic-conventions/">OpenTelemetry Semantic Conventions</a></li>
+<li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/">OpenTelemetry GenAI Spans</a></li>
+<li><a href="https://pypi.org/project/azure-monitor-opentelemetry-exporter/">Azure Monitor OpenTelemetry Exporter</a></li>
+<li><a href="https://pypi.org/project/opentelemetry-exporter-prometheus/">OpenTelemetry Prometheus Exporter</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

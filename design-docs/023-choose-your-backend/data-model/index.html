@@ -1,0 +1,2808 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/design-docs/023-choose-your-backend/data-model/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Data Model: Choose Your Backend - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-model-choose-your-backend" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Model: Choose Your Backend
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-providerenum-modified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ProviderEnum (Modified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1b-backendenum-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1b. BackendEnum (New)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-routing-when-backend-omitted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default Routing (when backend omitted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-googleadkconfig-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. GoogleADKConfig (New)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agentframeworkconfig-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. AgentFrameworkConfig (New)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent-model-modified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Agent Model (Modified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-embeddingservice-protocol-litellm-adapter-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. EmbeddingService Protocol + LiteLLM Adapter (New)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-adkbackend-adksession-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ADKBackend + ADKSession (New)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-afbackend-afsession-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. AFBackend + AFSession (New)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-skilltool-new-replaces-prompttool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. SkillTool (New — replaces PromptTool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relationships
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-model-choose-your-backend">Data Model: Choose Your Backend<a class="headerlink" href="#data-model-choose-your-backend" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: 023-choose-your-backend | <strong>Date</strong>: 2026-03-15</p>
+<h2 id="entities">Entities<a class="headerlink" href="#entities" title="Permanent link">&para;</a></h2>
+<h3 id="1-providerenum-modified">1. ProviderEnum (Modified)<a class="headerlink" href="#1-providerenum-modified" title="Permanent link">&para;</a></h3>
+<p><strong>Source</strong>: <code>src/holodeck/models/llm.py</code>
+<strong>Change</strong>: Add one new enum value; remove runtime-as-provider values</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>String</th>
+<th>Default Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OPENAI</td>
+<td><code>"openai"</code></td>
+<td>AFBackend (default)</td>
+</tr>
+<tr>
+<td>AZURE_OPENAI</td>
+<td><code>"azure_openai"</code></td>
+<td>AFBackend (default)</td>
+</tr>
+<tr>
+<td>ANTHROPIC</td>
+<td><code>"anthropic"</code></td>
+<td>ClaudeBackend (default)</td>
+</tr>
+<tr>
+<td>OLLAMA</td>
+<td><code>"ollama"</code></td>
+<td>ClaudeBackend (default)</td>
+</tr>
+<tr>
+<td><strong>GOOGLE</strong></td>
+<td><code>"google"</code></td>
+<td><strong>ADKBackend (default)</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1b-backendenum-new">1b. BackendEnum (New)<a class="headerlink" href="#1b-backendenum-new" title="Permanent link">&para;</a></h3>
+<p><strong>Source</strong>: <code>src/holodeck/models/llm.py</code>
+<strong>Purpose</strong>: Identifies the agent runtime, decoupled from LLM provider</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>String</th>
+<th>Backend Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEMANTIC_KERNEL</td>
+<td><code>"semantic_kernel"</code></td>
+<td>SKBackend</td>
+</tr>
+<tr>
+<td>CLAUDE</td>
+<td><code>"claude"</code></td>
+<td>ClaudeBackend</td>
+</tr>
+<tr>
+<td>GOOGLE_ADK</td>
+<td><code>"google_adk"</code></td>
+<td>ADKBackend</td>
+</tr>
+<tr>
+<td>AGENT_FRAMEWORK</td>
+<td><code>"agent_framework"</code></td>
+<td>AFBackend</td>
+</tr>
+</tbody>
+</table>
+<h3 id="default-routing-when-backend-omitted">Default Routing (when <code>backend</code> omitted)<a class="headerlink" href="#default-routing-when-backend-omitted" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Default Backend</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openai</code></td>
+<td><code>agent_framework</code></td>
+<td>AF is the recommended OpenAI runtime (SK planned for deprecation)</td>
+</tr>
+<tr>
+<td><code>azure_openai</code></td>
+<td><code>agent_framework</code></td>
+<td>AF has native Azure OpenAI client support</td>
+</tr>
+<tr>
+<td><code>anthropic</code></td>
+<td><code>claude</code></td>
+<td>Claude Agent SDK is the native Anthropic runtime</td>
+</tr>
+<tr>
+<td><code>ollama</code></td>
+<td><code>claude</code></td>
+<td>Claude SDK supports Ollama models natively</td>
+</tr>
+<tr>
+<td><code>google</code></td>
+<td><code>google_adk</code></td>
+<td>ADK is the native Google/Gemini runtime</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-googleadkconfig-new">2. GoogleADKConfig (New)<a class="headerlink" href="#2-googleadkconfig-new" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>src/holodeck/models/google_adk_config.py</code>
+<strong>Parent</strong>: <code>pydantic.BaseModel</code>
+<strong>Pattern</strong>: Follows <code>ClaudeConfig</code> (optional backend-specific section in Agent model)
+<strong>Validation</strong>: <code>ConfigDict(extra="forbid")</code></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>streaming_mode</code></td>
+<td><code>StreamingMode</code> (enum: <code>none</code>, <code>sse</code>)</td>
+<td><code>none</code></td>
+<td>How responses are delivered</td>
+</tr>
+<tr>
+<td><code>code_execution</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Enable ADK's built-in code execution capability</td>
+</tr>
+<tr>
+<td><code>max_iterations</code></td>
+<td><code>int \| None</code></td>
+<td><code>None</code></td>
+<td>Max agent loop turns (<code>ge=1</code>)</td>
+</tr>
+<tr>
+<td><code>output_key</code></td>
+<td><code>str</code></td>
+<td><code>"output"</code></td>
+<td>Key in ADK session state for final response</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nested Types</strong>:
+- <code>StreamingMode(str, Enum)</code>: <code>none = "none"</code>, <code>sse = "sse"</code></p>
+<h3 id="3-agentframeworkconfig-new">3. AgentFrameworkConfig (New)<a class="headerlink" href="#3-agentframeworkconfig-new" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>src/holodeck/models/af_config.py</code>
+<strong>Parent</strong>: <code>pydantic.BaseModel</code>
+<strong>Pattern</strong>: Follows <code>ClaudeConfig</code>
+<strong>Validation</strong>: <code>ConfigDict(extra="forbid")</code></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>compaction_strategy</code></td>
+<td><code>CompactionStrategy</code></td>
+<td><code>none</code></td>
+<td>Message history compaction for long conversations</td>
+</tr>
+<tr>
+<td><code>max_tool_rounds</code></td>
+<td><code>int \| None</code></td>
+<td><code>None</code></td>
+<td>Max tool invocation rounds per turn (<code>ge=1</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nested Types</strong>:
+- <code>CompactionStrategy(str, Enum)</code>: <code>none = "none"</code>, <code>sliding_window = "sliding_window"</code>, <code>summarization = "summarization"</code></p>
+<h3 id="4-agent-model-modified">4. Agent Model (Modified)<a class="headerlink" href="#4-agent-model-modified" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>src/holodeck/models/agent.py</code>
+<strong>Change</strong>: Add three optional fields — <code>backend</code> override plus two backend-specific config sections</p>
+<table>
+<thead>
+<tr>
+<th>New Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>backend</code></td>
+<td><code>BackendEnum \| None</code></td>
+<td><code>None</code></td>
+<td>Agent runtime override. When <code>None</code>, auto-detected from <code>model.provider</code> using default routing table.</td>
+</tr>
+<tr>
+<td><code>google_adk</code></td>
+<td><code>GoogleADKConfig \| None</code></td>
+<td><code>None</code></td>
+<td>Validated when resolved backend is <code>google_adk</code>; silently ignored otherwise</td>
+</tr>
+<tr>
+<td><code>agent_framework</code></td>
+<td><code>AgentFrameworkConfig \| None</code></td>
+<td><code>None</code></td>
+<td>Validated when resolved backend is <code>agent_framework</code>; silently ignored otherwise</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-embeddingservice-protocol-litellm-adapter-new">5. EmbeddingService Protocol + LiteLLM Adapter (New)<a class="headerlink" href="#5-embeddingservice-protocol-litellm-adapter-new" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>src/holodeck/lib/embedding_protocol.py</code>
+<strong>Type</strong>: <code>typing.Protocol</code> (<code>@runtime_checkable</code>)
+<strong>Purpose</strong>: Replace SK embedding classes with a unified LiteLLM-based embedding service for all backends</p>
+<table>
+<thead>
+<tr>
+<th>Method/Property</th>
+<th>Signature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>embed_batch</code></td>
+<td><code>async (texts: list[str]) -&gt; list[list[float]]</code></td>
+<td>Generate embeddings for a batch of texts</td>
+</tr>
+<tr>
+<td><code>dimensions</code></td>
+<td><code>@property -&gt; int</code></td>
+<td>Embedding vector dimensionality</td>
+</tr>
+<tr>
+<td><code>model_id</code></td>
+<td><code>@property -&gt; str</code></td>
+<td>Identifier of the embedding model</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Single Adapter — <code>LiteLLMEmbeddingAdapter</code></strong> (in same file):</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_model_id</code></td>
+<td><code>str</code></td>
+<td>LiteLLM model string (e.g., <code>"text-embedding-3-small"</code>, <code>"azure/my-deployment"</code>, <code>"ollama/nomic-embed-text"</code>)</td>
+</tr>
+<tr>
+<td><code>_api_key</code></td>
+<td><code>str \| None</code></td>
+<td>API key for the embedding provider</td>
+</tr>
+<tr>
+<td><code>_api_base</code></td>
+<td><code>str \| None</code></td>
+<td>Custom endpoint URL (maps from <code>embedding_provider.endpoint</code>)</td>
+</tr>
+<tr>
+<td><code>_dimensions</code></td>
+<td><code>int</code></td>
+<td>Embedding vector dimensionality</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Provider mapping from <code>embedding_provider</code> YAML to LiteLLM model string</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>YAML <code>provider</code></th>
+<th>YAML <code>name</code></th>
+<th>LiteLLM <code>model</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openai</code></td>
+<td><code>text-embedding-3-small</code></td>
+<td><code>"text-embedding-3-small"</code></td>
+</tr>
+<tr>
+<td><code>azure_openai</code></td>
+<td><code>my-deployment</code></td>
+<td><code>"azure/my-deployment"</code></td>
+</tr>
+<tr>
+<td><code>ollama</code></td>
+<td><code>nomic-embed-text</code></td>
+<td><code>"ollama/nomic-embed-text"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>What is removed</strong>:
+- SK <code>OpenAITextEmbedding</code>, <code>AzureTextEmbedding</code>, <code>OllamaTextEmbedding</code> imports from <code>tool_initializer.py</code>
+- No <code>SKEmbeddingAdapter</code> or <code>AFEmbeddingAdapter</code> needed</p>
+<h3 id="6-adkbackend-adksession-new">6. ADKBackend + ADKSession (New)<a class="headerlink" href="#6-adkbackend-adksession-new" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>src/holodeck/lib/backends/adk_backend.py</code>
+<strong>Implements</strong>: <code>AgentBackend</code>, <code>AgentSession</code> protocols</p>
+<p><strong>ADKBackend State</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_agent</code></td>
+<td><code>google.adk.agents.LlmAgent</code></td>
+<td>Configured ADK agent instance</td>
+</tr>
+<tr>
+<td><code>_runner</code></td>
+<td><code>google.adk.runners.Runner</code></td>
+<td>ADK runner for invocations</td>
+</tr>
+<tr>
+<td><code>_session_service</code></td>
+<td><code>InMemorySessionService</code></td>
+<td>Session state management</td>
+</tr>
+<tr>
+<td><code>_tools</code></td>
+<td><code>list[Any]</code></td>
+<td>Adapted tool instances</td>
+</tr>
+<tr>
+<td><code>_config</code></td>
+<td><code>GoogleADKConfig \| None</code></td>
+<td>Backend-specific config</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ADKSession State</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_runner</code></td>
+<td><code>Runner</code></td>
+<td>Shared runner reference</td>
+</tr>
+<tr>
+<td><code>_user_id</code></td>
+<td><code>str</code></td>
+<td>Unique user ID for session</td>
+</tr>
+<tr>
+<td><code>_session_id</code></td>
+<td><code>str</code></td>
+<td>Unique session ID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-afbackend-afsession-new">7. AFBackend + AFSession (New)<a class="headerlink" href="#7-afbackend-afsession-new" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>src/holodeck/lib/backends/af_backend.py</code>
+<strong>Implements</strong>: <code>AgentBackend</code>, <code>AgentSession</code> protocols</p>
+<p><strong>AFBackend State</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_agent</code></td>
+<td><code>agent_framework.Agent</code></td>
+<td>Configured AF agent instance</td>
+</tr>
+<tr>
+<td><code>_client</code></td>
+<td><code>BaseChatClient</code></td>
+<td>Provider-specific LLM client</td>
+</tr>
+<tr>
+<td><code>_tools</code></td>
+<td><code>list[Any]</code></td>
+<td>Adapted tool instances</td>
+</tr>
+<tr>
+<td><code>_config</code></td>
+<td><code>AgentFrameworkConfig \| None</code></td>
+<td>Backend-specific config</td>
+</tr>
+</tbody>
+</table>
+<p><strong>AFSession State</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_agent</code></td>
+<td><code>Agent</code></td>
+<td>Shared agent reference</td>
+</tr>
+<tr>
+<td><code>_session</code></td>
+<td><code>AgentSession</code></td>
+<td>AF session with history</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Import Aliasing</strong>: The AF SDK's <code>AgentSession</code> type collides with HoloDeck's <code>AgentSession</code> protocol (from <code>base.py</code>). In <code>af_backend.py</code>, import the AF type with an alias: <code>from agent_framework import AgentSession as AFNativeSession</code> to avoid ambiguity.</p>
+</blockquote>
+<h3 id="8-skilltool-new-replaces-prompttool">8. SkillTool (New — replaces PromptTool)<a class="headerlink" href="#8-skilltool-new-replaces-prompttool" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>src/holodeck/models/tool.py</code>
+<strong>Replaces</strong>: <code>PromptTool</code> (type: prompt) — removed from <code>ToolUnion</code>
+<strong>Spec</strong>: <a href="https://agentskills.io/specification">Agent Skills specification</a></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>required</td>
+<td>Skill identifier (1-64 chars, lowercase alphanumeric + hyphens, matches Agent Skills spec naming)</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>str \| None</code></td>
+<td><code>None</code></td>
+<td>What the skill does and when to use it (max 1024 chars per spec). Required for inline skills; optional for file-based skills (falls back to SKILL.md frontmatter <code>description</code>).</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>Literal["skill"]</code></td>
+<td><code>"skill"</code></td>
+<td>Tool type discriminator</td>
+</tr>
+<tr>
+<td><code>instructions</code></td>
+<td><code>str \| None</code></td>
+<td><code>None</code></td>
+<td>Inline skill instructions (mutually exclusive with <code>path</code>)</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td><code>str \| None</code></td>
+<td><code>None</code></td>
+<td>Path to skill directory containing SKILL.md (mutually exclusive with <code>instructions</code>)</td>
+</tr>
+<tr>
+<td><code>allowed_tools</code></td>
+<td><code>list[str] \| None</code></td>
+<td><code>None</code></td>
+<td>Names of parent agent tools this skill can access. <code>None</code> = no tool access. YAML-only — not merged from SKILL.md frontmatter.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Validation Rules</strong>:
+- Exactly one of <code>instructions</code> or <code>path</code> must be provided
+- <code>description</code> is required when <code>instructions</code> is set (inline skill). When <code>path</code> is set (file-based skill), <code>description</code> is optional and falls back to the SKILL.md frontmatter <code>description</code> field. A <code>model_post_init</code> validator enforces that at least one source of description exists.
+- <code>name</code> uses a DIFFERENT pattern from other tool types: <code>^[a-z0-9]+(-[a-z0-9]+)*$</code> (Agent Skills spec: lowercase alphanumeric + hyphens, no leading/trailing/consecutive hyphens, 1-64 chars). Other tool types use <code>^[0-9A-Za-z_]+$</code>.
+- When <code>path</code> is provided, the directory must contain a valid <code>SKILL.md</code> with required frontmatter (<code>name</code>, <code>description</code>). Each backend handles SKILL.md parsing natively via its own skill runtime.
+- When <code>allowed_tools</code> is provided, referenced tool names are validated against the parent agent's <code>tools</code> list at config time. <code>allowed_tools</code> is specified ONLY in agent.yaml — the SKILL.md <code>allowed-tools</code> frontmatter field is for the backend's native tool permissions and is NOT merged.</p>
+<p><strong>Inline form</strong> (simple skills):
+<div class="highlight"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentiment-analyzer</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">skill</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Analyze</span><span class="nv"> </span><span class="s">sentiment</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">extract</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">emotions</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">text"</span>
+<span class="w">    </span><span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="s">"Analyze</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">given</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">sentiment.</span><span class="nv"> </span><span class="s">Return</span><span class="nv"> </span><span class="s">overall</span><span class="nv"> </span><span class="s">sentiment,</span><span class="nv"> </span><span class="s">confidence,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">emotions."</span>
+<span class="w">    </span><span class="nt">allowed_tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">knowledge_base</span><span class="p p-Indicator">]</span>
+</code></pre></div></p>
+<p><strong>File-based form</strong> (complex skills with scripts/references/assets):
+<div class="highlight"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">research-assistant</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">skill</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./skills/research-assistant/</span>
+<span class="w">    </span><span class="c1"># SKILL.md in that directory provides name, description, instructions</span>
+<span class="w">    </span><span class="c1"># Each backend handles SKILL.md parsing natively via its skill runtime</span>
+<span class="w">    </span><span class="nt">allowed_tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">knowledge_base</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">web_search</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># YAML-only, not from SKILL.md</span>
+</code></pre></div></p>
+<p><strong>Backend Adaptation</strong>:
+Each backend uses its native skill/sub-agent runtime. SK is excluded (planned for deprecation).</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Native Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADK</td>
+<td>ADK's native agent composition — skill as a sub-agent within the ADK agent graph</td>
+</tr>
+<tr>
+<td>AF</td>
+<td>AF's native agent delegation — skill via AF's built-in sub-agent orchestration</td>
+</tr>
+<tr>
+<td>Claude</td>
+<td>Claude Agent SDK's native sub-agent system</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Agent (model)
+├── backend: BackendEnum? ────────→ BackendSelector (explicit routing)
+├── model.provider: ProviderEnum ─→ BackendSelector (auto-detect fallback)
+├── claude: ClaudeConfig? ────────→ ClaudeBackend (existing)
+├── google_adk: GoogleADKConfig? ─→ ADKBackend (new)
+├── agent_framework: AFConfig? ───→ AFBackend (new)
+├── embedding_provider: ... ──────→ EmbeddingService (protocol)
+└── tools: list[ToolUnion] ───────→ Per-backend tool adapters
+
+EmbeddingService (protocol)
+└── LiteLLMEmbeddingAdapter ──→ litellm.aembedding() (all providers)
+
+BackendSelector
+├── Explicit backend field ────────→ Use directly
+└── Auto-detect from provider:
+    ├── openai/azure_openai ───────→ AFBackend
+    ├── anthropic ─────────────────→ ClaudeBackend
+    ├── ollama ────────────────────→ ClaudeBackend
+    └── google ────────────────────→ ADKBackend (lazy import)
+</code></pre></div>
+<h2 id="validation-rules">Validation Rules<a class="headerlink" href="#validation-rules" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Backend-specific config sections</strong>: Only validated when matching backend is resolved. Present but non-matching sections are silently ignored (not rejected).</li>
+<li><strong><code>embedding_provider</code> requirement</strong>: When the resolved <code>backend</code> is <code>google_adk</code>, <code>agent_framework</code>, or <code>claude</code> and vectorstore/hierarchical_document tools are configured, <code>embedding_provider</code> MUST be set. All embedding is handled via <code>LiteLLMEmbeddingAdapter</code>. <strong>Implementation note</strong>: This validator does NOT currently exist in <code>agent.py</code> — it must be created as a new <code>@model_validator(mode='after')</code>, not extended from an existing validator. This fixes the pre-existing gap for the <code>anthropic</code> provider and covers both new backends.</li>
+<li><strong>Backend/provider compatibility</strong>: When <code>backend</code> is explicitly set, the system validates that <code>model.provider</code> is compatible with the chosen backend. Incompatible combinations raise <code>ValidationError</code> with clear error messages.</li>
+<li><strong>Default routing resolution</strong>: When <code>backend</code> is <code>None</code>, it is resolved from <code>model.provider</code> using the default routing table before backend initialization.</li>
+<li><strong>Lazy import guard</strong>: ADK and AF backend modules are only imported when their backend is selected. Missing packages raise <code>BackendInitError</code> with installation instructions.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2853 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/036-deterministic-spine/spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Feature Specification: Deterministic Spine — Composable Workflow Determination Gates - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#feature-specification-deterministic-spine-composable-workflow-determination-gates" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feature Specification: Deterministic Spine — Composable Workflow Determination Gates
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-mvp-ship-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The MVP ship line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-run-is-one-state-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A run is one state transition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-shape-and-what-it-adds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural shape and what it adds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architectural shape and what it adds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology-one-word-one-meaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology (one word, one meaning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-workflow-not-determination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "workflow" not "determination"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-one-rule-non-negotiable-invariant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The one rule (non-negotiable invariant)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-scenarios-testing-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Scenarios &amp; Testing (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Scenarios &amp; Testing (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-story-1-run-a-single-determination-node-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 1 — Run a single determination node (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-2-compose-multiple-determination-levels-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 2 — Compose multiple determination levels (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-3-human-accountable-determination-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 3 — Human-accountable determination (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-4-reproducible-replay-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 4 — Reproducible replay (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-5-test-decision-tables-as-policy-as-code-priority-p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 5 — Test decision tables as policy-as-code (Priority: P3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-6-targeted-compliance-framework-sample-priority-p1-in-the-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 6 — Targeted Compliance Framework sample (Priority: P1 — in the MVP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Success Criteria (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurable-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measurable Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#out-of-scope-poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of Scope (POC)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#north-star-named-not-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        North Star (named, not built)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="feature-specification-deterministic-spine-composable-workflow-determination-gates">Feature Specification: Deterministic Spine — Composable Workflow Determination Gates<a class="headerlink" href="#feature-specification-deterministic-spine-composable-workflow-determination-gates" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>ARCHIVED — PIVOTED, 2026-08-29.</strong> This spec is frozen after Phase 1
+(Checkpoint 1 passed; T7+ never built). The thesis moved from a decisions
+product to orchestration: HoloDeck agents become first-class citizens on
+Temporal, and no HoloDeck-owned workflow engine ships. The DMN/FEEL table
+evaluator and the schema gate survive as reusable primitives. Successor:
+<code>docs/product-specs/040-holodeck-temporal/spec.md</code>, which records the decisions that produced the
+pivot.</p>
+</blockquote>
+<p><strong>Feature Branch</strong>: <code>036-deterministic-spine</code>
+<strong>Created</strong>: 2026-05-30
+<strong>Status</strong>: Draft for review
+<strong>Author</strong>: justinbarias (with Claude)
+<strong>Input</strong>: User description: "A new HoloDeck feature to model deterministic workflows and rules with BPMN &amp; DMN. An engine that models deterministic workflows while using HoloDeck agents on the edges (leaf nodes). Ship 'just the gate' as a composable primitive; show how to compose multiple determination levels. FEEL required. <code>requires_human</code> = CLI prompt. Anchor sample: loan hardship underwriting."
+<strong>Related</strong>: <code>docs/ideas/deterministic-spine.md</code> (idea one-pager), <code>docs/product-specs/029-subagent-orchestration</code>, <code>docs/product-specs/018-otel-observability</code>, <code>docs/product-specs/022-otel-genai-semconv</code>, <code>docs/product-specs/006-agent-test-execution</code>
+<strong>Successor</strong>: <code>docs/product-specs/039-policy-generator</code> — AI-drafted decision tables and DRDs from policy documents. Specced in parallel so its schema needs land as additions here while this schema is still soft; <strong>built only after this spec's MVP ships</strong>.</p>
+<blockquote>
+<p><strong>Re-orientation, 2026-07-25.</strong> Three changes from the original draft, all
+recorded in <code>refinements.md</code> and the grilling session that produced them:
+1. <strong>An MVP ship line now exists</strong> (see below). The original tagged US1/US2/US3
+   all P1 with no stopping point, which is a full build, not a slice.
+2. <strong>The anchor sample moved</strong> from invented loan-hardship underwriting to the
+   Australian <strong>Targeted Compliance Framework</strong> — real, public, citable policy
+   in the exact domain the Motivation names.
+3. <strong>Generation is a named successor spec (039), not a phase here.</strong> The
+   headline claim of this spec is unchanged: the LLM is never the spine.
+<strong>Concept ref</strong>: <em>The Deterministic Spine</em> (FDE-01/A)</p>
+</blockquote>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h2>
+<p>HoloDeck today has no way to <strong>put rules in charge of a decision</strong>. Its multi-agent
+story (sequential / handoff / group-chat / magentic, all still aspirational per
+VISION) is <em>emergent</em> by design — the opposite of what a regulated or enterprise
+decision needs. When an AI step sits anywhere on the path to a consequential,
+contestable decision, the LLM becomes the de-facto spine: non-reproducible,
+unexplainable, and impossible to audit. That is the failure mode administrative
+law forbids — and the one Robodebt embodied.</p>
+<p>This feature introduces the <strong>deterministic spine</strong>: a workflow modeled as a
+directed acyclic graph (DAG) of <strong>determination nodes</strong>. A determination node
+takes typed inputs and runs them through <strong>policy-as-code (a DMN decision table
+with FEEL expressions)</strong>, emitting a typed, audited verdict. HoloDeck agents are
+confined to the <strong>leaf (edge) nodes</strong>; their output crosses a <strong>schema gate</strong> —
+the typed boundary where validated objects (and nothing else) enter the spine.
+Every node above the edges is deterministic; the top node is the <strong>bright line</strong>
+where a named human decides and the AI may draft reasons only.</p>
+<p>The target user is the <strong>enterprise + regulated/government FDE</strong> whose killer
+requirement is <strong>policy-as-code</strong>: decision logic that lives in versioned,
+testable, publishable DMN tables the AI cannot reach around. This turns
+HoloDeck's existing evaluation framework into a <em>policy-testing</em> tool — a
+capability LangSmith, MLflow, and PromptFlow do not offer.</p>
+<p>This is a deliberately <strong>thin proof-of-concept</strong>, not a workflow engine. It does
+the smallest thing that proves the spine: <em>agent → typed object → versioned DMN
+table → composed, human-accountable verdict → replayable record.</em></p>
+<p>Scope of the claim: the POC proves <strong>reproducibility, replayability, and
+policy-as-code</strong>. A durable, regulated-grade audit record (signed, tamper-evident,
+queryable) is <strong>North Star, not POC</strong> — the POC's audit surface is OpenTelemetry
+spans plus the local run record, which are sufficient to <em>replay</em> a determination
+but are not themselves a legal-grade audit store.</p>
+<h2 id="the-mvp-ship-line">The MVP ship line<a class="headerlink" href="#the-mvp-ship-line" title="Permanent link">&para;</a></h2>
+<p>This spec has one explicit stopping point. Everything above the line is required
+to make the central claim; everything below it is real work that the claim does
+not depend on.</p>
+<p><strong>MVP = T4, T5, T6, T7, T8, T10, T11, T14</strong> — a multi-level DAG that runs, pauses
+for a named human, records, and replays identically, demonstrated on the TCF
+sample.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Delivered by the MVP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SC-001</td>
+<td>compose ≥3 determination levels</td>
+</tr>
+<tr>
+<td>SC-002</td>
+<td>replay from the record alone, 0 LLM calls</td>
+</tr>
+<tr>
+<td>SC-003</td>
+<td>gate rejects ungated AI output, 100%</td>
+</tr>
+<tr>
+<td>SC-004</td>
+<td>hit policies + conformance suite</td>
+</tr>
+<tr>
+<td>SC-005</td>
+<td>FEEL subset the sample needs</td>
+</tr>
+<tr>
+<td>SC-007</td>
+<td>sample runs and replays</td>
+</tr>
+<tr>
+<td>SC-008</td>
+<td>AI-as-verdict unrepresentable</td>
+</tr>
+<tr>
+<td>SC-009</td>
+<td>generated-but-unreviewed policy refuses to run</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Only SC-006 (a table tested in isolation) falls past the line</strong>, because it
+needs the <code>WorkflowTestExecutor</code> (T12).</p>
+<p>Post-MVP, in order: <strong>T9</strong> (draft agent), <strong>T12</strong> (policy tests), <strong>T13</strong> (full
+OTel attributes), <strong>T15</strong> (docs). The MVP's human node therefore ships <strong>without</strong>
+a <code>draft:</code> block — permitted by FR-015a, which already allows a human node that
+presents composed inputs and the table's recommendation only.</p>
+<h2 id="a-run-is-one-state-transition">A run is one state transition<a class="headerlink" href="#a-run-is-one-state-transition" title="Permanent link">&para;</a></h2>
+<p>The spine is stateless. A run takes <code>(input_data, evidence) → verdict</code> and holds
+no memory between runs.</p>
+<p>Where a policy domain <em>is</em> stateful — TCF accrues demerits over time, expires
+them after 6 active months, and escalates penalties by prior-penalty count — the
+prior state is supplied as <strong><code>input_data</code></strong> (declared facts from a system of
+record) and the workflow computes the <strong>next</strong> state. One run models one
+compliance event.</p>
+<p>This keeps the DAG acyclic, stateless, and replayable, and it is the honest
+framing for an appeal: replaying a determination reproduces the transition that
+was actually made, against the policy version in force at the time.</p>
+<p>Maintaining the state across runs is <strong>not</strong> this spec's job and is not in scope.</p>
+<h2 id="architectural-shape-and-what-it-adds">Architectural shape and what it adds<a class="headerlink" href="#architectural-shape-and-what-it-adds" title="Permanent link">&para;</a></h2>
+<p>The spine is a new, self-contained subsystem. It <strong>reuses</strong> the backend
+abstraction (<code>BackendSelector</code> / <code>AgentBackend</code> / <code>ExecutionResult</code>) to run edge
+agents, and OpenTelemetry instrumentation (specs 018, 022) to emit the audit
+trace. It introduces <strong>no</strong> orchestration engine, no BPMN/DMN XML parsing, and
+no events/timers/message-flows.</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>How the spine handles it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authoring</td>
+<td>Native HoloDeck YAML DSL — <code>workflow.yaml</code> (the graph) + <code>tables/*.dmn.yaml</code> (decision tables) + <code>schemas/*.json</code> (gates). No BPMN/DMN XML in v1.</td>
+</tr>
+<tr>
+<td>Composition</td>
+<td>A DAG: a node's verdict is a <strong>named input</strong> to nodes above it (DMN's Decision Requirement Diagram). Strictly one-directional in v1.</td>
+</tr>
+<tr>
+<td>Edge (AI) node</td>
+<td>Dispatches a HoloDeck agent via <code>BackendSelector</code>; its <code>ExecutionResult.structured_output</code> is validated at a per-node <code>gate:</code> block before it may cross.</td>
+</tr>
+<tr>
+<td>Policy node</td>
+<td>Pure DMN table evaluation over named inputs, using FEEL expressions and a hit policy (<code>UNIQUE</code> / <code>FIRST</code> / <code>PRIORITY</code>). No AI.</td>
+</tr>
+<tr>
+<td>Human node</td>
+<td><code>requires_human: true</code> pauses for a <strong>CLI prompt</strong>; <code>ai_may_draft: reasons</code> lets AI draft proposed reasons only — no AI output crosses into the verdict.</td>
+</tr>
+<tr>
+<td>FEEL</td>
+<td>An <strong>embedded</strong> evaluator (library TBD — see Open Questions). FEEL is not built from scratch.</td>
+</tr>
+<tr>
+<td>Audit trace</td>
+<td><strong>OpenTelemetry GenAI spans</strong> per node for now (specs 018/022). A durable DB-backed determination record is North Star / out of scope.</td>
+</tr>
+<tr>
+<td>Replay</td>
+<td>A minimal <strong>local run record</strong> persists each edge node's <em>gated output</em> <strong>plus a content snapshot of every decision table and gate schema used</strong>. <code>holodeck workflow replay</code> re-evaluates the deterministic policy + human layers from the recorded edge outputs <strong>against the snapshotted tables</strong> — <strong>it does not re-invoke the LLM</strong> (non-deterministic) and <strong>does not depend on a policy registry</strong> (out of scope).</td>
+</tr>
+<tr>
+<td>CLI</td>
+<td>New <code>holodeck workflow</code> verb: <code>holodeck workflow run workflow.yaml</code>, <code>holodeck workflow replay &lt;record&gt;</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="terminology-one-word-one-meaning">Terminology (one word, one meaning)<a class="headerlink" href="#terminology-one-word-one-meaning" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Determination node</strong> — a node that emits a <em>verdict</em> by evaluating a DMN table: a <strong>policy node</strong> (pure) or a <strong>human node</strong> (the bright line).</li>
+<li><strong>Edge node</strong> — a leaf node that runs a HoloDeck agent; it emits a gate-validated <em>input object</em>, never a verdict.</li>
+<li><strong>Schema gate</strong> (<code>gate:</code>) — the typed boundary on an edge node where the agent's <code>structured_output</code> is validated before it may cross into the spine. <strong>"Gate" always means this boundary</strong> — never the DMN node. (The feature title's "Determination Gates" is shorthand for "determination nodes fed across schema gates.")</li>
+<li><strong>Verdict</strong> — a determination node's typed output; becomes a named input to dependent nodes.</li>
+<li><strong><code>input_data</code></strong> — a workflow-level block declaring typed facts supplied to the run from outside (prior state, case facts), validated against a JSON Schema. Named for DMN's <code>&lt;inputData&gt;</code>. <strong>Never LLM-produced</strong> — these are facts of record, and routing them through an agent would put a model upstream of data it has no business touching.</li>
+<li><strong><code>inputs:</code></strong> (on a node) — that node's <em>information requirements</em>: the ids of nodes (or <code>input_data</code> keys) whose values it consumes. <strong>One word, one meaning:</strong> node-level <code>inputs:</code> always means "what this node depends on," never "facts entering the workflow." That second sense is <code>input_data:</code> and only <code>input_data:</code>.</li>
+</ul>
+<h3 id="why-workflow-not-determination">Why "workflow" not "determination"<a class="headerlink" href="#why-workflow-not-determination" title="Permanent link">&para;</a></h3>
+<p>The user-facing artifact and command use <strong><code>workflow</code></strong> (<code>workflow.yaml</code>,
+<code>holodeck workflow run</code>) to match the BPMN mental model the feature derives from.
+Internally the nodes remain <em>gates</em> and the act remains a <em>determination</em> — but
+the operator types <code>holodeck workflow</code>.</p>
+<h3 id="the-one-rule-non-negotiable-invariant">The one rule (non-negotiable invariant)<a class="headerlink" href="#the-one-rule-non-negotiable-invariant" title="Permanent link">&para;</a></h3>
+<p><strong>The LLM is never the spine.</strong> It feeds the spine typed, validated objects. The
+spine — not the model — holds state, applies the policy-as-code, and records the
+trace. Any path that lets the model produce a verdict (rather than an input to
+one) is off-pattern and MUST be rejected at validation time.</p>
+<h2 id="user-scenarios-testing-mandatory">User Scenarios &amp; Testing <em>(mandatory)</em><a class="headerlink" href="#user-scenarios-testing-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="user-story-1-run-a-single-determination-node-priority-p1">User Story 1 — Run a single determination node (Priority: P1)<a class="headerlink" href="#user-story-1-run-a-single-determination-node-priority-p1" title="Permanent link">&para;</a></h3>
+<p>An FDE defines one edge node (an agent that extracts fields), a per-node schema
+gate, and one DMN decision table. They run <code>holodeck workflow run workflow.yaml</code>.
+HoloDeck invokes the agent, validates its structured output against the gate
+schema, evaluates the DMN table over the validated object, and emits a typed
+verdict plus an OTel span.</p>
+<p><strong>Why this priority</strong>: This is the atomic primitive — "AI on a leash, rules in
+charge." Without it, nothing else exists. A single gate is already a viable MVP:
+it proves a probabilistic agent can feed a deterministic policy through a typed
+boundary.</p>
+<p><strong>Independent Test</strong>: A <code>workflow.yaml</code> with one edge node + one policy node, a
+gate schema, and a <code>UNIQUE</code>-hit-policy table. Run it; assert the verdict matches
+the table's expected output for the agent's (mocked) extraction, and that
+free-text or schema-invalid agent output is rejected at the gate.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an edge node whose agent returns a schema-valid object, <strong>When</strong> the workflow runs, <strong>Then</strong> the object crosses the gate and the policy node emits the verdict dictated by the matching DMN rule.</li>
+<li><strong>Given</strong> an edge node whose agent returns free text or a schema-invalid object, <strong>When</strong> the workflow runs, <strong>Then</strong> the gate rejects it and the workflow fails with a typed validation error — no verdict is produced.</li>
+<li><strong>Given</strong> a workflow run completes, <strong>When</strong> the trace is inspected, <strong>Then</strong> an OTel span exists for the edge node and the policy node, capturing inputs, the matched rule, and the verdict.</li>
+</ol>
+<hr />
+<h3 id="user-story-2-compose-multiple-determination-levels-priority-p1">User Story 2 — Compose multiple determination levels (Priority: P1)<a class="headerlink" href="#user-story-2-compose-multiple-determination-levels-priority-p1" title="Permanent link">&para;</a></h3>
+<p>An FDE composes several edge nodes and policy nodes into a multi-level DAG: Level
+1 edge nodes produce typed inputs; Level 2 policy nodes compose those inputs;
+a Level 3 node composes the Level 2 verdicts. Each node names its <code>inputs</code> by the
+<code>id</code> of nodes below it. HoloDeck builds the DAG, topologically orders it, and
+evaluates bottom-up.</p>
+<p><strong>Why this priority</strong>: This is the headline capability — <em>multiple determination
+levels composed without an orchestration engine</em>. It is what distinguishes the
+spine from "an agent that calls a rules function."</p>
+<p><strong>Independent Test</strong>: A <code>workflow.yaml</code> with three Level-1 edges, two Level-2
+tables, and one Level-3 table; assert evaluation order is a valid topological
+sort, that each higher node receives the lower nodes' verdicts as named inputs,
+and that the final verdict reflects the composed sub-verdicts.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a node declares <code>inputs: [a, b]</code>, <strong>When</strong> the workflow runs, <strong>Then</strong> nodes <code>a</code> and <code>b</code> are evaluated first and their verdicts are passed as named inputs.</li>
+<li><strong>Given</strong> a workflow whose <code>inputs</code> form a cycle, <strong>When</strong> it is loaded, <strong>Then</strong> validation fails with a clear cycle error before any agent is invoked.</li>
+<li><strong>Given</strong> a node references an <code>inputs</code> id that does not exist, <strong>When</strong> it is loaded, <strong>Then</strong> validation fails with an unresolved-reference error.</li>
+</ol>
+<hr />
+<h3 id="user-story-3-human-accountable-determination-priority-p1">User Story 3 — Human-accountable determination (Priority: P1)<a class="headerlink" href="#user-story-3-human-accountable-determination-priority-p1" title="Permanent link">&para;</a></h3>
+<p>The top node sets <code>requires_human: true</code> and <code>ai_may_draft: reasons</code>. When the
+workflow reaches it, HoloDeck presents the composed inputs and the AI-drafted
+reasons at the <strong>CLI</strong>, then prompts the named human to select the determination
+(e.g. approve / refer / decline). The human's choice — not any AI output —
+becomes the verdict and is recorded.</p>
+<p><strong>Why this priority</strong>: The bright line — a named human deciding while the AI
+drafts only — is the headline promise for regulated users. The MVP is incomplete
+without it: a spine with no human determination is a spine with its head cut off.
+It depends on US1/US2 but is core, not additive, so it is P1.</p>
+<p><strong>Independent Test</strong>: A workflow whose final node <code>requires_human</code>; run it with a
+scripted CLI answer; assert the recorded verdict equals the human's choice, that
+the AI-drafted reasons are present but advisory, and that no AI-produced field
+can populate the verdict.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a <code>requires_human</code> node, <strong>When</strong> the workflow reaches it, <strong>Then</strong> it pauses and presents composed inputs + AI-drafted reasons and waits for a human selection at the CLI.</li>
+<li><strong>Given</strong> <code>ai_may_draft: reasons</code>, <strong>When</strong> the node executes, <strong>Then</strong> the AI may produce a <code>reasons</code> draft only; attempting to let AI output set the verdict is rejected at validation time.</li>
+<li><strong>Given</strong> the human selects a determination, <strong>When</strong> the workflow completes, <strong>Then</strong> the run record attributes the verdict to the named human, with a timestamp.</li>
+</ol>
+<hr />
+<h3 id="user-story-4-reproducible-replay-priority-p2">User Story 4 — Reproducible replay (Priority: P2)<a class="headerlink" href="#user-story-4-reproducible-replay-priority-p2" title="Permanent link">&para;</a></h3>
+<p>An FDE re-runs a completed determination with <code>holodeck workflow replay &lt;record&gt;</code>.
+HoloDeck reads the recorded gated edge outputs and the recorded human decision,
+re-evaluates the deterministic policy and human layers, and produces a verdict
+<strong>identical</strong> to the original — without calling any LLM.</p>
+<p><strong>Why this priority</strong>: Replay is the "prove it" property regulated buyers need.
+It depends on US1/US2 existing, so P2.</p>
+<p><strong>Independent Test</strong>: Run a workflow to completion; capture the record; run
+<code>replay</code> on that record; assert every policy node's matched rule and the final
+verdict are byte-identical to the original run, and assert no agent/LLM call is
+made during replay.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a completed run record, <strong>When</strong> <code>replay</code> is invoked, <strong>Then</strong> the deterministic layers re-evaluate from recorded edge outputs and produce an identical verdict.</li>
+<li><strong>Given</strong> a replay, <strong>When</strong> it executes, <strong>Then</strong> no edge agent is invoked (zero LLM calls) — only the recorded gated outputs are consumed.</li>
+<li><strong>Given</strong> a record whose referenced decision table has changed version, <strong>When</strong> <code>replay</code> runs, <strong>Then</strong> it uses the table version recorded at run time (or fails loudly if that version is unavailable) — it never silently replays against a newer policy.</li>
+</ol>
+<hr />
+<h3 id="user-story-5-test-decision-tables-as-policy-as-code-priority-p3">User Story 5 — Test decision tables as policy-as-code (Priority: P3)<a class="headerlink" href="#user-story-5-test-decision-tables-as-policy-as-code-priority-p3" title="Permanent link">&para;</a></h3>
+<p>An FDE writes test cases that assert a DMN table's verdict for given inputs,
+using HoloDeck's existing test/eval framework — testing the <em>policy</em>, not an
+agent. They run them in CI to guard the rules against regression.</p>
+<p><strong>Why this priority</strong>: High strategic value (turns the evaluator into a
+policy-testing tool), but the spine is usable without it, so P3.</p>
+<p><strong>Independent Test</strong>: A test file asserting expected verdicts for several input
+rows against a <code>tables/*.dmn.yaml</code>; run via the test runner; assert pass/fail
+reflects table correctness independent of any agent.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a decision-table test case with inputs and an expected verdict, <strong>When</strong> the test runs, <strong>Then</strong> it passes iff the table produces that verdict.</li>
+<li><strong>Given</strong> a table edited so a rule changes, <strong>When</strong> the policy tests run, <strong>Then</strong> the affected test fails with a diff of expected vs. actual verdict.</li>
+</ol>
+<hr />
+<h3 id="user-story-6-targeted-compliance-framework-sample-priority-p1-in-the-mvp">User Story 6 — Targeted Compliance Framework sample (Priority: P1 — in the MVP)<a class="headerlink" href="#user-story-6-targeted-compliance-framework-sample-priority-p1-in-the-mvp" title="Permanent link">&para;</a></h3>
+<p>A complete, runnable sample lives at <code>sample/tcf-compliance/</code> modelling one
+mutual-obligation compliance event under the Australian <strong>Targeted Compliance
+Framework</strong>:</p>
+<ul>
+<li><strong><code>input_data</code></strong> — the participant's prior compliance state from a system of
+  record: current zone, active demerit count and their accrual dates, prior
+  penalty count, months compliant. Never LLM-touched.</li>
+<li><strong>Edge node</strong> — an agent assesses the participant's <em>stated reason</em> for
+  non-compliance against the enumerated factors in the <em>Social Security
+  (Administration) (Reasonable Excuse – Participation Payments) Determination
+  2018</em> (s5 matters to consider, s6 matters excluded), emitting a typed object
+  across a schema gate.</li>
+<li><strong>Policy nodes</strong> — a zone/demerit table (<code>UNIQUE</code>) computing the next zone from
+  prior state plus this event, and a penalty escalation table (<code>FIRST</code>).</li>
+<li><strong>Human node</strong> — a named delegate accepts or overrides the table's
+  recommendation. No <code>draft:</code> block in the MVP.</li>
+</ul>
+<p><strong>Why this is the anchor</strong>: the statute itself draws the schema gate. "Was there
+a reasonable excuse?" is a judgement over free text — an edge node. "What zone,
+what penalty?" is arithmetic over prior state — a policy node. "Who decided?" is
+a named human. HoloDeck does not have to argue for that boundary; Parliament
+already drew it. This is the concrete answer to the Motivation's Robodebt
+reference: the same class of determination, made reproducible, replayable, and
+attributable to a person.</p>
+<p><strong>Why P1, not P3</strong>: it is the MVP's proof. SC-005 and SC-007 are defined in terms
+of it, so it is not optional decoration.</p>
+<p><strong>Framing obligation</strong>: the sample's README MUST state up front that it
+demonstrates <em>constraining</em> automated decision-making — auditable, replayable,
+human-attributed, with the model structurally excluded from the verdict — and
+that it is not a proposal to automate welfare penalties. This is stated
+deliberately, not discovered by a reader.</p>
+<p><strong>Independent Test</strong>: <code>holodeck workflow run sample/tcf-compliance/workflow.yaml
+--input case.json</code> completes end-to-end with a scripted human answer and prints a
+composed determination; <code>holodeck workflow replay</code> reproduces it identically.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> the sample, <strong>When</strong> run end-to-end, <strong>Then</strong> it produces a final determination composed from the zone and penalty verdicts and a human decision.</li>
+<li><strong>Given</strong> the sample's run record, <strong>When</strong> replayed, <strong>Then</strong> the determination is reproduced identically with no LLM calls.</li>
+<li><strong>Given</strong> prior state supplied as <code>input_data</code>, <strong>When</strong> the workflow runs, <strong>Then</strong> it emits the <em>next</em> state, and no agent is invoked to produce any <code>input_data</code> fact.</li>
+</ol>
+<hr />
+<h3 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>DMN no match</strong>: a <code>UNIQUE</code>/<code>FIRST</code>/<code>PRIORITY</code> table where no rule matches the inputs → the node MUST fail loudly (or emit a declared default output if the table defines one), never silently emit null.</li>
+<li><strong>DMN multiple matches under <code>UNIQUE</code></strong>: more than one rule matches → validation/eval error (the <code>UNIQUE</code> contract is violated by the table or the data).</li>
+<li><strong>FEEL evaluation error</strong>: a malformed FEEL expression or a type mismatch (string vs. number) → fail at table load (static where possible) or at eval with a precise locator (table id, rule index, cell).</li>
+<li><strong>Cyclic or unresolved <code>inputs</code></strong>: detected at load, before any agent invocation.</li>
+<li><strong>Low-confidence edge output</strong>: if the gate schema marks fields with confidence and a field is below threshold, the gate rejects (or routes to the human node, if the workflow declares that) — it is never silently accepted.</li>
+<li><strong>Human aborts the CLI prompt</strong>: the run terminates with an explicit "no determination" status; no partial verdict is recorded as final.</li>
+<li><strong>On-disk table edited after a run</strong>: replay is unaffected — it uses the snapshot embedded in the record, not the current file. A record with missing or corrupt snapshots fails loudly rather than falling back to current tables.</li>
+<li><strong>Non-deterministic agent on a fresh run</strong> (not replay): expected and allowed — the <em>edge</em> is probabilistic; determinism is a property of the <em>spine</em> and of <em>replay</em>, not of a fresh run's edges.</li>
+</ul>
+<h2 id="requirements-mandatory">Requirements <em>(mandatory)</em><a class="headerlink" href="#requirements-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<p><strong>Authoring &amp; validation</strong>
+- <strong>FR-001</strong>: System MUST parse a native YAML workflow artifact (<code>workflow.yaml</code>) declaring an ordered list of nodes, each with a unique <code>id</code>.
+- <strong>FR-002</strong>: System MUST support three node kinds: <strong>edge</strong> (<code>edge.agent</code> + <code>gate</code>), <strong>policy</strong> (<code>decision</code> + <code>inputs</code> + <code>hit_policy</code>), and <strong>human</strong> (<code>decision</code> + <code>inputs</code> + <code>requires_human</code> + optional <code>draft</code> agent + optional <code>ai_may_draft</code>).
+- <strong>FR-003</strong>: System MUST construct a DAG from each node's <code>inputs</code> (referencing other node ids) and MUST reject cycles and unresolved references at load time, before invoking any agent.
+- <strong>FR-004</strong>: System MUST validate the workflow against a published JSON schema (consistent with <code>schemas/agent.schema.json</code> conventions) with Pydantic v2 models.
+- <strong>FR-005</strong>: The workflow schema MUST make "AI output as a verdict" <em>unrepresentable</em>: only policy and human nodes emit verdicts (via a DMN table), and edge nodes emit only gate-validated inputs. There is no node kind through which AI output can become a verdict, so the "LLM is never the spine" invariant holds <em>by construction of the schema</em> rather than by a runtime check.</p>
+<p><strong>Input data (facts of record)</strong>
+- <strong>FR-025</strong>: System MUST support a workflow-level <code>input_data:</code> block declaring named, typed facts supplied to the run from outside the spine, each with a JSON Schema. <code>holodeck workflow run</code> MUST accept the payload (e.g. <code>--input case.json</code>), validate every declared fact against its schema before any node executes, and fail loudly on a missing or schema-invalid fact.
+- <strong>FR-026</strong>: <code>input_data</code> values MUST be referenceable by name in a node's <code>inputs:</code> list and in decision-table input expressions, identically to node verdicts.
+- <strong>FR-027</strong>: No agent may produce an <code>input_data</code> value. The schema MUST make this unrepresentable (an <code>input_data</code> entry has no <code>edge</code>/<code>agent</code> field), so facts of record are structurally distinguishable from LLM-derived evidence.
+- <strong>FR-028</strong>: The run record MUST persist the validated <code>input_data</code> payload so replay reproduces the transition from the same facts.</p>
+<p><strong>Edge nodes &amp; schema gates</strong>
+- <strong>FR-006</strong>: System MUST invoke an edge node's agent via <code>BackendSelector</code>, provider-agnostically, reusing <code>ExecutionResult</code>.
+- <strong>FR-007</strong>: System MUST validate the edge agent's <code>structured_output</code> against the node's per-node <code>gate.schema</code> (JSON Schema / Pydantic) and MUST reject free text or schema-invalid output at the gate.
+- <strong>FR-008</strong>: System MUST treat the gate-validated typed object — not the raw LLM output — as the canonical value that crosses into the spine, and MUST record it for replay.</p>
+<p><strong>Policy nodes (DMN + FEEL)</strong>
+- <strong>FR-009</strong>: System MUST evaluate DMN decision tables (<code>tables/*.dmn.yaml</code>) over named inputs resolved from the verdicts/objects of input nodes.
+- <strong>FR-010</strong>: System MUST evaluate FEEL expressions in rule cells via an <strong>embedded</strong> FEEL evaluator (not built in-house), restricted to a <strong>bounded subset</strong>: numeric literals and comparisons (<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>=</code>, <code>!=</code>), ranges (<code>[a..b]</code>, <code>(a..b]</code>, etc.), boolean <code>and</code>/<code>or</code>/<code>not</code>, string equality, list membership (<code>in</code>), and date literals with comparison and difference. Expressions outside this subset MUST be rejected at table-load time (statically where possible), never silently mis-evaluated. [NEEDS CLARIFICATION: which FEEL evaluator/library covers exactly this subset — resolve during implementation planning via the FEEL spike.]
+- <strong>FR-011</strong>: System MUST support the hit policies <strong>UNIQUE</strong>, <strong>FIRST</strong>, and <strong>PRIORITY</strong> — the three the anchor sample uses — with standard DMN semantics for each. (<code>COLLECT</code> and other DMN hit policies are deferred; see Out of Scope.)
+- <strong>FR-012</strong>: System MUST fail loudly on no-match (absent a declared default output) and on a <code>UNIQUE</code> table with multiple matches.
+- <strong>FR-013</strong>: Each decision table MUST carry a <strong>version</strong> identifier (a label). The run record MUST embed a <strong>content snapshot</strong> of each table used (not merely the version id), so replay does not depend on an external registry or the current on-disk file.</p>
+<p><strong>Policy provenance &amp; the authoring-time review gate</strong></p>
+<blockquote>
+<p>Rationale: a generator (spec 039) moves the model <em>upstream of the rules
+themselves</em>. "The LLM is never the spine" is hollow if an LLM-written table can
+execute without a human ever reading it — the model would be the spine at
+authoring time instead of runtime. These requirements close that path, and they
+live here (not in 039) because the schema and the engine are here.</p>
+</blockquote>
+<ul>
+<li><strong>FR-029</strong>: A decision table MAY carry an optional <code>provenance:</code> block recording how it came to exist: <code>generated_by</code> (model id), <code>source</code> (the authority, e.g. <code>"Social Security Guide 3.11.13.50"</code>), <code>source_doc</code>, <code>source_sha256</code>, <code>reviewed_by</code>, <code>reviewed_at</code>. A hand-authored table omits the block entirely and is unaffected.</li>
+<li><strong>FR-030</strong>: <code>holodeck workflow run</code> MUST refuse to execute a table whose <code>provenance.generated_by</code> is set and whose <code>provenance.reviewed_by</code> is absent, failing with a typed error naming the table. AI-drafted policy MUST NOT reach a determination without a recorded human reviewer.</li>
+<li><strong>FR-031</strong>: The run record and the node's OTel span MUST carry each table's provenance, so a determination can be traced to the policy authority and the reviewer who signed it off.</li>
+<li><strong>FR-032</strong>: <code>provenance</code> is non-executable metadata. It MUST NOT be referenceable from FEEL expressions or influence rule matching.</li>
+</ul>
+<p><strong>Human nodes</strong>
+- <strong>FR-014</strong>: System MUST pause at a <code>requires_human</code> node and present, at the CLI, the composed inputs and — if the node declares a <code>draft</code> agent with <code>ai_may_draft: reasons</code> — the AI-drafted reasons, then prompt for a human selection among the table's declared outputs.
+- <strong>FR-015</strong>: System MUST record the human's selection as the verdict, attributed to the named human with a timestamp; AI output MUST NOT populate the verdict.
+- <strong>FR-015a</strong>: When a human node declares a <code>draft</code> block, the named drafting agent MUST be invoked <strong>only</strong> to produce the advisory fields listed in <code>ai_may_draft</code> (e.g. <code>reasons</code>); its output MUST be shown to the human as advisory and MUST NOT populate the verdict or any decision input. A human node without a <code>draft</code> block presents inputs only (no AI drafting). The drafting agent's output is recorded as advisory context, not as part of the deterministic spine.</p>
+<p><strong>Composition &amp; execution</strong>
+- <strong>FR-016</strong>: System MUST evaluate nodes in a valid topological order, passing each node's verdict to dependent nodes as a named input.
+- <strong>FR-017</strong>: The DAG MUST be strictly one-directional in v1 (no callback from a policy node to re-trigger an edge).</p>
+<p><strong>Audit, record &amp; replay</strong>
+- <strong>FR-018</strong>: System MUST emit OpenTelemetry GenAI spans (per specs 018/022) for each node, capturing inputs, table version, matched rule(s), and verdict.
+- <strong>FR-019</strong>: System MUST persist a <strong>local run record</strong> containing each edge node's gated output, each policy node's matched rule and verdict, a <strong>content snapshot of every decision table and gate schema used</strong> (with version labels), and the human decision — sufficient to replay deterministically with no external dependencies.
+- <strong>FR-020</strong>: <code>holodeck workflow replay &lt;record&gt;</code> MUST re-evaluate the policy and human layers from the recorded gated outputs and recorded human decision, producing an identical verdict, and MUST NOT invoke any LLM/agent.
+- <strong>FR-021</strong>: Replay MUST evaluate against the <strong>table snapshots embedded in the run record</strong> (not the current on-disk tables), and MUST fail loudly if the record is incomplete or its snapshots fail an integrity check — it MUST NOT silently fall back to current tables or a registry.</p>
+<p><strong>CLI</strong>
+- <strong>FR-022</strong>: System MUST add a <code>holodeck workflow</code> command group with <code>run &lt;workflow.yaml&gt;</code> and <code>replay &lt;record&gt;</code> subcommands, using Click and <code>echo()</code> for output per repo conventions.</p>
+<p><strong>Testing of policy</strong>
+- <strong>FR-023</strong>: System MUST allow decision tables to be tested via the existing HoloDeck test/eval framework — asserting a table's verdict for given inputs independent of any agent.</p>
+<p><strong>Sample</strong>
+- <strong>FR-024</strong>: System MUST ship a runnable <code>tcf-compliance</code> sample under <code>sample/</code> exercising <code>input_data</code> (prior compliance state), one edge agent (reasonable-excuse assessment), two policy tables (zone <code>UNIQUE</code>, penalty escalation <code>FIRST</code>), and one human determination, plus a replay. Its README MUST carry the framing statement required by US6.</p>
+<h3 id="key-entities">Key Entities<a class="headerlink" href="#key-entities" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Workflow</strong>: the DAG artifact (<code>workflow.yaml</code>); an ordered set of Nodes plus metadata (name, version) and an optional <code>input_data:</code> block.</li>
+<li><strong>InputData</strong>: a workflow-level declaration of a named, typed fact supplied from outside the spine (prior state, case facts), with a JSON Schema. Not a node; has no agent; validated before execution and persisted into the run record.</li>
+<li><strong>Node</strong>: one of: <strong>EdgeNode</strong> (agent + schema gate; emits a gate-validated input, never a verdict), <strong>PolicyNode</strong> (decision table + inputs + hit policy), <strong>HumanNode</strong> (decision table + inputs + <code>requires_human</code> + optional <code>draft</code> agent + optional <code>ai_may_draft</code>). Has a unique <code>id</code> and declared <code>inputs</code>.</li>
+<li><strong>Gate</strong>: a per-node schema (<code>gate.schema</code>) defining the typed object that may cross from an edge agent into the spine.</li>
+<li><strong>DecisionTable</strong>: a versioned DMN table (<code>tables/*.dmn.yaml</code>) — input expressions, rules (FEEL), outputs, a hit policy, and an optional non-executable <code>provenance</code> block (how it was authored, from which authority, reviewed by whom).</li>
+<li><strong>HitPolicy</strong>: <code>UNIQUE</code> | <code>FIRST</code> | <code>PRIORITY</code> (<code>COLLECT</code> and others deferred — see Out of Scope).</li>
+<li><strong>Verdict</strong>: a node's typed output; becomes a named input to dependent nodes.</li>
+<li><strong>RunRecord</strong>: the persisted, replayable artifact — the validated <code>input_data</code> payload, gated edge outputs, matched rules, <strong>content snapshots of the tables and gate schemas used</strong> (with version labels and provenance), the table's recommendation and the human decision (flagged when they differ), <code>decided_by</code>, advisory AI drafts, timestamps.</li>
+</ul>
+<h2 id="success-criteria-mandatory">Success Criteria <em>(mandatory)</em><a class="headerlink" href="#success-criteria-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="measurable-outcomes">Measurable Outcomes<a class="headerlink" href="#measurable-outcomes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SC-001</strong>: A workflow with ≥3 determination levels (edge → policy → human) runs end-to-end via <code>holodeck workflow run</code> and produces a single composed verdict.</li>
+<li><strong>SC-002</strong>: Replaying any completed run — <strong>using only the run record</strong> (no on-disk tables, no registry) — reproduces the final verdict and every policy node's matched rule <strong>100% identically</strong>, with <strong>0</strong> LLM/agent calls during replay.</li>
+<li><strong>SC-003</strong>: A schema-invalid or free-text edge output is rejected at the gate in <strong>100%</strong> of cases — no verdict is ever produced from ungated AI output.</li>
+<li><strong>SC-004</strong>: The three hit policies (<code>UNIQUE</code>/<code>FIRST</code>/<code>PRIORITY</code>) evaluate correctly against a conformance test suite, including no-match and <code>UNIQUE</code> multi-match edge cases.</li>
+<li><strong>SC-005</strong>: The FEEL subset required by the TCF sample (numeric comparison, ranges, and at least one date computation — demerit expiry over active months) evaluates correctly via the embedded evaluator, or the documented narrowed subset with the sample adjusted accordingly.</li>
+<li><strong>SC-006</strong>: A decision table can be tested in isolation; editing a rule causes the corresponding policy test to fail with an expected-vs-actual diff. <em>(Post-MVP — needs T12.)</em></li>
+<li><strong>SC-007</strong>: The TCF sample runs end-to-end and replays identically, demonstrated in CI or a documented quickstart.</li>
+<li><strong>SC-008</strong>: The workflow schema makes "AI output as a verdict" unrepresentable — there is no node kind that lets AI output become a verdict or a decision input; verified by schema-validation tests, not runtime fuzzing.</li>
+<li><strong>SC-009</strong>: A decision table carrying <code>provenance.generated_by</code> without <code>provenance.reviewed_by</code> is refused by <code>holodeck workflow run</code> in <strong>100%</strong> of cases — AI-drafted policy never reaches a determination unreviewed. Hand-authored tables (no <code>provenance</code> block) are unaffected.</li>
+<li><strong>SC-010</strong>: No <code>input_data</code> fact can be produced by an agent — verified by schema-validation tests. Facts of record and LLM-derived evidence are structurally distinguishable in the run record.</li>
+</ul>
+<h2 id="out-of-scope-poc">Out of Scope (POC)<a class="headerlink" href="#out-of-scope-poc" title="Permanent link">&para;</a></h2>
+<ul>
+<li>BPMN/DMN <strong>XML</strong> import, visual modeling, sequence flows, events, timers, message flows, BPMN gateways.</li>
+<li>DMN hit policies beyond <code>UNIQUE</code>/<code>FIRST</code>/<code>PRIORITY</code> (e.g. <code>COLLECT</code>, <code>RULE ORDER</code>, <code>OUTPUT ORDER</code>, aggregations) — only the three the sample uses are in v1.</li>
+<li><strong>Iteration over a collection, and aggregation across the results.</strong> A <code>PolicyNode</code> evaluates its table exactly once, over scalar named inputs. There is no way to say "evaluate this node once per element of a list-valued input and collect the verdicts", and no primitive that sums, counts, or caps across them.</li>
+</ul>
+<p>This is a real limit, not an oversight, and it is reached by ordinary policy. A PBAS claim describes <em>several</em> activity incidents; TCF counts demerits <em>across</em> failures; PBAS caps points <em>per month</em>. Each needs the same missing capability.</p>
+<p><strong><code>COLLECT</code> is not the fix, and adopting it would be a mistake.</strong> Hit policy resolves <em>multiple rules matching one evaluation</em>; this is <em>one rule matching each of many items</em>. Different axis. The tempting encoding — make the input the whole list, write rules like <code>list contains(activities, "job_interview")</code>, aggregate with <code>COLLECT SUM</code> — produces a plausible total while <strong>silently losing multiplicity</strong> (two job applications score 5, not 10) and discarding per-item fields such as contact hours, so every tiered activity collapses to one bucket. A quietly wrong determination is the exact failure this spec exists to prevent.</p>
+<p><strong>The DMN-correct decomposition, recorded here so it is not re-derived:</strong> DMN does not make the table handle the collection. The table stays scalar and becomes a <strong>BKM</strong> (Business Knowledge Model); an enclosing decision iterates over the collection with a <strong>boxed iterator</strong> (DMN 1.3+) or a literal FEEL expression, invoking the BKM per item, and a further decision aggregates:</p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Input</th>
+<th>Logic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>points_for_activity</code> (BKM)</td>
+<td>one activity (scalars)</td>
+<td>a decision table — unchanged from what this spec already ships</td>
+</tr>
+<tr>
+<td><code>total_points_for_claim</code></td>
+<td>the list</td>
+<td>boxed iterator invoking the BKM per item, then an aggregator</td>
+</tr>
+</tbody>
+</table>
+<p>Multiplicity is preserved because each incident is a separate invocation. The spine already has the first row; it lacks the second.</p>
+<p>Adding it is a spec-level capability, not a table feature: a fan-out node changes the run record (N verdicts per node), replay, OTel spans, and the DRD model. To be scoped separately. Until then, a workflow determines <strong>one</strong> item per run and the caller iterates.
+- A durable, DB-backed / signed determination record (POC uses OTel spans + a local run record). <em>North Star.</em>
+- A web/task-inbox HITL UI (CLI prompt only).
+- Deploy-as-API for workflows (<code>holodeck serve</code> / <code>deploy</code> integration).
+- Versioned policy <strong>registry</strong>, compliance export, replay UI.
+- Bidirectional graphs / callback re-extraction (strictly one-directional v1).
+- Coupling to the aspirational <code>experiment.yaml</code> orchestration.
+- <strong>Persisting state between runs.</strong> A run computes one transition from supplied <code>input_data</code>; maintaining the participant's compliance state across events is the caller's job (see "A run is one state transition").
+- <strong>AI-drafted decision tables and DRDs</strong> — <code>docs/product-specs/039-policy-generator</code>. This spec ships only the artifacts that make a drafted table safe to run: the <code>provenance</code> block and the review gate (FR-029…FR-032).
+- Confidence-scored gate fields / low-confidence routing (no convention exists; self-reported confidence is unreliable). <em>North Star.</em></p>
+<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
+<p><strong>Resolved</strong></p>
+<ol>
+<li>~~Which Python FEEL evaluator to embed~~ — <strong>bkflow-feel 1.2.0</strong> (MIT). Full FR-010 subset covered; caveats and the static-rejection list are in <code>research.md</code>. Landed in T1.</li>
+<li>~~Run record format &amp; location~~ — <code>.holodeck/runs/&lt;id&gt;.json</code>, canonical JSON (sorted keys), sha256 over embedded snapshots. Decided in <code>tasks/plan.md</code>.</li>
+<li>~~Gate ↔ <code>ExecutionResult.structured_output</code> binding~~ — confirmed for Claude (<code>Agent.response_format</code> → <code>structured_output</code>, already schema-validated). SK is out of POC scope; confidence gating is cut (refinements §1, §4).</li>
+<li>~~<code>workflow</code> CLI namespace~~ — free verb, no clash (refinements, codebase grounding).</li>
+</ol>
+<p><strong>Open</strong></p>
+<ol>
+<li><strong>Is TCF's "active months" expressible in the FEEL subset?</strong> Demerit expiry ("6 active months") and reset ("3 active months compliant") count <em>months in which the participant was active</em>, not elapsed calendar time — that is not a date difference. Likely pre-computed into <code>input_data</code> or a table <code>inputs[].expression</code>, but <strong>this needs a spike before T14</strong>, since SC-005 is defined in terms of the sample. Note <code>research.md</code> caveat 6: <code>date(variable)</code> does not parse; date-typed fields cross the gate as <code>date</code> objects and subtract bare.</li>
+<li><strong>Which TCF slice the sample models.</strong> The full framework (zones, fast-track demerits, capability interviews/assessments, escalation, reset) is larger than a sample needs. Pick the smallest slice that still exercises <code>UNIQUE</code> + <code>FIRST</code> + a human node.</li>
+<li><strong>Does 039's fidelity SC score decomposition or only table content?</strong> Recommendation: tables numerically, DRD shape qualitatively. Resolve in 039.</li>
+</ol>
+<h2 id="north-star-named-not-built">North Star (named, not built)<a class="headerlink" href="#north-star-named-not-built" title="Permanent link">&para;</a></h2>
+<p>"<strong>Governable Agents</strong>" — visual modeler, versioned policy registry, durable
+signed determination records, replay UI, and a real HITL task inbox. This POC is
+the first vertebra of that spine.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

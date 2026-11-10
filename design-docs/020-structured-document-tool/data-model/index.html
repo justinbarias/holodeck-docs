@@ -1,0 +1,3143 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/design-docs/020-structured-document-tool/data-model/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Data Model: HierarchicalDocumentTool - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-model-hierarchicaldocumenttool" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Model: HierarchicalDocumentTool
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entity-relationship-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Relationship Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pydantic-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pydantic Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pydantic Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-models-in-srcholodeckmodelstoolpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Models (in src/holodeck/models/tool.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-models-in-srcholodecklib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime Models (in src/holodeck/lib/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vector-store-record-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector Store Record Schema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Transitions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State Transitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#document-lifecycle-preprocessing-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document Lifecycle (Preprocessing Pipeline)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-flow-through-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow Through Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation Rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentchunk-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DocumentChunk Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observability-attributes-constitution-principle-iv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observability Attributes (Constitution Principle IV)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Observability Attributes (Constitution Principle IV)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#search-operation-spans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Operation Spans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bm25-operation-spans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BM25 Operation Spans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingestion-operation-spans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingestion Operation Spans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-span-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Span Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-model-hierarchicaldocumenttool">Data Model: HierarchicalDocumentTool<a class="headerlink" href="#data-model-hierarchicaldocumenttool" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: 020-structured-document-tool
+<strong>Date</strong>: 2026-01-29</p>
+<h2 id="entity-relationship-diagram">Entity Relationship Diagram<a class="headerlink" href="#entity-relationship-diagram" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                        HierarchicalDocument                                │
+│  (Represents an ingested document)                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│  source_path: str (PK)         # Absolute path to source file           │
+│  doc_summary: str              # Auto-generated or first paragraph      │
+│  language: str                 # Detected language (e.g., "en")         │
+│  total_chunks: int             # Number of chunks after parsing         │
+│  mtime: float                  # File modification time                 │
+│  file_type: str                # Extension (.md, .pdf, .docx)           │
+│  ingested_at: datetime         # When document was ingested             │
+└──────────────────────────────────┬──────────────────────────────────────┘
+                                   │ 1:N
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        DocumentChunk                                     │
+│  (A parsed section with structure metadata)                              │
+├─────────────────────────────────────────────────────────────────────────┤
+│  id: str (PK)                  # "{source_path}_chunk_{index}"          │
+│  source_path: str (FK)         # Reference to parent document           │
+│  chunk_index: int              # Sequential index within document       │
+│  content: str                  # Raw chunk text (original)              │
+│  contextualized_content: str   # LLM-generated context + content        │
+│                                # Format: "{context}\n\n{content}"       │
+│                                # Used for BOTH embedding AND BM25       │
+│  embedding: list[float]        # Dense vector of contextualized_content │
+│  parent_chain: list[str]       # ["Title I", "Chapter 2", "Section 3"]  │
+│  section_id: str               # Normalized ID (e.g., "sec_1_2_3")      │
+│  chunk_type: ChunkType         # definition | requirement | content     │
+│  cross_references: list[str]   # ["sec_2_1", "sec_4_3_a"]               │
+│  heading_level: int            # 1-6 for H1-H6, 0 for body              │
+│  mtime: float                  # From parent document                   │
+│                                                                         │
+│  # Definition fields (only populated when chunk_type="definition")      │
+│  defined_term: str             # "Force Majeure" (term being defined)   │
+│  defined_term_normalized: str  # "force_majeure" (for index lookup)     │
+└──────────────────────────────────┬──────────────────────────────────────┘
+                                   │ N:M (via cross_references)
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        DefinitionEntry                                   │
+│  (Extracted definition from definitions section or inline)              │
+├─────────────────────────────────────────────────────────────────────────┤
+│  id: str (PK)                  # "{source_path}_def_{term_normalized}"  │
+│  source_path: str (FK)         # Document containing definition         │
+│  term: str                     # The defined term                       │
+│  term_normalized: str          # Lowercase, no spaces (for lookup)      │
+│  definition_text: str          # The definition content                 │
+│  source_section: str           # Section ID where defined               │
+│  exceptions: list[str]         # Any noted exceptions                   │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        HybridIndex                                       │
+│  (Container for multi-modal search indices)                              │
+├─────────────────────────────────────────────────────────────────────────┤
+│  name: str (PK)                # Index name (from tool config)          │
+│  dense_index: VectorCollection # Embeddings of CONTEXTUALIZED text      │
+│  sparse_index: BM25Index|Native# BM25/native on CONTEXTUALIZED text     │
+│  exact_index: dict[str, list]  # Section ID → chunk IDs mapping         │
+│  definitions: dict[str, Def]   # term_normalized → DefinitionEntry      │
+│  chunk_count: int              # Total chunks indexed                   │
+│  last_updated: datetime        # Last index update time                 │
+│                                                                         │
+│  NOTE: Both dense and sparse indices use LLM-contextualized text,       │
+│  enabling keyword search on the generated context (Anthropic approach)  │
+│                                                                         │
+│  PERSISTENCE STRATEGY:                                                  │
+│  • dense_index: Persisted in vector store                               │
+│  • sparse_index: Native providers persist automatically; BM25 fallback  │
+│    rebuilt from stored contextualized_content on startup                │
+│  • exact_index: Rebuilt from stored chunk.section_id on startup         │
+│  • definitions: Rebuilt from chunks where defined_term != "" on startup │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        SearchResult                                      │
+│  (A single result from hybrid search)                                    │
+├─────────────────────────────────────────────────────────────────────────┤
+│  chunk_id: str                 # Reference to DocumentChunk.id          │
+│  content: str                  # Chunk content                          │
+│  fused_score: float            # Combined RRF score                     │
+│  semantic_score: float | None  # Dense index score (if enabled)         │
+│  keyword_score: float | None   # BM25 score (if enabled)                │
+│  exact_match: bool             # True if exact match found              │
+│  source_path: str              # Document path                          │
+│  parent_chain: list[str]       # Structural location                    │
+│  section_id: str               # Section identifier                     │
+│  definitions_context: list     # Relevant definitions for terms used    │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h2 id="pydantic-models">Pydantic Models<a class="headerlink" href="#pydantic-models" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-models-in-srcholodeckmodelstoolpy">Configuration Models (in <code>src/holodeck/models/tool.py</code>)<a class="headerlink" href="#configuration-models-in-srcholodeckmodelstoolpy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">field_validator</span><span class="p">,</span> <span class="n">model_validator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">holodeck.models.llm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LLMProvider</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SearchMode</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Search modality options."""</span>
+    <span class="n">SEMANTIC</span> <span class="o">=</span> <span class="s2">"semantic"</span>      <span class="c1"># Dense embeddings only</span>
+    <span class="n">KEYWORD</span> <span class="o">=</span> <span class="s2">"keyword"</span>        <span class="c1"># BM25 only</span>
+    <span class="n">EXACT</span> <span class="o">=</span> <span class="s2">"exact"</span>            <span class="c1"># Exact match only</span>
+    <span class="n">HYBRID</span> <span class="o">=</span> <span class="s2">"hybrid"</span>          <span class="c1"># All modalities with RRF fusion</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ChunkingStrategy</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Document chunking approach."""</span>
+    <span class="n">STRUCTURE</span> <span class="o">=</span> <span class="s2">"structure"</span>    <span class="c1"># Structure-aware (headings, sections)</span>
+    <span class="n">TOKEN</span> <span class="o">=</span> <span class="s2">"token"</span>            <span class="c1"># Token-based fallback</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">HierarchicalDocumentToolConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Configuration for HierarchicalDocumentTool in agent.yaml."""</span>
+
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">extra</span><span class="o">=</span><span class="s2">"forbid"</span><span class="p">)</span>
+
+    <span class="c1"># Required fields</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">pattern</span><span class="o">=</span><span class="sa">r</span><span class="s2">"^[0-9A-Za-z_]+$"</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Tool identifier (alphanumeric and underscores)"</span>
+    <span class="p">)</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Human-readable tool description"</span>
+    <span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"hierarchical_document"</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">"hierarchical_document"</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Tool type discriminator"</span>
+    <span class="p">)</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Path to file or directory to index"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Chunking configuration</span>
+    <span class="n">chunking_strategy</span><span class="p">:</span> <span class="n">ChunkingStrategy</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">ChunkingStrategy</span><span class="o">.</span><span class="n">STRUCTURE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"How to chunk documents"</span>
+    <span class="p">)</span>
+    <span class="n">max_chunk_tokens</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Maximum tokens per chunk (default 800 per Anthropic)"</span>
+    <span class="p">)</span>
+    <span class="n">chunk_overlap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Token overlap between chunks"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Search configuration</span>
+    <span class="n">search_mode</span><span class="p">:</span> <span class="n">SearchMode</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">SearchMode</span><span class="o">.</span><span class="n">HYBRID</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Which search modalities to use"</span>
+    <span class="p">)</span>
+    <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Number of results to return"</span>
+    <span class="p">)</span>
+    <span class="n">min_score</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Minimum score threshold"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Hybrid search weights (must sum to 1.0 if provided)</span>
+    <span class="n">semantic_weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Weight for semantic search in hybrid mode"</span>
+    <span class="p">)</span>
+    <span class="n">keyword_weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Weight for keyword search in hybrid mode"</span>
+    <span class="p">)</span>
+    <span class="n">exact_weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Weight for exact match in hybrid mode"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># RRF configuration</span>
+    <span class="n">rrf_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"RRF ranking constant (default 60)"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Embedding configuration</span>
+    <span class="n">embedding_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Custom embedding model (defaults to provider default)"</span>
+    <span class="p">)</span>
+    <span class="n">embedding_dimensions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Embedding dimensions (auto-detected if not specified)"</span>
+    <span class="p">)</span>
+    <span class="c1"># LLM Context Generation (Anthropic approach)</span>
+    <span class="n">contextual_embeddings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Use LLM to generate context for each chunk before embedding"</span>
+    <span class="p">)</span>
+    <span class="n">context_model</span><span class="p">:</span> <span class="n">LLMProvider</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">"LLM model for context generation. If None, uses agent's default model. "</span>
+            <span class="s2">"Recommended: Claude Haiku for cost efficiency."</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">context_max_tokens</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Maximum tokens for LLM-generated context (default 100)"</span>
+    <span class="p">)</span>
+    <span class="n">context_concurrency</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">le</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Parallel LLM calls during context generation (default 10)"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Feature toggles</span>
+    <span class="n">extract_definitions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Auto-extract definitions from documents"</span>
+    <span class="p">)</span>
+    <span class="n">extract_cross_references</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Auto-extract cross-references"</span>
+    <span class="p">)</span>
+    <span class="n">enable_reranking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Enable optional reranking of results"</span>
+    <span class="p">)</span>
+    <span class="n">reranker_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Reranker model (required if enable_reranking=True)"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Storage configuration</span>
+    <span class="n">database</span><span class="p">:</span> <span class="n">DatabaseConfig</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Vector database configuration (in-memory if None)"</span>
+    <span class="p">)</span>
+    <span class="n">defer_loading</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Defer tool loading until first use"</span>
+    <span class="p">)</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">"source"</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_source</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"source must be a non-empty path"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">"after"</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"HierarchicalDocumentToolConfig"</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Warn if hybrid weights don't sum to 1.0."""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_mode</span> <span class="o">==</span> <span class="n">SearchMode</span><span class="o">.</span><span class="n">HYBRID</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">semantic_weight</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyword_weight</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">exact_weight</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">total</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Hybrid search weights sum to </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2">, not 1.0. "</span>
+                    <span class="s2">"Results may be skewed."</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">"after"</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_reranker</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"HierarchicalDocumentToolConfig"</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Ensure reranker_model is set if enable_reranking is True."""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enable_reranking</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">reranker_model</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"reranker_model is required when enable_reranking=True"</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+<h3 id="runtime-models-in-srcholodecklib">Runtime Models (in <code>src/holodeck/lib/</code>)<a class="headerlink" href="#runtime-models-in-srcholodecklib" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ChunkType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Classification of chunk content."""</span>
+    <span class="n">CONTENT</span> <span class="o">=</span> <span class="s2">"content"</span>
+    <span class="n">DEFINITION</span> <span class="o">=</span> <span class="s2">"definition"</span>
+    <span class="n">REQUIREMENT</span> <span class="o">=</span> <span class="s2">"requirement"</span>
+    <span class="n">REFERENCE</span> <span class="o">=</span> <span class="s2">"reference"</span>
+    <span class="n">HEADER</span> <span class="o">=</span> <span class="s2">"header"</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentChunk</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A parsed section of a document with structure metadata."""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">chunk_index</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parent_chain</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">section_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">chunk_type</span><span class="p">:</span> <span class="n">ChunkType</span> <span class="o">=</span> <span class="n">ChunkType</span><span class="o">.</span><span class="n">CONTENT</span>
+    <span class="n">cross_references</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">heading_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">embedding</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">contextualized_content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">mtime</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Definition fields (only populated when chunk_type == DEFINITION)</span>
+    <span class="n">defined_term</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>              <span class="c1"># The term being defined (e.g., "Force Majeure")</span>
+    <span class="n">defined_term_normalized</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>   <span class="c1"># Normalized for lookup (e.g., "force_majeure")</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_record_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Convert to dict for vector store record creation."""</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s2">"source_path"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_path</span><span class="p">,</span>
+            <span class="s2">"chunk_index"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_index</span><span class="p">,</span>
+            <span class="s2">"content"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+            <span class="s2">"embedding"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">,</span>
+            <span class="s2">"parent_chain"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_chain</span><span class="p">),</span>
+            <span class="s2">"section_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">section_id</span><span class="p">,</span>
+            <span class="s2">"chunk_type"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">"cross_references"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cross_references</span><span class="p">),</span>
+            <span class="s2">"mtime"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mtime</span><span class="p">,</span>
+            <span class="s2">"defined_term"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">defined_term</span><span class="p">,</span>
+            <span class="s2">"defined_term_normalized"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">defined_term_normalized</span><span class="p">,</span>
+        <span class="p">}</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DefinitionEntry</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""An extracted definition."""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">term</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">term_normalized</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">definition_text</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source_section</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">exceptions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SearchResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A single result from hybrid search."""</span>
+
+    <span class="n">chunk_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">fused_score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parent_chain</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">section_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">semantic_score</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">keyword_score</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">exact_match</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">definitions_context</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DefinitionEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Format result for agent consumption."""</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="s2">" &gt; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_chain</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_chain</span> <span class="k">else</span> <span class="s2">"Root"</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">"Score: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fused_score</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> | Source: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">source_path</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"Location: </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"Section: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">section_id</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">section_id</span> <span class="k">else</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">definitions_context</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Relevant definitions:"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">defn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">definitions_context</span><span class="p">:</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  • </span><span class="si">{</span><span class="n">defn</span><span class="o">.</span><span class="n">term</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">defn</span><span class="o">.</span><span class="n">definition_text</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">line</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="vector-store-record-schema">Vector Store Record Schema<a class="headerlink" href="#vector-store-record-schema" title="Permanent link">&para;</a></h2>
+<p>Following the existing pattern from <code>src/holodeck/lib/vector_store.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">semantic_kernel.data</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DistanceFunction</span><span class="p">,</span>
+    <span class="n">VectorStoreField</span><span class="p">,</span>
+    <span class="n">vectorstoremodel</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_hierarchical_document_record_class</span><span class="p">(</span><span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1536</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Create a HierarchicalDocumentRecord class with specified embedding dimensions.</span>
+
+<span class="sd">    Follows the pattern from create_document_record_class() in vector_store.py.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">dimensions</span> <span class="o">&lt;=</span> <span class="mi">10000</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"dimensions must be 1-10000, got </span><span class="si">{</span><span class="n">dimensions</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="nd">@vectorstoremodel</span><span class="p">(</span><span class="n">collection_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"structured_docs_dim</span><span class="si">{</span><span class="n">dimensions</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nd">@dataclass</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">HierarchicalDocumentRecord</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Vector store record for structured document chunks."""</span>
+
+        <span class="c1"># Key field</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"key"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+            <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Indexed data fields</span>
+        <span class="n">source_path</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">is_indexed</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">""</span>
+        <span class="p">)</span>
+        <span class="n">chunk_index</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">is_indexed</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+            <span class="n">default</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">section_id</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">is_indexed</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">""</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Full-text indexed content</span>
+        <span class="n">content</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">is_full_text_indexed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Vector embedding</span>
+        <span class="n">embedding</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+            <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">VectorStoreField</span><span class="p">(</span>
+                <span class="s2">"vector"</span><span class="p">,</span>
+                <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
+                <span class="n">distance_function</span><span class="o">=</span><span class="n">DistanceFunction</span><span class="o">.</span><span class="n">COSINE_SIMILARITY</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Structure metadata (stored as JSON strings)</span>
+        <span class="n">parent_chain</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"[]"</span><span class="p">)</span>
+        <span class="n">chunk_type</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"content"</span><span class="p">)</span>
+        <span class="n">cross_references</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"[]"</span><span class="p">)</span>
+        <span class="n">doc_summary</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># File metadata</span>
+        <span class="n">mtime</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">file_type</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Definition fields (only populated when chunk_type="definition")</span>
+        <span class="c1"># Used to rebuild the definitions index on startup</span>
+        <span class="n">defined_term</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">is_indexed</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">""</span>
+        <span class="p">)</span>
+        <span class="n">defined_term_normalized</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VectorStoreField</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">is_indexed</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">""</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">HierarchicalDocumentRecord</span><span class="p">)</span>
+
+
+<span class="c1"># Pre-create default instance for common embedding dimension</span>
+<span class="n">HierarchicalDocumentRecord</span> <span class="o">=</span> <span class="n">create_hierarchical_document_record_class</span><span class="p">(</span><span class="mi">1536</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="state-transitions">State Transitions<a class="headerlink" href="#state-transitions" title="Permanent link">&para;</a></h2>
+<h3 id="document-lifecycle-preprocessing-pipeline">Document Lifecycle (Preprocessing Pipeline)<a class="headerlink" href="#document-lifecycle-preprocessing-pipeline" title="Permanent link">&para;</a></h3>
+<p>The preprocessing pipeline follows Anthropic's contextual retrieval approach:</p>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────────────────┐
+│                           DOCUMENT PREPROCESSING                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌──────────────┐                                                            │
+│  │   PENDING    │  File discovered, not yet processed                        │
+│  └──────┬───────┘                                                            │
+│         │ convert() [markitdown]                                             │
+│         ▼                                                                    │
+│  ┌──────────────┐                                                            │
+│  │  CONVERTING  │  PDF/Word/HTML → Markdown                                  │
+│  └──────┬───────┘                                                            │
+│         │ parse() [StructuredChunker]                                        │
+│         ▼                                                                    │
+│  ┌──────────────┐                                                            │
+│  │   PARSING    │  Extract headings, parent_chain, definitions, cross-refs   │
+│  └──────┬───────┘                                                            │
+│         │ chunk() [max 800 tokens, structure-aware]                          │
+│         ▼                                                                    │
+│  ┌──────────────┐                                                            │
+│  │   CHUNKING   │  Split at structural boundaries, preserve metadata         │
+│  └──────┬───────┘                                                            │
+│         │ contextualize() [LLM call per chunk - Anthropic approach]          │
+│         ▼                                                                    │
+│  ┌────────────────────────────────────────────────────────────────────────┐ │
+│  │                     CONTEXTUALIZING (LLM)                               │ │
+│  ├────────────────────────────────────────────────────────────────────────┤ │
+│  │  For each chunk:                                                        │ │
+│  │    • Send whole document + chunk to Claude Haiku                        │ │
+│  │    • Generate 50-100 token context                                      │ │
+│  │    • Prepend: "{context}\n\n{chunk.content}"                            │ │
+│  │                                                                         │ │
+│  │  Prompt:                                                                │ │
+│  │  &lt;document&gt;{WHOLE_DOC}&lt;/document&gt;                                       │ │
+│  │  &lt;chunk&gt;{CHUNK}&lt;/chunk&gt;                                                 │ │
+│  │  Please give a short succinct context to situate this chunk...          │ │
+│  │                                                                         │ │
+│  │  Concurrency: 10 parallel calls | Cost: ~$0.03 per 100 pages            │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│         │                                                                    │
+│         │ embed() [contextualized text]                                      │
+│         ▼                                                                    │
+│  ┌──────────────┐                                                            │
+│  │  EMBEDDING   │  Generate dense vectors from contextualized text           │
+│  └──────┬───────┘                                                            │
+│         │ index() [dense + keyword + exact]                                  │
+│         ▼                                                                    │
+│  ┌──────────────┐                                                            │
+│  │   INDEXING   │  Build all indices from contextualized chunks              │
+│  │              │  • Dense: embed contextualized text                        │
+│  │              │  • Keyword: BM25/native on contextualized text             │
+│  │              │  • Exact: section_id → chunk_id mapping                    │
+│  └──────┬───────┘                                                            │
+│         │ persist()                                                          │
+│         ▼                                                                    │
+│  ┌──────────────┐                                                            │
+│  │   INDEXED    │  All indices populated, ready for search                   │
+│  └──────┬───────┘                                                            │
+│         │ needs_update?                                                      │
+│         ▼                                                                    │
+│  ┌──────────────┴──────────────┐                                            │
+│  │                             │                                             │
+│  ▼                             ▼                                             │
+│  ┌───────────┐          ┌─────────────┐                                     │
+│  │   STALE   │          │   CURRENT   │                                     │
+│  │ (mtime    │          │ (up to date)│                                     │
+│  │  changed) │          └─────────────┘                                     │
+│  └─────┬─────┘                                                              │
+│        │ reindex()                                                           │
+│        └─────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="data-flow-through-preprocessing">Data Flow Through Preprocessing<a class="headerlink" href="#data-flow-through-preprocessing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│                              DATA TRANSFORMATION                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  INPUT                         STAGE                      OUTPUT             │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│                                                                              │
+│  document.pdf            →  markitdown  →           document.md              │
+│  (binary)                   (convert)               (markdown text)          │
+│                                                                              │
+│  document.md             →  StructuredChunker  →    List[DocumentChunk]      │
+│  (markdown text)            (parse + chunk)         with parent_chain,       │
+│                                                     section_id, chunk_type   │
+│                                                                              │
+│  DocumentChunk           →  LLMContextGenerator →   DocumentChunk            │
+│  .content = "The Admin      (contextualize)         .content = "The Admin    │
+│   shall submit..."                                   shall submit..."        │
+│                                                     .contextualized_content  │
+│                                                      = "This chunk describes │
+│                                                      reporting requirements  │
+│                                                      under Section 203...\n\n│
+│                                                      The Admin shall submit" │
+│                                                                              │
+│  DocumentChunk           →  EmbeddingService  →     DocumentChunk            │
+│  .contextualized_content    (embed)                 .embedding = [0.1, ...]  │
+│                                                                              │
+│  List[DocumentChunk]     →  IndexBuilder  →         HybridIndex              │
+│  (with embeddings)          (index)                 .dense_index             │
+│                                                     .keyword_index           │
+│                                                     .exact_index             │
+│                                                     .definitions             │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="search-flow">Search Flow<a class="headerlink" href="#search-flow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Query Input
+    │
+    ▼
+┌───────────────────────────────────────┐
+│           Query Analysis              │
+│  • Detect exact match patterns        │
+│  • Tokenize for BM25                  │
+│  • Generate query embedding           │
+└─────────────────┬─────────────────────┘
+                  │
+    ┌─────────────┼─────────────┐
+    ▼             ▼             ▼
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Semantic│ │ Keyword │ │  Exact  │
+│ Search  │ │ Search  │ │  Match  │
+└────┬────┘ └────┬────┘ └────┬────┘
+     │           │           │
+     └───────────┼───────────┘
+                 ▼
+         ┌─────────────┐
+         │ RRF Fusion  │
+         │  (k=60)     │
+         └──────┬──────┘
+                │
+                ▼
+         ┌─────────────┐
+         │  Reranking  │  (optional)
+         │             │
+         └──────┬──────┘
+                │
+                ▼
+         ┌─────────────┐
+         │  Enrich w/  │
+         │ Definitions │
+         └──────┬──────┘
+                │
+                ▼
+         SearchResult[]
+</code></pre></div>
+<h2 id="validation-rules">Validation Rules<a class="headerlink" href="#validation-rules" title="Permanent link">&para;</a></h2>
+<h3 id="documentchunk-validation">DocumentChunk Validation<a class="headerlink" href="#documentchunk-validation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Rule</th>
+<th>Error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Must match <code>{source_path}_chunk_{index}</code></td>
+<td>InvalidChunkId</td>
+</tr>
+<tr>
+<td>content</td>
+<td>Non-empty after whitespace strip</td>
+<td>EmptyChunkContent</td>
+</tr>
+<tr>
+<td>chunk_index</td>
+<td>&gt;= 0</td>
+<td>InvalidChunkIndex</td>
+</tr>
+<tr>
+<td>parent_chain</td>
+<td>Valid JSON array</td>
+<td>InvalidParentChain</td>
+</tr>
+<tr>
+<td>embedding</td>
+<td>Correct dimensions if present</td>
+<td>DimensionMismatch</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuration-validation">Configuration Validation<a class="headerlink" href="#configuration-validation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Rule</th>
+<th>Error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>Non-empty path</td>
+<td>EmptySource</td>
+</tr>
+<tr>
+<td>max_chunk_tokens</td>
+<td>100-2000</td>
+<td>InvalidChunkSize</td>
+</tr>
+<tr>
+<td>top_k</td>
+<td>1-100</td>
+<td>InvalidTopK</td>
+</tr>
+<tr>
+<td>weights</td>
+<td>Sum to ~1.0 (warning)</td>
+<td>WeightsSumWarning</td>
+</tr>
+<tr>
+<td>reranker_model</td>
+<td>Required if enable_reranking</td>
+<td>MissingReranker</td>
+</tr>
+</tbody>
+</table>
+<h2 id="observability-attributes-constitution-principle-iv">Observability Attributes (Constitution Principle IV)<a class="headerlink" href="#observability-attributes-constitution-principle-iv" title="Permanent link">&para;</a></h2>
+<p>All search and indexing operations MUST emit OpenTelemetry spans with the following attributes.</p>
+<h3 id="search-operation-spans">Search Operation Spans<a class="headerlink" href="#search-operation-spans" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search.mode</code></td>
+<td>string</td>
+<td>semantic, keyword, exact, or hybrid</td>
+</tr>
+<tr>
+<td><code>search.provider</code></td>
+<td>string</td>
+<td>Vector store provider name (e.g., "qdrant", "postgres")</td>
+</tr>
+<tr>
+<td><code>search.strategy</code></td>
+<td>string</td>
+<td>NATIVE_HYBRID or FALLBACK_BM25</td>
+</tr>
+<tr>
+<td><code>search.top_k</code></td>
+<td>int</td>
+<td>Requested result count</td>
+</tr>
+<tr>
+<td><code>search.result_count</code></td>
+<td>int</td>
+<td>Actual results returned</td>
+</tr>
+<tr>
+<td><code>search.exact_match_count</code></td>
+<td>int</td>
+<td>Count of exact matches found</td>
+</tr>
+<tr>
+<td><code>search.query_length</code></td>
+<td>int</td>
+<td>Length of query in characters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bm25-operation-spans">BM25 Operation Spans<a class="headerlink" href="#bm25-operation-spans" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bm25.query_tokens</code></td>
+<td>int</td>
+<td>Token count in query after tokenization</td>
+</tr>
+<tr>
+<td><code>bm25.index_size</code></td>
+<td>int</td>
+<td>Documents in BM25 index</td>
+</tr>
+<tr>
+<td><code>bm25.rebuild_required</code></td>
+<td>bool</td>
+<td>Whether index was rebuilt on startup</td>
+</tr>
+<tr>
+<td><code>bm25.build_duration_ms</code></td>
+<td>float</td>
+<td>Time to build/rebuild index</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ingestion-operation-spans">Ingestion Operation Spans<a class="headerlink" href="#ingestion-operation-spans" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ingest.document_count</code></td>
+<td>int</td>
+<td>Number of documents being ingested</td>
+</tr>
+<tr>
+<td><code>ingest.chunk_count</code></td>
+<td>int</td>
+<td>Total chunks generated</td>
+</tr>
+<tr>
+<td><code>ingest.context_generation_enabled</code></td>
+<td>bool</td>
+<td>Whether LLM context generation is enabled</td>
+</tr>
+<tr>
+<td><code>ingest.context_model</code></td>
+<td>string</td>
+<td>Model used for context generation (if enabled)</td>
+</tr>
+<tr>
+<td><code>ingest.embedding_model</code></td>
+<td>string</td>
+<td>Model used for embeddings</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-span-hierarchy">Example Span Hierarchy<a class="headerlink" href="#example-span-hierarchy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>hierarchical_document.ingest
+├── hierarchical_document.parse (per document)
+├── hierarchical_document.contextualize_batch
+│   └── llm.completion (per chunk, concurrent)
+├── hierarchical_document.embed_batch
+└── hierarchical_document.store
+
+hierarchical_document.search
+├── hierarchical_document.search.exact_match
+├── hierarchical_document.search.semantic (or native_hybrid)
+├── bm25.search (if fallback strategy)
+└── hierarchical_document.search.rrf_fusion
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

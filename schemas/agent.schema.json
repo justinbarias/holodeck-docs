@@ -656,20 +656,17 @@
     },
     "DatabaseConfig": {
       "additionalProperties": true,
-      "description": "Vector database connection configuration.\n\nSupports all Semantic Kernel vector store providers including PostgreSQL,\nAzure AI Search, Qdrant, Weaviate, ChromaDB, FAISS, Pinecone, and more.\n\nProvider-specific parameters are passed via the config dict:\n- postgres: connection_string\n- azure-ai-search: connection_string, api_key\n- qdrant: url, api_key (optional)\n- weaviate: url, api_key (optional)\n- chromadb: path or host\n- faiss: path\n- pinecone: api_key, index_name\n- And more...",
+      "description": "Vector database connection configuration.\n\nSupports the vector store providers HoloDeck has adapters for: PostgreSQL,\nAzure AI Search, Qdrant, Weaviate, ChromaDB, Pinecone, and more.\n\nProvider-specific parameters are passed via the config dict:\n- postgres: connection_string\n- azure-ai-search: connection_string, api_key\n- qdrant: url, api_key (optional)\n- weaviate: url, api_key (optional)\n- chromadb: path or host\n- pinecone: api_key, index_name\n- And more...",
       "properties": {
         "provider": {
-          "description": "Vector database provider: postgres, azure-ai-search, qdrant, weaviate, chromadb, faiss, azure-cosmos-mongo, azure-cosmos-nosql, sql-server, pinecone, in-memory",
+          "description": "Vector database provider: postgres, azure-ai-search, qdrant, weaviate, chromadb, azure-cosmos-nosql, pinecone, in-memory",
           "enum": [
             "postgres",
             "azure-ai-search",
             "qdrant",
             "weaviate",
             "chromadb",
-            "faiss",
-            "azure-cosmos-mongo",
             "azure-cosmos-nosql",
-            "sql-server",
             "pinecone",
             "in-memory"
           ],
@@ -690,6 +687,12 @@
           "default": null,
           "description": "Database connection string (format depends on provider). Examples: postgresql://user:pass@host/db, https://search-service.search.windows.net",
           "title": "Connection String"
+        },
+        "manifest": {
+          "default": true,
+          "description": "Keep the holodeck_manifest collection that records each collection's ingestion pipeline and per-source completion markers. false turns fingerprint protection, interrupted-ingestion markers and 'holodeck vectorstore migrate' off for this store; on Pinecone it avoids the extra manifest index.",
+          "title": "Manifest",
+          "type": "boolean"
         }
       },
       "required": [
@@ -846,12 +849,8 @@
           "type": "string"
         },
         "metric": {
-          "description": "Built-in metric name. One of: groundedness, relevance, coherence, fluency, bleu, rouge, meteor, equality, numeric.",
+          "description": "Built-in metric name. One of: bleu, rouge, meteor, equality, numeric.",
           "enum": [
-            "groundedness",
-            "relevance",
-            "coherence",
-            "fluency",
             "bleu",
             "rouge",
             "meteor",
@@ -2370,7 +2369,7 @@
     },
     "MetricsConfig": {
       "additionalProperties": false,
-      "description": "Metrics-specific configuration.\n\nControls metrics collection settings including export interval\nand Semantic Kernel metrics inclusion.",
+      "description": "Metrics-specific configuration.\n\nControls metrics collection settings including the export interval.",
       "properties": {
         "enabled": {
           "default": true,
@@ -2673,6 +2672,22 @@
           "default": null,
           "description": "Tools that must never be used; removed from the resolved agent at build time.",
           "title": "Disallowed Tools"
+        },
+        "agents": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/OpenAISubagentSpec"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Named subagents that become SDK handoff targets on the parent agent (FR-060). Keys are the subagent names.",
+          "title": "Agents"
         }
       },
       "title": "OpenAIConfig",
@@ -2716,6 +2731,83 @@
         }
       },
       "title": "OpenAIPermissionsConfig",
+      "type": "object"
+    },
+    "OpenAISubagentSpec": {
+      "additionalProperties": false,
+      "description": "One ``openai.agents`` entry: a handoff-target sub-agent (FR-060).\n\nEach entry becomes an SDK ``Agent`` on the parent's ``handoffs`` with\n``name=<key>``, ``instructions=<prompt>``, ``handoff_description=\n<description>``. The SDK exposes it to the parent model as a\n``transfer_to_<name>`` tool.",
+      "properties": {
+        "description": {
+          "description": "Handoff description shown to the parent model for routing decisions (SDK handoff_description).",
+          "title": "Description",
+          "type": "string"
+        },
+        "prompt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Inline system prompt for the subagent. Mutually exclusive with prompt_file.",
+          "title": "Prompt"
+        },
+        "prompt_file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Path to a file containing the subagent's system prompt, resolved relative to the agent.yaml directory and inlined at config-load time. Mutually exclusive with prompt.",
+          "title": "Prompt File"
+        },
+        "tools": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Allowlist of parent tool names (as written in the parent's `tools:`) the subagent may use. When null/omitted the subagent inherits every parent tool and MCP server (FR-061). Names that match no parent tool fail load.",
+          "title": "Tools"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Model for this subagent: 'inherit' (or omitted) uses the parent's model; any other string is passed to the SDK as a model identifier (an Azure deployment name for azure_openai). The Claude literals 'sonnet', 'opus', and 'haiku' are rejected.",
+          "title": "Model"
+        },
+        "skip_recommended_prefix": {
+          "default": false,
+          "description": "When true, the SDK's RECOMMENDED_PROMPT_PREFIX is not prepended to this subagent's instructions (FR-063).",
+          "title": "Skip Recommended Prefix",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "description"
+      ],
+      "title": "OpenAISubagentSpec",
       "type": "object"
     },
     "OptimizerConfig": {
@@ -3086,6 +3178,93 @@
       ],
       "title": "SearchMode",
       "type": "string"
+    },
+    "SkillTool": {
+      "additionalProperties": false,
+      "description": "Scoped sub-agent skill following the Agent Skills specification.\n\nA skill becomes a handoff-target sub-agent on the parent's backend (spec\n023 FR-022 to FR-026, spec 035 FR-070). Two forms are supported:\n\n* **Inline** \u2014 ``instructions`` and ``description`` in agent.yaml.\n* **File-based** \u2014 ``path`` to a directory containing ``SKILL.md`` whose\n  frontmatter supplies ``name`` / ``description`` and whose body supplies\n  the instructions. ``description`` may be omitted in YAML and falls back\n  to the frontmatter value. The file is validated at config-load time.\n\n``allowed_tools`` names parent-agent tools the skill may use; ``None``\n(or an empty list) grants no tool access. It is YAML-only \u2014 the SKILL.md\n``allowed-tools`` frontmatter key is never merged.",
+      "properties": {
+        "name": {
+          "description": "Skill identifier: lowercase alphanumeric segments separated by single hyphens (Agent Skills naming), at most 64 characters.",
+          "maxLength": 64,
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "What the skill does and when to use it. Required for inline skills; for file-based skills it falls back to the SKILL.md frontmatter description.",
+          "title": "Description"
+        },
+        "type": {
+          "const": "skill",
+          "default": "skill",
+          "description": "Tool type",
+          "title": "Type",
+          "type": "string"
+        },
+        "defer_loading": {
+          "default": true,
+          "description": "If True, tool is excluded from initial context and loaded on-demand via semantic search. Set to False for critical tools.",
+          "title": "Defer Loading",
+          "type": "boolean"
+        },
+        "instructions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Inline skill instructions. Mutually exclusive with path.",
+          "title": "Instructions"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Path to a skill directory containing SKILL.md, resolved relative to the agent.yaml directory. Mutually exclusive with instructions.",
+          "title": "Path"
+        },
+        "allowed_tools": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Names of parent-agent tools this skill may use. None or empty grants no tool access. Validated against the parent's tools.",
+          "title": "Allowed Tools"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "SkillTool",
+      "type": "object"
     },
     "SubagentSpec": {
       "additionalProperties": false,
@@ -3860,6 +4039,9 @@
               },
               {
                 "$ref": "#/$defs/HierarchicalDocumentToolConfig"
+              },
+              {
+                "$ref": "#/$defs/SkillTool"
               }
             ]
           },

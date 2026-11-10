@@ -1,0 +1,2820 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/completed/021-claude-agent-sdk/tasks-phase8/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: Phase 8 — Claude Backend (Core) — Claude Agent SDK - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-phase-8-claude-backend-core-claude-agent-sdk" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: Phase 8 — Claude Backend (Core) — Claude Agent SDK
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-id-p-story-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format: [ID] [P?] [Story] Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8a-claudesession-claudebackend-core-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8A: ClaudeSession &amp; ClaudeBackend — Core Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8A: ClaudeSession &amp; ClaudeBackend — Core Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-phase-8a-tdd-write-first-verify-they-fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for Phase 8A (TDD — write first, verify they FAIL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-phase-8a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for Phase 8A
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8b-backendselector-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8B: BackendSelector Update
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8B: BackendSelector Update">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-for-phase-8b-tdd-write-first-verify-they-fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests for Phase 8B (TDD — write first, verify they FAIL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-phase-8b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation for Phase 8B
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8c-code-quality-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8C: Code Quality &amp; Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies &amp; Execution Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-order-critical-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution Order (Critical Path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within-phase-8a-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Within Phase 8A Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mvp-first-phase-8a-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVP First (Phase 8A Only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-phase-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Phase 8
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-phase-8-claude-backend-core-claude-agent-sdk">Tasks: Phase 8 — Claude Backend (Core) — Claude Agent SDK<a class="headerlink" href="#tasks-phase-8-claude-backend-core-claude-agent-sdk" title="Permanent link">&para;</a></h1>
+<p><strong>Input</strong>: Design documents from <code>/docs/product-specs/021-claude-agent-sdk/</code>
+<strong>Prerequisites</strong>: Phases 1–7 complete (base.py, validators.py, sk_backend.py, selector.py, tool_adapters.py, mcp_bridge.py, otel_bridge.py)</p>
+<p><strong>Tests</strong>: TDD approach — write failing tests first, then implement.</p>
+<p><strong>Organization</strong>: Phase 8 is the core Claude backend implementation. Tasks are organized into two workstreams: (A) <code>ClaudeBackend</code> + <code>ClaudeSession</code> core implementation, and (B) <code>BackendSelector</code> update. Workstream B depends on A.</p>
+<h2 id="format-id-p-story-description">Format: <code>[ID] [P?] [Story] Description</code><a class="headerlink" href="#format-id-p-story-description" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>[P]</strong>: Can run in parallel (different files, no dependencies)</li>
+<li><strong>[Story]</strong>: Which user story this task belongs to (e.g., US1, US2)</li>
+<li>Include exact file paths in descriptions</li>
+</ul>
+<hr />
+<h2 id="phase-8a-claudesession-claudebackend-core-implementation">Phase 8A: ClaudeSession &amp; ClaudeBackend — Core Implementation<a class="headerlink" href="#phase-8a-claudesession-claudebackend-core-implementation" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Create <code>claude_backend.py</code> implementing <code>ClaudeSession(AgentSession)</code> and <code>ClaudeBackend(AgentBackend)</code>. This is the core execution path for <code>provider: anthropic</code> agents — single-turn invocations via <code>query()</code>, stateful multi-turn sessions via <code>ClaudeSDKClient</code>, streaming support, subprocess lifecycle management, permission mode mapping, and structured output handling.</p>
+<p><strong>Plan Reference</strong>: <code>plan.md</code> lines 410–474 (Phase 8: Claude Backend Core)
+<strong>Spec Reference</strong>: <code>spec.md</code> lines 27–41 (US1 — Run a Claude-Native Agent), lines 93–108 (US5 — Streaming Chat), lines 179–193 (US10 — Structured Output), lines 111–123 (US6 — Parallel Subagents), lines 125–141 (US7 — File System Access), lines 143–157 (US8 — Permission Governance), lines 159–177 (US9 — Flexible Auth)
+<strong>Research Reference</strong>: <code>research.md</code> lines 30–101 (§2 — API Entry Points, §2a — ClaudeAgentOptions), lines 106–118 (§3 — Permission Mode Mapping), lines 122–137 (§4 — Authentication), lines 199–230 (§7 — Streaming Message Types), lines 234–243 (§8 — Retry Behaviour), lines 266–281 (§10 — Structured Output)
+<strong>Data Model Reference</strong>: <code>data-model.md</code> lines 202–257 (§4 — ExecutionResult), lines 260–295 (§5 — AgentSession), lines 298–338 (§6 — AgentBackend), lines 342–402 (§7–8 — Entity Relationships, Lifecycle)
+<strong>Quickstart Reference</strong>: <code>quickstart.md</code> lines 139–188 (§2 — Building ClaudeAgentOptions), lines 190–248 (§3 — Stateless Test Invocation), lines 250–278 (§4 — Streaming Chat Session), lines 280–324 (§5 — Authentication Env Vars)
+<strong>Contract Reference</strong>: <code>contracts/execution-result.md</code> lines 17–72 (ExecutionResult, Error Conditions), lines 74–97 (AgentSession), lines 100–128 (AgentBackend Lifecycle)</p>
+<p><strong>Independent Test</strong>: Mock <code>claude_agent_sdk.query()</code> to return a canned <code>AssistantMessage</code> + <code>ResultMessage</code> stream. Call <code>ClaudeBackend.invoke_once("Hello")</code>. Assert <code>ExecutionResult.response</code> contains the expected text, <code>is_error is False</code>, and <code>token_usage</code> is populated.</p>
+<h3 id="tests-for-phase-8a-tdd-write-first-verify-they-fail">Tests for Phase 8A (TDD — write first, verify they FAIL)<a class="headerlink" href="#tests-for-phase-8a-tdd-write-first-verify-they-fail" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T001 [P] [US1] Write unit test for <code>build_options()</code> in <code>tests/unit/lib/backends/test_claude_backend.py</code></li>
+<li><strong>Ref</strong>: <code>plan.md:433–434</code> ("Build <code>ClaudeAgentOptions</code> via <code>build_options()</code>"), <code>quickstart.md:139–188</code></li>
+<li>Create a minimal <code>Agent</code> fixture with <code>provider: anthropic</code>, <code>model.name: claude-sonnet-4-6</code>, and optional <code>claude</code> block.</li>
+<li>Assert returned <code>ClaudeAgentOptions</code> has correct <code>model</code>, <code>system_prompt</code>, <code>permission_mode</code>, <code>max_turns</code>, <code>env</code>, <code>mcp_servers</code>, <code>allowed_tools</code>.</li>
+<li>Test with no <code>claude</code> block → defaults: <code>permission_mode=None</code>, <code>max_turns=None</code>, no extra MCP servers.</li>
+<li>Test with full <code>claude</code> block → all fields mapped: working dir → <code>cwd</code>, <code>extended_thinking.budget_tokens</code> → <code>max_thinking_tokens</code>, <code>web_search</code>, <code>bash</code>, <code>file_system</code>, <code>subagents</code>, <code>allowed_tools</code>.</li>
+<li>Test <code>response_format</code> dict → <code>output_format</code> translated correctly (NOT using SK's <code>_wrap_response_format</code>).</li>
+<li>
+<p><strong>Ref</strong>: <code>research.md:266–281</code> (§10 — Structured Output)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T002 [P] [US1] Write unit test for permission mode mapping in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>research.md:106–118</code> (§3 — Permission Mode Mapping), <code>plan.md:446</code></li>
+<li>Assert: <code>manual</code> → <code>"default"</code>, <code>acceptEdits</code> → <code>"acceptEdits"</code>, <code>acceptAll</code> → <code>"bypassPermissions"</code>.</li>
+<li>Test override for test mode: when <code>mode="test"</code> and <code>permission_mode</code> is not <code>manual</code>, override to <code>"bypassPermissions"</code>.</li>
+<li>Test <code>mode="test"</code> with <code>permission_mode: manual</code> → keeps <code>"default"</code> (no override).</li>
+<li>Test <code>mode="test"</code> with <code>bash.enabled: true</code> and <code>allow_side_effects=False</code> → bash force-disabled.</li>
+<li>Test <code>mode="test"</code> with <code>file_system.write: true</code> and <code>allow_side_effects=False</code> → file_system.write force-disabled.</li>
+<li>
+<p>Test <code>mode="test"</code> with <code>bash.enabled: true</code> and <code>allow_side_effects=True</code> → bash NOT force-disabled (preserved).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T003 [P] [US1] Write unit test for <code>ClaudeBackend.__init__()</code> stores config only (no I/O) in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:424</code> ("stores config only — no I/O, no subprocess"), <code>plan.md:295–298</code> (lazy-init pattern)</li>
+<li>Construct <code>ClaudeBackend(agent, tool_instances, mode="test")</code> — assert no SDK imports triggered, no subprocess spawned.</li>
+<li>Assert <code>._initialized is False</code> after construction.</li>
+<li>
+<p>Assert <code>._options is None</code> after construction (options built lazily in <code>initialize()</code>).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T004 [P] [US1] Write unit test for <code>ClaudeBackend.initialize()</code> calls validators in correct order in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:425–434</code> (initialize() steps 1–9), FR-029 (CLAUDE.md collision warning)</li>
+<li>Mock all validators (<code>validate_nodejs</code>, <code>validate_credentials</code>, <code>validate_embedding_provider</code>, <code>validate_tool_filtering</code>, <code>validate_working_directory</code>, <code>validate_response_format</code>).</li>
+<li>Assert they are called in the documented order.</li>
+<li>Assert <code>validate_working_directory()</code> is called with <code>agent.claude.working_directory</code> (covers FR-029 CLAUDE.md collision detection).</li>
+<li>Assert <code>._initialized is True</code> after <code>initialize()</code>.</li>
+<li>
+<p>Assert <code>._options</code> is a <code>ClaudeAgentOptions</code> instance after <code>initialize()</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T005 [P] [US1] Write unit test for <code>ClaudeBackend.invoke_once()</code> happy path in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:435–441</code> (invoke_once steps), <code>quickstart.md:190–248</code>, <code>contracts/execution-result.md:17–32</code></li>
+<li>Mock <code>claude_agent_sdk.query()</code> to yield: <code>AssistantMessage(content=[TextBlock(text="Hello world")])</code>, then <code>ResultMessage(is_error=False, num_turns=1, usage={"input_tokens": 10, "output_tokens": 5}, structured_output=None, session_id="abc")</code>.</li>
+<li>Assert <code>ExecutionResult.response == "Hello world"</code>.</li>
+<li>Assert <code>ExecutionResult.is_error is False</code>.</li>
+<li>Assert <code>ExecutionResult.token_usage.prompt_tokens == 10</code>.</li>
+<li>Assert <code>ExecutionResult.token_usage.completion_tokens == 5</code>.</li>
+<li>
+<p>Assert <code>ExecutionResult.num_turns == 1</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T006 [P] [US2] Write unit test for <code>invoke_once()</code> tool call extraction in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:437</code> ("Collects AssistantMessage blocks — text, tool_use, tool_result"), <code>research.md:229</code>, <code>contracts/execution-result.md:36–52</code></li>
+<li>Mock stream with <code>ToolUseBlock(id="toolu_01", name="kb_search", input={"query": "refund"})</code> and <code>ToolResultBlock(tool_use_id="toolu_01", content=[TextBlock(text="30-day guarantee")], is_error=False)</code>.</li>
+<li>Assert <code>ExecutionResult.tool_calls[0] == {"name": "kb_search", "arguments": {"query": "refund"}, "call_id": "toolu_01"}</code>.</li>
+<li>
+<p>Assert <code>ExecutionResult.tool_results[0] == {"call_id": "toolu_01", "result": "30-day guarantee", "is_error": False}</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T007 [P] [US10] Write unit test for <code>invoke_once()</code> structured output handling in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:439</code> ("Validates structured output against schema"), <code>research.md:266–281</code> (§10), <code>spec.md:179–193</code> (US10)</li>
+<li>Mock <code>ResultMessage.structured_output = {"name": "Widget", "price": 9.99}</code>.</li>
+<li>Assert <code>ExecutionResult.structured_output == {"name": "Widget", "price": 9.99}</code>.</li>
+<li>Assert <code>ExecutionResult.response</code> contains the JSON-serialized string for NLP/G-Eval consumption.</li>
+<li>
+<p>Test schema validation failure: structured output does not match configured schema → <code>ExecutionResult.is_error is True</code>, <code>error_reason</code> mentions "schema validation".</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T008 [P] [US1] Write unit test for <code>invoke_once()</code> max_turns exceeded detection in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:441</code> ("Detects max_turns exceeded via ResultMessage.num_turns &gt;= max_turns"), <code>contracts/execution-result.md:68</code> (error condition)</li>
+<li>Mock <code>ResultMessage.num_turns = 10</code> with <code>max_turns = 10</code> in agent config.</li>
+<li>Assert <code>ExecutionResult.is_error is True</code>.</li>
+<li>Assert <code>ExecutionResult.error_reason == "max_turns limit reached"</code>.</li>
+<li>
+<p>Assert partial response text is preserved.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T009 [P] [US1] Write unit test for <code>invoke_once()</code> subprocess crash handling in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:442</code> ("Session-level retry on ProcessError"), <code>research.md:234–243</code> (§8), <code>contracts/execution-result.md:69</code>, <code>spec.md:210</code> (edge case — subprocess terminates)</li>
+<li>Mock <code>claude_agent_sdk.query()</code> to raise <code>ProcessError</code> on first call, succeed on second.</li>
+<li>Assert retry happens (up to 3 attempts, exponential backoff).</li>
+<li>
+<p>Mock all 3 retries failing → assert <code>BackendSessionError</code> is raised with "subprocess terminated unexpectedly".</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T010 [P] [US9] Write unit test for auth env var handling in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:434</code> ("validate_credentials → stores env dict"), <code>research.md:122–137</code> (§4), <code>quickstart.md:280–324</code>, <code>contracts/agent-yaml-schema.md:67–84</code></li>
+<li><strong>Design note</strong>: The SDK merges <code>os.environ</code> with <code>ClaudeAgentOptions.env</code> automatically. <code>validate_credentials()</code> returns only <em>extra</em> env vars needed (e.g., <code>CLAUDE_CODE_USE_BEDROCK=1</code>). For <code>api_key</code>/<code>oauth_token</code>, it validates presence and returns <code>{}</code> — the keys are inherited via <code>os.environ</code>.</li>
+<li>Test <code>auth_provider: api_key</code> → <code>validate_credentials()</code> returns <code>{}</code> (validates ANTHROPIC_API_KEY exists, inherited by subprocess automatically).</li>
+<li>Test <code>auth_provider: oauth_token</code> → <code>validate_credentials()</code> returns <code>{}</code> (validates CLAUDE_CODE_OAUTH_TOKEN exists, inherited automatically).</li>
+<li>Test <code>auth_provider: bedrock</code> → <code>validate_credentials()</code> returns <code>{"CLAUDE_CODE_USE_BEDROCK": "1"}</code> in <code>ClaudeAgentOptions.env</code>.</li>
+<li>Test <code>auth_provider: vertex</code> → <code>validate_credentials()</code> returns <code>{"CLAUDE_CODE_USE_VERTEX": "1"}</code> in <code>ClaudeAgentOptions.env</code>.</li>
+<li>Test <code>auth_provider: foundry</code> → <code>validate_credentials()</code> returns <code>{"CLAUDE_CODE_USE_FOUNDRY": "1"}</code> in <code>ClaudeAgentOptions.env</code>.</li>
+<li>
+<p>Assert extra env vars are merged into <code>ClaudeAgentOptions.env</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T011 [P] [US5] Write unit test for <code>ClaudeSession.send_streaming()</code> in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:419</code> ("yields text chunks from StreamEvent / AssistantMessage blocks"), <code>quickstart.md:250–278</code>, <code>research.md:199–230</code> (§7)</li>
+<li>Mock <code>ClaudeSDKClient.query()</code> and <code>receive_response()</code> to yield multiple <code>AssistantMessage</code> with <code>TextBlock</code> chunks.</li>
+<li>Assert chunks arrive progressively (not all at once).</li>
+<li>
+<p>Assert final <code>ResultMessage</code> terminates the stream.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T012 [P] [US5] Write unit test for <code>ClaudeSession.send()</code> (non-streaming) in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:418</code> ("collects full response from receive_response() iterator"), <code>data-model.md:275–280</code></li>
+<li>Mock <code>ClaudeSDKClient.query()</code> + <code>receive_response()</code> yielding <code>AssistantMessage</code> + <code>ResultMessage</code>.</li>
+<li>Assert <code>ExecutionResult.response</code> is the concatenated text from all <code>TextBlock</code>s.</li>
+<li>
+<p>Assert <code>token_usage</code> is extracted from <code>ResultMessage.usage</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T013 [P] [US1] Write unit test for <code>ClaudeSession.close()</code> calls <code>client.disconnect()</code> in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:421</code> ("close() → client.disconnect()"), <code>data-model.md:392–396</code></li>
+<li>Mock <code>ClaudeSDKClient.disconnect()</code>.</li>
+<li>
+<p>Assert <code>close()</code> calls <code>disconnect()</code> exactly once.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T014 [P] [US5] Write unit test for <code>ClaudeSession</code> multi-turn state tracking in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>research.md:59–80</code> (multi-turn state is OPT-IN), <code>research.md:81</code> ("session wrapper must pass continue_conversation=True and track session_id")</li>
+<li>Mock two successive <code>send()</code> calls.</li>
+<li>Assert first call uses the base options (no <code>continue_conversation</code>, no <code>resume</code>).</li>
+<li>Assert second call creates a NEW <code>ClaudeAgentOptions</code> instance (not mutating the original) with <code>continue_conversation=True</code> and <code>resume=&lt;session_id from first ResultMessage&gt;</code>.</li>
+<li>
+<p>Assert the original base options object is NOT mutated after two turns.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T015 [P] [US1] Write unit test for <code>ClaudeBackend.initialize()</code> lazy-init guard in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:295–298</code> ("initialize() is called lazily on the first invoke_once() or create_session()")</li>
+<li>Call <code>invoke_once()</code> without calling <code>initialize()</code> first → assert <code>initialize()</code> is called automatically.</li>
+<li>Call <code>create_session()</code> without calling <code>initialize()</code> first → assert <code>initialize()</code> is called automatically.</li>
+<li>
+<p>Call <code>initialize()</code> explicitly, then <code>invoke_once()</code> → assert <code>initialize()</code> is NOT called a second time.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T016 [P] [US1] Write unit test for <code>ClaudeBackend.teardown()</code> in <code>tests/unit/lib/backends/test_claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:444</code> ("teardown() → cleanup"), <code>data-model.md:336–338</code></li>
+<li>Assert <code>teardown()</code> resets <code>_initialized = False</code> and <code>_options = None</code>.</li>
+<li>Assert calling <code>invoke_once()</code> after <code>teardown()</code> triggers re-initialization.</li>
+</ul>
+<h3 id="implementation-for-phase-8a">Implementation for Phase 8A<a class="headerlink" href="#implementation-for-phase-8a" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T017 [US1] Create <code>src/holodeck/lib/backends/claude_backend.py</code> with module docstring, imports, and helper functions</li>
+<li><strong>Ref</strong>: <code>plan.md:414</code>, <code>quickstart.md:139–188</code></li>
+<li>Import from <code>claude_agent_sdk</code>: <code>ClaudeAgentOptions</code>, <code>ClaudeSDKClient</code>, <code>query</code>, <code>AssistantMessage</code>, <code>ResultMessage</code>, <code>StreamEvent</code>, <code>ProcessError</code>, <code>TextBlock</code>, <code>ToolUseBlock</code>, <code>ToolResultBlock</code>.</li>
+<li>Import from <code>holodeck</code>: <code>ExecutionResult</code>, <code>AgentSession</code>, <code>BackendSessionError</code>, <code>BackendInitError</code>, <code>TokenUsage</code>, <code>Agent</code>.</li>
+<li>Implement helper <code>_extract_result_text(content: list) -&gt; str</code> — extracts text from content blocks.</li>
+<li>Implement helper <code>_build_permission_mode(claude_config, mode) -&gt; str | None</code> — maps HoloDeck permission modes to SDK literals per <code>research.md:106–118</code>.</li>
+<li>Implement helper <code>_build_output_format(response_format) -&gt; dict | None</code> — translates to plain <code>dict[str, Any]</code> for <code>ClaudeAgentOptions.output_format</code>, NOT using SK's <code>_wrap_response_format</code>. Note: SDK has no <code>OutputFormat</code> class — <code>output_format</code> is <code>dict[str, Any] | None</code>.</li>
+<li>
+<p><strong>Extract shared instruction resolver</strong>: Move <code>AgentFactory._load_instructions()</code> logic from <code>src/holodeck/lib/test_runner/agent_factory.py</code> into a shared utility (e.g., <code>src/holodeck/lib/instruction_resolver.py</code> or <code>src/holodeck/config/loader.py</code>). Implement <code>resolve_instructions(instructions: Instructions, base_dir: Path | None = None) -&gt; str</code>. Both SK backend and Claude backend import from this shared location. Update <code>AgentFactory</code> to use the shared function.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T018 [US1] Implement <code>build_options()</code> function in <code>src/holodeck/lib/backends/claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:433–434</code>, <code>quickstart.md:139–188</code>, <code>research.md:83–101</code> (§2a — ClaudeAgentOptions fields)</li>
+<li>Accept <code>agent: Agent</code>, <code>tool_server: McpSdkServerConfig | None</code>, <code>mcp_configs: dict</code>, <code>auth_env: dict</code>, <code>otel_env: dict</code>, <code>mode: str</code>, <code>allow_side_effects: bool</code>.</li>
+<li>Build <code>system_prompt</code> from <code>agent.instructions</code> (resolve inline or file).</li>
+<li>Build <code>mcp_servers</code> dict: merge <code>holodeck_tools</code> server (if tool_server) + external MCP configs.</li>
+<li>Build <code>env</code> dict: merge <code>auth_env</code> + <code>otel_env</code>.</li>
+<li>Map <code>extended_thinking.budget_tokens</code> → <code>max_thinking_tokens</code> (only if <code>extended_thinking.enabled</code>).</li>
+<li>Map <code>allowed_tools</code> from <code>agent.claude.allowed_tools</code> merged with SDK tool names.</li>
+<li>Handle test mode safety: when <code>mode="test"</code>, force <code>bash.enabled=False</code> and <code>file_system.write=False</code> unless <code>allow_side_effects=True</code>.</li>
+<li>
+<p>Return <code>ClaudeAgentOptions(...)</code> with all fields.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T019 [US1] Implement <code>ClaudeSession</code> class in <code>src/holodeck/lib/backends/claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:416–421</code>, <code>quickstart.md:250–278</code>, <code>research.md:59–80</code> (multi-turn OPT-IN)</li>
+<li><code>__init__(self, options: ClaudeAgentOptions)</code> — store options as <code>_base_options</code> (immutable reference), set <code>_session_id = None</code>, <code>_client = None</code>.</li>
+<li><code>async _ensure_client(self)</code> — create <code>ClaudeSDKClient</code> and enter async context if not already.</li>
+<li><code>_build_turn_options(self) -&gt; ClaudeAgentOptions</code> — for turn 1, return a copy of <code>_base_options</code>. For turn 2+, create a NEW <code>ClaudeAgentOptions</code> with <code>continue_conversation=True</code> and <code>resume=_session_id</code>. NEVER mutate <code>_base_options</code>.</li>
+<li><code>async send(self, message: str) -&gt; ExecutionResult</code> — call <code>_client.query(message)</code>, collect from <code>receive_response()</code>, extract text/tool_calls/tool_results/token_usage, update <code>_session_id</code> from <code>ResultMessage</code>, build <code>ExecutionResult</code>.</li>
+<li><code>async send_streaming(self, message: str) -&gt; AsyncGenerator[str, None]</code> — yield <code>TextBlock.text</code> chunks progressively from <code>receive_response()</code>. Return type matches <code>AgentSession</code> Protocol (<code>AsyncGenerator[str, None]</code>).</li>
+<li><code>async close(self)</code> — call <code>_client.disconnect()</code> if client exists, set <code>_client = None</code>.</li>
+<li>
+<p>Handle <code>ProcessError</code> → raise <code>BackendSessionError("subprocess terminated unexpectedly: {detail}")</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T020 [US1] Implement <code>ClaudeBackend</code> class in <code>src/holodeck/lib/backends/claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:423–444</code>, <code>data-model.md:298–338</code> (§6 — AgentBackend), <code>quickstart.md:190–248</code></li>
+<li><code>__init__(self, agent: Agent, tool_instances: dict[str, VectorStoreTool | HierarchicalDocumentTool] | None = None, mode: str = "test", allow_side_effects: bool = False)</code> — store config only, no I/O. Set <code>_initialized = False</code>, <code>_options = None</code>.</li>
+<li><code>async initialize(self)</code> — idempotent (check <code>_initialized</code>). Steps:<ol>
+<li><code>validate_nodejs()</code></li>
+<li><code>auth_env = validate_credentials(agent.model)</code></li>
+<li><code>validate_embedding_provider(agent)</code> (if vectorstore tools)</li>
+<li><code>validate_tool_filtering(agent)</code> (warn + skip)</li>
+<li>Build tool adapters from <code>tool_instances</code> → <code>create_tool_adapters()</code> + <code>build_holodeck_sdk_server()</code></li>
+<li>Build MCP bridge configs → <code>build_claude_mcp_configs()</code></li>
+<li>Build OTel env vars → <code>translate_observability()</code> (if observability configured)</li>
+<li>Build <code>ClaudeAgentOptions</code> via <code>build_options()</code></li>
+<li><code>validate_working_directory(claude.working_directory)</code></li>
+<li><code>validate_response_format(agent.response_format)</code></li>
+<li>Set <code>_initialized = True</code></li>
+</ol>
+</li>
+<li><code>async invoke_once(self, message: str, context=None) -&gt; ExecutionResult</code> — lazy-init guard → call <code>initialize()</code> if not yet. Use <code>query(prompt=message, options=self._options)</code>. Collect <code>AssistantMessage</code> blocks (text, tool_use, tool_result) + <code>ResultMessage</code> for token usage/structured output. Detect <code>max_turns</code> exceeded. Retry on <code>ProcessError</code> (3 attempts, exponential backoff). Return <code>ExecutionResult</code>.</li>
+<li><code>async create_session(self) -&gt; ClaudeSession</code> — lazy-init guard → return <code>ClaudeSession(self._options)</code>.</li>
+<li>
+<p><code>async teardown(self)</code> — reset <code>_initialized = False</code>, <code>_options = None</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T021 [US1] Implement subprocess retry logic with exponential backoff in <code>src/holodeck/lib/backends/claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:442</code> ("3 attempts, exponential backoff"), <code>research.md:234–243</code> (§8 — Retry Behaviour)</li>
+<li>Retry only on <code>ProcessError</code> (subprocess spawn/crash). NOT on API-level errors (SDK handles those internally per FR-013).</li>
+<li>Backoff: 1s → 2s → 4s (exponential).</li>
+<li>After 3 failures: raise <code>BackendSessionError("Claude subprocess failed after 3 retries: {last_error}")</code>.</li>
+<li>
+<p>Log each retry attempt at WARNING level.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T022 [US10] Implement structured output schema validation in <code>src/holodeck/lib/backends/claude_backend.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:439</code> ("Validates structured output against schema if response_format configured"), <code>spec.md:189–193</code> (US10 acceptance), <code>research.md:266–281</code> (§10)</li>
+<li>When <code>response_format</code> is configured and <code>ResultMessage.structured_output</code> is returned:<ol>
+<li>Validate against configured JSON Schema using <code>jsonschema.validate()</code>.</li>
+<li>Set <code>ExecutionResult.structured_output</code> to the validated object.</li>
+<li>Set <code>ExecutionResult.response</code> to <code>json.dumps(structured_output)</code> for NLP/G-Eval metrics.</li>
+</ol>
+</li>
+<li>On validation failure: set <code>ExecutionResult.is_error = True</code>, <code>error_reason = "Structured output does not match configured schema: {detail}"</code>.</li>
+</ul>
+<p><strong>Checkpoint</strong>: At this point, <code>claude_backend.py</code> should contain a complete <code>ClaudeSession</code> and <code>ClaudeBackend</code> with all unit tests passing against mocked SDK. Run: <code>pytest tests/unit/lib/backends/test_claude_backend.py -n auto -v</code></p>
+<hr />
+<h2 id="phase-8b-backendselector-update">Phase 8B: BackendSelector Update<a class="headerlink" href="#phase-8b-backendselector-update" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Update <code>selector.py</code> to route <code>provider: anthropic</code> agents to <code>ClaudeBackend</code> instead of raising <code>BackendInitError</code>. This completes the routing so that <code>BackendSelector.select()</code> can produce both SK and Claude backends.</p>
+<p><strong>Plan Reference</strong>: <code>plan.md</code> lines 448–464 (Phase 8.2 — selector.py)
+<strong>Spec Reference</strong>: <code>spec.md</code> lines 218–233 (FR-001, FR-010, FR-011)
+<strong>Data Model Reference</strong>: <code>data-model.md</code> lines 362–373 (BackendSelector routing)</p>
+<p><strong>Independent Test</strong>: Call <code>BackendSelector.select(agent)</code> with a <code>provider: anthropic</code> agent. Assert a <code>ClaudeBackend</code> instance is returned (not <code>BackendInitError</code>). Call with a <code>provider: openai</code> agent → assert <code>SKBackend</code> is returned (unchanged).</p>
+<h3 id="tests-for-phase-8b-tdd-write-first-verify-they-fail">Tests for Phase 8B (TDD — write first, verify they FAIL)<a class="headerlink" href="#tests-for-phase-8b-tdd-write-first-verify-they-fail" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T023 [P] [US1] Write unit test for <code>BackendSelector</code> routing <code>anthropic</code> to <code>ClaudeBackend</code> in <code>tests/unit/lib/backends/test_selector.py</code></li>
+<li><strong>Ref</strong>: <code>plan.md:448–464</code>, <code>data-model.md:362–373</code></li>
+<li><strong>Replaces existing <code>test_anthropic_raises_backend_init_error()</code></strong> — after Phase 8B, Anthropic no longer raises an error.</li>
+<li>Mock <code>ClaudeBackend.__init__</code> and <code>initialize()</code>.</li>
+<li>Create agent with <code>provider: anthropic</code> → assert <code>BackendSelector.select()</code> returns <code>ClaudeBackend</code> instance.</li>
+<li>
+<p>Assert <code>initialize()</code> was called on the returned backend.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T024 [P] [US1] Write unit test for <code>BackendSelector</code> passing <code>tool_instances</code> and <code>mode</code> to <code>ClaudeBackend</code> in <code>tests/unit/lib/backends/test_selector.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:453–458</code> (selector signature with tool_instances, mode)</li>
+<li>Mock <code>ClaudeBackend.__init__</code>.</li>
+<li>Call <code>BackendSelector.select(agent, tool_instances={"kb": mock_tool}, mode="chat")</code>.</li>
+<li>
+<p>Assert <code>ClaudeBackend</code> was constructed with <code>tool_instances={"kb": mock_tool}</code> and <code>mode="chat"</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T025 [P] [US1] Write unit test for unsupported provider raises <code>BackendInitError</code> in <code>tests/unit/lib/backends/test_selector.py</code></p>
+</li>
+<li><strong>Ref</strong>: <code>selector.py:46</code> (existing behaviour)</li>
+<li>Create agent with a hypothetical unsupported provider → assert <code>BackendInitError</code> raised.</li>
+<li><strong>Note</strong>: Existing SK-path tests (<code>test_openai_returns_sk_backend</code>, <code>test_azure_openai_returns_sk_backend</code>, <code>test_ollama_returns_sk_backend</code>) already cover FR-010 and must continue to pass after the <code>select()</code> signature change. No new SK-path tests needed.</li>
+</ul>
+<h3 id="implementation-for-phase-8b">Implementation for Phase 8B<a class="headerlink" href="#implementation-for-phase-8b" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T026 [US1] Update <code>src/holodeck/lib/backends/selector.py</code> to route <code>ProviderEnum.ANTHROPIC</code> to <code>ClaudeBackend</code></li>
+<li><strong>Ref</strong>: <code>plan.md:448–464</code></li>
+<li>Import <code>ClaudeBackend</code> from <code>claude_backend</code>.</li>
+<li>Update <code>select()</code> signature to accept optional <code>tool_instances: dict[str, VectorStoreTool | HierarchicalDocumentTool] | None = None</code>, <code>mode: str = "test"</code>, <code>allow_side_effects: bool = False</code>. New params have defaults so existing callers are unaffected.</li>
+<li>For <code>ProviderEnum.ANTHROPIC</code>: instantiate <code>ClaudeBackend(agent, tool_instances, mode, allow_side_effects)</code>, call <code>await backend.initialize()</code>, return.</li>
+<li>Remove the current <code>BackendInitError("Anthropic provider is not yet supported...")</code> block.</li>
+<li>Preserve <code>SKBackend</code> path for <code>OPENAI</code>, <code>AZURE_OPENAI</code>, <code>OLLAMA</code> — no changes.</li>
+<li>
+<p><strong>Existing tests must still pass</strong>: <code>test_openai_returns_sk_backend</code>, <code>test_azure_openai_returns_sk_backend</code>, <code>test_ollama_returns_sk_backend</code>, <code>test_initialize_awaited_on_returned_backend</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T027 [US1] Update <code>src/holodeck/lib/backends/__init__.py</code> to export <code>ClaudeBackend</code> and <code>ClaudeSession</code></p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:95</code> (claude_backend.py in project structure)</li>
+<li>Add imports: <code>from holodeck.lib.backends.claude_backend import ClaudeBackend, ClaudeSession</code>.</li>
+<li>Add to <code>__all__</code>: <code>"ClaudeBackend"</code>, <code>"ClaudeSession"</code>.</li>
+</ul>
+<p><strong>Checkpoint</strong>: At this point, <code>BackendSelector.select()</code> should route Anthropic agents to <code>ClaudeBackend</code>. Existing SK-path tests must still pass. Run: <code>pytest tests/unit/lib/backends/test_selector.py tests/unit/lib/backends/test_claude_backend.py -n auto -v</code></p>
+<hr />
+<h2 id="phase-8c-code-quality-verification">Phase 8C: Code Quality &amp; Verification<a class="headerlink" href="#phase-8c-code-quality-verification" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Run all code quality checks and verify zero regressions across the full test suite.</p>
+<p><strong>Plan Reference</strong>: <code>plan.md</code> lines 551–561 (Phase 12: Code Quality — run after each phase)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> T028 Run <code>make format</code> to apply Black + Ruff formatting to all new/modified files</li>
+<li><strong>Ref</strong>: <code>plan.md:556</code></li>
+<li>
+<p>Files: <code>src/holodeck/lib/backends/claude_backend.py</code>, <code>src/holodeck/lib/backends/selector.py</code>, <code>src/holodeck/lib/backends/__init__.py</code>, <code>tests/unit/lib/backends/test_claude_backend.py</code>, <code>tests/unit/lib/backends/test_selector.py</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T029 Run <code>make lint-fix</code> to auto-fix linting issues in new/modified files</p>
+</li>
+<li>
+<p><strong>Ref</strong>: <code>plan.md:557</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T030 Run <code>make type-check</code> to verify MyPy strict mode passes for all new code</p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:558</code></li>
+<li>All new functions must have type hints on parameters and return values.</li>
+<li>
+<p>Fix any MyPy errors before proceeding.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T031 Run <code>make test-unit</code> to verify zero regressions across the full unit test suite</p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:559</code>, <code>plan.md:299</code> ("existing unit tests MUST pass without modification")</li>
+<li>Run: <code>pytest tests/unit/ -n auto -v</code></li>
+<li>All existing tests from Phases 1–7 must still pass.</li>
+<li>
+<p>All new Phase 8 tests must pass.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T032 Run <code>make security</code> to verify Bandit + Safety + detect-secrets pass</p>
+</li>
+<li><strong>Ref</strong>: <code>plan.md:560</code></li>
+<li>No new security warnings allowed in <code>claude_backend.py</code> or <code>selector.py</code>.</li>
+</ul>
+<p><strong>Checkpoint</strong>: Full CI pipeline green. Ready for Phase 9 (Test Runner Updates).</p>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<h3 id="phase-dependencies">Phase Dependencies<a class="headerlink" href="#phase-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Phase 8A Tests (T001–T016)</strong>: No dependencies on each other — all [P] parallelizable. All depend on Phases 1–7 being complete.</li>
+<li><strong>Phase 8A Implementation (T017–T022)</strong>: T017 must come first (module skeleton + shared instruction resolver). T018–T022 depend on T017. T019 and T020 can be partially parallelized but T020 (<code>ClaudeBackend</code>) references T019 (<code>ClaudeSession</code>).</li>
+<li><strong>Phase 8B Tests (T023–T025)</strong>: Depend on Phase 8A implementation being complete. All [P] parallelizable among themselves.</li>
+<li><strong>Phase 8B Implementation (T026–T027)</strong>: Depend on Phase 8A implementation + Phase 8B tests. T027 depends on T026.</li>
+<li><strong>Phase 8C Quality (T028–T032)</strong>: Depends on all Phase 8A + 8B being complete. T028–T030 are parallelizable. T031 depends on T028–T030. T032 depends on T031.</li>
+</ul>
+<h3 id="execution-order-critical-path">Execution Order (Critical Path)<a class="headerlink" href="#execution-order-critical-path" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>T001–T016 (parallel)  ─── all Phase 8A tests
+      │
+T017                  ─── module skeleton + instruction resolver extraction
+      │
+T018, T019, T020, T021, T022  ─── Phase 8A implementation (mostly sequential)
+      │
+T023–T025 (parallel)  ─── Phase 8B tests
+      │
+T026, T027            ─── Phase 8B implementation (sequential)
+      │
+T028–T030 (parallel)  ─── formatting, linting, type-check
+      │
+T031                  ─── full test suite
+      │
+T032                  ─── security scan
+</code></pre></div>
+<h3 id="within-phase-8a-implementation">Within Phase 8A Implementation<a class="headerlink" href="#within-phase-8a-implementation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>T017 (skeleton + instruction resolver) → T018 (build_options) → T019 (ClaudeSession) → T020 (ClaudeBackend) → T021 (retry logic) → T022 (structured output validation)</li>
+<li>T021 and T022 can be done in either order after T020.</li>
+</ul>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch all Phase 8A tests in parallel:</span>
+Task:<span class="w"> </span>T001<span class="w"> </span>—<span class="w"> </span>build_options<span class="w"> </span>unit<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T002<span class="w"> </span>—<span class="w"> </span>permission<span class="w"> </span>mode<span class="w"> </span>mapping<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T003<span class="w"> </span>—<span class="w"> </span>__init__<span class="w"> </span>no-I/O<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T004<span class="w"> </span>—<span class="w"> </span>initialize<span class="o">()</span><span class="w"> </span>validator<span class="w"> </span>order<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T005<span class="w"> </span>—<span class="w"> </span>invoke_once<span class="o">()</span><span class="w"> </span>happy<span class="w"> </span>path<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T006<span class="w"> </span>—<span class="w"> </span>tool<span class="w"> </span>call<span class="w"> </span>extraction<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T007<span class="w"> </span>—<span class="w"> </span>structured<span class="w"> </span>output<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T008<span class="w"> </span>—<span class="w"> </span>max_turns<span class="w"> </span>exceeded<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T009<span class="w"> </span>—<span class="w"> </span>subprocess<span class="w"> </span>crash<span class="w"> </span>retry<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T010<span class="w"> </span>—<span class="w"> </span>auth<span class="w"> </span>env<span class="w"> </span>var<span class="w"> </span>handling<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T011<span class="w"> </span>—<span class="w"> </span>send_streaming<span class="o">()</span><span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T012<span class="w"> </span>—<span class="w"> </span>send<span class="o">()</span><span class="w"> </span>non-streaming<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T013<span class="w"> </span>—<span class="w"> </span>close<span class="o">()</span><span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T014<span class="w"> </span>—<span class="w"> </span>multi-turn<span class="w"> </span>state<span class="w"> </span>tracking<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T015<span class="w"> </span>—<span class="w"> </span>lazy-init<span class="w"> </span>guard<span class="w"> </span><span class="nb">test</span>
+Task:<span class="w"> </span>T016<span class="w"> </span>—<span class="w"> </span>teardown<span class="o">()</span><span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Launch all Phase 8B tests in parallel:</span>
+Task:<span class="w"> </span>T023<span class="w"> </span>—<span class="w"> </span>selector<span class="w"> </span>routes<span class="w"> </span>anthropic<span class="w"> </span>to<span class="w"> </span>ClaudeBackend<span class="w"> </span><span class="o">(</span>replaces<span class="w"> </span>existing<span class="w"> </span>error<span class="w"> </span><span class="nb">test</span><span class="o">)</span>
+Task:<span class="w"> </span>T024<span class="w"> </span>—<span class="w"> </span>selector<span class="w"> </span>passes<span class="w"> </span>tool_instances/mode
+Task:<span class="w"> </span>T025<span class="w"> </span>—<span class="w"> </span>unsupported<span class="w"> </span>provider<span class="w"> </span>error
+
+<span class="c1"># Launch quality checks in parallel:</span>
+Task:<span class="w"> </span>T028<span class="w"> </span>—<span class="w"> </span>format
+Task:<span class="w"> </span>T029<span class="w"> </span>—<span class="w"> </span>lint-fix
+Task:<span class="w"> </span>T030<span class="w"> </span>—<span class="w"> </span>type-check
+</code></pre></div>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="mvp-first-phase-8a-only">MVP First (Phase 8A Only)<a class="headerlink" href="#mvp-first-phase-8a-only" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Write all T001–T016 tests (TDD — verify they FAIL)</li>
+<li>Implement T017–T022 (claude_backend.py)</li>
+<li>Verify all Phase 8A tests pass</li>
+<li><strong>STOP and VALIDATE</strong>: <code>ClaudeBackend.invoke_once()</code> works with mocked SDK</li>
+<li>This alone is a demonstrable milestone — the core execution engine exists</li>
+</ol>
+<h3 id="full-phase-8">Full Phase 8<a class="headerlink" href="#full-phase-8" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Phase 8A (MVP above)</li>
+<li>Write Phase 8B tests (T023–T025)</li>
+<li>Implement Phase 8B (T026–T027 — selector update + exports)</li>
+<li>Run quality checks (T028–T032)</li>
+<li><strong>STOP and VALIDATE</strong>: <code>BackendSelector.select()</code> routes to both backends</li>
+</ol>
+<h3 id="user-story-coverage">User Story Coverage<a class="headerlink" href="#user-story-coverage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>User Story</th>
+<th>Tasks</th>
+<th>Key Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US1 (Run Claude-Native Agent)</td>
+<td>T001–T005, T008–T009, T013, T015–T020, T023–T027</td>
+<td>Core execution path</td>
+</tr>
+<tr>
+<td>US2 (Vectorstore/Doc Tools)</td>
+<td>T006 (tool extraction)</td>
+<td>Tool calls via adapters (Phase 5)</td>
+</tr>
+<tr>
+<td>US3 (MCP Tools)</td>
+<td>—</td>
+<td>MCP bridge (Phase 6, complete)</td>
+</tr>
+<tr>
+<td>US5 (Streaming Chat)</td>
+<td>T011–T012, T014</td>
+<td><code>ClaudeSession.send_streaming()</code></td>
+</tr>
+<tr>
+<td>US6 (Parallel Subagents)</td>
+<td>—</td>
+<td>Subagent config passed via <code>build_options()</code></td>
+</tr>
+<tr>
+<td>US7 (File System Access)</td>
+<td>—</td>
+<td>File system config passed via <code>build_options()</code></td>
+</tr>
+<tr>
+<td>US8 (Permission Governance)</td>
+<td>T002</td>
+<td>Permission mode mapping</td>
+</tr>
+<tr>
+<td>US9 (Flexible Auth)</td>
+<td>T010</td>
+<td>Auth env var handling</td>
+</tr>
+<tr>
+<td>US10 (Structured Output)</td>
+<td>T007, T022</td>
+<td>Schema validation + output handling</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[P] tasks = different files, no dependencies</li>
+<li>[Story] label maps task to specific user story for traceability</li>
+<li>TDD: write tests first, verify they fail, then implement</li>
+<li>All <code>claude_agent_sdk</code> calls are mocked in unit tests — no API key needed</li>
+<li>Integration tests (requiring real API keys) are deferred to Phase 11 per plan.md:541–548</li>
+<li>Commit after each logical group (Phase 8A tests → Phase 8A impl → Phase 8B tests → Phase 8B impl → quality)</li>
+<li>Stop at any checkpoint to validate independently</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

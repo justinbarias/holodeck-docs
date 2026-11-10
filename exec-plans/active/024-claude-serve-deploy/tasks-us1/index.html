@@ -1,0 +1,2501 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/active/024-claude-serve-deploy/tasks-us1/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks: User Story 1 — Serve a Claude-Backed Agent via REST/AG-UI - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-user-story-1-serve-a-claude-backed-agent-via-restag-ui" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks: User Story 1 — Serve a Claude-Backed Agent via REST/AG-UI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup-shared-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup — Shared Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational-blocking-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational — Blocking Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-user-story-1-unit-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: User Story 1 — Unit Tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-user-story-1-integration-tests-otel-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: User Story 1 — Integration Tests &amp; OTel Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-polish-validation-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: Polish — Validation &amp; Quality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies &amp; Execution Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-execution-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guiding-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guiding Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-files-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-user-story-1-serve-a-claude-backed-agent-via-restag-ui">Tasks: User Story 1 — Serve a Claude-Backed Agent via REST/AG-UI<a class="headerlink" href="#tasks-user-story-1-serve-a-claude-backed-agent-via-restag-ui" title="Permanent link">&para;</a></h1>
+<p><strong>Feature</strong>: 024-claude-serve-deploy | <strong>Story</strong>: US1 | <strong>Date</strong>: 2026-03-20
+<strong>Spec</strong>: <a href="../../../../product-specs/024-claude-serve-deploy/spec/">spec.md</a> | <strong>Plan</strong>: <a href="../plan/">plan.md</a> | <strong>Data Model</strong>: <a href="../../../../design-docs/024-claude-serve-deploy/data-model/">data-model.md</a></p>
+<p><strong>User Story</strong>: A platform operator configures an agent with <code>provider: anthropic</code> and runs <code>holodeck serve agent.yaml</code>. The server starts, performs pre-flight validation (Node.js availability, API credentials), and begins accepting requests. Clients interact with the agent through REST or AG-UI protocol endpoints identically to how they would with an OpenAI-backed agent.</p>
+<p><strong>Acceptance Scenarios</strong>:
+1. Given agent config with <code>provider: anthropic</code> and Node.js installed, When operator runs <code>holodeck serve agent.yaml</code>, Then server starts successfully and health endpoint reports ready.
+2. Given running Claude-backed server, When client sends message to REST endpoint, Then server returns ExecutionResult-compatible response.
+3. Given running Claude-backed server, When client opens streaming session, Then text chunks delivered progressively.
+4. Given agent config with <code>provider: anthropic</code> but no Node.js, When operator runs <code>holodeck serve</code>, Then server fails fast with clear error.
+5. Given agent config with <code>provider: anthropic</code> but no credentials, When operator runs <code>holodeck serve</code>, Then server fails fast with clear error.</p>
+<p><strong>FR Coverage</strong>: FR-001, FR-006, FR-008, FR-012, FR-013, FR-014</p>
+<hr />
+<h2 id="phase-1-setup-shared-infrastructure">Phase 1: Setup — Shared Infrastructure<a class="headerlink" href="#phase-1-setup-shared-infrastructure" title="Permanent link">&para;</a></h2>
+<p>These tasks create the data model extensions and shared constants that all US1 tasks depend on. No story label — they are foundational.</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T001 Add <code>max_concurrent_sessions</code> field to <code>ClaudeConfig</code> in <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/models/claude_config.py</code>. Add <code>max_concurrent_sessions: int | None = Field(default=10, ge=1, le=100, description="Maximum concurrent Claude SDK subprocesses per serve instance")</code>. Place it after the existing <code>max_turns</code> field. This enables the session cap configured via YAML (<code>claude.max_concurrent_sessions</code>).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T002 [P] Add <code>backend_ready</code> and <code>backend_diagnostics</code> fields to <code>HealthResponse</code> in <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/models.py</code>. Add: <code>backend_ready: bool = Field(default=True, description="Whether backend prerequisites are satisfied")</code> and <code>backend_diagnostics: list[str] = Field(default_factory=list, description="Diagnostic messages when backend is degraded/unhealthy")</code>. These are additive, backward-compatible fields. Update the <code>status</code> field description to include <code>"degraded"</code> as a valid value.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T003 [P] Define <code>NODEJS_MIN_VERSION</code> constant in <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/lib/backends/validators.py</code>. Add <code>NODEJS_MIN_VERSION: int = 18</code> at module level after the existing env var candidate tuples. This constant is used by the enhanced <code>validate_nodejs()</code> (T005) and health check validators.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-2-foundational-blocking-prerequisites">Phase 2: Foundational — Blocking Prerequisites<a class="headerlink" href="#phase-2-foundational-blocking-prerequisites" title="Permanent link">&para;</a></h2>
+<p>These tasks implement the core validation logic, error mapping, and server lifecycle changes that must exist before the serve path works end-to-end.</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T004 [US1] Enhance <code>validate_nodejs()</code> in <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/lib/backends/validators.py</code> to verify Node.js version &gt;= 18 (FR-012). After the existing <code>shutil.which("node")</code> check passes, run <code>subprocess.run(["node", "--version"], capture_output=True, text=True, timeout=5)</code>. Parse the output (format: <code>v22.1.0</code>) — strip the <code>v</code> prefix, split on <code>.</code>, extract the major version as int. If major &lt; <code>NODEJS_MIN_VERSION</code>, raise <code>ConfigError("nodejs", f"Node.js version {version} found but &gt;= {NODEJS_MIN_VERSION} is required by Claude Agent SDK. ...")</code>. Handle <code>subprocess.TimeoutExpired</code> and <code>subprocess.CalledProcessError</code> by raising <code>ConfigError</code> with an actionable message. Import <code>subprocess</code> at the top of the file.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T005 [US1] Add <code>_validate_backend_prerequisites()</code> method to <code>AgentServer</code> in <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/server.py</code> (FR-001, FR-008). Implement <code>async def _validate_backend_prerequisites(self) -&gt; None</code> that: (a) checks <code>self.agent_config.model.provider == ProviderEnum.ANTHROPIC</code>, (b) if Anthropic, calls <code>validate_nodejs()</code> and <code>validate_credentials(self.agent_config.model)</code> from <code>holodeck.lib.backends.validators</code>, (c) on <code>ConfigError</code>, raises <code>BackendInitError</code> with the error message. The CLI layer (serve command) catches this and exits. (d) for non-Anthropic providers, returns immediately (no-op). Import <code>BackendInitError</code> from <code>holodeck.lib.backends</code>, <code>ProviderEnum</code> from <code>holodeck.models.llm</code>, and the validator functions.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T006 [US1] Integrate <code>_validate_backend_prerequisites()</code> into the server startup lifecycle in <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/server.py</code>. Locate the point where the server transitions to <code>RUNNING</code> state (currently in <code>create_app()</code> which sets <code>READY</code>, then uvicorn starts). Add a call to <code>await self._validate_backend_prerequisites()</code> in the <code>start()</code> method (or the appropriate startup hook) BEFORE the state transitions to <code>RUNNING</code>. The startup lifecycle catches <code>BackendInitError</code> from <code>_validate_backend_prerequisites()</code>, logs the error with <code>logger.error()</code>, and exits. If validation fails, the server never reaches <code>RUNNING</code> state. Log a success message on success: <code>"Backend prerequisites validated for {provider} provider"</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T007 [US1] Pass Claude session cap to <code>SessionStore</code> in <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/server.py</code> (FR-014). In <code>AgentServer.__init__()</code>, detect if <code>self.agent_config.model.provider == ProviderEnum.ANTHROPIC</code> and <code>self.agent_config.claude</code> is not None. If so, read <code>self.agent_config.claude.max_concurrent_sessions</code> and pass it to <code>SessionStore(max_sessions=cap)</code> instead of the default 1000. Non-Anthropic providers keep the existing 1000 default. Import <code>ProviderEnum</code> from <code>holodeck.models.llm</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T008 [US1] Map <code>BackendSessionError</code> to HTTP 502 in REST protocol at <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/protocols/rest.py</code> (FR-014, crash handling). In the chat endpoint handler(s), wrap the <code>AgentExecutor</code> invocation with a try/except that catches <code>BackendSessionError</code> (import from <code>holodeck.lib.backends</code>). When caught, return a <code>JSONResponse</code> with status 502 and body: <code>{"error": "backend_error", "message": "Claude Agent SDK subprocess terminated unexpectedly. Start a new session to retry.", "retriable": true}</code>. Remove the crashed session from the session store.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T009 [US1] Map capacity exceeded to HTTP 503 in REST protocol at <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/protocols/rest.py</code> (FR-014, session cap). When <code>SessionStore.create()</code> raises <code>RuntimeError</code> due to max sessions exceeded, catch it and return a <code>JSONResponse</code> with status 503, <code>Retry-After: 5</code> header, and body matching the session-cap contract: <code>{"error": "capacity_exceeded", "message": "Maximum concurrent Claude sessions ({max}) reached. Retry after existing sessions complete.", "active_sessions": N, "max_sessions": N}</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T010 [US1] Map <code>BackendSessionError</code> to SSE error event in AG-UI protocol at <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/protocols/agui.py</code> (FR-014, crash handling). In the AG-UI endpoint handler, wrap the <code>AgentExecutor</code> invocation with a try/except that catches <code>BackendSessionError</code> (import from <code>holodeck.lib.backends</code>). When caught, emit an SSE error event: <code>event: error\ndata: {"type": "backend_error", "message": "Claude Agent SDK subprocess terminated unexpectedly.", "retriable": true}</code>. Remove the crashed session from the session store.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T011 [US1] Map capacity exceeded to SSE error event in AG-UI protocol at <code>/Users/justinbarias/Documents/Git/python/agentlab/src/holodeck/serve/protocols/agui.py</code> (FR-014, session cap). When <code>SessionStore.create()</code> raises <code>RuntimeError</code> due to max sessions exceeded, catch it and emit an SSE error event: <code>event: error\ndata: {"type": "capacity_exceeded", "message": "Maximum concurrent Claude sessions ({max}) reached."}</code>.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-3-user-story-1-unit-tests">Phase 3: User Story 1 — Unit Tests<a class="headerlink" href="#phase-3-user-story-1-unit-tests" title="Permanent link">&para;</a></h2>
+<p>These tasks verify all US1 production code with comprehensive unit tests.</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T012 [US1] Write unit tests for <code>ClaudeConfig.max_concurrent_sessions</code> in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/models/test_claude_config.py</code>. Add tests: (a) default value is 10, (b) <code>max_concurrent_sessions: 50</code> is valid, (c) <code>max_concurrent_sessions: 0</code> raises <code>ValidationError</code> (ge=1), (d) <code>max_concurrent_sessions: 101</code> raises <code>ValidationError</code> (le=100), (e) <code>max_concurrent_sessions: null</code> is valid (None). Run with <code>pytest tests/unit/models/test_claude_config.py -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T013 [US1] Write unit tests for enhanced <code>validate_nodejs()</code> version check in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/lib/backends/test_validators.py</code>. Add tests: (a) Node.js v22.1.0 passes validation (mock <code>subprocess.run</code> returning <code>v22.1.0</code>), (b) Node.js v18.0.0 passes (boundary), (c) Node.js v16.20.0 raises <code>ConfigError</code> with version message, (d) <code>node --version</code> times out raises <code>ConfigError</code>, (e) <code>node --version</code> returns non-zero exit code raises <code>ConfigError</code>, (f) node not found on PATH raises <code>ConfigError</code> (existing behavior preserved), (g) unparseable version output (e.g., garbage string) raises <code>ConfigError</code>. Mock <code>shutil.which</code> and <code>subprocess.run</code> appropriately. Run with <code>pytest tests/unit/lib/backends/test_validators.py -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T014 [US1] Write unit tests for <code>_validate_backend_prerequisites()</code> in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/serve/test_server.py</code>. Add tests: (a) Anthropic provider with valid Node.js + credentials — no exception raised, (b) Anthropic provider with missing Node.js — raises <code>BackendInitError</code>, (c) Anthropic provider with missing credentials — raises <code>BackendInitError</code>, (d) non-Anthropic provider (e.g., openai) — skips validation entirely, (e) Node.js version too old — raises <code>BackendInitError</code>. Mock <code>validate_nodejs</code> and <code>validate_credentials</code>. Run with <code>pytest tests/unit/serve/test_server.py -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T015 [US1] Write unit tests for session cap enforcement in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/serve/test_server.py</code>. Add tests: (a) Anthropic provider with <code>max_concurrent_sessions: 5</code> — SessionStore created with <code>max_sessions=5</code>, (b) non-Anthropic provider — SessionStore created with default <code>max_sessions=1000</code>, (c) Anthropic provider without <code>claude</code> config section — SessionStore uses default 10. Run with <code>pytest tests/unit/serve/test_server.py -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T016 [US1] Write unit tests for REST protocol error mapping in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/serve/test_protocols_rest.py</code> (or existing test file for REST protocol). Add tests: (a) <code>BackendSessionError</code> during chat returns 502 with <code>{"error": "backend_error", "retriable": true}</code>, (b) capacity exceeded (RuntimeError from SessionStore) returns 503 with <code>{"error": "capacity_exceeded"}</code> and <code>Retry-After</code> header, (c) crashed session is removed from session store after 502 response. Mock <code>AgentExecutor</code> to raise the respective exceptions. Run with <code>pytest tests/unit/serve/ -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T017 [US1] Write unit tests for AG-UI protocol error mapping in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/serve/test_protocols_agui.py</code> (or existing test file for AG-UI protocol). Add tests: (a) <code>BackendSessionError</code> during AG-UI streaming emits SSE error event with <code>"type": "backend_error"</code>, (b) capacity exceeded emits SSE error event with <code>"type": "capacity_exceeded"</code>, (c) crashed session is removed from session store after error event. Mock <code>AgentExecutor</code> to raise the respective exceptions. Run with <code>pytest tests/unit/serve/ -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T018 [US1] Write unit test verifying env var pass-through for proxy credential injection (FR-006) in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/lib/backends/test_claude_backend.py</code>. Verify that when <code>ANTHROPIC_BASE_URL</code>, <code>HTTP_PROXY</code>, and <code>HTTPS_PROXY</code> are set in the process environment, the <code>build_options()</code> method on <code>ClaudeBackend</code> produces <code>ClaudeAgentOptions.env</code> that <strong>merges with</strong> (not replaces) the inherited environment. Set env vars via <code>monkeypatch.setenv()</code>, call <code>build_options()</code>, and assert the env dict contains the proxy vars. This confirms FR-006 without any new production code. Run with <code>pytest tests/unit/lib/backends/test_claude_backend.py -n auto</code>.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-4-user-story-1-integration-tests-otel-verification">Phase 4: User Story 1 — Integration Tests &amp; OTel Verification<a class="headerlink" href="#phase-4-user-story-1-integration-tests-otel-verification" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T019 [US1] Create Claude agent fixture for serve integration tests at <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/fixtures/claude_agent/agent.yaml</code>. Define a minimal Claude agent config: <code>name: claude-serve-test</code>, <code>model: {provider: anthropic, name: claude-sonnet-4-20250514}</code>, <code>instructions: {inline: "You are a helpful test assistant."}</code>, <code>claude: {permission_mode: acceptAll, max_concurrent_sessions: 3}</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T020 [US1] Write integration test for Claude serve startup and health endpoint in new file <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/integration/serve/test_server_claude.py</code> (FR-001, FR-005, FR-010). Test: (a) <code>AgentServer</code> with Claude agent fixture starts and health endpoint returns <code>backend_ready: true</code> (requires Node.js + credentials in CI), (b) health endpoint returns <code>backend_diagnostics: []</code> when all prerequisites met, (c) server transitions to RUNNING state after successful pre-flight validation. Mark with <code>@pytest.mark.integration</code>. Use <code>httpx.AsyncClient</code> with the FastAPI test client pattern. Run with <code>pytest tests/integration/serve/test_server_claude.py -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T021 [US1] Write integration test for Claude serve request handling in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/integration/serve/test_server_claude.py</code> (FR-010). Test: (a) POST to REST chat endpoint with Claude agent returns 200 with <code>ExecutionResult</code>-compatible response (has <code>content</code>, <code>session_id</code>, <code>tool_calls</code> fields), (b) streaming endpoint returns SSE events with progressive text chunks, (c) session is created and tracked in SessionStore. Mark with <code>@pytest.mark.integration</code>. Run with <code>pytest tests/integration/serve/test_server_claude.py -n auto</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T022 [US1] Write integration test verifying OTel instrumentation in serve mode in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/integration/serve/test_server_claude.py</code> (FR-013). Test: (a) configure an <code>InMemorySpanExporter</code>, (b) start Claude serve, send a request, (c) assert at least one span with <code>gen_ai.system</code> attribute is emitted, (d) verify span has <code>gen_ai.request.model</code> attribute matching the configured model. This confirms FR-013 — GenAI semantic convention instrumentation works in serve mode without new code. Mark with <code>@pytest.mark.integration</code>.</p>
+</li>
+</ul>
+<hr />
+<h2 id="phase-5-polish-validation-quality">Phase 5: Polish — Validation &amp; Quality<a class="headerlink" href="#phase-5-polish-validation-quality" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T023 [US1] Validate quickstart Scenario 1 (Serve a Claude Agent Locally) from <code>/Users/justinbarias/Documents/Git/python/agentlab/docs/product-specs/024-claude-serve-deploy/quickstart.md</code>. Create a unit test in <code>/Users/justinbarias/Documents/Git/python/agentlab/tests/unit/serve/test_serve_quickstart.py</code> that: (a) parses the quickstart YAML config through the <code>Agent</code> Pydantic model and asserts validation passes, (b) verifies <code>agent.claude.max_concurrent_sessions == 5</code>, (c) verifies <code>agent.model.provider == ProviderEnum.ANTHROPIC</code>. This does NOT require a running server — config parsing only.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> T024 [US1] Run full test suite and code quality checks. Execute <code>make test-unit</code>, <code>make lint</code>, <code>make format-check</code>, and <code>make type-check</code> from <code>/Users/justinbarias/Documents/Git/python/agentlab</code>. Fix any failures introduced by US1 changes. Ensure all existing tests still pass (zero regressions per FR-009). All new files must pass Black formatting, Ruff linting, and MyPy type checking.</p>
+</li>
+</ul>
+<hr />
+<h2 id="dependencies-execution-order">Dependencies &amp; Execution Order<a class="headerlink" href="#dependencies-execution-order" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>T001 (ClaudeConfig field)
+  └─ no dependencies — start immediately
+
+T002 (HealthResponse fields)
+  └─ no dependencies — start immediately
+
+T003 (NODEJS_MIN_VERSION constant)
+  └─ no dependencies — start immediately
+
+T001 + T002 + T003 can all run in parallel (Phase 1).
+
+T004 (validate_nodejs enhancement) ── depends on T003
+T005 (_validate_backend_prerequisites) ── depends on T004
+T006 (startup lifecycle integration) ── depends on T005
+T007 (session cap in __init__) ── depends on T001
+
+T008 (REST 502 mapping) ── depends on T006
+T009 (REST 503 mapping) ── depends on T007
+T010 (AG-UI 502 mapping) ── depends on T006
+T011 (AG-UI 503 mapping) ── depends on T007
+
+T008 + T009 can run in parallel (REST protocol changes).
+T010 + T011 can run in parallel (AG-UI protocol changes).
+REST and AG-UI groups can run in parallel with each other.
+
+T012 (ClaudeConfig tests) ── depends on T001
+T013 (validator tests) ── depends on T004
+T014 (prereq tests) ── depends on T005, T006
+T015 (session cap tests) ── depends on T007
+T016 (REST error tests) ── depends on T008, T009
+T017 (AG-UI error tests) ── depends on T010, T011
+T018 (env var pass-through test) ── no production deps, can run after Phase 1
+
+T012 + T013 + T015 + T018 can run in parallel (independent test files).
+T014 can run in parallel with T016 + T017 (independent test files).
+
+T019 (fixture) ── no dependencies — can start in Phase 1
+T020 (integration: startup) ── depends on T006, T019
+T021 (integration: request handling) ── depends on T008, T009, T019
+T022 (integration: OTel) ── depends on T020
+
+T023 (quickstart validation) ── depends on T001
+T024 (full suite) ── depends on ALL previous tasks
+</code></pre></div>
+<h2 id="parallel-execution-examples">Parallel Execution Examples<a class="headerlink" href="#parallel-execution-examples" title="Permanent link">&para;</a></h2>
+<p>The following groups can be executed in parallel within each phase:</p>
+<p><strong>Phase 1 parallel group:</strong>
+- T001 (ClaudeConfig field) | T002 (HealthResponse fields) | T003 (NODEJS_MIN_VERSION) — all independent, no cross-file dependencies</p>
+<p><strong>Phase 2 first wave:</strong>
+- T004 (validate_nodejs) | T007 (session cap) — T004 depends on T003, T007 depends on T001, no overlap</p>
+<p><strong>Phase 2 second wave (after T004, T005):</strong>
+- T008 (REST 502) + T009 (REST 503) | T010 (AG-UI 502) + T011 (AG-UI 503) — all independent protocol/endpoint changes</p>
+<p><strong>Phase 3 first wave:</strong>
+- T012 (config tests) | T013 (validator tests) | T015 (session cap tests) | T018 (env var tests) — independent test files</p>
+<p><strong>Phase 3 second wave:</strong>
+- T014 (server tests) | T016 (REST tests) | T017 (AG-UI tests) — independent test files</p>
+<p><strong>Phase 4:</strong>
+- T019 (fixture, can start early) | T020, T021 (integration, after Phase 2) | T022 (OTel, after T020)</p>
+<p><strong>Phase 5 sequential:</strong>
+- T023 → T024</p>
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="guiding-principles">Guiding Principles<a class="headerlink" href="#guiding-principles" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Fail-fast validation</strong>: All Claude backend prerequisites (Node.js &gt;= 18, API credentials) MUST be checked at server startup in <code>AgentServer.start()</code>, before transitioning to RUNNING state. The server must never appear healthy while lacking prerequisites.</p>
+</li>
+<li>
+<p><strong>Backward compatibility</strong>: All changes to <code>HealthResponse</code> and health endpoints are additive. Existing consumers that check <code>status == "healthy"</code> continue to work. The new <code>"degraded"</code> status is only relevant to Claude-aware consumers.</p>
+</li>
+<li>
+<p><strong>Contract compliance</strong>: REST error responses (502 for crashes, 503 for capacity) and AG-UI SSE error events MUST match the contracts defined in <code>/Users/justinbarias/Documents/Git/python/agentlab/docs/product-specs/024-claude-serve-deploy/contracts/session-cap.md</code> exactly.</p>
+</li>
+<li>
+<p><strong>No new backend code</strong>: The <code>ClaudeBackend</code> and <code>ClaudeSession</code> already implement the <code>AgentBackend</code>/<code>AgentSession</code> protocols. US1 only adds server-level validation, error mapping, and lifecycle management around the existing backend.</p>
+</li>
+<li>
+<p><strong>OTel for free</strong>: GenAI semantic convention instrumentation activates automatically via <code>ClaudeBackend.initialize()</code> in serve mode. No new instrumentation code is needed — only an integration test to verify (T022).</p>
+</li>
+<li>
+<p><strong>Error handling</strong>: <code>BackendInitError</code> is raised by <code>_validate_backend_prerequisites()</code> on pre-flight failure; the CLI layer (serve command) catches it and exits. <code>BackendSessionError</code> maps to 502 (retriable), capacity exceeded maps to 503 (with <code>Retry-After</code>). Crashed sessions are removed from <code>SessionStore</code> to free the slot immediately.</p>
+</li>
+</ol>
+<h3 id="key-files-reference">Key Files Reference<a class="headerlink" href="#key-files-reference" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Action</th>
+<th>Tasks</th>
+<th>FR Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/holodeck/models/claude_config.py</code></td>
+<td>MODIFY</td>
+<td>T001, T012</td>
+<td>FR-014</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/models.py</code></td>
+<td>MODIFY</td>
+<td>T002</td>
+<td>FR-005</td>
+</tr>
+<tr>
+<td><code>src/holodeck/lib/backends/validators.py</code></td>
+<td>MODIFY</td>
+<td>T003, T004, T013</td>
+<td>FR-012</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/server.py</code></td>
+<td>MODIFY</td>
+<td>T005, T006, T007, T014, T015</td>
+<td>FR-001, FR-008, FR-014</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/protocols/rest.py</code></td>
+<td>MODIFY</td>
+<td>T008, T009, T016</td>
+<td>FR-014</td>
+</tr>
+<tr>
+<td><code>src/holodeck/serve/protocols/agui.py</code></td>
+<td>MODIFY</td>
+<td>T010, T011, T017</td>
+<td>FR-014</td>
+</tr>
+<tr>
+<td><code>tests/unit/models/test_claude_config.py</code></td>
+<td>MODIFY</td>
+<td>T012</td>
+<td>FR-014</td>
+</tr>
+<tr>
+<td><code>tests/unit/lib/backends/test_validators.py</code></td>
+<td>MODIFY</td>
+<td>T013</td>
+<td>FR-012</td>
+</tr>
+<tr>
+<td><code>tests/unit/serve/test_server.py</code></td>
+<td>MODIFY</td>
+<td>T014, T015</td>
+<td>FR-001, FR-014</td>
+</tr>
+<tr>
+<td><code>tests/unit/serve/test_protocols_rest.py</code></td>
+<td>MODIFY</td>
+<td>T016</td>
+<td>FR-014</td>
+</tr>
+<tr>
+<td><code>tests/unit/serve/test_protocols_agui.py</code></td>
+<td>MODIFY</td>
+<td>T017</td>
+<td>FR-014</td>
+</tr>
+<tr>
+<td><code>tests/unit/lib/backends/test_claude_backend.py</code></td>
+<td>MODIFY</td>
+<td>T018</td>
+<td>FR-006</td>
+</tr>
+<tr>
+<td><code>tests/fixtures/claude_agent/agent.yaml</code></td>
+<td>NEW</td>
+<td>T019</td>
+<td>FR-010</td>
+</tr>
+<tr>
+<td><code>tests/integration/serve/test_server_claude.py</code></td>
+<td>NEW</td>
+<td>T020, T021, T022</td>
+<td>FR-010, FR-013</td>
+</tr>
+<tr>
+<td><code>tests/unit/serve/test_serve_quickstart.py</code></td>
+<td>NEW</td>
+<td>T023</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

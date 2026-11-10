@@ -1,0 +1,2819 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Task list — User Story 5: Explorer + Compare views (Dash framework)">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/exec-plans/active/031-eval-runs-dashboard/tasks-us5/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Tasks — US5: Test View Dashboard — Explorer (drilldown) + Compare (3 variants) (Priority: P2) - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tasks-us5-test-view-dashboard-explorer-drilldown-compare-3-variants-priority-p2" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks — US5: Test View Dashboard — Explorer (drilldown) + Compare (3 variants) (Priority: P2)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../product-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#primary-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ Primary Source of Truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Foundational
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-explorer-data-assembly-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Explorer — data assembly (TDD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Explorer — data assembly (TDD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-explorer-dash-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Explorer — Dash view
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-5-compare-data-assembly-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: Compare — data assembly (TDD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: Compare — data assembly (TDD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-first_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tests first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-6-compare-dash-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: Compare — Dash view
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-wiring-smoke-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: Wiring + smoke tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-8-visual-fidelity-chrome-mcp-side-by-side-inspection-explorer-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 8: Visual fidelity — Chrome MCP side-by-side inspection (Explorer + Compare)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 8: Visual fidelity — Chrome MCP side-by-side inspection (Explorer + Compare)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explorer-parity-t446t453" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explorer parity (T446–T453)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare-parity-t454t462" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare parity (T454–T462)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-sweep-t463t466" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global sweep (T463–T466)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallel-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Opportunities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-scenario-traceability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance Scenario Traceability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Acceptance Scenario Traceability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#us5-explorer-spec-ac1ac8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US5 (Explorer — Spec AC1–AC8)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-handoff-compare-additive-to-spec-introduced-by-handoff-readme-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design-handoff Compare (additive to spec, introduced by handoff README §3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-order-matches-user-directive-scaffold-summary-explorer-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended order (matches user directive: scaffold → Summary → Explorer → Compare)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-team-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel team strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-fidelity-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual fidelity checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tasks-us5-test-view-dashboard-explorer-drilldown-compare-3-variants-priority-p2">Tasks — US5: Test View Dashboard — Explorer (drilldown) + Compare (3 variants) (Priority: P2)<a class="headerlink" href="#tasks-us5-test-view-dashboard-explorer-drilldown-compare-3-variants-priority-p2" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Framework: Dash (Plotly).</strong> An earlier draft of this list targeted Streamlit; visual deltas against the handoff were unacceptable and US4 has already been rebuilt on Dash (see <code>tasks-us4.md</code>). Explorer and Compare mount into the same <code>app.py</code> scaffold as additional view modules. All state references below assume the US4 <code>dcc.Store(id="app-state")</code> payload + pattern-match callbacks; there is no <code>st.session_state</code>.</p>
+</blockquote>
+<h2 id="primary-source-of-truth">⭐ Primary Source of Truth<a class="headerlink" href="#primary-source-of-truth" title="Permanent link">&para;</a></h2>
+<p><strong>The design handoff bundle is AUTHORITATIVE for every visual, interaction, and layout decision in this task list.</strong> When spec.md and the handoff differ, <strong>the handoff wins</strong>. Spec.md defines what the Explorer must contain functionally; the handoff defines how it must look, behave, and sequence. Compare is introduced by the handoff and has no spec counterpart — the handoff is the ONLY source of truth for that view.</p>
+<p>Always consult, in this order of precedence:</p>
+<ol>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/">design_handoff_holodeck_eval_dashboard/README.md</a></strong> — Views §2 (Explorer) + §3 (Compare) + §State mapping. (Ignore any "Streamlit notes" — we're on Dash now; map those to <code>dcc.Store</code> + <code>@callback</code>.)</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/Evaluation%20Dashboard.html">design_handoff_holodeck_eval_dashboard/Evaluation Dashboard.html</a></strong> — open in a browser; click the <strong>Explorer</strong> and <strong>Compare</strong> tabs and try every interaction before writing code</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/explorer.js">design_handoff_holodeck_eval_dashboard/explorer.js</a></strong> — Explorer component source (run list collapse, case list, collapsibles, tool-call rendering, JsonPretty highlighting, 500-byte collapse threshold). Since Dash is React-backed, components map almost 1:1 to <code>html.*</code>/<code>dcc.*</code> trees.</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/compare.js">design_handoff_holodeck_eval_dashboard/compare.js</a></strong> — Compare component source; the 3 variants, case matrix, delta pills, compare tray, <code>+</code> button lifecycle — ALL come from here</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/styles.js">design_handoff_holodeck_eval_dashboard/styles.js</a></strong> — exact CSS for chat bubbles, tool-call panels, config-diff highlighting, heatmap cells. Copied verbatim into <code>assets/02-holodeck.css</code> by US4 T344; extend (don't fork) that file here.</li>
+<li><strong><a href="../../../../design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard/data.js">design_handoff_holodeck_eval_dashboard/data.js</a></strong> — the <code>sampleConversation</code> map (<code>data.js:160–178</code>) feeds the Explorer detail panel; US4 T313 ports this as <code>SEED_CONVERSATIONS</code></li>
+<li>Our <code>spec.md</code> / <code>plan.md</code> — only for FR-032 (the spec says ≥4KB collapses, the handoff says 500B — <strong>the handoff wins</strong> per T410)</li>
+</ol>
+<p><strong>Rule for every implementation task below</strong>: before writing code, open the corresponding handoff JS file and read the referenced line ranges. Every code task cites <code>explorer.js:nn-nn</code> or <code>compare.js:nn-nn</code> — treat those citations as mandatory reading.</p>
+<hr />
+<p><strong>Feature</strong>: 031-eval-runs-dashboard
+<strong>Spec</strong>: <a href="../../../../product-specs/031-eval-runs-dashboard/spec/">spec.md</a> — User Story 5 (P2)
+<strong>Plan</strong>: <a href="../plan/">plan.md</a>
+<strong>Contract</strong>: <a href="../../../../product-specs/031-eval-runs-dashboard/contracts/cli/">contracts/cli.md</a></p>
+<p><strong>Goal</strong>: Replace the US4 stubs with two full views:</p>
+<ol>
+<li><strong>Explorer</strong> (<code>views/explorer.py</code>) — 3-column drilldown: runs list (340px, collapsible to 48px) → cases list (340px) → case detail panel (flex-1). Detail panel sections: case header, agent config snapshot (collapsible JSON + tool chips), conversation thread (chat bubbles + inline tool-call panels with collapse-when-large), expected-tools coverage, per-metric evaluations grouped by kind with judge reasoning.</li>
+<li><strong>Compare</strong> (<code>views/compare.py</code>) — select up to 3 runs via the floating Compare tray; render one of three layout variants (side-by-side / baseline+deltas / matrix-first) switched by a segmented control; Plotly heatmap case matrix with regression/improvement rings.</li>
+</ol>
+<p><strong>Independent Test</strong>:
+- <strong>Explorer</strong>: From Summary, click any run row → Explorer tab opens with that run pre-selected (via <code>dcc.Store</code> state + <code>dcc.Location.search</code> sync) → cases list populated → click a case → detail panel renders agent config, conversation, tool calls (with collapse-when-bytes&gt;500), expected-tools indicators, and evaluations grouped by kind. Total drill-in: ≤ 3 clicks (SC-006).
+- <strong>Compare</strong>: From Summary table, click <code>+</code> on three runs → Compare tray shows <code>1/3, 2/3, 3/3</code> slots → click "Open Compare" → all three variants render via segmented control → each variant shows summary stats + config diff + case matrix with heatmap coloring and regression/improvement outlines.</p>
+<p><strong>TDD discipline</strong>: Data-assembly helpers (<code>select_run</code>, <code>build_case_detail</code>, <code>run_stats</code>, <code>compute_compare_callouts</code>, <code>case_matrix_dataframe</code>) are unit-tested. Dash layout builders return plain Python trees and ARE testable by shape/className/id. Visual fidelity is verified against the HTML prototype (<code>Evaluation Dashboard.html</code>) via Chrome MCP (Phase 8).</p>
+<p><strong>Dependency</strong>: US4 scaffolds <code>app.py</code>, assets/CSS, <code>state.py</code> helpers, seed data, and stub <code>views/explorer.py</code> + <code>views/compare.py</code>. US5 replaces the stubs and upgrades the US4 compare-tray placeholder in <code>app.py</code>.</p>
+<hr />
+<h2 id="phase-1-setup">Phase 1: Setup<a class="headerlink" href="#phase-1-setup" title="Permanent link">&para;</a></h2>
+<p>None — all infrastructure ships with US4. US5 edits existing files.</p>
+<hr />
+<h2 id="phase-2-foundational">Phase 2: Foundational<a class="headerlink" href="#phase-2-foundational" title="Permanent link">&para;</a></h2>
+<p>None.</p>
+<hr />
+<h2 id="phase-3-explorer-data-assembly-tdd">Phase 3: Explorer — data assembly (TDD)<a class="headerlink" href="#phase-3-explorer-data-assembly-tdd" title="Permanent link">&para;</a></h2>
+<p>Reference: <code>design_handoff_holodeck_eval_dashboard/explorer.js:186–337</code> (CaseDetail component).</p>
+<h3 id="tests-first">Tests first<a class="headerlink" href="#tests-first" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T401 [P] [US5] (TDD) <code>tests/unit/dashboard/test_explorer_data.py</code>: <code>select_run(runs, run_id) -&gt; EvalRun | None</code> — given a list and an id (filename stem or <code>run-XXX</code>), returns the match; <code>None</code> when missing; <code>runs[-1]</code> fallback semantics left to the caller</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T402 [P] [US5] (TDD) <code>tests/unit/dashboard/test_explorer_data.py</code>: <code>list_case_summaries(run) -&gt; list[CaseSummary]</code> with fields <code>[name, passed, geval_score, rag_avg_score]</code> — geval pulled from the case's first <code>kind=="geval"</code> metric, rag avg from <code>mean(score for m in kind=="rag")</code>, <code>None</code> when absent (mirrors <code>explorer.js::CaseList</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T403 [P] [US5] (TDD) <code>tests/unit/dashboard/test_explorer_data.py</code>: <code>build_case_detail(run, case_name, conversations_map) -&gt; CaseDetail</code> returning a dataclass with fields: <code>header</code> (pass/fail, run_ts, prompt_version, model, temperature, commit), <code>agent_snapshot</code> (model.provider/name/temp/max_tokens, embedding.provider/name, claude.extended_thinking, prompt.version/author/file_path/source/tags, tools list with kind+name), <code>conversation</code> (<code>user</code>, <code>assistant</code>, <code>tool_calls: list[ToolCallView]</code>), <code>expected_tools_coverage</code> (list of <code>{name, was_called}</code>), <code>evaluations</code> (dict keyed by <code>standard|rag|geval</code> → list of metric rows)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T404 [P] [US5] (TDD) <code>tests/unit/dashboard/test_explorer_data.py</code>: <code>ToolCallView</code> dataclass — <code>name: str</code>, <code>args: dict[str, Any]</code>, <code>result: Any</code>, <code>result_size_bytes: int</code> (copied from the persisted <code>ToolInvocation.bytes</code> when available, else computed via <code>len(json.dumps(result, default=str))</code> for legacy-mode fallback), <code>large: bool</code> (True when <code>result_size_bytes &gt; 500</code> — handoff <code>explorer.js:156</code>), <code>duration_ms: int | None</code>, <code>error: str | None</code>. This view object projects one <code>ToolInvocation</code> (US1 Migration B) per row with the minimum data the Dash layout needs; it is NOT the persisted on-disk model.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T405 [P] [US5] (TDD) <code>tests/unit/dashboard/test_explorer_data.py</code>: expected-tools coverage — case-insensitive comparison against <code>tools_called</code>; returns both <code>matched</code> (configured + called) and <code>missed</code> (configured, not called) counts; optionally exposes <code>unexpected</code> (called but not configured)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T406 [P] [US5] (TDD) <code>tests/unit/dashboard/test_explorer_data.py</code>: missing/absent <code>conversations_map</code> key — <code>build_case_detail</code> falls back to the data.js pattern of using <code>refund_eligible_standard</code> as the default conversation (matches <code>explorer.js:197</code>); if neither present, returns an empty conversation without raising</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T407 [P] [US5] (TDD) <code>tests/unit/dashboard/test_explorer_data.py</code>: <code>evaluations</code> dict ordering — keys always iterate in <code>geval, rag, standard</code> order (matches handoff's detail-panel rendering order <code>explorer.js:204–208</code>), empty groups are omitted from the output, not left as empty lists</li>
+</ul>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T408 [US5] Create <code>src/holodeck/dashboard/explorer_data.py</code> with: <code>select_run</code>, <code>list_case_summaries</code>, <code>build_case_detail</code>, and dataclasses <code>CaseSummary</code>, <code>CaseDetail</code>, <code>ToolCallView</code>, <code>AgentSnapshot</code>, <code>MetricRow</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T409 [US5] Data source precedence inside <code>build_case_detail</code>. The interleaved <code>ConversationTurn</code> union was originally drafted for US1 Migration C but has been <strong>deferred</strong> — the handoff's Explorer renders a simple user→tool_calls→assistant shape that does not need role-tagged turns (see US1 tasks-us1.md "Deferred — conversation discriminated union"). The three data-source paths are therefore:<ol>
+<li><strong>Real-run mode (primary)</strong>: consume <code>test_input</code> (user turn), <code>agent_response</code> (assistant turn), and <code>run.report.results[i].tool_invocations: list[ToolInvocation]</code> (US1 Migration B, US1 T010e–T010j). Each <code>ToolInvocation</code> maps 1:1 to a <code>ToolCallView</code> — the amber tool-call panel renders its <code>name</code>, <code>args</code>, <code>result</code>, and uses <code>bytes</code> for the large-result collapse at the <code>LARGE_TOOL_RESULT_BYTES</code> threshold (T410). <code>error</code> surfaces as a coral "Tool failed: <msg>" strip inside the panel.</li>
+<li><strong>Legacy real-run fallback</strong>: when <code>tool_invocations</code> is empty but the name-only <code>tool_calls: list[str]</code> is not (runs persisted before US1 Migration B shipped), render chat bubbles from <code>test_input</code> + <code>agent_response</code> AND emit one amber panel per name with a muted "args/result not captured — re-run after upgrading to this HoloDeck version" subtitle.</li>
+<li><strong>Seed mode</strong>: fall back to <code>seed_data.SEED_CONVERSATIONS[case_name]</code> (US4 T313) when both <code>tool_invocations</code> and <code>tool_calls</code> are empty. Dev-only path guarded by <code>HOLODECK_DASHBOARD_USE_SEED=1</code>.
+Document the precedence in <code>explorer_data.py</code>'s module docstring so reviewers see the data flow without tracing calls.</li>
+</ol>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T410 [US5] Centralise the tool-call large-result threshold constant <code>LARGE_TOOL_RESULT_BYTES = 500</code> (matches handoff, keeps US5 consistent with <code>explorer.js:156</code>; note this differs from FR-032's 4KB threshold — the handoff wins here because it's the user-validated experience)</li>
+</ul>
+<hr />
+<h2 id="phase-4-explorer-dash-view">Phase 4: Explorer — Dash view<a class="headerlink" href="#phase-4-explorer-dash-view" title="Permanent link">&para;</a></h2>
+<p>Reference: open <code>Evaluation Dashboard.html</code> in a browser, click <strong>Explorer</strong> tab. All layouts below return <code>html.Div</code> trees; interactions are wired via <code>@callback</code> with <code>Input/Output/State</code> + <code>dash.ALL</code> pattern-match IDs.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T411 [US5] Replace <code>src/holodeck/dashboard/views/explorer.py</code> stub with <code>render_explorer(state, runs) -&gt; html.Div</code>:<ol>
+<li>Read <code>run_id = state.get("explorer_run_id")</code> (US4 <code>state.open_in_explorer</code> sets this when the user clicks a row in Summary); if <code>None</code>, default to newest run (<code>runs[-1]</code>)</li>
+<li>Read <code>case_name = state.get("explorer_case_name")</code>; if <code>None</code>, default to first case of the selected run</li>
+<li>Read <code>runs_collapsed = state.get("explorer_runs_collapsed", True)</code> for the runs-column collapse state (default <code>True</code> per <code>explorer.js:340</code>)</li>
+<li>All three values round-trip through <code>dcc.Location.search</code> via the US4 URL-sync callback so refresh/share works</li>
+</ol>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T412 [US5] <strong>3-column flex layout</strong>: <code>html.Div([col_runs, col_cases, col_detail], className="hd-explorer-grid")</code> with CSS <code>display: grid; grid-template-columns: 340px 340px 1fr; gap: 12px;</code> when expanded, <code>48px 340px 1fr</code> when collapsed. Swap class (<code>.hd-explorer-grid--collapsed</code>) based on <code>runs_collapsed</code> — Dash re-emits the tree on state change, no <code>st.rerun()</code> equivalent required</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T413 [US5] <strong>Runs column</strong> (expanded) in <code>col_runs</code>:<ul>
+<li>Header row <code>html.Div([html.Span("▸"), html.H4(f"Runs {len(runs)}")], id="explorer-runs-toggle", role="button")</code> — click toggles <code>state["explorer_runs_collapsed"]</code> via <code>@callback(Input("explorer-runs-toggle","n_clicks"), State("app-state","data"), Output("app-state","data"))</code></li>
+<li>Scroll wrapper: <code>html.Div(children=[...run rows...], className="hd-explorer-runs-scroll", style={"max-height":"700px","overflow-y":"auto"})</code></li>
+<li>Each run row: <code>html.Div([timestamp span, prompt-version span (accent color), pass-rate pill (</code>.hd-pill-pass|warn|fail<code>), passed/total span, model-suffix span, CompareAddButton (T441)], id={"type":"explorer-run-row","run_id":run.id}, className="hd-run-row" + " hd-run-row--active" if active)</code>. Model suffix = last two hyphen segments of <code>model.name</code> (matches <code>explorer.js:88</code>)</li>
+<li>Row click (pattern-match): <code>@callback(Input({"type":"explorer-run-row","run_id":ALL},"n_clicks"), State("app-state","data"), Output("app-state","data"))</code> — sets <code>explorer_run_id</code>, clears <code>explorer_case_name</code> to auto-select first case (matches <code>explorer.js:357</code>)</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T414 [US5] <strong>Runs column</strong> (collapsed, 48px wide): <code>html.Div(html.Span(f"RUNS {len(runs)}", style={"writing-mode":"vertical-rl","transform":"rotate(180deg)"}), id="explorer-runs-toggle", className="hd-explorer-runs-collapsed")</code>. Same callback as T413 toggles back open. Matches <code>explorer.js:50–62</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T415 [US5] <strong>Cases column</strong> in <code>col_cases</code>:<ul>
+<li>Header <code>html.Div([html.H4(f"Cases {len(cases)}"), html.Span(f"{pass_count} pass", className="hd-pill-pass hd-pill-sm")], className="hd-explorer-cases-head")</code></li>
+<li>Scroll wrapper <code>className="hd-explorer-cases-scroll"</code> with one row per case: <code>html.Div([icon, name span (mono), geval score span, rag-avg span muted], id={"type":"explorer-case-row","case_name":c.name}, className="hd-case-row" + active class)</code>. Icon <code>✓</code> in accent green for pass, <code>✕</code> in coral for fail</li>
+<li>Row click (pattern-match) sets <code>state["explorer_case_name"]</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T416 [US5] <strong>Detail panel</strong> in <code>col_detail</code> — <code>html.Div(children=[section1..5], className="hd-explorer-detail", style={"max-height":"700px","overflow-y":"auto"})</code>. Sections 2–5 are <code>html.Details([html.Summary(...), body])</code> (HTML-native collapsible, maps directly to handoff's Collapsible component <code>explorer.js:3</code>). Section 1 (case header) is always open</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T417 [US5] <strong>Section 1: Case header</strong> (always visible, not wrapped in <code>&lt;details&gt;</code>) — <code>html.Div([html.Div([pass/fail pill, html.H3(case.name)], className="hd-case-header-title"), html.Div([badge("run", ts), badge("prompt", version, accent=True), badge("model", name), badge("temp", val), badge("commit", sha)], className="hd-case-header-meta")])</code>. Each badge is <code>html.Span([html.Span(label, className="hd-eyebrow-inline"), html.Span(value)], className="hd-badge")</code>. Matches <code>explorer.js:212–224</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T418 [US5] <strong>Section 2: Agent config snapshot</strong> — <code>html.Details([html.Summary("AGENT CONFIG SNAPSHOT · Configuration at run time"), body])</code> open=False by default:<ul>
+<li>Grid of key:value pairs via <code>html.Div(className="hd-cfg-grid")</code> with CSS <code>grid-template-columns: repeat(3, 1fr)</code>; rows show <code>model.provider</code>, <code>model.name</code>, <code>model.temperature</code>, <code>model.max_tokens</code>, <code>embedding.provider</code>, <code>embedding.name</code>, <code>claude.extended_thinking</code>, <code>prompt.version</code> (accent), <code>prompt.author</code>, <code>prompt.file_path</code>, <code>prompt.source</code>, <code>prompt.tags</code></li>
+<li>Tools subsection: eyebrow <code>TOOLS (n)</code> + chip row — each chip <code>html.Span([html.Span(kind, className="hd-muted"), html.Span(name)], className="hd-chip hd-chip--static")</code> (matches <code>explorer.js:249–257</code>)</li>
+<li>Raw JSON drawer: nested <code>html.Details([html.Summary("View raw JSON"), html.Pre(json.dumps(agent_config_dict, indent=2), className="hd-code")])</code> where <code>api_key</code> and any <code>SecretStr</code> field is <code>"***"</code> (secrets redacted in the data layer — see T409's docstring requirement and README "Redact api_key")</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T419 [US5] <strong>Section 3: Conversation thread</strong> — <code>html.Details([html.Summary("CONVERSATION · Thread with tool calls"), body])</code>:<ul>
+<li>User turn: <code>html.Div([html.Span("USER", className="hd-eyebrow"), html.P(user_text)], className="hd-chat-user")</code></li>
+<li>Every tool call rendered inline BETWEEN user and assistant as <code>html.Div(children=[header, args_details, result_details], className="hd-tool-call")</code> — amber tint via CSS <code>background: rgba(255,207,90,.08); border-left: 3px solid var(--hd-warn);</code>. Header: <code>html.Div([html.Span("TOOL", className="hd-eyebrow-inline"), html.Code(f"{name}()"), html.Span(f"{size}B", className="hd-muted")], className="hd-tool-call-head")</code>. <code>args</code> rendered via <code>html.Details([html.Summary("args"), html.Pre(json.dumps(args, indent=2))])</code> always open; <code>result</code> via <code>html.Details([html.Summary(f"result{' — Expand ({size}B)' if large else ''}"), html.Pre(json.dumps(result, indent=2))])</code> with <code>open=not large</code> (matches <code>explorer.js::ToolCall</code>)</li>
+<li>Assistant turn: <code>html.Div([html.Span(f"AGENT · {model.name}", className="hd-eyebrow"), html.P(assistant_text)], className="hd-chat-assistant")</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T420 [US5] <strong>Section 4: Expected tools</strong> — <code>html.Details([html.Summary([...]), body])</code>:<ul>
+<li>Summary line has match pill on the right: <code>html.Summary(["EXPECTED TOOLS · Tool-call coverage", html.Span(f"{matched}/{total} matched", className="hd-pill-pass" if matched==total else "hd-pill-fail")])</code></li>
+<li>Body: list of rows, each <code>html.Div([icon, html.Code(name), html.Span("called" if was_called else "not invoked")], className="hd-tool-match hd-tool-match--ok|--miss")</code> with accent-tint / coral-tint backgrounds via CSS</li>
+<li>"No expected tools configured" fallback when list empty (matches <code>explorer.js:292</code>)</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T421 [US5] <strong>Section 5: Evaluations</strong> — <code>html.Details([html.Summary("EVALUATIONS · Per-metric results"), body])</code>:<ul>
+<li>Iterate <code>geval, rag, standard</code> (order from T407); for each non-empty group emit <code>html.Div([html.Div(kind.upper(), className="hd-eyebrow"), *metric_rows])</code></li>
+<li>Each metric row: <code>html.Div([html.Div(m.name, className="hd-metric-name"), html.Div(f"{m.score:.2f}", className=f"hd-metric-score hd-mono{' hd-metric-score--fail' if not m.passed else ''}"), html.Div(f"≥ {m.threshold:.2f}", className="hd-mono hd-muted"), html.Span("pass" if m.passed else "fail", className=f"hd-pill-{'pass' if m.passed else 'fail'}")], className="hd-metric-row hd-metric-row--5")</code> using CSS grid <code>grid-template-columns: 1fr 80px 80px 60px</code></li>
+<li>If <code>m.reasoning</code> present, below the row render <code>html.Div(m.reasoning, className="hd-judge-reasoning")</code> — indented block with muted border (matches <code>explorer.js:314–332</code>)</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T422 [US5] <strong>Empty state</strong> — when <code>runs == []</code>: <code>html.Div([html.Span("∅", className="hd-empty-glyph"), html.H3("No runs found"), html.P(html.Code("Run holodeck test agent.yaml to generate one"))], className="hd-empty-state")</code> (matches <code>explorer.js:346–352</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T423 [US5] Wire navigation callbacks. All three live in <code>app.py</code> so they can share the <code>Output("app-state","data")</code> sink:<ul>
+<li>Run-row pattern-match click → set <code>explorer_run_id</code>, auto-select first case</li>
+<li>Case-row pattern-match click → set <code>explorer_case_name</code></li>
+<li>Collapse toggle → flip <code>explorer_runs_collapsed</code>
+URL-sync callback (US4 T346) already encodes these into <code>dcc.Location.search</code></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="phase-5-compare-data-assembly-tdd">Phase 5: Compare — data assembly (TDD)<a class="headerlink" href="#phase-5-compare-data-assembly-tdd" title="Permanent link">&para;</a></h2>
+<p>Reference: <code>design_handoff_holodeck_eval_dashboard/compare.js</code>.</p>
+<h3 id="tests-first_1">Tests first<a class="headerlink" href="#tests-first_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T424 [P] [US5] (TDD) <code>tests/unit/dashboard/test_compare_data.py</code>: <code>run_stats(run) -&gt; RunStats</code> dataclass with fields <code>pass_rate</code>, <code>passed</code>, <code>total</code>, <code>duration_ms</code>, <code>geval_avg</code>, <code>rag_avg</code>, <code>total_tokens</code>, <code>est_cost</code>. <strong>Cost computation precedence</strong>: (a) when every <code>TestResult.token_usage</code> (US1 Migration C) is populated, sum <code>input_tokens</code> and <code>output_tokens</code> across test results and multiply by the rate from a <code>PRICING_TABLE: dict[str, tuple[float, float]]</code> constant (per-model input/output USD-per-1M-tokens); (b) when any <code>token_usage</code> is <code>None</code> — legacy runs or backends that did not report tokens — fall back to the handoff's synthetic formula <code>duration_ms/1000 × rate</code> (rate 0.018 for sonnet, 0.012 otherwise; matches <code>compare.js:23–42</code>). <code>total_tokens</code> is <code>None</code> in the fallback path so the UI can surface "estimated from duration" instead of a token count. Aggregates match handoff arithmetic to 4 decimals when on the fallback path.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T425 [P] [US5] (TDD) <code>tests/unit/dashboard/test_compare_data.py</code>: <code>compute_case_matrix(runs) -&gt; DataFrame</code> — rows = union of case names across all runs sorted alphabetically, columns = one per run (<code>run_id, score, passed, regression: bool, improvement: bool</code>); score derived from first geval metric, else rag avg, else <code>1 if passed else 0</code> (matches <code>compare.js::caseScore</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T426 [P] [US5] (TDD) <code>tests/unit/dashboard/test_compare_data.py</code>: regression/improvement flags — for runs[1:], <code>regression = baseline.passed and not this.passed</code>, <code>improvement = (not baseline.passed) and this.passed</code> (matches <code>compare.js:225–226</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T427 [P] [US5] (TDD) <code>tests/unit/dashboard/test_compare_data.py</code>: <code>compute_config_diff(runs) -&gt; list[ConfigRow]</code> — rows <code>[label, values_per_run, all_same: bool]</code> for <code>prompt_version, model_name, temperature, tags_joined, git_commit, extended_thinking</code> (matches <code>compare.js:94–101</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T428 [P] [US5] (TDD) <code>tests/unit/dashboard/test_compare_data.py</code>: <code>compute_compare_callouts(runs) -&gt; list[Callout]</code> — for each non-baseline run, list up to 3 regressions and 3 improvements by case name with <code>+N</code> overflow count (matches <code>compare.js::CompareV3:353–364</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T429 [P] [US5] (TDD) <code>tests/unit/dashboard/test_compare_data.py</code>: <code>compute_summary_rows(runs) -&gt; list[StatRow]</code> — returns rows for <code>[pass_rate, passed_ratio, geval_avg, rag_avg, duration_ms, total_tokens, est_cost]</code>, each with a <code>delta_polarity: "normal"|"invert"</code> field (invert for duration, total_tokens, and est_cost; matches <code>compare.js:85–92</code>). <code>total_tokens</code> is omitted from the row list entirely when all runs' <code>RunStats.total_tokens is None</code> (synthetic-only mode) — we don't surface a column with nothing but dashes.</li>
+</ul>
+<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T430 [US5] Create <code>src/holodeck/dashboard/compare_data.py</code> with <code>run_stats</code>, <code>compute_case_matrix</code>, <code>compute_config_diff</code>, <code>compute_compare_callouts</code>, <code>compute_summary_rows</code>, the <code>COMPARE_PALETTE = ["#7bff5a", "#5ae0a6", "#ffcf5a"]</code> constant (baseline, run-1, run-2), AND a module-level <code>PRICING_TABLE: dict[str, tuple[float, float]]</code> mapping model name (e.g. <code>"claude-sonnet-4.5"</code>, <code>"gpt-4o"</code>) to <code>(input_usd_per_1M_tokens, output_usd_per_1M_tokens)</code>. Pricing values are best-effort documented placeholders — comment the source URL inline; update them when vendor pricing changes. <code>PRICING_TABLE</code> misses (unknown model) fall to the synthetic duration-based formula.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T431 [US5] Expose a single helper <code>delta_pill_class(value, *, invert=False) -&gt; str</code> returning <code>"hd-delta-pos"|"hd-delta-neg"|"hd-delta-neutral"</code> so layout builders can spray CSS classes consistently (matches <code>compare.js::deltaClass</code>). Used by T436/T437/T438 to render delta pill spans.</li>
+</ul>
+<hr />
+<h2 id="phase-6-compare-dash-view">Phase 6: Compare — Dash view<a class="headerlink" href="#phase-6-compare-dash-view" title="Permanent link">&para;</a></h2>
+<p>Reference: open <code>Evaluation Dashboard.html</code>, click <strong>Compare</strong> tab, try all three layout variants.</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T432 [US5] Replace <code>src/holodeck/dashboard/views/compare.py</code> stub with <code>render_compare(state, runs) -&gt; html.Div</code>:<ol>
+<li>Resolve <code>queue = state.get("compare_queue", [])</code> to concrete <code>EvalRun</code> instances (filter out any IDs no longer in <code>runs</code> — e.g., after filter change)</li>
+<li>If <code>len(queue_runs) &lt; 2</code>, return the empty-state CTA (T433); otherwise dispatch to the variant renderer (T436/T437/T438) based on <code>state.get("compare_variant", 1)</code></li>
+</ol>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T433 [US5] <strong>Empty state</strong> (<code>compare.js::CompareEmpty</code>):<ul>
+<li><code>html.Div(children=[svg_icon, html.H3("Pick runs to compare"), html.P("first-selected = baseline; others show deltas"), html.Div([primary_btn, ghost_btn])], className="hd-compare-empty")</code></li>
+<li><code>svg_icon</code> — inline SVG of three offset rectangles in palette colors via <code>html.Img</code> with a data URL OR <code>dash_svg</code>/<code>html.Div(dangerously_set_inner_html=...)</code> alternative. Cleanest path: embed a literal <code>dash.html.Div([html.Div(className="hd-compare-empty-rect", style={"background": color, ...})])</code> stack of three absolutely-positioned divs — avoids any HTML-injection machinery</li>
+<li>Two shortcut buttons: <code>html.Button("Compare latest 2 runs", id="compare-quick-2", className="hd-btn hd-btn--primary")</code> + <code>html.Button("Compare latest 3 runs", id="compare-quick-3", className="hd-btn hd-btn--ghost")</code> — each wired to a callback that populates <code>state["compare_queue"]</code> from <code>sorted(runs, key=created_at, reverse=True)[:n]</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T434 [US5] <strong>Toolbar</strong> (rendered at the top of Compare view when ≥ 2 runs selected): <code>html.Div([left_block, right_block], className="hd-compare-toolbar")</code>:<ul>
+<li>Left: <code>html.Span("COMPARE", className="hd-eyebrow")</code> + <code>html.H2([f"{N} runs · baseline ", html.Span(baseline.prompt_version, style={"color": COMPARE_PALETTE[0]})])</code></li>
+<li>Right: <code>html.Span("layout")</code> + <code>dcc.RadioItems(id="compare-variant", options=[{"label":"side-by-side","value":1},{"label":"baseline + deltas","value":2},{"label":"matrix-first","value":3}], value=state.get("compare_variant",1), className="hd-segmented", inline=True)</code> + <code>html.Button("Clear", id="compare-clear", className="hd-btn hd-btn--ghost")</code></li>
+<li>Variant-change callback: <code>Input("compare-variant","value") → State("app-state","data") → Output("app-state","data")</code> sets <code>state["compare_variant"]</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T435 [US5] <strong>Compare tray</strong> (floating, always rendered near the TOP of <code>app.py</code> when <code>len(compare_queue) &gt; 0</code>, visible across all tabs — README "Compare tray"):<ul>
+<li>Move this out of <code>views/compare.py</code> into <code>src/holodeck/dashboard/components/compare_tray.py</code> so Summary, Explorer, and Compare all mount the same layout</li>
+<li>Layout: <code>html.Div([...slot pills..., html.Div([clear_btn, open_btn])], id="compare-tray", className="hd-compare-tray")</code> with CSS <code>position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 50;</code> — Dash + HTML gives us native <code>position: fixed</code> (Streamlit couldn't do this without an iframe hack)</li>
+<li>Shows up to 3 slot pills, first tagged <code>base</code>, each with a <code>×</code> remove button (pattern-match id <code>{"type":"compare-slot-remove","run_id":rid}</code>); empty slots say <code>slot N</code> (ghost style)</li>
+<li><code>html.Button("Clear", id="compare-tray-clear")</code> + <code>html.Button("Open Compare →", id="compare-tray-open", className="hd-btn hd-btn--primary", disabled=len(queue)&lt;2)</code>. <code>Open Compare</code> callback sets <code>state["tab"] = "compare"</code> via <code>state.open_in_compare(state)</code>; the US4 view-dispatch callback handles the re-render</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T436 [US5] <strong>Variant 1 — Side-by-side</strong> (<code>compare.js::CompareV1</code>, ~180 LOC reference):<ul>
+<li><code>html.Div([header_row, summary_grid, config_grid, case_matrix], className="hd-compare-v1")</code></li>
+<li>Column headers: <code>html.Div([RunSlotHeader(run, i) for i, run in enumerate(runs)], className="hd-compare-headers")</code> — each header has a palette-colored dot, slot label (<code>BASELINE</code>/<code>RUN 1</code>/<code>RUN 2</code>), timestamp, version in palette color, model name, commit</li>
+<li>Summary block: <code>html.Div([html.Span("SUMMARY", className="hd-eyebrow"), html.H3("Headline stats"), html.P("..."), summary_grid])</code> where <code>summary_grid</code> is a CSS grid with <code>grid-template-columns: 160px repeat(N, 1fr)</code>; one row per <code>compute_summary_rows</code> entry. Each non-baseline cell shows value + <code>html.Span(delta_text, className=delta_pill_class(delta, invert=row.invert))</code></li>
+<li>Config diff block: same grid layout; cells that differ from baseline render with <code>className="hd-cfg-cell hd-cfg-cell--different"</code> (amber left-border) + <code>html.Span("changed", className="hd-badge-changed")</code></li>
+<li>Case matrix block (T439) rendered at the bottom</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T437 [US5] <strong>Variant 2 — Baseline + deltas</strong> (<code>compare.js::CompareV2</code>):<ul>
+<li><code>html.Div([baseline_card, *delta_cards, case_matrix], className="hd-compare-v2")</code> with CSS <code>grid-template-columns: 1.4fr 1fr 1fr</code></li>
+<li>Baseline card: slot label + big version (accent color) + timestamp + model/temp/commit + big pass-rate number (<code>hd-kpi-value hd-accent</code>) + subtitle <code>pass rate · &lt;passed&gt;/&lt;total&gt;</code> + small 2x2 grid of <code>geval / rag / dur / cost</code> + tag chip row</li>
+<li>Each delta card: slot label + version + timestamp + model (with <code>changed</code> badge if different from baseline) + 5 delta rows (<code>pass rate</code>, <code>geval</code>, <code>rag</code>, <code>duration</code>, <code>cost</code>) — each row <code>html.Div([html.Span(label), html.Span(value), html.Span(delta_text, className=delta_pill_class(delta, invert=...))], className="hd-compare-delta-row")</code></li>
+<li>Case matrix below</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T438 [US5] <strong>Variant 3 — Matrix-first</strong> (<code>compare.js::CompareV3</code>):<ul>
+<li><code>html.Div([compact_strip, callouts_block, case_matrix], className="hd-compare-v3")</code></li>
+<li>Compact strip: <code>html.Div([MiniRunCard(r, i) for i, r in enumerate(runs)], className="hd-compare-mini-strip")</code> with CSS <code>grid-template-columns: repeat(N, 1fr)</code> — each cell a mini card with palette dot + slot-label + version + model + big pass-rate + mini <code>geval / rag / duration</code> triple</li>
+<li>Callouts block: <code>html.Div([CalloutCard(run, callouts) for run in non_baseline], className="hd-compare-callouts")</code> — each card lists first 3 regressions + first 3 improvements with <code>+N</code> overflow (<code>+{extra_count} more regressions</code>) and fallback "No case-level changes from baseline"</li>
+<li>Case matrix takes visual precedence below</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T439 [US5] <strong>Case matrix</strong> (shared across all 3 variants; reference <code>compare.js::CaseMatrix</code>):<ul>
+<li>Render via <strong>Plotly heatmap</strong> in <code>dcc.Graph</code>: <code>plotly.graph_objects.Heatmap(x=run_labels, y=case_names, z=score_matrix, colorscale=[(0,"#ff9d7e"),(0.5,"#1c2b25"),(1,"#7bff5a")])</code> (coral → dark → green gradient matching handoff)</li>
+<li>Cell text: <code>go.Heatmap(..., text=text_matrix, texttemplate="%{text}", textfont_color="#050b09")</code> where text is <code>"✓ 0.89"</code> / <code>"✕ 0.42"</code></li>
+<li>Regression/improvement outlines: iterate the regression/improvement flag DataFrame from T426 and <code>fig.add_shape(type="rect", x0=..., x1=..., y0=..., y1=..., line=dict(color="#ff9d7e", dash="dash", width=2))</code> per flagged cell — coral dashed for regressions, <code>"#7bff5a"</code> for improvements (matches <code>compare.js:229</code> CSS rings)</li>
+<li>Legend row below: <code>html.Div([swatch("pass", accent), swatch("fail", coral), swatch("regression", coral_dashed), swatch("improvement", green_dashed)], className="hd-compare-matrix-legend")</code> — rendered as separate HTML so Plotly's native legend (which can't show dashed outline swatches) stays off</li>
+<li>Height: <code>fig.update_layout(height=max(400, 36 * len(case_names)))</code>; <code>dcc.Graph(id="chart-compare-matrix", figure=fig, config={"displayModeBar": False})</code></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T440 [US5] <strong>Column-header <code>×</code> button</strong> — available across all 3 variants. Each header row cell includes <code>html.Button("×", id={"type":"compare-header-remove","run_id":rid}, className="hd-btn-icon")</code>. Reuses the tray's remove callback (T435) — a single pattern-match callback on <code>Input({"type":"compare-slot-remove","run_id":ALL}, "n_clicks")</code> covers both surfaces</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T441 [US5] <strong><code>CompareAddButton</code> component</strong> — shared widget placed in <code>src/holodeck/dashboard/components/compare_add_button.py</code>:<ul>
+<li><code>render(run_id: str, queue: list[str]) -&gt; html.Button</code> returns <code>html.Button(label, id={"type":"compare-add","run_id":run_id}, className="hd-cmp-add hd-cmp-add--in|out|full", title=tooltip)</code> where label is <code>"+"</code> when not in queue, <code>"1"</code>/<code>"2"</code>/<code>"3"</code> when in a slot (with slot index), disabled + <code>className</code> full when queue is full and run not already queued</li>
+<li>Matches <code>compare.js::CompareAddButton</code> cycle: add → show slot index → click again removes → <code>+</code> returns</li>
+<li>Single pattern-match callback: <code>@callback(Input({"type":"compare-add","run_id":ALL},"n_clicks"), State("app-state","data"), Output("app-state","data"))</code> calls <code>state.push_to_compare_queue</code> or <code>state.remove_from_compare_queue</code> based on current queue membership</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="phase-7-wiring-smoke-tests">Phase 7: Wiring + smoke tests<a class="headerlink" href="#phase-7-wiring-smoke-tests" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T442 [US5] In <code>app.py</code>, replace the US4 compare-tray placeholder with <code>compare_tray.render(state, runs)</code> (T435) — rendered above <code>html.Div(id="view-container")</code> on every view when queue is non-empty. Put it inside <code>app.layout</code> directly (not in a callback output) and use a separate callback <code>Input("app-state","data") → Output("compare-tray","style")</code> to toggle visibility (<code>display: none</code> when queue empty) — avoids re-rendering the whole tree on every state change</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T443 [US5] In Summary's runs table (US4 T361), replace the placeholder <code>+</code> column with the real <code>CompareAddButton</code> (T441). Since <code>dash_table.DataTable</code> can't host arbitrary Dash components in cells, render the runs table via <code>html.Table</code> (the US4 T361 implementation already landed on this path to avoid the DataTable markdown workaround) and inject <code>CompareAddButton.render(run_id, queue)</code> as the first cell of each row. The user journey <code>Summary click + → Compare tray appears → Open Compare → variants render</code> then works end-to-end via the shared pattern-match callback</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T444 [US5] In Explorer's runs column (T413), mount the same <code>CompareAddButton</code> on each run row — same callback, zero additional wiring</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T445 [US5] (optional, slow) Extend <code>tests/integration/dashboard/test_app_smoke.py</code>:<ul>
+<li>Import <code>holodeck.dashboard.app</code> under <code>monkeypatch.setenv("HOLODECK_DASHBOARD_USE_SEED","1")</code></li>
+<li>Call <code>render_explorer({"explorer_run_id": "run-020", ...}, build_seed_runs())</code>; assert the returned tree contains a <code>.hd-explorer-grid</code> class, 3 columns, and the detail panel has 5 sections (<code>html.Details</code> count + case header div == 5)</li>
+<li>Call <code>render_compare({"compare_queue": ["run-018","run-020","run-023"], "compare_variant": 1}, runs)</code>; assert it returns a <code>.hd-compare-v1</code> tree and contains a <code>dcc.Graph</code> with <code>id="chart-compare-matrix"</code>. Repeat for variants 2 and 3 (<code>.hd-compare-v2</code>, <code>.hd-compare-v3</code>)</li>
+<li><code>@pytest.mark.slow</code></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="phase-8-visual-fidelity-chrome-mcp-side-by-side-inspection-explorer-compare">Phase 8: Visual fidelity — Chrome MCP side-by-side inspection (Explorer + Compare)<a class="headerlink" href="#phase-8-visual-fidelity-chrome-mcp-side-by-side-inspection-explorer-compare" title="Permanent link">&para;</a></h2>
+<p><strong>Why this phase exists</strong>: Explorer and Compare have the most complex layouts in the app. Component-tree tests confirm structure; only a real browser side-by-side with the prototype confirms visual match. The HTML prototype is the ground truth (§Primary Source of Truth, item 2).</p>
+<p><strong>Setup</strong> (same as US4 Phase 8):
+- Terminal A: <code>holodeck test view --seed</code> → <code>http://127.0.0.1:8501</code>
+- Terminal B: <code>python -m http.server 8000 -d docs/design-docs/031-eval-runs-dashboard/design_handoff_holodeck_eval_dashboard</code> → <code>http://localhost:8000/Evaluation%20Dashboard.html</code></p>
+<h3 id="explorer-parity-t446t453">Explorer parity (T446–T453)<a class="headerlink" href="#explorer-parity-t446t453" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T446 [US5] <strong>Open both tabs and baseline screenshots</strong>: <code>mcp__claude-in-chrome__tabs_create_mcp</code> with the prototype URL, click the <strong>Explorer</strong> tab button in the prototype header via <code>mcp__claude-in-chrome__click</code>, <code>take_screenshot</code> → <code>visual-baselines/prototype-explorer.png</code>. Then <code>tabs_create_mcp</code> with <code>http://127.0.0.1:8501/?tab=explorer</code>, <code>take_screenshot</code> → <code>visual-baselines/dash-explorer-v1.png</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T447 [US5] <strong>3-column layout parity</strong> — confirm Explorer shows 3 columns with widths matching the handoff: Runs (340px when expanded, 48px when collapsed) · Cases (340px) · Detail (flex-1). Use <code>mcp__claude-in-chrome__javascript_tool</code> to run <code>document.querySelectorAll('.hd-explorer-grid &gt; *').forEach(e =&gt; console.log(e.getBoundingClientRect().width))</code> on both tabs; values on the Dash side should match the prototype to the pixel (CSS grid columns are deterministic). If off, iterate on T412</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T448 [US5] <strong>Runs column collapse</strong> — on the Dash tab, <code>click</code> <code>#explorer-runs-toggle</code>; screenshot at 48px; click again to expand; screenshot. Confirm vertical rotated <code>RUNS &lt;count&gt;</code> text appears in collapsed state (matches <code>explorer.js:48–62</code>). Fix T414 if missing</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T449 [US5] <strong>Case detail: section sequence parity</strong> — <code>get_page_text</code> on the Dash detail panel (<code>.hd-explorer-detail</code>); extract the five eyebrow labels in order. MUST be: <code>[case header]</code> (no eyebrow — pass/fail + name) → <code>AGENT CONFIG SNAPSHOT</code> → <code>CONVERSATION</code> → <code>EXPECTED TOOLS</code> → <code>EVALUATIONS</code>. Wrong order = T417–T421 sequencing bug. Reference: <code>explorer.js:210–335</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T450 [US5] <strong>Conversation thread: tool-call panels</strong> — click open the conversation <code>&lt;details&gt;</code>; confirm every <code>.hd-tool-call</code> panel has: caret (native <code>&lt;summary&gt;</code> marker) + <code>TOOL</code> eyebrow + <code>name()</code> monospace + <code>&lt;size&gt;B</code> byte count in the header row; <code>args</code> <code>&lt;details&gt;</code> open, <code>result</code> <code>&lt;details&gt;</code> collapsed with <code>Expand (&lt;size&gt;B)</code> summary text when size &gt; 500B; amber-tinted panel background (<code>rgba(255,207,90,.08)</code> per T419 CSS). Reference: <code>explorer.js::ToolCall:152–184</code>. Screenshot, diff against prototype, fix T419 if the amber tint or collapse behavior is wrong</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T451 [US5] <strong>Expected-tools indicators</strong> — confirm check/cross glyphs render in accent green (<code>#7bff5a</code>) / coral (<code>#ff9d7e</code>) respectively, with <code>called</code> / <code>not invoked</code> note text, and the <code>&lt;summary&gt;</code> row shows the <code>N/M matched</code> pill on the right (via flex <code>justify-content: space-between</code>). Reference: <code>explorer.js:285–302</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T452 [US5] <strong>Evaluations: group order + reasoning block</strong> — confirm eyebrow labels <code>GEVAL</code>, <code>RAG</code>, <code>STANDARD</code> appear in that order (T407 guarantees this) and that G-Eval metric rows have a <code>.hd-judge-reasoning</code> block below the score. Screenshot with reasoning visible</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T453 [US5] <strong>Drill-in click count (SC-006)</strong> — from a fresh Summary load, measure clicks to reach a test-case detail:<ol>
+<li><code>click</code> a run row in the Summary <code>&lt;html.Table&gt;</code> runs list</li>
+<li><code>click</code> a case in Explorer cases column</li>
+<li>(case detail already visible — first case auto-selected by T413's "clears <code>explorer_case_name</code>" logic)
+Total ≤ 3 clicks. If the cases column requires an extra interaction step (e.g. the auto-first-case fallback from T411 is missing), the contract is broken</li>
+</ol>
+</li>
+</ul>
+<h3 id="compare-parity-t454t462">Compare parity (T454–T462)<a class="headerlink" href="#compare-parity-t454t462" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T454 [US5] <strong>Populate compare queue from Summary</strong> — on the Dash tab, go to Summary; click <code>+</code> on 3 runs via <code>mcp__claude-in-chrome__click</code> on <code>[id^="{\"type\":\"compare-add\""]</code> selectors. Confirm the floating compare tray appears with 3 slot pills, first tagged <code>base</code>, and that the <code>Open Compare →</code> button enables. Reference: <code>compare.js::CompareTray:512–549</code>. Screenshot the tray → <code>visual-baselines/dash-compare-tray.png</code>; diff against the prototype tray</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T455 [US5] <strong>Tray is sticky across tabs</strong> — switch to Explorer (<code>click</code> the Explorer tab). Confirm the tray remains visible and functional (position: fixed + z-index: 50 survives view-container re-render because the tray is mounted OUTSIDE <code>#view-container</code>). Switch to Compare. Confirm the tray remains visible. If the tray disappears on tab switch, T442 (<code>app.py</code> layout position) is wrong — it must be a sibling of <code>#view-container</code>, not a child</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T456 [US5] <strong>Empty state CTA</strong> — clear the queue via the tray's <code>Clear</code> button; open the Compare tab. Confirm the empty-state panel shows the three-rectangles SVG (or the absolute-positioned div stack per T433) + headline "Pick runs to compare" + two CTAs (<code>Compare latest 2 runs</code> primary, <code>Compare latest 3 runs</code> ghost). Reference: <code>compare.js::CompareEmpty:435–457</code>. Click <code>Compare latest 2 runs</code> — queue should populate with the 2 newest runs and variant-1 rendering should appear</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T457 [US5] <strong>Variant toolbar parity</strong> — <code>get_page_text</code> on <code>.hd-compare-toolbar</code>. Confirm: eyebrow <code>COMPARE</code> + <code>&lt;N&gt; runs · baseline &lt;version&gt;</code> + <code>layout</code> label + radio group with three options <code>side-by-side</code>, <code>baseline + deltas</code>, <code>matrix-first</code> + <code>Clear</code> button. Reference: <code>compare.js:484–501</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T458 [US5] <strong>Variant 1 — Side-by-side</strong> — set <code>compare-variant</code> radio to the first option via <code>click</code>; <code>take_screenshot</code> of the full page. Confirm:<ul>
+<li>Column headers per run with palette dot, slot label, timestamp, version-in-color, model, commit</li>
+<li>Summary block with up to 7 rows (pass rate, passed, geval, rag, duration, total_tokens if available, cost) and delta pills on non-baseline cells</li>
+<li>Config diff block with differing cells having amber left-border + <code>changed</code> badge</li>
+<li>Case matrix Plotly heatmap at bottom (<code>dcc.Graph</code> <code>#chart-compare-matrix</code> present)
+Save → <code>visual-baselines/dash-compare-v1.png</code>; compare with the prototype's V1 screenshot</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T459 [US5] <strong>Variant 2 — Baseline + deltas</strong> — click radio option 2; screenshot. Confirm the baseline card is visually emphasized (1.4fr grid column; large pass-rate number in accent), delta cards are compact with 5 delta-rows each. Reference: <code>compare.js::CompareV2:253–343</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T460 [US5] <strong>Variant 3 — Matrix-first</strong> — click radio option 3; screenshot. Confirm compact run-card strip at top + callouts block (regressions/improvements listed by case name with <code>+N</code> overflow) + matrix dominant below. Reference: <code>compare.js::CompareV3:347–431</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T461 [US5] <strong>Case matrix heatmap parity</strong> — on any variant, hover over a cell via <code>mcp__claude-in-chrome__hover</code> — confirm Plotly tooltip shows <code>case_name / run_label / score / pass|fail</code>. Confirm regression cells have a coral dashed outer outline and improvement cells a green dashed outline. Reference: <code>compare.js::CaseMatrix:182–250</code>. If the outlines are missing, <code>fig.add_shape(..., line=dict(dash="dash"))</code> calls in T439 need review</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T462 [US5] <strong>Delta polarity sanity</strong> — pick two runs where run[1] has LONGER duration than baseline; confirm the duration delta pill shows coral (<code>hd-delta-neg</code>) because duration polarity is inverted (lower = better). Same for <code>est_cost</code> and (when present) <code>total_tokens</code>. Reference: <code>compare.js::deltaClass:17–21</code>. If polarity is wrong, fix T431. Additionally, confirm the cost cell shows a tooltip or caption indicating whether it was computed from <code>token_usage × PRICING_TABLE</code> (real) or from the synthetic <code>duration × rate</code> fallback — so users know when the number is provisional</li>
+</ul>
+<h3 id="global-sweep-t463t466">Global sweep (T463–T466)<a class="headerlink" href="#global-sweep-t463t466" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> T463 [US5] <strong>Console cleanliness</strong> — <code>mcp__claude-in-chrome__read_console_messages</code> with <code>pattern: "(error|warning)"</code> on the Dash tab while navigating Summary → Explorer → Compare and toggling all 3 variants. Zero errors from our modules. Dash/werkzeug framework warnings are acceptable but should be reviewed</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T464 [US5] <strong>Navigation record</strong> using <code>mcp__claude-in-chrome__gif_creator</code>: name it <code>dashboard_tour.gif</code> — record the journey from Summary → click row → Explorer with case selected → add <code>+</code> to queue ×3 → Compare tab → toggle all three variants. Commit alongside <code>visual-baselines/</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> T465 [US5] <strong>URL-state shareability test</strong> — with a filter applied on Summary AND a case open in Explorer AND a compare queue populated, copy the full URL via <code>mcp__claude-in-chrome__javascript_tool</code> running <code>window.location.href</code>. Open that URL in a new tab (<code>tabs_create_mcp</code>). Verify the app restores: filter state, Explorer's selected run+case, and the compare queue. Requires that US4's URL-sync callback (T346) serializes the Explorer + Compare keys in addition to filter params — extend <code>url_search_from_state</code> / <code>state_from_url_search</code> if <code>explorer_run_id</code> / <code>explorer_case_name</code> / <code>compare_queue</code> don't round-trip. If the compare queue does not survive, the serde on the URL-sync side needs work</li>
+<li class="task-list-item"><input type="checkbox" disabled/> T466 [US5] <strong>Accessibility check</strong> — <code>mcp__chrome-devtools__lighthouse_audit</code> on the Dash app; confirm Accessibility score ≥ 85 (contrast on the terminal-green theme is the likely risk area). File follow-up tasks for any blocker-level issues; do not block US5 merge on this, but capture the score</li>
+</ul>
+<p><strong>Outputs of Phase 8</strong>: <code>visual-baselines/</code> directory contains prototype + Dash screenshots for each view/variant; <code>dashboard_tour.gif</code> documents the UX; any deltas logged and resolved against T411–T441.</p>
+<hr />
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li>US4 fully complete: <code>app.py</code>, assets/CSS, <code>state.py</code> helpers, seed data, Summary view, CLI <code>view</code> command, <code>views/explorer.py</code> + <code>views/compare.py</code> stubs.</li>
+<li>T401–T407 (Explorer TDD) blocks T408–T410.</li>
+<li>T408–T410 blocks T411–T423.</li>
+<li>T424–T429 (Compare TDD) blocks T430–T431.</li>
+<li>T430–T431 blocks T432–T440.</li>
+<li>T441 (<code>CompareAddButton</code> component) blocks T443, T444 (Summary + Explorer use it).</li>
+<li>T435 (compare tray component) blocks T442.</li>
+</ul>
+<h3 id="parallel-opportunities">Parallel Opportunities<a class="headerlink" href="#parallel-opportunities" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Data-assembly TDD — Explorer and Compare are independent:</span>
+Task:<span class="w"> </span><span class="s2">"tests/unit/dashboard/test_explorer_data.py (T401–T407)"</span>
+Task:<span class="w"> </span><span class="s2">"tests/unit/dashboard/test_compare_data.py (T424–T429)"</span>
+
+<span class="c1"># View modules run in parallel (separate files):</span>
+Task:<span class="w"> </span><span class="s2">"src/holodeck/dashboard/views/explorer.py (T411–T423)"</span>
+Task:<span class="w"> </span><span class="s2">"src/holodeck/dashboard/views/compare.py (T432–T440)"</span>
+Task:<span class="w"> </span><span class="s2">"src/holodeck/dashboard/components/compare_tray.py (T435)"</span>
+Task:<span class="w"> </span><span class="s2">"src/holodeck/dashboard/components/compare_add_button.py (T441)"</span>
+</code></pre></div>
+<hr />
+<h2 id="acceptance-scenario-traceability">Acceptance Scenario Traceability<a class="headerlink" href="#acceptance-scenario-traceability" title="Permanent link">&para;</a></h2>
+<h3 id="us5-explorer-spec-ac1ac8">US5 (Explorer — Spec AC1–AC8)<a class="headerlink" href="#us5-explorer-spec-ac1ac8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>AC</th>
+<th>Covered by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC1 (click run → list cases)</td>
+<td>T402, T413, T415</td>
+</tr>
+<tr>
+<td>AC2 (agent config snapshot in detail)</td>
+<td>T403, T418</td>
+</tr>
+<tr>
+<td>AC3 (chat-style conversation)</td>
+<td>T419</td>
+</tr>
+<tr>
+<td>AC4 (tool calls with formatted JSON args + result)</td>
+<td>T404, T419</td>
+</tr>
+<tr>
+<td>AC5 (expected tools with match indicators)</td>
+<td>T405, T420</td>
+</tr>
+<tr>
+<td>AC6 (metric results with reasoning)</td>
+<td>T421</td>
+</tr>
+<tr>
+<td>AC7 (errors displayed prominently)</td>
+<td>covered in T417 case header for per-case errors</td>
+</tr>
+<tr>
+<td>AC8 (large results collapsed)</td>
+<td>T404 (<code>large</code> flag), T410, T419</td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-handoff-compare-additive-to-spec-introduced-by-handoff-readme-3">Design-handoff Compare (additive to spec, introduced by handoff README §3)<a class="headerlink" href="#design-handoff-compare-additive-to-spec-introduced-by-handoff-readme-3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Handoff requirement</th>
+<th>Covered by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 layout variants switchable via segmented control</td>
+<td>T434, T436, T437, T438</td>
+</tr>
+<tr>
+<td>Compare queue max 3, baseline = first added</td>
+<td>T435, US4 T345</td>
+</tr>
+<tr>
+<td>Delta pills with inverted polarity for duration + cost</td>
+<td>T431, T436, T437</td>
+</tr>
+<tr>
+<td>Config-diff highlighting (amber left-border, <code>changed</code> badge)</td>
+<td>T436 (T427 supplies data)</td>
+</tr>
+<tr>
+<td>Heatmap case matrix with regression/improvement outlines</td>
+<td>T425, T426, T439</td>
+</tr>
+<tr>
+<td>Floating Compare tray visible across tabs</td>
+<td>T435, T442</td>
+</tr>
+<tr>
+<td><code>+</code> button for run rows that cycles "add / in-slot-N / remove"</td>
+<td>T441, T443, T444</td>
+</tr>
+<tr>
+<td>"Compare latest 2 / latest 3" empty-state shortcuts</td>
+<td>T433</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="implementation-strategy">Implementation Strategy<a class="headerlink" href="#implementation-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="recommended-order-matches-user-directive-scaffold-summary-explorer-compare">Recommended order (matches user directive: scaffold → Summary → <strong>Explorer</strong> → <strong>Compare</strong>)<a class="headerlink" href="#recommended-order-matches-user-directive-scaffold-summary-explorer-compare" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Explorer first</strong> (T401–T423). Smaller surface (1 view module, ~300 LOC equivalent), uses only the seed data and US4 state.</li>
+<li>Port <code>explorer.js</code> section by section: case detail panel → runs column → cases column → wiring. Verify each section against the HTML prototype before moving on. Because Dash layouts are pure functions over state, you can preview any section in isolation via <code>python -c "import ...; print(render_section(...))"</code>.</li>
+<li><strong>Compare second</strong> (T424–T444). Larger surface but orthogonal to Explorer.</li>
+<li>Build data layer (T424–T431) — fully TDD'd.</li>
+<li>Ship the floating Compare tray (T435, T442) first so users can build queues from Summary even before the Compare view itself lands.</li>
+<li>Add empty state + toolbar (T433, T434).</li>
+<li>Build variants in order: <strong>V1 side-by-side → V2 baseline+deltas → V3 matrix-first</strong>. Each variant reuses the shared case-matrix heatmap (T439).</li>
+<li><strong>Wire compare buttons into Summary + Explorer</strong> (T441, T443, T444) — the <code>+</code> must be everywhere the user sees a run. A single pattern-match callback handles all three surfaces.</li>
+<li><strong>Smoke tests</strong> (T445).</li>
+<li><strong>Visual fidelity sweep via Chrome MCP</strong> (T446–T466) — every view and variant diffed against the HTML prototype in a real browser. No visual delta is acceptable at US5 merge.</li>
+</ol>
+<h3 id="parallel-team-strategy">Parallel team strategy<a class="headerlink" href="#parallel-team-strategy" title="Permanent link">&para;</a></h3>
+<p>Two developers can split cleanly:
+- <strong>Dev A</strong>: Explorer (T401–T423) + Compare tray (T435)
+- <strong>Dev B</strong>: Compare data layer + variants (T424–T440)</p>
+<p>They converge on the wiring step (T441–T444).</p>
+<h3 id="visual-fidelity-checklist">Visual fidelity checklist<a class="headerlink" href="#visual-fidelity-checklist" title="Permanent link">&para;</a></h3>
+<p>This checklist is enforced via the Phase 8 Chrome MCP tasks (T446–T466). For each item below, capture before/after screenshots via <code>mcp__claude-in-chrome__take_screenshot</code> with the HTML prototype and the Dash app loaded side-by-side. Commit both under <code>docs/design-docs/031-eval-runs-dashboard/visual-baselines/</code>. No item may remain un-ticked at US5 merge:
+- [ ] Colors match (accent <code>#7bff5a</code>, fail <code>#ff9d7e</code>, warn <code>#ffcf5a</code>)
+- [ ] JetBrains Mono font used for all numeric values
+- [ ] Eyebrow labels uppercase, 10px, <code>.15em</code> letter-spacing, accent-soft color
+- [ ] Card borders + gradient backgrounds
+- [ ] Pills use correct tier colors (green ≥ 85%, yellow 65–85%, coral &lt; 65%)
+- [ ] Compare palette dots are visually distinct (<code>#7bff5a</code>, <code>#5ae0a6</code>, <code>#ffcf5a</code>)
+- [ ] Delta pills use correct polarity (inverted for duration/cost)
+- [ ] Regression dots on Summary pass-rate chart are coral with dark outline
+- [ ] Heatmap case matrix gradient matches coral→dark→green scheme
+- [ ] Regression/improvement ring outlines are dashed, not solid</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -6,6 +6,8 @@ The original `agent.yaml` is **never modified**. Every trial is logged, and the 
 
 ## Quick start
 
+The optimizer needs the `optimizer` extra (Optuna), plus the extras of the metrics it scores, for example `pip install "holodeck-ai[optimizer,eval,nlp]"`. Without it, the command prints the install command and exits.
+
 Add an `evaluations.optimizer` block to an agent that already has metrics (see [Configuration](#configuration) below), then run:
 
 ```
@@ -60,14 +62,14 @@ Add an `evaluations.optimizer` block declaring the scalarized loss (per-metric w
 ```
 evaluations:
   metrics:
-    - type: standard
-      metric: groundedness
+    - type: rag
+      metric_type: faithfulness
     - type: geval
       name: Conciseness
       criteria: "The response is concise and avoids redundancy."
   optimizer:
     loss:                       # metric weights; loss = 1 - weighted_mean
-      groundedness: 2.0
+      faithfulness: 2.0
       Conciseness: 1.0
     axes:
       numeric:                  # query-time hyperparameters (Optuna TPE)

@@ -80,6 +80,51 @@ def validate_response_format(
     return v
 ```
 
+### `validate_skill_allowed_tools()`
+
+Validate every skill `allowed_tools` entry names a parent tool.
+
+A skill may only be scoped to tools declared on this agent, and never to another skill (spec 023 FR-024). Unknown names fail load with the offending names listed.
+
+Raises:
+
+| Type         | Description                                                           |
+| ------------ | --------------------------------------------------------------------- |
+| `ValueError` | If an allowed_tools entry is not a non-skill tool name on this agent. |
+
+Source code in `src/holodeck/models/agent.py`
+
+```
+@model_validator(mode="after")
+def validate_skill_allowed_tools(self) -> Self:
+    """Validate every skill ``allowed_tools`` entry names a parent tool.
+
+    A skill may only be scoped to tools declared on this agent, and never
+    to another skill (spec 023 FR-024). Unknown names fail load with the
+    offending names listed.
+
+    Raises:
+        ValueError: If an ``allowed_tools`` entry is not a non-skill tool
+            name on this agent.
+    """
+    if not self.tools:
+        return self
+    scopable = {t.name for t in self.tools if not isinstance(t, SkillTool)}
+    problems: list[str] = []
+    for tool in self.tools:
+        if not isinstance(tool, SkillTool) or not tool.allowed_tools:
+            continue
+        unknown = sorted(n for n in tool.allowed_tools if n not in scopable)
+        if unknown:
+            problems.append(f"skill '{tool.name}': {', '.join(unknown)}")
+    if problems:
+        raise ValueError(
+            "allowed_tools entries must name non-skill tools declared on this "
+            f"agent; unknown: {'; '.join(problems)}"
+        )
+    return self
+```
+
 ### `validate_test_cases(v)`
 
 Validate test cases list.
@@ -1052,7 +1097,7 @@ Bases: `BaseModel`
 
 Vector database connection configuration.
 
-Supports all Semantic Kernel vector store providers including PostgreSQL, Azure AI Search, Qdrant, Weaviate, ChromaDB, FAISS, Pinecone, and more.
+Supports the vector store providers HoloDeck has adapters for: PostgreSQL, Azure AI Search, Qdrant, Weaviate, ChromaDB, Pinecone, and more.
 
 Provider-specific parameters are passed via the config dict:
 
@@ -1061,9 +1106,36 @@ Provider-specific parameters are passed via the config dict:
 - qdrant: url, api_key (optional)
 - weaviate: url, api_key (optional)
 - chromadb: path or host
-- faiss: path
 - pinecone: api_key, index_name
 - And more...
+
+### `reject_retired_provider(v, handler, info)`
+
+Fail on a retired provider name with its migration advice.
+
+A stored snapshot (see `is_stored_snapshot`) keeps the retired name as recorded, so an old run still opens; every other load fails here, before any backend, embedding or agent call.
+
+Source code in `src/holodeck/models/tool.py`
+
+```
+@field_validator("provider", mode="wrap")
+@classmethod
+def reject_retired_provider(
+    cls, v: object, handler: ValidatorFunctionWrapHandler, info: ValidationInfo
+) -> object:
+    """Fail on a retired provider name with its migration advice.
+
+    A stored snapshot (see ``is_stored_snapshot``) keeps the retired name
+    as recorded, so an old run still opens; every other load fails here,
+    before any backend, embedding or agent call.
+    """
+    message = retired_provider_message(v) if isinstance(v, str) else None
+    if message is None:
+        return handler(v)
+    if is_stored_snapshot(info):
+        return v
+    raise ConfigError("database.provider", message)
+```
 
 ### `validate_connection_string(v)`
 
@@ -1619,7 +1691,7 @@ Bases: `BaseModel`
 
 Result of evaluating a single metric.
 
-Represents the outcome of running an evaluation metric (e.g., groundedness, relevance) on a test case response.
+Represents the outcome of running an evaluation metric (e.g., faithfulness, bleu) on a test case response.
 
 ## `TestResult`
 
@@ -1829,7 +1901,7 @@ def validate_connection_string(cls, v: str) -> str:
     return v
 ```
 
-### `validate_provider(v)`
+### `validate_provider(v, info)`
 
 Validate provider is not empty.
 
@@ -1838,10 +1910,13 @@ Source code in `src/holodeck/models/config.py`
 ```
 @field_validator("provider")
 @classmethod
-def validate_provider(cls, v: str) -> str:
+def validate_provider(cls, v: str, info: ValidationInfo) -> str:
     """Validate provider is not empty."""
     if not v or not v.strip():
         raise ValueError("provider must be a non-empty string")
+    message = retired_provider_message(v)
+    if message is not None and not is_stored_snapshot(info):
+        raise ConfigError("vectorstores.provider", message)
     return v
 ```
 
@@ -2291,7 +2366,7 @@ Bases: `BaseModel`
 
 Metrics-specific configuration.
 
-Controls metrics collection settings including export interval and Semantic Kernel metrics inclusion.
+Controls metrics collection settings including the export interval.
 
 ## `LogsConfig`
 

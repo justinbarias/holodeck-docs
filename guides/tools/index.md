@@ -62,13 +62,14 @@ tools:
     type: vectorstore
 ```
 
-| Tool Type               | Use case                               | Status         |
-| ----------------------- | -------------------------------------- | -------------- |
-| `function`              | Custom Python logic                    | ✅ Implemented |
-| `vectorstore`           | Semantic search over data              | ✅ Implemented |
-| `hierarchical_document` | Structure-aware hybrid document search | ✅ Implemented |
-| `mcp`                   | Model Context Protocol servers (stdio) | ✅ Implemented |
-| `prompt`                | LLM-powered semantic functions         | 🚧 Planned     |
+| Tool Type               | Use case                               | Status            |
+| ----------------------- | -------------------------------------- | ----------------- |
+| `function`              | Custom Python logic                    | ✅ Implemented    |
+| `vectorstore`           | Semantic search over data              | ✅ Implemented    |
+| `hierarchical_document` | Structure-aware hybrid document search | ✅ Implemented    |
+| `mcp`                   | Model Context Protocol servers (stdio) | ✅ Implemented    |
+| `skill`                 | Scoped sub-agent (inline or SKILL.md)  | ✅ OpenAI backend |
+| `prompt`                | LLM-powered semantic functions         | 🚧 Planned        |
 
 ______________________________________________________________________
 
@@ -136,18 +137,19 @@ Anthropic does not provide embedding models. When using `model.provider: anthrop
 
 `source` (required) is the data file or directory to index. Supported: single files (`.txt`, `.md`, `.pdf`, `.json`, `.csv`), directories (recursively indexed), or remote URLs (auto-cached locally).
 
-| Field             | Type   | Default          | Notes                                                    |
-| ----------------- | ------ | ---------------- | -------------------------------------------------------- |
-| `source`          | path   | —                | **Required.** File, directory, or remote URL to index    |
-| `embedding_model` | string | provider default | e.g. `text-embedding-3-small`, `nomic-embed-text:latest` |
-| `vector_field`    | string | list             | auto-detect                                              |
-| `meta_fields`     | list   | all fields       | Metadata fields to include in results                    |
-| `chunk_size`      | int    | `512`            | Characters per chunk (> 0)                               |
-| `chunk_overlap`   | int    | `0`              | Characters to overlap between chunks (≥ 0)               |
-| `record_path`     | string | —                | Dot-path to array in nested JSON, e.g. `data.records`    |
-| `record_prefix`   | string | —                | Prefix added to record fields                            |
-| `meta_prefix`     | string | —                | Prefix added to metadata fields                          |
-| `database`        | object | string           | in-memory                                                |
+| Field                  | Type   | Default          | Notes                                                                                                                                                                            |
+| ---------------------- | ------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `source`               | path   | —                | **Required.** File, directory, or remote URL to index                                                                                                                            |
+| `embedding_model`      | string | provider default | e.g. `text-embedding-3-small`, `nomic-embed-text:latest`                                                                                                                         |
+| `embedding_dimensions` | int    | auto-detect      | Output size sent to the provider as `dimensions` (OpenAI `text-embedding-3-*`, Azure deployments of them, Ollama); also the size the tool verifies every returned vector against |
+| `vector_field`         | string | list             | auto-detect                                                                                                                                                                      |
+| `meta_fields`          | list   | all fields       | Metadata fields to include in results                                                                                                                                            |
+| `chunk_size`           | int    | `512`            | Characters per chunk (> 0)                                                                                                                                                       |
+| `chunk_overlap`        | int    | `0`              | Characters to overlap between chunks (≥ 0)                                                                                                                                       |
+| `record_path`          | string | —                | Dot-path to array in nested JSON, e.g. `data.records`                                                                                                                            |
+| `record_prefix`        | string | —                | Prefix added to record fields                                                                                                                                                    |
+| `meta_prefix`          | string | —                | Prefix added to metadata fields                                                                                                                                                  |
+| `database`             | object | string           | in-memory                                                                                                                                                                        |
 
 ```
 - name: search-docs
@@ -168,7 +170,22 @@ Embedding provider by backend
 
 Mismatched embedding models across tools
 
-If an agent defines both **vectorstore** and **hierarchical_document** tools with **different** `embedding_model` values, HoloDeck raises a validation error at startup. All embedding-based tools in an agent must share one embedding model (they share a single embedding provider instance).
+If an agent defines both **vectorstore** and **hierarchical_document** tools with **different** `embedding_model` values, HoloDeck raises a validation error at startup. All embedding-based tools in an agent must share one embedding model (they share a single embedding provider instance). `embedding_dimensions` is per tool: a tool that sets it gets its own service that sends that size to the provider, so two vectorstore tools may use different sizes of the same model.
+
+### Embedding inference
+
+Embeddings and contextual-retrieval chat calls go through [LiteLLM](https://docs.litellm.ai/) using the agent's provider credentials; the vector store connectors are unchanged.
+
+| Provider     | LiteLLM model                                                              | Connection                                                                               |
+| ------------ | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| OpenAI       | bare model name                                                            | API key, default endpoint                                                                |
+| Azure OpenAI | `openai/<deployment>`                                                      | `endpoint` normalized to `/openai/v1`; the key is sent as a bearer token; no API version |
+| Ollama       | `ollama/<model>`                                                           | `endpoint` when set                                                                      |
+| Anthropic    | not supported for embeddings; `anthropic/<model>` for `context_model` chat | API key                                                                                  |
+
+**Provider errors are never hidden.** A failed embedding call raises `EmbeddingServiceError` with the provider's error type and message (the original exception is chained). During ingest the tool fails to initialize with that cause; at query time the search fails with it. HoloDeck never stores or searches placeholder vectors for a real provider failure. Placeholder (zero) vectors are used only when a tool has no embedding service, which happens in unit tests, not in a running agent.
+
+**Dimensions.** Without `embedding_dimensions` the provider returns the model's native size and the tool resolves the expected size from the model name (for example 1536 for `text-embedding-3-small`, 768 for `nomic-embed-text`). With `embedding_dimensions` set, the value is sent to the provider on every request and the returned vectors are checked against it; a provider that ignores the parameter fails the tool with `Embedding dimension mismatch: expected <configured>, got <returned>`. Azure deployment names carry no model marker, so HoloDeck allow-lists the parameter for them and the deployment's model decides whether it is accepted (`text-embedding-ada-002` rejects it).
 
 ### Database providers
 
@@ -263,7 +280,7 @@ In `hybrid` mode, the three weights must sum to 1.0. Pick modes by query type: `
 
 ### Keyword index: OpenSearch (production)
 
-For large corpora or multi-instance deployments, offload BM25 to an external OpenSearch cluster:
+For large corpora or multi-instance deployments, offload BM25 to an external OpenSearch cluster. This needs the `opensearch` extra (`pip install "holodeck-ai[opensearch]"`); without it, the tool fails when it is built and prints that command.
 
 ```
 keyword_index:
@@ -424,6 +441,56 @@ MCP tools require the runtime for your `command`: `npx`/`node` → Node.js 18+ (
 ### Lifecycle
 
 MCP plugins are managed automatically: connected on agent startup, tools discovered and registered, and properly closed when the session ends. Always terminate chat sessions cleanly (`exit`/`quit`) so servers shut down.
+
+______________________________________________________________________
+
+## Skill tools ✅
+
+Scoped sub-agents following the [Agent Skills specification](https://agentskills.io/specification). A skill runs on the parent's backend and model and may use a declared subset of the parent's tools. Today the **OpenAI Agents backend** translates skills into handoff-target sub-agents (see the [OpenAI backend guide](https://docs.useholodeck.ai/guides/openai-backend/#skills)); the Claude backend does not yet adapt them.
+
+### Fields
+
+| Field           | Type      | Required                       | Notes                                                                                                                                      |
+| --------------- | --------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `name`          | string    | Yes                            | Lowercase alphanumeric segments joined by single hyphens, ≤64 chars (`research-assistant`)                                                 |
+| `type`          | `"skill"` | Yes                            | Discriminator                                                                                                                              |
+| `description`   | string    | Inline: yes; file-based: no    | ≤1024 chars. For `path` skills it falls back to the SKILL.md frontmatter `description`                                                     |
+| `instructions`  | string    | One of `instructions` / `path` | Inline skill body                                                                                                                          |
+| `path`          | path      | One of `instructions` / `path` | Directory containing `SKILL.md`, resolved relative to `agent.yaml`                                                                         |
+| `allowed_tools` | list      | No                             | Parent tool names the skill may use. Omitted or empty = no tools. Must name non-skill tools declared on the agent; unknown names fail load |
+| `defer_loading` | bool      | No (`true`)                    | Accepted for schema parity with the other tool types; the OpenAI Agents backend registers every skill regardless of this value             |
+
+### Inline form
+
+```
+- name: summarise
+  type: skill
+  description: Summarise a document in three bullets
+  instructions: |
+    Read the provided text and return three concise bullet points.
+  allowed_tools: [search_kb]
+```
+
+### File-based form
+
+```
+- name: research-assistant
+  type: skill
+  path: skills/research-assistant
+  allowed_tools: [search_kb]
+```
+
+`skills/research-assistant/SKILL.md`:
+
+```
+---
+name: research-assistant
+description: Finds and summarises sources for a question.
+---
+Search the knowledge base for the question, then summarise the top results with citations.
+```
+
+The frontmatter must be a `---`-delimited YAML mapping with non-empty `name` and `description`; the body must be non-empty. Validation runs at config load, so a missing directory, missing `SKILL.md`, unterminated frontmatter, or missing field fails before any provider call. The frontmatter `allowed-tools` key is ignored: tool scope comes only from the YAML `allowed_tools`.
 
 ______________________________________________________________________
 

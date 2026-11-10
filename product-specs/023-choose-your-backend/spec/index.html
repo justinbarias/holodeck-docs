@@ -1,0 +1,2491 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Agent Experimentation Platform - Define agents in YAML, no code required">
+      
+      
+      
+        <link rel="canonical" href="https://docs.useholodeck.ai/product-specs/023-choose-your-backend/spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/holodeck.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Feature Specification: Choose Your Backend - HoloDeck Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#feature-specification-choose-your-backend" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HoloDeck Documentation" class="md-header__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HoloDeck Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feature Specification: Choose Your Backend
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HoloDeck Documentation" class="md-nav__button md-logo" aria-label="HoloDeck Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/holodeck.png" alt="logo">
+
+    </a>
+    HoloDeck Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/justinbarias/holodeck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    justinbarias/holodeck
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/agent-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/llm-providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/claude-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/openai-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mcp-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/vector-stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/evaluations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/optimizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Global Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/decision-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/temporal-worker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temporal Worker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/upgrading-to-0.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading to 0.8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/config-loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/test-runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/pdf-processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDF Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Specs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PRODUCT_SENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Sense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FRONTEND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Plans
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exec-plans/tech-debt-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Debt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../QUALITY_SCORE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Score
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../RELIABILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../generated/db-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-scenarios-testing-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Scenarios &amp; Testing (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Scenarios &amp; Testing (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-story-1-configure-a-google-adk-agent-via-yaml-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 1 - Configure a Google ADK Agent via YAML (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-2-configure-a-microsoft-agent-framework-agent-via-yaml-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 2 - Configure a Microsoft Agent Framework Agent via YAML (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-3-seamless-tool-portability-across-backends-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 3 - Seamless Tool Portability Across Backends (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-4-backend-specific-configuration-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 4 - Backend-Specific Configuration (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-5-cross-provider-backend-selection-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 5 - Cross-Provider Backend Selection (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-6-unified-embedding-provider-via-litellm-priority-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 6 - Unified Embedding Provider via LiteLLM (Priority: P1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-story-7-agent-skills-replace-prompt-tools-priority-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Story 7 - Agent Skills Replace Prompt Tools (Priority: P2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria (mandatory)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Success Criteria (mandatory)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurable-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measurable Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clarifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clarifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-2026-03-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session 2026-03-15
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="feature-specification-choose-your-backend">Feature Specification: Choose Your Backend<a class="headerlink" href="#feature-specification-choose-your-backend" title="Permanent link">&para;</a></h1>
+<p><strong>Feature Branch</strong>: <code>023-choose-your-backend</code>
+<strong>Created</strong>: 2026-03-15
+<strong>Status</strong>: Archived — superseded by the two-native-SDK stance (035, 042); Google ADK and Microsoft Agent Framework backends will not be built
+<strong>Input</strong>: User description: "Add multi-backend support for Google ADK and Microsoft Agent Framework alongside existing Semantic Kernel and Claude Agent SDK backends"</p>
+<h2 id="user-scenarios-testing-mandatory">User Scenarios &amp; Testing <em>(mandatory)</em><a class="headerlink" href="#user-scenarios-testing-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="user-story-1-configure-a-google-adk-agent-via-yaml-priority-p1">User Story 1 - Configure a Google ADK Agent via YAML (Priority: P1)<a class="headerlink" href="#user-story-1-configure-a-google-adk-agent-via-yaml-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A platform user wants to use Google's Gemini models through the Google ADK (Agent Development Kit) backend. They create an <code>agent.yaml</code> file specifying <code>provider: google</code> and a Gemini model name, along with their system instructions and tools. When they run <code>holodeck test</code> or <code>holodeck chat</code>, HoloDeck auto-detects the ADK backend from the <code>google</code> provider, initializes the agent, and executes the request using the Google ADK runtime.</p>
+<p><strong>Why this priority</strong>: Google ADK is a major agent framework with native Gemini support and broad multi-model capabilities via LiteLLM. Adding it as a first-class backend expands HoloDeck's reach to Google Cloud-centric teams and developers who prefer ADK's agent orchestration features.</p>
+<p><strong>Independent Test</strong>: Can be fully tested by creating an agent.yaml with <code>provider: google</code>, running <code>holodeck test</code>, and verifying the agent responds correctly using a Gemini model (backend auto-detected to ADK). Delivers immediate value to users who want Gemini-powered agents.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a valid agent.yaml with <code>model.provider: google</code> and <code>model.name: gemini-2.5-flash</code>, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> HoloDeck auto-detects the ADK backend, invokes the agent, and returns a response with populated text and token usage.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: google</code> and vectorstore tools defined, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> tools are initialized and available to the ADK agent during execution.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: google</code> and MCP tools configured, <strong>When</strong> the agent processes a query requiring tool use, <strong>Then</strong> the MCP tools are invoked and results are returned with tool call and tool result records.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: google</code>, <strong>When</strong> the user runs <code>holodeck chat</code>, <strong>Then</strong> a multi-turn chat session is established and conversation context is maintained across turns.</li>
+</ol>
+<hr />
+<h3 id="user-story-2-configure-a-microsoft-agent-framework-agent-via-yaml-priority-p1">User Story 2 - Configure a Microsoft Agent Framework Agent via YAML (Priority: P1)<a class="headerlink" href="#user-story-2-configure-a-microsoft-agent-framework-agent-via-yaml-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A platform user wants to use the Microsoft Agent Framework backend for agent execution. They configure <code>provider: openai</code> (or another supported provider) in their agent.yaml, specifying a model name and any Agent Framework-specific settings. HoloDeck auto-detects the AF backend from the <code>openai</code> provider, creates the appropriate provider client, and executes agent interactions through the Agent Framework runtime.</p>
+<p><strong>Why this priority</strong>: Microsoft Agent Framework is a multi-provider agent runtime with native support for OpenAI, Azure OpenAI, Anthropic, Ollama, and AWS Bedrock. It provides an alternative execution engine with middleware, compaction, and workflow capabilities that appeal to enterprise teams.</p>
+<p><strong>Independent Test</strong>: Can be tested by creating an agent.yaml with <code>provider: openai</code> and <code>model.name: gpt-4o</code>, running <code>holodeck test</code>, and verifying the agent responds correctly through the AF runtime (backend auto-detected to Agent Framework).</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> a valid agent.yaml with <code>model.provider: openai</code> and <code>model.name: gpt-4o</code>, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> HoloDeck auto-detects the AF backend, creates an OpenAI client, and returns a valid response.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: azure_openai</code> and Azure OpenAI endpoint configured, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> an Azure OpenAI client is used via the AF backend and the agent responds correctly.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: openai</code> and MCP stdio tools, <strong>When</strong> the agent processes a query requiring tool use, <strong>Then</strong> MCP tools are invoked via AF's native MCP integration and results are captured.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: openai</code>, <strong>When</strong> the user runs <code>holodeck chat</code>, <strong>Then</strong> multi-turn conversation state is maintained across turns using AF sessions.</li>
+</ol>
+<hr />
+<h3 id="user-story-3-seamless-tool-portability-across-backends-priority-p2">User Story 3 - Seamless Tool Portability Across Backends (Priority: P2)<a class="headerlink" href="#user-story-3-seamless-tool-portability-across-backends-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A platform user has an existing agent configuration with vectorstore, function, and MCP tools. They want to switch from one backend to another (e.g., from Semantic Kernel to Google ADK) by changing only the <code>backend</code> field. All tools defined in the YAML continue to work without modification because HoloDeck's tool adapters translate tool definitions to each backend's native format.</p>
+<p><strong>Why this priority</strong>: Tool portability is the key differentiator of HoloDeck's multi-backend architecture. Without it, users are locked into a single backend, defeating the purpose of the abstraction layer.</p>
+<p><strong>Independent Test</strong>: Can be tested by taking an existing agent.yaml with tools, changing the <code>backend</code> field to <code>google_adk</code> or <code>agent_framework</code>, and verifying all tools still function correctly.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent.yaml with vectorstore tools and <code>provider: openai</code>, <strong>When</strong> the user adds <code>backend: google_adk</code> and runs <code>holodeck test</code>, <strong>Then</strong> vectorstore tools are adapted to the ADK format and produce identical search results.</li>
+<li><strong>Given</strong> an agent.yaml with MCP stdio tools and <code>provider: anthropic</code>, <strong>When</strong> the user changes to <code>backend: agent_framework</code> and runs <code>holodeck test</code>, <strong>Then</strong> MCP tools are adapted to AF's native MCP format and function correctly.</li>
+<li><strong>Given</strong> an agent.yaml with the same <code>provider: openai</code> and <code>model.name: gpt-4o</code>, <strong>When</strong> the user switches <code>backend</code> from <code>agent_framework</code> to <code>semantic_kernel</code>, <strong>Then</strong> tool behavior remains identical across both backends.</li>
+<li><strong>Given</strong> an agent.yaml with function tools, <strong>When</strong> switching between any two supported backends, <strong>Then</strong> function tools are loaded and callable with the same behavior.</li>
+</ol>
+<hr />
+<h3 id="user-story-4-backend-specific-configuration-priority-p2">User Story 4 - Backend-Specific Configuration (Priority: P2)<a class="headerlink" href="#user-story-4-backend-specific-configuration-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A platform user wants to tune backend-specific features that don't apply universally. For Google ADK, they want to configure streaming mode and code execution. For Agent Framework, they want to set message compaction strategy and client type. These settings are specified in optional, backend-specific YAML sections (<code>google_adk:</code> or <code>agent_framework:</code>) that are ignored when using other backends.</p>
+<p><strong>Why this priority</strong>: Each backend has unique capabilities that users should be able to leverage without being constrained by a lowest-common-denominator interface.</p>
+<p><strong>Independent Test</strong>: Can be tested by adding backend-specific configuration sections to agent.yaml and verifying they are applied when the matching backend is selected, and ignored otherwise.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent.yaml with <code>backend: google_adk</code> and a <code>google_adk:</code> section specifying <code>streaming_mode: sse</code>, <strong>When</strong> the user runs <code>holodeck chat</code>, <strong>Then</strong> streaming responses are delivered progressively.</li>
+<li><strong>Given</strong> an agent.yaml with <code>backend: agent_framework</code> and an <code>agent_framework:</code> section specifying <code>compaction_strategy: sliding_window</code>, <strong>When</strong> the agent processes a long conversation, <strong>Then</strong> message history is compacted according to the strategy.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: openai</code> and a <code>google_adk:</code> section present, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> the <code>google_adk:</code> section is ignored without errors and the auto-detected backend is used.</li>
+</ol>
+<hr />
+<h3 id="user-story-5-cross-provider-backend-selection-priority-p2">User Story 5 - Cross-Provider Backend Selection (Priority: P2)<a class="headerlink" href="#user-story-5-cross-provider-backend-selection-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A platform user wants to run an agent on a specific backend runtime while using a model from a different provider. For example, they want to use Google ADK's agent orchestration features with an OpenAI model, or run the Agent Framework runtime with an Anthropic model. They set the <code>backend</code> field to their desired runtime and <code>model.provider</code> to the LLM provider, and HoloDeck routes accordingly.</p>
+<p><strong>Why this priority</strong>: Cross-provider backend selection unlocks the full power of decoupling runtime from provider. Users are no longer constrained to the default backend for their chosen model provider.</p>
+<p><strong>Independent Test</strong>: Can be tested by configuring <code>backend: google_adk</code> with <code>provider: openai</code>, running <code>holodeck test</code>, and verifying the ADK runtime executes with an OpenAI model.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent.yaml with <code>backend: google_adk</code> and <code>model.provider: openai</code>, <code>model.name: gpt-4o</code>, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> HoloDeck selects the ADK backend and the ADK runtime uses the OpenAI model via LiteLLM.</li>
+<li><strong>Given</strong> an agent.yaml with <code>backend: agent_framework</code> and <code>model.provider: anthropic</code>, <code>model.name: claude-sonnet-4-20250514</code>, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> HoloDeck selects the AF backend and creates an Anthropic client.</li>
+<li><strong>Given</strong> an agent.yaml with <code>backend: claude</code> and <code>model.provider: openai</code>, <code>model.name: gpt-4o</code>, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> the system raises a clear error explaining that the Claude backend only supports the <code>anthropic</code> provider.</li>
+</ol>
+<hr />
+<h3 id="user-story-6-unified-embedding-provider-via-litellm-priority-p1">User Story 6 - Unified Embedding Provider via LiteLLM (Priority: P1)<a class="headerlink" href="#user-story-6-unified-embedding-provider-via-litellm-priority-p1" title="Permanent link">&para;</a></h3>
+<p>A platform user has vectorstore or hierarchical_document tools configured and wants embeddings to work consistently regardless of which backend they use. Today, embeddings hard-depend on Semantic Kernel's <code>TextEmbedding</code> classes, which limits embedding support to OpenAI, Azure OpenAI, and Ollama — and couples all backends to SK. With LiteLLM as the unified embedding provider, the existing <code>embedding_provider</code> YAML config maps to <code>litellm.aembedding()</code> internally, supporting 20+ providers (OpenAI, Azure, Ollama, Gemini, Cohere, Vertex, Bedrock, HuggingFace, etc.) without backend-specific code.</p>
+<p><strong>Why this priority</strong>: This is a prerequisite for the new backends (neither ADK nor AF has native embedding support) and accelerates SK deprecation by removing the last hard dependency on SK classes for non-SK backends. It also expands the set of available embedding providers from 3 to 20+.</p>
+<p><strong>Independent Test</strong>: Can be tested by configuring any backend with <code>embedding_provider</code> and a vectorstore tool, running <code>holodeck test</code>, and verifying embeddings are generated correctly via LiteLLM.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an existing agent.yaml with <code>provider: openai</code> and vectorstore tools using <code>embedding_provider: { provider: openai, name: text-embedding-3-small }</code>, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> embeddings are generated via LiteLLM (replacing SK's <code>OpenAITextEmbedding</code>) and vectorstore search produces identical results.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: google</code> and vectorstore tools with <code>embedding_provider</code> configured, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> embeddings are generated via LiteLLM without any SK dependency (backend auto-detected to ADK).</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: openai</code> and vectorstore tools with <code>embedding_provider</code> configured, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> embeddings are generated via LiteLLM and vectorstore tools function correctly (backend auto-detected to AF).</li>
+<li><strong>Given</strong> an agent.yaml with <code>embedding_provider: { provider: ollama, name: nomic-embed-text, endpoint: http://localhost:11434 }</code>, <strong>When</strong> the user runs <code>holodeck test</code>, <strong>Then</strong> the provider/name/endpoint fields are mapped to LiteLLM parameters (<code>model="ollama/nomic-embed-text"</code>, <code>api_base="http://localhost:11434"</code>) and embeddings are generated correctly.</li>
+<li><strong>Given</strong> an agent.yaml with <code>provider: anthropic</code> or <code>google</code> and vectorstore tools but NO <code>embedding_provider</code> section, <strong>When</strong> the user loads the config, <strong>Then</strong> a clear validation error is raised explaining that <code>embedding_provider</code> is required for this backend.</li>
+</ol>
+<hr />
+<h3 id="user-story-7-agent-skills-replace-prompt-tools-priority-p2">User Story 7 - Agent Skills Replace Prompt Tools (Priority: P2)<a class="headerlink" href="#user-story-7-agent-skills-replace-prompt-tools-priority-p2" title="Permanent link">&para;</a></h3>
+<p>A platform user wants to define reusable, scoped sub-agent capabilities within their agent configuration. Previously, HoloDeck had an unimplemented <code>PromptTool</code> (type: prompt) concept based on Jinja2 templates. This is replaced by <code>SkillTool</code> (type: skill) following the <a href="https://agentskills.io/specification">Agent Skills specification</a>. Skills are sub-agent invocations that inherit the parent's backend and can access a subset of the parent's tools via <code>allowed_tools</code>. Two forms are supported: inline (instructions in agent.yaml) for simple skills, and file-based (path to a skill directory with SKILL.md) for complex skills with scripts, references, and assets.</p>
+<p><strong>Why this priority</strong>: Skills provide a clean, standards-based abstraction for sub-agent delegation that replaces the never-implemented prompt tool. They compose naturally with the multi-backend architecture — each backend uses its native skill/sub-agent runtime. This is P2 because it depends on the new backends being functional first.</p>
+<p><strong>Independent Test</strong>: Can be tested by adding a <code>type: skill</code> tool to an agent.yaml, running <code>holodeck test</code> or <code>holodeck chat</code>, and verifying the skill is invoked as a sub-agent with the correct instructions and tool access.</p>
+<p><strong>Acceptance Scenarios</strong>:</p>
+<ol>
+<li><strong>Given</strong> an agent.yaml with an inline skill (<code>type: skill</code>, <code>instructions</code>, <code>description</code>), <strong>When</strong> the agent invokes the skill during execution, <strong>Then</strong> a sub-agent is created with the skill's instructions using the parent's backend and model, and the skill's response is returned to the parent agent.</li>
+<li><strong>Given</strong> an agent.yaml with a file-based skill (<code>type: skill</code>, <code>path: ./skills/my-skill/</code>), <strong>When</strong> the config is loaded, <strong>Then</strong> SKILL.md frontmatter is validated (<code>name</code>, <code>description</code> required) and the skill directory is passed to the backend's native skill runtime.</li>
+<li><strong>Given</strong> an inline skill with <code>allowed_tools: [knowledge_base]</code>, <strong>When</strong> the skill is invoked, <strong>Then</strong> the skill can only access the <code>knowledge_base</code> tool from the parent agent's tool set — other parent tools are not available to the skill.</li>
+<li><strong>Given</strong> a skill with <code>allowed_tools: [nonexistent_tool]</code>, <strong>When</strong> the config is loaded, <strong>Then</strong> Pydantic validation rejects the configuration with a clear error listing the invalid tool name.</li>
+<li><strong>Given</strong> an agent.yaml with <code>backend: semantic_kernel</code> and a skill tool configured, <strong>When</strong> the config is loaded, <strong>Then</strong> the system raises an error explaining that skill tools are not supported on the SK backend (planned for deprecation).</li>
+<li><strong>Given</strong> a file-based skill with <code>path</code> but no <code>description</code> in the YAML, <strong>When</strong> the config is loaded, <strong>Then</strong> <code>description</code> falls back to the SKILL.md frontmatter <code>description</code> field.</li>
+</ol>
+<hr />
+<h3 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>What happens when a user specifies <code>backend: google_adk</code> but the <code>google-adk</code> package is not installed? The system should raise a clear error with installation instructions.</li>
+<li>What happens when a user specifies <code>backend: agent_framework</code> but the <code>agent-framework-core</code> package is not installed? The system should raise a clear error with installation instructions.</li>
+<li>What happens when a user specifies an incompatible backend/provider combination (e.g., <code>backend: claude</code> with <code>provider: openai</code>)? The system should raise a clear error listing compatible providers for the requested backend.</li>
+<li>What happens when a user specifies an invalid <code>backend</code> value? Pydantic validation should reject the configuration with an error listing valid backend values.</li>
+<li>What happens when backend-specific config sections have invalid fields? Pydantic validation should reject the configuration with clear error messages.</li>
+<li>What happens when a tool type is not supported by the target backend? The system should raise an error at initialization time explaining which tool types are unsupported for that backend.</li>
+<li>What happens when the ADK or AF backend encounters a transient error during agent invocation? The system should apply retry logic consistent with existing backends.</li>
+<li>What happens when a skill references <code>allowed_tools</code> names that don't exist in the parent agent's tools? Pydantic validation should reject the configuration with a clear error listing the invalid tool names.</li>
+<li>What happens when a file-based skill's <code>path</code> directory doesn't contain a valid SKILL.md? The system should raise a <code>ConfigError</code> explaining the missing/invalid file and linking to the Agent Skills spec.</li>
+<li>What happens when a skill's SKILL.md has invalid frontmatter (missing <code>name</code> or <code>description</code>)? The system should raise a validation error with the specific missing fields.</li>
+<li>What happens when <code>embedding_provider</code> specifies an unsupported provider name? LiteLLM should raise a clear error identifying the unrecognized model string.</li>
+<li>What happens when <code>embedding_provider</code> credentials are invalid or missing? LiteLLM should surface the authentication error with the provider name and expected env var (e.g., <code>OPENAI_API_KEY</code>).</li>
+</ul>
+<h2 id="requirements-mandatory">Requirements <em>(mandatory)</em><a class="headerlink" href="#requirements-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FR-001</strong>: System MUST support <code>backend: google_adk</code> to route agent execution to the Google ADK backend.</li>
+<li><strong>FR-002</strong>: System MUST support <code>backend: agent_framework</code> to route agent execution to the Microsoft Agent Framework backend.</li>
+<li><strong>FR-003</strong>: Both new backends MUST implement the existing <code>AgentBackend</code> protocol (<code>initialize()</code>, <code>invoke_once()</code>, <code>create_session()</code>, <code>teardown()</code>).</li>
+<li><strong>FR-004</strong>: Both new backends MUST implement the existing <code>AgentSession</code> protocol (<code>send()</code>, <code>send_streaming()</code>, <code>close()</code>).</li>
+<li><strong>FR-005</strong>: Both new backends MUST return provider-agnostic result objects with all fields populated (response text, tool call records, tool result records, token usage, turn count, error state).</li>
+<li><strong>FR-006</strong>: System MUST provide tool adapters that translate HoloDeck tool definitions (vectorstore, function, MCP, skill, hierarchical_document) to each new backend's native tool format.</li>
+<li><strong>FR-007</strong>: System MUST support MCP tools (stdio, SSE, HTTP transports) on both new backends using each backend's native MCP integration. WebSocket transport SHOULD be supported where the backend provides native WebSocket MCP support.</li>
+<li><strong>FR-008</strong>: System MUST support optional backend-specific configuration via <code>google_adk:</code> and <code>agent_framework:</code> YAML sections in the agent configuration.</li>
+<li><strong>FR-009</strong>: Backend-specific YAML sections MUST be validated and rejected with clear errors if invalid.</li>
+<li><strong>FR-010</strong>: Backend-specific YAML sections MUST be silently ignored when a different backend is selected.</li>
+<li><strong>FR-011</strong>: System MUST raise a clear, actionable error message when a backend's required package is not installed, including the installation command.</li>
+<li><strong>FR-012</strong>: System MUST use lazy imports for new backend modules so that uninstalled backend packages do not cause import-time failures for other backends.</li>
+<li><strong>FR-013</strong>: The backend selector MUST route by the <code>backend</code> field when explicitly set, falling back to auto-detection from <code>model.provider</code> when <code>backend</code> is omitted.</li>
+<li><strong>FR-014</strong>: Both new backends MUST support multi-turn conversation sessions with state preserved across turns.</li>
+<li><strong>FR-015</strong>: Both new backends MUST support streaming responses via the streaming method.</li>
+<li><strong>FR-016</strong>: Both new backends MUST return results compatible with all existing evaluation metric types (standard NLP, G-Eval, RAG).</li>
+<li><strong>FR-018</strong>: The Agent Framework backend MUST read <code>model.provider</code> to determine the appropriate provider client.</li>
+<li><strong>FR-019</strong>: System MUST abstract embedding service creation behind an <code>EmbeddingService</code> protocol backed by a single <code>LiteLLMEmbeddingAdapter</code> implementation using <code>litellm.aembedding()</code>. This replaces all Semantic Kernel embedding classes (<code>OpenAITextEmbedding</code>, <code>AzureTextEmbedding</code>, <code>OllamaTextEmbedding</code>) and provides unified embedding support for all backends. LiteLLM MUST be added as a core dependency.</li>
+<li><strong>FR-020</strong>: When the resolved backend is <code>google_adk</code>, <code>agent_framework</code>, or <code>claude</code> and vectorstore or hierarchical_document tools are configured, the system MUST require <code>embedding_provider</code> configuration, since none of these backends have native embedding support. The existing <code>embedding_provider</code> YAML schema is preserved; fields are mapped to LiteLLM parameters internally.</li>
+<li><strong>FR-021</strong>: <em>Removed</em> — AF native embedding support (<code>OpenAIEmbeddingClient</code>) is unverified and unnecessary with LiteLLM as the unified provider.</li>
+<li><strong>FR-022</strong>: System MUST replace the unimplemented <code>PromptTool</code> (type: prompt) with <code>SkillTool</code> (type: skill) following the <a href="https://agentskills.io/specification">Agent Skills specification</a>.</li>
+<li><strong>FR-023</strong>: <code>SkillTool</code> MUST support two forms: inline (instructions defined in agent.yaml) and file-based (path to a skill directory containing SKILL.md with frontmatter and markdown body).</li>
+<li><strong>FR-024</strong>: <code>SkillTool</code> MUST support an <code>allowed_tools</code> field that references parent agent tools by name, scoping the skill's tool access to a subset of the parent's configured tools.</li>
+<li><strong>FR-025</strong>: Skills MUST run on the same backend as the parent agent. Skills inherit the parent's provider and backend runtime.</li>
+<li><strong>FR-026</strong>: The ADK, AF, and Claude backend tool adapters MUST translate <code>SkillTool</code> into a sub-agent invocation using each backend's native skill/sub-agent runtime. SK is excluded from SkillTool scope (planned for deprecation).</li>
+<li><strong>FR-027</strong>: System MUST support an optional top-level <code>backend</code> field in agent configuration with values: <code>semantic_kernel</code>, <code>claude</code>, <code>google_adk</code>, <code>agent_framework</code>.</li>
+<li><strong>FR-028</strong>: When <code>backend</code> is omitted, the system MUST auto-detect the backend from <code>model.provider</code> using the default routing table.</li>
+<li><strong>FR-029</strong>: System MUST support <code>google</code> as a valid <code>model.provider</code> value for Google AI / Vertex AI Gemini models.</li>
+<li><strong>FR-030</strong>: System MUST validate backend/provider compatibility and raise clear errors for incompatible combinations.</li>
+<li><strong>FR-031</strong>: System MUST use the updated default routing table when <code>backend</code> is omitted: <code>openai</code> and <code>azure_openai</code> default to <code>agent_framework</code>, <code>anthropic</code> defaults to <code>claude</code>, <code>ollama</code> defaults to <code>claude</code>, <code>google</code> defaults to <code>google_adk</code>. The <code>semantic_kernel</code> backend is only selected when explicitly set via <code>backend: semantic_kernel</code>. This is a breaking change from the previous behavior where <code>openai</code>, <code>azure_openai</code>, and <code>ollama</code> defaulted to <code>semantic_kernel</code>.</li>
+</ul>
+<h3 id="key-entities">Key Entities<a class="headerlink" href="#key-entities" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Provider Enumeration</strong>: Extended set of supported LLM providers, adding <code>google</code> to the existing set (openai, azure_openai, anthropic, ollama).</li>
+<li><strong>Backend Enumeration</strong>: New enumeration of supported agent runtime backends: <code>semantic_kernel</code>, <code>claude</code>, <code>google_adk</code>, <code>agent_framework</code>.</li>
+<li><strong>Google ADK Configuration</strong>: Backend-specific settings for ADK features such as streaming mode, code execution capability, and max agent loop turns.</li>
+<li><strong>Agent Framework Configuration</strong>: Backend-specific settings for AF features such as message compaction strategy and max tool invocation rounds. The AF backend reads <code>model.provider</code> directly to select the appropriate client class.</li>
+<li><strong>ADK Backend / ADK Session</strong>: Backend and session implementations wrapping the Google ADK Runner and Agent classes.</li>
+<li><strong>AF Backend / AF Session</strong>: Backend and session implementations wrapping the Microsoft Agent Framework Agent and session classes.</li>
+<li><strong>ADK Tool Adapters</strong>: Translators from HoloDeck tool definitions to ADK-native tool objects (plain callables, MCP toolsets).</li>
+<li><strong>AF Tool Adapters</strong>: Translators from HoloDeck tool definitions to AF-native tool objects (function tools, MCP tools).</li>
+<li><strong>Embedding Service Protocol + LiteLLM Adapter</strong>: Provider-agnostic interface for embedding generation, backed by a single <code>LiteLLMEmbeddingAdapter</code> using <code>litellm.aembedding()</code>. Replaces all SK embedding classes. Supports 20+ embedding providers (OpenAI, Azure, Ollama, Gemini, Cohere, Vertex, Bedrock, HuggingFace, etc.).</li>
+<li><strong>Skill Tool</strong>: Replaces <code>PromptTool</code>. A sub-agent invocation tool following the <a href="https://agentskills.io/specification">Agent Skills specification</a>. Supports inline definition (instructions + allowed_tools in agent.yaml) or file-based definition (path to a skill directory with SKILL.md). Skills inherit the parent agent's backend and can access a subset of the parent's tools.</li>
+</ul>
+<h2 id="success-criteria-mandatory">Success Criteria <em>(mandatory)</em><a class="headerlink" href="#success-criteria-mandatory" title="Permanent link">&para;</a></h2>
+<h3 id="measurable-outcomes">Measurable Outcomes<a class="headerlink" href="#measurable-outcomes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SC-001</strong>: Users can switch between any of the four supported backends (SK, Claude, ADK, AF) by changing only the <code>backend</code> field (or <code>model.provider</code> and <code>model.name</code> for auto-detected backends), with all configured tools continuing to function, except skill tools which are not supported on the SK backend (planned for deprecation).</li>
+<li><strong>SC-002</strong>: All existing tests continue to pass without modification after adding the new backends.</li>
+<li><strong>SC-003</strong>: Each new backend passes a functional test suite covering single-turn invocation, multi-turn sessions, streaming, tool calling, and error handling.</li>
+<li><strong>SC-004</strong>: Agent configurations with new backends validate successfully, and invalid configurations produce actionable error messages within 1 second.</li>
+<li><strong>SC-005</strong>: Users who have not installed the new backend packages experience no import errors or degraded functionality when using existing backends.</li>
+<li><strong>SC-006</strong>: New backend invocations return complete result objects that are fully compatible with all three evaluation metric types (standard NLP, G-Eval, RAG).</li>
+<li><strong>SC-007</strong>: Each new backend supports all 5 HoloDeck tool types (vectorstore, function, MCP, skill, hierarchical_document) with working tool adapters.</li>
+</ul>
+<h2 id="clarifications">Clarifications<a class="headerlink" href="#clarifications" title="Permanent link">&para;</a></h2>
+<h3 id="session-2026-03-15">Session 2026-03-15<a class="headerlink" href="#session-2026-03-15" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Q: Should new backends use the SK-dependent embedding path for vectorstore tools, or should embedding service creation be abstracted? → A: Abstract embeddings into a protocol backed by LiteLLM (<code>litellm.aembedding()</code>). SK embedding classes are removed entirely. Neither ADK nor AF has confirmed native embedding support, so LiteLLM serves as the single unified embedding provider for all backends.</li>
+<li>Q: Should all 5 tool types be required for new backends, or is partial coverage acceptable? → A: All 5 tool types (vectorstore, function, MCP, skill, hierarchical_document) are required on day one for both new backends. FR-006 and SC-007 are now aligned.</li>
+<li>Q: Should the unimplemented <code>PromptTool</code> (type: prompt) be carried forward to new backends? → A: No. Replace <code>PromptTool</code> with <code>SkillTool</code> (type: skill) following the <a href="https://agentskills.io/specification">Agent Skills specification</a>. Skills are sub-agent invocations that inherit the parent's backend and can access a subset of the parent's tools via <code>allowed_tools</code>. Two forms: inline (instructions in agent.yaml) and file-based (path to a skill directory containing SKILL.md). The <code>PromptTool</code> model is removed from <code>ToolUnion</code>.</li>
+<li>Q: What naming convention should the new backend enum values follow? → A: Use product-specific names: <code>google_adk</code> and <code>agent_framework</code>. These match package names and are unambiguous if the vendors release additional frameworks.</li>
+<li>Q: Should new providers follow the Anthropic pattern (require <code>embedding_provider</code> for vectorstore tools)? → A: Yes. Neither ADK nor AF has confirmed native embedding support. All non-SK backends (Anthropic, ADK, AF) require <code>embedding_provider</code> when vectorstore/hierarchical_document tools are configured. Embeddings are handled uniformly via LiteLLM.</li>
+<li>Q: Where should the <code>backend</code> field be placed in agent.yaml? → A: Top-level, alongside <code>model</code>, <code>instructions</code>, etc. Not nested inside <code>model</code>.</li>
+<li>Q: Should backend/provider combinations be validated? → A: Yes. Each backend supports specific providers. Invalid combinations raise clear errors at config validation time.</li>
+<li>Q: Why does <code>openai</code> default to <code>agent_framework</code> instead of <code>semantic_kernel</code>? → A: SK is planned for deprecation. AF is the recommended runtime for OpenAI models going forward. This is a clean break — no deprecation warning or grace period. Users who need the SK backend must explicitly set <code>backend: semantic_kernel</code>.</li>
+<li>Q: What stability posture for pre-release dependencies? → A: Pin to specific tested RC versions in optional deps with a documented upgrade path when GA arrives. Both backends are labeled as preview/experimental in documentation until their upstream packages reach stable GA releases.</li>
+</ul>
+<h2 id="assumptions">Assumptions<a class="headerlink" href="#assumptions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Google ADK Python package (<code>google-adk</code>) is available on PyPI and provides a usable API for agent creation, tool registration, and session management. Optional dependency is pinned to a specific tested version.</li>
+<li>Microsoft Agent Framework package (<code>agent-framework-core</code>) is available on PyPI at a tested RC version (currently v1.0.0rc4). Optional dependency is pinned to this specific version. Both new backends are labeled as preview/experimental in documentation until their upstream packages reach stable GA releases. A documented upgrade path is provided for when GA versions are released.</li>
+<li>Both new backends are added as optional dependencies; they are not required for existing functionality.</li>
+<li>The existing shared tool initialization path is refactored to use an <code>EmbeddingService</code> protocol backed by <code>LiteLLMEmbeddingAdapter</code>. All SK embedding class imports (<code>OpenAITextEmbedding</code>, <code>AzureTextEmbedding</code>, <code>OllamaTextEmbedding</code>) are removed from <code>tool_initializer.py</code>. LiteLLM is added as a core dependency. The existing <code>embedding_provider</code> YAML schema is preserved — fields are mapped to LiteLLM parameters internally.</li>
+<li>Token usage reporting formats differ across backends but can be normalized to the existing token usage model.</li>
+<li>In-memory session management (ADK's InMemorySessionService, AF's InMemoryHistoryProvider) is sufficient; persistent session storage is out of scope.</li>
+<li>The Agent Framework backend reads <code>model.provider</code> directly to select the appropriate client class, eliminating the need for sub-provider auto-detection.</li>
+<li>The Semantic Kernel backend is planned for deprecation. SK receives no new feature work (no SkillTool support). Existing SK functionality is maintained as-is during this feature. SK deprecation is a separate future effort.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/justinbarias/holodeck" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anthropic" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.3.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
